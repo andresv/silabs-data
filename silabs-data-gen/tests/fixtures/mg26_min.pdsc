@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package schemaVersion="1.7.2" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="PACK.xsd">
+  <vendor>SiliconLabs</vendor>
+  <url>https://www.silabs.com/documents/public/cmsis-packs/</url>
+  <name>GeckoPlatform_EFR32MG26_DFP</name>
+  <description>Silicon Labs EFR32MG26 Mighty Gecko Series Device Support.</description>
+  <license>License/license.md</license>
+
+  <releases>
+    <release version="2025.12.1" date="2025-02-20">
+      Stub release entry for the test fixture.
+    </release>
+  </releases>
+
+  <devices>
+    <family Dfamily="EFR32MG26 Series" Dvendor="Silicon Labs:21">
+      <processor Dcore="Cortex-M33" DcoreVersion="r0p0" Dfpu="NO_FPU" Dmpu="NO_MPU" Dtz="NO_TZ" Ddsp="NO_DSP" Dendian="Little-endian" Dclock="39000000"/>
+      <description>EFR32MG26 family — fixture trimmed for parser tests.</description>
+
+      <subFamily DsubFamily="EFR32MG26B211">
+        <!-- *************************  Device 'EFR32MG26B211F2048IM68'  ***************************** -->
+        <device Dname="EFR32MG26B211F2048IM68">
+          <compile header="Device/SiliconLabs/EFR32MG26/Include/em_device.h"  define="EFR32MG26B211F2048IM68"/>
+          <debug      svd="SVD/EFR32MG26/EFR32MG26B211F2048IM68.svd"/>
+          <memory     id="IROM1"                start="0x08000000"  size="0x00200000"  startup="1"   default="1"/>
+          <memory     id="IRAM1"                start="0x20000000"  size="0x00040000"  init   ="0"   default="1"/>
+          <algorithm  name="Flash/GECKOS2C3.FLM"  start="0x08000000"  size="0x00200000"  RAMstart="0x20000000" RAMsize="0x40000" default="1" style="Keil"/>
+          <algorithm  name="Flash/FlashGECKOS2C3.flash"  start="0x08000000"  size="0x00200000"  default="0"  style="IAR"/>
+        </device>
+
+        <!-- *************************  Device 'EFR32MG26B211F3200IM48'  ***************************** -->
+        <device Dname="EFR32MG26B211F3200IM48">
+          <compile header="Device/SiliconLabs/EFR32MG26/Include/em_device.h"  define="EFR32MG26B211F3200IM48"/>
+          <debug      svd="SVD/EFR32MG26/EFR32MG26B211F3200IM48.svd"/>
+          <memory     id="IROM1"                start="0x08000000"  size="0x00320000"  startup="1"   default="1"/>
+          <memory     id="IRAM1"                start="0x20000000"  size="0x00040000"  init   ="0"   default="1"/>
+          <algorithm  name="Flash/GECKOS2C3.FLM"  start="0x08000000"  size="0x00320000"  RAMstart="0x20000000" RAMsize="0x40000" default="1" style="Keil"/>
+          <algorithm  name="Flash/FlashGECKOS2C3.flash"  start="0x08000000"  size="0x00320000"  default="0"  style="IAR"/>
+        </device>
+
+      </subFamily>
+
+      <subFamily DsubFamily="EFR32MG26B410">
+        <!-- *************************  Device 'EFR32MG26B410F3200IM68'  ***************************** -->
+        <device Dname="EFR32MG26B410F3200IM68">
+          <compile header="Device/SiliconLabs/EFR32MG26/Include/em_device.h"  define="EFR32MG26B410F3200IM68"/>
+          <debug      svd="SVD/EFR32MG26/EFR32MG26B410F3200IM68.svd"/>
+          <memory     id="IROM1"                start="0x08000000"  size="0x00320000"  startup="1"   default="1"/>
+          <memory     id="IRAM1"                start="0x20000000"  size="0x00080000"  init   ="0"   default="1"/>
+          <algorithm  name="Flash/GECKOS2C3.FLM"  start="0x08000000"  size="0x00320000"  RAMstart="0x20000000" RAMsize="0x40000" default="1" style="Keil"/>
+          <algorithm  name="Flash/FlashGECKOS2C3.flash"  start="0x08000000"  size="0x00320000"  default="0"  style="IAR"/>
+        </device>
+
+      </subFamily>
+
+    </family>
+  </devices>
+</package>

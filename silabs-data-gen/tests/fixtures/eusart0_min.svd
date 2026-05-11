@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<device xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.3" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd">
+  <vendor>Silicon Labs</vendor>
+  <vendorID>SLAB</vendorID>
+  <name>FAKE_MG26_MIN</name>
+  <series>EFR32</series>
+  <version>B</version>
+  <description>Minimal NS/S TrustZone fixture</description>
+  <addressUnitBits>8</addressUnitBits>
+  <width>32</width>
+  <size>32</size>
+  <access>read-write</access>
+  <resetValue>0</resetValue>
+  <resetMask>4294967295</resetMask>
+  <peripherals>
+    <peripheral>
+      <name>EUSART0_NS</name>
+      <version>1</version>
+      <description>EUSART0 NS</description>
+      <baseAddress>0x4000A000</baseAddress>
+      <registers>
+        <register>
+          <name>EN</name>
+          <description>Enable</description>
+          <addressOffset>0x004</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>EN</name>
+              <description>Enable bit</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>STATUS</name>
+          <description>Status</description>
+          <addressOffset>0x008</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000010</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>READY</name>
+              <description>Ready</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>EUSART0_S</name>
+      <version>1</version>
+      <description>EUSART0 S</description>
+      <baseAddress>0x5000A000</baseAddress>
+      <registers>
+        <register>
+          <name>EN</name>
+          <description>Enable</description>
+          <addressOffset>0x004</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>EN</name>
+              <description>Enable bit</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>STATUS</name>
+          <description>Status</description>
+          <addressOffset>0x008</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000010</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>READY</name>
+              <description>Ready</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+  </peripherals>
+</device>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<device xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.3" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd">
+  <vendor>Silicon Labs</vendor>
+  <vendorID>SLAB</vendorID>
+  <name>FAKE_MG26_VERSIONS</name>
+  <series>EFR32</series>
+  <version>B</version>
+  <description>Hand-crafted fixture pinning canonical EFR32MG26 peripheral versions.</description>
+  <addressUnitBits>8</addressUnitBits>
+  <width>32</width>
+  <size>32</size>
+  <access>read-write</access>
+  <resetValue>0</resetValue>
+  <resetMask>4294967295</resetMask>
+  <peripherals>
+    <peripheral>
+      <name>ACMP0_NS</name>
+      <version>2</version>
+      <description>ACMP0 NS</description>
+      <baseAddress>0x4000A000</baseAddress>
+      <registers>
+        <register>
+          <name>EN</name>
+          <addressOffset>0x004</addressOffset>
+          <size>32</size>
+          <resetValue>0x00000000</resetValue>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>CMU_NS</name>
+      <version>7</version>
+      <description>CMU NS</description>
+      <baseAddress>0x4000B000</baseAddress>
+      <registers>
+        <register>
+          <name>EN</name>
+          <addressOffset>0x004</addressOffset>
+          <size>32</size>
+          <resetValue>0x00000000</resetValue>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>GPIO_NS</name>
+      <version>7</version>
+      <description>GPIO NS</description>
+      <baseAddress>0x4000C000</baseAddress>
+      <registers>
+        <register>
+          <name>EN</name>
+          <addressOffset>0x004</addressOffset>
+          <size>32</size>
+          <resetValue>0x00000000</resetValue>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>EUSART0_NS</name>
+      <version>2</version>
+      <description>EUSART0 NS</description>
+      <baseAddress>0x4000D000</baseAddress>
+      <registers>
+        <register>
+          <name>EN</name>
+          <addressOffset>0x004</addressOffset>
+          <size>32</size>
+          <resetValue>0x00000000</resetValue>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>MSC_NS</name>
+      <version>9</version>
+      <description>MSC NS</description>
+      <baseAddress>0x4000E000</baseAddress>
+      <registers>
+        <register>
+          <name>EN</name>
+          <addressOffset>0x004</addressOffset>
+          <size>32</size>
+          <resetValue>0x00000000</resetValue>
+        </register>
+      </registers>
+    </peripheral>
+  </peripherals>
+</device>
