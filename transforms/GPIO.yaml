@@ -1,0 +1,33 @@
+# GPIO-specific transforms.
+#
+# Goal: recover the PORT[A-D]_* register array. Silabs's own efr32mg26_gpio.h
+# defines the GPIO type as `GPIO_PORT_TypeDef P[4];` — the SVD just doesn't
+# mark it as a CMSIS <dim> array. We do here.
+#
+# Naming notes: under the per-IP extraction pipeline (Phase 4) we extract
+# each peripheral with `NamespaceMode::BlockWithRegsVals` and rename the IR
+# block to its canonical kind (`Gpio`). The pipeline then strips the outer
+# `Gpio::` prefix, leaving:
+#   - block id:       `Gpio`
+#   - fieldset ids:   `regs::PORTA_CTRL`, ...
+#   - enum ids:       `vals::...`
+#
+# Series 2 GPIO has uneven port populations — PORTA/PORTC carry MODEH while
+# PORTB/PORTD do not. We use `check: NoCheck` on `MergeFieldsets` so that
+# fields present on some ports but absent on others (and other minor naming
+# divergences across the four ports) don't break the merge. The rendered
+# union is a strict superset of any individual port's layout, which matches
+# how Silabs's own GPIO_PORT_TypeDef is laid out.
+transforms:
+  # Merge per-port fieldsets into a single shape per register kind.
+  # PORTA/PORTB/PORTC/PORTD share register layouts at stride 0x30.
+  - !MergeFieldsets
+      from: ^regs::PORT[A-D]_(CTRL|MODEL|MODEH|DOUT|DIN)$
+      to: regs::PORT_$1
+      check: NoCheck
+  # Then collapse the per-port registers into a single P_<reg> array.
+  - !MakeRegisterArray
+      blocks: ^GPIO$
+      from: ^PORT([A-D])_(.*)$
+      to: P_$2
+      check: Layout
