@@ -1,0 +1,9 @@
+/build/
+/target/
+**/*.pack-extracted/
+.DS_Store
+/tmp/
+/examples/
+RESET-PLAN.md
+*-plan.md
+*.plan.md
