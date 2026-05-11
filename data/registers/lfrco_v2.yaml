@@ -1,0 +1,212 @@
+block/LFRCO:
+  description: LFRCO peripheral.
+  items:
+  - name: IPVERSION
+    description: Contains the LFRCO ip version.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: CTRL
+    description: Control register.
+    byte_offset: 4
+    fieldset: regs::CTRL
+  - name: STATUS
+    description: Status register.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::STATUS
+  - name: IF
+    description: Interrupt flag register.
+    byte_offset: 20
+    fieldset: regs::IF
+  - name: IEN
+    description: Interrupt enable register.
+    byte_offset: 24
+    fieldset: regs::IEN
+  - name: LOCK
+    description: Configuration lock register. Locks and unlocks access to configuration registers.
+    byte_offset: 32
+    access: Write
+    fieldset: regs::LOCK
+  - name: CFG
+    description: Configuration register.
+    byte_offset: 36
+    fieldset: regs::CFG
+  - name: NOMCAL
+    description: Nominal calibration register.
+    byte_offset: 44
+    fieldset: regs::NOMCAL
+  - name: NOMCALINV
+    description: Nominal calibration inverted register.
+    byte_offset: 48
+    fieldset: regs::NOMCALINV
+  - name: CMD
+    description: Command register.
+    byte_offset: 52
+    access: Write
+    fieldset: regs::CMD
+fieldset/regs::CFG:
+  description: Configuration register.
+  fields:
+  - name: HIGHPRECEN
+    description: High Precision Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::CMD:
+  description: Command register.
+  fields:
+  - name: REDUCETCINT
+    description: Reduce Temperature Check Interval.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::CTRL:
+  description: Control register.
+  fields:
+  - name: FORCEEN
+    description: Force Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: DISONDEMAND
+    description: Disable On-Demand.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::IEN:
+  description: Interrupt enable register.
+  fields:
+  - name: RDY
+    description: Ready Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: POSEDGE
+    description: Rising Edge Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: NEGEDGE
+    description: Falling Edge Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: TCDONE
+    description: Temperature Check Done Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: CALDONE
+    description: Calibration Done Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: TEMPCHANGE
+    description: Temperature Change Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: SCHEDERR
+    description: Scheduling Error Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: TCOOR
+    description: Temperature Check Out Of Range Enable.
+    bit_offset: 17
+    bit_size: 1
+  - name: CALOOR
+    description: Calibration Out Of Range Enable.
+    bit_offset: 18
+    bit_size: 1
+fieldset/regs::IF:
+  description: Interrupt flag register.
+  fields:
+  - name: RDY
+    description: Ready Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: POSEDGE
+    description: Rising Edge Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: NEGEDGE
+    description: Falling Edge Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: TCDONE
+    description: Temperature Check Done Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: CALDONE
+    description: Calibration Done Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: TEMPCHANGE
+    description: Temperature Change Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: SCHEDERR
+    description: Scheduling Error Flag.
+    bit_offset: 16
+    bit_size: 1
+  - name: TCOOR
+    description: Temperature Check Out Of Range Flag.
+    bit_offset: 17
+    bit_size: 1
+  - name: CALOOR
+    description: Calibration Out Of Range Flag.
+    bit_offset: 18
+    bit_size: 1
+fieldset/regs::IPVERSION:
+  description: Contains the LFRCO ip version.
+  fields:
+  - name: IPVERSION
+    description: IP version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::LOCK:
+  description: Configuration lock register. Locks and unlocks access to configuration registers.
+  fields:
+  - name: LOCKKEY
+    description: Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::LOCKKEY
+fieldset/regs::NOMCAL:
+  description: Nominal calibration register.
+  fields:
+  - name: NOMCALCNT
+    description: Nominal Calibration Count.
+    bit_offset: 0
+    bit_size: 21
+fieldset/regs::NOMCALINV:
+  description: Nominal calibration inverted register.
+  fields:
+  - name: NOMCALCNTINV
+    description: Nominal Calibration Count Inverted.
+    bit_offset: 0
+    bit_size: 17
+fieldset/regs::STATUS:
+  description: Status register.
+  fields:
+  - name: RDY
+    description: Ready Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: ENS
+    description: Enabled Status.
+    bit_offset: 16
+    bit_size: 1
+  - name: LOCK
+    description: Lock Status.
+    bit_offset: 31
+    bit_size: 1
+enum/vals::LOCK:
+  bit_size: 1
+  variants:
+  - name: UNLOCKED
+    description: Access to configuration registers not locked.
+    value: 0
+  - name: LOCKED
+    description: Access to configuration registers locked.
+    value: 1
+enum/vals::LOCKKEY:
+  bit_size: 16
+  variants:
+  - name: LOCK
+    description: Lock Configuration Registers.
+    value: 0
+  - name: UNLOCK
+    description: Unlock Configuration Registers.
+    value: 3987

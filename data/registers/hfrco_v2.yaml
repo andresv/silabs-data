@@ -1,0 +1,164 @@
+block/HFRCO:
+  description: HFRCO peripheral.
+  items:
+  - name: IPVERSION
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: CTRL
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::CTRL
+  - name: CAL
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::CAL
+  - name: STATUS
+    description: No Description.
+    byte_offset: 12
+    access: Read
+    fieldset: regs::STATUS
+  - name: IF
+    description: No Description.
+    byte_offset: 16
+    fieldset: regs::IF
+  - name: IEN
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::IEN
+  - name: LOCK
+    description: No Description.
+    byte_offset: 28
+    access: Write
+    fieldset: regs::LOCK
+fieldset/regs::CAL:
+  description: No Description.
+  fields:
+  - name: TUNING
+    description: Tuning Value.
+    bit_offset: 0
+    bit_size: 7
+  - name: FINETUNING
+    description: Fine Tuning Value.
+    bit_offset: 8
+    bit_size: 6
+  - name: LDOHP
+    description: LDO High Power Mode.
+    bit_offset: 15
+    bit_size: 1
+  - name: FREQRANGE
+    description: Frequency Range.
+    bit_offset: 16
+    bit_size: 5
+  - name: CMPBIAS
+    description: Comparator Bias Current.
+    bit_offset: 21
+    bit_size: 3
+  - name: CLKDIV
+    description: Locally Divide HFRCO Clock Output.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::CLKDIV
+  - name: CMPSEL
+    description: Comparator Load Select.
+    bit_offset: 26
+    bit_size: 2
+  - name: IREFTC
+    description: Tempco Trim on Comparator Current.
+    bit_offset: 28
+    bit_size: 4
+fieldset/regs::CTRL:
+  description: No Description.
+  fields:
+  - name: FORCEEN
+    description: Force Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: DISONDEMAND
+    description: Disable On-demand.
+    bit_offset: 1
+    bit_size: 1
+  - name: EM23ONDEMAND
+    description: EM23 On-demand.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::IEN:
+  description: No Description.
+  fields:
+  - name: RDY
+    description: RDY Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::IF:
+  description: No Description.
+  fields:
+  - name: RDY
+    description: Ready Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::IPVERSION:
+  description: No Description.
+  fields:
+  - name: IPVERSION
+    description: IP Version.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::LOCK:
+  description: No Description.
+  fields:
+  - name: LOCKKEY
+    description: Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::LOCKKEY
+fieldset/regs::STATUS:
+  description: No Description.
+  fields:
+  - name: RDY
+    description: Ready.
+    bit_offset: 0
+    bit_size: 1
+  - name: FREQBSY
+    description: Frequency Updating Busy.
+    bit_offset: 1
+    bit_size: 1
+  - name: SYNCBUSY
+    description: Synchronization Busy.
+    bit_offset: 2
+    bit_size: 1
+  - name: ENS
+    description: Enable Status.
+    bit_offset: 16
+    bit_size: 1
+  - name: LOCK
+    description: Lock Status.
+    bit_offset: 31
+    bit_size: 1
+enum/vals::CLKDIV:
+  bit_size: 2
+  variants:
+  - name: DIV1
+    description: Divide by 1.
+    value: 0
+  - name: DIV2
+    description: Divide by 2.
+    value: 1
+  - name: DIV4
+    description: Divide by 4.
+    value: 2
+enum/vals::LOCK:
+  bit_size: 1
+  variants:
+  - name: UNLOCKED
+    description: HFRCO is unlocked.
+    value: 0
+  - name: LOCKED
+    description: HFRCO is locked.
+    value: 1
+enum/vals::LOCKKEY:
+  bit_size: 16
+  variants:
+  - name: UNLOCK
+    description: Unlock code.
+    value: 33173

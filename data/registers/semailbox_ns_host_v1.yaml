@@ -1,0 +1,161 @@
+block/SEMAILBOX_NS_HOST:
+  description: SEMAILBOX_NS_HOST peripheral.
+  items:
+  - name: FIFO
+    description: A write access to any address in this area will be mapped to the TX FIFO (only for the payload). A read access to any address in this area will be mapped to the RX FIFO (only for the payload). Using an address range (16 x 32-bit) rather than one single address mapped to the FIFO allows using incremental bursts.
+    byte_offset: 0
+    fieldset: regs::FIFO
+  - name: TX_STATUS
+    description: TX Status register.
+    byte_offset: 64
+    access: Read
+    fieldset: regs::TX_STATUS
+  - name: RX_STATUS
+    description: RX Status register.
+    byte_offset: 68
+    access: Read
+    fieldset: regs::RX_STATUS
+  - name: TX_PROT
+    description: TX Protection register.
+    byte_offset: 72
+    access: Read
+    fieldset: regs::TX_PROT
+  - name: RX_PROT
+    description: RX Protection register.
+    byte_offset: 76
+    access: Read
+    fieldset: regs::RX_PROT
+  - name: TX_HEADER
+    description: A write access to this register will be mapped to the TX FIFO (only for header).
+    byte_offset: 80
+    access: Write
+    fieldset: regs::TX_HEADER
+  - name: RX_HEADER
+    description: A read access to this register will be mapped to the RX FIFO (only for the header).
+    byte_offset: 84
+    access: Read
+    fieldset: regs::RX_HEADER
+  - name: CONFIGURATION
+    description: Configuration register.
+    byte_offset: 88
+    fieldset: regs::CONFIGURATION
+fieldset/regs::CONFIGURATION:
+  description: Configuration register.
+  fields:
+  - name: TXINTEN
+    description: TXINTEN.
+    bit_offset: 0
+    bit_size: 1
+  - name: RXINTEN
+    description: RXINTEN.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::FIFO:
+  description: A write access to any address in this area will be mapped to the TX FIFO (only for the payload). A read access to any address in this area will be mapped to the RX FIFO (only for the payload). Using an address range (16 x 32-bit) rather than one single address mapped to the FIFO allows using incremental bursts.
+  fields:
+  - name: FIFO
+    description: FIFO.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::RX_HEADER:
+  description: A read access to this register will be mapped to the RX FIFO (only for the header).
+  fields:
+  - name: RXHEADER
+    description: RXHEADER.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::RX_PROT:
+  description: RX Protection register.
+  fields:
+  - name: UNPROTECTED
+    description: UNPROTECTED.
+    bit_offset: 21
+    bit_size: 1
+  - name: PRIVILEGED
+    description: PRIVILEGED.
+    bit_offset: 22
+    bit_size: 1
+  - name: NONSECURE
+    description: NONSECURE.
+    bit_offset: 23
+    bit_size: 1
+  - name: USER
+    description: USER.
+    bit_offset: 24
+    bit_size: 8
+fieldset/regs::RX_STATUS:
+  description: RX Status register.
+  fields:
+  - name: REMBYTES
+    description: REMBYTES.
+    bit_offset: 0
+    bit_size: 16
+  - name: MSGINFO
+    description: MSGINFO.
+    bit_offset: 16
+    bit_size: 4
+  - name: RXINT
+    description: RXINT.
+    bit_offset: 20
+    bit_size: 1
+  - name: RXEMPTY
+    description: RXEMPTY.
+    bit_offset: 21
+    bit_size: 1
+  - name: RXHDR
+    description: RXHDR.
+    bit_offset: 22
+    bit_size: 1
+  - name: RXERROR
+    description: RXERROR.
+    bit_offset: 23
+    bit_size: 1
+fieldset/regs::TX_HEADER:
+  description: A write access to this register will be mapped to the TX FIFO (only for header).
+  fields:
+  - name: TXHEADER
+    description: TXHEADER.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::TX_PROT:
+  description: TX Protection register.
+  fields:
+  - name: UNPROTECTED
+    description: UNPROTECTED.
+    bit_offset: 21
+    bit_size: 1
+  - name: PRIVILEGED
+    description: PRIVILEGED.
+    bit_offset: 22
+    bit_size: 1
+  - name: NONSECURE
+    description: NONSECURE.
+    bit_offset: 23
+    bit_size: 1
+  - name: USER
+    description: USER.
+    bit_offset: 24
+    bit_size: 8
+fieldset/regs::TX_STATUS:
+  description: TX Status register.
+  fields:
+  - name: REMBYTES
+    description: REMBYTES.
+    bit_offset: 0
+    bit_size: 16
+  - name: MSGINFO
+    description: MSGINFO.
+    bit_offset: 16
+    bit_size: 4
+  - name: TXINT
+    description: TXINT.
+    bit_offset: 20
+    bit_size: 1
+  - name: TXFULL
+    description: TXFULL.
+    bit_offset: 21
+    bit_size: 1
+  - name: TXERROR
+    description: TXERROR.
+    bit_offset: 23
+    bit_size: 1

@@ -1,0 +1,239 @@
+block/DMEM:
+  description: DMEM peripheral.
+  items:
+  - name: IPVERSION
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: CMD
+    description: No Description.
+    byte_offset: 4
+    access: Write
+    fieldset: regs::CMD
+  - name: CTRL
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::CTRL
+  - name: ECCERRADDR0
+    description: No Description.
+    byte_offset: 12
+    access: Read
+    fieldset: regs::ECCERRADDR0
+  - name: ECCERRADDR1
+    description: No Description.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::ECCERRADDR1
+  - name: ECCERRADDR2
+    description: No Description.
+    byte_offset: 20
+    access: Read
+    fieldset: regs::ECCERRADDR2
+  - name: ECCERRADDR3
+    description: No Description.
+    byte_offset: 24
+    access: Read
+    fieldset: regs::ECCERRADDR3
+  - name: ECCMERRIND
+    description: No Description.
+    byte_offset: 28
+    access: Read
+    fieldset: regs::ECCMERRIND
+  - name: IF
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::IF
+  - name: IEN
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::IEN
+fieldset/regs::CMD:
+  description: No Description.
+  fields:
+  - name: CLEARECCADDR0
+    description: Clear ECCERRADDR0.
+    bit_offset: 0
+    bit_size: 1
+  - name: CLEARECCADDR1
+    description: Clear ECCERRADDR1.
+    bit_offset: 1
+    bit_size: 1
+  - name: CLEARECCADDR2
+    description: Clear ECCERRADDR2.
+    bit_offset: 2
+    bit_size: 1
+  - name: CLEARECCADDR3
+    description: Clear ECCERRADDR3.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::CTRL:
+  description: No Description.
+  fields:
+  - name: ECCEN
+    description: Enable ECC functionality.
+    bit_offset: 0
+    bit_size: 1
+  - name: ECCWEN
+    description: Enable ECC syndrome writes.
+    bit_offset: 1
+    bit_size: 1
+  - name: ECCERRFAULTEN
+    description: ECC Error bus fault enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: AHBPORTPRIORITY
+    description: AHB port arbitration priority.
+    bit_offset: 3
+    bit_size: 3
+    enum: vals::AHBPORTPRIORITY
+  - name: ADDRFAULTEN
+    description: Address fault bus fault enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: WAITSTATES
+    description: RAM read wait states.
+    bit_offset: 7
+    bit_size: 1
+fieldset/regs::ECCERRADDR0:
+  description: No Description.
+  fields:
+  - name: ADDR
+    description: ECC Error Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::ECCERRADDR1:
+  description: No Description.
+  fields:
+  - name: ADDR
+    description: ECC Error Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::ECCERRADDR2:
+  description: No Description.
+  fields:
+  - name: ADDR
+    description: ECC Error Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::ECCERRADDR3:
+  description: No Description.
+  fields:
+  - name: ADDR
+    description: ECC Error Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::ECCMERRIND:
+  description: No Description.
+  fields:
+  - name: P0
+    description: Multiple ECC errors on AHB port 0.
+    bit_offset: 0
+    bit_size: 1
+  - name: P1
+    description: Multiple ECC errors on AHB port 1.
+    bit_offset: 1
+    bit_size: 1
+  - name: P2
+    description: Multiple ECC errors on AHB port 2.
+    bit_offset: 2
+    bit_size: 1
+  - name: P3
+    description: Multiple ECC errors on AHB port 2.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::IEN:
+  description: No Description.
+  fields:
+  - name: AHB0ERR1B
+    description: AHB0 1-bit ECC Error Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: AHB1ERR1B
+    description: AHB1 1-bit ECC Error Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: AHB2ERR1B
+    description: AHB2 1-bit ECC Error Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: AHB3ERR1B
+    description: AHB3 1-bit ECC Error Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: AHB0ERR2B
+    description: AHB0 2-bit ECC Error Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: AHB1ERR2B
+    description: AHB1 2-bit ECC Error Interrupt Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: AHB2ERR2B
+    description: AHB2 2-bit ECC Error Interrupt Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: AHB3ERR2B
+    description: AHB3 2-bit ECC Error Interrupt Enable.
+    bit_offset: 7
+    bit_size: 1
+fieldset/regs::IF:
+  description: No Description.
+  fields:
+  - name: AHB0ERR1B
+    description: AHB0 1-bit ECC Error Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: AHB1ERR1B
+    description: AHB1 1-bit ECC Error Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: AHB2ERR1B
+    description: AHB2 1-bit ECC Error Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: AHB3ERR1B
+    description: AHB3 1-bit ECC Error Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: AHB0ERR2B
+    description: AHB0 2-bit ECC Error Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: AHB1ERR2B
+    description: AHB1 2-bit ECC Error Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: AHB2ERR2B
+    description: AHB2 2-bit ECC Error Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: AHB3ERR2B
+    description: AHB3 2-bit ECC Error Interrupt Flag.
+    bit_offset: 7
+    bit_size: 1
+fieldset/regs::IPVERSION:
+  description: No Description.
+  fields:
+  - name: IPVERSION
+    description: New BitField.
+    bit_offset: 0
+    bit_size: 2
+enum/vals::AHBPORTPRIORITY:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: No AHB port have raised priority.
+    value: 0
+  - name: PORT0
+    description: AHB port 0 has raised priority.
+    value: 1
+  - name: PORT1
+    description: AHB port 1 has raised priority.
+    value: 2
+  - name: PORT2
+    description: AHB port 2 has raised priority.
+    value: 3
+  - name: PORT3
+    description: AHB port 3 has raised priority.
+    value: 4

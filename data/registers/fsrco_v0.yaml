@@ -1,0 +1,15 @@
+block/FSRCO:
+  description: FSRCO peripheral.
+  items:
+  - name: IPVERSION
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+fieldset/regs::IPVERSION:
+  description: No Description.
+  fields:
+  - name: IPVERSION
+    description: IP Version.
+    bit_offset: 0
+    bit_size: 32

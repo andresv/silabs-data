@@ -1,0 +1,93 @@
+block/HOSTMAILBOX:
+  description: HOSTMAILBOX peripheral.
+  items:
+  - name: MSGPTR0
+    description: No Description.
+    byte_offset: 0
+    fieldset: regs::MSGPTR0
+  - name: MSGPTR1
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::MSGPTR1
+  - name: MSGPTR2
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::MSGPTR2
+  - name: MSGPTR3
+    description: No Description.
+    byte_offset: 12
+    fieldset: regs::MSGPTR3
+  - name: IF
+    description: No Description.
+    byte_offset: 64
+    fieldset: regs::IF
+  - name: IEN
+    description: No Description.
+    byte_offset: 68
+    fieldset: regs::IEN
+fieldset/regs::IEN:
+  description: No Description.
+  fields:
+  - name: MBOXIEN0
+    description: Mailbox Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: MBOXIEN1
+    description: Mailbox Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: MBOXIEN2
+    description: Mailbox Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: MBOXIEN3
+    description: Mailbox Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::IF:
+  description: No Description.
+  fields:
+  - name: MBOXIF0
+    description: Mailbox Interupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: MBOXIF1
+    description: Mailbox Interupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: MBOXIF2
+    description: Mailbox Interupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: MBOXIF3
+    description: Mailbox Interupt Flag.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::MSGPTR0:
+  description: No Description.
+  fields:
+  - name: PTR
+    description: Pointer.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::MSGPTR1:
+  description: No Description.
+  fields:
+  - name: PTR
+    description: Pointer.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::MSGPTR2:
+  description: No Description.
+  fields:
+  - name: PTR
+    description: Pointer.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::MSGPTR3:
+  description: No Description.
+  fields:
+  - name: PTR
+    description: Pointer.
+    bit_offset: 0
+    bit_size: 32

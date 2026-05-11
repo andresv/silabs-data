@@ -1,0 +1,384 @@
+block/RADIOAES:
+  description: RADIOAES peripheral.
+  items:
+  - name: FETCHADDR
+    description: 'Fetcher: Start address of data block. In direct mode, this register is written by the software. In scatter-gather mode, this register is updated after each processed descriptor.'
+    byte_offset: 0
+    fieldset: regs::FETCHADDR
+  - name: FETCHLEN
+    description: 'Fetcher: Length of data block. In direct mode, this register is written by the software. In scatter-gather mode, this register is not used.'
+    byte_offset: 8
+    fieldset: regs::FETCHLEN
+  - name: FETCHTAG
+    description: 'Fetcher: User tag. In direct mode, this register is written by the software. In scatter-gather mode, this register is not used.'
+    byte_offset: 12
+    fieldset: regs::FETCHTAG
+  - name: PUSHADDR
+    description: 'Pusher: Start address of data block (LSB). In direct mode, this register is written by the software. In scatter-gather mode, this register is updated after each processed descriptor.'
+    byte_offset: 16
+    fieldset: regs::PUSHADDR
+  - name: PUSHLEN
+    description: 'Pusher: Length of data block. In direct mode, this register is written by the software. In scatter-gather mode, this register is not used.'
+    byte_offset: 24
+    fieldset: regs::PUSHLEN
+  - name: IEN
+    description: Interrupt enable.
+    byte_offset: 28
+    fieldset: regs::IEN
+  - name: IF
+    description: Interrupt flag register.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::IF
+  - name: IF_CLR
+    description: Writing a '1' clears the interrupt status. Writing a '0' has no effect.
+    byte_offset: 48
+    access: Write
+    fieldset: regs::IF_CLR
+  - name: CTRL
+    description: Control register, called CONFIG in Barco datasheet.
+    byte_offset: 52
+    fieldset: regs::CTRL
+  - name: CMD
+    description: Command register for starting the fetcher and pusher.
+    byte_offset: 56
+    access: Write
+    fieldset: regs::CMD
+  - name: STATUS
+    description: Status register.
+    byte_offset: 60
+    access: Read
+    fieldset: regs::STATUS
+  - name: INCL_IPS_HW_CFG
+    description: No Description.
+    byte_offset: 1024
+    access: Read
+    fieldset: regs::INCL_IPS_HW_CFG
+  - name: BA411E_HW_CFG_1
+    description: No Description.
+    byte_offset: 1028
+    access: Read
+    fieldset: regs::BA411E_HW_CFG_1
+  - name: BA411E_HW_CFG_2
+    description: No Description.
+    byte_offset: 1032
+    access: Read
+    fieldset: regs::BA411E_HW_CFG_2
+  - name: BA413_HW_CFG
+    description: No Description.
+    byte_offset: 1036
+    access: Read
+    fieldset: regs::BA413_HW_CFG
+  - name: BA418_HW_CFG
+    description: No Description.
+    byte_offset: 1040
+    access: Read
+    fieldset: regs::BA418_HW_CFG
+  - name: BA419_HW_CFG
+    description: No Description.
+    byte_offset: 1044
+    access: Read
+    fieldset: regs::BA419_HW_CFG
+fieldset/regs::BA411E_HW_CFG_1:
+  description: No Description.
+  fields:
+  - name: g_AesModesPoss
+    description: AES Modes Supported.
+    bit_offset: 0
+    bit_size: 9
+  - name: g_CS
+    description: Generic g_CS value.
+    bit_offset: 16
+    bit_size: 1
+  - name: g_UseMasking
+    description: Generic g_UseMasking value.
+    bit_offset: 17
+    bit_size: 1
+  - name: g_Keysize
+    description: Generic g_Keysize value.
+    bit_offset: 24
+    bit_size: 3
+fieldset/regs::BA411E_HW_CFG_2:
+  description: No Description.
+  fields:
+  - name: g_CtrSize
+    description: Generic g_CtrSize value.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::BA413_HW_CFG:
+  description: No Description.
+  fields:
+  - name: g_HashMaskFunc
+    description: Generic g_HashMaskFunc value.
+    bit_offset: 0
+    bit_size: 7
+  - name: g_HashPadding
+    description: Generic g_HashPadding value.
+    bit_offset: 16
+    bit_size: 1
+  - name: g_HMAC_enabled
+    description: Generic g_HMAC_enabled value.
+    bit_offset: 17
+    bit_size: 1
+  - name: g_HashVerifyDigest
+    description: Generic g_HashVerifyDigest value.
+    bit_offset: 18
+    bit_size: 1
+fieldset/regs::BA418_HW_CFG:
+  description: No Description.
+  fields:
+  - name: g_Sha3CtxtEn
+    description: Generic g_Sha3CtxtEn value.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::BA419_HW_CFG:
+  description: No Description.
+  fields:
+  - name: g_SM4ModesPoss
+    description: Generic g_SM4ModesPoss value.
+    bit_offset: 0
+    bit_size: 7
+fieldset/regs::CMD:
+  description: Command register for starting the fetcher and pusher.
+  fields:
+  - name: STARTFETCHER
+    description: Start fetch.
+    bit_offset: 0
+    bit_size: 1
+  - name: STARTPUSHER
+    description: Start push.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::CTRL:
+  description: Control register, called CONFIG in Barco datasheet.
+  fields:
+  - name: FETCHERSCATTERGATHER
+    description: Fetcher scatter/gather.
+    bit_offset: 0
+    bit_size: 1
+  - name: PUSHERSCATTERGATHER
+    description: Pusher scatter/gather.
+    bit_offset: 1
+    bit_size: 1
+  - name: STOPFETCHER
+    description: Stop fetcher.
+    bit_offset: 2
+    bit_size: 1
+  - name: STOPPUSHER
+    description: Stop pusher.
+    bit_offset: 3
+    bit_size: 1
+  - name: SWRESET
+    description: Software reset.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::FETCHADDR:
+  description: 'Fetcher: Start address of data block. In direct mode, this register is written by the software. In scatter-gather mode, this register is updated after each processed descriptor.'
+  fields:
+  - name: ADDR
+    description: Start address of data block.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::FETCHLEN:
+  description: 'Fetcher: Length of data block. In direct mode, this register is written by the software. In scatter-gather mode, this register is not used.'
+  fields:
+  - name: LENGTH
+    description: Length of data block.
+    bit_offset: 0
+    bit_size: 28
+  - name: CONSTADDR
+    description: Constant address.
+    bit_offset: 28
+    bit_size: 1
+  - name: REALIGN
+    description: Realign lengh.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::FETCHTAG:
+  description: 'Fetcher: User tag. In direct mode, this register is written by the software. In scatter-gather mode, this register is not used.'
+  fields:
+  - name: TAG
+    description: User tag.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::IEN:
+  description: Interrupt enable.
+  fields:
+  - name: FETCHERENDOFBLOCK
+    description: End of block interrupt enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: FETCHERSTOPPED
+    description: Stopped interrupt enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: FETCHERERROR
+    description: Error interrupt enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: PUSHERENDOFBLOCK
+    description: End of block interrupt enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: PUSHERSTOPPED
+    description: Stopped interrupt enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: PUSHERERROR
+    description: Error interrupt enable.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::IF:
+  description: Interrupt flag register.
+  fields:
+  - name: FETCHERENDOFBLOCK
+    description: End of block interrupt flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: FETCHERSTOPPED
+    description: Stopped interrupt flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: FETCHERERROR
+    description: Error interrupt flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: PUSHERENDOFBLOCK
+    description: End of block interrupt flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: PUSHERSTOPPED
+    description: Stopped interrupt flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: PUSHERERROR
+    description: Error interrupt flag.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::IF_CLR:
+  description: Writing a '1' clears the interrupt status. Writing a '0' has no effect.
+  fields:
+  - name: FETCHERENDOFBLOCK
+    description: End of block interrupt flag clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: FETCHERSTOPPED
+    description: Stopped interrupt flag clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: FETCHERERROR
+    description: Error interrupt flag clear.
+    bit_offset: 2
+    bit_size: 1
+  - name: PUSHERENDOFBLOCK
+    description: FETCHERENDOFBLOCKIFC.
+    bit_offset: 3
+    bit_size: 1
+  - name: PUSHERSTOPPED
+    description: FETCHERSTOPPEDIFC.
+    bit_offset: 4
+    bit_size: 1
+  - name: PUSHERERROR
+    description: FETCHERERRORIFC.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::INCL_IPS_HW_CFG:
+  description: No Description.
+  fields:
+  - name: g_IncludeAES
+    description: Generic g_IncludeAES value.
+    bit_offset: 0
+    bit_size: 1
+  - name: g_IncludeAESGCM
+    description: Generic g_IncludeAESGCM value.
+    bit_offset: 1
+    bit_size: 1
+  - name: g_IncludeAESXTS
+    description: Generic g_IncludeAESXTS value.
+    bit_offset: 2
+    bit_size: 1
+  - name: g_IncludeDES
+    description: Generic g_IncludeDES value.
+    bit_offset: 3
+    bit_size: 1
+  - name: g_IncludeHASH
+    description: Generic g_IncludeHASH value.
+    bit_offset: 4
+    bit_size: 1
+  - name: g_IncludeChachaPoly
+    description: Generic g_IncludeChachaPoly value.
+    bit_offset: 5
+    bit_size: 1
+  - name: g_IncludeSHA3
+    description: Generic g_IncludeSHA3 value.
+    bit_offset: 6
+    bit_size: 1
+  - name: g_IncludeZUC
+    description: Generic g_IncludeZUC value.
+    bit_offset: 7
+    bit_size: 1
+  - name: g_IncludeSM4
+    description: Generic g_IncludeSM4 value.
+    bit_offset: 8
+    bit_size: 1
+  - name: g_IncludePKE
+    description: Generic g_IncludePKE value.
+    bit_offset: 9
+    bit_size: 1
+  - name: g_IncludeNDRNG
+    description: Generic g_IncludeNDRNG value.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::PUSHADDR:
+  description: 'Pusher: Start address of data block (LSB). In direct mode, this register is written by the software. In scatter-gather mode, this register is updated after each processed descriptor.'
+  fields:
+  - name: ADDR
+    description: Start address of data block.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::PUSHLEN:
+  description: 'Pusher: Length of data block. In direct mode, this register is written by the software. In scatter-gather mode, this register is not used.'
+  fields:
+  - name: LENGTH
+    description: Start address of data block.
+    bit_offset: 0
+    bit_size: 28
+  - name: CONSTADDR
+    description: Constant address.
+    bit_offset: 28
+    bit_size: 1
+  - name: REALIGN
+    description: Realign length.
+    bit_offset: 29
+    bit_size: 1
+  - name: DISCARD
+    description: Discard data.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::STATUS:
+  description: Status register.
+  fields:
+  - name: FETCHERBSY
+    description: Fetcher busy.
+    bit_offset: 0
+    bit_size: 1
+  - name: PUSHERBSY
+    description: Pusher busy.
+    bit_offset: 1
+    bit_size: 1
+  - name: NOTEMPTY
+    description: Not empty flag from input FIFO (fetcher).
+    bit_offset: 4
+    bit_size: 1
+  - name: WAITING
+    description: Pusher waiting for FIFO.
+    bit_offset: 5
+    bit_size: 1
+  - name: SOFTRSTBSY
+    description: Software reset busy.
+    bit_offset: 6
+    bit_size: 1
+  - name: FIFODATANUM
+    description: Number of data in output FIFO.
+    bit_offset: 16
+    bit_size: 16

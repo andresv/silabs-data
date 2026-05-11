@@ -1,0 +1,2787 @@
+block/IADC:
+  description: IADC peripheral.
+  items:
+  - name: IPVERSION
+    description: IPVERSION.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: EN
+    description: Enable.
+    byte_offset: 4
+    fieldset: regs::EN
+  - name: CTRL
+    description: Control.
+    byte_offset: 8
+    fieldset: regs::CTRL
+  - name: CMD
+    description: Command.
+    byte_offset: 12
+    access: Write
+    fieldset: regs::CMD
+  - name: TIMER
+    description: Timer.
+    byte_offset: 16
+    fieldset: regs::TIMER
+  - name: STATUS
+    description: Status.
+    byte_offset: 20
+    access: Read
+    fieldset: regs::STATUS
+  - name: MASKREQ
+    description: Mask Request.
+    byte_offset: 24
+    fieldset: regs::MASKREQ
+  - name: STMASK
+    description: Scan Table Mask.
+    byte_offset: 28
+    access: Read
+    fieldset: regs::STMASK
+  - name: CMPTHR
+    description: Comparator Threshold.
+    byte_offset: 32
+    fieldset: regs::CMPTHR
+  - name: IF
+    description: Interrupt Flag.
+    byte_offset: 36
+    fieldset: regs::IF
+  - name: IEN
+    description: Interrupt Enable.
+    byte_offset: 40
+    fieldset: regs::IEN
+  - name: TRIGGER
+    description: Trigger.
+    byte_offset: 44
+    fieldset: regs::TRIGGER
+  - name: CFG0
+    description: Configration.
+    byte_offset: 72
+    fieldset: regs::CFG0
+  - name: SCALE0
+    description: Scale.
+    byte_offset: 80
+    fieldset: regs::SCALE0
+  - name: SCHED0
+    description: Scheduling.
+    byte_offset: 84
+    fieldset: regs::SCHED0
+  - name: CFG1
+    description: Configration.
+    byte_offset: 88
+    fieldset: regs::CFG1
+  - name: SCALE1
+    description: Scale.
+    byte_offset: 96
+    fieldset: regs::SCALE1
+  - name: SCHED1
+    description: Scheduling.
+    byte_offset: 100
+    fieldset: regs::SCHED1
+  - name: SINGLEFIFOCFG
+    description: Single FIFO Configuration.
+    byte_offset: 112
+    fieldset: regs::SINGLEFIFOCFG
+  - name: SINGLEFIFODATA
+    description: Read the oldest valid data from the single FIFO and pop the FIFO.
+    byte_offset: 116
+    access: Read
+    fieldset: regs::SINGLEFIFODATA
+  - name: SINGLEFIFOSTAT
+    description: Single FIFO status.
+    byte_offset: 120
+    access: Read
+    fieldset: regs::SINGLEFIFOSTAT
+  - name: SINGLEDATA
+    description: latest single queue conversion data.
+    byte_offset: 124
+    access: Read
+    fieldset: regs::SINGLEDATA
+  - name: SCANFIFOCFG
+    description: SCAN FIFO configuration.
+    byte_offset: 128
+    fieldset: regs::SCANFIFOCFG
+  - name: SCANFIFODATA
+    description: Read the oldest valid data from the scan FIFO and pop the FIFO.
+    byte_offset: 132
+    access: Read
+    fieldset: regs::SCANFIFODATA
+  - name: SCANFIFOSTAT
+    description: Scan FIFO status.
+    byte_offset: 136
+    access: Read
+    fieldset: regs::SCANFIFOSTAT
+  - name: SCANDATA
+    description: Most recent data data from scan queue conversion.
+    byte_offset: 140
+    access: Read
+    fieldset: regs::SCANDATA
+  - name: SINGLE
+    description: No Description.
+    byte_offset: 152
+    fieldset: regs::SINGLE
+  - name: SCAN0
+    description: No Description.
+    byte_offset: 160
+    fieldset: regs::SCAN0
+  - name: SCAN1
+    description: No Description.
+    byte_offset: 164
+    fieldset: regs::SCAN1
+  - name: SCAN2
+    description: No Description.
+    byte_offset: 168
+    fieldset: regs::SCAN2
+  - name: SCAN3
+    description: No Description.
+    byte_offset: 172
+    fieldset: regs::SCAN3
+  - name: SCAN4
+    description: No Description.
+    byte_offset: 176
+    fieldset: regs::SCAN4
+  - name: SCAN5
+    description: No Description.
+    byte_offset: 180
+    fieldset: regs::SCAN5
+  - name: SCAN6
+    description: No Description.
+    byte_offset: 184
+    fieldset: regs::SCAN6
+  - name: SCAN7
+    description: No Description.
+    byte_offset: 188
+    fieldset: regs::SCAN7
+  - name: SCAN8
+    description: No Description.
+    byte_offset: 192
+    fieldset: regs::SCAN8
+  - name: SCAN9
+    description: No Description.
+    byte_offset: 196
+    fieldset: regs::SCAN9
+  - name: SCAN10
+    description: No Description.
+    byte_offset: 200
+    fieldset: regs::SCAN10
+  - name: SCAN11
+    description: No Description.
+    byte_offset: 204
+    fieldset: regs::SCAN11
+  - name: SCAN12
+    description: No Description.
+    byte_offset: 208
+    fieldset: regs::SCAN12
+  - name: SCAN13
+    description: No Description.
+    byte_offset: 212
+    fieldset: regs::SCAN13
+  - name: SCAN14
+    description: No Description.
+    byte_offset: 216
+    fieldset: regs::SCAN14
+  - name: SCAN15
+    description: No Description.
+    byte_offset: 220
+    fieldset: regs::SCAN15
+fieldset/regs::CFG0:
+  description: Configration.
+  fields:
+  - name: ADCMODE
+    description: ADC Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::CFG0_ADCMODE
+  - name: OSRHS
+    description: High Speed OSR.
+    bit_offset: 2
+    bit_size: 3
+    enum: vals::CFG0_OSRHS
+  - name: ANALOGGAIN
+    description: Analog Gain.
+    bit_offset: 12
+    bit_size: 3
+    enum: vals::CFG0_ANALOGGAIN
+  - name: REFSEL
+    description: Reference Select.
+    bit_offset: 16
+    bit_size: 3
+    enum: vals::CFG0_REFSEL
+  - name: DIGAVG
+    description: Digital Averaging.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::CFG0_DIGAVG
+  - name: TWOSCOMPL
+    description: Two's Complement.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::CFG0_TWOSCOMPL
+fieldset/regs::CFG1:
+  description: Configration.
+  fields:
+  - name: ADCMODE
+    description: ADC Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::CFG1_ADCMODE
+  - name: OSRHS
+    description: High Speed OSR.
+    bit_offset: 2
+    bit_size: 3
+    enum: vals::CFG1_OSRHS
+  - name: ANALOGGAIN
+    description: Analog Gain.
+    bit_offset: 12
+    bit_size: 3
+    enum: vals::CFG1_ANALOGGAIN
+  - name: REFSEL
+    description: Reference Select.
+    bit_offset: 16
+    bit_size: 3
+    enum: vals::CFG1_REFSEL
+  - name: DIGAVG
+    description: Digital Averaging.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::CFG1_DIGAVG
+  - name: TWOSCOMPL
+    description: Two's Complement.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::CFG1_TWOSCOMPL
+fieldset/regs::CMD:
+  description: Command.
+  fields:
+  - name: SINGLESTART
+    description: Single Queue Start.
+    bit_offset: 0
+    bit_size: 1
+  - name: SINGLESTOP
+    description: Single Queue Stop.
+    bit_offset: 1
+    bit_size: 1
+  - name: SCANSTART
+    description: Scan Queue Start.
+    bit_offset: 3
+    bit_size: 1
+  - name: SCANSTOP
+    description: Scan Queue Stop.
+    bit_offset: 4
+    bit_size: 1
+  - name: TIMEREN
+    description: Timer Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: TIMERDIS
+    description: Timer Disable.
+    bit_offset: 17
+    bit_size: 1
+  - name: SINGLEFIFOFLUSH
+    description: Flush the Single FIFO.
+    bit_offset: 24
+    bit_size: 1
+  - name: SCANFIFOFLUSH
+    description: Flush the Scan FIFO.
+    bit_offset: 25
+    bit_size: 1
+fieldset/regs::CMPTHR:
+  description: Comparator Threshold.
+  fields:
+  - name: ADLT
+    description: ADC Less Than or Equal to Threshold.
+    bit_offset: 0
+    bit_size: 16
+  - name: ADGT
+    description: ADC Greater Than or Equal to Threshold.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::CTRL:
+  description: Control.
+  fields:
+  - name: EM23WUCONVERT
+    description: EM23 Wakeup on Conversion.
+    bit_offset: 0
+    bit_size: 1
+    enum: vals::EM23WUCONVERT
+  - name: ADCCLKSUSPEND0
+    description: ADC_CLK Suspend - PRS0.
+    bit_offset: 1
+    bit_size: 1
+    enum: vals::ADCCLKSUSPEND0
+  - name: ADCCLKSUSPEND1
+    description: ADC_CLK Suspend - PRS1.
+    bit_offset: 2
+    bit_size: 1
+    enum: vals::ADCCLKSUSPEND1
+  - name: DBGHALT
+    description: Debug Halt.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::DBGHALT
+  - name: WARMUPMODE
+    description: Warmup Mode.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::WARMUPMODE
+  - name: TIMEBASE
+    description: Time Base.
+    bit_offset: 16
+    bit_size: 7
+  - name: HSCLKRATE
+    description: High Speed Clock Rate.
+    bit_offset: 28
+    bit_size: 3
+    enum: vals::HSCLKRATE
+fieldset/regs::EN:
+  description: Enable.
+  fields:
+  - name: EN
+    description: Enable IADC Module.
+    bit_offset: 0
+    bit_size: 1
+  - name: DISABLING
+    description: Disablement busy status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::IEN:
+  description: Interrupt Enable.
+  fields:
+  - name: SINGLEFIFODVL
+    description: Single FIFO Data Valid Level Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: SCANFIFODVL
+    description: Scan FIFO Data Valid Level Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: SINGLECMP
+    description: Single Result Window Compare Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: SCANCMP
+    description: Scan Result Window Compare Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: SCANENTRYDONE
+    description: Scan Entry Done Enable.
+    bit_offset: 7
+    bit_size: 1
+  - name: SCANTABLEDONE
+    description: Scan Table Done Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: SINGLEDONE
+    description: Single Conversion Done Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: POLARITYERR
+    description: Polarity Error Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: PORTALLOCERR
+    description: Port Allocation Error Enable.
+    bit_offset: 13
+    bit_size: 1
+  - name: SINGLEFIFOOF
+    description: Single FIFO Overflow Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: SCANFIFOOF
+    description: Scan FIFO Overflow Enable.
+    bit_offset: 17
+    bit_size: 1
+  - name: SINGLEFIFOUF
+    description: Single FIFO Underflow Enable.
+    bit_offset: 18
+    bit_size: 1
+  - name: SCANFIFOUF
+    description: Scan FIFO Underflow Enable.
+    bit_offset: 19
+    bit_size: 1
+  - name: EM23ABORTERROR
+    description: EM2/3 Abort Error Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::IF:
+  description: Interrupt Flag.
+  fields:
+  - name: SINGLEFIFODVL
+    description: Single FIFO Data Valid Level.
+    bit_offset: 0
+    bit_size: 1
+  - name: SCANFIFODVL
+    description: Scan FIFO Data Valid Level.
+    bit_offset: 1
+    bit_size: 1
+  - name: SINGLECMP
+    description: Single Result Window Compare.
+    bit_offset: 2
+    bit_size: 1
+  - name: SCANCMP
+    description: Scan Result Window Compare.
+    bit_offset: 3
+    bit_size: 1
+  - name: SCANENTRYDONE
+    description: Scan Entry Done.
+    bit_offset: 7
+    bit_size: 1
+  - name: SCANTABLEDONE
+    description: Scan Table Done.
+    bit_offset: 8
+    bit_size: 1
+  - name: SINGLEDONE
+    description: Single Conversion Done.
+    bit_offset: 9
+    bit_size: 1
+  - name: POLARITYERR
+    description: Polarity Error.
+    bit_offset: 12
+    bit_size: 1
+  - name: PORTALLOCERR
+    description: Port Allocation Error.
+    bit_offset: 13
+    bit_size: 1
+  - name: SINGLEFIFOOF
+    description: Single FIFO Overflow.
+    bit_offset: 16
+    bit_size: 1
+  - name: SCANFIFOOF
+    description: Scan FIFO Overflow.
+    bit_offset: 17
+    bit_size: 1
+  - name: SINGLEFIFOUF
+    description: Single FIFO Underflow.
+    bit_offset: 18
+    bit_size: 1
+  - name: SCANFIFOUF
+    description: Scan FIFO Underflow.
+    bit_offset: 19
+    bit_size: 1
+  - name: EM23ABORTERROR
+    description: EM2/3 Abort Error.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::IPVERSION:
+  description: IPVERSION.
+  fields:
+  - name: IPVERSION
+    description: IP version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::MASKREQ:
+  description: Mask Request.
+  fields:
+  - name: MASKREQ
+    description: Scan Queue Mask Request.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::SCALE0:
+  description: Scale.
+  fields:
+  - name: OFFSET
+    description: Offset.
+    bit_offset: 0
+    bit_size: 18
+  - name: GAIN13LSB
+    description: Gain 13 LSBs.
+    bit_offset: 18
+    bit_size: 13
+  - name: GAIN3MSB
+    description: Gain 3 MSBs.
+    bit_offset: 31
+    bit_size: 1
+    enum: vals::SCALE0_GAIN3MSB
+fieldset/regs::SCALE1:
+  description: Scale.
+  fields:
+  - name: OFFSET
+    description: Offset.
+    bit_offset: 0
+    bit_size: 18
+  - name: GAIN13LSB
+    description: Gain 13 LSBs.
+    bit_offset: 18
+    bit_size: 13
+  - name: GAIN3MSB
+    description: Gain 3 MSBs.
+    bit_offset: 31
+    bit_size: 1
+    enum: vals::SCALE1_GAIN3MSB
+fieldset/regs::SCAN0:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN0_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN0_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN0_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN1:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN1_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN1_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN1_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN10:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN10_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN10_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN10_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN11:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN11_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN11_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN11_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN12:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN12_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN12_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN12_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN13:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN13_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN13_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN13_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN14:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN14_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN14_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN14_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN15:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN15_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN15_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN15_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN2:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN2_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN2_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN2_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN3:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN3_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN3_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN3_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN4:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN4_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN4_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN4_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN5:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN5_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN5_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN5_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN6:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN6_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN6_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN6_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN7:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN7_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN7_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN7_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN8:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN8_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN8_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN8_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCAN9:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SCAN9_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SCAN9_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SCAN9_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SCANDATA:
+  description: Most recent data data from scan queue conversion.
+  fields:
+  - name: DATA
+    description: Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::SCANFIFOCFG:
+  description: SCAN FIFO configuration.
+  fields:
+  - name: ALIGNMENT
+    description: Alignment.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::SCANFIFOCFG_ALIGNMENT
+  - name: SHOWID
+    description: Show ID.
+    bit_offset: 3
+    bit_size: 1
+  - name: DVL
+    description: Data Valid Level.
+    bit_offset: 4
+    bit_size: 3
+    enum: vals::SCANFIFOCFG_DVL
+  - name: DMAWUFIFOSCAN
+    description: Scan FIFO DMA Wakeup.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::SCANFIFODATA:
+  description: Read the oldest valid data from the scan FIFO and pop the FIFO.
+  fields:
+  - name: DATA
+    description: Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::SCANFIFOSTAT:
+  description: Scan FIFO status.
+  fields:
+  - name: FIFOREADCNT
+    description: FIFO Read Count.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::SCHED0:
+  description: Scheduling.
+  fields:
+  - name: PRESCALE
+    description: Prescale.
+    bit_offset: 0
+    bit_size: 10
+fieldset/regs::SCHED1:
+  description: Scheduling.
+  fields:
+  - name: PRESCALE
+    description: Prescale.
+    bit_offset: 0
+    bit_size: 10
+fieldset/regs::SINGLE:
+  description: No Description.
+  fields:
+  - name: PINNEG
+    description: Negative Pin Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: PORTNEG
+    description: Negative Port Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::SINGLE_PORTNEG
+  - name: PINPOS
+    description: Positive Pin Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: PORTPOS
+    description: Positive Port Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::SINGLE_PORTPOS
+  - name: CFG
+    description: Configuration Group Select.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SINGLE_CFG
+  - name: CMP
+    description: Comparison Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::SINGLEDATA:
+  description: latest single queue conversion data.
+  fields:
+  - name: DATA
+    description: Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::SINGLEFIFOCFG:
+  description: Single FIFO Configuration.
+  fields:
+  - name: ALIGNMENT
+    description: Alignment.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::SINGLEFIFOCFG_ALIGNMENT
+  - name: SHOWID
+    description: Show ID.
+    bit_offset: 3
+    bit_size: 1
+  - name: DVL
+    description: Data Valid Level.
+    bit_offset: 4
+    bit_size: 3
+    enum: vals::SINGLEFIFOCFG_DVL
+  - name: DMAWUFIFOSINGLE
+    description: Single FIFO DMA wakeup.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::SINGLEFIFODATA:
+  description: Read the oldest valid data from the single FIFO and pop the FIFO.
+  fields:
+  - name: DATA
+    description: Single FIFO Read Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::SINGLEFIFOSTAT:
+  description: Single FIFO status.
+  fields:
+  - name: FIFOREADCNT
+    description: FIFO Read Count.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::STATUS:
+  description: Status.
+  fields:
+  - name: SINGLEQEN
+    description: Single Queue Enabled.
+    bit_offset: 0
+    bit_size: 1
+  - name: SINGLEQUEUEPENDING
+    description: Single Queue Pending.
+    bit_offset: 1
+    bit_size: 1
+  - name: SCANQEN
+    description: Scan Queued Enabled.
+    bit_offset: 3
+    bit_size: 1
+  - name: SCANQUEUEPENDING
+    description: Scan Queue Pending.
+    bit_offset: 4
+    bit_size: 1
+  - name: CONVERTING
+    description: Converting.
+    bit_offset: 6
+    bit_size: 1
+  - name: SINGLEFIFODV
+    description: SINGLEFIFO Data Valid.
+    bit_offset: 8
+    bit_size: 1
+  - name: SCANFIFODV
+    description: SCANFIFO Data Valid.
+    bit_offset: 9
+    bit_size: 1
+  - name: SINGLEFIFOFLUSHING
+    description: The Single FIFO is flushing.
+    bit_offset: 14
+    bit_size: 1
+  - name: SCANFIFOFLUSHING
+    description: The Scan FIFO is flushing.
+    bit_offset: 15
+    bit_size: 1
+  - name: TIMERACTIVE
+    description: Timer Active.
+    bit_offset: 16
+    bit_size: 1
+  - name: SINGLEWRITEPENDING
+    description: SINGLE write pending.
+    bit_offset: 20
+    bit_size: 1
+  - name: MASKREQWRITEPENDING
+    description: MASKREQ write pending.
+    bit_offset: 21
+    bit_size: 1
+  - name: SYNCBUSY
+    description: SYNCBUSY.
+    bit_offset: 24
+    bit_size: 1
+  - name: ADCWARM
+    description: ADCWARM.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::STMASK:
+  description: Scan Table Mask.
+  fields:
+  - name: STMASK
+    description: Scan Table Mask.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::TIMER:
+  description: Timer.
+  fields:
+  - name: TIMER
+    description: Timer Period.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::TRIGGER:
+  description: Trigger.
+  fields:
+  - name: SCANTRIGSEL
+    description: Scan Trigger Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::SCANTRIGSEL
+  - name: SCANTRIGACTION
+    description: Scan Trigger Action.
+    bit_offset: 4
+    bit_size: 1
+    enum: vals::SCANTRIGACTION
+  - name: SINGLETRIGSEL
+    description: Single Trigger Select.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::SINGLETRIGSEL
+  - name: SINGLETRIGACTION
+    description: Single Trigger Action.
+    bit_offset: 12
+    bit_size: 1
+    enum: vals::SINGLETRIGACTION
+  - name: SINGLETAILGATE
+    description: Single Tailgate Enable.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::SINGLETAILGATE
+enum/vals::ADCCLKSUSPEND0:
+  bit_size: 1
+  variants:
+  - name: PRSWUDIS
+    description: Normal mode which does not disable the ADC_CLK.
+    value: 0
+  - name: PRSWUEN
+    description: ADCCLKWUEN will gate off ADC_CLK until the trigger is detected provided the internal timer is not selected as the trigger. Once the trigger is detected the ADC_CLK will be started, the band gap will be started, the ADC will be warmed up, and the SCAN Table and the Single entry will be converted. Once the conversions are done, the ADC_CLK will be gated off.
+    value: 1
+enum/vals::ADCCLKSUSPEND1:
+  bit_size: 1
+  variants:
+  - name: PRSWUDIS
+    description: Normal mode which does not disable the ADC_CLK.
+    value: 0
+  - name: PRSWUEN
+    description: ADCCLKWUEN will gate off ADC_CLK until the trigger is detected provided the internal timer is not selected as the trigger. Once the trigger is detected the ADC_CLK will be started, the band gap will be started, the ADC will be warmed up, and the SCAN Table and the Single entry will be converted. Once the conversions are done, the ADC_CLK will be gated off.
+    value: 1
+enum/vals::CFG0_ADCMODE:
+  bit_size: 2
+  variants:
+  - name: NORMAL
+    description: High speed mode with a maximum ADC_CLK of 10 MHz.
+    value: 0
+enum/vals::CFG0_ANALOGGAIN:
+  bit_size: 3
+  variants:
+  - name: ANAGAIN0P5
+    description: Analog gain of 0.5x.
+    value: 1
+  - name: ANAGAIN1
+    description: Analog gain of 1x.
+    value: 2
+  - name: ANAGAIN2
+    description: Analog gain of 2x.
+    value: 3
+  - name: ANAGAIN3
+    description: Analog gain of 3x.
+    value: 4
+  - name: ANAGAIN4
+    description: Analog gain of 4x.
+    value: 5
+enum/vals::CFG0_DIGAVG:
+  bit_size: 3
+  variants:
+  - name: AVG1
+    description: Collect one output word (no digital averaging).
+    value: 0
+  - name: AVG2
+    description: Collect and average 2 digital output words.
+    value: 1
+  - name: AVG4
+    description: Collect and average 4 digital output words.
+    value: 2
+  - name: AVG8
+    description: Collect and average 8 digital output words.
+    value: 3
+  - name: AVG16
+    description: Collect and average 16 digital output words.
+    value: 4
+enum/vals::CFG0_OSRHS:
+  bit_size: 3
+  variants:
+  - name: HISPD2
+    description: High speed over sampling of 2x.
+    value: 0
+  - name: HISPD4
+    description: High speed over sampling of 4x.
+    value: 1
+  - name: HISPD8
+    description: High speed over sampling of 8x.
+    value: 2
+  - name: HISPD16
+    description: High speed over sampling of 16x.
+    value: 3
+  - name: HISPD32
+    description: HIgh speed over sampling of 32x.
+    value: 4
+  - name: HISPD64
+    description: High speed over sampling of 64x.
+    value: 5
+enum/vals::CFG0_REFSEL:
+  bit_size: 3
+  variants:
+  - name: VBGR
+    description: Internal 1.21 V reference.
+    value: 0
+  - name: VREF
+    description: External Reference. (Calibrated for 1.25V nominal.).
+    value: 1
+  - name: VDDX
+    description: AVDD (unbuffered).
+    value: 3
+  - name: VDDX0P8BUF
+    description: AVDD (buffered) * 0.8.
+    value: 4
+enum/vals::CFG0_TWOSCOMPL:
+  bit_size: 2
+  variants:
+  - name: AUTO
+    description: 'Automatic: Single ended measurements are reported as unipolar and differential measurements are reported as bipolar.'
+    value: 0
+  - name: FORCEUNIPOLAR
+    description: Force all measurements to result in unipolar output. Negative differential numbers will saturate to 0.
+    value: 1
+  - name: FORCEBIPOLAR
+    description: Force all measurements to result in bipolar output. Single ended measurements are half the range, but allow for small negative measurements.
+    value: 2
+enum/vals::CFG1_ADCMODE:
+  bit_size: 2
+  variants:
+  - name: NORMAL
+    description: High speed mode with a maximum ADC_CLK of 10 MHz.
+    value: 0
+enum/vals::CFG1_ANALOGGAIN:
+  bit_size: 3
+  variants:
+  - name: ANAGAIN0P5
+    description: Analog gain of 0.5x.
+    value: 1
+  - name: ANAGAIN1
+    description: Analog gain of 1x.
+    value: 2
+  - name: ANAGAIN2
+    description: Analog gain of 2x.
+    value: 3
+  - name: ANAGAIN3
+    description: Analog gain of 3x.
+    value: 4
+  - name: ANAGAIN4
+    description: Analog gain of 4x.
+    value: 5
+enum/vals::CFG1_DIGAVG:
+  bit_size: 3
+  variants:
+  - name: AVG1
+    description: Collect one output word (no digital averaging).
+    value: 0
+  - name: AVG2
+    description: Collect and average 2 digital output words.
+    value: 1
+  - name: AVG4
+    description: Collect and average 4 digital output words.
+    value: 2
+  - name: AVG8
+    description: Collect and average 8 digital output words.
+    value: 3
+  - name: AVG16
+    description: Collect and average 16 digital output words.
+    value: 4
+enum/vals::CFG1_OSRHS:
+  bit_size: 3
+  variants:
+  - name: HISPD2
+    description: High speed over sampling of 2x.
+    value: 0
+  - name: HISPD4
+    description: High speed over sampling of 4x.
+    value: 1
+  - name: HISPD8
+    description: High speed over sampling of 8x.
+    value: 2
+  - name: HISPD16
+    description: High speed over sampling of 16x.
+    value: 3
+  - name: HISPD32
+    description: HIgh speed over sampling of 32x.
+    value: 4
+  - name: HISPD64
+    description: High speed over sampling of 64x.
+    value: 5
+enum/vals::CFG1_REFSEL:
+  bit_size: 3
+  variants:
+  - name: VBGR
+    description: Internal 1.21 V reference.
+    value: 0
+  - name: VREF
+    description: External Reference. (Calibrated for 1.25V nominal.).
+    value: 1
+  - name: VDDX
+    description: AVDD (unbuffered).
+    value: 3
+  - name: VDDX0P8BUF
+    description: AVDD (buffered) * 0.8.
+    value: 4
+enum/vals::CFG1_TWOSCOMPL:
+  bit_size: 2
+  variants:
+  - name: AUTO
+    description: 'Automatic: Single ended measurements are reported as unipolar and differential measurements are reported as bipolar.'
+    value: 0
+  - name: FORCEUNIPOLAR
+    description: Force all measurements to result in unipolar output. Negative differential numbers will saturate to 0.
+    value: 1
+  - name: FORCEBIPOLAR
+    description: Force all measurements to result in bipolar output. Single ended measurements are half the range, but allow for small negative measurements.
+    value: 2
+enum/vals::DBGHALT:
+  bit_size: 1
+  variants:
+  - name: NORMAL
+    description: Continue operation as normal during debug mode.
+    value: 0
+  - name: HALT
+    description: Complete the current conversion and then halt during debug mode.
+    value: 1
+enum/vals::DMAWUFIFOSCAN:
+  bit_size: 1
+  variants:
+  - name: DISABLED
+    description: While in EM2 or EM3, the DMA controller will not be requested.
+    value: 0
+  - name: ENABLED
+    description: While in EM2 or EM3, the DMA controller will be requested when the scan FIFO reaches its Data Valid Level. [DVL must be set to 0 (VALID1).].
+    value: 1
+enum/vals::DMAWUFIFOSINGLE:
+  bit_size: 1
+  variants:
+  - name: DISABLED
+    description: While in EM2 or EM3, the DMA controller will not be requested.
+    value: 0
+  - name: ENABLED
+    description: While in EM2 or EM3, the DMA controller will be requested when the single FIFO reaches its Data Valid Level. [DVL must be set to 0 (VALID1).].
+    value: 1
+enum/vals::EM23WUCONVERT:
+  bit_size: 1
+  variants:
+  - name: WUDVL
+    description: When using suspend mode, conversions performed in EM2 or EM3 should not wake up the DMA until the FIFO's DVL setting is reached. This saves more power for large OSR settings or infrequent sampling.
+    value: 0
+  - name: WUCONVERT
+    description: When using suspend mode, conversions performed in EM2 or EM3 will wake up the DMA and keep it awake until the conversions are done, regardless of the DVL setting. This mode burns more power, but it is useful when the conversion rate is faster than the time for the DMA to cycle through wake up and going back to sleep as it converts more than 4 scan table entries. Without using the wake up on conversion mode, the FIFO may overflow while the DMA is going in and out of sleep.
+    value: 1
+enum/vals::EN:
+  bit_size: 1
+  variants:
+  - name: DISABLE
+    description: Disable.
+    value: 0
+  - name: ENABLE
+    description: Enable.
+    value: 1
+enum/vals::HSCLKRATE:
+  bit_size: 3
+  variants:
+  - name: DIV1
+    description: Use CMU_CLK_ADC directly. The source clock must be 40 MHz or less.
+    value: 0
+  - name: DIV2
+    description: Divide CMU_CLK_ADC by 2 before using it. The resulting CLK_SRC_ADC must be 40 MHz or less.
+    value: 1
+  - name: DIV3
+    description: Divide CMU_CLK_ADC by 3 before using it. The resulting CLK_SRC_ADC must be 40 MHz or less.
+    value: 2
+  - name: DIV4
+    description: Divide CMU_CLK_ADC by 4 before using it. The resulting CLK_SRC_ADC must be 40 MHz or less.
+    value: 3
+enum/vals::SCALE0_GAIN3MSB:
+  bit_size: 1
+  variants:
+  - name: GAIN011
+    description: Upper 3 bits of gain = 011 (0.75x).
+    value: 0
+  - name: GAIN100
+    description: Upper 3 bits of gain = 100 (1.00x).
+    value: 1
+enum/vals::SCALE1_GAIN3MSB:
+  bit_size: 1
+  variants:
+  - name: GAIN011
+    description: Upper 3 bits of gain = 011 (0.75x).
+    value: 0
+  - name: GAIN100
+    description: Upper 3 bits of gain = 100 (1.00x).
+    value: 1
+enum/vals::SCAN0_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN0_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN0_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN10_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN10_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN10_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN11_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN11_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN11_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN12_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN12_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN12_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN13_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN13_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN13_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN14_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN14_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN14_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN15_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN15_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN15_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN1_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN1_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN1_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN2_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN2_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN2_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN3_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN3_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN3_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN4_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN4_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN4_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN5_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN5_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN5_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN6_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN6_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN6_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN7_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN7_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN7_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN8_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN8_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN8_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCAN9_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SCAN9_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SCAN9_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::SCANFIFOCFG_ALIGNMENT:
+  bit_size: 3
+  variants:
+  - name: RIGHT12
+    description: ID[7:0], SIGN_EXT, DATA[11:0].
+    value: 0
+  - name: RIGHT16
+    description: ID[7:0], SIGN_EXT, DATA[15:0].
+    value: 1
+  - name: RIGHT20
+    description: ID[7:0], SIGN_EXT, DATA[19:0].
+    value: 2
+  - name: LEFT12
+    description: DATA[11:0], 000000000000, ID[7:0].
+    value: 3
+  - name: LEFT16
+    description: DATA[15:0], 00000000, ID[7:0].
+    value: 4
+  - name: LEFT20
+    description: DATA[19:0], 0000, ID[7:0].
+    value: 5
+enum/vals::SCANFIFOCFG_DVL:
+  bit_size: 3
+  variants:
+  - name: VALID1
+    description: When 1 entry in the scan FIFO is valid, set the SCANFIFODVL interrupt and request DMA.
+    value: 0
+  - name: VALID2
+    description: When 2 entries in the scan FIFO are valid, set the SCANFIFODVL interrupt and request DMA.
+    value: 1
+  - name: VALID3
+    description: When 3 entries in the scan FIFO are valid, set the SCANFIFODVL interrupt and request DMA.
+    value: 2
+  - name: VALID4
+    description: When 4 entries in the scan FIFO are valid, set the SCANFIFODVL interrupt and request DMA.
+    value: 3
+  - name: VALID5
+    description: When 5 entries in the scan FIFO are valid, set the SCANFIFODVL interrupt and request DMA.
+    value: 4
+  - name: VALID6
+    description: When 6 entries in the scan FIFO are valid, set the SCANFIFODVL interrupt and request DMA.
+    value: 5
+  - name: VALID7
+    description: When 7 entries in the scan FIFO are valid, set the SCANFIFODVL interrupt and request DMA.
+    value: 6
+  - name: VALID8
+    description: When 8 entries in the scan FIFO are valid, set the SCANFIFODVL interrupt and request DMA.
+    value: 7
+enum/vals::SCANTRIGACTION:
+  bit_size: 1
+  variants:
+  - name: ONCE
+    description: For TRIGSEL=IMMEDIATE, goes through the scan table once and disables queue. For TRIGSEL = TIMER, PRSCLKGRP, PRSPOS, PRSNEG, goes through the scan table once per trigger.
+    value: 0
+  - name: CONTINUOUS
+    description: Goes through the scan table, converts each entry with a mask bit set, and puts it back into the scan queue to repeat again continuously. The queues are first come first serve. If both queues are triggered, the single queue will get to convert after each scan table completes. The scan queue will get to convert after each single conversion completes.
+    value: 1
+enum/vals::SCANTRIGSEL:
+  bit_size: 3
+  variants:
+  - name: IMMEDIATE
+    description: Immediate triggering. The scan queue will be disabled once all conversions in the scan table are complete, unless TRIGGERACTION is set to continuous.
+    value: 0
+  - name: TIMER
+    description: Triggers when the local timer count reaches zero.
+    value: 1
+  - name: PRSCLKGRP
+    description: Triggers on PRS0 from a timer module that is using the same clock group as the ADC and has been programmed to use the same clock source as the ADC. The prescale may be different between the ADC and the timer module.
+    value: 2
+  - name: PRSPOS
+    description: Triggers on asynchronous PRS0 positive edge. Requires PRS0 to go low for 3 ADC_CLKs before another positive edge can be detected. Generates an additional delay of 1 to 2 CLK_SRC_ADC cycles for synchronization.
+    value: 3
+  - name: PRSNEG
+    description: 'Triggers on asynchronous PRS0 negative edge. Requires PRS0 to go high for 3 ADC_CLKs before another negative edge can be detected. Generates an additional delay of 1 to 2 CLK_SRC_ADC cycles for synchronization. PRSNEG should only be used when the trigger source is from a module that remains powered during EM23. For modules (ie: TIMER) that power down during EM23, PRSPOS should be used for an asynchronous trigger, and PRSCLKGRP should be used for a synchronous trigger.'
+    value: 4
+enum/vals::SINGLEFIFOCFG_ALIGNMENT:
+  bit_size: 3
+  variants:
+  - name: RIGHT12
+    description: ID[7:0], SIGN_EXT, DATA[11:0].
+    value: 0
+  - name: RIGHT16
+    description: ID[7:0], SIGN_EXT, DATA[15:0].
+    value: 1
+  - name: RIGHT20
+    description: ID[7:0], SIGN_EXT, DATA[19:0].
+    value: 2
+  - name: LEFT12
+    description: DATA[11:0], 000000000000, ID[7:0].
+    value: 3
+  - name: LEFT16
+    description: DATA[15:0], 00000000, ID[7:0].
+    value: 4
+  - name: LEFT20
+    description: DATA[19:0], 0000, ID[7:0].
+    value: 5
+enum/vals::SINGLEFIFOCFG_DVL:
+  bit_size: 3
+  variants:
+  - name: VALID1
+    description: When 1 entry in the single FIFO is valid, set the SINGLEFIFODVL interrupt and request DMA.
+    value: 0
+  - name: VALID2
+    description: When 2 entries in the single FIFO are valid, set the SINGLEFIFODVL interrupt and request DMA.
+    value: 1
+  - name: VALID3
+    description: When 3 entries in the single FIFO are valid, set the SINGLEFIFODVL interrupt and request DMA.
+    value: 2
+  - name: VALID4
+    description: When 4 entries in the single FIFO are valid, set the SINGLEFIFODVL interrupt and request DMA.
+    value: 3
+  - name: VALID5
+    description: When 5 entries in the single FIFO are valid, set the SINGLEFIFODVL interrupt and request DMA.
+    value: 4
+  - name: VALID6
+    description: When 6 entries in the single FIFO are valid, set the SINGLEFIFODVL interrupt and request DMA.
+    value: 5
+  - name: VALID7
+    description: When 7 entries in the single FIFO are valid, set the SINGLEFIFODVL interrupt and request DMA.
+    value: 6
+  - name: VALID8
+    description: When 8 entries in the single FIFO are valid, set the SINGLEFIFODVL interrupt and request DMA.
+    value: 7
+enum/vals::SINGLETAILGATE:
+  bit_size: 1
+  variants:
+  - name: TAILGATEOFF
+    description: The single queue is ready to start warming up and converting once the trigger had been detected.
+    value: 0
+  - name: TAILGATEON
+    description: After the single queue's trigger is detected, it must wait until the end of a scan operation before the Single queue can be converted.
+    value: 1
+enum/vals::SINGLETRIGACTION:
+  bit_size: 1
+  variants:
+  - name: ONCE
+    description: For TRIGSEL=IMMEDIATE, converts the single queue once and disables queue. For TRIGSEL = TIMER, PRSCLKGRP, PRSPOS, PRSNEG, converts the single queue once per trigger.
+    value: 0
+  - name: CONTINUOUS
+    description: Converts the single queue, then checks for a pending scan queue before converting the single queue again continuously. The queues are first come first serve. If both queues are continuous, the IADC alternates between them.
+    value: 1
+enum/vals::SINGLETRIGSEL:
+  bit_size: 3
+  variants:
+  - name: IMMEDIATE
+    description: Immediate triggering. The single queue will be disabled once the conversion is complete, unless TRIGGERACTION is set to continuous.
+    value: 0
+  - name: TIMER
+    description: Triggers when the local timer count reaches zero.
+    value: 1
+  - name: PRSCLKGRP
+    description: Triggers on PRS1 from a timer module that is using the same clock group as the ADC and has been programmed to use the same clock source as the ADC. The prescale may be different between the ADC and the timer module.
+    value: 2
+  - name: PRSPOS
+    description: Triggers on asynchronous PRS1 positive edge. Requires PRS1 to go low for 3 ADC_CLKs before another positive edge can be detected. Generates an additional delay of 1 to 2 CLK_SRC_ADC cycles for synchronization.
+    value: 3
+  - name: PRSNEG
+    description: 'Triggers on asynchronous PRS1 negative edge. Requires PRS1 to go high for 3 ADC_CLKs before another negative edge can be detected. Generates an additional delay of 1 to 2 CLK_SRC_ADC cycles for synchronization. PRSNEG should only be used when the trigger source is from a module that remains powered during EM23. For modules (ie: TIMER) that power down during EM23, PRSPOS should be used for an asynchronous trigger, and PRSCLKGRP should be used for a synchronous trigger.'
+    value: 4
+enum/vals::SINGLE_CFG:
+  bit_size: 1
+  variants:
+  - name: CONFIG0
+    description: Use configuration group 0.
+    value: 0
+  - name: CONFIG1
+    description: Use configuration group 1.
+    value: 1
+enum/vals::SINGLE_PORTNEG:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground (single-ended).
+    value: 0
+  - name: DAC1
+    description: Direct connection to DAC0_CH1.
+    value: 2
+  - name: PADANA1
+    description: Direct connection to AIN1 input pin.
+    value: 4
+  - name: PADANA3
+    description: Direct connection to AIN3 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINNEG.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINNEG.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINNEG.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINNEG.
+    value: 11
+enum/vals::SINGLE_PORTPOS:
+  bit_size: 4
+  variants:
+  - name: GND
+    description: Ground.
+    value: 0
+  - name: SUPPLY
+    description: Supply Pin - Select specific supply using PINPOS.
+    value: 1
+  - name: DAC0
+    description: Direct connection to DAC0_CH0.
+    value: 2
+  - name: PADANA0
+    description: Direct connection to AIN0 input pin.
+    value: 4
+  - name: PADANA2
+    description: Direct connection to AIN2 input pin.
+    value: 5
+  - name: PORTA
+    description: Port A - Select pin number using PINPOS.
+    value: 8
+  - name: PORTB
+    description: Port B - Select pin number using PINPOS.
+    value: 9
+  - name: PORTC
+    description: Port C - Select pin number using PINPOS.
+    value: 10
+  - name: PORTD
+    description: Port D - Select pin number using PINPOS.
+    value: 11
+enum/vals::WARMUPMODE:
+  bit_size: 2
+  variants:
+  - name: NORMAL
+    description: Shut down the IADC after conversions have completed.
+    value: 0
+  - name: KEEPINSTANDBY
+    description: Switch to standby mode after conversions have completed. The next warmup time will require 1us.
+    value: 1
+  - name: KEEPWARM
+    description: Keep IADC fully powered after conversions have completed.
+    value: 2

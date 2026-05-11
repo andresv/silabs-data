@@ -1,0 +1,338 @@
+block/SYSRTC:
+  description: SYSRTC peripheral.
+  items:
+  - name: IPVERSION
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: EN
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::EN
+  - name: SWRST
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::SWRST
+  - name: CFG
+    description: No Description.
+    byte_offset: 12
+    fieldset: regs::CFG
+  - name: CMD
+    description: No Description.
+    byte_offset: 16
+    access: Write
+    fieldset: regs::CMD
+  - name: STATUS
+    description: No Description.
+    byte_offset: 20
+    access: Read
+    fieldset: regs::STATUS
+  - name: CNT
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::CNT
+  - name: SYNCBUSY
+    description: No Description.
+    byte_offset: 28
+    access: Read
+    fieldset: regs::SYNCBUSY
+  - name: LOCK
+    description: No Description.
+    byte_offset: 32
+    access: Write
+    fieldset: regs::LOCK
+  - name: GRP0_IF
+    description: No Description.
+    byte_offset: 64
+    fieldset: regs::GRP0_IF
+  - name: GRP0_IEN
+    description: No Description.
+    byte_offset: 68
+    fieldset: regs::GRP0_IEN
+  - name: GRP0_CTRL
+    description: No Description.
+    byte_offset: 72
+    fieldset: regs::GRP0_CTRL
+  - name: GRP0_CMP0VALUE
+    description: No Description.
+    byte_offset: 76
+    fieldset: regs::GRP0_CMP0VALUE
+  - name: GRP0_CMP1VALUE
+    description: No Description.
+    byte_offset: 80
+    fieldset: regs::GRP0_CMP1VALUE
+  - name: GRP0_CAP0VALUE
+    description: No Description.
+    byte_offset: 84
+    access: Read
+    fieldset: regs::GRP0_CAP0VALUE
+  - name: GRP0_SYNCBUSY
+    description: No Description.
+    byte_offset: 88
+    access: Read
+    fieldset: regs::GRP0_SYNCBUSY
+fieldset/regs::CFG:
+  description: No Description.
+  fields:
+  - name: DEBUGRUN
+    description: Debug Mode Run Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::CMD:
+  description: No Description.
+  fields:
+  - name: START
+    description: Start SYSRTC.
+    bit_offset: 0
+    bit_size: 1
+  - name: STOP
+    description: Stop SYSRTC.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::CNT:
+  description: No Description.
+  fields:
+  - name: CNT
+    description: Counter Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::EN:
+  description: No Description.
+  fields:
+  - name: EN
+    description: SYSRTC Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: DISABLING
+    description: Disablement busy status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::GRP0_CAP0VALUE:
+  description: No Description.
+  fields:
+  - name: CAP0VALUE
+    description: Capture 0 Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::GRP0_CMP0VALUE:
+  description: No Description.
+  fields:
+  - name: CMP0VALUE
+    description: Compare 0 Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::GRP0_CMP1VALUE:
+  description: No Description.
+  fields:
+  - name: CMP1VALUE
+    description: Compare 1 Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::GRP0_CTRL:
+  description: No Description.
+  fields:
+  - name: CMP0EN
+    description: Compare 0 Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: CMP1EN
+    description: Compare 1 Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: CAP0EN
+    description: Capture 0 Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: CMP0CMOA
+    description: Compare 0 Compare Match Output Action.
+    bit_offset: 3
+    bit_size: 3
+    enum: vals::CMP0CMOA
+  - name: CMP1CMOA
+    description: Compare 1 Compare Match Output Action.
+    bit_offset: 6
+    bit_size: 3
+    enum: vals::CMP1CMOA
+  - name: CAP0EDGE
+    description: Capture 0 Edge Select.
+    bit_offset: 9
+    bit_size: 2
+    enum: vals::CAP0EDGE
+fieldset/regs::GRP0_IEN:
+  description: No Description.
+  fields:
+  - name: OVF
+    description: Overflow Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: CMP0
+    description: Compare 0 Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: CMP1
+    description: Compare 1 Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: CAP0
+    description: Capture 0 Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::GRP0_IF:
+  description: No Description.
+  fields:
+  - name: OVF
+    description: Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: CMP0
+    description: Compare 0 Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: CMP1
+    description: Compare 1 Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: CAP0
+    description: Capture 0 Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::GRP0_SYNCBUSY:
+  description: No Description.
+  fields:
+  - name: CTRL
+    description: Sync busy for CTRL register.
+    bit_offset: 0
+    bit_size: 1
+  - name: CMP0VALUE
+    description: Sync busy for CMP0VALUE register.
+    bit_offset: 1
+    bit_size: 1
+  - name: CMP1VALUE
+    description: Sync busy for CMP1VALUE register.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::IPVERSION:
+  description: No Description.
+  fields:
+  - name: IPVERSION
+    description: IP VERSION.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::LOCK:
+  description: No Description.
+  fields:
+  - name: LOCKKEY
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::LOCKKEY
+fieldset/regs::STATUS:
+  description: No Description.
+  fields:
+  - name: RUNNING
+    description: SYSRTC running status.
+    bit_offset: 0
+    bit_size: 1
+  - name: LOCKSTATUS
+    description: Lock Status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::SWRST:
+  description: No Description.
+  fields:
+  - name: SWRST
+    description: Software reset command.
+    bit_offset: 0
+    bit_size: 1
+  - name: RESETTING
+    description: Software reset busy status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::SYNCBUSY:
+  description: No Description.
+  fields:
+  - name: START
+    description: Sync busy for START bitfield.
+    bit_offset: 0
+    bit_size: 1
+  - name: STOP
+    description: Sync busy for STOP bitfield.
+    bit_offset: 1
+    bit_size: 1
+  - name: CNT
+    description: Sync busy for CNT bitfield.
+    bit_offset: 2
+    bit_size: 1
+enum/vals::CAP0EDGE:
+  bit_size: 2
+  variants:
+  - name: RISING
+    description: Rising edges detected.
+    value: 0
+  - name: FALLING
+    description: Falling edges detected.
+    value: 1
+  - name: BOTH
+    description: Both edges detected.
+    value: 2
+enum/vals::CMP0CMOA:
+  bit_size: 3
+  variants:
+  - name: CLEAR
+    description: Cleared on the next cycle.
+    value: 0
+  - name: SET
+    description: Set on the next cycle.
+    value: 1
+  - name: PULSE
+    description: Set on the next cycle, cleared on the cycle after.
+    value: 2
+  - name: TOGGLE
+    description: Inverted on the next cycle.
+    value: 3
+  - name: CMPIF
+    description: Export this channel's CMP IF.
+    value: 4
+enum/vals::CMP1CMOA:
+  bit_size: 3
+  variants:
+  - name: CLEAR
+    description: Cleared on the next cycle.
+    value: 0
+  - name: SET
+    description: Set on the next cycle.
+    value: 1
+  - name: PULSE
+    description: Set on the next cycle, cleared on the cycle after.
+    value: 2
+  - name: TOGGLE
+    description: Inverted on the next cycle.
+    value: 3
+  - name: CMPIF
+    description: Export this channel's CMP IF.
+    value: 4
+enum/vals::DEBUGRUN:
+  bit_size: 1
+  variants:
+  - name: DISABLE
+    description: SYSRTC is frozen in debug mode.
+    value: 0
+  - name: ENABLE
+    description: SYSRTC is running in debug mode.
+    value: 1
+enum/vals::LOCKKEY:
+  bit_size: 16
+  variants:
+  - name: UNLOCK
+    description: Write to unlock SYSRTC lockable registers.
+    value: 18294
+enum/vals::LOCKSTATUS:
+  bit_size: 1
+  variants:
+  - name: UNLOCKED
+    description: SYSRTC registers are unlocked.
+    value: 0
+  - name: LOCKED
+    description: SYSRTC registers are locked.
+    value: 1

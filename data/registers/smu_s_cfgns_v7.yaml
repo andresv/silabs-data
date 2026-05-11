@@ -1,0 +1,397 @@
+block/SMU_S_CFGNS:
+  description: SMU_S_CFGNS peripheral.
+  items:
+  - name: NSSTATUS
+    description: No Description.
+    byte_offset: 4
+    access: Read
+    fieldset: regs::NSSTATUS
+  - name: NSLOCK
+    description: No Description.
+    byte_offset: 8
+    access: Write
+    fieldset: regs::NSLOCK
+  - name: NSIF
+    description: No Description.
+    byte_offset: 12
+    fieldset: regs::NSIF
+  - name: NSIEN
+    description: No Description.
+    byte_offset: 16
+    fieldset: regs::NSIEN
+  - name: PPUNSPATD0
+    description: Set peripheral bits to 1 to mark as privileged access only.
+    byte_offset: 64
+    fieldset: regs::PPUNSPATD0
+  - name: PPUNSPATD1
+    description: Set peripheral bits to 1 to mark as privileged access only.
+    byte_offset: 68
+    fieldset: regs::PPUNSPATD1
+  - name: PPUNSPATD2
+    description: Set peripheral bits to 1 to mark as privileged access only.
+    byte_offset: 72
+    fieldset: regs::PPUNSPATD2
+  - name: PPUNSFS
+    description: No Description.
+    byte_offset: 320
+    access: Read
+    fieldset: regs::PPUNSFS
+  - name: BMPUNSPATD0
+    description: No Description.
+    byte_offset: 336
+    fieldset: regs::BMPUNSPATD0
+fieldset/regs::BMPUNSPATD0:
+  description: No Description.
+  fields:
+  - name: RADIOAES
+    description: RADIOAES Privileged Mode.
+    bit_offset: 0
+    bit_size: 1
+  - name: RADIOSUBSYSTEM
+    description: RADIOSUBSYSTEM Privileged Mode.
+    bit_offset: 1
+    bit_size: 1
+  - name: LDMA
+    description: LDMA Privileged Mode.
+    bit_offset: 2
+    bit_size: 1
+  - name: RFECA0
+    description: RFECA0 Privileged Mode.
+    bit_offset: 6
+    bit_size: 1
+  - name: RFECA1
+    description: RFECA1 Privileged Mode.
+    bit_offset: 7
+    bit_size: 1
+  - name: SEEXTDMA
+    description: SEEXTDMA Privileged Mode.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::NSIEN:
+  description: No Description.
+  fields:
+  - name: PPUNSPRIV
+    description: PPUNS Privilege Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: PPUNSINST
+    description: PPUNS Instruction Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::NSIF:
+  description: No Description.
+  fields:
+  - name: PPUNSPRIV
+    description: PPUNS Privilege Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: PPUNSINST
+    description: PPUNS Instruction Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::NSLOCK:
+  description: No Description.
+  fields:
+  - name: SMUNSLOCKKEY
+    description: No Description.
+    bit_offset: 0
+    bit_size: 24
+    enum: vals::SMUNSLOCKKEY
+fieldset/regs::NSSTATUS:
+  description: No Description.
+  fields:
+  - name: SMUNSLOCK
+    description: SMUNS Lock.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::PPUNSFS:
+  description: No Description.
+  fields:
+  - name: PPUFSPERIPHID
+    description: Peripheral I.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::PPUNSPATD0:
+  description: Set peripheral bits to 1 to mark as privileged access only.
+  fields:
+  - name: EMU
+    description: EMU Privileged Access.
+    bit_offset: 1
+    bit_size: 1
+  - name: CMU
+    description: CMU Privileged Access.
+    bit_offset: 2
+    bit_size: 1
+  - name: BURTC
+    description: BURTC Privileged Access.
+    bit_offset: 3
+    bit_size: 1
+  - name: HFRCO0
+    description: HFRCO0 Privileged Access.
+    bit_offset: 4
+    bit_size: 1
+  - name: FSRCO
+    description: FSRCO Privileged Access.
+    bit_offset: 5
+    bit_size: 1
+  - name: DPLL0
+    description: DPLL0 Privileged Access.
+    bit_offset: 6
+    bit_size: 1
+  - name: LFXO
+    description: LFXO Privileged Access.
+    bit_offset: 7
+    bit_size: 1
+  - name: LFRCO
+    description: LFRCO Privileged Access.
+    bit_offset: 8
+    bit_size: 1
+  - name: ULFRCO
+    description: ULFRCO Privileged Access.
+    bit_offset: 9
+    bit_size: 1
+  - name: KEYSCAN
+    description: KEYSCAN Privileged Access.
+    bit_offset: 10
+    bit_size: 1
+  - name: MSC
+    description: MSC Privileged Access.
+    bit_offset: 11
+    bit_size: 1
+  - name: ICACHE0
+    description: ICACHE0 Privileged Access.
+    bit_offset: 12
+    bit_size: 1
+  - name: PRS
+    description: PRS Privileged Access.
+    bit_offset: 13
+    bit_size: 1
+  - name: GPIO
+    description: GPIO Privileged Access.
+    bit_offset: 14
+    bit_size: 1
+  - name: LDMA
+    description: LDMA Privileged Access.
+    bit_offset: 15
+    bit_size: 1
+  - name: LDMAXBAR
+    description: LDMAXBAR Privileged Access.
+    bit_offset: 16
+    bit_size: 1
+  - name: TIMER0
+    description: TIMER0 Privileged Access.
+    bit_offset: 17
+    bit_size: 1
+  - name: TIMER1
+    description: TIMER1 Privileged Access.
+    bit_offset: 18
+    bit_size: 1
+  - name: TIMER2
+    description: TIMER2 Privileged Access.
+    bit_offset: 19
+    bit_size: 1
+  - name: TIMER3
+    description: TIMER3 Privileged Access.
+    bit_offset: 20
+    bit_size: 1
+  - name: TIMER4
+    description: TIMER4 Privileged Access.
+    bit_offset: 21
+    bit_size: 1
+  - name: TIMER5
+    description: TIMER5 Privileged Access.
+    bit_offset: 22
+    bit_size: 1
+  - name: TIMER6
+    description: TIMER6 Privileged Access.
+    bit_offset: 23
+    bit_size: 1
+  - name: TIMER7
+    description: TIMER7 Privileged Access.
+    bit_offset: 24
+    bit_size: 1
+  - name: TIMER8
+    description: TIMER8 Privileged Access.
+    bit_offset: 25
+    bit_size: 1
+  - name: TIMER9
+    description: TIMER9 Privileged Access.
+    bit_offset: 26
+    bit_size: 1
+  - name: DMEM0
+    description: DMEM0 Privileged Access.
+    bit_offset: 28
+    bit_size: 1
+  - name: DMEM1
+    description: DMEM1 Privileged Access.
+    bit_offset: 29
+    bit_size: 1
+  - name: SYSCFGCFGNS
+    description: SYSCFGCFGNS Privileged Access.
+    bit_offset: 30
+    bit_size: 1
+  - name: SYSCFG
+    description: SYSCFG Privileged Access.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::PPUNSPATD1:
+  description: Set peripheral bits to 1 to mark as privileged access only.
+  fields:
+  - name: BURAM
+    description: BURAM Privileged Access.
+    bit_offset: 0
+    bit_size: 1
+  - name: GPCRC
+    description: GPCRC Privileged Access.
+    bit_offset: 1
+    bit_size: 1
+  - name: EUSART1
+    description: EUSART1 Privileged Access.
+    bit_offset: 2
+    bit_size: 1
+  - name: EUSART2
+    description: EUSART2 Privileged Access.
+    bit_offset: 3
+    bit_size: 1
+  - name: EUSART3
+    description: EUSART3 Privileged Access.
+    bit_offset: 4
+    bit_size: 1
+  - name: DCDC
+    description: DCDC Privileged Access.
+    bit_offset: 5
+    bit_size: 1
+  - name: HOSTMAILBOX
+    description: HOSTMAILBOX Privileged Access.
+    bit_offset: 6
+    bit_size: 1
+  - name: USART0
+    description: USART0 Privileged Access.
+    bit_offset: 7
+    bit_size: 1
+  - name: USART1
+    description: USART1 Privileged Access.
+    bit_offset: 8
+    bit_size: 1
+  - name: USART2
+    description: USART2 Privileged Access.
+    bit_offset: 9
+    bit_size: 1
+  - name: SYSRTC
+    description: SYSRTC Privileged Access.
+    bit_offset: 10
+    bit_size: 1
+  - name: I2C1
+    description: I2C1 Privileged Access.
+    bit_offset: 11
+    bit_size: 1
+  - name: I2C2
+    description: I2C2 Privileged Access.
+    bit_offset: 12
+    bit_size: 1
+  - name: I2C3
+    description: I2C3 Privileged Access.
+    bit_offset: 13
+    bit_size: 1
+  - name: LCD
+    description: LCD Privileged Access.
+    bit_offset: 14
+    bit_size: 1
+  - name: LCDRF
+    description: LCDRF Privileged Access.
+    bit_offset: 15
+    bit_size: 1
+  - name: RADIOAES
+    description: RADIOAES Privileged Access.
+    bit_offset: 16
+    bit_size: 1
+  - name: SMU
+    description: SMU Privileged Access.
+    bit_offset: 17
+    bit_size: 1
+  - name: SMUCFGNS
+    description: SMUCFGNS Privileged Access.
+    bit_offset: 18
+    bit_size: 1
+  - name: LETIMER0
+    description: LETIMER0 Privileged Access.
+    bit_offset: 19
+    bit_size: 1
+  - name: IADC0
+    description: IADC0 Privileged Access.
+    bit_offset: 20
+    bit_size: 1
+  - name: ACMP0
+    description: ACMP0 Privileged Access.
+    bit_offset: 21
+    bit_size: 1
+  - name: ACMP1
+    description: ACMP1 Privileged Access.
+    bit_offset: 22
+    bit_size: 1
+  - name: AMUXCP0
+    description: AMUXCP0 Privileged Access.
+    bit_offset: 23
+    bit_size: 1
+  - name: VDAC0
+    description: VDAC0 Privileged Access.
+    bit_offset: 24
+    bit_size: 1
+  - name: VDAC1
+    description: VDAC1 Privileged Access.
+    bit_offset: 25
+    bit_size: 1
+  - name: PCNT
+    description: PCNT Privileged Access.
+    bit_offset: 26
+    bit_size: 1
+  - name: HFRCO1
+    description: HFRCO1 Privileged Access.
+    bit_offset: 27
+    bit_size: 1
+  - name: HFXO0
+    description: HFXO0 Privileged Access.
+    bit_offset: 28
+    bit_size: 1
+  - name: I2C0
+    description: I2C0 Privileged Access.
+    bit_offset: 29
+    bit_size: 1
+  - name: WDOG0
+    description: WDOG0 Privileged Access.
+    bit_offset: 30
+    bit_size: 1
+  - name: WDOG1
+    description: WDOG1 Privileged Access.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::PPUNSPATD2:
+  description: Set peripheral bits to 1 to mark as privileged access only.
+  fields:
+  - name: EUSART0
+    description: EUSART0 Privileged Access.
+    bit_offset: 0
+    bit_size: 1
+  - name: SEMAILBOX
+    description: SEMAILBOX Privileged Access.
+    bit_offset: 1
+    bit_size: 1
+  - name: AHBRADIO
+    description: AHBRADIO Privileged Access.
+    bit_offset: 3
+    bit_size: 1
+enum/vals::SMUNSLOCK:
+  bit_size: 1
+  variants:
+  - name: UNLOCKED
+    description: UNLOCKED.
+    value: 0
+  - name: LOCKED
+    description: LOCKED.
+    value: 1
+enum/vals::SMUNSLOCKKEY:
+  bit_size: 24
+  variants:
+  - name: UNLOCK
+    description: Unlocks Registers.
+    value: 11325013

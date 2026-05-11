@@ -1,0 +1,820 @@
+block/HFXO:
+  description: HFXO peripheral.
+  items:
+  - name: IPVERSION
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: XTALCFG
+    description: No Description.
+    byte_offset: 16
+    fieldset: regs::XTALCFG
+  - name: XTALCTRL
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::XTALCTRL
+  - name: XTALCTRL1
+    description: No Description.
+    byte_offset: 28
+    fieldset: regs::XTALCTRL1
+  - name: CFG
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::CFG
+  - name: CTRL
+    description: No Description.
+    byte_offset: 40
+    fieldset: regs::CTRL
+  - name: BUFOUTTRIM
+    description: No Description.
+    byte_offset: 64
+    fieldset: regs::BUFOUTTRIM
+  - name: BUFOUTCTRL
+    description: No Description.
+    byte_offset: 68
+    fieldset: regs::BUFOUTCTRL
+  - name: CMD
+    description: No Description.
+    byte_offset: 80
+    access: Write
+    fieldset: regs::CMD
+  - name: STATUS
+    description: No Description.
+    byte_offset: 88
+    access: Read
+    fieldset: regs::STATUS
+  - name: IF
+    description: No Description.
+    byte_offset: 112
+    fieldset: regs::IF
+  - name: IEN
+    description: No Description.
+    byte_offset: 116
+    fieldset: regs::IEN
+  - name: LOCK
+    description: No Description.
+    byte_offset: 128
+    access: Write
+    fieldset: regs::LOCK
+fieldset/regs::BUFOUTCTRL:
+  description: No Description.
+  fields:
+  - name: XOUTBIASANA
+    description: Driver Bias Current.
+    bit_offset: 0
+    bit_size: 4
+  - name: XOUTCFANA
+    description: Buffer Gain.
+    bit_offset: 4
+    bit_size: 4
+  - name: XOUTGMANA
+    description: No Description.
+    bit_offset: 8
+    bit_size: 4
+  - name: PEAKDETTHRESANA
+    description: Peak Detector Threshold for XOUT.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::PEAKDETTHRESANA
+  - name: TIMEOUTCTUNE
+    description: Tuning Cap Change Timeout.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::TIMEOUTCTUNE
+  - name: TIMEOUTSTARTUP
+    description: Oscillator Startup Timeout.
+    bit_offset: 20
+    bit_size: 4
+    enum: vals::TIMEOUTSTARTUP
+  - name: MINIMUMSTARTUPDELAY
+    description: Minimum Startup Delay.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::BUFOUTTRIM:
+  description: No Description.
+  fields:
+  - name: VTRTRIMANA
+    description: BUFOUT Reference Trim.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CFG:
+  description: No Description.
+  fields:
+  - name: MODE
+    description: Crystal Oscillator Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::MODE
+  - name: ENXIDCBIASANA
+    description: Enable XI Internal DC Bias.
+    bit_offset: 2
+    bit_size: 1
+  - name: SQBUFSCHTRGANA
+    description: Squaring Buffer Schmitt Trigger.
+    bit_offset: 3
+    bit_size: 1
+  - name: FORCELFTIMEOUT
+    description: Force Low Frequency Timeout.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::CMD:
+  description: No Description.
+  fields:
+  - name: COREBIASOPT
+    description: Core Bias Optimizaton.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::CTRL:
+  description: No Description.
+  fields:
+  - name: BUFOUTFREEZE
+    description: Freeze BUFOUT Controls.
+    bit_offset: 0
+    bit_size: 1
+  - name: KEEPWARM
+    description: Keep Warm.
+    bit_offset: 2
+    bit_size: 1
+  - name: EM23ONDEMAND
+    description: On-demand During EM23.
+    bit_offset: 3
+    bit_size: 1
+  - name: FORCEXI2GNDANA
+    description: Force XI Pin to Ground.
+    bit_offset: 4
+    bit_size: 1
+  - name: FORCEXO2GNDANA
+    description: Force XO Pin to Ground.
+    bit_offset: 5
+    bit_size: 1
+  - name: FORCECTUNEMAX
+    description: Force Tuning Cap to Max Value.
+    bit_offset: 6
+    bit_size: 1
+  - name: PRSSTATUSSEL0
+    description: PRS Status 0 Output Select.
+    bit_offset: 8
+    bit_size: 4
+    enum: vals::PRSSTATUSSEL0
+  - name: PRSSTATUSSEL1
+    description: PRS Status 1 Output Select.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::PRSSTATUSSEL1
+  - name: FORCEEN
+    description: Force Digital Clock Request.
+    bit_offset: 16
+    bit_size: 1
+  - name: FORCEENPRS
+    description: Force PRS Oscillator Request.
+    bit_offset: 17
+    bit_size: 1
+  - name: FORCEENBUFOUT
+    description: Force BUFOUT Request.
+    bit_offset: 18
+    bit_size: 1
+  - name: DISONDEMAND
+    description: Disable On-demand For Digital Clock.
+    bit_offset: 24
+    bit_size: 1
+  - name: DISONDEMANDPRS
+    description: Disable On-demand For PRS.
+    bit_offset: 25
+    bit_size: 1
+  - name: DISONDEMANDBUFOUT
+    description: Disable On-demand For BUFOUT.
+    bit_offset: 26
+    bit_size: 1
+fieldset/regs::IEN:
+  description: No Description.
+  fields:
+  - name: RDY
+    description: Digital Clock Ready Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: COREBIASOPTRDY
+    description: Core Bias Optimization Ready Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: PRSRDY
+    description: PRS Ready Interrupt.
+    bit_offset: 2
+    bit_size: 1
+  - name: BUFOUTRDY
+    description: BUFOUT Ready Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: BUFOUTFROZEN
+    description: BUFOUT FROZEN Interrupt.
+    bit_offset: 15
+    bit_size: 1
+  - name: PRSERR
+    description: PRS Requset Error Interrupt.
+    bit_offset: 20
+    bit_size: 1
+  - name: BUFOUTERR
+    description: BUFOUT Request Error Interrupt.
+    bit_offset: 21
+    bit_size: 1
+  - name: BUFOUTFREEZEERR
+    description: BUFOUT Freeze Error Interrupt.
+    bit_offset: 27
+    bit_size: 1
+  - name: BUFOUTDNSERR
+    description: BUFOUT Did Not Start Error Interrupt.
+    bit_offset: 28
+    bit_size: 1
+  - name: DNSERR
+    description: Did Not Start Error Interrupt.
+    bit_offset: 29
+    bit_size: 1
+  - name: LFTIMEOUTERR
+    description: Low Frequency Timeout Error Interrupt.
+    bit_offset: 30
+    bit_size: 1
+  - name: COREBIASOPTERR
+    description: Core Bias Optimization Error Interrupt.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::IF:
+  description: No Description.
+  fields:
+  - name: RDY
+    description: Digital Clock Ready Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: COREBIASOPTRDY
+    description: Core Bias Optimization Ready Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: PRSRDY
+    description: PRS Ready Interrupt.
+    bit_offset: 2
+    bit_size: 1
+  - name: BUFOUTRDY
+    description: BUFOUT Ready Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: BUFOUTFROZEN
+    description: BUFOUT FROZEN Interrupt.
+    bit_offset: 15
+    bit_size: 1
+  - name: PRSERR
+    description: PRS Requset Error Interrupt.
+    bit_offset: 20
+    bit_size: 1
+  - name: BUFOUTERR
+    description: BUFOUT Request Error Interrupt.
+    bit_offset: 21
+    bit_size: 1
+  - name: BUFOUTFREEZEERR
+    description: BUFOUT Freeze Error Interrupt.
+    bit_offset: 27
+    bit_size: 1
+  - name: BUFOUTDNSERR
+    description: BUFOUT Did Not Start Error Interrupt.
+    bit_offset: 28
+    bit_size: 1
+  - name: DNSERR
+    description: Did Not Start Error Interrupt.
+    bit_offset: 29
+    bit_size: 1
+  - name: LFTIMEOUTERR
+    description: Low Frequency Timeout Error Interrupt.
+    bit_offset: 30
+    bit_size: 1
+  - name: COREBIASOPTERR
+    description: Core Bias Optimization Error Interrupt.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::IPVERSION:
+  description: No Description.
+  fields:
+  - name: IPVERSION
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::LOCK:
+  description: No Description.
+  fields:
+  - name: LOCKKEY
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::LOCKKEY
+fieldset/regs::STATUS:
+  description: No Description.
+  fields:
+  - name: RDY
+    description: Ready Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: COREBIASOPTRDY
+    description: Core Bias Optimization Ready.
+    bit_offset: 1
+    bit_size: 1
+  - name: PRSRDY
+    description: PRS Ready Status.
+    bit_offset: 2
+    bit_size: 1
+  - name: BUFOUTRDY
+    description: BUFOUT Ready Status.
+    bit_offset: 3
+    bit_size: 1
+  - name: BUFOUTFROZEN
+    description: BUFOUT Frozen.
+    bit_offset: 15
+    bit_size: 1
+  - name: ENS
+    description: Enabled Status.
+    bit_offset: 16
+    bit_size: 1
+  - name: HWREQ
+    description: Oscillator Requested by Digital Clock.
+    bit_offset: 17
+    bit_size: 1
+  - name: ISWARM
+    description: Oscillator Is Kept Warm.
+    bit_offset: 19
+    bit_size: 1
+  - name: PRSHWREQ
+    description: Oscillator Requested by PRS Request.
+    bit_offset: 20
+    bit_size: 1
+  - name: BUFOUTHWREQ
+    description: Oscillator Requested by BUFOUT Request.
+    bit_offset: 21
+    bit_size: 1
+  - name: SYNCBUSY
+    description: Sync Busy.
+    bit_offset: 30
+    bit_size: 1
+  - name: LOCK
+    description: Configuration Lock Status.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::XTALCFG:
+  description: No Description.
+  fields:
+  - name: COREBIASSTARTUPI
+    description: Intermediate Startup Core Bias Current.
+    bit_offset: 0
+    bit_size: 6
+  - name: COREBIASSTARTUP
+    description: Startup Core Bias Current.
+    bit_offset: 6
+    bit_size: 6
+  - name: CTUNEXISTARTUP
+    description: Startup Tuning Capacitance on XI.
+    bit_offset: 12
+    bit_size: 4
+  - name: CTUNEXOSTARTUP
+    description: Startup Tuning Capacitance on XO.
+    bit_offset: 16
+    bit_size: 4
+  - name: TIMEOUTSTEADY
+    description: Steady State Timeout.
+    bit_offset: 20
+    bit_size: 4
+    enum: vals::TIMEOUTSTEADY
+  - name: TIMEOUTCBLSB
+    description: Core Bias LSB Change Timeout.
+    bit_offset: 24
+    bit_size: 4
+    enum: vals::TIMEOUTCBLSB
+fieldset/regs::XTALCTRL:
+  description: No Description.
+  fields:
+  - name: COREBIASANA
+    description: Core Bias Current.
+    bit_offset: 0
+    bit_size: 8
+  - name: CTUNEXIANA
+    description: Tuning Capacitance on XI.
+    bit_offset: 8
+    bit_size: 8
+  - name: CTUNEXOANA
+    description: Tuning Capacitance on XO.
+    bit_offset: 16
+    bit_size: 8
+  - name: CTUNEFIXANA
+    description: Fixed Tuning Capacitance.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::CTUNEFIXANA
+  - name: COREDGENANA
+    description: Core Degeneration.
+    bit_offset: 26
+    bit_size: 2
+    enum: vals::COREDGENANA
+  - name: SKIPCOREBIASOPT
+    description: Skip Core Bias Optimization.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::XTALCTRL1:
+  description: No Description.
+  fields:
+  - name: CTUNEXIBUFOUTANA
+    description: BUFOUT Tuning Capacitance on XI.
+    bit_offset: 0
+    bit_size: 8
+enum/vals::COREDGENANA:
+  bit_size: 2
+  variants:
+  - name: NONE
+    description: Do not apply core degeneration resistence.
+    value: 0
+  - name: DGEN33
+    description: Apply 33 ohm core degeneration resistence.
+    value: 1
+  - name: DGEN50
+    description: Apply 50 ohm core degeneration resistence.
+    value: 2
+  - name: DGEN100
+    description: Apply 100 ohm core degeneration resistence.
+    value: 3
+enum/vals::CTUNEFIXANA:
+  bit_size: 2
+  variants:
+  - name: NONE
+    description: Remove fixed capacitance on XI and XO nodes.
+    value: 0
+  - name: XI
+    description: Adds fixed capacitance on XI node.
+    value: 1
+  - name: XO
+    description: Adds fixed capacitance on XO node.
+    value: 2
+  - name: BOTH
+    description: Adds fixed capacitance on both XI and XO nodes.
+    value: 3
+enum/vals::FORCEXI2GNDANA:
+  bit_size: 1
+  variants:
+  - name: DISABLE
+    description: Disabled (not pulled).
+    value: 0
+  - name: ENABLE
+    description: Enabled (pulled).
+    value: 1
+enum/vals::FORCEXO2GNDANA:
+  bit_size: 1
+  variants:
+  - name: DISABLE
+    description: Disabled (not pulled).
+    value: 0
+  - name: ENABLE
+    description: Enabled (pulled).
+    value: 1
+enum/vals::LOCK:
+  bit_size: 1
+  variants:
+  - name: UNLOCKED
+    description: Configuration lock is unlocked.
+    value: 0
+  - name: LOCKED
+    description: Configuration lock is locked.
+    value: 1
+enum/vals::LOCKKEY:
+  bit_size: 16
+  variants:
+  - name: UNLOCK
+    description: Write this value to unlock.
+    value: 22542
+enum/vals::MODE:
+  bit_size: 2
+  variants:
+  - name: XTAL
+    description: crystal oscillator.
+    value: 0
+  - name: EXTCLK
+    description: external sinusoidal clock can be supplied on XI pin.
+    value: 1
+  - name: EXTCLKPKDET
+    description: external sinusoidal clock can be supplied on XI pin (peak detector used).
+    value: 2
+enum/vals::PEAKDETTHRESANA:
+  bit_size: 4
+  variants:
+  - name: V105MV
+    description: V105MV.
+    value: 0
+  - name: V132MV
+    description: V132MV.
+    value: 1
+  - name: V157MV
+    description: V157MV.
+    value: 2
+  - name: V184MV
+    description: V184MV.
+    value: 3
+  - name: V210MV
+    description: V210MV.
+    value: 4
+  - name: V236MV
+    description: V236MV.
+    value: 5
+  - name: V262MV
+    description: V262MV.
+    value: 6
+  - name: V289MV
+    description: V289MV.
+    value: 7
+  - name: V315MV
+    description: V315MV.
+    value: 8
+  - name: V341MV
+    description: V341MV.
+    value: 9
+  - name: V367MV
+    description: V367MV.
+    value: 10
+  - name: V394MV
+    description: V394MV.
+    value: 11
+  - name: V420MV
+    description: V420MV.
+    value: 12
+  - name: V446MV
+    description: V446MV.
+    value: 13
+  - name: V472MV
+    description: V472MV.
+    value: 14
+  - name: V499MV
+    description: V499MV.
+    value: 15
+enum/vals::PRSSTATUSSEL0:
+  bit_size: 4
+  variants:
+  - name: DISABLED
+    description: PRS mux outputs 0.
+    value: 0
+  - name: ENS
+    description: PRS mux outputs enabled status.
+    value: 1
+  - name: COREBIASOPTRDY
+    description: PRS mux outputs core bias optimization ready status.
+    value: 2
+  - name: RDY
+    description: PRS mux outputs ready status.
+    value: 3
+  - name: PRSRDY
+    description: PRS mux outputs PRS ready status.
+    value: 4
+  - name: BUFOUTRDY
+    description: PRS mux outputs BUFOUT ready status.
+    value: 5
+  - name: HWREQ
+    description: PRS mux outputs oscillator requested by digital clock status.
+    value: 8
+  - name: PRSHWREQ
+    description: PRS mux outputs oscillator requested by PRS request status.
+    value: 9
+  - name: BUFOUTHWREQ
+    description: PRS mux outputs oscillator requested by BUFOUT request status.
+    value: 10
+enum/vals::PRSSTATUSSEL1:
+  bit_size: 4
+  variants:
+  - name: DISABLED
+    description: PRS mux outputs 0.
+    value: 0
+  - name: ENS
+    description: PRS mux outputs enabled status.
+    value: 1
+  - name: COREBIASOPTRDY
+    description: PRS mux outputs core bias optimization ready status.
+    value: 2
+  - name: RDY
+    description: PRS mux outputs ready status.
+    value: 3
+  - name: PRSRDY
+    description: PRS mux outputs PRS ready status.
+    value: 4
+  - name: BUFOUTRDY
+    description: PRS mux outputs BUFOUT ready status.
+    value: 5
+  - name: HWREQ
+    description: PRS mux outputs oscillator requested by digital clock status.
+    value: 8
+  - name: PRSHWREQ
+    description: PRS mux outputs oscillator requested by PRS request status.
+    value: 9
+  - name: BUFOUTHWREQ
+    description: PRS mux outputs oscillator requested by BUFOUT request status.
+    value: 10
+enum/vals::SQBUFSCHTRGANA:
+  bit_size: 1
+  variants:
+  - name: DISABLE
+    description: Squaring buffer schmitt trigger is disabled.
+    value: 0
+  - name: ENABLE
+    description: Squaring buffer schmitt trigger is enabled.
+    value: 1
+enum/vals::TIMEOUTCBLSB:
+  bit_size: 4
+  variants:
+  - name: T8US
+    description: The core bias LSB change timeout is set to 8 us minimum. The maximum can be +40%.
+    value: 0
+  - name: T20US
+    description: The core bias LSB change timeout is set to 20 us minimum. The maximum can be +40%.
+    value: 1
+  - name: T41US
+    description: The core bias LSB change timeout is set to 41 us minimum. The maximum can be +40%.
+    value: 2
+  - name: T62US
+    description: The core bias LSB change timeout is set to 62 us minimum. The maximum can be +40%.
+    value: 3
+  - name: T83US
+    description: The core bias LSB change timeout is set to 83 us minimum. The maximum can be +40%.
+    value: 4
+  - name: T104US
+    description: The core bias LSB change timeout is set to 104 us minimum. The maximum can be +40%.
+    value: 5
+  - name: T125US
+    description: The core bias LSB change timeout is set to 125 us minimum. The maximum can be +40%.
+    value: 6
+  - name: T166US
+    description: The core bias LSB change timeout is set to 166 us minimum. The maximum can be +40%.
+    value: 7
+  - name: T208US
+    description: The core bias LSB change timeout is set to 208 us minimum. The maximum can be +40%.
+    value: 8
+  - name: T250US
+    description: The core bias LSB change timeout is set to 250 us minimum. The maximum can be +40%.
+    value: 9
+  - name: T333US
+    description: The core bias LSB change timeout is set to 333 us minimum. The maximum can be +40%.
+    value: 10
+  - name: T416US
+    description: The core bias LSB change timeout is set to 416 us minimum. The maximum can be +40%.
+    value: 11
+  - name: T833US
+    description: The core bias LSB change timeout is set to 833 us minimum. The maximum can be +40%.
+    value: 12
+  - name: T1250US
+    description: The core bias LSB change timeout is set to 1250 us minimum. The maximum can be +40%.
+    value: 13
+  - name: T2083US
+    description: The core bias LSB change timeout is set to 2083 us minimum. The maximum can be +40%.
+    value: 14
+  - name: T3750US
+    description: The core bias LSB change timeout is set to 3750 us minimum. The maximum can be +40%.
+    value: 15
+enum/vals::TIMEOUTCTUNE:
+  bit_size: 4
+  variants:
+  - name: T2US
+    description: The tuning cap change timeout is set to 2 us minimum. The maximum can be +40%.
+    value: 0
+  - name: T5US
+    description: The tuning cap change timeout is set to 5 us minimum. The maximum can be +40%.
+    value: 1
+  - name: T10US
+    description: The tuning cap change timeout is set to 10 us minimum. The maximum can be +40%.
+    value: 2
+  - name: T16US
+    description: The tuning cap change timeout is set to 16 us minimum. The maximum can be +40%.
+    value: 3
+  - name: T21US
+    description: The tuning cap change timeout is set to 21 us minimum. The maximum can be +40%.
+    value: 4
+  - name: T26US
+    description: The tuning cap change timeout is set to 26 us minimum. The maximum can be +40%.
+    value: 5
+  - name: T31US
+    description: The tuning cap change timeout is set to 31 us minimum. The maximum can be +40%.
+    value: 6
+  - name: T42US
+    description: The tuning cap change timeout is set to 42 us minimum. The maximum can be +40%.
+    value: 7
+  - name: T52US
+    description: The tuning cap change timeout is set to 52 us minimum. The maximum can be +40%.
+    value: 8
+  - name: T63US
+    description: The tuning cap change timeout is set to 63 us minimum. The maximum can be +40%.
+    value: 9
+  - name: T83US
+    description: The tuning cap change timeout is set to 83 us minimum. The maximum can be +40%.
+    value: 10
+  - name: T104US
+    description: The tuning cap change timeout is set to 104 us minimum. The maximum can be +40%.
+    value: 11
+  - name: T208US
+    description: The tuning cap change timeout is set to 208 us minimum. The maximum can be +40%.
+    value: 12
+  - name: T313US
+    description: The tuning cap change timeout is set to 313 us minimum. The maximum can be +40%.
+    value: 13
+  - name: T521US
+    description: The tuning cap change timeout is set to 521 us minimum. The maximum can be +40%.
+    value: 14
+  - name: T938US
+    description: The tuning cap change timeout is set to 938 us minimum. The maximum can be +40%.
+    value: 15
+enum/vals::TIMEOUTSTARTUP:
+  bit_size: 4
+  variants:
+  - name: T42US
+    description: The oscillator startup timeout is set to 42 us minimum. The maximum can be +40%.
+    value: 0
+  - name: T83US
+    description: The oscillator startup timeout is set to 83 us minimum. The maximum can be +40%.
+    value: 1
+  - name: T108US
+    description: The oscillator startup timeout is set to 108 us minimum. The maximum can be +40%.
+    value: 2
+  - name: T133US
+    description: The oscillator startup timeout is set to 133 us minimum. The maximum can be +40%.
+    value: 3
+  - name: T158US
+    description: The oscillator startup timeout is set to 158 us minimum. The maximum can be +40%.
+    value: 4
+  - name: T183US
+    description: The oscillator startup timeout is set to 183 us minimum. The maximum can be +40%.
+    value: 5
+  - name: T208US
+    description: The oscillator startup timeout is set to 208 us minimum. The maximum can be +40%.
+    value: 6
+  - name: T233US
+    description: The oscillator startup timeout is set to 233 us minimum. The maximum can be +40%.
+    value: 7
+  - name: T258US
+    description: The oscillator startup timeout is set to 258 us minimum. The maximum can be +40%.
+    value: 8
+  - name: T283US
+    description: The oscillator startup timeout is set to 283 us minimum. The maximum can be +40%.
+    value: 9
+  - name: T333US
+    description: The oscillator startup timeout is set to 333 us minimum. The maximum can be +40%.
+    value: 10
+  - name: T375US
+    description: The oscillator startup timeout is set to 375 us minimum. The maximum can be +40%.
+    value: 11
+  - name: T417US
+    description: The oscillator startup timeout is set to 417 us minimum. The maximum can be +40%.
+    value: 12
+  - name: T458US
+    description: The oscillator startup timeout is set to 458 us minimum. The maximum can be +40%.
+    value: 13
+  - name: T500US
+    description: The oscillator startup timeout is set to 500 us minimum. The maximum can be +40%.
+    value: 14
+  - name: T667US
+    description: The oscillator startup timeout is set to 667 us minimum. The maximum can be +40%.
+    value: 15
+enum/vals::TIMEOUTSTEADY:
+  bit_size: 4
+  variants:
+  - name: T4US
+    description: The steady state timeout is set to 16 us minimum. The maximum can be +40%.
+    value: 0
+  - name: T16US
+    description: The steady state timeout is set to 41 us minimum. The maximum can be +40%.
+    value: 1
+  - name: T41US
+    description: The steady state timeout is set to 83 us minimum. The maximum can be +40%.
+    value: 2
+  - name: T83US
+    description: The steady state timeout is set to 125 us minimum. The maximum can be +40%.
+    value: 3
+  - name: T125US
+    description: The steady state timeout is set to 166 us minimum. The maximum can be +40%.
+    value: 4
+  - name: T166US
+    description: The steady state timeout is set to 208 us minimum. The maximum can be +40%.
+    value: 5
+  - name: T208US
+    description: The steady state timeout is set to 250 us minimum. The maximum can be +40%.
+    value: 6
+  - name: T250US
+    description: The steady state timeout is set to 333 us minimum. The maximum can be +40%.
+    value: 7
+  - name: T333US
+    description: The steady state timeout is set to 416 us minimum. The maximum can be +40%.
+    value: 8
+  - name: T416US
+    description: The steady state timeout is set to 500 us minimum. The maximum can be +40%.
+    value: 9
+  - name: T500US
+    description: The steady state timeout is set to 666 us minimum. The maximum can be +40%.
+    value: 10
+  - name: T666US
+    description: The steady state timeout is set to 833 us minimum. The maximum can be +40%.
+    value: 11
+  - name: T833US
+    description: The steady state timeout is set to 1666 us minimum. The maximum can be +40%.
+    value: 12
+  - name: T1666US
+    description: The steady state timeout is set to 2500 us minimum. The maximum can be +40%.
+    value: 13
+  - name: T2500US
+    description: The steady state timeout is set to 4166 us minimum. The maximum can be +40%.
+    value: 14
+  - name: T4166US
+    description: The steady state timeout is set to 7500 us minimum. The maximum can be +40%.
+    value: 15

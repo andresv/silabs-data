@@ -1,0 +1,69 @@
+block/ULFRCO:
+  description: ULFRCO peripheral.
+  items:
+  - name: IPVERSION
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: STATUS
+    description: No Description.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::STATUS
+  - name: IF
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::IF
+  - name: IEN
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::IEN
+fieldset/regs::IEN:
+  description: No Description.
+  fields:
+  - name: RDY
+    description: Enable Ready Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: POSEDGE
+    description: Enable Positive Edge Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: NEGEDGE
+    description: Enable Negative Edge Interrupt.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::IF:
+  description: No Description.
+  fields:
+  - name: RDY
+    description: Ready Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: POSEDGE
+    description: Positive Edge Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: NEGEDGE
+    description: Negative Edge Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::IPVERSION:
+  description: No Description.
+  fields:
+  - name: IPVERSION
+    description: ULFRCO IP version.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::STATUS:
+  description: No Description.
+  fields:
+  - name: RDY
+    description: Ready Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: ENS
+    description: Enable Status.
+    bit_offset: 16
+    bit_size: 1

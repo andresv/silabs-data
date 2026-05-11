@@ -1,0 +1,388 @@
+block/KEYSCAN:
+  description: KEYSCAN peripheral.
+  items:
+  - name: IPVERSION
+    description: IPVERSION.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: EN
+    description: Enable.
+    byte_offset: 4
+    fieldset: regs::EN
+  - name: SWRST
+    description: Software Reset.
+    byte_offset: 8
+    fieldset: regs::SWRST
+  - name: CFG
+    description: Config.
+    byte_offset: 12
+    fieldset: regs::CFG
+  - name: CMD
+    description: Command.
+    byte_offset: 16
+    access: Write
+    fieldset: regs::CMD
+  - name: DELAY
+    description: Delay.
+    byte_offset: 20
+    fieldset: regs::DELAY
+  - name: STATUS
+    description: Status.
+    byte_offset: 24
+    access: Read
+    fieldset: regs::STATUS
+  - name: IF
+    description: Interrupt Flags.
+    byte_offset: 28
+    fieldset: regs::IF
+  - name: IEN
+    description: Interrupt Enables.
+    byte_offset: 32
+    fieldset: regs::IEN
+fieldset/regs::CFG:
+  description: Config.
+  fields:
+  - name: CLKDIV
+    description: Clock Divider.
+    bit_offset: 0
+    bit_size: 18
+  - name: SINGLEPRESS
+    description: Single Press.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::SINGLEPRESS
+  - name: AUTOSTART
+    description: Automatically Start.
+    bit_offset: 22
+    bit_size: 1
+    enum: vals::AUTOSTART
+  - name: NUMROWS
+    description: Number of Rows.
+    bit_offset: 24
+    bit_size: 3
+    enum: vals::NUMROWS
+  - name: NUMCOLS
+    description: Number of Columns.
+    bit_offset: 28
+    bit_size: 3
+fieldset/regs::CMD:
+  description: Command.
+  fields:
+  - name: KEYSCANSTART
+    description: Keyscan Start.
+    bit_offset: 0
+    bit_size: 1
+  - name: KEYSCANSTOP
+    description: Keyscan Stop.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::DELAY:
+  description: Delay.
+  fields:
+  - name: SCANDLY
+    description: Scan Delay.
+    bit_offset: 8
+    bit_size: 4
+    enum: vals::SCANDLY
+  - name: DEBDLY
+    description: Debounce Delay.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::DEBDLY
+  - name: STABDLY
+    description: Row stable Delay.
+    bit_offset: 24
+    bit_size: 4
+    enum: vals::STABDLY
+fieldset/regs::EN:
+  description: Enable.
+  fields:
+  - name: EN
+    description: Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: DISABLING
+    description: Disablement busy status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::IEN:
+  description: Interrupt Enables.
+  fields:
+  - name: NOKEY
+    description: No Key was pressed.
+    bit_offset: 0
+    bit_size: 1
+  - name: KEY
+    description: A Key was pressed.
+    bit_offset: 1
+    bit_size: 1
+  - name: SCANNED
+    description: Completed Scanning.
+    bit_offset: 2
+    bit_size: 1
+  - name: WAKEUP
+    description: Wake up.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::IF:
+  description: Interrupt Flags.
+  fields:
+  - name: NOKEY
+    description: No key was pressed.
+    bit_offset: 0
+    bit_size: 1
+  - name: KEY
+    description: A key was pressed.
+    bit_offset: 1
+    bit_size: 1
+  - name: SCANNED
+    description: Completed scan.
+    bit_offset: 2
+    bit_size: 1
+  - name: WAKEUP
+    description: Wake up.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::IPVERSION:
+  description: IPVERSION.
+  fields:
+  - name: IPVERSION
+    description: IPVERSION.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::STATUS:
+  description: Status.
+  fields:
+  - name: ROW
+    description: Row detection.
+    bit_offset: 0
+    bit_size: 6
+  - name: RUNNING
+    description: Running.
+    bit_offset: 16
+    bit_size: 1
+  - name: COL
+    description: Column Latched.
+    bit_offset: 24
+    bit_size: 3
+  - name: NOKEY
+    description: No Key pressed status.
+    bit_offset: 30
+    bit_size: 1
+  - name: SYNCBUSY
+    description: Sync Busy.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::SWRST:
+  description: Software Reset.
+  fields:
+  - name: SWRST
+    description: Software reset command.
+    bit_offset: 0
+    bit_size: 1
+  - name: RESETTING
+    description: Software reset busy status.
+    bit_offset: 1
+    bit_size: 1
+enum/vals::AUTOSTART:
+  bit_size: 1
+  variants:
+  - name: AUTOSTARTDIS
+    description: Auto start is disabled.
+    value: 0
+  - name: AUTOSTARTEN
+    description: Auto start is enabled.
+    value: 1
+enum/vals::DEBDLY:
+  bit_size: 4
+  variants:
+  - name: DEBDLY2
+    description: 2ms Debounce Delay.
+    value: 0
+  - name: DEBDLY4
+    description: 4ms Debounce Delay.
+    value: 1
+  - name: DEBDLY6
+    description: 6ms Debounce Delay.
+    value: 2
+  - name: DEBDLY8
+    description: 8ms Debounce Delay.
+    value: 3
+  - name: DEBDLY10
+    description: 10ms Debounce Delay.
+    value: 4
+  - name: DEBDLY12
+    description: 12ms Debounce Delay.
+    value: 5
+  - name: DEBDLY14
+    description: 14ms Debounce Delay.
+    value: 6
+  - name: DEBDLY16
+    description: 16ms Debounce Delay.
+    value: 7
+  - name: DEBDLY18
+    description: 18ms Debounce Delay.
+    value: 8
+  - name: DEBDLY20
+    description: 20ms Debounce Delay.
+    value: 9
+  - name: DEBDLY22
+    description: 22ms Debounce Delay.
+    value: 10
+  - name: DEBDLY24
+    description: 24ms Debounce Delay.
+    value: 11
+  - name: DEBDLY26
+    description: 26ms Debounce Delay.
+    value: 12
+  - name: DEBDLY28
+    description: 28ms Debounce Delay.
+    value: 13
+  - name: DEBDLY30
+    description: 30ms Debounce Delay.
+    value: 14
+  - name: DEBDLY32
+    description: 32ms Debounce Delay.
+    value: 15
+enum/vals::EN:
+  bit_size: 1
+  variants:
+  - name: DISABLE
+    description: Stops clocking and resets peripheral core logic.
+    value: 0
+  - name: ENABLE
+    description: Enables clocking, and begins scanning if CFG.AUTOSTART is 0x1.
+    value: 1
+enum/vals::NUMROWS:
+  bit_size: 3
+  variants:
+  - name: RSV1
+    description: 1 Row is not supported; defaults to 3 instead.
+    value: 0
+  - name: RSV2
+    description: 2 Rows are not supported; defaults to 3 instead.
+    value: 1
+  - name: ROW3
+    description: 3 Rows.
+    value: 2
+  - name: ROW4
+    description: 4 Rows.
+    value: 3
+  - name: ROW5
+    description: 5 Rows.
+    value: 4
+  - name: ROW6
+    description: 6 Rows.
+    value: 5
+enum/vals::SCANDLY:
+  bit_size: 4
+  variants:
+  - name: SCANDLY2
+    description: 2ms Scan Delay.
+    value: 0
+  - name: SCANDLY4
+    description: 4ms Scan Delay.
+    value: 1
+  - name: SCANDLY6
+    description: 6ms Scan Delay.
+    value: 2
+  - name: SCANDLY8
+    description: 8ms Scan Delay.
+    value: 3
+  - name: SCANDLY10
+    description: 10ms Scan Delay.
+    value: 4
+  - name: SCANDLY12
+    description: 12ms Scan Delay.
+    value: 5
+  - name: SCANDLY14
+    description: 14ms Scan Delay.
+    value: 6
+  - name: SCANDLY16
+    description: 16ms Scan Delay.
+    value: 7
+  - name: SCANDLY18
+    description: 18ms Scan Delay.
+    value: 8
+  - name: SCANDLY20
+    description: 20ms Scan Delay.
+    value: 9
+  - name: SCANDLY22
+    description: 22ms Scan Delay.
+    value: 10
+  - name: SCANDLY24
+    description: 24ms Scan Delay.
+    value: 11
+  - name: SCANDLY26
+    description: 26ms Scan Delay.
+    value: 12
+  - name: SCANDLY28
+    description: 28ms Scan Delay.
+    value: 13
+  - name: SCANDLY30
+    description: 30ms Scan Delay.
+    value: 14
+  - name: SCANDLY32
+    description: 32ms Scan Delay.
+    value: 15
+enum/vals::SINGLEPRESS:
+  bit_size: 1
+  variants:
+  - name: MULTIPRESS
+    description: After KEYIF is set and then cleared, scanning will continue. This can give multiple interrupts for the same key press, but allow multiple key presses to be detected. To use this mode for multi-key detection, the ISR should update a section of memory of COLNUM bytes on each interrupt, until key release is detected. After key release, the section of memory where key presses are recorded can be processed.
+    value: 0
+  - name: SINGLEPRESS
+    description: After KEYIF has been set and cleared, it will not set again until no key press is detected. This allows faster response since the ISR can start processing data as soon as the KEYIF is set.
+    value: 1
+enum/vals::STABDLY:
+  bit_size: 4
+  variants:
+  - name: STABDLY2
+    description: 2ms Row Stable Delay.
+    value: 0
+  - name: STABDLY4
+    description: 4ms Row Stable Delay.
+    value: 1
+  - name: STABDLY6
+    description: 6ms Row Stable Delay.
+    value: 2
+  - name: STABDLY8
+    description: 8ms Row Stable Delay.
+    value: 3
+  - name: STABDLY10
+    description: 10ms Row Stable Delay.
+    value: 4
+  - name: STABDLY12
+    description: 12ms Row Stable Delay.
+    value: 5
+  - name: STABDLY14
+    description: 14ms Row Stable Delay.
+    value: 6
+  - name: STABDLY16
+    description: 16ms Row Stable Delay.
+    value: 7
+  - name: STABDLY18
+    description: 18ms Row Stable Delay.
+    value: 8
+  - name: STABDLY20
+    description: 20ms Row Stable Delay.
+    value: 9
+  - name: STABDLY22
+    description: 22ms Row Stable Delay.
+    value: 10
+  - name: STABDLY24
+    description: 24ms Row Stable Delay.
+    value: 11
+  - name: STABDLY26
+    description: 26ms Row Stable Delay.
+    value: 12
+  - name: STABDLY28
+    description: 28ms Row Stable Delay.
+    value: 13
+  - name: STABDLY30
+    description: 30ms Row Stable Delay.
+    value: 14
+  - name: STABDLY32
+    description: 32ms Row Stable Delay.
+    value: 15

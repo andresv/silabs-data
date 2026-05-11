@@ -1,0 +1,54 @@
+block/SYSCFG_NS_CFGNS:
+  description: SYSCFG_NS_CFGNS peripheral.
+  items:
+  - name: CFGNSTCALIB
+    description: Configure to define the system tick for the M33.
+    byte_offset: 28
+    fieldset: regs::CFGNSTCALIB
+  - name: ROOTNSDATA0
+    description: Generic data space for user to pass to root, e.g., address of struct in mem.
+    byte_offset: 1536
+    fieldset: regs::ROOTNSDATA0
+  - name: ROOTNSDATA1
+    description: Generic data space for user to pass to root, e.g., address of struct in mem.
+    byte_offset: 1540
+    fieldset: regs::ROOTNSDATA1
+fieldset/regs::CFGNSTCALIB:
+  description: Configure to define the system tick for the M33.
+  fields:
+  - name: TENMS
+    description: Ten Milliseconds.
+    bit_offset: 0
+    bit_size: 24
+  - name: SKEW
+    description: Skew.
+    bit_offset: 24
+    bit_size: 1
+  - name: NOREF
+    description: No Reference.
+    bit_offset: 25
+    bit_size: 1
+    enum: vals::NOREF
+fieldset/regs::ROOTNSDATA0:
+  description: Generic data space for user to pass to root, e.g., address of struct in mem.
+  fields:
+  - name: DATA
+    description: Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::ROOTNSDATA1:
+  description: Generic data space for user to pass to root, e.g., address of struct in mem.
+  fields:
+  - name: DATA
+    description: Data.
+    bit_offset: 0
+    bit_size: 32
+enum/vals::NOREF:
+  bit_size: 1
+  variants:
+  - name: REF
+    description: Reference clock is implemented.
+    value: 0
+  - name: NOREF
+    description: Reference clock is not implemented.
+    value: 1

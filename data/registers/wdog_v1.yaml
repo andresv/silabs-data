@@ -1,0 +1,377 @@
+block/WDOG:
+  description: WDOG peripheral.
+  items:
+  - name: IPVERSION
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: EN
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::EN
+  - name: CFG
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::CFG
+  - name: CMD
+    description: No Description.
+    byte_offset: 12
+    access: Write
+    fieldset: regs::CMD
+  - name: STATUS
+    description: No Description.
+    byte_offset: 20
+    access: Read
+    fieldset: regs::STATUS
+  - name: IF
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::IF
+  - name: IEN
+    description: No Description.
+    byte_offset: 28
+    fieldset: regs::IEN
+  - name: LOCK
+    description: No Description.
+    byte_offset: 32
+    access: Write
+    fieldset: regs::LOCK
+  - name: SYNCBUSY
+    description: No Description.
+    byte_offset: 36
+    access: Read
+    fieldset: regs::SYNCBUSY
+fieldset/regs::CFG:
+  description: No Description.
+  fields:
+  - name: CLRSRC
+    description: WDOG Clear Source.
+    bit_offset: 0
+    bit_size: 1
+    enum: vals::CLRSRC
+  - name: EM1RUN
+    description: EM1 Run.
+    bit_offset: 1
+    bit_size: 1
+  - name: EM2RUN
+    description: EM2 Run.
+    bit_offset: 2
+    bit_size: 1
+  - name: EM3RUN
+    description: EM3 Run.
+    bit_offset: 3
+    bit_size: 1
+  - name: EM4BLOCK
+    description: EM4 Block.
+    bit_offset: 4
+    bit_size: 1
+  - name: DEBUGRUN
+    description: Debug Mode Run.
+    bit_offset: 5
+    bit_size: 1
+  - name: WDOGRSTDIS
+    description: WDOG Reset Disable.
+    bit_offset: 8
+    bit_size: 1
+    enum: vals::WDOGRSTDIS
+  - name: PRS0MISSRSTEN
+    description: PRS Src0 Missing Event WDOG Reset.
+    bit_offset: 9
+    bit_size: 1
+  - name: PRS1MISSRSTEN
+    description: PRS Src1 Missing Event WDOG Reset.
+    bit_offset: 10
+    bit_size: 1
+  - name: PERSEL
+    description: WDOG Timeout Period Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::PERSEL
+  - name: WARNSEL
+    description: WDOG Warning Period Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::WARNSEL
+  - name: WINSEL
+    description: WDOG Illegal Window Select.
+    bit_offset: 28
+    bit_size: 3
+    enum: vals::WINSEL
+fieldset/regs::CMD:
+  description: No Description.
+  fields:
+  - name: CLEAR
+    description: WDOG Timer Clear.
+    bit_offset: 0
+    bit_size: 1
+    enum: vals::CLEAR
+fieldset/regs::EN:
+  description: No Description.
+  fields:
+  - name: EN
+    description: Module Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: DISABLING
+    description: Disabling busy status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::IEN:
+  description: No Description.
+  fields:
+  - name: TOUT
+    description: WDOG Timeout Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: WARN
+    description: WDOG Warning Timeout Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: WIN
+    description: WDOG Window Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: PEM0
+    description: PRS Src0 Event Missing Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: PEM1
+    description: PRS Src1 Event Missing Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::IF:
+  description: No Description.
+  fields:
+  - name: TOUT
+    description: WDOG Timeout Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: WARN
+    description: WDOG Warning Timeout Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: WIN
+    description: WDOG Window Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: PEM0
+    description: PRS Src0 Event Missing Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: PEM1
+    description: PRS Src1 Event Missing Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::IPVERSION:
+  description: No Description.
+  fields:
+  - name: IPVERSION
+    description: IP Version.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::LOCK:
+  description: No Description.
+  fields:
+  - name: LOCKKEY
+    description: WDOG Configuration Lock.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::LOCKKEY
+fieldset/regs::STATUS:
+  description: No Description.
+  fields:
+  - name: LOCK
+    description: WDOG Configuration Lock Status.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::SYNCBUSY:
+  description: No Description.
+  fields:
+  - name: CMD
+    description: Sync Busy for Cmd Register.
+    bit_offset: 0
+    bit_size: 1
+enum/vals::CLEAR:
+  bit_size: 1
+  variants:
+  - name: UNCHANGED
+    description: WDOG timer is unchanged.
+    value: 0
+  - name: CLEARED
+    description: WDOG timer is cleared to 0.
+    value: 1
+enum/vals::CLRSRC:
+  bit_size: 1
+  variants:
+  - name: SW
+    description: A write to the clear bit will clear the WDOG counter.
+    value: 0
+  - name: PRSSRC0
+    description: A rising edge on the PRS Source 0 will clear the WDOG counter.
+    value: 1
+enum/vals::DEBUGRUN:
+  bit_size: 1
+  variants:
+  - name: DISABLE
+    description: WDOG timer is frozen in debug mode.
+    value: 0
+  - name: ENABLE
+    description: WDOG timer is running in debug mode.
+    value: 1
+enum/vals::EM1RUN:
+  bit_size: 1
+  variants:
+  - name: DISABLE
+    description: WDOG timer is frozen in EM1.
+    value: 0
+  - name: ENABLE
+    description: WDOG timer is running in EM1.
+    value: 1
+enum/vals::EM2RUN:
+  bit_size: 1
+  variants:
+  - name: DISABLE
+    description: WDOG timer is frozen in EM2.
+    value: 0
+  - name: ENABLE
+    description: WDOG timer is running in EM2.
+    value: 1
+enum/vals::EM3RUN:
+  bit_size: 1
+  variants:
+  - name: DISABLE
+    description: WDOG timer is frozen in EM3.
+    value: 0
+  - name: ENABLE
+    description: WDOG timer is running in EM3.
+    value: 1
+enum/vals::EM4BLOCK:
+  bit_size: 1
+  variants:
+  - name: DISABLE
+    description: EM4 can be entered by software. See EMU for detailed description.
+    value: 0
+  - name: ENABLE
+    description: EM4 cannot be entered by software.
+    value: 1
+enum/vals::LOCK:
+  bit_size: 1
+  variants:
+  - name: UNLOCKED
+    description: All WDOG lockable registers are unlocked.
+    value: 0
+  - name: LOCKED
+    description: All WDOG lockable registers are locked.
+    value: 1
+enum/vals::LOCKKEY:
+  bit_size: 16
+  variants:
+  - name: LOCK
+    description: Lock WDOG lockable registers.
+    value: 0
+  - name: UNLOCK
+    description: Unlock WDOG lockable registers.
+    value: 44008
+enum/vals::PERSEL:
+  bit_size: 4
+  variants:
+  - name: SEL0
+    description: Timeout period of 9 wdog cycles.
+    value: 0
+  - name: SEL1
+    description: Timeout period of 17 wdog cycles.
+    value: 1
+  - name: SEL2
+    description: Timeout period of 33 wdog cycles.
+    value: 2
+  - name: SEL3
+    description: Timeout period of 65 wdog cycles.
+    value: 3
+  - name: SEL4
+    description: Timeout period of 129 wdog cycles.
+    value: 4
+  - name: SEL5
+    description: Timeout period of 257 wdog cycles.
+    value: 5
+  - name: SEL6
+    description: Timeout period of 513 wdog cycles.
+    value: 6
+  - name: SEL7
+    description: Timeout period of 1k wdog cycles.
+    value: 7
+  - name: SEL8
+    description: Timeout period of 2k wdog cycles.
+    value: 8
+  - name: SEL9
+    description: Timeout period of 4k wdog cycles.
+    value: 9
+  - name: SEL10
+    description: Timeout period of 8k wdog cycles.
+    value: 10
+  - name: SEL11
+    description: Timeout period of 16k wdog cycles.
+    value: 11
+  - name: SEL12
+    description: Timeout period of 32k wdog cycles.
+    value: 12
+  - name: SEL13
+    description: Timeout period of 64k wdog cycles.
+    value: 13
+  - name: SEL14
+    description: Timeout period of 128k wdog cycles.
+    value: 14
+  - name: SEL15
+    description: Timeout period of 256k wdog cycles.
+    value: 15
+enum/vals::WARNSEL:
+  bit_size: 2
+  variants:
+  - name: DIS
+    description: Disable.
+    value: 0
+  - name: SEL1
+    description: Warning timeout is 25% of the Timeout.
+    value: 1
+  - name: SEL2
+    description: Warning timeout is 50% of the Timeout.
+    value: 2
+  - name: SEL3
+    description: Warning timeout is 75% of the Timeout.
+    value: 3
+enum/vals::WDOGRSTDIS:
+  bit_size: 1
+  variants:
+  - name: EN
+    description: A timeout will cause a WDOG reset.
+    value: 0
+  - name: DIS
+    description: A timeout will not cause a WDOG reset.
+    value: 1
+enum/vals::WINSEL:
+  bit_size: 3
+  variants:
+  - name: DIS
+    description: Disabled.
+    value: 0
+  - name: SEL1
+    description: Window timeout is 12.5% of the Timeout.
+    value: 1
+  - name: SEL2
+    description: Window timeout is 25% of the Timeout.
+    value: 2
+  - name: SEL3
+    description: Window timeout is 37.5% of the Timeout.
+    value: 3
+  - name: SEL4
+    description: Window timeout is 50% of the Timeout.
+    value: 4
+  - name: SEL5
+    description: Window timeout is 62.5% of the Timeout.
+    value: 5
+  - name: SEL6
+    description: Window timeout is 75.5% of the Timeout.
+    value: 6
+  - name: SEL7
+    description: Window timeout is 87.5% of the Timeout.
+    value: 7

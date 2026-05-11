@@ -1,0 +1,223 @@
+block/LFXO:
+  description: LFXO peripheral.
+  items:
+  - name: IPVERSION
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: CTRL
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::CTRL
+  - name: CFG
+    description: Do not write to this register unless the oscillator is forced off. The oscillator is forced off if DISONDEMAND is set and FORCEEN is cleared.
+    byte_offset: 8
+    fieldset: regs::CFG
+  - name: STATUS
+    description: No Description.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::STATUS
+  - name: CAL
+    description: Do not write to this register unless CALBSY in SYNCBUSY register is low.
+    byte_offset: 20
+    fieldset: regs::CAL
+  - name: IF
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::IF
+  - name: IEN
+    description: No Description.
+    byte_offset: 28
+    fieldset: regs::IEN
+  - name: SYNCBUSY
+    description: No Description.
+    byte_offset: 32
+    access: Read
+    fieldset: regs::SYNCBUSY
+  - name: LOCK
+    description: No Description.
+    byte_offset: 36
+    access: Write
+    fieldset: regs::LOCK
+fieldset/regs::CAL:
+  description: Do not write to this register unless CALBSY in SYNCBUSY register is low.
+  fields:
+  - name: CAPTUNE
+    description: Internal Capacitance Tuning.
+    bit_offset: 0
+    bit_size: 7
+  - name: GAIN
+    description: LFXO Startup Gain.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CFG:
+  description: Do not write to this register unless the oscillator is forced off. The oscillator is forced off if DISONDEMAND is set and FORCEEN is cleared.
+  fields:
+  - name: AGC
+    description: LFXO AGC Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: HIGHAMPL
+    description: LFXO High Amplitude Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: MODE
+    description: LFXO Mode.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::MODE
+  - name: TIMEOUT
+    description: LFXO Start-up Delay.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::TIMEOUT
+fieldset/regs::CTRL:
+  description: No Description.
+  fields:
+  - name: FORCEEN
+    description: LFXO Force Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: DISONDEMAND
+    description: LFXO Disable On-demand requests.
+    bit_offset: 1
+    bit_size: 1
+  - name: FAILDETEN
+    description: LFXO Failure Detection Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: FAILDETEM4WUEN
+    description: LFXO Failure Detection EM4WU Enable.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::IEN:
+  description: No Description.
+  fields:
+  - name: RDY
+    description: LFXO Ready Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: POSEDGE
+    description: Rising Edge Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: NEGEDGE
+    description: Falling Edge Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: FAIL
+    description: LFXO Failure Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::IF:
+  description: No Description.
+  fields:
+  - name: RDY
+    description: LFXO Ready Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: POSEDGE
+    description: Rising Edge Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: NEGEDGE
+    description: Falling Edge Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: FAIL
+    description: LFXO Failure Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::IPVERSION:
+  description: No Description.
+  fields:
+  - name: IPVERSION
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::LOCK:
+  description: No Description.
+  fields:
+  - name: LOCKKEY
+    description: Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::LOCKKEY
+fieldset/regs::STATUS:
+  description: No Description.
+  fields:
+  - name: RDY
+    description: LFXO Ready Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: ENS
+    description: LFXO Enable Status.
+    bit_offset: 16
+    bit_size: 1
+  - name: LOCK
+    description: LFXO Locked Status.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::SYNCBUSY:
+  description: No Description.
+  fields:
+  - name: CAL
+    description: LFXO Synchronization status.
+    bit_offset: 0
+    bit_size: 1
+enum/vals::LOCK:
+  bit_size: 1
+  variants:
+  - name: UNLOCKED
+    description: LFXO lockable registers are not locked.
+    value: 0
+  - name: LOCKED
+    description: LFXO lockable registers are locked.
+    value: 1
+enum/vals::LOCKKEY:
+  bit_size: 16
+  variants:
+  - name: UNLOCK
+    description: Unlock LFXO lockable registers.
+    value: 6688
+enum/vals::MODE:
+  bit_size: 2
+  variants:
+  - name: XTAL
+    description: A 32768Hz crystal should be connected to the LF crystal pads. Voltage must not exceed VDDIO.
+    value: 0
+  - name: BUFEXTCLK
+    description: An external sine source with minimum amplitude 100mv (zero-to-peak) and maximum amplitude 500mV (zero-to-peak) should be connected in series with LFXTAL_I pin. Minimum voltage should be larger than ground and maximum voltage smaller than VDDIO. The sine source does not need to be ac coupled externally as it is ac couples inside LFXO. LFXTAL_O is free to be used as a general purpose GPIO.
+    value: 1
+  - name: DIGEXTCLK
+    description: An external 32KHz CMOS clock should be provided on LFXTAL_I. LFXTAL_O is free to be used as a general purpose GPIO.
+    value: 2
+enum/vals::TIMEOUT:
+  bit_size: 3
+  variants:
+  - name: CYCLES2
+    description: Timeout period of 2 cycles.
+    value: 0
+  - name: CYCLES256
+    description: Timeout period of 256 cycles.
+    value: 1
+  - name: CYCLES1K
+    description: Timeout period of 1024 cycles.
+    value: 2
+  - name: CYCLES2K
+    description: Timeout period of 2048 cycles.
+    value: 3
+  - name: CYCLES4K
+    description: Timeout period of 4096 cycles.
+    value: 4
+  - name: CYCLES8K
+    description: Timeout period of 8192 cycles.
+    value: 5
+  - name: CYCLES16K
+    description: Timeout period of 16384 cycles.
+    value: 6
+  - name: CYCLES32K
+    description: Timeout period of 32768 cycles.
+    value: 7

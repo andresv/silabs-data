@@ -1,0 +1,286 @@
+block/BURTC:
+  description: BURTC peripheral.
+  items:
+  - name: IPVERSION
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: EN
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::EN
+  - name: CFG
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::CFG
+  - name: CMD
+    description: No Description.
+    byte_offset: 12
+    access: Write
+    fieldset: regs::CMD
+  - name: STATUS
+    description: No Description.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::STATUS
+  - name: IF
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::IF
+  - name: IEN
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::IEN
+  - name: PRECNT
+    description: No Description.
+    byte_offset: 28
+    fieldset: regs::PRECNT
+  - name: CNT
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::CNT
+  - name: EM4WUEN
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::EM4WUEN
+  - name: SYNCBUSY
+    description: No Description.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::SYNCBUSY
+  - name: LOCK
+    description: No Description.
+    byte_offset: 44
+    access: Write
+    fieldset: regs::LOCK
+  - name: COMP
+    description: No Description.
+    byte_offset: 48
+    fieldset: regs::COMP
+fieldset/regs::CFG:
+  description: No Description.
+  fields:
+  - name: DEBUGRUN
+    description: Debug Mode Run Enable.
+    bit_offset: 0
+    bit_size: 1
+    enum: vals::DEBUGRUN
+  - name: COMPTOP
+    description: Compare Channel is Top Value.
+    bit_offset: 1
+    bit_size: 1
+  - name: CNTPRESC
+    description: Counter prescaler value.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::CNTPRESC
+fieldset/regs::CMD:
+  description: No Description.
+  fields:
+  - name: START
+    description: Start BURTC counter.
+    bit_offset: 0
+    bit_size: 1
+  - name: STOP
+    description: Stop BURTC counter.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::CNT:
+  description: No Description.
+  fields:
+  - name: CNT
+    description: Counter Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::COMP:
+  description: No Description.
+  fields:
+  - name: COMP
+    description: Compare Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::EM4WUEN:
+  description: No Description.
+  fields:
+  - name: OFEM4WUEN
+    description: Overflow EM4 Wakeup Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: COMPEM4WUEN
+    description: Compare Match EM4 Wakeup Enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::EN:
+  description: No Description.
+  fields:
+  - name: EN
+    description: BURTC Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: DISABLING
+    description: Disablement busy status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::IEN:
+  description: No Description.
+  fields:
+  - name: OF
+    description: Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: COMP
+    description: Compare Match Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::IF:
+  description: No Description.
+  fields:
+  - name: OF
+    description: Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: COMP
+    description: Compare Match Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::IPVERSION:
+  description: No Description.
+  fields:
+  - name: IPVERSION
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::LOCK:
+  description: No Description.
+  fields:
+  - name: LOCKKEY
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::LOCKKEY
+fieldset/regs::PRECNT:
+  description: No Description.
+  fields:
+  - name: PRECNT
+    description: Pre-Counter Value.
+    bit_offset: 0
+    bit_size: 15
+fieldset/regs::STATUS:
+  description: No Description.
+  fields:
+  - name: RUNNING
+    description: BURTC running status.
+    bit_offset: 0
+    bit_size: 1
+  - name: LOCK
+    description: Configuration Lock Status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::SYNCBUSY:
+  description: No Description.
+  fields:
+  - name: START
+    description: Sync busy for START.
+    bit_offset: 0
+    bit_size: 1
+  - name: STOP
+    description: Sync busy for STOP.
+    bit_offset: 1
+    bit_size: 1
+  - name: PRECNT
+    description: Sync busy for PRECNT.
+    bit_offset: 2
+    bit_size: 1
+  - name: CNT
+    description: Sync busy for CNT.
+    bit_offset: 3
+    bit_size: 1
+  - name: COMP
+    description: Sync busy for COMP.
+    bit_offset: 4
+    bit_size: 1
+enum/vals::CNTPRESC:
+  bit_size: 4
+  variants:
+  - name: DIV1
+    description: CLK_CNT = (BURTC LF CLK)/1.
+    value: 0
+  - name: DIV2
+    description: CLK_CNT = (BURTC LF CLK)/2.
+    value: 1
+  - name: DIV4
+    description: CLK_CNT = (BURTC LF CLK)/4.
+    value: 2
+  - name: DIV8
+    description: CLK_CNT = (BURTC LF CLK)/8.
+    value: 3
+  - name: DIV16
+    description: CLK_CNT = (BURTC LF CLK)/16.
+    value: 4
+  - name: DIV32
+    description: CLK_CNT = (BURTC LF CLK)/32.
+    value: 5
+  - name: DIV64
+    description: CLK_CNT = (BURTC LF CLK)/64.
+    value: 6
+  - name: DIV128
+    description: CLK_CNT = (BURTC LF CLK)/128.
+    value: 7
+  - name: DIV256
+    description: CLK_CNT = (BURTC LF CLK)/256.
+    value: 8
+  - name: DIV512
+    description: CLK_CNT = (BURTC LF CLK)/512.
+    value: 9
+  - name: DIV1024
+    description: CLK_CNT = (BURTC LF CLK)/1024.
+    value: 10
+  - name: DIV2048
+    description: CLK_CNT = (BURTC LF CLK)/2048.
+    value: 11
+  - name: DIV4096
+    description: CLK_CNT = (BURTC LF CLK)/4096.
+    value: 12
+  - name: DIV8192
+    description: CLK_CNT = (BURTC LF CLK)/8192.
+    value: 13
+  - name: DIV16384
+    description: CLK_CNT = (BURTC LF CLK)/16384.
+    value: 14
+  - name: DIV32768
+    description: CLK_CNT = (BURTC LF CLK)/32768.
+    value: 15
+enum/vals::COMPTOP:
+  bit_size: 1
+  variants:
+  - name: DISABLE
+    description: The top value of the BURTC is 4294967295 (0xFFFFFFFF).
+    value: 0
+  - name: ENABLE
+    description: The top value of the BURTC is given by COMP.
+    value: 1
+enum/vals::DEBUGRUN:
+  bit_size: 1
+  variants:
+  - name: X0
+    description: BURTC is frozen in debug mode.
+    value: 0
+  - name: X1
+    description: BURTC is running in debug mode.
+    value: 1
+enum/vals::LOCK:
+  bit_size: 1
+  variants:
+  - name: UNLOCKED
+    description: All BURTC lockable registers are unlocked.
+    value: 0
+  - name: LOCKED
+    description: All BURTC lockable registers are locked.
+    value: 1
+enum/vals::LOCKKEY:
+  bit_size: 16
+  variants:
+  - name: UNLOCK
+    description: Write to unlock all BURTC lockable registers.
+    value: 44776

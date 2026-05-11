@@ -1,0 +1,50 @@
+block/LCDRF:
+  description: LCDRF peripheral.
+  items:
+  - name: RFIMLCDCTRL
+    description: No Description.
+    byte_offset: 0
+    fieldset: regs::RFIMLCDCTRL
+fieldset/regs::RFIMLCDCTRL:
+  description: No Description.
+  fields:
+  - name: LCDCPXOEN
+    description: LCD Charge Pump XO Clock Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: LCDCPXOSEL
+    description: LCD Charge Pump XO Select.
+    bit_offset: 1
+    bit_size: 1
+    enum: vals::LCDCPXOSEL
+  - name: LCDCPXORETIMEEN
+    description: LCD Charge Pump XO Retime Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: LCDLOWNOISE
+    description: LCD Low Noise.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::LCDLOWNOISE
+  - name: LCDCMPDOUT
+    description: LCD Comparator Dout.
+    bit_offset: 4
+    bit_size: 1
+enum/vals::LCDCPXOSEL:
+  bit_size: 1
+  variants:
+  - name: INTRCO
+    description: Internal LCD CP 10Mhz RC oscillator.
+    value: 0
+  - name: HFXODIV
+    description: HFXO divided 4 clock.
+    value: 1
+enum/vals::LCDLOWNOISE:
+  bit_size: 1
+  variants:
+  - name: NORMAL
+    description: Normal operation.
+    value: 0
+  - name: SLOW
+    description: slows down slew rate to reduce RF interference at a cost of additional power consumption.
+    value: 1

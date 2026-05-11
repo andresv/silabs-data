@@ -1,0 +1,5450 @@
+block/MVP:
+  description: MVP peripheral.
+  items:
+  - name: IPVERSION
+    description: IP Version Register.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: EN
+    description: Block Enable Register.
+    byte_offset: 4
+    fieldset: regs::EN
+  - name: SWRST
+    description: Software Reset Register.
+    byte_offset: 8
+    fieldset: regs::SWRST
+  - name: CFG
+    description: Configuration Register.
+    byte_offset: 12
+    fieldset: regs::CFG
+  - name: STATUS
+    description: Status Register.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::STATUS
+  - name: PERF0CNT
+    description: Run Counter.
+    byte_offset: 20
+    access: Read
+    fieldset: regs::PERF0CNT
+  - name: PERF1CNT
+    description: Run Counter.
+    byte_offset: 24
+    access: Read
+    fieldset: regs::PERF1CNT
+  - name: IF
+    description: Interrupt Flags.
+    byte_offset: 28
+    fieldset: regs::IF
+  - name: IEN
+    description: Interrupt Enable.
+    byte_offset: 32
+    fieldset: regs::IEN
+  - name: FAULTSTATUS
+    description: Fault Status Register.
+    byte_offset: 36
+    access: Read
+    fieldset: regs::FAULTSTATUS
+  - name: FAULTADDR
+    description: Fault Address Register.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::FAULTADDR
+  - name: PROGRAMSTATE
+    description: Program State Register.
+    byte_offset: 44
+    fieldset: regs::PROGRAMSTATE
+  - name: ARRAY0INDEXSTATE
+    description: Array N Index State Register.
+    byte_offset: 48
+    fieldset: regs::ARRAY0INDEXSTATE
+  - name: ARRAY1INDEXSTATE
+    description: Array N Index State Register.
+    byte_offset: 52
+    fieldset: regs::ARRAY1INDEXSTATE
+  - name: ARRAY2INDEXSTATE
+    description: Array N Index State Register.
+    byte_offset: 56
+    fieldset: regs::ARRAY2INDEXSTATE
+  - name: ARRAY3INDEXSTATE
+    description: Array N Index State Register.
+    byte_offset: 60
+    fieldset: regs::ARRAY3INDEXSTATE
+  - name: ARRAY4INDEXSTATE
+    description: Array N Index State Register.
+    byte_offset: 64
+    fieldset: regs::ARRAY4INDEXSTATE
+  - name: LOOP0STATE
+    description: Loop N State Register.
+    byte_offset: 68
+    fieldset: regs::LOOP0STATE
+  - name: LOOP1STATE
+    description: Loop N State Register.
+    byte_offset: 72
+    fieldset: regs::LOOP1STATE
+  - name: LOOP2STATE
+    description: Loop N State Register.
+    byte_offset: 76
+    fieldset: regs::LOOP2STATE
+  - name: LOOP3STATE
+    description: Loop N State Register.
+    byte_offset: 80
+    fieldset: regs::LOOP3STATE
+  - name: LOOP4STATE
+    description: Loop N State Register.
+    byte_offset: 84
+    fieldset: regs::LOOP4STATE
+  - name: LOOP5STATE
+    description: Loop N State Register.
+    byte_offset: 88
+    fieldset: regs::LOOP5STATE
+  - name: LOOP6STATE
+    description: Loop N State Register.
+    byte_offset: 92
+    fieldset: regs::LOOP6STATE
+  - name: LOOP7STATE
+    description: Loop N State Register.
+    byte_offset: 96
+    fieldset: regs::LOOP7STATE
+  - name: ALU0REGSTATE
+    description: ALU Register.
+    byte_offset: 100
+    fieldset: regs::ALU0REGSTATE
+  - name: ALU1REGSTATE
+    description: ALU Register.
+    byte_offset: 104
+    fieldset: regs::ALU1REGSTATE
+  - name: ALU2REGSTATE
+    description: ALU Register.
+    byte_offset: 108
+    fieldset: regs::ALU2REGSTATE
+  - name: ALU3REGSTATE
+    description: ALU Register.
+    byte_offset: 112
+    fieldset: regs::ALU3REGSTATE
+  - name: ALU4REGSTATE
+    description: ALU Register.
+    byte_offset: 116
+    fieldset: regs::ALU4REGSTATE
+  - name: ALU5REGSTATE
+    description: ALU Register.
+    byte_offset: 120
+    fieldset: regs::ALU5REGSTATE
+  - name: ALU6REGSTATE
+    description: ALU Register.
+    byte_offset: 124
+    fieldset: regs::ALU6REGSTATE
+  - name: ALU7REGSTATE
+    description: ALU Register.
+    byte_offset: 128
+    fieldset: regs::ALU7REGSTATE
+  - name: ARRAY0ADDRCFG
+    description: Array N Base Address Register.
+    byte_offset: 132
+    fieldset: regs::ARRAY0ADDRCFG
+  - name: ARRAY0DIM0CFG
+    description: Array N Dimenion 0 Configuration.
+    byte_offset: 136
+    fieldset: regs::ARRAY0DIM0CFG
+  - name: ARRAY0DIM1CFG
+    description: Array N Dimenion 1 Configuration.
+    byte_offset: 140
+    fieldset: regs::ARRAY0DIM1CFG
+  - name: ARRAY0DIM2CFG
+    description: Array N Dimenion 2 Configuration.
+    byte_offset: 144
+    fieldset: regs::ARRAY0DIM2CFG
+  - name: ARRAY1ADDRCFG
+    description: Array N Base Address Register.
+    byte_offset: 148
+    fieldset: regs::ARRAY1ADDRCFG
+  - name: ARRAY1DIM0CFG
+    description: Array N Dimenion 0 Configuration.
+    byte_offset: 152
+    fieldset: regs::ARRAY1DIM0CFG
+  - name: ARRAY1DIM1CFG
+    description: Array N Dimenion 1 Configuration.
+    byte_offset: 156
+    fieldset: regs::ARRAY1DIM1CFG
+  - name: ARRAY1DIM2CFG
+    description: Array N Dimenion 2 Configuration.
+    byte_offset: 160
+    fieldset: regs::ARRAY1DIM2CFG
+  - name: ARRAY2ADDRCFG
+    description: Array N Base Address Register.
+    byte_offset: 164
+    fieldset: regs::ARRAY2ADDRCFG
+  - name: ARRAY2DIM0CFG
+    description: Array N Dimenion 0 Configuration.
+    byte_offset: 168
+    fieldset: regs::ARRAY2DIM0CFG
+  - name: ARRAY2DIM1CFG
+    description: Array N Dimenion 1 Configuration.
+    byte_offset: 172
+    fieldset: regs::ARRAY2DIM1CFG
+  - name: ARRAY2DIM2CFG
+    description: Array N Dimenion 2 Configuration.
+    byte_offset: 176
+    fieldset: regs::ARRAY2DIM2CFG
+  - name: ARRAY3ADDRCFG
+    description: Array N Base Address Register.
+    byte_offset: 180
+    fieldset: regs::ARRAY3ADDRCFG
+  - name: ARRAY3DIM0CFG
+    description: Array N Dimenion 0 Configuration.
+    byte_offset: 184
+    fieldset: regs::ARRAY3DIM0CFG
+  - name: ARRAY3DIM1CFG
+    description: Array N Dimenion 1 Configuration.
+    byte_offset: 188
+    fieldset: regs::ARRAY3DIM1CFG
+  - name: ARRAY3DIM2CFG
+    description: Array N Dimenion 2 Configuration.
+    byte_offset: 192
+    fieldset: regs::ARRAY3DIM2CFG
+  - name: ARRAY4ADDRCFG
+    description: Array N Base Address Register.
+    byte_offset: 196
+    fieldset: regs::ARRAY4ADDRCFG
+  - name: ARRAY4DIM0CFG
+    description: Array N Dimenion 0 Configuration.
+    byte_offset: 200
+    fieldset: regs::ARRAY4DIM0CFG
+  - name: ARRAY4DIM1CFG
+    description: Array N Dimenion 1 Configuration.
+    byte_offset: 204
+    fieldset: regs::ARRAY4DIM1CFG
+  - name: ARRAY4DIM2CFG
+    description: Array N Dimenion 2 Configuration.
+    byte_offset: 208
+    fieldset: regs::ARRAY4DIM2CFG
+  - name: LOOP0CFG
+    description: Loop N Configuration Register.
+    byte_offset: 212
+    fieldset: regs::LOOP0CFG
+  - name: LOOP0RST
+    description: Loop N Reset Configuration Register.
+    byte_offset: 216
+    fieldset: regs::LOOP0RST
+  - name: LOOP1CFG
+    description: Loop N Configuration Register.
+    byte_offset: 220
+    fieldset: regs::LOOP1CFG
+  - name: LOOP1RST
+    description: Loop N Reset Configuration Register.
+    byte_offset: 224
+    fieldset: regs::LOOP1RST
+  - name: LOOP2CFG
+    description: Loop N Configuration Register.
+    byte_offset: 228
+    fieldset: regs::LOOP2CFG
+  - name: LOOP2RST
+    description: Loop N Reset Configuration Register.
+    byte_offset: 232
+    fieldset: regs::LOOP2RST
+  - name: LOOP3CFG
+    description: Loop N Configuration Register.
+    byte_offset: 236
+    fieldset: regs::LOOP3CFG
+  - name: LOOP3RST
+    description: Loop N Reset Configuration Register.
+    byte_offset: 240
+    fieldset: regs::LOOP3RST
+  - name: LOOP4CFG
+    description: Loop N Configuration Register.
+    byte_offset: 244
+    fieldset: regs::LOOP4CFG
+  - name: LOOP4RST
+    description: Loop N Reset Configuration Register.
+    byte_offset: 248
+    fieldset: regs::LOOP4RST
+  - name: LOOP5CFG
+    description: Loop N Configuration Register.
+    byte_offset: 252
+    fieldset: regs::LOOP5CFG
+  - name: LOOP5RST
+    description: Loop N Reset Configuration Register.
+    byte_offset: 256
+    fieldset: regs::LOOP5RST
+  - name: LOOP6CFG
+    description: Loop N Configuration Register.
+    byte_offset: 260
+    fieldset: regs::LOOP6CFG
+  - name: LOOP6RST
+    description: Loop N Reset Configuration Register.
+    byte_offset: 264
+    fieldset: regs::LOOP6RST
+  - name: LOOP7CFG
+    description: Loop N Configuration Register.
+    byte_offset: 268
+    fieldset: regs::LOOP7CFG
+  - name: LOOP7RST
+    description: Loop N Reset Configuration Register.
+    byte_offset: 272
+    fieldset: regs::LOOP7RST
+  - name: INSTR0CFG0
+    description: Instruction N Word 0.
+    byte_offset: 276
+    fieldset: regs::INSTR0CFG0
+  - name: INSTR0CFG1
+    description: Instruction N word 1.
+    byte_offset: 280
+    fieldset: regs::INSTR0CFG1
+  - name: INSTR0CFG2
+    description: Instruction N word 2.
+    byte_offset: 284
+    fieldset: regs::INSTR0CFG2
+  - name: INSTR1CFG0
+    description: Instruction N Word 0.
+    byte_offset: 288
+    fieldset: regs::INSTR1CFG0
+  - name: INSTR1CFG1
+    description: Instruction N word 1.
+    byte_offset: 292
+    fieldset: regs::INSTR1CFG1
+  - name: INSTR1CFG2
+    description: Instruction N word 2.
+    byte_offset: 296
+    fieldset: regs::INSTR1CFG2
+  - name: INSTR2CFG0
+    description: Instruction N Word 0.
+    byte_offset: 300
+    fieldset: regs::INSTR2CFG0
+  - name: INSTR2CFG1
+    description: Instruction N word 1.
+    byte_offset: 304
+    fieldset: regs::INSTR2CFG1
+  - name: INSTR2CFG2
+    description: Instruction N word 2.
+    byte_offset: 308
+    fieldset: regs::INSTR2CFG2
+  - name: INSTR3CFG0
+    description: Instruction N Word 0.
+    byte_offset: 312
+    fieldset: regs::INSTR3CFG0
+  - name: INSTR3CFG1
+    description: Instruction N word 1.
+    byte_offset: 316
+    fieldset: regs::INSTR3CFG1
+  - name: INSTR3CFG2
+    description: Instruction N word 2.
+    byte_offset: 320
+    fieldset: regs::INSTR3CFG2
+  - name: INSTR4CFG0
+    description: Instruction N Word 0.
+    byte_offset: 324
+    fieldset: regs::INSTR4CFG0
+  - name: INSTR4CFG1
+    description: Instruction N word 1.
+    byte_offset: 328
+    fieldset: regs::INSTR4CFG1
+  - name: INSTR4CFG2
+    description: Instruction N word 2.
+    byte_offset: 332
+    fieldset: regs::INSTR4CFG2
+  - name: INSTR5CFG0
+    description: Instruction N Word 0.
+    byte_offset: 336
+    fieldset: regs::INSTR5CFG0
+  - name: INSTR5CFG1
+    description: Instruction N word 1.
+    byte_offset: 340
+    fieldset: regs::INSTR5CFG1
+  - name: INSTR5CFG2
+    description: Instruction N word 2.
+    byte_offset: 344
+    fieldset: regs::INSTR5CFG2
+  - name: INSTR6CFG0
+    description: Instruction N Word 0.
+    byte_offset: 348
+    fieldset: regs::INSTR6CFG0
+  - name: INSTR6CFG1
+    description: Instruction N word 1.
+    byte_offset: 352
+    fieldset: regs::INSTR6CFG1
+  - name: INSTR6CFG2
+    description: Instruction N word 2.
+    byte_offset: 356
+    fieldset: regs::INSTR6CFG2
+  - name: INSTR7CFG0
+    description: Instruction N Word 0.
+    byte_offset: 360
+    fieldset: regs::INSTR7CFG0
+  - name: INSTR7CFG1
+    description: Instruction N word 1.
+    byte_offset: 364
+    fieldset: regs::INSTR7CFG1
+  - name: INSTR7CFG2
+    description: Instruction N word 2.
+    byte_offset: 368
+    fieldset: regs::INSTR7CFG2
+  - name: CMD
+    description: Command Register.
+    byte_offset: 372
+    access: Write
+    fieldset: regs::CMD
+  - name: DEBUGEN
+    description: Debug Control Register.
+    byte_offset: 512
+    fieldset: regs::DEBUGEN
+  - name: DEBUGSTEPCNT
+    description: No Description.
+    byte_offset: 516
+    fieldset: regs::DEBUGSTEPCNT
+fieldset/regs::ALU0REGSTATE:
+  description: ALU Register.
+  fields:
+  - name: FREAL
+    description: Float Real Value.
+    bit_offset: 0
+    bit_size: 16
+  - name: FIMAG
+    description: Float Imaginary Value.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::ALU1REGSTATE:
+  description: ALU Register.
+  fields:
+  - name: FREAL
+    description: Float Real Value.
+    bit_offset: 0
+    bit_size: 16
+  - name: FIMAG
+    description: Float Imaginary Value.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::ALU2REGSTATE:
+  description: ALU Register.
+  fields:
+  - name: FREAL
+    description: Float Real Value.
+    bit_offset: 0
+    bit_size: 16
+  - name: FIMAG
+    description: Float Imaginary Value.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::ALU3REGSTATE:
+  description: ALU Register.
+  fields:
+  - name: FREAL
+    description: Float Real Value.
+    bit_offset: 0
+    bit_size: 16
+  - name: FIMAG
+    description: Float Imaginary Value.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::ALU4REGSTATE:
+  description: ALU Register.
+  fields:
+  - name: FREAL
+    description: Float Real Value.
+    bit_offset: 0
+    bit_size: 16
+  - name: FIMAG
+    description: Float Imaginary Value.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::ALU5REGSTATE:
+  description: ALU Register.
+  fields:
+  - name: FREAL
+    description: Float Real Value.
+    bit_offset: 0
+    bit_size: 16
+  - name: FIMAG
+    description: Float Imaginary Value.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::ALU6REGSTATE:
+  description: ALU Register.
+  fields:
+  - name: FREAL
+    description: Float Real Value.
+    bit_offset: 0
+    bit_size: 16
+  - name: FIMAG
+    description: Float Imaginary Value.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::ALU7REGSTATE:
+  description: ALU Register.
+  fields:
+  - name: FREAL
+    description: Float Real Value.
+    bit_offset: 0
+    bit_size: 16
+  - name: FIMAG
+    description: Float Imaginary Value.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::ARRAY0ADDRCFG:
+  description: Array N Base Address Register.
+  fields:
+  - name: BASE
+    description: Array Base Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::ARRAY0DIM0CFG:
+  description: Array N Dimenion 0 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: BASETYPE
+    description: Element Type.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::ARRAY0DIM0CFG_BASETYPE
+  - name: COMPLEX
+    description: Complex Data Type.
+    bit_offset: 14
+    bit_size: 1
+    enum: vals::ARRAY0DIM0CFG_COMPLEX
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY0DIM1CFG:
+  description: Array N Dimenion 1 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY0DIM2CFG:
+  description: Array N Dimenion 2 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY0INDEXSTATE:
+  description: Array N Index State Register.
+  fields:
+  - name: DIM0INDEX
+    description: Current Index.
+    bit_offset: 0
+    bit_size: 10
+  - name: DIM1INDEX
+    description: Current Index.
+    bit_offset: 10
+    bit_size: 10
+  - name: DIM2INDEX
+    description: Current Index.
+    bit_offset: 20
+    bit_size: 10
+fieldset/regs::ARRAY1ADDRCFG:
+  description: Array N Base Address Register.
+  fields:
+  - name: BASE
+    description: Array Base Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::ARRAY1DIM0CFG:
+  description: Array N Dimenion 0 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: BASETYPE
+    description: Element Type.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::ARRAY1DIM0CFG_BASETYPE
+  - name: COMPLEX
+    description: Complex Data Type.
+    bit_offset: 14
+    bit_size: 1
+    enum: vals::ARRAY1DIM0CFG_COMPLEX
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY1DIM1CFG:
+  description: Array N Dimenion 1 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY1DIM2CFG:
+  description: Array N Dimenion 2 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY1INDEXSTATE:
+  description: Array N Index State Register.
+  fields:
+  - name: DIM0INDEX
+    description: Current Index.
+    bit_offset: 0
+    bit_size: 10
+  - name: DIM1INDEX
+    description: Current Index.
+    bit_offset: 10
+    bit_size: 10
+  - name: DIM2INDEX
+    description: Current Index.
+    bit_offset: 20
+    bit_size: 10
+fieldset/regs::ARRAY2ADDRCFG:
+  description: Array N Base Address Register.
+  fields:
+  - name: BASE
+    description: Array Base Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::ARRAY2DIM0CFG:
+  description: Array N Dimenion 0 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: BASETYPE
+    description: Element Type.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::ARRAY2DIM0CFG_BASETYPE
+  - name: COMPLEX
+    description: Complex Data Type.
+    bit_offset: 14
+    bit_size: 1
+    enum: vals::ARRAY2DIM0CFG_COMPLEX
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY2DIM1CFG:
+  description: Array N Dimenion 1 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY2DIM2CFG:
+  description: Array N Dimenion 2 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY2INDEXSTATE:
+  description: Array N Index State Register.
+  fields:
+  - name: DIM0INDEX
+    description: Current Index.
+    bit_offset: 0
+    bit_size: 10
+  - name: DIM1INDEX
+    description: Current Index.
+    bit_offset: 10
+    bit_size: 10
+  - name: DIM2INDEX
+    description: Current Index.
+    bit_offset: 20
+    bit_size: 10
+fieldset/regs::ARRAY3ADDRCFG:
+  description: Array N Base Address Register.
+  fields:
+  - name: BASE
+    description: Array Base Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::ARRAY3DIM0CFG:
+  description: Array N Dimenion 0 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: BASETYPE
+    description: Element Type.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::ARRAY3DIM0CFG_BASETYPE
+  - name: COMPLEX
+    description: Complex Data Type.
+    bit_offset: 14
+    bit_size: 1
+    enum: vals::ARRAY3DIM0CFG_COMPLEX
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY3DIM1CFG:
+  description: Array N Dimenion 1 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY3DIM2CFG:
+  description: Array N Dimenion 2 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY3INDEXSTATE:
+  description: Array N Index State Register.
+  fields:
+  - name: DIM0INDEX
+    description: Current Index.
+    bit_offset: 0
+    bit_size: 10
+  - name: DIM1INDEX
+    description: Current Index.
+    bit_offset: 10
+    bit_size: 10
+  - name: DIM2INDEX
+    description: Current Index.
+    bit_offset: 20
+    bit_size: 10
+fieldset/regs::ARRAY4ADDRCFG:
+  description: Array N Base Address Register.
+  fields:
+  - name: BASE
+    description: Array Base Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::ARRAY4DIM0CFG:
+  description: Array N Dimenion 0 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: BASETYPE
+    description: Element Type.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::ARRAY4DIM0CFG_BASETYPE
+  - name: COMPLEX
+    description: Complex Data Type.
+    bit_offset: 14
+    bit_size: 1
+    enum: vals::ARRAY4DIM0CFG_COMPLEX
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY4DIM1CFG:
+  description: Array N Dimenion 1 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY4DIM2CFG:
+  description: Array N Dimenion 2 Configuration.
+  fields:
+  - name: SIZE
+    description: Array Dimension Size.
+    bit_offset: 0
+    bit_size: 10
+  - name: STRIDE
+    description: Dimension Stride Step.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::ARRAY4INDEXSTATE:
+  description: Array N Index State Register.
+  fields:
+  - name: DIM0INDEX
+    description: Current Index.
+    bit_offset: 0
+    bit_size: 10
+  - name: DIM1INDEX
+    description: Current Index.
+    bit_offset: 10
+    bit_size: 10
+  - name: DIM2INDEX
+    description: Current Index.
+    bit_offset: 20
+    bit_size: 10
+fieldset/regs::CFG:
+  description: Configuration Register.
+  fields:
+  - name: PERFCNTEN
+    description: Performance Counter Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: OUTCOMPRESSDIS
+    description: ALU Output Stream Compression Disable.
+    bit_offset: 1
+    bit_size: 1
+  - name: INCACHEDIS
+    description: ALU Input Word Cache Disable.
+    bit_offset: 2
+    bit_size: 1
+  - name: LOOPERRHALTDIS
+    description: Loop Error Halt Disable.
+    bit_offset: 3
+    bit_size: 1
+  - name: INFENCEDIS
+    description: Fence Disable.
+    bit_offset: 4
+    bit_size: 2
+  - name: PERF0CNTSEL
+    description: Performance Counter Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::PERF0CNTSEL
+  - name: PERF1CNTSEL
+    description: Performance Counter Select.
+    bit_offset: 20
+    bit_size: 4
+    enum: vals::PERF1CNTSEL
+fieldset/regs::CMD:
+  description: Command Register.
+  fields:
+  - name: START
+    description: Start Command.
+    bit_offset: 0
+    bit_size: 1
+  - name: HALT
+    description: Halt Command.
+    bit_offset: 1
+    bit_size: 1
+  - name: STEP
+    description: Step Command.
+    bit_offset: 2
+    bit_size: 1
+  - name: INIT
+    description: Initialization Command/Qualifier.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::DEBUGEN:
+  description: Debug Control Register.
+  fields:
+  - name: BKPTLOOP0DONE
+    description: Enable Breakpoint on Loop Done.
+    bit_offset: 1
+    bit_size: 1
+  - name: BKPTLOOP1DONE
+    description: Enable Breakpoint on Loop Done.
+    bit_offset: 2
+    bit_size: 1
+  - name: BKPTLOOP2DONE
+    description: Enable Breakpoint on Loop Done.
+    bit_offset: 3
+    bit_size: 1
+  - name: BKPTLOOP3DONE
+    description: Enable Breakpoint on Loop Done.
+    bit_offset: 4
+    bit_size: 1
+  - name: BKPTLOOP4DONE
+    description: Enable Breakpoint on Loop Done.
+    bit_offset: 5
+    bit_size: 1
+  - name: BKPTLOOP5DONE
+    description: Enable Breakpoint on Loop Done.
+    bit_offset: 6
+    bit_size: 1
+  - name: BKPTLOOP6DONE
+    description: Enable Breakpoint on Loop Done.
+    bit_offset: 7
+    bit_size: 1
+  - name: BKPTLOOP7DONE
+    description: Enable Breakpoint on Loop Done.
+    bit_offset: 8
+    bit_size: 1
+  - name: BKPTALUNAN
+    description: Enable Breakpoint on ALUNAN.
+    bit_offset: 10
+    bit_size: 1
+  - name: BKPTR0POSREAL
+    description: Enable Breakpoint on R0POSREAL.
+    bit_offset: 11
+    bit_size: 1
+  - name: BKPTALUOF
+    description: Enable Breakpoint on ALUOF.
+    bit_offset: 12
+    bit_size: 1
+  - name: BKPTALUUF
+    description: Enable Breakpoint on ALUUF.
+    bit_offset: 13
+    bit_size: 1
+  - name: BKPTSTORECONVERTOF
+    description: Enable Breakpoint on STORECONVERTOF.
+    bit_offset: 14
+    bit_size: 1
+  - name: BKPTSTORECONVERTUF
+    description: Enable Breakpoint on STORECONVERTUF.
+    bit_offset: 15
+    bit_size: 1
+  - name: BKPTSTORECONVERTINF
+    description: Enable Breakpoint on STORECONVERTINF.
+    bit_offset: 16
+    bit_size: 1
+  - name: BKPTSTORECONVERTNAN
+    description: Enable Breakpoint on STORECONVERTNAN.
+    bit_offset: 17
+    bit_size: 1
+  - name: DEBUGSTEPCNTEN
+    description: Debug Step Count Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: DEBUGBKPTALLEN
+    description: Trigger Breakpoint when ALL conditions match.
+    bit_offset: 29
+    bit_size: 1
+  - name: DEBUGBKPTANYEN
+    description: Enable Breakpoint when ANY conditions match.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::DEBUGSTEPCNT:
+  description: No Description.
+  fields:
+  - name: DEBUGSTEPCNT
+    description: Debug Step Counter.
+    bit_offset: 0
+    bit_size: 24
+fieldset/regs::EN:
+  description: Block Enable Register.
+  fields:
+  - name: EN
+    description: Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: DISABLING
+    description: Disablement Busy Status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::FAULTADDR:
+  description: Fault Address Register.
+  fields:
+  - name: FAULTADDR
+    description: Bus Fault Address Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::FAULTSTATUS:
+  description: Fault Status Register.
+  fields:
+  - name: FAULTPC
+    description: PC when fault occurred.
+    bit_offset: 0
+    bit_size: 3
+  - name: FAULTARRAY
+    description: Array access that generated a fault.
+    bit_offset: 8
+    bit_size: 3
+  - name: FAULTBUS
+    description: Bus where fault occurred.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::FAULTBUS
+  - name: FAULTLOOP
+    description: Loop Fault Indicator.
+    bit_offset: 16
+    bit_size: 4
+fieldset/regs::IEN:
+  description: Interrupt Enable.
+  fields:
+  - name: PROGDONE
+    description: Program Done Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: LOOP0DONE
+    description: Loop Done Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: LOOP1DONE
+    description: Loop Done Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: LOOP2DONE
+    description: Loop Done Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: LOOP3DONE
+    description: Loop Done Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: LOOP4DONE
+    description: Loop Done Interrupt Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: LOOP5DONE
+    description: Loop Done Interrupt Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: LOOP6DONE
+    description: Loop Done Interrupt Enable.
+    bit_offset: 7
+    bit_size: 1
+  - name: LOOP7DONE
+    description: Loop Done Interrupt Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: ALUNAN
+    description: Not-a-Number Interrupt Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: R0POSREAL
+    description: R0 Non-Zero Interrupt Enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: ALUOF
+    description: ALU Overflow Interrupt Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: ALUUF
+    description: ALU Underflow Interrupt Enable.
+    bit_offset: 13
+    bit_size: 1
+  - name: STORECONVERTOF
+    description: Store conversion Overflow Interrupt Enable.
+    bit_offset: 14
+    bit_size: 1
+  - name: STORECONVERTUF
+    description: Store Conversion Underflow Interrupt Enable.
+    bit_offset: 15
+    bit_size: 1
+  - name: STORECONVERTINF
+    description: Store Conversion Infinity Interrupt Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: STORECONVERTNAN
+    description: Store Conversion NaN Interrupt Enable.
+    bit_offset: 17
+    bit_size: 1
+  - name: PERFCNT0
+    description: Perf Counter 0 Overflow Interrupt Enable.
+    bit_offset: 18
+    bit_size: 1
+  - name: PERFCNT1
+    description: Perf Counter 1 Overflow Interrupt Enable.
+    bit_offset: 19
+    bit_size: 1
+  - name: LOOPFAULT
+    description: Loop Fault Interrupt Enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: BUSERRFAULT
+    description: Bus Error Fault Interrupt Enable.
+    bit_offset: 25
+    bit_size: 1
+  - name: BUSALIGNFAULT
+    description: Bus Alignment Fault Interrupt Enable.
+    bit_offset: 26
+    bit_size: 1
+  - name: ALUFAULT
+    description: ALU Input Fault Interrupt Enable.
+    bit_offset: 27
+    bit_size: 1
+  - name: ARRAYFAULT
+    description: Array Fault Interrupt Enable.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::IF:
+  description: Interrupt Flags.
+  fields:
+  - name: PROGDONE
+    description: Program Done Interrupt Flags.
+    bit_offset: 0
+    bit_size: 1
+  - name: LOOP0DONE
+    description: Loop Done Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: LOOP1DONE
+    description: Loop Done Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: LOOP2DONE
+    description: Loop Done Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: LOOP3DONE
+    description: Loop Done Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: LOOP4DONE
+    description: Loop Done Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: LOOP5DONE
+    description: Loop Done Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: LOOP6DONE
+    description: Loop Done Interrupt Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: LOOP7DONE
+    description: Loop Done Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: ALUNAN
+    description: Not-a-Number Interrupt Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: R0POSREAL
+    description: R0 non-zero Interrupt Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: ALUOF
+    description: ALU Overflow on result.
+    bit_offset: 12
+    bit_size: 1
+  - name: ALUUF
+    description: ALU Underflow on result.
+    bit_offset: 13
+    bit_size: 1
+  - name: STORECONVERTOF
+    description: Overflow during array store.
+    bit_offset: 14
+    bit_size: 1
+  - name: STORECONVERTUF
+    description: Underflow during array store conversion.
+    bit_offset: 15
+    bit_size: 1
+  - name: STORECONVERTINF
+    description: Infinity encountered during array store conversion.
+    bit_offset: 16
+    bit_size: 1
+  - name: STORECONVERTNAN
+    description: NaN encountered during array store conversion.
+    bit_offset: 17
+    bit_size: 1
+  - name: PERFCNT0
+    description: Run Count Overflow Interrupt Flag.
+    bit_offset: 18
+    bit_size: 1
+  - name: PERFCNT1
+    description: Stall Count Overflow Interrupt Flag.
+    bit_offset: 19
+    bit_size: 1
+  - name: LOOPFAULT
+    description: Loop Fault Interrupt Flag.
+    bit_offset: 24
+    bit_size: 1
+  - name: BUSERRFAULT
+    description: Bus Error Fault Interrupt Flag.
+    bit_offset: 25
+    bit_size: 1
+  - name: BUSALIGNFAULT
+    description: Bus Alignment Fault Interrupt Flag.
+    bit_offset: 26
+    bit_size: 1
+  - name: ALUFAULT
+    description: ALU Fault Interrupt Flag.
+    bit_offset: 27
+    bit_size: 1
+  - name: ARRAYFAULT
+    description: Array Fault Interrupt Flag.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::INSTR0CFG0:
+  description: Instruction N Word 0.
+  fields:
+  - name: ALUIN0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ALUIN0REALZERO
+    description: Real Zero.
+    bit_offset: 4
+    bit_size: 1
+  - name: ALUIN0REALNEGATE
+    description: Real Negate.
+    bit_offset: 5
+    bit_size: 1
+  - name: ALUIN0IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 6
+    bit_size: 1
+  - name: ALUIN0IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 7
+    bit_size: 1
+  - name: ALUIN1REGID
+    description: Register ID.
+    bit_offset: 8
+    bit_size: 3
+  - name: ALUIN1REALZERO
+    description: Real Zero.
+    bit_offset: 12
+    bit_size: 1
+  - name: ALUIN1REALNEGATE
+    description: Real Negate.
+    bit_offset: 13
+    bit_size: 1
+  - name: ALUIN1IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 14
+    bit_size: 1
+  - name: ALUIN1IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUIN2REGID
+    description: Register ID.
+    bit_offset: 16
+    bit_size: 3
+  - name: ALUIN2REALZERO
+    description: Real Zero.
+    bit_offset: 20
+    bit_size: 1
+  - name: ALUIN2REALNEGATE
+    description: Real Negate.
+    bit_offset: 21
+    bit_size: 1
+  - name: ALUIN2IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 22
+    bit_size: 1
+  - name: ALUIN2IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 23
+    bit_size: 1
+  - name: ALUOUTREGID
+    description: Register ID.
+    bit_offset: 28
+    bit_size: 3
+fieldset/regs::INSTR0CFG1:
+  description: Instruction N word 1.
+  fields:
+  - name: ISTREAM0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ISTREAM0LOAD
+    description: Load register.
+    bit_offset: 3
+    bit_size: 1
+  - name: ISTREAM0ARRAYID
+    description: Array ID.
+    bit_offset: 4
+    bit_size: 3
+  - name: ISTREAM0ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 7
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 8
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 9
+    bit_size: 1
+  - name: ISTREAM1REGID
+    description: Register ID.
+    bit_offset: 10
+    bit_size: 3
+  - name: ISTREAM1LOAD
+    description: Load register.
+    bit_offset: 13
+    bit_size: 1
+  - name: ISTREAM1ARRAYID
+    description: Array ID.
+    bit_offset: 14
+    bit_size: 3
+  - name: ISTREAM1ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 17
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 18
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 19
+    bit_size: 1
+  - name: OSTREAMREGID
+    description: Register ID.
+    bit_offset: 20
+    bit_size: 3
+  - name: OSTREAMSTORE
+    description: Store to Register.
+    bit_offset: 23
+    bit_size: 1
+  - name: OSTREAMARRAYID
+    description: Array ID.
+    bit_offset: 24
+    bit_size: 3
+  - name: OSTREAMARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 27
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 28
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::INSTR0CFG2:
+  description: Instruction N word 2.
+  fields:
+  - name: LOOP0BEGIN
+    description: Loop Begin.
+    bit_offset: 0
+    bit_size: 1
+  - name: LOOP0END
+    description: Loop End.
+    bit_offset: 1
+    bit_size: 1
+  - name: LOOP1BEGIN
+    description: Loop Begin.
+    bit_offset: 2
+    bit_size: 1
+  - name: LOOP1END
+    description: Loop End.
+    bit_offset: 3
+    bit_size: 1
+  - name: LOOP2BEGIN
+    description: Loop Begin.
+    bit_offset: 4
+    bit_size: 1
+  - name: LOOP2END
+    description: Loop End.
+    bit_offset: 5
+    bit_size: 1
+  - name: LOOP3BEGIN
+    description: Loop Begin.
+    bit_offset: 6
+    bit_size: 1
+  - name: LOOP3END
+    description: Loop End.
+    bit_offset: 7
+    bit_size: 1
+  - name: LOOP4BEGIN
+    description: Loop Begin.
+    bit_offset: 8
+    bit_size: 1
+  - name: LOOP4END
+    description: Loop End.
+    bit_offset: 9
+    bit_size: 1
+  - name: LOOP5BEGIN
+    description: Loop Begin.
+    bit_offset: 10
+    bit_size: 1
+  - name: LOOP5END
+    description: Loop End.
+    bit_offset: 11
+    bit_size: 1
+  - name: LOOP6BEGIN
+    description: Loop Begin.
+    bit_offset: 12
+    bit_size: 1
+  - name: LOOP6END
+    description: Loop End.
+    bit_offset: 13
+    bit_size: 1
+  - name: LOOP7BEGIN
+    description: Loop Begin.
+    bit_offset: 14
+    bit_size: 1
+  - name: LOOP7END
+    description: Loop End.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUOP
+    description: ALU opcode.
+    bit_offset: 20
+    bit_size: 9
+    enum: vals::INSTR0CFG2_ALUOP
+  - name: ENDPROG
+    description: End of Program.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::INSTR1CFG0:
+  description: Instruction N Word 0.
+  fields:
+  - name: ALUIN0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ALUIN0REALZERO
+    description: Real Zero.
+    bit_offset: 4
+    bit_size: 1
+  - name: ALUIN0REALNEGATE
+    description: Real Negate.
+    bit_offset: 5
+    bit_size: 1
+  - name: ALUIN0IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 6
+    bit_size: 1
+  - name: ALUIN0IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 7
+    bit_size: 1
+  - name: ALUIN1REGID
+    description: Register ID.
+    bit_offset: 8
+    bit_size: 3
+  - name: ALUIN1REALZERO
+    description: Real Zero.
+    bit_offset: 12
+    bit_size: 1
+  - name: ALUIN1REALNEGATE
+    description: Real Negate.
+    bit_offset: 13
+    bit_size: 1
+  - name: ALUIN1IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 14
+    bit_size: 1
+  - name: ALUIN1IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUIN2REGID
+    description: Register ID.
+    bit_offset: 16
+    bit_size: 3
+  - name: ALUIN2REALZERO
+    description: Real Zero.
+    bit_offset: 20
+    bit_size: 1
+  - name: ALUIN2REALNEGATE
+    description: Real Negate.
+    bit_offset: 21
+    bit_size: 1
+  - name: ALUIN2IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 22
+    bit_size: 1
+  - name: ALUIN2IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 23
+    bit_size: 1
+  - name: ALUOUTREGID
+    description: Register ID.
+    bit_offset: 28
+    bit_size: 3
+fieldset/regs::INSTR1CFG1:
+  description: Instruction N word 1.
+  fields:
+  - name: ISTREAM0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ISTREAM0LOAD
+    description: Load register.
+    bit_offset: 3
+    bit_size: 1
+  - name: ISTREAM0ARRAYID
+    description: Array ID.
+    bit_offset: 4
+    bit_size: 3
+  - name: ISTREAM0ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 7
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 8
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 9
+    bit_size: 1
+  - name: ISTREAM1REGID
+    description: Register ID.
+    bit_offset: 10
+    bit_size: 3
+  - name: ISTREAM1LOAD
+    description: Load register.
+    bit_offset: 13
+    bit_size: 1
+  - name: ISTREAM1ARRAYID
+    description: Array ID.
+    bit_offset: 14
+    bit_size: 3
+  - name: ISTREAM1ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 17
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 18
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 19
+    bit_size: 1
+  - name: OSTREAMREGID
+    description: Register ID.
+    bit_offset: 20
+    bit_size: 3
+  - name: OSTREAMSTORE
+    description: Store to Register.
+    bit_offset: 23
+    bit_size: 1
+  - name: OSTREAMARRAYID
+    description: Array ID.
+    bit_offset: 24
+    bit_size: 3
+  - name: OSTREAMARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 27
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 28
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::INSTR1CFG2:
+  description: Instruction N word 2.
+  fields:
+  - name: LOOP0BEGIN
+    description: Loop Begin.
+    bit_offset: 0
+    bit_size: 1
+  - name: LOOP0END
+    description: Loop End.
+    bit_offset: 1
+    bit_size: 1
+  - name: LOOP1BEGIN
+    description: Loop Begin.
+    bit_offset: 2
+    bit_size: 1
+  - name: LOOP1END
+    description: Loop End.
+    bit_offset: 3
+    bit_size: 1
+  - name: LOOP2BEGIN
+    description: Loop Begin.
+    bit_offset: 4
+    bit_size: 1
+  - name: LOOP2END
+    description: Loop End.
+    bit_offset: 5
+    bit_size: 1
+  - name: LOOP3BEGIN
+    description: Loop Begin.
+    bit_offset: 6
+    bit_size: 1
+  - name: LOOP3END
+    description: Loop End.
+    bit_offset: 7
+    bit_size: 1
+  - name: LOOP4BEGIN
+    description: Loop Begin.
+    bit_offset: 8
+    bit_size: 1
+  - name: LOOP4END
+    description: Loop End.
+    bit_offset: 9
+    bit_size: 1
+  - name: LOOP5BEGIN
+    description: Loop Begin.
+    bit_offset: 10
+    bit_size: 1
+  - name: LOOP5END
+    description: Loop End.
+    bit_offset: 11
+    bit_size: 1
+  - name: LOOP6BEGIN
+    description: Loop Begin.
+    bit_offset: 12
+    bit_size: 1
+  - name: LOOP6END
+    description: Loop End.
+    bit_offset: 13
+    bit_size: 1
+  - name: LOOP7BEGIN
+    description: Loop Begin.
+    bit_offset: 14
+    bit_size: 1
+  - name: LOOP7END
+    description: Loop End.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUOP
+    description: ALU opcode.
+    bit_offset: 20
+    bit_size: 9
+    enum: vals::INSTR1CFG2_ALUOP
+  - name: ENDPROG
+    description: End of Program.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::INSTR2CFG0:
+  description: Instruction N Word 0.
+  fields:
+  - name: ALUIN0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ALUIN0REALZERO
+    description: Real Zero.
+    bit_offset: 4
+    bit_size: 1
+  - name: ALUIN0REALNEGATE
+    description: Real Negate.
+    bit_offset: 5
+    bit_size: 1
+  - name: ALUIN0IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 6
+    bit_size: 1
+  - name: ALUIN0IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 7
+    bit_size: 1
+  - name: ALUIN1REGID
+    description: Register ID.
+    bit_offset: 8
+    bit_size: 3
+  - name: ALUIN1REALZERO
+    description: Real Zero.
+    bit_offset: 12
+    bit_size: 1
+  - name: ALUIN1REALNEGATE
+    description: Real Negate.
+    bit_offset: 13
+    bit_size: 1
+  - name: ALUIN1IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 14
+    bit_size: 1
+  - name: ALUIN1IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUIN2REGID
+    description: Register ID.
+    bit_offset: 16
+    bit_size: 3
+  - name: ALUIN2REALZERO
+    description: Real Zero.
+    bit_offset: 20
+    bit_size: 1
+  - name: ALUIN2REALNEGATE
+    description: Real Negate.
+    bit_offset: 21
+    bit_size: 1
+  - name: ALUIN2IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 22
+    bit_size: 1
+  - name: ALUIN2IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 23
+    bit_size: 1
+  - name: ALUOUTREGID
+    description: Register ID.
+    bit_offset: 28
+    bit_size: 3
+fieldset/regs::INSTR2CFG1:
+  description: Instruction N word 1.
+  fields:
+  - name: ISTREAM0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ISTREAM0LOAD
+    description: Load register.
+    bit_offset: 3
+    bit_size: 1
+  - name: ISTREAM0ARRAYID
+    description: Array ID.
+    bit_offset: 4
+    bit_size: 3
+  - name: ISTREAM0ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 7
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 8
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 9
+    bit_size: 1
+  - name: ISTREAM1REGID
+    description: Register ID.
+    bit_offset: 10
+    bit_size: 3
+  - name: ISTREAM1LOAD
+    description: Load register.
+    bit_offset: 13
+    bit_size: 1
+  - name: ISTREAM1ARRAYID
+    description: Array ID.
+    bit_offset: 14
+    bit_size: 3
+  - name: ISTREAM1ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 17
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 18
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 19
+    bit_size: 1
+  - name: OSTREAMREGID
+    description: Register ID.
+    bit_offset: 20
+    bit_size: 3
+  - name: OSTREAMSTORE
+    description: Store to Register.
+    bit_offset: 23
+    bit_size: 1
+  - name: OSTREAMARRAYID
+    description: Array ID.
+    bit_offset: 24
+    bit_size: 3
+  - name: OSTREAMARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 27
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 28
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::INSTR2CFG2:
+  description: Instruction N word 2.
+  fields:
+  - name: LOOP0BEGIN
+    description: Loop Begin.
+    bit_offset: 0
+    bit_size: 1
+  - name: LOOP0END
+    description: Loop End.
+    bit_offset: 1
+    bit_size: 1
+  - name: LOOP1BEGIN
+    description: Loop Begin.
+    bit_offset: 2
+    bit_size: 1
+  - name: LOOP1END
+    description: Loop End.
+    bit_offset: 3
+    bit_size: 1
+  - name: LOOP2BEGIN
+    description: Loop Begin.
+    bit_offset: 4
+    bit_size: 1
+  - name: LOOP2END
+    description: Loop End.
+    bit_offset: 5
+    bit_size: 1
+  - name: LOOP3BEGIN
+    description: Loop Begin.
+    bit_offset: 6
+    bit_size: 1
+  - name: LOOP3END
+    description: Loop End.
+    bit_offset: 7
+    bit_size: 1
+  - name: LOOP4BEGIN
+    description: Loop Begin.
+    bit_offset: 8
+    bit_size: 1
+  - name: LOOP4END
+    description: Loop End.
+    bit_offset: 9
+    bit_size: 1
+  - name: LOOP5BEGIN
+    description: Loop Begin.
+    bit_offset: 10
+    bit_size: 1
+  - name: LOOP5END
+    description: Loop End.
+    bit_offset: 11
+    bit_size: 1
+  - name: LOOP6BEGIN
+    description: Loop Begin.
+    bit_offset: 12
+    bit_size: 1
+  - name: LOOP6END
+    description: Loop End.
+    bit_offset: 13
+    bit_size: 1
+  - name: LOOP7BEGIN
+    description: Loop Begin.
+    bit_offset: 14
+    bit_size: 1
+  - name: LOOP7END
+    description: Loop End.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUOP
+    description: ALU opcode.
+    bit_offset: 20
+    bit_size: 9
+    enum: vals::INSTR2CFG2_ALUOP
+  - name: ENDPROG
+    description: End of Program.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::INSTR3CFG0:
+  description: Instruction N Word 0.
+  fields:
+  - name: ALUIN0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ALUIN0REALZERO
+    description: Real Zero.
+    bit_offset: 4
+    bit_size: 1
+  - name: ALUIN0REALNEGATE
+    description: Real Negate.
+    bit_offset: 5
+    bit_size: 1
+  - name: ALUIN0IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 6
+    bit_size: 1
+  - name: ALUIN0IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 7
+    bit_size: 1
+  - name: ALUIN1REGID
+    description: Register ID.
+    bit_offset: 8
+    bit_size: 3
+  - name: ALUIN1REALZERO
+    description: Real Zero.
+    bit_offset: 12
+    bit_size: 1
+  - name: ALUIN1REALNEGATE
+    description: Real Negate.
+    bit_offset: 13
+    bit_size: 1
+  - name: ALUIN1IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 14
+    bit_size: 1
+  - name: ALUIN1IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUIN2REGID
+    description: Register ID.
+    bit_offset: 16
+    bit_size: 3
+  - name: ALUIN2REALZERO
+    description: Real Zero.
+    bit_offset: 20
+    bit_size: 1
+  - name: ALUIN2REALNEGATE
+    description: Real Negate.
+    bit_offset: 21
+    bit_size: 1
+  - name: ALUIN2IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 22
+    bit_size: 1
+  - name: ALUIN2IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 23
+    bit_size: 1
+  - name: ALUOUTREGID
+    description: Register ID.
+    bit_offset: 28
+    bit_size: 3
+fieldset/regs::INSTR3CFG1:
+  description: Instruction N word 1.
+  fields:
+  - name: ISTREAM0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ISTREAM0LOAD
+    description: Load register.
+    bit_offset: 3
+    bit_size: 1
+  - name: ISTREAM0ARRAYID
+    description: Array ID.
+    bit_offset: 4
+    bit_size: 3
+  - name: ISTREAM0ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 7
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 8
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 9
+    bit_size: 1
+  - name: ISTREAM1REGID
+    description: Register ID.
+    bit_offset: 10
+    bit_size: 3
+  - name: ISTREAM1LOAD
+    description: Load register.
+    bit_offset: 13
+    bit_size: 1
+  - name: ISTREAM1ARRAYID
+    description: Array ID.
+    bit_offset: 14
+    bit_size: 3
+  - name: ISTREAM1ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 17
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 18
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 19
+    bit_size: 1
+  - name: OSTREAMREGID
+    description: Register ID.
+    bit_offset: 20
+    bit_size: 3
+  - name: OSTREAMSTORE
+    description: Store to Register.
+    bit_offset: 23
+    bit_size: 1
+  - name: OSTREAMARRAYID
+    description: Array ID.
+    bit_offset: 24
+    bit_size: 3
+  - name: OSTREAMARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 27
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 28
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::INSTR3CFG2:
+  description: Instruction N word 2.
+  fields:
+  - name: LOOP0BEGIN
+    description: Loop Begin.
+    bit_offset: 0
+    bit_size: 1
+  - name: LOOP0END
+    description: Loop End.
+    bit_offset: 1
+    bit_size: 1
+  - name: LOOP1BEGIN
+    description: Loop Begin.
+    bit_offset: 2
+    bit_size: 1
+  - name: LOOP1END
+    description: Loop End.
+    bit_offset: 3
+    bit_size: 1
+  - name: LOOP2BEGIN
+    description: Loop Begin.
+    bit_offset: 4
+    bit_size: 1
+  - name: LOOP2END
+    description: Loop End.
+    bit_offset: 5
+    bit_size: 1
+  - name: LOOP3BEGIN
+    description: Loop Begin.
+    bit_offset: 6
+    bit_size: 1
+  - name: LOOP3END
+    description: Loop End.
+    bit_offset: 7
+    bit_size: 1
+  - name: LOOP4BEGIN
+    description: Loop Begin.
+    bit_offset: 8
+    bit_size: 1
+  - name: LOOP4END
+    description: Loop End.
+    bit_offset: 9
+    bit_size: 1
+  - name: LOOP5BEGIN
+    description: Loop Begin.
+    bit_offset: 10
+    bit_size: 1
+  - name: LOOP5END
+    description: Loop End.
+    bit_offset: 11
+    bit_size: 1
+  - name: LOOP6BEGIN
+    description: Loop Begin.
+    bit_offset: 12
+    bit_size: 1
+  - name: LOOP6END
+    description: Loop End.
+    bit_offset: 13
+    bit_size: 1
+  - name: LOOP7BEGIN
+    description: Loop Begin.
+    bit_offset: 14
+    bit_size: 1
+  - name: LOOP7END
+    description: Loop End.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUOP
+    description: ALU opcode.
+    bit_offset: 20
+    bit_size: 9
+    enum: vals::INSTR3CFG2_ALUOP
+  - name: ENDPROG
+    description: End of Program.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::INSTR4CFG0:
+  description: Instruction N Word 0.
+  fields:
+  - name: ALUIN0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ALUIN0REALZERO
+    description: Real Zero.
+    bit_offset: 4
+    bit_size: 1
+  - name: ALUIN0REALNEGATE
+    description: Real Negate.
+    bit_offset: 5
+    bit_size: 1
+  - name: ALUIN0IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 6
+    bit_size: 1
+  - name: ALUIN0IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 7
+    bit_size: 1
+  - name: ALUIN1REGID
+    description: Register ID.
+    bit_offset: 8
+    bit_size: 3
+  - name: ALUIN1REALZERO
+    description: Real Zero.
+    bit_offset: 12
+    bit_size: 1
+  - name: ALUIN1REALNEGATE
+    description: Real Negate.
+    bit_offset: 13
+    bit_size: 1
+  - name: ALUIN1IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 14
+    bit_size: 1
+  - name: ALUIN1IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUIN2REGID
+    description: Register ID.
+    bit_offset: 16
+    bit_size: 3
+  - name: ALUIN2REALZERO
+    description: Real Zero.
+    bit_offset: 20
+    bit_size: 1
+  - name: ALUIN2REALNEGATE
+    description: Real Negate.
+    bit_offset: 21
+    bit_size: 1
+  - name: ALUIN2IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 22
+    bit_size: 1
+  - name: ALUIN2IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 23
+    bit_size: 1
+  - name: ALUOUTREGID
+    description: Register ID.
+    bit_offset: 28
+    bit_size: 3
+fieldset/regs::INSTR4CFG1:
+  description: Instruction N word 1.
+  fields:
+  - name: ISTREAM0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ISTREAM0LOAD
+    description: Load register.
+    bit_offset: 3
+    bit_size: 1
+  - name: ISTREAM0ARRAYID
+    description: Array ID.
+    bit_offset: 4
+    bit_size: 3
+  - name: ISTREAM0ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 7
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 8
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 9
+    bit_size: 1
+  - name: ISTREAM1REGID
+    description: Register ID.
+    bit_offset: 10
+    bit_size: 3
+  - name: ISTREAM1LOAD
+    description: Load register.
+    bit_offset: 13
+    bit_size: 1
+  - name: ISTREAM1ARRAYID
+    description: Array ID.
+    bit_offset: 14
+    bit_size: 3
+  - name: ISTREAM1ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 17
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 18
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 19
+    bit_size: 1
+  - name: OSTREAMREGID
+    description: Register ID.
+    bit_offset: 20
+    bit_size: 3
+  - name: OSTREAMSTORE
+    description: Store to Register.
+    bit_offset: 23
+    bit_size: 1
+  - name: OSTREAMARRAYID
+    description: Array ID.
+    bit_offset: 24
+    bit_size: 3
+  - name: OSTREAMARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 27
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 28
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::INSTR4CFG2:
+  description: Instruction N word 2.
+  fields:
+  - name: LOOP0BEGIN
+    description: Loop Begin.
+    bit_offset: 0
+    bit_size: 1
+  - name: LOOP0END
+    description: Loop End.
+    bit_offset: 1
+    bit_size: 1
+  - name: LOOP1BEGIN
+    description: Loop Begin.
+    bit_offset: 2
+    bit_size: 1
+  - name: LOOP1END
+    description: Loop End.
+    bit_offset: 3
+    bit_size: 1
+  - name: LOOP2BEGIN
+    description: Loop Begin.
+    bit_offset: 4
+    bit_size: 1
+  - name: LOOP2END
+    description: Loop End.
+    bit_offset: 5
+    bit_size: 1
+  - name: LOOP3BEGIN
+    description: Loop Begin.
+    bit_offset: 6
+    bit_size: 1
+  - name: LOOP3END
+    description: Loop End.
+    bit_offset: 7
+    bit_size: 1
+  - name: LOOP4BEGIN
+    description: Loop Begin.
+    bit_offset: 8
+    bit_size: 1
+  - name: LOOP4END
+    description: Loop End.
+    bit_offset: 9
+    bit_size: 1
+  - name: LOOP5BEGIN
+    description: Loop Begin.
+    bit_offset: 10
+    bit_size: 1
+  - name: LOOP5END
+    description: Loop End.
+    bit_offset: 11
+    bit_size: 1
+  - name: LOOP6BEGIN
+    description: Loop Begin.
+    bit_offset: 12
+    bit_size: 1
+  - name: LOOP6END
+    description: Loop End.
+    bit_offset: 13
+    bit_size: 1
+  - name: LOOP7BEGIN
+    description: Loop Begin.
+    bit_offset: 14
+    bit_size: 1
+  - name: LOOP7END
+    description: Loop End.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUOP
+    description: ALU opcode.
+    bit_offset: 20
+    bit_size: 9
+    enum: vals::INSTR4CFG2_ALUOP
+  - name: ENDPROG
+    description: End of Program.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::INSTR5CFG0:
+  description: Instruction N Word 0.
+  fields:
+  - name: ALUIN0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ALUIN0REALZERO
+    description: Real Zero.
+    bit_offset: 4
+    bit_size: 1
+  - name: ALUIN0REALNEGATE
+    description: Real Negate.
+    bit_offset: 5
+    bit_size: 1
+  - name: ALUIN0IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 6
+    bit_size: 1
+  - name: ALUIN0IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 7
+    bit_size: 1
+  - name: ALUIN1REGID
+    description: Register ID.
+    bit_offset: 8
+    bit_size: 3
+  - name: ALUIN1REALZERO
+    description: Real Zero.
+    bit_offset: 12
+    bit_size: 1
+  - name: ALUIN1REALNEGATE
+    description: Real Negate.
+    bit_offset: 13
+    bit_size: 1
+  - name: ALUIN1IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 14
+    bit_size: 1
+  - name: ALUIN1IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUIN2REGID
+    description: Register ID.
+    bit_offset: 16
+    bit_size: 3
+  - name: ALUIN2REALZERO
+    description: Real Zero.
+    bit_offset: 20
+    bit_size: 1
+  - name: ALUIN2REALNEGATE
+    description: Real Negate.
+    bit_offset: 21
+    bit_size: 1
+  - name: ALUIN2IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 22
+    bit_size: 1
+  - name: ALUIN2IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 23
+    bit_size: 1
+  - name: ALUOUTREGID
+    description: Register ID.
+    bit_offset: 28
+    bit_size: 3
+fieldset/regs::INSTR5CFG1:
+  description: Instruction N word 1.
+  fields:
+  - name: ISTREAM0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ISTREAM0LOAD
+    description: Load register.
+    bit_offset: 3
+    bit_size: 1
+  - name: ISTREAM0ARRAYID
+    description: Array ID.
+    bit_offset: 4
+    bit_size: 3
+  - name: ISTREAM0ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 7
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 8
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 9
+    bit_size: 1
+  - name: ISTREAM1REGID
+    description: Register ID.
+    bit_offset: 10
+    bit_size: 3
+  - name: ISTREAM1LOAD
+    description: Load register.
+    bit_offset: 13
+    bit_size: 1
+  - name: ISTREAM1ARRAYID
+    description: Array ID.
+    bit_offset: 14
+    bit_size: 3
+  - name: ISTREAM1ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 17
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 18
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 19
+    bit_size: 1
+  - name: OSTREAMREGID
+    description: Register ID.
+    bit_offset: 20
+    bit_size: 3
+  - name: OSTREAMSTORE
+    description: Store to Register.
+    bit_offset: 23
+    bit_size: 1
+  - name: OSTREAMARRAYID
+    description: Array ID.
+    bit_offset: 24
+    bit_size: 3
+  - name: OSTREAMARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 27
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 28
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::INSTR5CFG2:
+  description: Instruction N word 2.
+  fields:
+  - name: LOOP0BEGIN
+    description: Loop Begin.
+    bit_offset: 0
+    bit_size: 1
+  - name: LOOP0END
+    description: Loop End.
+    bit_offset: 1
+    bit_size: 1
+  - name: LOOP1BEGIN
+    description: Loop Begin.
+    bit_offset: 2
+    bit_size: 1
+  - name: LOOP1END
+    description: Loop End.
+    bit_offset: 3
+    bit_size: 1
+  - name: LOOP2BEGIN
+    description: Loop Begin.
+    bit_offset: 4
+    bit_size: 1
+  - name: LOOP2END
+    description: Loop End.
+    bit_offset: 5
+    bit_size: 1
+  - name: LOOP3BEGIN
+    description: Loop Begin.
+    bit_offset: 6
+    bit_size: 1
+  - name: LOOP3END
+    description: Loop End.
+    bit_offset: 7
+    bit_size: 1
+  - name: LOOP4BEGIN
+    description: Loop Begin.
+    bit_offset: 8
+    bit_size: 1
+  - name: LOOP4END
+    description: Loop End.
+    bit_offset: 9
+    bit_size: 1
+  - name: LOOP5BEGIN
+    description: Loop Begin.
+    bit_offset: 10
+    bit_size: 1
+  - name: LOOP5END
+    description: Loop End.
+    bit_offset: 11
+    bit_size: 1
+  - name: LOOP6BEGIN
+    description: Loop Begin.
+    bit_offset: 12
+    bit_size: 1
+  - name: LOOP6END
+    description: Loop End.
+    bit_offset: 13
+    bit_size: 1
+  - name: LOOP7BEGIN
+    description: Loop Begin.
+    bit_offset: 14
+    bit_size: 1
+  - name: LOOP7END
+    description: Loop End.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUOP
+    description: ALU opcode.
+    bit_offset: 20
+    bit_size: 9
+    enum: vals::INSTR5CFG2_ALUOP
+  - name: ENDPROG
+    description: End of Program.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::INSTR6CFG0:
+  description: Instruction N Word 0.
+  fields:
+  - name: ALUIN0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ALUIN0REALZERO
+    description: Real Zero.
+    bit_offset: 4
+    bit_size: 1
+  - name: ALUIN0REALNEGATE
+    description: Real Negate.
+    bit_offset: 5
+    bit_size: 1
+  - name: ALUIN0IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 6
+    bit_size: 1
+  - name: ALUIN0IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 7
+    bit_size: 1
+  - name: ALUIN1REGID
+    description: Register ID.
+    bit_offset: 8
+    bit_size: 3
+  - name: ALUIN1REALZERO
+    description: Real Zero.
+    bit_offset: 12
+    bit_size: 1
+  - name: ALUIN1REALNEGATE
+    description: Real Negate.
+    bit_offset: 13
+    bit_size: 1
+  - name: ALUIN1IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 14
+    bit_size: 1
+  - name: ALUIN1IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUIN2REGID
+    description: Register ID.
+    bit_offset: 16
+    bit_size: 3
+  - name: ALUIN2REALZERO
+    description: Real Zero.
+    bit_offset: 20
+    bit_size: 1
+  - name: ALUIN2REALNEGATE
+    description: Real Negate.
+    bit_offset: 21
+    bit_size: 1
+  - name: ALUIN2IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 22
+    bit_size: 1
+  - name: ALUIN2IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 23
+    bit_size: 1
+  - name: ALUOUTREGID
+    description: Register ID.
+    bit_offset: 28
+    bit_size: 3
+fieldset/regs::INSTR6CFG1:
+  description: Instruction N word 1.
+  fields:
+  - name: ISTREAM0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ISTREAM0LOAD
+    description: Load register.
+    bit_offset: 3
+    bit_size: 1
+  - name: ISTREAM0ARRAYID
+    description: Array ID.
+    bit_offset: 4
+    bit_size: 3
+  - name: ISTREAM0ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 7
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 8
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 9
+    bit_size: 1
+  - name: ISTREAM1REGID
+    description: Register ID.
+    bit_offset: 10
+    bit_size: 3
+  - name: ISTREAM1LOAD
+    description: Load register.
+    bit_offset: 13
+    bit_size: 1
+  - name: ISTREAM1ARRAYID
+    description: Array ID.
+    bit_offset: 14
+    bit_size: 3
+  - name: ISTREAM1ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 17
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 18
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 19
+    bit_size: 1
+  - name: OSTREAMREGID
+    description: Register ID.
+    bit_offset: 20
+    bit_size: 3
+  - name: OSTREAMSTORE
+    description: Store to Register.
+    bit_offset: 23
+    bit_size: 1
+  - name: OSTREAMARRAYID
+    description: Array ID.
+    bit_offset: 24
+    bit_size: 3
+  - name: OSTREAMARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 27
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 28
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::INSTR6CFG2:
+  description: Instruction N word 2.
+  fields:
+  - name: LOOP0BEGIN
+    description: Loop Begin.
+    bit_offset: 0
+    bit_size: 1
+  - name: LOOP0END
+    description: Loop End.
+    bit_offset: 1
+    bit_size: 1
+  - name: LOOP1BEGIN
+    description: Loop Begin.
+    bit_offset: 2
+    bit_size: 1
+  - name: LOOP1END
+    description: Loop End.
+    bit_offset: 3
+    bit_size: 1
+  - name: LOOP2BEGIN
+    description: Loop Begin.
+    bit_offset: 4
+    bit_size: 1
+  - name: LOOP2END
+    description: Loop End.
+    bit_offset: 5
+    bit_size: 1
+  - name: LOOP3BEGIN
+    description: Loop Begin.
+    bit_offset: 6
+    bit_size: 1
+  - name: LOOP3END
+    description: Loop End.
+    bit_offset: 7
+    bit_size: 1
+  - name: LOOP4BEGIN
+    description: Loop Begin.
+    bit_offset: 8
+    bit_size: 1
+  - name: LOOP4END
+    description: Loop End.
+    bit_offset: 9
+    bit_size: 1
+  - name: LOOP5BEGIN
+    description: Loop Begin.
+    bit_offset: 10
+    bit_size: 1
+  - name: LOOP5END
+    description: Loop End.
+    bit_offset: 11
+    bit_size: 1
+  - name: LOOP6BEGIN
+    description: Loop Begin.
+    bit_offset: 12
+    bit_size: 1
+  - name: LOOP6END
+    description: Loop End.
+    bit_offset: 13
+    bit_size: 1
+  - name: LOOP7BEGIN
+    description: Loop Begin.
+    bit_offset: 14
+    bit_size: 1
+  - name: LOOP7END
+    description: Loop End.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUOP
+    description: ALU opcode.
+    bit_offset: 20
+    bit_size: 9
+    enum: vals::INSTR6CFG2_ALUOP
+  - name: ENDPROG
+    description: End of Program.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::INSTR7CFG0:
+  description: Instruction N Word 0.
+  fields:
+  - name: ALUIN0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ALUIN0REALZERO
+    description: Real Zero.
+    bit_offset: 4
+    bit_size: 1
+  - name: ALUIN0REALNEGATE
+    description: Real Negate.
+    bit_offset: 5
+    bit_size: 1
+  - name: ALUIN0IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 6
+    bit_size: 1
+  - name: ALUIN0IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 7
+    bit_size: 1
+  - name: ALUIN1REGID
+    description: Register ID.
+    bit_offset: 8
+    bit_size: 3
+  - name: ALUIN1REALZERO
+    description: Real Zero.
+    bit_offset: 12
+    bit_size: 1
+  - name: ALUIN1REALNEGATE
+    description: Real Negate.
+    bit_offset: 13
+    bit_size: 1
+  - name: ALUIN1IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 14
+    bit_size: 1
+  - name: ALUIN1IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUIN2REGID
+    description: Register ID.
+    bit_offset: 16
+    bit_size: 3
+  - name: ALUIN2REALZERO
+    description: Real Zero.
+    bit_offset: 20
+    bit_size: 1
+  - name: ALUIN2REALNEGATE
+    description: Real Negate.
+    bit_offset: 21
+    bit_size: 1
+  - name: ALUIN2IMAGZERO
+    description: Imaginary Not Zero.
+    bit_offset: 22
+    bit_size: 1
+  - name: ALUIN2IMAGNEGATE
+    description: Imaginary Negate.
+    bit_offset: 23
+    bit_size: 1
+  - name: ALUOUTREGID
+    description: Register ID.
+    bit_offset: 28
+    bit_size: 3
+fieldset/regs::INSTR7CFG1:
+  description: Instruction N word 1.
+  fields:
+  - name: ISTREAM0REGID
+    description: Register ID.
+    bit_offset: 0
+    bit_size: 3
+  - name: ISTREAM0LOAD
+    description: Load register.
+    bit_offset: 3
+    bit_size: 1
+  - name: ISTREAM0ARRAYID
+    description: Array ID.
+    bit_offset: 4
+    bit_size: 3
+  - name: ISTREAM0ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 7
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 8
+    bit_size: 1
+  - name: ISTREAM0ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 9
+    bit_size: 1
+  - name: ISTREAM1REGID
+    description: Register ID.
+    bit_offset: 10
+    bit_size: 3
+  - name: ISTREAM1LOAD
+    description: Load register.
+    bit_offset: 13
+    bit_size: 1
+  - name: ISTREAM1ARRAYID
+    description: Array ID.
+    bit_offset: 14
+    bit_size: 3
+  - name: ISTREAM1ARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 17
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 18
+    bit_size: 1
+  - name: ISTREAM1ARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 19
+    bit_size: 1
+  - name: OSTREAMREGID
+    description: Register ID.
+    bit_offset: 20
+    bit_size: 3
+  - name: OSTREAMSTORE
+    description: Store to Register.
+    bit_offset: 23
+    bit_size: 1
+  - name: OSTREAMARRAYID
+    description: Array ID.
+    bit_offset: 24
+    bit_size: 3
+  - name: OSTREAMARRAYINCRDIM0
+    description: Increment Array Dimension 0.
+    bit_offset: 27
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM1
+    description: Increment Array Dimension 1.
+    bit_offset: 28
+    bit_size: 1
+  - name: OSTREAMARRAYINCRDIM2
+    description: Increment Array Dimension 2.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::INSTR7CFG2:
+  description: Instruction N word 2.
+  fields:
+  - name: LOOP0BEGIN
+    description: Loop Begin.
+    bit_offset: 0
+    bit_size: 1
+  - name: LOOP0END
+    description: Loop End.
+    bit_offset: 1
+    bit_size: 1
+  - name: LOOP1BEGIN
+    description: Loop Begin.
+    bit_offset: 2
+    bit_size: 1
+  - name: LOOP1END
+    description: Loop End.
+    bit_offset: 3
+    bit_size: 1
+  - name: LOOP2BEGIN
+    description: Loop Begin.
+    bit_offset: 4
+    bit_size: 1
+  - name: LOOP2END
+    description: Loop End.
+    bit_offset: 5
+    bit_size: 1
+  - name: LOOP3BEGIN
+    description: Loop Begin.
+    bit_offset: 6
+    bit_size: 1
+  - name: LOOP3END
+    description: Loop End.
+    bit_offset: 7
+    bit_size: 1
+  - name: LOOP4BEGIN
+    description: Loop Begin.
+    bit_offset: 8
+    bit_size: 1
+  - name: LOOP4END
+    description: Loop End.
+    bit_offset: 9
+    bit_size: 1
+  - name: LOOP5BEGIN
+    description: Loop Begin.
+    bit_offset: 10
+    bit_size: 1
+  - name: LOOP5END
+    description: Loop End.
+    bit_offset: 11
+    bit_size: 1
+  - name: LOOP6BEGIN
+    description: Loop Begin.
+    bit_offset: 12
+    bit_size: 1
+  - name: LOOP6END
+    description: Loop End.
+    bit_offset: 13
+    bit_size: 1
+  - name: LOOP7BEGIN
+    description: Loop Begin.
+    bit_offset: 14
+    bit_size: 1
+  - name: LOOP7END
+    description: Loop End.
+    bit_offset: 15
+    bit_size: 1
+  - name: ALUOP
+    description: ALU opcode.
+    bit_offset: 20
+    bit_size: 9
+    enum: vals::INSTR7CFG2_ALUOP
+  - name: ENDPROG
+    description: End of Program.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::IPVERSION:
+  description: IP Version Register.
+  fields:
+  - name: IPVERSION
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::LOOP0CFG:
+  description: Loop N Configuration Register.
+  fields:
+  - name: NUMITERS
+    description: Number of Iterations.
+    bit_offset: 0
+    bit_size: 10
+  - name: ARRAY0INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP0RST:
+  description: Loop N Reset Configuration Register.
+  fields:
+  - name: ARRAY0RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP0STATE:
+  description: Loop N State Register.
+  fields:
+  - name: CNT
+    description: Loop Counter.
+    bit_offset: 0
+    bit_size: 10
+  - name: ACTIVE
+    description: Loop Active.
+    bit_offset: 12
+    bit_size: 1
+  - name: PCBEGIN
+    description: Loop Start.
+    bit_offset: 16
+    bit_size: 3
+fieldset/regs::LOOP1CFG:
+  description: Loop N Configuration Register.
+  fields:
+  - name: NUMITERS
+    description: Number of Iterations.
+    bit_offset: 0
+    bit_size: 10
+  - name: ARRAY0INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP1RST:
+  description: Loop N Reset Configuration Register.
+  fields:
+  - name: ARRAY0RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP1STATE:
+  description: Loop N State Register.
+  fields:
+  - name: CNT
+    description: Loop Counter.
+    bit_offset: 0
+    bit_size: 10
+  - name: ACTIVE
+    description: Loop Active.
+    bit_offset: 12
+    bit_size: 1
+  - name: PCBEGIN
+    description: Loop Start.
+    bit_offset: 16
+    bit_size: 3
+fieldset/regs::LOOP2CFG:
+  description: Loop N Configuration Register.
+  fields:
+  - name: NUMITERS
+    description: Number of Iterations.
+    bit_offset: 0
+    bit_size: 10
+  - name: ARRAY0INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP2RST:
+  description: Loop N Reset Configuration Register.
+  fields:
+  - name: ARRAY0RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP2STATE:
+  description: Loop N State Register.
+  fields:
+  - name: CNT
+    description: Loop Counter.
+    bit_offset: 0
+    bit_size: 10
+  - name: ACTIVE
+    description: Loop Active.
+    bit_offset: 12
+    bit_size: 1
+  - name: PCBEGIN
+    description: Loop Start.
+    bit_offset: 16
+    bit_size: 3
+fieldset/regs::LOOP3CFG:
+  description: Loop N Configuration Register.
+  fields:
+  - name: NUMITERS
+    description: Number of Iterations.
+    bit_offset: 0
+    bit_size: 10
+  - name: ARRAY0INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP3RST:
+  description: Loop N Reset Configuration Register.
+  fields:
+  - name: ARRAY0RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP3STATE:
+  description: Loop N State Register.
+  fields:
+  - name: CNT
+    description: Loop Counter.
+    bit_offset: 0
+    bit_size: 10
+  - name: ACTIVE
+    description: Loop Active.
+    bit_offset: 12
+    bit_size: 1
+  - name: PCBEGIN
+    description: Loop Start.
+    bit_offset: 16
+    bit_size: 3
+fieldset/regs::LOOP4CFG:
+  description: Loop N Configuration Register.
+  fields:
+  - name: NUMITERS
+    description: Number of Iterations.
+    bit_offset: 0
+    bit_size: 10
+  - name: ARRAY0INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP4RST:
+  description: Loop N Reset Configuration Register.
+  fields:
+  - name: ARRAY0RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP4STATE:
+  description: Loop N State Register.
+  fields:
+  - name: CNT
+    description: Loop Counter.
+    bit_offset: 0
+    bit_size: 10
+  - name: ACTIVE
+    description: Loop Active.
+    bit_offset: 12
+    bit_size: 1
+  - name: PCBEGIN
+    description: Loop Start.
+    bit_offset: 16
+    bit_size: 3
+fieldset/regs::LOOP5CFG:
+  description: Loop N Configuration Register.
+  fields:
+  - name: NUMITERS
+    description: Number of Iterations.
+    bit_offset: 0
+    bit_size: 10
+  - name: ARRAY0INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP5RST:
+  description: Loop N Reset Configuration Register.
+  fields:
+  - name: ARRAY0RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP5STATE:
+  description: Loop N State Register.
+  fields:
+  - name: CNT
+    description: Loop Counter.
+    bit_offset: 0
+    bit_size: 10
+  - name: ACTIVE
+    description: Loop Active.
+    bit_offset: 12
+    bit_size: 1
+  - name: PCBEGIN
+    description: Loop Start.
+    bit_offset: 16
+    bit_size: 3
+fieldset/regs::LOOP6CFG:
+  description: Loop N Configuration Register.
+  fields:
+  - name: NUMITERS
+    description: Number of Iterations.
+    bit_offset: 0
+    bit_size: 10
+  - name: ARRAY0INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP6RST:
+  description: Loop N Reset Configuration Register.
+  fields:
+  - name: ARRAY0RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP6STATE:
+  description: Loop N State Register.
+  fields:
+  - name: CNT
+    description: Loop Counter.
+    bit_offset: 0
+    bit_size: 10
+  - name: ACTIVE
+    description: Loop Active.
+    bit_offset: 12
+    bit_size: 1
+  - name: PCBEGIN
+    description: Loop Start.
+    bit_offset: 16
+    bit_size: 3
+fieldset/regs::LOOP7CFG:
+  description: Loop N Configuration Register.
+  fields:
+  - name: NUMITERS
+    description: Number of Iterations.
+    bit_offset: 0
+    bit_size: 10
+  - name: ARRAY0INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4INCRDIM0
+    description: Increment Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4INCRDIM1
+    description: Increment Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4INCRDIM2
+    description: Increment Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP7RST:
+  description: Loop N Reset Configuration Register.
+  fields:
+  - name: ARRAY0RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: ARRAY0RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: ARRAY0RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: ARRAY1RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 16
+    bit_size: 1
+  - name: ARRAY1RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 17
+    bit_size: 1
+  - name: ARRAY1RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 18
+    bit_size: 1
+  - name: ARRAY2RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: ARRAY2RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 21
+    bit_size: 1
+  - name: ARRAY2RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 22
+    bit_size: 1
+  - name: ARRAY3RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: ARRAY3RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: ARRAY3RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: ARRAY4RESETDIM0
+    description: Reset Dimension 0.
+    bit_offset: 28
+    bit_size: 1
+  - name: ARRAY4RESETDIM1
+    description: Reset Dimension 1.
+    bit_offset: 29
+    bit_size: 1
+  - name: ARRAY4RESETDIM2
+    description: Reset Dimension 2.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::LOOP7STATE:
+  description: Loop N State Register.
+  fields:
+  - name: CNT
+    description: Loop Counter.
+    bit_offset: 0
+    bit_size: 10
+  - name: ACTIVE
+    description: Loop Active.
+    bit_offset: 12
+    bit_size: 1
+  - name: PCBEGIN
+    description: Loop Start.
+    bit_offset: 16
+    bit_size: 3
+fieldset/regs::PERF0CNT:
+  description: Run Counter.
+  fields:
+  - name: COUNT
+    description: Performance Counter.
+    bit_offset: 0
+    bit_size: 24
+fieldset/regs::PERF1CNT:
+  description: Run Counter.
+  fields:
+  - name: COUNT
+    description: Performance Counter.
+    bit_offset: 0
+    bit_size: 24
+fieldset/regs::PROGRAMSTATE:
+  description: Program State Register.
+  fields:
+  - name: PC
+    description: Program Counter.
+    bit_offset: 0
+    bit_size: 3
+fieldset/regs::STATUS:
+  description: Status Register.
+  fields:
+  - name: RUNNING
+    description: Running Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: PAUSED
+    description: Paused Status.
+    bit_offset: 1
+    bit_size: 1
+  - name: IDLE
+    description: Idle Status.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::SWRST:
+  description: Software Reset Register.
+  fields:
+  - name: SWRST
+    description: Software Reset Command.
+    bit_offset: 0
+    bit_size: 1
+  - name: RESETTING
+    description: Software Reset Busy Status.
+    bit_offset: 1
+    bit_size: 1
+enum/vals::ARRAY0DIM0CFG_BASETYPE:
+  bit_size: 2
+  variants:
+  - name: UINT8
+    description: Data is unsigned 8-bit integer (can only be used for loads).
+    value: 0
+  - name: INT8
+    description: Data is signed 8-bit integer (can only be used for loads).
+    value: 1
+  - name: BINARY16
+    description: Data is 16-bit float.
+    value: 2
+  - name: RESERVED
+    description: Reserved. Invalid data if this is specified.
+    value: 3
+enum/vals::ARRAY0DIM0CFG_COMPLEX:
+  bit_size: 1
+  variants:
+  - name: SCALAR
+    description: Data represents a scalar number.
+    value: 0
+  - name: COMPLEX
+    description: Data represents a complex pair or packed pair of reals.
+    value: 1
+enum/vals::ARRAY1DIM0CFG_BASETYPE:
+  bit_size: 2
+  variants:
+  - name: UINT8
+    description: Data is unsigned 8-bit integer (can only be used for loads).
+    value: 0
+  - name: INT8
+    description: Data is signed 8-bit integer (can only be used for loads).
+    value: 1
+  - name: BINARY16
+    description: Data is 16-bit float.
+    value: 2
+  - name: RESERVED
+    description: Reserved. Invalid data if this is specified.
+    value: 3
+enum/vals::ARRAY1DIM0CFG_COMPLEX:
+  bit_size: 1
+  variants:
+  - name: SCALAR
+    description: Data represents a scalar number.
+    value: 0
+  - name: COMPLEX
+    description: Data represents a complex pair or packed pair of reals.
+    value: 1
+enum/vals::ARRAY2DIM0CFG_BASETYPE:
+  bit_size: 2
+  variants:
+  - name: UINT8
+    description: Data is unsigned 8-bit integer (can only be used for loads).
+    value: 0
+  - name: INT8
+    description: Data is signed 8-bit integer (can only be used for loads).
+    value: 1
+  - name: BINARY16
+    description: Data is 16-bit float.
+    value: 2
+  - name: RESERVED
+    description: Reserved. Invalid data if this is specified.
+    value: 3
+enum/vals::ARRAY2DIM0CFG_COMPLEX:
+  bit_size: 1
+  variants:
+  - name: SCALAR
+    description: Data represents a scalar number.
+    value: 0
+  - name: COMPLEX
+    description: Data represents a complex pair or packed pair of reals.
+    value: 1
+enum/vals::ARRAY3DIM0CFG_BASETYPE:
+  bit_size: 2
+  variants:
+  - name: UINT8
+    description: Data is unsigned 8-bit integer (can only be used for loads).
+    value: 0
+  - name: INT8
+    description: Data is signed 8-bit integer (can only be used for loads).
+    value: 1
+  - name: BINARY16
+    description: Data is 16-bit float.
+    value: 2
+  - name: RESERVED
+    description: Reserved. Invalid data if this is specified.
+    value: 3
+enum/vals::ARRAY3DIM0CFG_COMPLEX:
+  bit_size: 1
+  variants:
+  - name: SCALAR
+    description: Data represents a scalar number.
+    value: 0
+  - name: COMPLEX
+    description: Data represents a complex pair or packed pair of reals.
+    value: 1
+enum/vals::ARRAY4DIM0CFG_BASETYPE:
+  bit_size: 2
+  variants:
+  - name: UINT8
+    description: Data is unsigned 8-bit integer (can only be used for loads).
+    value: 0
+  - name: INT8
+    description: Data is signed 8-bit integer (can only be used for loads).
+    value: 1
+  - name: BINARY16
+    description: Data is 16-bit float.
+    value: 2
+  - name: RESERVED
+    description: Reserved. Invalid data if this is specified.
+    value: 3
+enum/vals::ARRAY4DIM0CFG_COMPLEX:
+  bit_size: 1
+  variants:
+  - name: SCALAR
+    description: Data represents a scalar number.
+    value: 0
+  - name: COMPLEX
+    description: Data represents a complex pair or packed pair of reals.
+    value: 1
+enum/vals::FAULTBUS:
+  bit_size: 2
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+  - name: LOAD0STREAM
+    description: LOAD0STREAM.
+    value: 1
+  - name: LOAD1STREAM
+    description: LOAD1STREAM.
+    value: 2
+  - name: STORESTREAM
+    description: STORESTREAM.
+    value: 3
+enum/vals::INSTR0CFG2_ALUOP:
+  bit_size: 9
+  variants:
+  - name: NOOP
+    description: No Operation.
+    value: 0
+  - name: CLEAR
+    description: Clear register (set to +0).
+    value: 1
+  - name: COPY
+    description: Copy operation.
+    value: 65
+  - name: SWAP
+    description: Swap operation.
+    value: 66
+  - name: DBL
+    description: Double operation (multiply by 2).
+    value: 67
+  - name: FANA
+    description: Load real and imag (form A).
+    value: 68
+  - name: FANB
+    description: Load real and imag (form B).
+    value: 69
+  - name: RELU2
+    description: ReLU of real (max of real and +0).
+    value: 70
+  - name: NRELU2
+    description: Min of real and -0.
+    value: 71
+  - name: INC2
+    description: Increment by 1.0.
+    value: 72
+  - name: DEC2
+    description: Decrement by 1.0.
+    value: 73
+  - name: ADDR
+    description: Addition of 2 reals.
+    value: 74
+  - name: MAX
+    description: Maximum of 2 reals.
+    value: 75
+  - name: MIN
+    description: Minimum of 2 reals.
+    value: 76
+  - name: RSQR2B
+    description: Square of real (form B).
+    value: 292
+  - name: ADDC
+    description: Add Complex.
+    value: 334
+  - name: MAX2A
+    description: Max of reals (form A).
+    value: 339
+  - name: MIN2A
+    description: Min of reals (form A).
+    value: 340
+  - name: XREALC2
+    description: Extract real from complex.
+    value: 350
+  - name: XIMAGC2
+    description: Extract imag from complex.
+    value: 351
+  - name: ADDR2B
+    description: Add reals (form B).
+    value: 353
+  - name: MAX2B
+    description: Max of reals (form B).
+    value: 354
+  - name: MIN2B
+    description: Min of reals (form B).
+    value: 355
+  - name: MULC
+    description: Multiply Complex.
+    value: 397
+  - name: MULR2A
+    description: Multiply reals (form A).
+    value: 407
+  - name: MULR2B
+    description: Multiply reals (form B).
+    value: 408
+  - name: ADDR4
+    description: Add 4 reals.
+    value: 410
+  - name: MAX4
+    description: Max of 4 reals.
+    value: 411
+  - name: MIN4
+    description: Min of 4 reals.
+    value: 412
+  - name: SQRMAGC2
+    description: Squared magnitude Complex.
+    value: 413
+  - name: PRELU2B
+    description: Parametric ReLU (form B).
+    value: 416
+  - name: MACC
+    description: Multiply Accumulate Complex.
+    value: 461
+  - name: AACC
+    description: Add Accumulate Complex.
+    value: 462
+  - name: ELU2A
+    description: part of ELU activation (form A).
+    value: 463
+  - name: ELU2B
+    description: part of ELU activation (form B).
+    value: 464
+  - name: IFR2A
+    description: If A then X else Y (form A).
+    value: 465
+  - name: IFR2B
+    description: If A then X else Y (form B).
+    value: 466
+  - name: MAXAC2
+    description: Max of reals and accumulator.
+    value: 467
+  - name: MINAC2
+    description: Min of reals and accumulators.
+    value: 468
+  - name: CLIP2A
+    description: Clipping activation (form A).
+    value: 469
+  - name: CLIP2B
+    description: Clipping activation (form B).
+    value: 470
+  - name: MACR2A
+    description: Multiply accumulate reals (form A).
+    value: 471
+  - name: MACR2B
+    description: Multiply accumulate reals (form B).
+    value: 472
+  - name: IFC
+    description: If A then X else Y (complex).
+    value: 473
+enum/vals::INSTR1CFG2_ALUOP:
+  bit_size: 9
+  variants:
+  - name: NOOP
+    description: No Operation.
+    value: 0
+  - name: CLEAR
+    description: Clear register (set to +0).
+    value: 1
+  - name: COPY
+    description: Copy operation.
+    value: 65
+  - name: SWAP
+    description: Swap operation.
+    value: 66
+  - name: DBL
+    description: Double operation (multiply by 2).
+    value: 67
+  - name: FANA
+    description: Load real and imag (form A).
+    value: 68
+  - name: FANB
+    description: Load real and imag (form B).
+    value: 69
+  - name: RELU2
+    description: ReLU of real (max of real and +0).
+    value: 70
+  - name: NRELU2
+    description: Min of real and -0.
+    value: 71
+  - name: INC2
+    description: Increment by 1.0.
+    value: 72
+  - name: DEC2
+    description: Decrement by 1.0.
+    value: 73
+  - name: ADDR
+    description: Addition of 2 reals.
+    value: 74
+  - name: MAX
+    description: Maximum of 2 reals.
+    value: 75
+  - name: MIN
+    description: Minimum of 2 reals.
+    value: 76
+  - name: RSQR2B
+    description: Square of real (form B).
+    value: 292
+  - name: ADDC
+    description: Add Complex.
+    value: 334
+  - name: MAX2A
+    description: Max of reals (form A).
+    value: 339
+  - name: MIN2A
+    description: Min of reals (form A).
+    value: 340
+  - name: XREALC2
+    description: Extract real from complex.
+    value: 350
+  - name: XIMAGC2
+    description: Extract imag from complex.
+    value: 351
+  - name: ADDR2B
+    description: Add reals (form B).
+    value: 353
+  - name: MAX2B
+    description: Max of reals (form B).
+    value: 354
+  - name: MIN2B
+    description: Min of reals (form B).
+    value: 355
+  - name: MULC
+    description: Multiply Complex.
+    value: 397
+  - name: MULR2A
+    description: Multiply reals (form A).
+    value: 407
+  - name: MULR2B
+    description: Multiply reals (form B).
+    value: 408
+  - name: ADDR4
+    description: Add 4 reals.
+    value: 410
+  - name: MAX4
+    description: Max of 4 reals.
+    value: 411
+  - name: MIN4
+    description: Min of 4 reals.
+    value: 412
+  - name: SQRMAGC2
+    description: Squared magnitude Complex.
+    value: 413
+  - name: PRELU2B
+    description: Parametric ReLU (form B).
+    value: 416
+  - name: MACC
+    description: Multiply Accumulate Complex.
+    value: 461
+  - name: AACC
+    description: Add Accumulate Complex.
+    value: 462
+  - name: ELU2A
+    description: part of ELU activation (form A).
+    value: 463
+  - name: ELU2B
+    description: part of ELU activation (form B).
+    value: 464
+  - name: IFR2A
+    description: If A then X else Y (form A).
+    value: 465
+  - name: IFR2B
+    description: If A then X else Y (form B).
+    value: 466
+  - name: MAXAC2
+    description: Max of reals and accumulator.
+    value: 467
+  - name: MINAC2
+    description: Min of reals and accumulators.
+    value: 468
+  - name: CLIP2A
+    description: Clipping activation (form A).
+    value: 469
+  - name: CLIP2B
+    description: Clipping activation (form B).
+    value: 470
+  - name: MACR2A
+    description: Multiply accumulate reals (form A).
+    value: 471
+  - name: MACR2B
+    description: Multiply accumulate reals (form B).
+    value: 472
+  - name: IFC
+    description: If A then X else Y (complex).
+    value: 473
+enum/vals::INSTR2CFG2_ALUOP:
+  bit_size: 9
+  variants:
+  - name: NOOP
+    description: No Operation.
+    value: 0
+  - name: CLEAR
+    description: Clear register (set to +0).
+    value: 1
+  - name: COPY
+    description: Copy operation.
+    value: 65
+  - name: SWAP
+    description: Swap operation.
+    value: 66
+  - name: DBL
+    description: Double operation (multiply by 2).
+    value: 67
+  - name: FANA
+    description: Load real and imag (form A).
+    value: 68
+  - name: FANB
+    description: Load real and imag (form B).
+    value: 69
+  - name: RELU2
+    description: ReLU of real (max of real and +0).
+    value: 70
+  - name: NRELU2
+    description: Min of real and -0.
+    value: 71
+  - name: INC2
+    description: Increment by 1.0.
+    value: 72
+  - name: DEC2
+    description: Decrement by 1.0.
+    value: 73
+  - name: ADDR
+    description: Addition of 2 reals.
+    value: 74
+  - name: MAX
+    description: Maximum of 2 reals.
+    value: 75
+  - name: MIN
+    description: Minimum of 2 reals.
+    value: 76
+  - name: RSQR2B
+    description: Square of real (form B).
+    value: 292
+  - name: ADDC
+    description: Add Complex.
+    value: 334
+  - name: MAX2A
+    description: Max of reals (form A).
+    value: 339
+  - name: MIN2A
+    description: Min of reals (form A).
+    value: 340
+  - name: XREALC2
+    description: Extract real from complex.
+    value: 350
+  - name: XIMAGC2
+    description: Extract imag from complex.
+    value: 351
+  - name: ADDR2B
+    description: Add reals (form B).
+    value: 353
+  - name: MAX2B
+    description: Max of reals (form B).
+    value: 354
+  - name: MIN2B
+    description: Min of reals (form B).
+    value: 355
+  - name: MULC
+    description: Multiply Complex.
+    value: 397
+  - name: MULR2A
+    description: Multiply reals (form A).
+    value: 407
+  - name: MULR2B
+    description: Multiply reals (form B).
+    value: 408
+  - name: ADDR4
+    description: Add 4 reals.
+    value: 410
+  - name: MAX4
+    description: Max of 4 reals.
+    value: 411
+  - name: MIN4
+    description: Min of 4 reals.
+    value: 412
+  - name: SQRMAGC2
+    description: Squared magnitude Complex.
+    value: 413
+  - name: PRELU2B
+    description: Parametric ReLU (form B).
+    value: 416
+  - name: MACC
+    description: Multiply Accumulate Complex.
+    value: 461
+  - name: AACC
+    description: Add Accumulate Complex.
+    value: 462
+  - name: ELU2A
+    description: part of ELU activation (form A).
+    value: 463
+  - name: ELU2B
+    description: part of ELU activation (form B).
+    value: 464
+  - name: IFR2A
+    description: If A then X else Y (form A).
+    value: 465
+  - name: IFR2B
+    description: If A then X else Y (form B).
+    value: 466
+  - name: MAXAC2
+    description: Max of reals and accumulator.
+    value: 467
+  - name: MINAC2
+    description: Min of reals and accumulators.
+    value: 468
+  - name: CLIP2A
+    description: Clipping activation (form A).
+    value: 469
+  - name: CLIP2B
+    description: Clipping activation (form B).
+    value: 470
+  - name: MACR2A
+    description: Multiply accumulate reals (form A).
+    value: 471
+  - name: MACR2B
+    description: Multiply accumulate reals (form B).
+    value: 472
+  - name: IFC
+    description: If A then X else Y (complex).
+    value: 473
+enum/vals::INSTR3CFG2_ALUOP:
+  bit_size: 9
+  variants:
+  - name: NOOP
+    description: No Operation.
+    value: 0
+  - name: CLEAR
+    description: Clear register (set to +0).
+    value: 1
+  - name: COPY
+    description: Copy operation.
+    value: 65
+  - name: SWAP
+    description: Swap operation.
+    value: 66
+  - name: DBL
+    description: Double operation (multiply by 2).
+    value: 67
+  - name: FANA
+    description: Load real and imag (form A).
+    value: 68
+  - name: FANB
+    description: Load real and imag (form B).
+    value: 69
+  - name: RELU2
+    description: ReLU of real (max of real and +0).
+    value: 70
+  - name: NRELU2
+    description: Min of real and -0.
+    value: 71
+  - name: INC2
+    description: Increment by 1.0.
+    value: 72
+  - name: DEC2
+    description: Decrement by 1.0.
+    value: 73
+  - name: ADDR
+    description: Addition of 2 reals.
+    value: 74
+  - name: MAX
+    description: Maximum of 2 reals.
+    value: 75
+  - name: MIN
+    description: Minimum of 2 reals.
+    value: 76
+  - name: RSQR2B
+    description: Square of real (form B).
+    value: 292
+  - name: ADDC
+    description: Add Complex.
+    value: 334
+  - name: MAX2A
+    description: Max of reals (form A).
+    value: 339
+  - name: MIN2A
+    description: Min of reals (form A).
+    value: 340
+  - name: XREALC2
+    description: Extract real from complex.
+    value: 350
+  - name: XIMAGC2
+    description: Extract imag from complex.
+    value: 351
+  - name: ADDR2B
+    description: Add reals (form B).
+    value: 353
+  - name: MAX2B
+    description: Max of reals (form B).
+    value: 354
+  - name: MIN2B
+    description: Min of reals (form B).
+    value: 355
+  - name: MULC
+    description: Multiply Complex.
+    value: 397
+  - name: MULR2A
+    description: Multiply reals (form A).
+    value: 407
+  - name: MULR2B
+    description: Multiply reals (form B).
+    value: 408
+  - name: ADDR4
+    description: Add 4 reals.
+    value: 410
+  - name: MAX4
+    description: Max of 4 reals.
+    value: 411
+  - name: MIN4
+    description: Min of 4 reals.
+    value: 412
+  - name: SQRMAGC2
+    description: Squared magnitude Complex.
+    value: 413
+  - name: PRELU2B
+    description: Parametric ReLU (form B).
+    value: 416
+  - name: MACC
+    description: Multiply Accumulate Complex.
+    value: 461
+  - name: AACC
+    description: Add Accumulate Complex.
+    value: 462
+  - name: ELU2A
+    description: part of ELU activation (form A).
+    value: 463
+  - name: ELU2B
+    description: part of ELU activation (form B).
+    value: 464
+  - name: IFR2A
+    description: If A then X else Y (form A).
+    value: 465
+  - name: IFR2B
+    description: If A then X else Y (form B).
+    value: 466
+  - name: MAXAC2
+    description: Max of reals and accumulator.
+    value: 467
+  - name: MINAC2
+    description: Min of reals and accumulators.
+    value: 468
+  - name: CLIP2A
+    description: Clipping activation (form A).
+    value: 469
+  - name: CLIP2B
+    description: Clipping activation (form B).
+    value: 470
+  - name: MACR2A
+    description: Multiply accumulate reals (form A).
+    value: 471
+  - name: MACR2B
+    description: Multiply accumulate reals (form B).
+    value: 472
+  - name: IFC
+    description: If A then X else Y (complex).
+    value: 473
+enum/vals::INSTR4CFG2_ALUOP:
+  bit_size: 9
+  variants:
+  - name: NOOP
+    description: No Operation.
+    value: 0
+  - name: CLEAR
+    description: Clear register (set to +0).
+    value: 1
+  - name: COPY
+    description: Copy operation.
+    value: 65
+  - name: SWAP
+    description: Swap operation.
+    value: 66
+  - name: DBL
+    description: Double operation (multiply by 2).
+    value: 67
+  - name: FANA
+    description: Load real and imag (form A).
+    value: 68
+  - name: FANB
+    description: Load real and imag (form B).
+    value: 69
+  - name: RELU2
+    description: ReLU of real (max of real and +0).
+    value: 70
+  - name: NRELU2
+    description: Min of real and -0.
+    value: 71
+  - name: INC2
+    description: Increment by 1.0.
+    value: 72
+  - name: DEC2
+    description: Decrement by 1.0.
+    value: 73
+  - name: ADDR
+    description: Addition of 2 reals.
+    value: 74
+  - name: MAX
+    description: Maximum of 2 reals.
+    value: 75
+  - name: MIN
+    description: Minimum of 2 reals.
+    value: 76
+  - name: RSQR2B
+    description: Square of real (form B).
+    value: 292
+  - name: ADDC
+    description: Add Complex.
+    value: 334
+  - name: MAX2A
+    description: Max of reals (form A).
+    value: 339
+  - name: MIN2A
+    description: Min of reals (form A).
+    value: 340
+  - name: XREALC2
+    description: Extract real from complex.
+    value: 350
+  - name: XIMAGC2
+    description: Extract imag from complex.
+    value: 351
+  - name: ADDR2B
+    description: Add reals (form B).
+    value: 353
+  - name: MAX2B
+    description: Max of reals (form B).
+    value: 354
+  - name: MIN2B
+    description: Min of reals (form B).
+    value: 355
+  - name: MULC
+    description: Multiply Complex.
+    value: 397
+  - name: MULR2A
+    description: Multiply reals (form A).
+    value: 407
+  - name: MULR2B
+    description: Multiply reals (form B).
+    value: 408
+  - name: ADDR4
+    description: Add 4 reals.
+    value: 410
+  - name: MAX4
+    description: Max of 4 reals.
+    value: 411
+  - name: MIN4
+    description: Min of 4 reals.
+    value: 412
+  - name: SQRMAGC2
+    description: Squared magnitude Complex.
+    value: 413
+  - name: PRELU2B
+    description: Parametric ReLU (form B).
+    value: 416
+  - name: MACC
+    description: Multiply Accumulate Complex.
+    value: 461
+  - name: AACC
+    description: Add Accumulate Complex.
+    value: 462
+  - name: ELU2A
+    description: part of ELU activation (form A).
+    value: 463
+  - name: ELU2B
+    description: part of ELU activation (form B).
+    value: 464
+  - name: IFR2A
+    description: If A then X else Y (form A).
+    value: 465
+  - name: IFR2B
+    description: If A then X else Y (form B).
+    value: 466
+  - name: MAXAC2
+    description: Max of reals and accumulator.
+    value: 467
+  - name: MINAC2
+    description: Min of reals and accumulators.
+    value: 468
+  - name: CLIP2A
+    description: Clipping activation (form A).
+    value: 469
+  - name: CLIP2B
+    description: Clipping activation (form B).
+    value: 470
+  - name: MACR2A
+    description: Multiply accumulate reals (form A).
+    value: 471
+  - name: MACR2B
+    description: Multiply accumulate reals (form B).
+    value: 472
+  - name: IFC
+    description: If A then X else Y (complex).
+    value: 473
+enum/vals::INSTR5CFG2_ALUOP:
+  bit_size: 9
+  variants:
+  - name: NOOP
+    description: No Operation.
+    value: 0
+  - name: CLEAR
+    description: Clear register (set to +0).
+    value: 1
+  - name: COPY
+    description: Copy operation.
+    value: 65
+  - name: SWAP
+    description: Swap operation.
+    value: 66
+  - name: DBL
+    description: Double operation (multiply by 2).
+    value: 67
+  - name: FANA
+    description: Load real and imag (form A).
+    value: 68
+  - name: FANB
+    description: Load real and imag (form B).
+    value: 69
+  - name: RELU2
+    description: ReLU of real (max of real and +0).
+    value: 70
+  - name: NRELU2
+    description: Min of real and -0.
+    value: 71
+  - name: INC2
+    description: Increment by 1.0.
+    value: 72
+  - name: DEC2
+    description: Decrement by 1.0.
+    value: 73
+  - name: ADDR
+    description: Addition of 2 reals.
+    value: 74
+  - name: MAX
+    description: Maximum of 2 reals.
+    value: 75
+  - name: MIN
+    description: Minimum of 2 reals.
+    value: 76
+  - name: RSQR2B
+    description: Square of real (form B).
+    value: 292
+  - name: ADDC
+    description: Add Complex.
+    value: 334
+  - name: MAX2A
+    description: Max of reals (form A).
+    value: 339
+  - name: MIN2A
+    description: Min of reals (form A).
+    value: 340
+  - name: XREALC2
+    description: Extract real from complex.
+    value: 350
+  - name: XIMAGC2
+    description: Extract imag from complex.
+    value: 351
+  - name: ADDR2B
+    description: Add reals (form B).
+    value: 353
+  - name: MAX2B
+    description: Max of reals (form B).
+    value: 354
+  - name: MIN2B
+    description: Min of reals (form B).
+    value: 355
+  - name: MULC
+    description: Multiply Complex.
+    value: 397
+  - name: MULR2A
+    description: Multiply reals (form A).
+    value: 407
+  - name: MULR2B
+    description: Multiply reals (form B).
+    value: 408
+  - name: ADDR4
+    description: Add 4 reals.
+    value: 410
+  - name: MAX4
+    description: Max of 4 reals.
+    value: 411
+  - name: MIN4
+    description: Min of 4 reals.
+    value: 412
+  - name: SQRMAGC2
+    description: Squared magnitude Complex.
+    value: 413
+  - name: PRELU2B
+    description: Parametric ReLU (form B).
+    value: 416
+  - name: MACC
+    description: Multiply Accumulate Complex.
+    value: 461
+  - name: AACC
+    description: Add Accumulate Complex.
+    value: 462
+  - name: ELU2A
+    description: part of ELU activation (form A).
+    value: 463
+  - name: ELU2B
+    description: part of ELU activation (form B).
+    value: 464
+  - name: IFR2A
+    description: If A then X else Y (form A).
+    value: 465
+  - name: IFR2B
+    description: If A then X else Y (form B).
+    value: 466
+  - name: MAXAC2
+    description: Max of reals and accumulator.
+    value: 467
+  - name: MINAC2
+    description: Min of reals and accumulators.
+    value: 468
+  - name: CLIP2A
+    description: Clipping activation (form A).
+    value: 469
+  - name: CLIP2B
+    description: Clipping activation (form B).
+    value: 470
+  - name: MACR2A
+    description: Multiply accumulate reals (form A).
+    value: 471
+  - name: MACR2B
+    description: Multiply accumulate reals (form B).
+    value: 472
+  - name: IFC
+    description: If A then X else Y (complex).
+    value: 473
+enum/vals::INSTR6CFG2_ALUOP:
+  bit_size: 9
+  variants:
+  - name: NOOP
+    description: No Operation.
+    value: 0
+  - name: CLEAR
+    description: Clear register (set to +0).
+    value: 1
+  - name: COPY
+    description: Copy operation.
+    value: 65
+  - name: SWAP
+    description: Swap operation.
+    value: 66
+  - name: DBL
+    description: Double operation (multiply by 2).
+    value: 67
+  - name: FANA
+    description: Load real and imag (form A).
+    value: 68
+  - name: FANB
+    description: Load real and imag (form B).
+    value: 69
+  - name: RELU2
+    description: ReLU of real (max of real and +0).
+    value: 70
+  - name: NRELU2
+    description: Min of real and -0.
+    value: 71
+  - name: INC2
+    description: Increment by 1.0.
+    value: 72
+  - name: DEC2
+    description: Decrement by 1.0.
+    value: 73
+  - name: ADDR
+    description: Addition of 2 reals.
+    value: 74
+  - name: MAX
+    description: Maximum of 2 reals.
+    value: 75
+  - name: MIN
+    description: Minimum of 2 reals.
+    value: 76
+  - name: RSQR2B
+    description: Square of real (form B).
+    value: 292
+  - name: ADDC
+    description: Add Complex.
+    value: 334
+  - name: MAX2A
+    description: Max of reals (form A).
+    value: 339
+  - name: MIN2A
+    description: Min of reals (form A).
+    value: 340
+  - name: XREALC2
+    description: Extract real from complex.
+    value: 350
+  - name: XIMAGC2
+    description: Extract imag from complex.
+    value: 351
+  - name: ADDR2B
+    description: Add reals (form B).
+    value: 353
+  - name: MAX2B
+    description: Max of reals (form B).
+    value: 354
+  - name: MIN2B
+    description: Min of reals (form B).
+    value: 355
+  - name: MULC
+    description: Multiply Complex.
+    value: 397
+  - name: MULR2A
+    description: Multiply reals (form A).
+    value: 407
+  - name: MULR2B
+    description: Multiply reals (form B).
+    value: 408
+  - name: ADDR4
+    description: Add 4 reals.
+    value: 410
+  - name: MAX4
+    description: Max of 4 reals.
+    value: 411
+  - name: MIN4
+    description: Min of 4 reals.
+    value: 412
+  - name: SQRMAGC2
+    description: Squared magnitude Complex.
+    value: 413
+  - name: PRELU2B
+    description: Parametric ReLU (form B).
+    value: 416
+  - name: MACC
+    description: Multiply Accumulate Complex.
+    value: 461
+  - name: AACC
+    description: Add Accumulate Complex.
+    value: 462
+  - name: ELU2A
+    description: part of ELU activation (form A).
+    value: 463
+  - name: ELU2B
+    description: part of ELU activation (form B).
+    value: 464
+  - name: IFR2A
+    description: If A then X else Y (form A).
+    value: 465
+  - name: IFR2B
+    description: If A then X else Y (form B).
+    value: 466
+  - name: MAXAC2
+    description: Max of reals and accumulator.
+    value: 467
+  - name: MINAC2
+    description: Min of reals and accumulators.
+    value: 468
+  - name: CLIP2A
+    description: Clipping activation (form A).
+    value: 469
+  - name: CLIP2B
+    description: Clipping activation (form B).
+    value: 470
+  - name: MACR2A
+    description: Multiply accumulate reals (form A).
+    value: 471
+  - name: MACR2B
+    description: Multiply accumulate reals (form B).
+    value: 472
+  - name: IFC
+    description: If A then X else Y (complex).
+    value: 473
+enum/vals::INSTR7CFG2_ALUOP:
+  bit_size: 9
+  variants:
+  - name: NOOP
+    description: No Operation.
+    value: 0
+  - name: CLEAR
+    description: Clear register (set to +0).
+    value: 1
+  - name: COPY
+    description: Copy operation.
+    value: 65
+  - name: SWAP
+    description: Swap operation.
+    value: 66
+  - name: DBL
+    description: Double operation (multiply by 2).
+    value: 67
+  - name: FANA
+    description: Load real and imag (form A).
+    value: 68
+  - name: FANB
+    description: Load real and imag (form B).
+    value: 69
+  - name: RELU2
+    description: ReLU of real (max of real and +0).
+    value: 70
+  - name: NRELU2
+    description: Min of real and -0.
+    value: 71
+  - name: INC2
+    description: Increment by 1.0.
+    value: 72
+  - name: DEC2
+    description: Decrement by 1.0.
+    value: 73
+  - name: ADDR
+    description: Addition of 2 reals.
+    value: 74
+  - name: MAX
+    description: Maximum of 2 reals.
+    value: 75
+  - name: MIN
+    description: Minimum of 2 reals.
+    value: 76
+  - name: RSQR2B
+    description: Square of real (form B).
+    value: 292
+  - name: ADDC
+    description: Add Complex.
+    value: 334
+  - name: MAX2A
+    description: Max of reals (form A).
+    value: 339
+  - name: MIN2A
+    description: Min of reals (form A).
+    value: 340
+  - name: XREALC2
+    description: Extract real from complex.
+    value: 350
+  - name: XIMAGC2
+    description: Extract imag from complex.
+    value: 351
+  - name: ADDR2B
+    description: Add reals (form B).
+    value: 353
+  - name: MAX2B
+    description: Max of reals (form B).
+    value: 354
+  - name: MIN2B
+    description: Min of reals (form B).
+    value: 355
+  - name: MULC
+    description: Multiply Complex.
+    value: 397
+  - name: MULR2A
+    description: Multiply reals (form A).
+    value: 407
+  - name: MULR2B
+    description: Multiply reals (form B).
+    value: 408
+  - name: ADDR4
+    description: Add 4 reals.
+    value: 410
+  - name: MAX4
+    description: Max of 4 reals.
+    value: 411
+  - name: MIN4
+    description: Min of 4 reals.
+    value: 412
+  - name: SQRMAGC2
+    description: Squared magnitude Complex.
+    value: 413
+  - name: PRELU2B
+    description: Parametric ReLU (form B).
+    value: 416
+  - name: MACC
+    description: Multiply Accumulate Complex.
+    value: 461
+  - name: AACC
+    description: Add Accumulate Complex.
+    value: 462
+  - name: ELU2A
+    description: part of ELU activation (form A).
+    value: 463
+  - name: ELU2B
+    description: part of ELU activation (form B).
+    value: 464
+  - name: IFR2A
+    description: If A then X else Y (form A).
+    value: 465
+  - name: IFR2B
+    description: If A then X else Y (form B).
+    value: 466
+  - name: MAXAC2
+    description: Max of reals and accumulator.
+    value: 467
+  - name: MINAC2
+    description: Min of reals and accumulators.
+    value: 468
+  - name: CLIP2A
+    description: Clipping activation (form A).
+    value: 469
+  - name: CLIP2B
+    description: Clipping activation (form B).
+    value: 470
+  - name: MACR2A
+    description: Multiply accumulate reals (form A).
+    value: 471
+  - name: MACR2B
+    description: Multiply accumulate reals (form B).
+    value: 472
+  - name: IFC
+    description: If A then X else Y (complex).
+    value: 473
+enum/vals::PERF0CNTSEL:
+  bit_size: 4
+  variants:
+  - name: RUN
+    description: Total run count.
+    value: 0
+  - name: CMD
+    description: Total Commands Issued.
+    value: 1
+  - name: STALL
+    description: Total stall count (at sequencer issue).
+    value: 2
+  - name: NOOP
+    description: NOOP ALU Op counter.
+    value: 3
+  - name: ALUACTIVE
+    description: Count cycles that ALU is active (not stalled), excluding NOOPs.
+    value: 4
+  - name: PIPESTALL
+    description: Stalls caused by register and resource conflicts within the ALU.
+    value: 5
+  - name: IOFENCESTALL
+    description: Count stall cycles caused by memory hazards.
+    value: 6
+  - name: LOAD0STALL
+    description: Count stall cycles when accessing memory from load stream 0.
+    value: 7
+  - name: LOAD1STALL
+    description: Count stall cycles when accessing memory from load stream 1.
+    value: 8
+  - name: STORESTALL
+    description: Count stall cycles when writing memory from store stream.
+    value: 9
+  - name: BUSSTALL
+    description: Count cycles where any of previous 3 events is occurring.
+    value: 10
+  - name: LOAD0AHBSTALL
+    description: All stall cycles on load bus 0 AHB interface.
+    value: 11
+  - name: LOAD1AHBSTALL
+    description: All stall cycles on load bus 1 AHB interface.
+    value: 12
+  - name: LOAD0FENCESTALL
+    description: LOAD0 Fence Stall cycles.
+    value: 13
+  - name: LOAD1FENCESTALL
+    description: LOAD1 Fence Stall cycles.
+    value: 14
+enum/vals::PERF1CNTSEL:
+  bit_size: 4
+  variants:
+  - name: RUN
+    description: Total run count.
+    value: 0
+  - name: CMD
+    description: Total Commands Issued.
+    value: 1
+  - name: STALL
+    description: Total stall count (at sequencer issue).
+    value: 2
+  - name: NOOP
+    description: NOOP ALU Op counter.
+    value: 3
+  - name: ALUACTIVE
+    description: Count cycles that ALU is active (not stalled), excluding NOOPs.
+    value: 4
+  - name: PIPESTALL
+    description: Stalls caused by register and resource conflicts within the ALU.
+    value: 5
+  - name: IOFENCESTALL
+    description: Count stall cycles caused by memory hazards.
+    value: 6
+  - name: LOAD0STALL
+    description: Count stall cycles when accessing memory from load stream 0.
+    value: 7
+  - name: LOAD1STALL
+    description: Count stall cycles when accessing memory from load stream 1.
+    value: 8
+  - name: STORESTALL
+    description: Count stall cycles when writing memory from store stream.
+    value: 9
+  - name: BUSSTALL
+    description: Count cycles where any of previous 3 events is occurring.
+    value: 10
+  - name: LOAD0AHBSTALL
+    description: All stall cycles on load bus 0 AHB interface.
+    value: 11
+  - name: LOAD1AHBSTALL
+    description: All stall cycles on load bus 1 AHB interface.
+    value: 12
+  - name: LOAD0FENCESTALL
+    description: LOAD0 Fence Stall cycles.
+    value: 13
+  - name: LOAD1FENCESTALL
+    description: LOAD1 Fence Stall cycles.
+    value: 14

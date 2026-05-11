@@ -1,0 +1,3256 @@
+block/PRS:
+  description: PRS peripheral.
+  items:
+  - name: IPVERSION
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::IPVERSION
+  - name: ASYNC_SWPULSE
+    description: No Description.
+    byte_offset: 8
+    access: Write
+    fieldset: regs::ASYNC_SWPULSE
+  - name: ASYNC_SWLEVEL
+    description: No Description.
+    byte_offset: 12
+    fieldset: regs::ASYNC_SWLEVEL
+  - name: ASYNC_PEEK
+    description: No Description.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::ASYNC_PEEK
+  - name: SYNC_PEEK
+    description: No Description.
+    byte_offset: 20
+    access: Read
+    fieldset: regs::SYNC_PEEK
+  - name: ASYNC_CH0_CTRL
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::ASYNC_CH0_CTRL
+  - name: ASYNC_CH1_CTRL
+    description: No Description.
+    byte_offset: 28
+    fieldset: regs::ASYNC_CH1_CTRL
+  - name: ASYNC_CH2_CTRL
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::ASYNC_CH2_CTRL
+  - name: ASYNC_CH3_CTRL
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::ASYNC_CH3_CTRL
+  - name: ASYNC_CH4_CTRL
+    description: No Description.
+    byte_offset: 40
+    fieldset: regs::ASYNC_CH4_CTRL
+  - name: ASYNC_CH5_CTRL
+    description: No Description.
+    byte_offset: 44
+    fieldset: regs::ASYNC_CH5_CTRL
+  - name: ASYNC_CH6_CTRL
+    description: No Description.
+    byte_offset: 48
+    fieldset: regs::ASYNC_CH6_CTRL
+  - name: ASYNC_CH7_CTRL
+    description: No Description.
+    byte_offset: 52
+    fieldset: regs::ASYNC_CH7_CTRL
+  - name: ASYNC_CH8_CTRL
+    description: No Description.
+    byte_offset: 56
+    fieldset: regs::ASYNC_CH8_CTRL
+  - name: ASYNC_CH9_CTRL
+    description: No Description.
+    byte_offset: 60
+    fieldset: regs::ASYNC_CH9_CTRL
+  - name: ASYNC_CH10_CTRL
+    description: No Description.
+    byte_offset: 64
+    fieldset: regs::ASYNC_CH10_CTRL
+  - name: ASYNC_CH11_CTRL
+    description: No Description.
+    byte_offset: 68
+    fieldset: regs::ASYNC_CH11_CTRL
+  - name: ASYNC_CH12_CTRL
+    description: No Description.
+    byte_offset: 72
+    fieldset: regs::ASYNC_CH12_CTRL
+  - name: ASYNC_CH13_CTRL
+    description: No Description.
+    byte_offset: 76
+    fieldset: regs::ASYNC_CH13_CTRL
+  - name: ASYNC_CH14_CTRL
+    description: No Description.
+    byte_offset: 80
+    fieldset: regs::ASYNC_CH14_CTRL
+  - name: ASYNC_CH15_CTRL
+    description: No Description.
+    byte_offset: 84
+    fieldset: regs::ASYNC_CH15_CTRL
+  - name: SYNC_CH0_CTRL
+    description: No Description.
+    byte_offset: 88
+    fieldset: regs::SYNC_CH0_CTRL
+  - name: SYNC_CH1_CTRL
+    description: No Description.
+    byte_offset: 92
+    fieldset: regs::SYNC_CH1_CTRL
+  - name: SYNC_CH2_CTRL
+    description: No Description.
+    byte_offset: 96
+    fieldset: regs::SYNC_CH2_CTRL
+  - name: SYNC_CH3_CTRL
+    description: No Description.
+    byte_offset: 100
+    fieldset: regs::SYNC_CH3_CTRL
+  - name: CONSUMER_CMU_CALDN
+    description: CALDN consumer register.
+    byte_offset: 104
+    fieldset: regs::CONSUMER_CMU_CALDN
+  - name: CONSUMER_CMU_CALUP
+    description: CALUP Consumer register.
+    byte_offset: 108
+    fieldset: regs::CONSUMER_CMU_CALUP
+  - name: CONSUMER_EUSART0_CLK
+    description: CLK consumer register.
+    byte_offset: 112
+    fieldset: regs::CONSUMER_EUSART0_CLK
+  - name: CONSUMER_EUSART0_RX
+    description: RX Consumer register.
+    byte_offset: 116
+    fieldset: regs::CONSUMER_EUSART0_RX
+  - name: CONSUMER_EUSART0_TRIGGER
+    description: TRIGGER Consumer register.
+    byte_offset: 120
+    fieldset: regs::CONSUMER_EUSART0_TRIGGER
+  - name: CONSUMER_EUSART1_CLK
+    description: CLK consumer register.
+    byte_offset: 124
+    fieldset: regs::CONSUMER_EUSART1_CLK
+  - name: CONSUMER_EUSART1_RX
+    description: RX Consumer register.
+    byte_offset: 128
+    fieldset: regs::CONSUMER_EUSART1_RX
+  - name: CONSUMER_EUSART1_TRIGGER
+    description: TRIGGER Consumer register.
+    byte_offset: 132
+    fieldset: regs::CONSUMER_EUSART1_TRIGGER
+  - name: CONSUMER_EUSART2_CLK
+    description: CLK consumer register.
+    byte_offset: 136
+    fieldset: regs::CONSUMER_EUSART2_CLK
+  - name: CONSUMER_EUSART2_RX
+    description: RX Consumer register.
+    byte_offset: 140
+    fieldset: regs::CONSUMER_EUSART2_RX
+  - name: CONSUMER_EUSART2_TRIGGER
+    description: TRIGGER Consumer register.
+    byte_offset: 144
+    fieldset: regs::CONSUMER_EUSART2_TRIGGER
+  - name: CONSUMER_EUSART3_CLK
+    description: CLK consumer register.
+    byte_offset: 148
+    fieldset: regs::CONSUMER_EUSART3_CLK
+  - name: CONSUMER_EUSART3_RX
+    description: RX Consumer register.
+    byte_offset: 152
+    fieldset: regs::CONSUMER_EUSART3_RX
+  - name: CONSUMER_EUSART3_TRIGGER
+    description: TRIGGER Consumer register.
+    byte_offset: 156
+    fieldset: regs::CONSUMER_EUSART3_TRIGGER
+  - name: CONSUMER_IADC0_SCANTRIGGER
+    description: SCAN consumer register.
+    byte_offset: 164
+    fieldset: regs::CONSUMER_IADC0_SCANTRIGGER
+  - name: CONSUMER_IADC0_SINGLETRIGGER
+    description: SINGLE Consumer register.
+    byte_offset: 168
+    fieldset: regs::CONSUMER_IADC0_SINGLETRIGGER
+  - name: CONSUMER_LDMAXBAR_DMAREQ0
+    description: DMAREQ0 consumer register.
+    byte_offset: 172
+    fieldset: regs::CONSUMER_LDMAXBAR_DMAREQ0
+  - name: CONSUMER_LDMAXBAR_DMAREQ1
+    description: DMAREQ1 Consumer register.
+    byte_offset: 176
+    fieldset: regs::CONSUMER_LDMAXBAR_DMAREQ1
+  - name: CONSUMER_LETIMER0_CLEAR
+    description: CLEAR consumer register.
+    byte_offset: 180
+    fieldset: regs::CONSUMER_LETIMER0_CLEAR
+  - name: CONSUMER_LETIMER0_START
+    description: START Consumer register.
+    byte_offset: 184
+    fieldset: regs::CONSUMER_LETIMER0_START
+  - name: CONSUMER_LETIMER0_STOP
+    description: STOP Consumer register.
+    byte_offset: 188
+    fieldset: regs::CONSUMER_LETIMER0_STOP
+  - name: CONSUMER_MODEM_DIN
+    description: DIN consumer register.
+    byte_offset: 192
+    fieldset: regs::CONSUMER_MODEM_DIN
+  - name: CONSUMER_MODEM_PAEN
+    description: PAEN Consumer register.
+    byte_offset: 196
+    fieldset: regs::CONSUMER_MODEM_PAEN
+  - name: CONSUMER_PCNT0_S0IN
+    description: S0IN consumer register.
+    byte_offset: 200
+    fieldset: regs::CONSUMER_PCNT0_S0IN
+  - name: CONSUMER_PCNT0_S1IN
+    description: S1IN Consumer register.
+    byte_offset: 204
+    fieldset: regs::CONSUMER_PCNT0_S1IN
+  - name: CONSUMER_RAC_CLR
+    description: CLR consumer register.
+    byte_offset: 252
+    fieldset: regs::CONSUMER_RAC_CLR
+  - name: CONSUMER_RAC_CTIIN0
+    description: CTI Consumer register.
+    byte_offset: 256
+    fieldset: regs::CONSUMER_RAC_CTIIN0
+  - name: CONSUMER_RAC_CTIIN1
+    description: CTI Consumer register.
+    byte_offset: 260
+    fieldset: regs::CONSUMER_RAC_CTIIN1
+  - name: CONSUMER_RAC_CTIIN2
+    description: CTI Consumer register.
+    byte_offset: 264
+    fieldset: regs::CONSUMER_RAC_CTIIN2
+  - name: CONSUMER_RAC_CTIIN3
+    description: CTI Consumer register.
+    byte_offset: 268
+    fieldset: regs::CONSUMER_RAC_CTIIN3
+  - name: CONSUMER_RAC_FORCETX
+    description: FORCETX Consumer register.
+    byte_offset: 272
+    fieldset: regs::CONSUMER_RAC_FORCETX
+  - name: CONSUMER_RAC_RXDIS
+    description: RXDIS Consumer register.
+    byte_offset: 276
+    fieldset: regs::CONSUMER_RAC_RXDIS
+  - name: CONSUMER_RAC_RXEN
+    description: RXEN Consumer register.
+    byte_offset: 280
+    fieldset: regs::CONSUMER_RAC_RXEN
+  - name: CONSUMER_RAC_TXEN
+    description: TXEN Consumer register.
+    byte_offset: 284
+    fieldset: regs::CONSUMER_RAC_TXEN
+  - name: CONSUMER_SETAMPER_TAMPERSRC25
+    description: TAMPERSRC25 consumer register.
+    byte_offset: 288
+    fieldset: regs::CONSUMER_SETAMPER_TAMPERSRC25
+  - name: CONSUMER_SETAMPER_TAMPERSRC26
+    description: TAMPERSRC26 Consumer register.
+    byte_offset: 292
+    fieldset: regs::CONSUMER_SETAMPER_TAMPERSRC26
+  - name: CONSUMER_SETAMPER_TAMPERSRC27
+    description: TAMPERSRC27 Consumer register.
+    byte_offset: 296
+    fieldset: regs::CONSUMER_SETAMPER_TAMPERSRC27
+  - name: CONSUMER_SETAMPER_TAMPERSRC28
+    description: TAMPERSRC28 Consumer register.
+    byte_offset: 300
+    fieldset: regs::CONSUMER_SETAMPER_TAMPERSRC28
+  - name: CONSUMER_SETAMPER_TAMPERSRC29
+    description: TAMPERSRC29 Consumer register.
+    byte_offset: 304
+    fieldset: regs::CONSUMER_SETAMPER_TAMPERSRC29
+  - name: CONSUMER_SETAMPER_TAMPERSRC30
+    description: TAMPERSRC30 Consumer register.
+    byte_offset: 308
+    fieldset: regs::CONSUMER_SETAMPER_TAMPERSRC30
+  - name: CONSUMER_SETAMPER_TAMPERSRC31
+    description: TAMPERSRC31 Consumer register.
+    byte_offset: 312
+    fieldset: regs::CONSUMER_SETAMPER_TAMPERSRC31
+  - name: CONSUMER_SYSRTC0_IN0
+    description: IN0 consumer register.
+    byte_offset: 316
+    fieldset: regs::CONSUMER_SYSRTC0_IN0
+  - name: CONSUMER_SYSRTC0_IN1
+    description: IN1 Consumer register.
+    byte_offset: 320
+    fieldset: regs::CONSUMER_SYSRTC0_IN1
+  - name: CONSUMER_HFXO0_OSCREQ
+    description: OSCREQ consumer register.
+    byte_offset: 324
+    fieldset: regs::CONSUMER_HFXO0_OSCREQ
+  - name: CONSUMER_HFXO0_TIMEOUT
+    description: TIMEOUT Consumer register.
+    byte_offset: 328
+    fieldset: regs::CONSUMER_HFXO0_TIMEOUT
+  - name: CONSUMER_CORE_CTIIN0
+    description: CTI0 consumer register.
+    byte_offset: 332
+    fieldset: regs::CONSUMER_CORE_CTIIN0
+  - name: CONSUMER_CORE_CTIIN1
+    description: CTI1 Consumer register.
+    byte_offset: 336
+    fieldset: regs::CONSUMER_CORE_CTIIN1
+  - name: CONSUMER_CORE_CTIIN2
+    description: CTI2 Consumer register.
+    byte_offset: 340
+    fieldset: regs::CONSUMER_CORE_CTIIN2
+  - name: CONSUMER_CORE_CTIIN3
+    description: CTI3 Consumer register.
+    byte_offset: 344
+    fieldset: regs::CONSUMER_CORE_CTIIN3
+  - name: CONSUMER_CORE_M33RXEV
+    description: M33 Consumer register.
+    byte_offset: 348
+    fieldset: regs::CONSUMER_CORE_M33RXEV
+  - name: CONSUMER_TIMER0_CC0
+    description: CC0 consumer register.
+    byte_offset: 352
+    fieldset: regs::CONSUMER_TIMER0_CC0
+  - name: CONSUMER_TIMER0_CC1
+    description: CC1 Consumer register.
+    byte_offset: 356
+    fieldset: regs::CONSUMER_TIMER0_CC1
+  - name: CONSUMER_TIMER0_CC2
+    description: CC2 Consumer register.
+    byte_offset: 360
+    fieldset: regs::CONSUMER_TIMER0_CC2
+  - name: CONSUMER_TIMER0_DTI
+    description: DTI Consumer register.
+    byte_offset: 364
+    fieldset: regs::CONSUMER_TIMER0_DTI
+  - name: CONSUMER_TIMER0_DTIFS1
+    description: DTI Consumer register.
+    byte_offset: 368
+    fieldset: regs::CONSUMER_TIMER0_DTIFS1
+  - name: CONSUMER_TIMER0_DTIFS2
+    description: DTI Consumer register.
+    byte_offset: 372
+    fieldset: regs::CONSUMER_TIMER0_DTIFS2
+  - name: CONSUMER_TIMER1_CC0
+    description: CC0 consumer register.
+    byte_offset: 376
+    fieldset: regs::CONSUMER_TIMER1_CC0
+  - name: CONSUMER_TIMER1_CC1
+    description: CC1 Consumer register.
+    byte_offset: 380
+    fieldset: regs::CONSUMER_TIMER1_CC1
+  - name: CONSUMER_TIMER1_CC2
+    description: CC2 Consumer register.
+    byte_offset: 384
+    fieldset: regs::CONSUMER_TIMER1_CC2
+  - name: CONSUMER_TIMER1_DTI
+    description: DTI Consumer register.
+    byte_offset: 388
+    fieldset: regs::CONSUMER_TIMER1_DTI
+  - name: CONSUMER_TIMER1_DTIFS1
+    description: DTI Consumer register.
+    byte_offset: 392
+    fieldset: regs::CONSUMER_TIMER1_DTIFS1
+  - name: CONSUMER_TIMER1_DTIFS2
+    description: DTI Consumer register.
+    byte_offset: 396
+    fieldset: regs::CONSUMER_TIMER1_DTIFS2
+  - name: CONSUMER_TIMER2_CC0
+    description: CC0 consumer register.
+    byte_offset: 400
+    fieldset: regs::CONSUMER_TIMER2_CC0
+  - name: CONSUMER_TIMER2_CC1
+    description: CC1 Consumer register.
+    byte_offset: 404
+    fieldset: regs::CONSUMER_TIMER2_CC1
+  - name: CONSUMER_TIMER2_CC2
+    description: CC2 Consumer register.
+    byte_offset: 408
+    fieldset: regs::CONSUMER_TIMER2_CC2
+  - name: CONSUMER_TIMER2_DTI
+    description: DTI Consumer register.
+    byte_offset: 412
+    fieldset: regs::CONSUMER_TIMER2_DTI
+  - name: CONSUMER_TIMER2_DTIFS1
+    description: DTI Consumer register.
+    byte_offset: 416
+    fieldset: regs::CONSUMER_TIMER2_DTIFS1
+  - name: CONSUMER_TIMER2_DTIFS2
+    description: DTI Consumer register.
+    byte_offset: 420
+    fieldset: regs::CONSUMER_TIMER2_DTIFS2
+  - name: CONSUMER_TIMER3_CC0
+    description: CC0 consumer register.
+    byte_offset: 424
+    fieldset: regs::CONSUMER_TIMER3_CC0
+  - name: CONSUMER_TIMER3_CC1
+    description: CC1 Consumer register.
+    byte_offset: 428
+    fieldset: regs::CONSUMER_TIMER3_CC1
+  - name: CONSUMER_TIMER3_CC2
+    description: CC2 Consumer register.
+    byte_offset: 432
+    fieldset: regs::CONSUMER_TIMER3_CC2
+  - name: CONSUMER_TIMER3_DTI
+    description: DTI Consumer register.
+    byte_offset: 436
+    fieldset: regs::CONSUMER_TIMER3_DTI
+  - name: CONSUMER_TIMER3_DTIFS1
+    description: DTI Consumer register.
+    byte_offset: 440
+    fieldset: regs::CONSUMER_TIMER3_DTIFS1
+  - name: CONSUMER_TIMER3_DTIFS2
+    description: DTI Consumer register.
+    byte_offset: 444
+    fieldset: regs::CONSUMER_TIMER3_DTIFS2
+  - name: CONSUMER_TIMER4_CC0
+    description: CC0 consumer register.
+    byte_offset: 448
+    fieldset: regs::CONSUMER_TIMER4_CC0
+  - name: CONSUMER_TIMER4_CC1
+    description: CC1 Consumer register.
+    byte_offset: 452
+    fieldset: regs::CONSUMER_TIMER4_CC1
+  - name: CONSUMER_TIMER4_CC2
+    description: CC2 Consumer register.
+    byte_offset: 456
+    fieldset: regs::CONSUMER_TIMER4_CC2
+  - name: CONSUMER_TIMER4_DTI
+    description: DTI Consumer register.
+    byte_offset: 460
+    fieldset: regs::CONSUMER_TIMER4_DTI
+  - name: CONSUMER_TIMER4_DTIFS1
+    description: DTI Consumer register.
+    byte_offset: 464
+    fieldset: regs::CONSUMER_TIMER4_DTIFS1
+  - name: CONSUMER_TIMER4_DTIFS2
+    description: DTI Consumer register.
+    byte_offset: 468
+    fieldset: regs::CONSUMER_TIMER4_DTIFS2
+  - name: CONSUMER_TIMER5_CC0
+    description: CC0 consumer register.
+    byte_offset: 472
+    fieldset: regs::CONSUMER_TIMER5_CC0
+  - name: CONSUMER_TIMER5_CC1
+    description: CC1 Consumer register.
+    byte_offset: 476
+    fieldset: regs::CONSUMER_TIMER5_CC1
+  - name: CONSUMER_TIMER5_CC2
+    description: CC2 Consumer register.
+    byte_offset: 480
+    fieldset: regs::CONSUMER_TIMER5_CC2
+  - name: CONSUMER_TIMER5_DTI
+    description: DTI Consumer register.
+    byte_offset: 484
+    fieldset: regs::CONSUMER_TIMER5_DTI
+  - name: CONSUMER_TIMER5_DTIFS1
+    description: DTI Consumer register.
+    byte_offset: 488
+    fieldset: regs::CONSUMER_TIMER5_DTIFS1
+  - name: CONSUMER_TIMER5_DTIFS2
+    description: DTI Consumer register.
+    byte_offset: 492
+    fieldset: regs::CONSUMER_TIMER5_DTIFS2
+  - name: CONSUMER_TIMER6_CC0
+    description: CC0 consumer register.
+    byte_offset: 496
+    fieldset: regs::CONSUMER_TIMER6_CC0
+  - name: CONSUMER_TIMER6_CC1
+    description: CC1 Consumer register.
+    byte_offset: 500
+    fieldset: regs::CONSUMER_TIMER6_CC1
+  - name: CONSUMER_TIMER6_CC2
+    description: CC2 Consumer register.
+    byte_offset: 504
+    fieldset: regs::CONSUMER_TIMER6_CC2
+  - name: CONSUMER_TIMER6_DTI
+    description: DTI Consumer register.
+    byte_offset: 508
+    fieldset: regs::CONSUMER_TIMER6_DTI
+  - name: CONSUMER_TIMER6_DTIFS1
+    description: DTI Consumer register.
+    byte_offset: 512
+    fieldset: regs::CONSUMER_TIMER6_DTIFS1
+  - name: CONSUMER_TIMER6_DTIFS2
+    description: DTI Consumer register.
+    byte_offset: 516
+    fieldset: regs::CONSUMER_TIMER6_DTIFS2
+  - name: CONSUMER_TIMER7_CC0
+    description: CC0 consumer register.
+    byte_offset: 520
+    fieldset: regs::CONSUMER_TIMER7_CC0
+  - name: CONSUMER_TIMER7_CC1
+    description: CC1 Consumer register.
+    byte_offset: 524
+    fieldset: regs::CONSUMER_TIMER7_CC1
+  - name: CONSUMER_TIMER7_CC2
+    description: CC2 Consumer register.
+    byte_offset: 528
+    fieldset: regs::CONSUMER_TIMER7_CC2
+  - name: CONSUMER_TIMER7_DTI
+    description: DTI Consumer register.
+    byte_offset: 532
+    fieldset: regs::CONSUMER_TIMER7_DTI
+  - name: CONSUMER_TIMER7_DTIFS1
+    description: DTI Consumer register.
+    byte_offset: 536
+    fieldset: regs::CONSUMER_TIMER7_DTIFS1
+  - name: CONSUMER_TIMER7_DTIFS2
+    description: DTI Consumer register.
+    byte_offset: 540
+    fieldset: regs::CONSUMER_TIMER7_DTIFS2
+  - name: CONSUMER_TIMER8_CC0
+    description: CC0 consumer register.
+    byte_offset: 544
+    fieldset: regs::CONSUMER_TIMER8_CC0
+  - name: CONSUMER_TIMER8_CC1
+    description: CC1 Consumer register.
+    byte_offset: 548
+    fieldset: regs::CONSUMER_TIMER8_CC1
+  - name: CONSUMER_TIMER8_CC2
+    description: CC2 Consumer register.
+    byte_offset: 552
+    fieldset: regs::CONSUMER_TIMER8_CC2
+  - name: CONSUMER_TIMER8_DTI
+    description: DTI Consumer register.
+    byte_offset: 556
+    fieldset: regs::CONSUMER_TIMER8_DTI
+  - name: CONSUMER_TIMER8_DTIFS1
+    description: DTI Consumer register.
+    byte_offset: 560
+    fieldset: regs::CONSUMER_TIMER8_DTIFS1
+  - name: CONSUMER_TIMER8_DTIFS2
+    description: DTI Consumer register.
+    byte_offset: 564
+    fieldset: regs::CONSUMER_TIMER8_DTIFS2
+  - name: CONSUMER_TIMER9_CC0
+    description: CC0 consumer register.
+    byte_offset: 568
+    fieldset: regs::CONSUMER_TIMER9_CC0
+  - name: CONSUMER_TIMER9_CC1
+    description: CC1 Consumer register.
+    byte_offset: 572
+    fieldset: regs::CONSUMER_TIMER9_CC1
+  - name: CONSUMER_TIMER9_CC2
+    description: CC2 Consumer register.
+    byte_offset: 576
+    fieldset: regs::CONSUMER_TIMER9_CC2
+  - name: CONSUMER_TIMER9_DTI
+    description: DTI Consumer register.
+    byte_offset: 580
+    fieldset: regs::CONSUMER_TIMER9_DTI
+  - name: CONSUMER_TIMER9_DTIFS1
+    description: DTI Consumer register.
+    byte_offset: 584
+    fieldset: regs::CONSUMER_TIMER9_DTIFS1
+  - name: CONSUMER_TIMER9_DTIFS2
+    description: DTI Consumer register.
+    byte_offset: 588
+    fieldset: regs::CONSUMER_TIMER9_DTIFS2
+  - name: CONSUMER_USART0_CLK
+    description: CLK consumer register.
+    byte_offset: 592
+    fieldset: regs::CONSUMER_USART0_CLK
+  - name: CONSUMER_USART0_IR
+    description: IR Consumer register.
+    byte_offset: 596
+    fieldset: regs::CONSUMER_USART0_IR
+  - name: CONSUMER_USART0_RX
+    description: RX Consumer register.
+    byte_offset: 600
+    fieldset: regs::CONSUMER_USART0_RX
+  - name: CONSUMER_USART0_TRIGGER
+    description: TRIGGER Consumer register.
+    byte_offset: 604
+    fieldset: regs::CONSUMER_USART0_TRIGGER
+  - name: CONSUMER_USART1_CLK
+    description: CLK consumer register.
+    byte_offset: 620
+    fieldset: regs::CONSUMER_USART1_CLK
+  - name: CONSUMER_USART1_IR
+    description: IR Consumer register.
+    byte_offset: 624
+    fieldset: regs::CONSUMER_USART1_IR
+  - name: CONSUMER_USART1_RX
+    description: RX Consumer register.
+    byte_offset: 628
+    fieldset: regs::CONSUMER_USART1_RX
+  - name: CONSUMER_USART1_TRIGGER
+    description: TRIGGER Consumer register.
+    byte_offset: 632
+    fieldset: regs::CONSUMER_USART1_TRIGGER
+  - name: CONSUMER_USART2_CLK
+    description: CLK consumer register.
+    byte_offset: 648
+    fieldset: regs::CONSUMER_USART2_CLK
+  - name: CONSUMER_USART2_IR
+    description: IR Consumer register.
+    byte_offset: 652
+    fieldset: regs::CONSUMER_USART2_IR
+  - name: CONSUMER_USART2_RX
+    description: RX Consumer register.
+    byte_offset: 656
+    fieldset: regs::CONSUMER_USART2_RX
+  - name: CONSUMER_USART2_TRIGGER
+    description: TRIGGER Consumer register.
+    byte_offset: 660
+    fieldset: regs::CONSUMER_USART2_TRIGGER
+  - name: CONSUMER_VDAC0_ASYNCTRIGCH0
+    description: ASYNCTRIG consumer register.
+    byte_offset: 676
+    fieldset: regs::CONSUMER_VDAC0_ASYNCTRIGCH0
+  - name: CONSUMER_VDAC0_ASYNCTRIGCH1
+    description: ASYNCTRIG Consumer register.
+    byte_offset: 680
+    fieldset: regs::CONSUMER_VDAC0_ASYNCTRIGCH1
+  - name: CONSUMER_VDAC0_SYNCTRIGCH0
+    description: SYNCTRIG Consumer register.
+    byte_offset: 684
+    fieldset: regs::CONSUMER_VDAC0_SYNCTRIGCH0
+  - name: CONSUMER_VDAC0_SYNCTRIGCH1
+    description: SYNCTRIG Consumer register.
+    byte_offset: 688
+    fieldset: regs::CONSUMER_VDAC0_SYNCTRIGCH1
+  - name: CONSUMER_VDAC1_ASYNCTRIGCH0
+    description: ASYNCTRIG consumer register.
+    byte_offset: 692
+    fieldset: regs::CONSUMER_VDAC1_ASYNCTRIGCH0
+  - name: CONSUMER_VDAC1_ASYNCTRIGCH1
+    description: ASYNCTRIG Consumer register.
+    byte_offset: 696
+    fieldset: regs::CONSUMER_VDAC1_ASYNCTRIGCH1
+  - name: CONSUMER_VDAC1_SYNCTRIGCH0
+    description: SYNCTRIG Consumer register.
+    byte_offset: 700
+    fieldset: regs::CONSUMER_VDAC1_SYNCTRIGCH0
+  - name: CONSUMER_VDAC1_SYNCTRIGCH1
+    description: SYNCTRIG Consumer register.
+    byte_offset: 704
+    fieldset: regs::CONSUMER_VDAC1_SYNCTRIGCH1
+  - name: CONSUMER_WDOG0_SRC0
+    description: SRC0 consumer register.
+    byte_offset: 708
+    fieldset: regs::CONSUMER_WDOG0_SRC0
+  - name: CONSUMER_WDOG0_SRC1
+    description: SRC1 Consumer register.
+    byte_offset: 712
+    fieldset: regs::CONSUMER_WDOG0_SRC1
+  - name: CONSUMER_WDOG1_SRC0
+    description: SRC0 consumer register.
+    byte_offset: 716
+    fieldset: regs::CONSUMER_WDOG1_SRC0
+  - name: CONSUMER_WDOG1_SRC1
+    description: SRC1 Consumer register.
+    byte_offset: 720
+    fieldset: regs::CONSUMER_WDOG1_SRC1
+fieldset/regs::ASYNC_CH0_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH0_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH0_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH10_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH10_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH10_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH11_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH11_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH11_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH12_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH12_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH12_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH13_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH13_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH13_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH14_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH14_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH14_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH15_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH15_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH15_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH1_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH1_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH1_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH2_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH2_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH2_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH3_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH3_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH3_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH4_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH4_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH4_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH5_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH5_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH5_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH6_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH6_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH6_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH7_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH7_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH7_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH8_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH8_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH8_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_CH9_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::ASYNC_CH9_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+  - name: FNSEL
+    description: Function Select.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::ASYNC_CH9_CTRL_FNSEL
+  - name: AUXSEL
+    description: Auxiliary LUT Input Select.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::ASYNC_PEEK:
+  description: No Description.
+  fields:
+  - name: CH0VAL
+    description: Channel 0 Current Value.
+    bit_offset: 0
+    bit_size: 1
+  - name: CH1VAL
+    description: Channel 1 Current Value.
+    bit_offset: 1
+    bit_size: 1
+  - name: CH2VAL
+    description: Channel 2 Current Value.
+    bit_offset: 2
+    bit_size: 1
+  - name: CH3VAL
+    description: Channel 3 Current Value.
+    bit_offset: 3
+    bit_size: 1
+  - name: CH4VAL
+    description: Channel 4 Current Value.
+    bit_offset: 4
+    bit_size: 1
+  - name: CH5VAL
+    description: Channel 5 Current Value.
+    bit_offset: 5
+    bit_size: 1
+  - name: CH6VAL
+    description: Channel 6 Current Value.
+    bit_offset: 6
+    bit_size: 1
+  - name: CH7VAL
+    description: Channel 7 Current Value.
+    bit_offset: 7
+    bit_size: 1
+  - name: CH8VAL
+    description: Channel 8 Current Value.
+    bit_offset: 8
+    bit_size: 1
+  - name: CH9VAL
+    description: Channel 9 Current Value.
+    bit_offset: 9
+    bit_size: 1
+  - name: CH10VAL
+    description: Channel 10 Current Value.
+    bit_offset: 10
+    bit_size: 1
+  - name: CH11VAL
+    description: Channel 11 Current Value.
+    bit_offset: 11
+    bit_size: 1
+  - name: CH12VAL
+    description: Channel 12 Current Value.
+    bit_offset: 12
+    bit_size: 1
+  - name: CH13VAL
+    description: Channel 13 current value.
+    bit_offset: 13
+    bit_size: 1
+  - name: CH14VAL
+    description: Channel 14 current value.
+    bit_offset: 14
+    bit_size: 1
+  - name: CH15VAL
+    description: Channel 15 current value.
+    bit_offset: 15
+    bit_size: 1
+fieldset/regs::ASYNC_SWLEVEL:
+  description: No Description.
+  fields:
+  - name: CH0LEVEL
+    description: Channel Level.
+    bit_offset: 0
+    bit_size: 1
+  - name: CH1LEVEL
+    description: Channel Level.
+    bit_offset: 1
+    bit_size: 1
+  - name: CH2LEVEL
+    description: Channel Level.
+    bit_offset: 2
+    bit_size: 1
+  - name: CH3LEVEL
+    description: Channel Level.
+    bit_offset: 3
+    bit_size: 1
+  - name: CH4LEVEL
+    description: Channel Level.
+    bit_offset: 4
+    bit_size: 1
+  - name: CH5LEVEL
+    description: Channel Level.
+    bit_offset: 5
+    bit_size: 1
+  - name: CH6LEVEL
+    description: Channel Level.
+    bit_offset: 6
+    bit_size: 1
+  - name: CH7LEVEL
+    description: Channel Level.
+    bit_offset: 7
+    bit_size: 1
+  - name: CH8LEVEL
+    description: Channel Level.
+    bit_offset: 8
+    bit_size: 1
+  - name: CH9LEVEL
+    description: Channel Level.
+    bit_offset: 9
+    bit_size: 1
+  - name: CH10LEVEL
+    description: Channel Level.
+    bit_offset: 10
+    bit_size: 1
+  - name: CH11LEVEL
+    description: Channel Level.
+    bit_offset: 11
+    bit_size: 1
+  - name: CH12LEVEL
+    description: Channel Level.
+    bit_offset: 12
+    bit_size: 1
+  - name: CH13LEVEL
+    description: Channel Level.
+    bit_offset: 13
+    bit_size: 1
+  - name: CH14LEVEL
+    description: Channel Level.
+    bit_offset: 14
+    bit_size: 1
+  - name: CH15LEVEL
+    description: Channel Level.
+    bit_offset: 15
+    bit_size: 1
+fieldset/regs::ASYNC_SWPULSE:
+  description: No Description.
+  fields:
+  - name: CH0PULSE
+    description: Channel pulse.
+    bit_offset: 0
+    bit_size: 1
+  - name: CH1PULSE
+    description: Channel pulse.
+    bit_offset: 1
+    bit_size: 1
+  - name: CH2PULSE
+    description: Channel pulse.
+    bit_offset: 2
+    bit_size: 1
+  - name: CH3PULSE
+    description: Channel pulse.
+    bit_offset: 3
+    bit_size: 1
+  - name: CH4PULSE
+    description: Channel pulse.
+    bit_offset: 4
+    bit_size: 1
+  - name: CH5PULSE
+    description: Channel pulse.
+    bit_offset: 5
+    bit_size: 1
+  - name: CH6PULSE
+    description: Channel pulse.
+    bit_offset: 6
+    bit_size: 1
+  - name: CH7PULSE
+    description: Channel pulse.
+    bit_offset: 7
+    bit_size: 1
+  - name: CH8PULSE
+    description: Channel pulse.
+    bit_offset: 8
+    bit_size: 1
+  - name: CH9PULSE
+    description: Channel pulse.
+    bit_offset: 9
+    bit_size: 1
+  - name: CH10PULSE
+    description: Channel pulse.
+    bit_offset: 10
+    bit_size: 1
+  - name: CH11PULSE
+    description: Channel pulse.
+    bit_offset: 11
+    bit_size: 1
+  - name: CH12PULSE
+    description: Channel pulse.
+    bit_offset: 12
+    bit_size: 1
+  - name: CH13PULSE
+    description: Channel pulse.
+    bit_offset: 13
+    bit_size: 1
+  - name: CH14PULSE
+    description: Channel pulse.
+    bit_offset: 14
+    bit_size: 1
+  - name: CH15PULSE
+    description: Channel pulse.
+    bit_offset: 15
+    bit_size: 1
+fieldset/regs::CONSUMER_CMU_CALDN:
+  description: CALDN consumer register.
+  fields:
+  - name: PRSSEL
+    description: CALDN async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_CMU_CALUP:
+  description: CALUP Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CALUP async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_CORE_CTIIN0:
+  description: CTI0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: CTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_CORE_CTIIN1:
+  description: CTI1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_CORE_CTIIN2:
+  description: CTI2 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_CORE_CTIIN3:
+  description: CTI3 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_CORE_M33RXEV:
+  description: M33 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: M33 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_EUSART0_CLK:
+  description: CLK consumer register.
+  fields:
+  - name: PRSSEL
+    description: CLK async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_EUSART0_RX:
+  description: RX Consumer register.
+  fields:
+  - name: PRSSEL
+    description: RX async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_EUSART0_TRIGGER:
+  description: TRIGGER Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TRIGGER async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_EUSART1_CLK:
+  description: CLK consumer register.
+  fields:
+  - name: PRSSEL
+    description: CLK async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_EUSART1_RX:
+  description: RX Consumer register.
+  fields:
+  - name: PRSSEL
+    description: RX async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_EUSART1_TRIGGER:
+  description: TRIGGER Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TRIGGER async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_EUSART2_CLK:
+  description: CLK consumer register.
+  fields:
+  - name: PRSSEL
+    description: CLK async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_EUSART2_RX:
+  description: RX Consumer register.
+  fields:
+  - name: PRSSEL
+    description: RX async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_EUSART2_TRIGGER:
+  description: TRIGGER Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TRIGGER async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_EUSART3_CLK:
+  description: CLK consumer register.
+  fields:
+  - name: PRSSEL
+    description: CLK async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_EUSART3_RX:
+  description: RX Consumer register.
+  fields:
+  - name: PRSSEL
+    description: RX async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_EUSART3_TRIGGER:
+  description: TRIGGER Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TRIGGER async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_HFXO0_OSCREQ:
+  description: OSCREQ consumer register.
+  fields:
+  - name: PRSSEL
+    description: OSC async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_HFXO0_TIMEOUT:
+  description: TIMEOUT Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TIMEOUT async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_IADC0_SCANTRIGGER:
+  description: SCAN consumer register.
+  fields:
+  - name: PRSSEL
+    description: SCAN async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: SCAN sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_IADC0_SINGLETRIGGER:
+  description: SINGLE Consumer register.
+  fields:
+  - name: PRSSEL
+    description: SINGLE async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: SINGLE sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_LDMAXBAR_DMAREQ0:
+  description: DMAREQ0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: DMAREQ0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_LDMAXBAR_DMAREQ1:
+  description: DMAREQ1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DMAREQ1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_LETIMER0_CLEAR:
+  description: CLEAR consumer register.
+  fields:
+  - name: PRSSEL
+    description: CLEAR async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_LETIMER0_START:
+  description: START Consumer register.
+  fields:
+  - name: PRSSEL
+    description: START async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_LETIMER0_STOP:
+  description: STOP Consumer register.
+  fields:
+  - name: PRSSEL
+    description: STOP async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_MODEM_DIN:
+  description: DIN consumer register.
+  fields:
+  - name: PRSSEL
+    description: DIN async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_MODEM_PAEN:
+  description: PAEN Consumer register.
+  fields:
+  - name: PRSSEL
+    description: PAEN async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_PCNT0_S0IN:
+  description: S0IN consumer register.
+  fields:
+  - name: PRSSEL
+    description: S0IN async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_PCNT0_S1IN:
+  description: S1IN Consumer register.
+  fields:
+  - name: PRSSEL
+    description: S1IN async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_RAC_CLR:
+  description: CLR consumer register.
+  fields:
+  - name: PRSSEL
+    description: CLR async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_RAC_CTIIN0:
+  description: CTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_RAC_CTIIN1:
+  description: CTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_RAC_CTIIN2:
+  description: CTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_RAC_CTIIN3:
+  description: CTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_RAC_FORCETX:
+  description: FORCETX Consumer register.
+  fields:
+  - name: PRSSEL
+    description: FORCETX async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_RAC_RXDIS:
+  description: RXDIS Consumer register.
+  fields:
+  - name: PRSSEL
+    description: RXDIS async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_RAC_RXEN:
+  description: RXEN Consumer register.
+  fields:
+  - name: PRSSEL
+    description: RXEN async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_RAC_TXEN:
+  description: TXEN Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TXEN async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_SETAMPER_TAMPERSRC25:
+  description: TAMPERSRC25 consumer register.
+  fields:
+  - name: PRSSEL
+    description: TAMPERSRC25 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_SETAMPER_TAMPERSRC26:
+  description: TAMPERSRC26 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TAMPERSRC26 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_SETAMPER_TAMPERSRC27:
+  description: TAMPERSRC27 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TAMPERSRC27 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_SETAMPER_TAMPERSRC28:
+  description: TAMPERSRC28 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TAMPERSRC28 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_SETAMPER_TAMPERSRC29:
+  description: TAMPERSRC29 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TAMPERSRC29 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_SETAMPER_TAMPERSRC30:
+  description: TAMPERSRC30 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TAMPERSRC30 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_SETAMPER_TAMPERSRC31:
+  description: TAMPERSRC31 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TAMPERSRC31 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_SYSRTC0_IN0:
+  description: IN0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: IN0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_SYSRTC0_IN1:
+  description: IN1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: IN1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER0_CC0:
+  description: CC0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC0 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER0_CC1:
+  description: CC1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC1 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER0_CC2:
+  description: CC2 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC2 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC2 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER0_DTI:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER0_DTIFS1:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER0_DTIFS2:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER1_CC0:
+  description: CC0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC0 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER1_CC1:
+  description: CC1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC1 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER1_CC2:
+  description: CC2 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC2 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC2 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER1_DTI:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER1_DTIFS1:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER1_DTIFS2:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER2_CC0:
+  description: CC0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC0 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER2_CC1:
+  description: CC1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC1 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER2_CC2:
+  description: CC2 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC2 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC2 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER2_DTI:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER2_DTIFS1:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER2_DTIFS2:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER3_CC0:
+  description: CC0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC0 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER3_CC1:
+  description: CC1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC1 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER3_CC2:
+  description: CC2 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC2 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC2 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER3_DTI:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER3_DTIFS1:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER3_DTIFS2:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER4_CC0:
+  description: CC0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC0 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER4_CC1:
+  description: CC1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC1 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER4_CC2:
+  description: CC2 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC2 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC2 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER4_DTI:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER4_DTIFS1:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER4_DTIFS2:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER5_CC0:
+  description: CC0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC0 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER5_CC1:
+  description: CC1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC1 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER5_CC2:
+  description: CC2 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC2 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC2 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER5_DTI:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER5_DTIFS1:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER5_DTIFS2:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER6_CC0:
+  description: CC0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC0 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER6_CC1:
+  description: CC1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC1 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER6_CC2:
+  description: CC2 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC2 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC2 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER6_DTI:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER6_DTIFS1:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER6_DTIFS2:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER7_CC0:
+  description: CC0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC0 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER7_CC1:
+  description: CC1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC1 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER7_CC2:
+  description: CC2 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC2 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC2 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER7_DTI:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER7_DTIFS1:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER7_DTIFS2:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER8_CC0:
+  description: CC0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC0 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER8_CC1:
+  description: CC1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC1 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER8_CC2:
+  description: CC2 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC2 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC2 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER8_DTI:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER8_DTIFS1:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER8_DTIFS2:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER9_CC0:
+  description: CC0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC0 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER9_CC1:
+  description: CC1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC1 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER9_CC2:
+  description: CC2 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: CC2 async channel select.
+    bit_offset: 0
+    bit_size: 4
+  - name: SPRSSEL
+    description: CC2 sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_TIMER9_DTI:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER9_DTIFS1:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_TIMER9_DTIFS2:
+  description: DTI Consumer register.
+  fields:
+  - name: PRSSEL
+    description: DTI async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_USART0_CLK:
+  description: CLK consumer register.
+  fields:
+  - name: PRSSEL
+    description: CLK async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_USART0_IR:
+  description: IR Consumer register.
+  fields:
+  - name: PRSSEL
+    description: IR async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_USART0_RX:
+  description: RX Consumer register.
+  fields:
+  - name: PRSSEL
+    description: RX async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_USART0_TRIGGER:
+  description: TRIGGER Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TRIGGER async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_USART1_CLK:
+  description: CLK consumer register.
+  fields:
+  - name: PRSSEL
+    description: CLK async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_USART1_IR:
+  description: IR Consumer register.
+  fields:
+  - name: PRSSEL
+    description: IR async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_USART1_RX:
+  description: RX Consumer register.
+  fields:
+  - name: PRSSEL
+    description: RX async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_USART1_TRIGGER:
+  description: TRIGGER Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TRIGGER async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_USART2_CLK:
+  description: CLK consumer register.
+  fields:
+  - name: PRSSEL
+    description: CLK async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_USART2_IR:
+  description: IR Consumer register.
+  fields:
+  - name: PRSSEL
+    description: IR async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_USART2_RX:
+  description: RX Consumer register.
+  fields:
+  - name: PRSSEL
+    description: RX async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_USART2_TRIGGER:
+  description: TRIGGER Consumer register.
+  fields:
+  - name: PRSSEL
+    description: TRIGGER async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_VDAC0_ASYNCTRIGCH0:
+  description: ASYNCTRIG consumer register.
+  fields:
+  - name: PRSSEL
+    description: ASYNCTRIG async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_VDAC0_ASYNCTRIGCH1:
+  description: ASYNCTRIG Consumer register.
+  fields:
+  - name: PRSSEL
+    description: ASYNCTRIG async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_VDAC0_SYNCTRIGCH0:
+  description: SYNCTRIG Consumer register.
+  fields:
+  - name: SPRSSEL
+    description: SYNCTRIG sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_VDAC0_SYNCTRIGCH1:
+  description: SYNCTRIG Consumer register.
+  fields:
+  - name: SPRSSEL
+    description: SYNCTRIG sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_VDAC1_ASYNCTRIGCH0:
+  description: ASYNCTRIG consumer register.
+  fields:
+  - name: PRSSEL
+    description: ASYNCTRIG async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_VDAC1_ASYNCTRIGCH1:
+  description: ASYNCTRIG Consumer register.
+  fields:
+  - name: PRSSEL
+    description: ASYNCTRIG async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_VDAC1_SYNCTRIGCH0:
+  description: SYNCTRIG Consumer register.
+  fields:
+  - name: SPRSSEL
+    description: SYNCTRIG sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_VDAC1_SYNCTRIGCH1:
+  description: SYNCTRIG Consumer register.
+  fields:
+  - name: SPRSSEL
+    description: SYNCTRIG sync channel select.
+    bit_offset: 8
+    bit_size: 2
+fieldset/regs::CONSUMER_WDOG0_SRC0:
+  description: SRC0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: SRC0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_WDOG0_SRC1:
+  description: SRC1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: SRC1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_WDOG1_SRC0:
+  description: SRC0 consumer register.
+  fields:
+  - name: PRSSEL
+    description: SRC0 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::CONSUMER_WDOG1_SRC1:
+  description: SRC1 Consumer register.
+  fields:
+  - name: PRSSEL
+    description: SRC1 async channel select.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::IPVERSION:
+  description: No Description.
+  fields:
+  - name: IPVERSION
+    description: IP version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::SYNC_CH0_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::SYNC_CH0_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+fieldset/regs::SYNC_CH1_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::SYNC_CH1_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+fieldset/regs::SYNC_CH2_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::SYNC_CH2_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+fieldset/regs::SYNC_CH3_CTRL:
+  description: No Description.
+  fields:
+  - name: SIGSEL
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::SYNC_CH3_CTRL_SIGSEL
+  - name: SOURCESEL
+    description: Source Select.
+    bit_offset: 8
+    bit_size: 7
+fieldset/regs::SYNC_PEEK:
+  description: No Description.
+  fields:
+  - name: CH0VAL
+    description: Channel Value.
+    bit_offset: 0
+    bit_size: 1
+  - name: CH1VAL
+    description: Channel Value.
+    bit_offset: 1
+    bit_size: 1
+  - name: CH2VAL
+    description: Channel Value.
+    bit_offset: 2
+    bit_size: 1
+  - name: CH3VAL
+    description: Channel Value.
+    bit_offset: 3
+    bit_size: 1
+enum/vals::ASYNC_CH0_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH0_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH10_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH10_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH11_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH11_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH12_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH12_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH13_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH13_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH14_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH14_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH15_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH15_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH1_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH1_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH2_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH2_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH3_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH3_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH4_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH4_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH5_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH5_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH6_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH6_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH7_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH7_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH8_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH8_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::ASYNC_CH9_CTRL_FNSEL:
+  bit_size: 4
+  variants:
+  - name: LOGICAL_ZERO
+    description: Logical 0.
+    value: 0
+  - name: A_NOR_B
+    description: A NOR B.
+    value: 1
+  - name: NOT_A_AND_B
+    description: (!A) AND B.
+    value: 2
+  - name: NOT_A
+    description: '!A.'
+    value: 3
+  - name: A_AND_NOT_B
+    description: A AND (!B).
+    value: 4
+  - name: NOT_B
+    description: '!B.'
+    value: 5
+  - name: A_XOR_B
+    description: A XOR B.
+    value: 6
+  - name: A_NAND_B
+    description: A NAND B.
+    value: 7
+  - name: A_AND_B
+    description: A AND B.
+    value: 8
+  - name: A_XNOR_B
+    description: A XNOR B.
+    value: 9
+  - name: B
+    description: B.
+    value: 10
+  - name: NOT_A_OR_B
+    description: (!A) OR B.
+    value: 11
+  - name: A
+    description: A.
+    value: 12
+  - name: A_OR_NOT_B
+    description: A OR (!B).
+    value: 13
+  - name: A_OR_B
+    description: A OR B.
+    value: 14
+  - name: LOGICAL_ONE
+    description: Logical 1.
+    value: 15
+enum/vals::ASYNC_CH9_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::SYNC_CH0_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::SYNC_CH1_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::SYNC_CH2_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
+enum/vals::SYNC_CH3_CTRL_SIGSEL:
+  bit_size: 3
+  variants:
+  - name: NONE
+    description: NONE.
+    value: 0
