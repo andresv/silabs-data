@@ -1,25 +1,25 @@
-block/SCRATCHPAD:
+block/Scratchpad:
   description: SCRATCHPAD peripheral.
   items:
-  - name: SREG0
+  - name: sreg0
     description: Used for SIMCTRL Pointer in Verification Environment.
     byte_offset: 0
-    fieldset: regs::SREG0
-  - name: SREG1
+    fieldset: regs::Sreg0
+  - name: sreg1
     description: Used for SIMCTRL Data Access in Verification Environment.
     byte_offset: 4
-    fieldset: regs::SREG1
-fieldset/regs::SREG0:
+    fieldset: regs::Sreg1
+fieldset/regs::Sreg0:
   description: Used for SIMCTRL Pointer in Verification Environment.
   fields:
-  - name: SCRATCH
+  - name: scratch
     description: Scratch Pad Register.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::SREG1:
+fieldset/regs::Sreg1:
   description: Used for SIMCTRL Data Access in Verification Environment.
   fields:
-  - name: SCRATCH
+  - name: scratch
     description: Scratch Register.
     bit_offset: 0
     bit_size: 32

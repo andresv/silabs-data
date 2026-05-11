@@ -1,479 +1,479 @@
-block/MSC:
+block/Msc:
   description: MSC peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: READCTRL
+    fieldset: regs::Ipversion
+  - name: readctrl
     description: No Description.
     byte_offset: 4
-    fieldset: regs::READCTRL
-  - name: RDATACTRL
+    fieldset: regs::Readctrl
+  - name: rdatactrl
     description: No Description.
     byte_offset: 8
-    fieldset: regs::RDATACTRL
-  - name: WRITECTRL
+    fieldset: regs::Rdatactrl
+  - name: writectrl
     description: No Description.
     byte_offset: 12
-    fieldset: regs::WRITECTRL
-  - name: WRITECMD
+    fieldset: regs::Writectrl
+  - name: writecmd
     description: No Description.
     byte_offset: 16
     access: Write
-    fieldset: regs::WRITECMD
-  - name: ADDRB
+    fieldset: regs::Writecmd
+  - name: addrb
     description: No Description.
     byte_offset: 20
-    fieldset: regs::ADDRB
-  - name: WDATA
+    fieldset: regs::Addrb
+  - name: wdata
     description: No Description.
     byte_offset: 24
-    fieldset: regs::WDATA
-  - name: STATUS
+    fieldset: regs::Wdata
+  - name: status
     description: No Description.
     byte_offset: 28
     access: Read
-    fieldset: regs::STATUS
-  - name: IF
+    fieldset: regs::Status
+  - name: if_
     description: No Description.
     byte_offset: 32
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 36
-    fieldset: regs::IEN
-  - name: USERDATASIZE
+    fieldset: regs::Ien
+  - name: userdatasize
     description: No Description.
     byte_offset: 52
     access: Read
-    fieldset: regs::USERDATASIZE
-  - name: CMD
+    fieldset: regs::Userdatasize
+  - name: cmd
     description: No Description.
     byte_offset: 56
     access: Write
-    fieldset: regs::CMD
-  - name: LOCK
+    fieldset: regs::Cmd
+  - name: lock
     description: No Description.
     byte_offset: 60
     access: Write
-    fieldset: regs::LOCK
-  - name: MISCLOCKWORD
+    fieldset: regs::Lock
+  - name: misclockword
     description: No Description.
     byte_offset: 64
-    fieldset: regs::MISCLOCKWORD
-  - name: PWRCTRL
+    fieldset: regs::Misclockword
+  - name: pwrctrl
     description: No Description.
     byte_offset: 80
-    fieldset: regs::PWRCTRL
-  - name: PAGELOCK0
+    fieldset: regs::Pwrctrl
+  - name: pagelock0
     description: No Description.
     byte_offset: 288
-    fieldset: regs::PAGELOCK0
-  - name: PAGELOCK1
+    fieldset: regs::Pagelock0
+  - name: pagelock1
     description: No Description.
     byte_offset: 292
-    fieldset: regs::PAGELOCK1
-  - name: PAGELOCK2
+    fieldset: regs::Pagelock1
+  - name: pagelock2
     description: No Description.
     byte_offset: 296
-    fieldset: regs::PAGELOCK2
-  - name: PAGELOCK3
+    fieldset: regs::Pagelock2
+  - name: pagelock3
     description: No Description.
     byte_offset: 300
-    fieldset: regs::PAGELOCK3
-  - name: PAGELOCKWORD4
+    fieldset: regs::Pagelock3
+  - name: pagelockword4
     description: No Description.
     byte_offset: 304
-    fieldset: regs::PAGELOCKWORD4
-  - name: PAGELOCKWORD5
+    fieldset: regs::Pagelockword4
+  - name: pagelockword5
     description: No Description.
     byte_offset: 308
-    fieldset: regs::PAGELOCKWORD5
-  - name: PAGELOCKWORD6
+    fieldset: regs::Pagelockword5
+  - name: pagelockword6
     description: No Description.
     byte_offset: 312
-    fieldset: regs::PAGELOCKWORD6
-  - name: PAGELOCKWORD7
+    fieldset: regs::Pagelockword6
+  - name: pagelockword7
     description: No Description.
     byte_offset: 316
-    fieldset: regs::PAGELOCKWORD7
-  - name: PAGELOCKWORD8
+    fieldset: regs::Pagelockword7
+  - name: pagelockword8
     description: No Description.
     byte_offset: 320
-    fieldset: regs::PAGELOCKWORD8
-  - name: PAGELOCKWORD9
+    fieldset: regs::Pagelockword8
+  - name: pagelockword9
     description: No Description.
     byte_offset: 324
-    fieldset: regs::PAGELOCKWORD9
-  - name: PAGELOCKWORD10
+    fieldset: regs::Pagelockword9
+  - name: pagelockword10
     description: No Description.
     byte_offset: 328
-    fieldset: regs::PAGELOCKWORD10
-  - name: PAGELOCKWORD11
+    fieldset: regs::Pagelockword10
+  - name: pagelockword11
     description: No Description.
     byte_offset: 332
-    fieldset: regs::PAGELOCKWORD11
-  - name: PAGELOCKWORD12
+    fieldset: regs::Pagelockword11
+  - name: pagelockword12
     description: No Description.
     byte_offset: 336
-    fieldset: regs::PAGELOCKWORD12
-fieldset/regs::ADDRB:
+    fieldset: regs::Pagelockword12
+fieldset/regs::Addrb:
   description: No Description.
   fields:
-  - name: ADDRB
+  - name: addrb
     description: Page Erase or Write Address Buffer.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CMD:
+fieldset/regs::Cmd:
   description: No Description.
   fields:
-  - name: PWRUP
+  - name: pwrup
     description: Flash Power Up Command.
     bit_offset: 0
     bit_size: 1
-  - name: PWROFF
+  - name: pwroff
     description: Flash power off/sleep command.
     bit_offset: 4
     bit_size: 1
-fieldset/regs::IEN:
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: ERASE
+  - name: erase
     description: Erase Done Interrupt enable.
     bit_offset: 0
     bit_size: 1
-  - name: WRITE
+  - name: write
     description: Write Done Interrupt enable.
     bit_offset: 1
     bit_size: 1
-  - name: WDATAOV
+  - name: wdataov
     description: write data buffer overflow irq enable.
     bit_offset: 2
     bit_size: 1
-  - name: PWRUPF
+  - name: pwrupf
     description: Flash Power Up Seq done irq enable.
     bit_offset: 8
     bit_size: 1
-  - name: PWROFF
+  - name: pwroff
     description: Flash Power Off Seq done irq enable.
     bit_offset: 9
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: ERASE
+  - name: erase
     description: Host Erase Done Interrupt Read Flag.
     bit_offset: 0
     bit_size: 1
-  - name: WRITE
+  - name: write
     description: Host Write Done Interrupt Read Flag.
     bit_offset: 1
     bit_size: 1
-  - name: WDATAOV
+  - name: wdataov
     description: Host write buffer overflow.
     bit_offset: 2
     bit_size: 1
-  - name: PWRUPF
+  - name: pwrupf
     description: Flash Power Up Sequence Complete Flag.
     bit_offset: 8
     bit_size: 1
-  - name: PWROFF
+  - name: pwroff
     description: Flash Power Off Sequence Complete Flag.
     bit_offset: 9
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IP Version ID.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::LOCK:
+fieldset/regs::Lock:
   description: No Description.
   fields:
-  - name: LOCKKEY
+  - name: lockkey
     description: Configuration Lock.
     bit_offset: 0
     bit_size: 16
-    enum: vals::LOCKKEY
-fieldset/regs::MISCLOCKWORD:
+    enum: vals::Lockkey
+fieldset/regs::Misclockword:
   description: No Description.
   fields:
-  - name: MELOCKBIT
+  - name: melockbit
     description: Mass Erase Lock.
     bit_offset: 0
     bit_size: 1
-  - name: UDLOCKBIT
+  - name: udlockbit
     description: User Data Lock.
     bit_offset: 4
     bit_size: 1
-fieldset/regs::PAGELOCK0:
+fieldset/regs::Pagelock0:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PAGELOCK1:
+fieldset/regs::Pagelock1:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PAGELOCK2:
+fieldset/regs::Pagelock2:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PAGELOCK3:
+fieldset/regs::Pagelock3:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PAGELOCKWORD10:
+fieldset/regs::Pagelockword10:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PAGELOCKWORD11:
+fieldset/regs::Pagelockword11:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PAGELOCKWORD12:
+fieldset/regs::Pagelockword12:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock word.
     bit_offset: 0
     bit_size: 16
-fieldset/regs::PAGELOCKWORD4:
+fieldset/regs::Pagelockword4:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PAGELOCKWORD5:
+fieldset/regs::Pagelockword5:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PAGELOCKWORD6:
+fieldset/regs::Pagelockword6:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PAGELOCKWORD7:
+fieldset/regs::Pagelockword7:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PAGELOCKWORD8:
+fieldset/regs::Pagelockword8:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PAGELOCKWORD9:
+fieldset/regs::Pagelockword9:
   description: No Description.
   fields:
-  - name: LOCKBIT
+  - name: lockbit
     description: page lock bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PWRCTRL:
+fieldset/regs::Pwrctrl:
   description: No Description.
   fields:
-  - name: PWROFFONEM1ENTRY
+  - name: pwroffonem1entry
     description: Power down Flash macro when enter EM1.
     bit_offset: 0
     bit_size: 1
-  - name: PWROFFONEM1PENTRY
+  - name: pwroffonem1pentry
     description: Power down Flash macro when enter EM1P.
     bit_offset: 1
     bit_size: 1
-  - name: PWROFFENTRYAGAIN
+  - name: pwroffentryagain
     description: POWER down flash again in EM1/EM1p.
     bit_offset: 4
     bit_size: 1
-  - name: PWROFFDLY
+  - name: pwroffdly
     description: Power down delay.
     bit_offset: 16
     bit_size: 8
-fieldset/regs::RDATACTRL:
+fieldset/regs::Rdatactrl:
   description: No Description.
   fields:
-  - name: AFDIS
+  - name: afdis
     description: Automatic Invalidate Disable.
     bit_offset: 1
     bit_size: 1
-  - name: DOUTBUFEN
+  - name: doutbufen
     description: Flash dout pipeline buffer enable.
     bit_offset: 12
     bit_size: 1
-fieldset/regs::READCTRL:
+fieldset/regs::Readctrl:
   description: No Description.
   fields:
-  - name: MODE
+  - name: mode
     description: Read Mode.
     bit_offset: 20
     bit_size: 2
-    enum: vals::MODE
-fieldset/regs::STATUS:
+    enum: vals::Mode
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: BUSY
+  - name: busy
     description: Erase/Write Busy.
     bit_offset: 0
     bit_size: 1
-  - name: LOCKED
+  - name: locked
     description: Access Locked.
     bit_offset: 1
     bit_size: 1
-  - name: INVADDR
+  - name: invaddr
     description: Invalid Write Address or Erase Page.
     bit_offset: 2
     bit_size: 1
-  - name: WDATAREADY
+  - name: wdataready
     description: WDATA Write Ready.
     bit_offset: 3
     bit_size: 1
-  - name: ERASEABORTED
+  - name: eraseaborted
     description: Erase Operation Aborted.
     bit_offset: 4
     bit_size: 1
-  - name: PENDING
+  - name: pending
     description: Write Command In Queue.
     bit_offset: 5
     bit_size: 1
-  - name: TIMEOUT
+  - name: timeout
     description: Write Command Timeout.
     bit_offset: 6
     bit_size: 1
-  - name: RANGEPARTIAL
+  - name: rangepartial
     description: EraseRange with skipped locked pages.
     bit_offset: 7
     bit_size: 1
-  - name: REGLOCK
+  - name: reglock
     description: Register Lock Status.
     bit_offset: 16
     bit_size: 1
-  - name: PWRON0
+  - name: pwron0
     description: Flash Bank 0 Power On Status.
     bit_offset: 24
     bit_size: 1
-  - name: PWRON1
+  - name: pwron1
     description: Flash Bank 1 Power On Status.
     bit_offset: 25
     bit_size: 1
-  - name: WREADY
+  - name: wready
     description: Flash Write Ready.
     bit_offset: 27
     bit_size: 1
-  - name: PWRUPCKBDFAILCOUNT
+  - name: pwrupckbdfailcount
     description: Flash power up checkerboard pattern chec.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::USERDATASIZE:
+fieldset/regs::Userdatasize:
   description: No Description.
   fields:
-  - name: USERDATASIZE
+  - name: userdatasize
     description: User Data Size.
     bit_offset: 0
     bit_size: 6
-fieldset/regs::WDATA:
+fieldset/regs::Wdata:
   description: No Description.
   fields:
-  - name: DATAW
+  - name: dataw
     description: Write Data.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::WRITECMD:
+fieldset/regs::Writecmd:
   description: No Description.
   fields:
-  - name: ERASEPAGE
+  - name: erasepage
     description: Erase Page.
     bit_offset: 1
     bit_size: 1
-  - name: WRITEEND
+  - name: writeend
     description: End Write Mode.
     bit_offset: 2
     bit_size: 1
-  - name: ERASERANGE
+  - name: eraserange
     description: Erase range of pages.
     bit_offset: 4
     bit_size: 1
-  - name: ERASEABORT
+  - name: eraseabort
     description: Abort erase sequence.
     bit_offset: 5
     bit_size: 1
-  - name: ERASEMAIN0
+  - name: erasemain0
     description: Mass erase region 0.
     bit_offset: 8
     bit_size: 1
-  - name: CLEARWDATA
+  - name: clearwdata
     description: Clear WDATA state.
     bit_offset: 12
     bit_size: 1
-fieldset/regs::WRITECTRL:
+fieldset/regs::Writectrl:
   description: No Description.
   fields:
-  - name: WREN
+  - name: wren
     description: Enable Write/Erase Controller.
     bit_offset: 0
     bit_size: 1
-  - name: IRQERASEABORT
+  - name: irqeraseabort
     description: Abort Page Erase on Interrupt.
     bit_offset: 1
     bit_size: 1
-  - name: LPWRITE
+  - name: lpwrite
     description: Low-Power Write.
     bit_offset: 3
     bit_size: 1
-  - name: RANGECOUNT
+  - name: rangecount
     description: EraseRange Count.
     bit_offset: 16
     bit_size: 10
-enum/vals::LOCKKEY:
+enum/vals::Lockkey:
   bit_size: 16
   variants:
-  - name: LOCK
+  - name: Lock
     description: LOCK.
     value: 0
-  - name: UNLOCK
+  - name: Unlock
     description: UNLOCK.
     value: 7025
-enum/vals::MODE:
+enum/vals::Mode:
   bit_size: 2
   variants:
-  - name: WS0
+  - name: Ws0
     description: Zero wait-states inserted in fetch or read transfers.
     value: 0
-  - name: WS1
+  - name: Ws1
     description: One wait-state inserted for each fetch or read transfer. See Flash Wait-States table for details.
     value: 1
-  - name: WS2
+  - name: Ws2
     description: Two wait-states inserted for eatch fetch or read transfer. See Flash Wait-States table for details.
     value: 2
-  - name: WS3
+  - name: Ws3
     description: Three wait-states inserted for eatch fetch or read transfer. See Flash Wait-States table for details.
     value: 3

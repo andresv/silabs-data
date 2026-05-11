@@ -528,6 +528,7 @@ dependencies = [
  "anyhow",
  "chiptool",
  "clap",
+ "convert_case",
  "proc-macro2",
  "quick-xml",
  "quote",

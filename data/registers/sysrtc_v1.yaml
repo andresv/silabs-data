@@ -1,320 +1,320 @@
-block/SYSRTC:
+block/Sysrtc:
   description: SYSRTC peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: EN
+    fieldset: regs::Ipversion
+  - name: en
     description: No Description.
     byte_offset: 4
-    fieldset: regs::EN
-  - name: SWRST
+    fieldset: regs::En
+  - name: swrst
     description: No Description.
     byte_offset: 8
-    fieldset: regs::SWRST
-  - name: CFG
+    fieldset: regs::Swrst
+  - name: cfg
     description: No Description.
     byte_offset: 12
-    fieldset: regs::CFG
-  - name: CMD
+    fieldset: regs::Cfg
+  - name: cmd
     description: No Description.
     byte_offset: 16
     access: Write
-    fieldset: regs::CMD
-  - name: STATUS
+    fieldset: regs::Cmd
+  - name: status
     description: No Description.
     byte_offset: 20
     access: Read
-    fieldset: regs::STATUS
-  - name: CNT
+    fieldset: regs::Status
+  - name: cnt
     description: No Description.
     byte_offset: 24
-    fieldset: regs::CNT
-  - name: SYNCBUSY
+    fieldset: regs::Cnt
+  - name: syncbusy
     description: No Description.
     byte_offset: 28
     access: Read
-    fieldset: regs::SYNCBUSY
-  - name: LOCK
+    fieldset: regs::Syncbusy
+  - name: lock
     description: No Description.
     byte_offset: 32
     access: Write
-    fieldset: regs::LOCK
-  - name: GRP0_IF
+    fieldset: regs::Lock
+  - name: grp0_if
     description: No Description.
     byte_offset: 64
-    fieldset: regs::GRP0_IF
-  - name: GRP0_IEN
+    fieldset: regs::Grp0If
+  - name: grp0_ien
     description: No Description.
     byte_offset: 68
-    fieldset: regs::GRP0_IEN
-  - name: GRP0_CTRL
+    fieldset: regs::Grp0Ien
+  - name: grp0_ctrl
     description: No Description.
     byte_offset: 72
-    fieldset: regs::GRP0_CTRL
-  - name: GRP0_CMP0VALUE
+    fieldset: regs::Grp0Ctrl
+  - name: grp0_cmp0value
     description: No Description.
     byte_offset: 76
-    fieldset: regs::GRP0_CMP0VALUE
-  - name: GRP0_CMP1VALUE
+    fieldset: regs::Grp0Cmp0value
+  - name: grp0_cmp1value
     description: No Description.
     byte_offset: 80
-    fieldset: regs::GRP0_CMP1VALUE
-  - name: GRP0_CAP0VALUE
+    fieldset: regs::Grp0Cmp1value
+  - name: grp0_cap0value
     description: No Description.
     byte_offset: 84
     access: Read
-    fieldset: regs::GRP0_CAP0VALUE
-  - name: GRP0_SYNCBUSY
+    fieldset: regs::Grp0Cap0value
+  - name: grp0_syncbusy
     description: No Description.
     byte_offset: 88
     access: Read
-    fieldset: regs::GRP0_SYNCBUSY
-fieldset/regs::CFG:
+    fieldset: regs::Grp0Syncbusy
+fieldset/regs::Cfg:
   description: No Description.
   fields:
-  - name: DEBUGRUN
+  - name: debugrun
     description: Debug Mode Run Enable.
     bit_offset: 0
     bit_size: 1
-fieldset/regs::CMD:
+fieldset/regs::Cmd:
   description: No Description.
   fields:
-  - name: START
+  - name: start
     description: Start SYSRTC.
     bit_offset: 0
     bit_size: 1
-  - name: STOP
+  - name: stop
     description: Stop SYSRTC.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::CNT:
+fieldset/regs::Cnt:
   description: No Description.
   fields:
-  - name: CNT
+  - name: cnt
     description: Counter Value.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::EN:
+fieldset/regs::En:
   description: No Description.
   fields:
-  - name: EN
+  - name: en
     description: SYSRTC Enable.
     bit_offset: 0
     bit_size: 1
-  - name: DISABLING
+  - name: disabling
     description: Disablement busy status.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::GRP0_CAP0VALUE:
+fieldset/regs::Grp0Cap0value:
   description: No Description.
   fields:
-  - name: CAP0VALUE
+  - name: cap0value
     description: Capture 0 Value.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::GRP0_CMP0VALUE:
+fieldset/regs::Grp0Cmp0value:
   description: No Description.
   fields:
-  - name: CMP0VALUE
+  - name: cmp0value
     description: Compare 0 Value.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::GRP0_CMP1VALUE:
+fieldset/regs::Grp0Cmp1value:
   description: No Description.
   fields:
-  - name: CMP1VALUE
+  - name: cmp1value
     description: Compare 1 Value.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::GRP0_CTRL:
+fieldset/regs::Grp0Ctrl:
   description: No Description.
   fields:
-  - name: CMP0EN
+  - name: cmp0en
     description: Compare 0 Enable.
     bit_offset: 0
     bit_size: 1
-  - name: CMP1EN
+  - name: cmp1en
     description: Compare 1 Enable.
     bit_offset: 1
     bit_size: 1
-  - name: CAP0EN
+  - name: cap0en
     description: Capture 0 Enable.
     bit_offset: 2
     bit_size: 1
-  - name: CMP0CMOA
+  - name: cmp0cmoa
     description: Compare 0 Compare Match Output Action.
     bit_offset: 3
     bit_size: 3
-    enum: vals::CMP0CMOA
-  - name: CMP1CMOA
+    enum: vals::Cmp0cmoa
+  - name: cmp1cmoa
     description: Compare 1 Compare Match Output Action.
     bit_offset: 6
     bit_size: 3
-    enum: vals::CMP1CMOA
-  - name: CAP0EDGE
+    enum: vals::Cmp1cmoa
+  - name: cap0edge
     description: Capture 0 Edge Select.
     bit_offset: 9
     bit_size: 2
-    enum: vals::CAP0EDGE
-fieldset/regs::GRP0_IEN:
+    enum: vals::Cap0edge
+fieldset/regs::Grp0Ien:
   description: No Description.
   fields:
-  - name: OVF
+  - name: ovf
     description: Overflow Interrupt Enable.
     bit_offset: 0
     bit_size: 1
-  - name: CMP0
+  - name: cmp0
     description: Compare 0 Interrupt Enable.
     bit_offset: 1
     bit_size: 1
-  - name: CMP1
+  - name: cmp1
     description: Compare 1 Interrupt Enable.
     bit_offset: 2
     bit_size: 1
-  - name: CAP0
+  - name: cap0
     description: Capture 0 Interrupt Enable.
     bit_offset: 3
     bit_size: 1
-fieldset/regs::GRP0_IF:
+fieldset/regs::Grp0If:
   description: No Description.
   fields:
-  - name: OVF
+  - name: ovf
     description: Overflow Interrupt Flag.
     bit_offset: 0
     bit_size: 1
-  - name: CMP0
+  - name: cmp0
     description: Compare 0 Interrupt Flag.
     bit_offset: 1
     bit_size: 1
-  - name: CMP1
+  - name: cmp1
     description: Compare 1 Interrupt Flag.
     bit_offset: 2
     bit_size: 1
-  - name: CAP0
+  - name: cap0
     description: Capture 0 Interrupt Flag.
     bit_offset: 3
     bit_size: 1
-fieldset/regs::GRP0_SYNCBUSY:
+fieldset/regs::Grp0Syncbusy:
   description: No Description.
   fields:
-  - name: CTRL
+  - name: ctrl
     description: Sync busy for CTRL register.
     bit_offset: 0
     bit_size: 1
-  - name: CMP0VALUE
+  - name: cmp0value
     description: Sync busy for CMP0VALUE register.
     bit_offset: 1
     bit_size: 1
-  - name: CMP1VALUE
+  - name: cmp1value
     description: Sync busy for CMP1VALUE register.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IP VERSION.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::LOCK:
+fieldset/regs::Lock:
   description: No Description.
   fields:
-  - name: LOCKKEY
+  - name: lockkey
     description: Configuration Lock Key.
     bit_offset: 0
     bit_size: 16
-    enum: vals::LOCKKEY
-fieldset/regs::STATUS:
+    enum: vals::Lockkey
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: RUNNING
+  - name: running
     description: SYSRTC running status.
     bit_offset: 0
     bit_size: 1
-  - name: LOCKSTATUS
+  - name: lockstatus
     description: Lock Status.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::SWRST:
+fieldset/regs::Swrst:
   description: No Description.
   fields:
-  - name: SWRST
+  - name: swrst
     description: Software reset command.
     bit_offset: 0
     bit_size: 1
-  - name: RESETTING
+  - name: resetting
     description: Software reset busy status.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::SYNCBUSY:
+fieldset/regs::Syncbusy:
   description: No Description.
   fields:
-  - name: START
+  - name: start
     description: Sync busy for START bitfield.
     bit_offset: 0
     bit_size: 1
-  - name: STOP
+  - name: stop
     description: Sync busy for STOP bitfield.
     bit_offset: 1
     bit_size: 1
-  - name: CNT
+  - name: cnt
     description: Sync busy for CNT bitfield.
     bit_offset: 2
     bit_size: 1
-enum/vals::CAP0EDGE:
+enum/vals::Cap0edge:
   bit_size: 2
   variants:
-  - name: RISING
-    description: Rising edges detected.
-    value: 0
-  - name: FALLING
-    description: Falling edges detected.
-    value: 1
-  - name: BOTH
+  - name: Both
     description: Both edges detected.
     value: 2
-enum/vals::CMP0CMOA:
+  - name: Falling
+    description: Falling edges detected.
+    value: 1
+  - name: Rising
+    description: Rising edges detected.
+    value: 0
+enum/vals::Cmp0cmoa:
   bit_size: 3
   variants:
-  - name: CLEAR
+  - name: Clear
     description: Cleared on the next cycle.
     value: 0
-  - name: SET
-    description: Set on the next cycle.
-    value: 1
-  - name: PULSE
-    description: Set on the next cycle, cleared on the cycle after.
-    value: 2
-  - name: TOGGLE
-    description: Inverted on the next cycle.
-    value: 3
-  - name: CMPIF
+  - name: Cmpif
     description: Export this channel's CMP IF.
     value: 4
-enum/vals::CMP1CMOA:
+  - name: Pulse
+    description: Set on the next cycle, cleared on the cycle after.
+    value: 2
+  - name: Set
+    description: Set on the next cycle.
+    value: 1
+  - name: Toggle
+    description: Inverted on the next cycle.
+    value: 3
+enum/vals::Cmp1cmoa:
   bit_size: 3
   variants:
-  - name: CLEAR
+  - name: Clear
     description: Cleared on the next cycle.
     value: 0
-  - name: SET
-    description: Set on the next cycle.
-    value: 1
-  - name: PULSE
-    description: Set on the next cycle, cleared on the cycle after.
-    value: 2
-  - name: TOGGLE
-    description: Inverted on the next cycle.
-    value: 3
-  - name: CMPIF
+  - name: Cmpif
     description: Export this channel's CMP IF.
     value: 4
-enum/vals::LOCKKEY:
+  - name: Pulse
+    description: Set on the next cycle, cleared on the cycle after.
+    value: 2
+  - name: Set
+    description: Set on the next cycle.
+    value: 1
+  - name: Toggle
+    description: Inverted on the next cycle.
+    value: 3
+enum/vals::Lockkey:
   bit_size: 16
   variants:
-  - name: UNLOCK
+  - name: Unlock
     description: Write to unlock SYSRTC lockable registers.
     value: 18294

@@ -1,1313 +1,1313 @@
-block/EUSART:
+block/Eusart:
   description: EUSART peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: EN
+    fieldset: regs::Ipversion
+  - name: en
     description: No Description.
     byte_offset: 4
-    fieldset: regs::EN
-  - name: CFG0
+    fieldset: regs::En
+  - name: cfg0
     description: No Description.
     byte_offset: 8
-    fieldset: regs::CFG0
-  - name: CFG1
+    fieldset: regs::Cfg0
+  - name: cfg1
     description: No Description.
     byte_offset: 12
-    fieldset: regs::CFG1
-  - name: CFG2
+    fieldset: regs::Cfg1
+  - name: cfg2
     description: No Description.
     byte_offset: 16
-    fieldset: regs::CFG2
-  - name: FRAMECFG
+    fieldset: regs::Cfg2
+  - name: framecfg
     description: No Description.
     byte_offset: 20
-    fieldset: regs::FRAMECFG
-  - name: DTXDATCFG
+    fieldset: regs::Framecfg
+  - name: dtxdatcfg
     description: No Description.
     byte_offset: 24
-    fieldset: regs::DTXDATCFG
-  - name: IRHFCFG
+    fieldset: regs::Dtxdatcfg
+  - name: irhfcfg
     description: No Description.
     byte_offset: 28
-    fieldset: regs::IRHFCFG
-  - name: IRLFCFG
+    fieldset: regs::Irhfcfg
+  - name: irlfcfg
     description: No Description.
     byte_offset: 32
-    fieldset: regs::IRLFCFG
-  - name: TIMINGCFG
+    fieldset: regs::Irlfcfg
+  - name: timingcfg
     description: No Description.
     byte_offset: 36
-    fieldset: regs::TIMINGCFG
-  - name: STARTFRAMECFG
+    fieldset: regs::Timingcfg
+  - name: startframecfg
     description: No Description.
     byte_offset: 40
-    fieldset: regs::STARTFRAMECFG
-  - name: SIGFRAMECFG
+    fieldset: regs::Startframecfg
+  - name: sigframecfg
     description: No Description.
     byte_offset: 44
-    fieldset: regs::SIGFRAMECFG
-  - name: CLKDIV
+    fieldset: regs::Sigframecfg
+  - name: clkdiv
     description: No Description.
     byte_offset: 48
-    fieldset: regs::CLKDIV
-  - name: TRIGCTRL
+    fieldset: regs::Clkdiv
+  - name: trigctrl
     description: No Description.
     byte_offset: 52
-    fieldset: regs::TRIGCTRL
-  - name: CMD
+    fieldset: regs::Trigctrl
+  - name: cmd
     description: No Description.
     byte_offset: 56
     access: Write
-    fieldset: regs::CMD
-  - name: RXDATA
+    fieldset: regs::Cmd
+  - name: rxdata
     description: No Description.
     byte_offset: 60
     access: Read
-    fieldset: regs::RXDATA
-  - name: RXDATAP
+    fieldset: regs::Rxdata
+  - name: rxdatap
     description: No Description.
     byte_offset: 64
     access: Read
-    fieldset: regs::RXDATAP
-  - name: TXDATA
+    fieldset: regs::Rxdatap
+  - name: txdata
     description: No Description.
     byte_offset: 68
     access: Write
-    fieldset: regs::TXDATA
-  - name: STATUS
+    fieldset: regs::Txdata
+  - name: status
     description: No Description.
     byte_offset: 72
     access: Read
-    fieldset: regs::STATUS
-  - name: IF
+    fieldset: regs::Status
+  - name: if_
     description: No Description.
     byte_offset: 76
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 80
-    fieldset: regs::IEN
-  - name: SYNCBUSY
+    fieldset: regs::Ien
+  - name: syncbusy
     description: No Description.
     byte_offset: 84
     access: Read
-    fieldset: regs::SYNCBUSY
-  - name: DALICFG
+    fieldset: regs::Syncbusy
+  - name: dalicfg
     description: No Description.
     byte_offset: 88
-    fieldset: regs::DALICFG
-fieldset/regs::CFG0:
+    fieldset: regs::Dalicfg
+fieldset/regs::Cfg0:
   description: No Description.
   fields:
-  - name: SYNC
+  - name: sync
     description: Synchronous Mode.
     bit_offset: 0
     bit_size: 1
-    enum: vals::SYNC
-  - name: LOOPBK
+    enum: vals::Sync
+  - name: loopbk
     description: Loopback Enable.
     bit_offset: 1
     bit_size: 1
-  - name: CCEN
+  - name: ccen
     description: Collision Check Enable.
     bit_offset: 2
     bit_size: 1
-  - name: MPM
+  - name: mpm
     description: Multi-Processor Mode.
     bit_offset: 3
     bit_size: 1
-  - name: MPAB
+  - name: mpab
     description: Multi-Processor Address-Bit.
     bit_offset: 4
     bit_size: 1
-  - name: OVS
+  - name: ovs
     description: Oversampling.
     bit_offset: 5
     bit_size: 3
-    enum: vals::OVS
-  - name: MSBF
+    enum: vals::Ovs
+  - name: msbf
     description: Most Significant Bit First.
     bit_offset: 10
     bit_size: 1
-  - name: RXINV
+  - name: rxinv
     description: Receiver Input Invert.
     bit_offset: 13
     bit_size: 1
-  - name: TXINV
+  - name: txinv
     description: Transmitter output Invert.
     bit_offset: 14
     bit_size: 1
-  - name: AUTOTRI
+  - name: autotri
     description: Automatic TX Tristate.
     bit_offset: 17
     bit_size: 1
-  - name: SKIPPERRF
+  - name: skipperrf
     description: Skip Parity Error Frames.
     bit_offset: 20
     bit_size: 1
-  - name: ERRSDMA
+  - name: errsdma
     description: Halt DMA Read On Error.
     bit_offset: 22
     bit_size: 1
-  - name: ERRSRX
+  - name: errsrx
     description: Disable RX On Error.
     bit_offset: 23
     bit_size: 1
-  - name: ERRSTX
+  - name: errstx
     description: Disable TX On Error.
     bit_offset: 24
     bit_size: 1
-  - name: MVDIS
+  - name: mvdis
     description: Majority Vote Disable.
     bit_offset: 30
     bit_size: 1
-  - name: AUTOBAUDEN
+  - name: autobauden
     description: AUTOBAUD detection enable.
     bit_offset: 31
     bit_size: 1
-fieldset/regs::CFG1:
+fieldset/regs::Cfg1:
   description: No Description.
   fields:
-  - name: DBGHALT
+  - name: dbghalt
     description: Debug halt.
     bit_offset: 0
     bit_size: 1
-  - name: CTSINV
+  - name: ctsinv
     description: Clear-to-send Invert Enable.
     bit_offset: 1
     bit_size: 1
-  - name: CTSEN
+  - name: ctsen
     description: Clear-to-send Enable.
     bit_offset: 2
     bit_size: 1
-  - name: RTSINV
+  - name: rtsinv
     description: Request-to-send Invert Enable.
     bit_offset: 3
     bit_size: 1
-  - name: RXTIMEOUT
+  - name: rxtimeout
     description: RX Timeout.
     bit_offset: 4
     bit_size: 3
-    enum: vals::RXTIMEOUT
-  - name: TXDMAWU
+    enum: vals::Rxtimeout
+  - name: txdmawu
     description: Transmitter DMA Wakeup.
     bit_offset: 9
     bit_size: 1
-  - name: RXDMAWU
+  - name: rxdmawu
     description: Receiver DMA Wakeup.
     bit_offset: 10
     bit_size: 1
-  - name: SFUBRX
+  - name: sfubrx
     description: Start Frame Unblock Receiver.
     bit_offset: 11
     bit_size: 1
-  - name: RXPRSEN
+  - name: rxprsen
     description: PRS RX Enable.
     bit_offset: 15
     bit_size: 1
-  - name: TXFIW
+  - name: txfiw
     description: TX FIFO Interrupt Watermark.
     bit_offset: 16
     bit_size: 4
-    enum: vals::TXFIW
-  - name: RTSRXFW
+    enum: vals::Txfiw
+  - name: rtsrxfw
     description: Request-to-send RX FIFO Watermark.
     bit_offset: 22
     bit_size: 4
-    enum: vals::RTSRXFW
-  - name: RXFIW
+    enum: vals::Rtsrxfw
+  - name: rxfiw
     description: RX FIFO Interrupt Watermark.
     bit_offset: 27
     bit_size: 4
-    enum: vals::RXFIW
-fieldset/regs::CFG2:
+    enum: vals::Rxfiw
+fieldset/regs::Cfg2:
   description: No Description.
   fields:
-  - name: MASTER
+  - name: master
     description: Main mode.
     bit_offset: 0
     bit_size: 1
-    enum: vals::MASTER
-  - name: CLKPOL
+    enum: vals::Master
+  - name: clkpol
     description: Clock Polarity.
     bit_offset: 1
     bit_size: 1
-    enum: vals::CLKPOL
-  - name: CLKPHA
+    enum: vals::Clkpol
+  - name: clkpha
     description: Clock Edge for Setup/Sample.
     bit_offset: 2
     bit_size: 1
-    enum: vals::CLKPHA
-  - name: CSINV
+    enum: vals::Clkpha
+  - name: csinv
     description: Chip Select Invert.
     bit_offset: 3
     bit_size: 1
-    enum: vals::CSINV
-  - name: AUTOTX
+    enum: vals::Csinv
+  - name: autotx
     description: Always Transmit When RXFIFO Not Full.
     bit_offset: 4
     bit_size: 1
-  - name: AUTOCS
+  - name: autocs
     description: Automatic Chip Select.
     bit_offset: 5
     bit_size: 1
-  - name: CLKPRSEN
+  - name: clkprsen
     description: PRS CLK Enable.
     bit_offset: 6
     bit_size: 1
-  - name: FORCELOAD
+  - name: forceload
     description: Force Load to Shift Register.
     bit_offset: 7
     bit_size: 1
-  - name: SDIV
+  - name: sdiv
     description: Sync Clock Div.
     bit_offset: 24
     bit_size: 8
-fieldset/regs::CLKDIV:
+fieldset/regs::Clkdiv:
   description: No Description.
   fields:
-  - name: DIV
+  - name: div
     description: Fractional Clock Divider.
     bit_offset: 3
     bit_size: 20
-fieldset/regs::CMD:
+fieldset/regs::Cmd:
   description: No Description.
   fields:
-  - name: RXEN
+  - name: rxen
     description: Receiver Enable.
     bit_offset: 0
     bit_size: 1
-  - name: RXDIS
+  - name: rxdis
     description: Receiver Disable.
     bit_offset: 1
     bit_size: 1
-  - name: TXEN
+  - name: txen
     description: Transmitter Enable.
     bit_offset: 2
     bit_size: 1
-  - name: TXDIS
+  - name: txdis
     description: Transmitter Disable.
     bit_offset: 3
     bit_size: 1
-  - name: RXBLOCKEN
+  - name: rxblocken
     description: Receiver Block Enable.
     bit_offset: 4
     bit_size: 1
-  - name: RXBLOCKDIS
+  - name: rxblockdis
     description: Receiver Block Disable.
     bit_offset: 5
     bit_size: 1
-  - name: TXTRIEN
+  - name: txtrien
     description: Transmitter Tristate Enable.
     bit_offset: 6
     bit_size: 1
-  - name: TXTRIDIS
+  - name: txtridis
     description: Transmitter Tristate Disable.
     bit_offset: 7
     bit_size: 1
-  - name: CLEARTX
+  - name: cleartx
     description: Clear TX FIFO.
     bit_offset: 8
     bit_size: 1
-fieldset/regs::DALICFG:
+fieldset/regs::Dalicfg:
   description: No Description.
   fields:
-  - name: DALIEN
+  - name: dalien
     description: DALI Enable Bit.
     bit_offset: 0
     bit_size: 1
-  - name: DALITXDATABITS
+  - name: dalitxdatabits
     description: DALI TX Databits.
     bit_offset: 1
     bit_size: 5
-    enum: vals::DALITXDATABITS
-  - name: DALIRXDATABITS
+    enum: vals::Dalitxdatabits
+  - name: dalirxdatabits
     description: DALI RX Databits.
     bit_offset: 8
     bit_size: 5
-    enum: vals::DALIRXDATABITS
-  - name: DALIRXENDT
+    enum: vals::Dalirxdatabits
+  - name: dalirxendt
     description: DALI RX Enabled During Transmission.
     bit_offset: 15
     bit_size: 1
-fieldset/regs::DTXDATCFG:
+fieldset/regs::Dtxdatcfg:
   description: No Description.
   fields:
-  - name: DTXDAT
+  - name: dtxdat
     description: Default TX DATA.
     bit_offset: 0
     bit_size: 16
-fieldset/regs::EN:
+fieldset/regs::En:
   description: No Description.
   fields:
-  - name: EN
+  - name: en
     description: Module enable.
     bit_offset: 0
     bit_size: 1
-  - name: DISABLING
+  - name: disabling
     description: Disablement busy status.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::FRAMECFG:
+fieldset/regs::Framecfg:
   description: No Description.
   fields:
-  - name: DATABITS
+  - name: databits
     description: Data-Bit Mode.
     bit_offset: 0
     bit_size: 4
-    enum: vals::DATABITS
-  - name: PARITY
+    enum: vals::Databits
+  - name: parity
     description: Parity-Bit Mode.
     bit_offset: 8
     bit_size: 2
-    enum: vals::PARITY
-  - name: STOPBITS
+    enum: vals::Parity
+  - name: stopbits
     description: Stop-Bit Mode.
     bit_offset: 12
     bit_size: 2
-    enum: vals::STOPBITS
-fieldset/regs::IEN:
+    enum: vals::Stopbits
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: TXC
+  - name: txc
     description: TX Complete Enable.
     bit_offset: 0
     bit_size: 1
-  - name: TXFL
+  - name: txfl
     description: TX FIFO Level Enable.
     bit_offset: 1
     bit_size: 1
-  - name: RXFL
+  - name: rxfl
     description: RX FIFO Level Enable.
     bit_offset: 2
     bit_size: 1
-  - name: RXFULL
+  - name: rxfull
     description: RX FIFO Full Enable.
     bit_offset: 3
     bit_size: 1
-  - name: RXOF
+  - name: rxof
     description: RX FIFO Overflow Enable.
     bit_offset: 4
     bit_size: 1
-  - name: RXUF
+  - name: rxuf
     description: RX FIFO Underflow Enable.
     bit_offset: 5
     bit_size: 1
-  - name: TXOF
+  - name: txof
     description: TX FIFO Overflow Enable.
     bit_offset: 6
     bit_size: 1
-  - name: TXUF
+  - name: txuf
     description: TX FIFO Underflow Enable.
     bit_offset: 7
     bit_size: 1
-  - name: PERR
+  - name: perr
     description: Parity Error Enable.
     bit_offset: 8
     bit_size: 1
-  - name: FERR
+  - name: ferr
     description: Framing Error Enable.
     bit_offset: 9
     bit_size: 1
-  - name: MPAF
+  - name: mpaf
     description: Multi-Processor Addr Frame Enable.
     bit_offset: 10
     bit_size: 1
-  - name: LOADERR
+  - name: loaderr
     description: Load Error Enable.
     bit_offset: 11
     bit_size: 1
-  - name: CCF
+  - name: ccf
     description: Collision Check Fail Enable.
     bit_offset: 12
     bit_size: 1
-  - name: TXIDLE
+  - name: txidle
     description: TX IDLE Enable.
     bit_offset: 13
     bit_size: 1
-  - name: CSWU
+  - name: cswu
     description: CS Wake-up Enable.
     bit_offset: 16
     bit_size: 1
-  - name: STARTF
+  - name: startf
     description: Start Frame Enable.
     bit_offset: 18
     bit_size: 1
-  - name: SIGF
+  - name: sigf
     description: Signal Frame Enable.
     bit_offset: 19
     bit_size: 1
-  - name: AUTOBAUDDONE
+  - name: autobauddone
     description: Auto Baud Complete Enable.
     bit_offset: 24
     bit_size: 1
-  - name: RXTO
+  - name: rxto
     description: RX Timeout Enable.
     bit_offset: 25
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: TXC
+  - name: txc
     description: TX Complete Interrupt Flag.
     bit_offset: 0
     bit_size: 1
-  - name: TXFL
+  - name: txfl
     description: TX FIFO Level Interrupt Flag.
     bit_offset: 1
     bit_size: 1
-  - name: RXFL
+  - name: rxfl
     description: RX FIFO Level Interrupt Flag.
     bit_offset: 2
     bit_size: 1
-  - name: RXFULL
+  - name: rxfull
     description: RX FIFO Full Interrupt Flag.
     bit_offset: 3
     bit_size: 1
-  - name: RXOF
+  - name: rxof
     description: RX FIFO Overflow Interrupt Flag.
     bit_offset: 4
     bit_size: 1
-  - name: RXUF
+  - name: rxuf
     description: RX FIFO Underflow Interrupt Flag.
     bit_offset: 5
     bit_size: 1
-  - name: TXOF
+  - name: txof
     description: TX FIFO Overflow Interrupt Flag.
     bit_offset: 6
     bit_size: 1
-  - name: TXUF
+  - name: txuf
     description: TX FIFO Underflow Interrupt Flag.
     bit_offset: 7
     bit_size: 1
-  - name: PERR
+  - name: perr
     description: Parity Error Interrupt Flag.
     bit_offset: 8
     bit_size: 1
-  - name: FERR
+  - name: ferr
     description: Framing Error Interrupt Flag.
     bit_offset: 9
     bit_size: 1
-  - name: MPAF
+  - name: mpaf
     description: Multi-Processor Address Frame Interrupt.
     bit_offset: 10
     bit_size: 1
-  - name: LOADERR
+  - name: loaderr
     description: Load Error Interrupt Flag.
     bit_offset: 11
     bit_size: 1
-  - name: CCF
+  - name: ccf
     description: Collision Check Fail Interrupt Flag.
     bit_offset: 12
     bit_size: 1
-  - name: TXIDLE
+  - name: txidle
     description: TX Idle Interrupt Flag.
     bit_offset: 13
     bit_size: 1
-  - name: CSWU
+  - name: cswu
     description: CS Wake-up Interrupt Flag.
     bit_offset: 16
     bit_size: 1
-  - name: STARTF
+  - name: startf
     description: Start Frame Interrupt Flag.
     bit_offset: 18
     bit_size: 1
-  - name: SIGF
+  - name: sigf
     description: Signal Frame Interrupt Flag.
     bit_offset: 19
     bit_size: 1
-  - name: AUTOBAUDDONE
+  - name: autobauddone
     description: Auto Baud Complete Interrupt Flag.
     bit_offset: 24
     bit_size: 1
-  - name: RXTO
+  - name: rxto
     description: RX Timeout Interrupt Flag.
     bit_offset: 25
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IP version ID.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::IRHFCFG:
+fieldset/regs::Irhfcfg:
   description: No Description.
   fields:
-  - name: IRHFEN
+  - name: irhfen
     description: Enable IrDA Module.
     bit_offset: 0
     bit_size: 1
-  - name: IRHFPW
+  - name: irhfpw
     description: IrDA TX Pulse Width.
     bit_offset: 1
     bit_size: 2
-    enum: vals::IRHFPW
-  - name: IRHFFILT
+    enum: vals::Irhfpw
+  - name: irhffilt
     description: IrDA RX Filter.
     bit_offset: 3
     bit_size: 1
-fieldset/regs::IRLFCFG:
+fieldset/regs::Irlfcfg:
   description: No Description.
   fields:
-  - name: IRLFEN
+  - name: irlfen
     description: Pulse Generator/Extender Enable.
     bit_offset: 0
     bit_size: 1
-fieldset/regs::RXDATA:
+fieldset/regs::Rxdata:
   description: No Description.
   fields:
-  - name: RXDATA
+  - name: rxdata
     description: RX Data and Control bits.
     bit_offset: 0
     bit_size: 16
-fieldset/regs::RXDATAP:
+fieldset/regs::Rxdatap:
   description: No Description.
   fields:
-  - name: RXDATAP
+  - name: rxdatap
     description: RX Data Peek.
     bit_offset: 0
     bit_size: 16
-fieldset/regs::SIGFRAMECFG:
+fieldset/regs::Sigframecfg:
   description: No Description.
   fields:
-  - name: SIGFRAME
+  - name: sigframe
     description: Signal Frame Value.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::STARTFRAMECFG:
+fieldset/regs::Startframecfg:
   description: No Description.
   fields:
-  - name: STARTFRAME
+  - name: startframe
     description: Start Frame.
     bit_offset: 0
     bit_size: 9
-fieldset/regs::STATUS:
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: RXENS
+  - name: rxens
     description: Receiver Enable Status.
     bit_offset: 0
     bit_size: 1
-  - name: TXENS
+  - name: txens
     description: Transmitter Enable Status.
     bit_offset: 1
     bit_size: 1
-  - name: RXBLOCK
+  - name: rxblock
     description: Block Incoming Data.
     bit_offset: 3
     bit_size: 1
-  - name: TXTRI
+  - name: txtri
     description: Transmitter Tristated.
     bit_offset: 4
     bit_size: 1
-  - name: TXC
+  - name: txc
     description: TX Complete.
     bit_offset: 5
     bit_size: 1
-  - name: TXFL
+  - name: txfl
     description: TX FIFO Level.
     bit_offset: 6
     bit_size: 1
-  - name: RXFL
+  - name: rxfl
     description: RX FIFO Level.
     bit_offset: 7
     bit_size: 1
-  - name: RXFULL
+  - name: rxfull
     description: RX FIFO Full.
     bit_offset: 8
     bit_size: 1
-  - name: RXIDLE
+  - name: rxidle
     description: RX Idle.
     bit_offset: 12
     bit_size: 1
-  - name: TXIDLE
+  - name: txidle
     description: TX Idle.
     bit_offset: 13
     bit_size: 1
-  - name: TXFCNT
+  - name: txfcnt
     description: Valid entries in TX FIFO.
     bit_offset: 16
     bit_size: 5
-  - name: AUTOBAUDDONE
+  - name: autobauddone
     description: Auto Baud Rate Detection Completed.
     bit_offset: 24
     bit_size: 1
-  - name: CLEARTXBUSY
+  - name: cleartxbusy
     description: TX FIFO Clear Busy.
     bit_offset: 25
     bit_size: 1
-fieldset/regs::SYNCBUSY:
+fieldset/regs::Syncbusy:
   description: No Description.
   fields:
-  - name: DIV
+  - name: div
     description: SYNCBUSY for DIV in CLKDIV.
     bit_offset: 0
     bit_size: 1
-  - name: RXTEN
+  - name: rxten
     description: SYNCBUSY for RXTEN in TRIGCTRL.
     bit_offset: 1
     bit_size: 1
-  - name: TXTEN
+  - name: txten
     description: SYNCBUSY for TXTEN in TRIGCTRL.
     bit_offset: 2
     bit_size: 1
-  - name: RXEN
+  - name: rxen
     description: SYNCBUSY for RXEN in CMD.
     bit_offset: 3
     bit_size: 1
-  - name: RXDIS
+  - name: rxdis
     description: SYNCBUSY for RXDIS in CMD.
     bit_offset: 4
     bit_size: 1
-  - name: TXEN
+  - name: txen
     description: SYNCBUSY for TXEN in CMD.
     bit_offset: 5
     bit_size: 1
-  - name: TXDIS
+  - name: txdis
     description: SYNCBUSY for TXDIS in CMD.
     bit_offset: 6
     bit_size: 1
-  - name: RXBLOCKEN
+  - name: rxblocken
     description: SYNCBUSY for RXBLOCKEN in CMD.
     bit_offset: 7
     bit_size: 1
-  - name: RXBLOCKDIS
+  - name: rxblockdis
     description: SYNCBUSY for RXBLOCKDIS in CMD.
     bit_offset: 8
     bit_size: 1
-  - name: TXTRIEN
+  - name: txtrien
     description: SYNCBUSY for TXTRIEN in CMD.
     bit_offset: 9
     bit_size: 1
-  - name: TXTRIDIS
+  - name: txtridis
     description: SYNCBUSY in TXTRIDIS in CMD.
     bit_offset: 10
     bit_size: 1
-  - name: AUTOTXTEN
+  - name: autotxten
     description: SYNCBUSY for AUTOTXTEN in TRIGCTRL.
     bit_offset: 11
     bit_size: 1
-fieldset/regs::TIMINGCFG:
+fieldset/regs::Timingcfg:
   description: No Description.
   fields:
-  - name: TXDELAY
+  - name: txdelay
     description: TX Delay Transmission.
     bit_offset: 0
     bit_size: 2
-    enum: vals::TXDELAY
-  - name: CSSETUP
+    enum: vals::Txdelay
+  - name: cssetup
     description: Chip Select Setup.
     bit_offset: 4
     bit_size: 3
-    enum: vals::CSSETUP
-  - name: CSHOLD
+    enum: vals::Cssetup
+  - name: cshold
     description: Chip Select Hold.
     bit_offset: 8
     bit_size: 3
-    enum: vals::CSHOLD
-  - name: ICS
+    enum: vals::Cshold
+  - name: ics
     description: Inter-Character Spacing.
     bit_offset: 12
     bit_size: 3
-    enum: vals::ICS
-  - name: SETUPWINDOW
+    enum: vals::Ics
+  - name: setupwindow
     description: Setup Window.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TRIGCTRL:
+fieldset/regs::Trigctrl:
   description: No Description.
   fields:
-  - name: RXTEN
+  - name: rxten
     description: Receive Trigger Enable.
     bit_offset: 0
     bit_size: 1
-  - name: TXTEN
+  - name: txten
     description: Transmit Trigger Enable.
     bit_offset: 1
     bit_size: 1
-  - name: AUTOTXTEN
+  - name: autotxten
     description: AUTOTX Trigger Enable.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::TXDATA:
+fieldset/regs::Txdata:
   description: No Description.
   fields:
-  - name: TXDATA
+  - name: txdata
     description: TX Data and Control bits.
     bit_offset: 0
     bit_size: 16
-enum/vals::CLKPHA:
+enum/vals::Clkpha:
   bit_size: 1
   variants:
-  - name: SAMPLELEADING
+  - name: Sampleleading
     description: Data is sampled on the leading edge and set-up on the trailing edge of the bus clock in synchronous mode.
     value: 0
-  - name: SAMPLETRAILING
+  - name: Sampletrailing
     description: Data is set-up on the leading edge and sampled on the trailing edge of the bus clock in synchronous mode.
     value: 1
-enum/vals::CLKPOL:
+enum/vals::Clkpol:
   bit_size: 1
   variants:
-  - name: IDLELOW
-    description: The bus clock used in synchronous mode has a low base value.
-    value: 0
-  - name: IDLEHIGH
+  - name: Idlehigh
     description: The bus clock used in synchronous mode has a high base value.
     value: 1
-enum/vals::CSHOLD:
+  - name: Idlelow
+    description: The bus clock used in synchronous mode has a low base value.
+    value: 0
+enum/vals::Cshold:
   bit_size: 3
   variants:
-  - name: ZERO
-    description: CS is de-asserted half or 1 baud-time after the end of transmission depending on CLKPHASE equal to 1 or 0 respectively.
-    value: 0
-  - name: ONE
-    description: CS is de-asserted 1 additional baud-time after the end of transmission.
-    value: 1
-  - name: TWO
-    description: CS is de-asserted 2 additional baud-times after the end of transmission.
-    value: 2
-  - name: THREE
-    description: CS is de-asserted 3 additional baud-times after the end of transmission.
-    value: 3
-  - name: FOUR
-    description: CS is de-asserted 4 additional baud-times after the end of transmission.
-    value: 4
-  - name: FIVE
+  - name: Five
     description: CS is de-asserted 5 additional baud-times after the end of transmission.
     value: 5
-  - name: SIX
-    description: CS is de-asserted 6 additional baud-times after the end of transmission.
-    value: 6
-  - name: SEVEN
+  - name: Four
+    description: CS is de-asserted 4 additional baud-times after the end of transmission.
+    value: 4
+  - name: One
+    description: CS is de-asserted 1 additional baud-time after the end of transmission.
+    value: 1
+  - name: Seven
     description: CS is de-asserted 7 additional baud-times after the end of transmission.
     value: 7
-enum/vals::CSINV:
+  - name: Six
+    description: CS is de-asserted 6 additional baud-times after the end of transmission.
+    value: 6
+  - name: Three
+    description: CS is de-asserted 3 additional baud-times after the end of transmission.
+    value: 3
+  - name: Two
+    description: CS is de-asserted 2 additional baud-times after the end of transmission.
+    value: 2
+  - name: Zero
+    description: CS is de-asserted half or 1 baud-time after the end of transmission depending on CLKPHASE equal to 1 or 0 respectively.
+    value: 0
+enum/vals::Csinv:
   bit_size: 1
   variants:
-  - name: AL
-    description: Chip select is active low.
-    value: 0
-  - name: AH
+  - name: Ah
     description: Chip select is active high.
     value: 1
-enum/vals::CSSETUP:
+  - name: Al
+    description: Chip select is active low.
+    value: 0
+enum/vals::Cssetup:
   bit_size: 3
   variants:
-  - name: ZERO
-    description: CS is asserted half or 1 baud-time before the start of transmission depending on CLKPHASE equal to 1 or 0 respectively.
-    value: 0
-  - name: ONE
-    description: CS is asserted 1 additional baud-time before start of transmission.
-    value: 1
-  - name: TWO
-    description: CS is asserted 2 additional baud-times before start of transmission.
-    value: 2
-  - name: THREE
-    description: CS is asserted 3 additional baud-times before start of transmission.
-    value: 3
-  - name: FOUR
-    description: CS is asserted 4 additional baud-times before start of transmission.
-    value: 4
-  - name: FIVE
+  - name: Five
     description: CS is asserted 5 additional baud-times before start of transmission.
     value: 5
-  - name: SIX
-    description: CS is asserted 6 additional baud-times before start of transmission.
-    value: 6
-  - name: SEVEN
+  - name: Four
+    description: CS is asserted 4 additional baud-times before start of transmission.
+    value: 4
+  - name: One
+    description: CS is asserted 1 additional baud-time before start of transmission.
+    value: 1
+  - name: Seven
     description: CS is asserted 7 additional baud-times before start of transmission.
     value: 7
-enum/vals::DALIRXDATABITS:
+  - name: Six
+    description: CS is asserted 6 additional baud-times before start of transmission.
+    value: 6
+  - name: Three
+    description: CS is asserted 3 additional baud-times before start of transmission.
+    value: 3
+  - name: Two
+    description: CS is asserted 2 additional baud-times before start of transmission.
+    value: 2
+  - name: Zero
+    description: CS is asserted half or 1 baud-time before the start of transmission depending on CLKPHASE equal to 1 or 0 respectively.
+    value: 0
+enum/vals::Dalirxdatabits:
   bit_size: 5
   variants:
-  - name: EIGHT
+  - name: Eight
     description: Each frame contains 8 data bits.
     value: 0
-  - name: NINE
-    description: Each frame contains 9 data bits.
-    value: 1
-  - name: TEN
-    description: Each frame contains 10 data bits.
-    value: 2
-  - name: ELEVEN
-    description: Each frame contains 11 data bits.
-    value: 3
-  - name: TWELVE
-    description: Each frame contains 12 data bits.
-    value: 4
-  - name: THIRTEEN
-    description: Each frame contains 13 data bits.
-    value: 5
-  - name: FOURTEEN
-    description: Each frame contains 14 data bits.
-    value: 6
-  - name: FIFTEEN
-    description: Each frame contains 15 data bits.
-    value: 7
-  - name: SIXTEEN
-    description: Each frame contains 16 data bits.
-    value: 8
-  - name: SEVENTEEN
-    description: Each frame contains 17 data bits.
-    value: 9
-  - name: EIGHTEEN
+  - name: Eighteen
     description: Each frame contains 18 data bits.
     value: 10
-  - name: NINETEEN
+  - name: Eleven
+    description: Each frame contains 11 data bits.
+    value: 3
+  - name: Fifteen
+    description: Each frame contains 15 data bits.
+    value: 7
+  - name: Fourteen
+    description: Each frame contains 14 data bits.
+    value: 6
+  - name: Nine
+    description: Each frame contains 9 data bits.
+    value: 1
+  - name: Nineteen
     description: Each frame contains 19 data bits.
     value: 11
-  - name: TWENTY
-    description: Each frame contains 20 data bits.
-    value: 12
-  - name: TWENTYONE
-    description: Each frame contains 21 data bits.
-    value: 13
-  - name: TWENTYTWO
-    description: Each frame contains 22 data bits.
-    value: 14
-  - name: TWENTYTHREE
-    description: Each frame contains 23 data bits.
-    value: 15
-  - name: TWENTYFOUR
-    description: Each frame contains 24 data bits.
-    value: 16
-  - name: TWENTYFIVE
-    description: Each frame contains 25 data bits.
-    value: 17
-  - name: TWENTYSIX
-    description: Each frame contains 26 data bits.
-    value: 18
-  - name: TWENTYSEVEN
-    description: Each frame contains 27 data bits.
-    value: 19
-  - name: TWENTYEIGHT
-    description: Each frame contains 28 data bits.
-    value: 20
-  - name: TWENTYNINE
-    description: Each frame contains 29 data bits.
-    value: 21
-  - name: THIRTY
+  - name: Seventeen
+    description: Each frame contains 17 data bits.
+    value: 9
+  - name: Sixteen
+    description: Each frame contains 16 data bits.
+    value: 8
+  - name: Ten
+    description: Each frame contains 10 data bits.
+    value: 2
+  - name: Thirteen
+    description: Each frame contains 13 data bits.
+    value: 5
+  - name: Thirty
     description: Each frame contains 30 data bits.
     value: 22
-  - name: THIRTYONE
+  - name: Thirtyone
     description: Each frame contains 31 data bits.
     value: 23
-  - name: THIRTYTWO
+  - name: Thirtytwo
     description: Each frame contains 32 data bits.
     value: 24
-enum/vals::DALITXDATABITS:
+  - name: Twelve
+    description: Each frame contains 12 data bits.
+    value: 4
+  - name: Twenty
+    description: Each frame contains 20 data bits.
+    value: 12
+  - name: Twentyeight
+    description: Each frame contains 28 data bits.
+    value: 20
+  - name: Twentyfive
+    description: Each frame contains 25 data bits.
+    value: 17
+  - name: Twentyfour
+    description: Each frame contains 24 data bits.
+    value: 16
+  - name: Twentynine
+    description: Each frame contains 29 data bits.
+    value: 21
+  - name: Twentyone
+    description: Each frame contains 21 data bits.
+    value: 13
+  - name: Twentyseven
+    description: Each frame contains 27 data bits.
+    value: 19
+  - name: Twentysix
+    description: Each frame contains 26 data bits.
+    value: 18
+  - name: Twentythree
+    description: Each frame contains 23 data bits.
+    value: 15
+  - name: Twentytwo
+    description: Each frame contains 22 data bits.
+    value: 14
+enum/vals::Dalitxdatabits:
   bit_size: 5
   variants:
-  - name: EIGHT
+  - name: Eight
     description: Each frame contains 8 data bits.
     value: 0
-  - name: NINE
-    description: Each frame contains 9 data bits.
-    value: 1
-  - name: TEN
-    description: Each frame contains 10 data bits.
-    value: 2
-  - name: ELEVEN
-    description: Each frame contains 11 data bits.
-    value: 3
-  - name: TWELVE
-    description: Each frame contains 12 data bits.
-    value: 4
-  - name: THIRTEEN
-    description: Each frame contains 13 data bits.
-    value: 5
-  - name: FOURTEEN
-    description: Each frame contains 14 data bits.
-    value: 6
-  - name: FIFTEEN
-    description: Each frame contains 15 data bits.
-    value: 7
-  - name: SIXTEEN
-    description: Each frame contains 16 data bits.
-    value: 8
-  - name: SEVENTEEN
-    description: Each frame contains 17 data bits.
-    value: 9
-  - name: EIGHTEEN
+  - name: Eighteen
     description: Each frame contains 18 data bits.
     value: 10
-  - name: NINETEEN
+  - name: Eleven
+    description: Each frame contains 11 data bits.
+    value: 3
+  - name: Fifteen
+    description: Each frame contains 15 data bits.
+    value: 7
+  - name: Fourteen
+    description: Each frame contains 14 data bits.
+    value: 6
+  - name: Nine
+    description: Each frame contains 9 data bits.
+    value: 1
+  - name: Nineteen
     description: Each frame contains 19 data bits.
     value: 11
-  - name: TWENTY
-    description: Each frame contains 20 data bits.
-    value: 12
-  - name: TWENTYONE
-    description: Each frame contains 21 data bits.
-    value: 13
-  - name: TWENTYTWO
-    description: Each frame contains 22 data bits.
-    value: 14
-  - name: TWENTYTHREE
-    description: Each frame contains 23 data bits.
-    value: 15
-  - name: TWENTYFOUR
-    description: Each frame contains 24 data bits.
-    value: 16
-  - name: TWENTYFIVE
-    description: Each frame contains 25 data bits.
-    value: 17
-  - name: TWENTYSIX
-    description: Each frame contains 26 data bits.
-    value: 18
-  - name: TWENTYSEVEN
-    description: Each frame contains 27 data bits.
-    value: 19
-  - name: TWENTYEIGHT
-    description: Each frame contains 28 data bits.
-    value: 20
-  - name: TWENTYNINE
-    description: Each frame contains 29 data bits.
-    value: 21
-  - name: THIRTY
+  - name: Seventeen
+    description: Each frame contains 17 data bits.
+    value: 9
+  - name: Sixteen
+    description: Each frame contains 16 data bits.
+    value: 8
+  - name: Ten
+    description: Each frame contains 10 data bits.
+    value: 2
+  - name: Thirteen
+    description: Each frame contains 13 data bits.
+    value: 5
+  - name: Thirty
     description: Each frame contains 30 data bits.
     value: 22
-  - name: THIRTYONE
+  - name: Thirtyone
     description: Each frame contains 31 data bits.
     value: 23
-  - name: THIRTYTWO
+  - name: Thirtytwo
     description: Each frame contains 32 data bits.
     value: 24
-enum/vals::DATABITS:
+  - name: Twelve
+    description: Each frame contains 12 data bits.
+    value: 4
+  - name: Twenty
+    description: Each frame contains 20 data bits.
+    value: 12
+  - name: Twentyeight
+    description: Each frame contains 28 data bits.
+    value: 20
+  - name: Twentyfive
+    description: Each frame contains 25 data bits.
+    value: 17
+  - name: Twentyfour
+    description: Each frame contains 24 data bits.
+    value: 16
+  - name: Twentynine
+    description: Each frame contains 29 data bits.
+    value: 21
+  - name: Twentyone
+    description: Each frame contains 21 data bits.
+    value: 13
+  - name: Twentyseven
+    description: Each frame contains 27 data bits.
+    value: 19
+  - name: Twentysix
+    description: Each frame contains 26 data bits.
+    value: 18
+  - name: Twentythree
+    description: Each frame contains 23 data bits.
+    value: 15
+  - name: Twentytwo
+    description: Each frame contains 22 data bits.
+    value: 14
+enum/vals::Databits:
   bit_size: 4
   variants:
-  - name: SEVEN
-    description: Each frame contains 7 data bits.
-    value: 1
-  - name: EIGHT
+  - name: Eight
     description: Each frame contains 8 data bits.
     value: 2
-  - name: NINE
-    description: Each frame contains 9 data bits.
-    value: 3
-  - name: TEN
-    description: Each frame contains 10 data bits.
-    value: 4
-  - name: ELEVEN
+  - name: Eleven
     description: Each frame contains 11 data bits.
     value: 5
-  - name: TWELVE
-    description: Each frame contains 12 data bits.
-    value: 6
-  - name: THIRTEEN
-    description: Each frame contains 13 data bits.
-    value: 7
-  - name: FOURTEEN
-    description: Each frame contains 14 data bits.
-    value: 8
-  - name: FIFTEEN
+  - name: Fifteen
     description: Each frame contains 15 data bits.
     value: 9
-  - name: SIXTEEN
+  - name: Fourteen
+    description: Each frame contains 14 data bits.
+    value: 8
+  - name: Nine
+    description: Each frame contains 9 data bits.
+    value: 3
+  - name: Seven
+    description: Each frame contains 7 data bits.
+    value: 1
+  - name: Sixteen
     description: Each frame contains 16 data bits.
     value: 10
-enum/vals::ICS:
+  - name: Ten
+    description: Each frame contains 10 data bits.
+    value: 4
+  - name: Thirteen
+    description: Each frame contains 13 data bits.
+    value: 7
+  - name: Twelve
+    description: Each frame contains 12 data bits.
+    value: 6
+enum/vals::Ics:
   bit_size: 3
   variants:
-  - name: ZERO
-    description: There is no space between charcters.
-    value: 0
-  - name: ONE
-    description: Create a space of 1 baud-times between frames.
-    value: 1
-  - name: TWO
-    description: Create a space of 2 baud-times between frames.
-    value: 2
-  - name: THREE
-    description: Create a space of 3 baud-times between frames.
-    value: 3
-  - name: FOUR
-    description: Create a space of 4 baud-times between frames.
-    value: 4
-  - name: FIVE
+  - name: Five
     description: Create a space of 5 baud-times between frames.
     value: 5
-  - name: SIX
-    description: Create a space of 6 baud-times between frames.
-    value: 6
-  - name: SEVEN
+  - name: Four
+    description: Create a space of 4 baud-times between frames.
+    value: 4
+  - name: One
+    description: Create a space of 1 baud-times between frames.
+    value: 1
+  - name: Seven
     description: Create a space of 7 baud-times between frames.
     value: 7
-enum/vals::IRHFPW:
+  - name: Six
+    description: Create a space of 6 baud-times between frames.
+    value: 6
+  - name: Three
+    description: Create a space of 3 baud-times between frames.
+    value: 3
+  - name: Two
+    description: Create a space of 2 baud-times between frames.
+    value: 2
+  - name: Zero
+    description: There is no space between charcters.
+    value: 0
+enum/vals::Irhfpw:
   bit_size: 2
   variants:
-  - name: ONE
-    description: IrDA pulse width is 1/16 for OVS=0 and 1/8 for OVS=1.
-    value: 0
-  - name: TWO
-    description: IrDA pulse width is 2/16 for OVS=0 and 2/8 for OVS=1.
-    value: 1
-  - name: THREE
-    description: IrDA pulse width is 3/16 for OVS=0 and 3/8 for OVS=1.
-    value: 2
-  - name: FOUR
+  - name: Four
     description: IrDA pulse width is 4/16 for OVS=0 and 4/8 for OVS=1.
     value: 3
-enum/vals::MASTER:
+  - name: One
+    description: IrDA pulse width is 1/16 for OVS=0 and 1/8 for OVS=1.
+    value: 0
+  - name: Three
+    description: IrDA pulse width is 3/16 for OVS=0 and 3/8 for OVS=1.
+    value: 2
+  - name: Two
+    description: IrDA pulse width is 2/16 for OVS=0 and 2/8 for OVS=1.
+    value: 1
+enum/vals::Master:
   bit_size: 1
   variants:
-  - name: SLAVE
-    description: Secondary mode.
-    value: 0
-  - name: MASTER
+  - name: Master
     description: Main mode.
     value: 1
-enum/vals::OVS:
+  - name: Slave
+    description: Secondary mode.
+    value: 0
+enum/vals::Ovs:
   bit_size: 3
   variants:
+  - name: Disable
+    description: Disable oversampling (for LF operation).
+    value: 4
   - name: X16
     description: 16X oversampling.
     value: 0
-  - name: X8
-    description: 8X oversampling.
-    value: 1
-  - name: X6
-    description: 6X oversampling.
-    value: 2
   - name: X4
     description: 4X oversampling.
     value: 3
-  - name: DISABLE
-    description: Disable oversampling (for LF operation).
-    value: 4
-enum/vals::PARITY:
+  - name: X6
+    description: 6X oversampling.
+    value: 2
+  - name: X8
+    description: 8X oversampling.
+    value: 1
+enum/vals::Parity:
   bit_size: 2
   variants:
-  - name: NONE
-    description: Parity bits are not used.
-    value: 0
-  - name: EVEN
+  - name: Even
     description: Even parity are used. Parity bits are automatically generated and checked by hardware.
     value: 2
-  - name: ODD
+  - name: None
+    description: Parity bits are not used.
+    value: 0
+  - name: Odd
     description: Odd parity is used. Parity bits are automatically generated and checked by hardware.
     value: 3
-enum/vals::RTSRXFW:
+enum/vals::Rtsrxfw:
   bit_size: 4
   variants:
-  - name: ONEFRAME
-    description: RTS is set if there is space for at least one more frame in the RX FIFO.
-    value: 0
-  - name: TWOFRAMES
-    description: RTS is set if there is space for at least two more frames in the RX FIFO.
-    value: 1
-  - name: THREEFRAMES
-    description: RTS is set if there is space for at least three more frames in the RX FIFO.
-    value: 2
-  - name: FOURFRAMES
-    description: RTS is set if there is space for four more frames in the RX FIFO.
-    value: 3
-  - name: FIVEFRAMES
-    description: RTS is set if there is space for five more frames in the RX FIFO.
-    value: 4
-  - name: SIXFRAMES
-    description: RTS is set if there is space for six more frames in the RX FIFO.
-    value: 5
-  - name: SEVENFRAMES
-    description: RTS is set if there is space for seven more frames in the RX FIFO.
-    value: 6
-  - name: EIGHTFRAMES
+  - name: Eightframes
     description: RTS is set if there is space for eight more frames in the RX FIFO.
     value: 7
-  - name: NINEFRAMES
-    description: RTS is set if there is space for nine more frames in the RX FIFO.
-    value: 8
-  - name: TENFRAMES
-    description: RTS is set if there is space for ten more frames in the RX FIFO.
-    value: 9
-  - name: ELEVENFRAMES
+  - name: Elevenframes
     description: RTS is set if there is space for eleven more frames in the RX FIFO.
     value: 10
-  - name: TWELVEFRAMES
-    description: RTS is set if there is space for twelve more frames in the RX FIFO.
-    value: 11
-  - name: THIRTEENFRAMES
-    description: RTS is set if there is space for thirteen more frames in the RX FIFO.
-    value: 12
-  - name: FOURTEENFRAMES
-    description: RTS is set if there is space for fourteen more frames in the RX FIFO.
-    value: 13
-  - name: FIFTEENFRAMES
+  - name: Fifteenframes
     description: RTS is set if there is space for fifteen more frames in the RX FIFO.
     value: 14
-  - name: SIXTEENFRAMES
+  - name: Fiveframes
+    description: RTS is set if there is space for five more frames in the RX FIFO.
+    value: 4
+  - name: Fourframes
+    description: RTS is set if there is space for four more frames in the RX FIFO.
+    value: 3
+  - name: Fourteenframes
+    description: RTS is set if there is space for fourteen more frames in the RX FIFO.
+    value: 13
+  - name: Nineframes
+    description: RTS is set if there is space for nine more frames in the RX FIFO.
+    value: 8
+  - name: Oneframe
+    description: RTS is set if there is space for at least one more frame in the RX FIFO.
+    value: 0
+  - name: Sevenframes
+    description: RTS is set if there is space for seven more frames in the RX FIFO.
+    value: 6
+  - name: Sixframes
+    description: RTS is set if there is space for six more frames in the RX FIFO.
+    value: 5
+  - name: Sixteenframes
     description: RTS is set if there is space for sixteen more frames in the RX FIFO.
     value: 15
-enum/vals::RXFIW:
+  - name: Tenframes
+    description: RTS is set if there is space for ten more frames in the RX FIFO.
+    value: 9
+  - name: Thirteenframes
+    description: RTS is set if there is space for thirteen more frames in the RX FIFO.
+    value: 12
+  - name: Threeframes
+    description: RTS is set if there is space for at least three more frames in the RX FIFO.
+    value: 2
+  - name: Twelveframes
+    description: RTS is set if there is space for twelve more frames in the RX FIFO.
+    value: 11
+  - name: Twoframes
+    description: RTS is set if there is space for at least two more frames in the RX FIFO.
+    value: 1
+enum/vals::Rxfiw:
   bit_size: 4
   variants:
-  - name: ONEFRAME
-    description: RXFL status flag and IF are set when the RX FIFO has at least one frame in it.
-    value: 0
-  - name: TWOFRAMES
-    description: RXFL status flag and IF are set when the RX FIFO has at least two frames in it.
-    value: 1
-  - name: THREEFRAMES
-    description: RXFL status flag and IF are set when the RX FIFO has at least three frames in it.
-    value: 2
-  - name: FOURFRAMES
-    description: RXFL status flag and IF are set when the RX FIFO has at least four frames in it.
-    value: 3
-  - name: FIVEFRAMES
-    description: RXFL status flag and IF are set when the RX FIFO has at least five frames in it.
-    value: 4
-  - name: SIXFRAMES
-    description: RXFL status flag and IF are set when the RX FIFO has at least six frames in it.
-    value: 5
-  - name: SEVENFRAMES
-    description: RXFL status flag and IF are set when the RX FIFO has at least seven frames in it.
-    value: 6
-  - name: EIGHTFRAMES
+  - name: Eightframes
     description: RXFL status flag and IF are set when the RX FIFO has at least eight frames in it.
     value: 7
-  - name: NINEFRAMES
-    description: RXFL status flag and IF are set when the RX FIFO has at least nine frames in it.
-    value: 8
-  - name: TENFRAMES
-    description: RXFL status flag and IF are set when the RX FIFO has at least ten frames in it.
-    value: 9
-  - name: ELEVENFRAMES
+  - name: Elevenframes
     description: RXFL status flag and IF are set when the RX FIFO has at least eleven frames in it.
     value: 10
-  - name: TWELVEFRAMES
-    description: RXFL status flag and IF are set when the RX FIFO has at least twelve frames in it.
-    value: 11
-  - name: THIRTEENFRAMES
-    description: RXFL status flag and IF are set when the RX FIFO has at least thriteen frames in it.
-    value: 12
-  - name: FOURTEENFRAMES
-    description: RXFL status flag and IF are set when the RX FIFO has at least fourteen frames in it.
-    value: 13
-  - name: FIFTEENFRAMES
+  - name: Fifteenframes
     description: RXFL status flag and IF are set when the RX FIFO has at least fifteen frames in it.
     value: 14
-  - name: SIXTEENFRAMES
+  - name: Fiveframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least five frames in it.
+    value: 4
+  - name: Fourframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least four frames in it.
+    value: 3
+  - name: Fourteenframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least fourteen frames in it.
+    value: 13
+  - name: Nineframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least nine frames in it.
+    value: 8
+  - name: Oneframe
+    description: RXFL status flag and IF are set when the RX FIFO has at least one frame in it.
+    value: 0
+  - name: Sevenframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least seven frames in it.
+    value: 6
+  - name: Sixframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least six frames in it.
+    value: 5
+  - name: Sixteenframes
     description: RXFL status flag and IF are set when the RX FIFO has at least sixteen frames in it.
     value: 15
-enum/vals::RXTIMEOUT:
+  - name: Tenframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least ten frames in it.
+    value: 9
+  - name: Thirteenframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least thriteen frames in it.
+    value: 12
+  - name: Threeframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least three frames in it.
+    value: 2
+  - name: Twelveframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least twelve frames in it.
+    value: 11
+  - name: Twoframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least two frames in it.
+    value: 1
+enum/vals::Rxtimeout:
   bit_size: 3
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: DISABLED.
     value: 0
-  - name: ONEFRAME
-    description: ONEFRAME.
-    value: 1
-  - name: TWOFRAMES
-    description: TWOFRAMES.
-    value: 2
-  - name: THREEFRAMES
-    description: THREEFRAMES.
-    value: 3
-  - name: FOURFRAMES
-    description: FOURFRAMES.
-    value: 4
-  - name: FIVEFRAMES
+  - name: Fiveframes
     description: FIVEFRAMES.
     value: 5
-  - name: SIXFRAMES
-    description: SIXFRAMES.
-    value: 6
-  - name: SEVENFRAMES
+  - name: Fourframes
+    description: FOURFRAMES.
+    value: 4
+  - name: Oneframe
+    description: ONEFRAME.
+    value: 1
+  - name: Sevenframes
     description: SEVENFRAMES.
     value: 7
-enum/vals::STOPBITS:
+  - name: Sixframes
+    description: SIXFRAMES.
+    value: 6
+  - name: Threeframes
+    description: THREEFRAMES.
+    value: 3
+  - name: Twoframes
+    description: TWOFRAMES.
+    value: 2
+enum/vals::Stopbits:
   bit_size: 2
   variants:
-  - name: HALF
+  - name: Half
     description: The transmitter generates a half stop bit. Stop-bits are not verified by receiver.
     value: 0
-  - name: ONE
+  - name: One
     description: One stop bit is generated and verified.
     value: 1
-  - name: ONEANDAHALF
+  - name: Oneandahalf
     description: The transmitter generates one and a half stop bit. The receiver verifies the first stop bit.
     value: 2
-  - name: TWO
+  - name: Two
     description: The transmitter generates two stop bits. The receiver checks the first stop-bit only.
     value: 3
-enum/vals::SYNC:
+enum/vals::Sync:
   bit_size: 1
   variants:
-  - name: ASYNC
+  - name: Async
     description: The EUSART operates in asynchronous mode.
     value: 0
-  - name: SYNC
+  - name: Sync
     description: The EUSART operates in synchronous mode.
     value: 1
-enum/vals::TXDELAY:
+enum/vals::Txdelay:
   bit_size: 2
   variants:
-  - name: NONE
-    description: Frames are transmitted immediately.
-    value: 0
-  - name: SINGLE
-    description: Transmission of new frames is delayed by a single bit period.
-    value: 1
-  - name: DOUBLE
+  - name: Double
     description: Transmission of new frames is delayed by a two bit periods.
     value: 2
-  - name: TRIPPLE
+  - name: None
+    description: Frames are transmitted immediately.
+    value: 0
+  - name: Single
+    description: Transmission of new frames is delayed by a single bit period.
+    value: 1
+  - name: Tripple
     description: Transmission of new frames is delayed by a three bit periods.
     value: 3
-enum/vals::TXFIW:
+enum/vals::Txfiw:
   bit_size: 4
   variants:
-  - name: ONEFRAME
-    description: TXFL status flag and IF are set when the TX FIFO has space for at least one more frame.
-    value: 0
-  - name: TWOFRAMES
-    description: TXFL status flag and IF are set when the TX FIFO has space for at least two more frames.
-    value: 1
-  - name: THREEFRAMES
-    description: TXFL status flag and IF are set when the TX FIFO has space for at least three more frames.
-    value: 2
-  - name: FOURFRAMES
-    description: TXFL status flag and IF are set when the TX FIFO has space for at least four more frames.
-    value: 3
-  - name: FIVEFRAMES
-    description: TXFL status flag and IF are set when the TX FIFO has space for at least five more frames.
-    value: 4
-  - name: SIXFRAMES
-    description: TXFL status flag and IF are set when the TX FIFO has space for at least six more frames.
-    value: 5
-  - name: SEVENFRAMES
-    description: TXFL status flag and IF are set when the TX FIFO has space for at least seven more frames.
-    value: 6
-  - name: EIGHTFRAMES
+  - name: Eightframes
     description: TXFL status flag and IF are set when the TX FIFO has space for at least eight more frames.
     value: 7
-  - name: NINEFRAMES
-    description: TXFL status flag and IF are set when the TX FIFO has space for at least nine more frames.
-    value: 8
-  - name: TENFRAMES
-    description: TXFL status flag and IF are set when the TX FIFO has space for at least ten more frames.
-    value: 9
-  - name: ELEVENFRAMES
+  - name: Elevenframes
     description: TXFL status flag and IF are set when the TX FIFO has space for at least eleven more frames.
     value: 10
-  - name: TWELVEFRAMES
-    description: TXFL status flag and IF are set when the TX FIFO has space for at least twelve more frames.
-    value: 11
-  - name: THIRTEENFRAMES
-    description: TXFL status flag and IF are set when the TX FIFO has space for at least thriteen more frames.
-    value: 12
-  - name: FOURTEENFRAMES
-    description: TXFL status flag and IF are set when the TX FIFO has space for at least fourteen more frames.
-    value: 13
-  - name: FIFTEENFRAMES
+  - name: Fifteenframes
     description: TXFL status flag and IF are set when the TX FIFO has space for at least fifteen more frames.
     value: 14
-  - name: SIXTEENFRAMES
+  - name: Fiveframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least five more frames.
+    value: 4
+  - name: Fourframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least four more frames.
+    value: 3
+  - name: Fourteenframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least fourteen more frames.
+    value: 13
+  - name: Nineframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least nine more frames.
+    value: 8
+  - name: Oneframe
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least one more frame.
+    value: 0
+  - name: Sevenframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least seven more frames.
+    value: 6
+  - name: Sixframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least six more frames.
+    value: 5
+  - name: Sixteenframes
     description: TXFL status flag and IF are set when the TX FIFO has space for at least sixteen more frames.
     value: 15
+  - name: Tenframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least ten more frames.
+    value: 9
+  - name: Thirteenframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least thriteen more frames.
+    value: 12
+  - name: Threeframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least three more frames.
+    value: 2
+  - name: Twelveframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least twelve more frames.
+    value: 11
+  - name: Twoframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least two more frames.
+    value: 1

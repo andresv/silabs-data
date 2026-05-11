@@ -1,472 +1,472 @@
-block/LETIMER:
+block/Letimer:
   description: LETIMER peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: EN
+    fieldset: regs::Ipversion
+  - name: en
     description: No Description.
     byte_offset: 4
-    fieldset: regs::EN
-  - name: SWRST
+    fieldset: regs::En
+  - name: swrst
     description: No Description.
     byte_offset: 8
-    fieldset: regs::SWRST
-  - name: CTRL
+    fieldset: regs::Swrst
+  - name: ctrl
     description: No Description.
     byte_offset: 12
-    fieldset: regs::CTRL
-  - name: CMD
+    fieldset: regs::Ctrl
+  - name: cmd
     description: No Description.
     byte_offset: 16
     access: Write
-    fieldset: regs::CMD
-  - name: STATUS
+    fieldset: regs::Cmd
+  - name: status
     description: No Description.
     byte_offset: 20
     access: Read
-    fieldset: regs::STATUS
-  - name: CNT
+    fieldset: regs::Status
+  - name: cnt
     description: No Description.
     byte_offset: 24
-    fieldset: regs::CNT
-  - name: COMP0
+    fieldset: regs::Cnt
+  - name: comp0
     description: No Description.
     byte_offset: 28
-    fieldset: regs::COMP0
-  - name: COMP1
+    fieldset: regs::Comp0
+  - name: comp1
     description: No Description.
     byte_offset: 32
-    fieldset: regs::COMP1
-  - name: TOP
+    fieldset: regs::Comp1
+  - name: top
     description: No Description.
     byte_offset: 36
-    fieldset: regs::TOP
-  - name: TOPBUFF
+    fieldset: regs::Top
+  - name: topbuff
     description: No Description.
     byte_offset: 40
-    fieldset: regs::TOPBUFF
-  - name: REP0
+    fieldset: regs::Topbuff
+  - name: rep0
     description: No Description.
     byte_offset: 44
-    fieldset: regs::REP0
-  - name: REP1
+    fieldset: regs::Rep0
+  - name: rep1
     description: No Description.
     byte_offset: 48
-    fieldset: regs::REP1
-  - name: IF
+    fieldset: regs::Rep1
+  - name: if_
     description: No Description.
     byte_offset: 52
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 56
-    fieldset: regs::IEN
-  - name: LOCK
+    fieldset: regs::Ien
+  - name: lock
     description: No Description.
     byte_offset: 60
     access: Write
-    fieldset: regs::LOCK
-  - name: SYNCBUSY
+    fieldset: regs::Lock
+  - name: syncbusy
     description: No Description.
     byte_offset: 64
     access: Read
-    fieldset: regs::SYNCBUSY
-  - name: PRSMODE
+    fieldset: regs::Syncbusy
+  - name: prsmode
     description: No Description.
     byte_offset: 80
-    fieldset: regs::PRSMODE
-fieldset/regs::CMD:
+    fieldset: regs::Prsmode
+fieldset/regs::Cmd:
   description: No Description.
   fields:
-  - name: START
+  - name: start
     description: Start LETIMER.
     bit_offset: 0
     bit_size: 1
-  - name: STOP
+  - name: stop
     description: Stop LETIMER.
     bit_offset: 1
     bit_size: 1
-  - name: CLEAR
+  - name: clear
     description: Clear LETIMER.
     bit_offset: 2
     bit_size: 1
-  - name: CTO0
+  - name: cto0
     description: Clear Toggle Output 0.
     bit_offset: 3
     bit_size: 1
-  - name: CTO1
+  - name: cto1
     description: Clear Toggle Output 1.
     bit_offset: 4
     bit_size: 1
-fieldset/regs::CNT:
+fieldset/regs::Cnt:
   description: No Description.
   fields:
-  - name: CNT
+  - name: cnt
     description: Counter Value.
     bit_offset: 0
     bit_size: 24
-fieldset/regs::COMP0:
+fieldset/regs::Comp0:
   description: No Description.
   fields:
-  - name: COMP0
+  - name: comp0
     description: Compare Value 0.
     bit_offset: 0
     bit_size: 24
-fieldset/regs::COMP1:
+fieldset/regs::Comp1:
   description: No Description.
   fields:
-  - name: COMP1
+  - name: comp1
     description: Compare Value 1.
     bit_offset: 0
     bit_size: 24
-fieldset/regs::CTRL:
+fieldset/regs::Ctrl:
   description: No Description.
   fields:
-  - name: REPMODE
+  - name: repmode
     description: Repeat Mode.
     bit_offset: 0
     bit_size: 2
-    enum: vals::REPMODE
-  - name: UFOA0
+    enum: vals::Repmode
+  - name: ufoa0
     description: Underflow Output Action 0.
     bit_offset: 2
     bit_size: 2
-    enum: vals::UFOA0
-  - name: UFOA1
+    enum: vals::Ufoa0
+  - name: ufoa1
     description: Underflow Output Action 1.
     bit_offset: 4
     bit_size: 2
-    enum: vals::UFOA1
-  - name: OPOL0
+    enum: vals::Ufoa1
+  - name: opol0
     description: Output 0 Polarity.
     bit_offset: 6
     bit_size: 1
-  - name: OPOL1
+  - name: opol1
     description: Output 1 Polarity.
     bit_offset: 7
     bit_size: 1
-  - name: BUFTOP
+  - name: buftop
     description: Buffered Top.
     bit_offset: 8
     bit_size: 1
-  - name: CNTTOPEN
+  - name: cnttopen
     description: Compare Value 0 Is Top Value.
     bit_offset: 9
     bit_size: 1
-  - name: DEBUGRUN
+  - name: debugrun
     description: Debug Mode Run Enable.
     bit_offset: 12
     bit_size: 1
-  - name: CNTPRESC
+  - name: cntpresc
     description: Counter prescaler value.
     bit_offset: 16
     bit_size: 4
-    enum: vals::CNTPRESC
-fieldset/regs::EN:
+    enum: vals::Cntpresc
+fieldset/regs::En:
   description: No Description.
   fields:
-  - name: EN
+  - name: en
     description: module en.
     bit_offset: 0
     bit_size: 1
-  - name: DISABLING
+  - name: disabling
     description: Disablement busy status.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::IEN:
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: COMP0
+  - name: comp0
     description: Compare Match 0 Interrupt Enable.
     bit_offset: 0
     bit_size: 1
-  - name: COMP1
+  - name: comp1
     description: Compare Match 1 Interrupt Enable.
     bit_offset: 1
     bit_size: 1
-  - name: UF
+  - name: uf
     description: Underflow Interrupt Enable.
     bit_offset: 2
     bit_size: 1
-  - name: REP0
+  - name: rep0
     description: Repeat Counter 0 Interrupt Enable.
     bit_offset: 3
     bit_size: 1
-  - name: REP1
+  - name: rep1
     description: Repeat Counter 1 Interrupt Enable.
     bit_offset: 4
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: COMP0
+  - name: comp0
     description: Compare Match 0 Interrupt Flag.
     bit_offset: 0
     bit_size: 1
-  - name: COMP1
+  - name: comp1
     description: Compare Match 1 Interrupt Flag.
     bit_offset: 1
     bit_size: 1
-  - name: UF
+  - name: uf
     description: Underflow Interrupt Flag.
     bit_offset: 2
     bit_size: 1
-  - name: REP0
+  - name: rep0
     description: Repeat Counter 0 Interrupt Flag.
     bit_offset: 3
     bit_size: 1
-  - name: REP1
+  - name: rep1
     description: Repeat Counter 1 Interrupt Flag.
     bit_offset: 4
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IP Version.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::LOCK:
+fieldset/regs::Lock:
   description: No Description.
   fields:
-  - name: LETIMERLOCKKEY
+  - name: letimerlockkey
     description: Configuration Lock Key.
     bit_offset: 0
     bit_size: 16
-    enum: vals::LETIMERLOCKKEY
-fieldset/regs::PRSMODE:
+    enum: vals::Letimerlockkey
+fieldset/regs::Prsmode:
   description: No Description.
   fields:
-  - name: PRSSTARTMODE
+  - name: prsstartmode
     description: PRS Start Mode.
     bit_offset: 18
     bit_size: 2
-    enum: vals::PRSSTARTMODE
-  - name: PRSSTOPMODE
+    enum: vals::Prsstartmode
+  - name: prsstopmode
     description: PRS Stop Mode.
     bit_offset: 22
     bit_size: 2
-    enum: vals::PRSSTOPMODE
-  - name: PRSCLEARMODE
+    enum: vals::Prsstopmode
+  - name: prsclearmode
     description: PRS Clear Mode.
     bit_offset: 26
     bit_size: 2
-    enum: vals::PRSCLEARMODE
-fieldset/regs::REP0:
+    enum: vals::Prsclearmode
+fieldset/regs::Rep0:
   description: No Description.
   fields:
-  - name: REP0
+  - name: rep0
     description: Repeat Counter 0.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::REP1:
+fieldset/regs::Rep1:
   description: No Description.
   fields:
-  - name: REP1
+  - name: rep1
     description: Repeat Counter 1.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::STATUS:
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: RUNNING
+  - name: running
     description: LETIMER Running.
     bit_offset: 0
     bit_size: 1
-  - name: LETIMERLOCKSTATUS
+  - name: letimerlockstatus
     description: LETIMER Lock Status.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::SWRST:
+fieldset/regs::Swrst:
   description: No Description.
   fields:
-  - name: SWRST
+  - name: swrst
     description: Software reset command.
     bit_offset: 0
     bit_size: 1
-  - name: RESETTING
+  - name: resetting
     description: Software reset busy status.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::SYNCBUSY:
+fieldset/regs::Syncbusy:
   description: No Description.
   fields:
-  - name: CNT
+  - name: cnt
     description: Sync busy for CNT.
     bit_offset: 0
     bit_size: 1
-  - name: TOP
+  - name: top
     description: Sync busy for TOP.
     bit_offset: 2
     bit_size: 1
-  - name: REP0
+  - name: rep0
     description: Sync busy for REP0.
     bit_offset: 3
     bit_size: 1
-  - name: REP1
+  - name: rep1
     description: Sync busy for REP1.
     bit_offset: 4
     bit_size: 1
-  - name: START
+  - name: start
     description: Sync busy for START.
     bit_offset: 5
     bit_size: 1
-  - name: STOP
+  - name: stop
     description: Sync busy for STOP.
     bit_offset: 6
     bit_size: 1
-  - name: CLEAR
+  - name: clear
     description: Sync busy for CLEAR.
     bit_offset: 7
     bit_size: 1
-  - name: CTO0
+  - name: cto0
     description: Sync busy for CTO0.
     bit_offset: 8
     bit_size: 1
-  - name: CTO1
+  - name: cto1
     description: Sync busy for CTO1.
     bit_offset: 9
     bit_size: 1
-fieldset/regs::TOP:
+fieldset/regs::Top:
   description: No Description.
   fields:
-  - name: TOP
+  - name: top
     description: Counter TOP Value.
     bit_offset: 0
     bit_size: 24
-fieldset/regs::TOPBUFF:
+fieldset/regs::Topbuff:
   description: No Description.
   fields:
-  - name: TOPBUFF
+  - name: topbuff
     description: Buffered Counter TOP Value.
     bit_offset: 0
     bit_size: 24
-enum/vals::CNTPRESC:
+enum/vals::Cntpresc:
   bit_size: 4
   variants:
-  - name: DIV1
+  - name: Div1
     description: CLK_CNT = (LETIMER LF CLK)/1.
     value: 0
-  - name: DIV2
-    description: CLK_CNT = (LETIMER LF CLK)/2.
-    value: 1
-  - name: DIV4
-    description: CLK_CNT = (LETIMER LF CLK)/4.
-    value: 2
-  - name: DIV8
-    description: CLK_CNT = (LETIMER LF CLK)/8.
-    value: 3
-  - name: DIV16
-    description: CLK_CNT = (LETIMER LF CLK)/16.
-    value: 4
-  - name: DIV32
-    description: CLK_CNT = (LETIMER LF CLK)/32.
-    value: 5
-  - name: DIV64
-    description: CLK_CNT = (LETIMER LF CLK)/64.
-    value: 6
-  - name: DIV128
+  - name: Div128
     description: CLK_CNT = (LETIMER LF CLK)/128.
     value: 7
-  - name: DIV256
+  - name: Div16
+    description: CLK_CNT = (LETIMER LF CLK)/16.
+    value: 4
+  - name: Div2
+    description: CLK_CNT = (LETIMER LF CLK)/2.
+    value: 1
+  - name: Div256
     description: CLK_CNT = (LETIMER LF CLK)/256.
     value: 8
-enum/vals::LETIMERLOCKKEY:
+  - name: Div32
+    description: CLK_CNT = (LETIMER LF CLK)/32.
+    value: 5
+  - name: Div4
+    description: CLK_CNT = (LETIMER LF CLK)/4.
+    value: 2
+  - name: Div64
+    description: CLK_CNT = (LETIMER LF CLK)/64.
+    value: 6
+  - name: Div8
+    description: CLK_CNT = (LETIMER LF CLK)/8.
+    value: 3
+enum/vals::Letimerlockkey:
   bit_size: 16
   variants:
-  - name: UNLOCK
+  - name: Unlock
     description: Write to unock LETIMER lockable registers.
     value: 52476
-enum/vals::PRSCLEARMODE:
+enum/vals::Prsclearmode:
   bit_size: 2
   variants:
-  - name: NONE
-    description: PRS cannot clear the LETIMER.
-    value: 0
-  - name: RISING
-    description: Rising edge of selected PRS input can clear the LETIMER.
-    value: 1
-  - name: FALLING
-    description: Falling edge of selected PRS input can clear the LETIMER.
-    value: 2
-  - name: BOTH
+  - name: Both
     description: Both the rising or falling edge of the selected PRS input can clear the LETIMER.
     value: 3
-enum/vals::PRSSTARTMODE:
+  - name: Falling
+    description: Falling edge of selected PRS input can clear the LETIMER.
+    value: 2
+  - name: None
+    description: PRS cannot clear the LETIMER.
+    value: 0
+  - name: Rising
+    description: Rising edge of selected PRS input can clear the LETIMER.
+    value: 1
+enum/vals::Prsstartmode:
   bit_size: 2
   variants:
-  - name: NONE
-    description: PRS cannot start the LETIMER.
-    value: 0
-  - name: RISING
-    description: Rising edge of selected PRS input can start the LETIMER.
-    value: 1
-  - name: FALLING
-    description: Falling edge of selected PRS input can start the LETIMER.
-    value: 2
-  - name: BOTH
+  - name: Both
     description: Both the rising or falling edge of the selected PRS input can start the LETIMER.
     value: 3
-enum/vals::PRSSTOPMODE:
+  - name: Falling
+    description: Falling edge of selected PRS input can start the LETIMER.
+    value: 2
+  - name: None
+    description: PRS cannot start the LETIMER.
+    value: 0
+  - name: Rising
+    description: Rising edge of selected PRS input can start the LETIMER.
+    value: 1
+enum/vals::Prsstopmode:
   bit_size: 2
   variants:
-  - name: NONE
-    description: PRS cannot stop the LETIMER.
-    value: 0
-  - name: RISING
-    description: Rising edge of selected PRS input can stop the LETIMER.
-    value: 1
-  - name: FALLING
-    description: Falling edge of selected PRS input can stop the LETIMER.
-    value: 2
-  - name: BOTH
+  - name: Both
     description: Both the rising or falling edge of the selected PRS input can stop the LETIMER.
     value: 3
-enum/vals::REPMODE:
+  - name: Falling
+    description: Falling edge of selected PRS input can stop the LETIMER.
+    value: 2
+  - name: None
+    description: PRS cannot stop the LETIMER.
+    value: 0
+  - name: Rising
+    description: Rising edge of selected PRS input can stop the LETIMER.
+    value: 1
+enum/vals::Repmode:
   bit_size: 2
   variants:
-  - name: FREE
-    description: When started, the LETIMER counts down until it is stopped by software.
-    value: 0
-  - name: ONESHOT
-    description: The counter counts REP0 times. When REP0 reaches zero, the counter stops.
-    value: 1
-  - name: BUFFERED
+  - name: Buffered
     description: The counter counts REP0 times. If REP1 has been written, it is loaded into REP0 when REP0 reaches zero, otherwise the counter stops.
     value: 2
-  - name: DOUBLE
+  - name: Double
     description: Both REP0 and REP1 are decremented when the LETIMER wraps around. The LETIMER counts until both REP0 and REP1 are zero.
     value: 3
-enum/vals::UFOA0:
+  - name: Free
+    description: When started, the LETIMER counts down until it is stopped by software.
+    value: 0
+  - name: Oneshot
+    description: The counter counts REP0 times. When REP0 reaches zero, the counter stops.
+    value: 1
+enum/vals::Ufoa0:
   bit_size: 2
   variants:
-  - name: NONE
+  - name: None
     description: LETIMERn_OUT0 is held at its idle value as defined by OPOL0.
     value: 0
-  - name: TOGGLE
-    description: LETIMERn_OUT0 is toggled on CNT underflow.
-    value: 1
-  - name: PULSE
+  - name: Pulse
     description: LETIMERn_OUT0 is held active for one LETIMER0 clock cycle on CNT underflow. The output then returns to its idle value as defined by OPOL0.
     value: 2
-  - name: PWM
+  - name: Pwm
     description: LETIMERn_OUT0 is set idle on CNT underflow, and active on compare match with COMP0.
     value: 3
-enum/vals::UFOA1:
+  - name: Toggle
+    description: LETIMERn_OUT0 is toggled on CNT underflow.
+    value: 1
+enum/vals::Ufoa1:
   bit_size: 2
   variants:
-  - name: NONE
+  - name: None
     description: LETIMERn_OUT1 is held at its idle value as defined by OPOL1.
     value: 0
-  - name: TOGGLE
-    description: LETIMERn_OUT1 is toggled on CNT underflow.
-    value: 1
-  - name: PULSE
+  - name: Pulse
     description: LETIMERn_OUT1 is held active for one LETIMER0 clock cycle on CNT underflow. The output then returns to its idle value as defined by OPOL1.
     value: 2
-  - name: PWM
+  - name: Pwm
     description: LETIMERn_OUT1 is set idle on CNT underflow, and active on compare match with COMP1.
     value: 3
+  - name: Toggle
+    description: LETIMERn_OUT1 is toggled on CNT underflow.
+    value: 1

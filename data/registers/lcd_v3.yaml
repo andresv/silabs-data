@@ -1,778 +1,778 @@
-block/LCD:
+block/Lcd:
   description: LCD peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: EN
+    fieldset: regs::Ipversion
+  - name: en
     description: No Description.
     byte_offset: 4
-    fieldset: regs::EN
-  - name: SWRST
+    fieldset: regs::En
+  - name: swrst
     description: No Description.
     byte_offset: 8
-    fieldset: regs::SWRST
-  - name: CTRL
+    fieldset: regs::Swrst
+  - name: ctrl
     description: No Description.
     byte_offset: 12
-    fieldset: regs::CTRL
-  - name: CMD
+    fieldset: regs::Ctrl
+  - name: cmd
     description: No Description.
     byte_offset: 16
     access: Write
-    fieldset: regs::CMD
-  - name: DISPCTRL
+    fieldset: regs::Cmd
+  - name: dispctrl
     description: No Description.
     byte_offset: 20
-    fieldset: regs::DISPCTRL
-  - name: BACFG
+    fieldset: regs::Dispctrl
+  - name: bacfg
     description: No Description.
     byte_offset: 24
-    fieldset: regs::BACFG
-  - name: BACTRL
+    fieldset: regs::Bacfg
+  - name: bactrl
     description: No Description.
     byte_offset: 28
-    fieldset: regs::BACTRL
-  - name: STATUS
+    fieldset: regs::Bactrl
+  - name: status
     description: No Description.
     byte_offset: 32
     access: Read
-    fieldset: regs::STATUS
-  - name: AREGA
+    fieldset: regs::Status
+  - name: arega
     description: No Description.
     byte_offset: 36
-    fieldset: regs::AREGA
-  - name: AREGB
+    fieldset: regs::Arega
+  - name: aregb
     description: No Description.
     byte_offset: 40
-    fieldset: regs::AREGB
-  - name: IF
+    fieldset: regs::Aregb
+  - name: if_
     description: No Description.
     byte_offset: 44
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 48
-    fieldset: regs::IEN
-  - name: BIASCTRL
+    fieldset: regs::Ien
+  - name: biasctrl
     description: No Description.
     byte_offset: 52
-    fieldset: regs::BIASCTRL
-  - name: DISPCTRLX
+    fieldset: regs::Biasctrl
+  - name: dispctrlx
     description: No Description.
     byte_offset: 56
-    fieldset: regs::DISPCTRLX
-  - name: SEGD0
+    fieldset: regs::Dispctrlx
+  - name: segd0
     description: SEGD0 - Register for Segments 31:0.
     byte_offset: 64
-    fieldset: regs::SEGD0
-  - name: SEGD0H
+    fieldset: regs::Segd0
+  - name: segd0h
     description: SEGD0H - Register for Segments 39:32.
     byte_offset: 68
-    fieldset: regs::SEGD0H
-  - name: SEGD1
+    fieldset: regs::Segd0h
+  - name: segd1
     description: SEGD1 - Register for Segments 31:0.
     byte_offset: 72
-    fieldset: regs::SEGD1
-  - name: SEGD1H
+    fieldset: regs::Segd1
+  - name: segd1h
     description: SEGD1H - Register for Segments 39:32.
     byte_offset: 76
-    fieldset: regs::SEGD1H
-  - name: SEGD2
+    fieldset: regs::Segd1h
+  - name: segd2
     description: SEGD2 - Register for Segments 31:0.
     byte_offset: 80
-    fieldset: regs::SEGD2
-  - name: SEGD2H
+    fieldset: regs::Segd2
+  - name: segd2h
     description: SEGD2H - Register for Segments 39:32.
     byte_offset: 84
-    fieldset: regs::SEGD2H
-  - name: SEGD3
+    fieldset: regs::Segd2h
+  - name: segd3
     description: SEGD3 - Register for Segments 31:0.
     byte_offset: 88
-    fieldset: regs::SEGD3
-  - name: SEGD3H
+    fieldset: regs::Segd3
+  - name: segd3h
     description: SEGD3H - Register for Segments 39:32.
     byte_offset: 92
-    fieldset: regs::SEGD3H
-  - name: SEGD4
+    fieldset: regs::Segd3h
+  - name: segd4
     description: SEGD4 - Register for Segments 31:0.
     byte_offset: 96
-    fieldset: regs::SEGD4
-  - name: SEGD4H
+    fieldset: regs::Segd4
+  - name: segd4h
     description: SEGD4H - Register for Segments 39:32.
     byte_offset: 100
-    fieldset: regs::SEGD4H
-  - name: SEGD5
+    fieldset: regs::Segd4h
+  - name: segd5
     description: SEGD5 - Register for Segments 31:0.
     byte_offset: 104
-    fieldset: regs::SEGD5
-  - name: SEGD5H
+    fieldset: regs::Segd5
+  - name: segd5h
     description: SEGD5H - Register for Segments 39:32.
     byte_offset: 108
-    fieldset: regs::SEGD5H
-  - name: SEGD6
+    fieldset: regs::Segd5h
+  - name: segd6
     description: SEGD6 - Register for Segments 31:0.
     byte_offset: 112
-    fieldset: regs::SEGD6
-  - name: SEGD6H
+    fieldset: regs::Segd6
+  - name: segd6h
     description: SEGD6H - Register for Segments 39:32.
     byte_offset: 116
-    fieldset: regs::SEGD6H
-  - name: SEGD7
+    fieldset: regs::Segd6h
+  - name: segd7
     description: SEGD7 - Register for Segments 31:0.
     byte_offset: 120
-    fieldset: regs::SEGD7
-  - name: SEGD7H
+    fieldset: regs::Segd7
+  - name: segd7h
     description: SEGD7H - Register for Segments 39:32.
     byte_offset: 124
-    fieldset: regs::SEGD7H
-  - name: UPDATECTRL
+    fieldset: regs::Segd7h
+  - name: updatectrl
     description: No Description.
     byte_offset: 192
-    fieldset: regs::UPDATECTRL
-  - name: FRAMERATE
+    fieldset: regs::Updatectrl
+  - name: framerate
     description: No Description.
     byte_offset: 240
-    fieldset: regs::FRAMERATE
-fieldset/regs::AREGA:
+    fieldset: regs::Framerate
+fieldset/regs::Arega:
   description: No Description.
   fields:
-  - name: AREGA
+  - name: arega
     description: Animation Register A Data.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::AREGB:
+fieldset/regs::Aregb:
   description: No Description.
   fields:
-  - name: AREGB
+  - name: aregb
     description: Animation Register B Data.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::BACFG:
+fieldset/regs::Bacfg:
   description: No Description.
   fields:
-  - name: ASTATETOP
+  - name: astatetop
     description: ASTATE top cnt.
     bit_offset: 0
     bit_size: 3
-  - name: FCPRESC
+  - name: fcpresc
     description: Frame Counter Prescaler.
     bit_offset: 16
     bit_size: 2
-    enum: vals::FCPRESC
-  - name: FCTOP
+    enum: vals::Fcpresc
+  - name: fctop
     description: Frame Counter Top.
     bit_offset: 18
     bit_size: 6
-fieldset/regs::BACTRL:
+fieldset/regs::Bactrl:
   description: No Description.
   fields:
-  - name: BLINKEN
+  - name: blinken
     description: Blink Enable.
     bit_offset: 0
     bit_size: 1
-  - name: BLANK
+  - name: blank
     description: Blank Display.
     bit_offset: 1
     bit_size: 1
-  - name: AEN
+  - name: aen
     description: Animation Enable.
     bit_offset: 2
     bit_size: 1
-  - name: AREGASC
+  - name: aregasc
     description: Animate Register A Shift Control.
     bit_offset: 3
     bit_size: 2
-    enum: vals::AREGASC
-  - name: AREGBSC
+    enum: vals::Aregasc
+  - name: aregbsc
     description: Animate Register B Shift Control.
     bit_offset: 5
     bit_size: 2
-    enum: vals::AREGBSC
-  - name: ALOGSEL
+    enum: vals::Aregbsc
+  - name: alogsel
     description: Animate Logic Function Select.
     bit_offset: 7
     bit_size: 1
-    enum: vals::ALOGSEL
-  - name: FCEN
+    enum: vals::Alogsel
+  - name: fcen
     description: Frame Counter Enable.
     bit_offset: 8
     bit_size: 1
-  - name: DISPLAYCNTEN
+  - name: displaycnten
     description: Display Counter Enable.
     bit_offset: 9
     bit_size: 1
-  - name: ALOC
+  - name: aloc
     description: Animation Location.
     bit_offset: 28
     bit_size: 1
-    enum: vals::ALOC
-fieldset/regs::BIASCTRL:
+    enum: vals::Aloc
+fieldset/regs::Biasctrl:
   description: No Description.
   fields:
-  - name: RESISTOR
+  - name: resistor
     description: Resistor strength.
     bit_offset: 0
     bit_size: 4
-  - name: BUFDRV
+  - name: bufdrv
     description: Buffer Drive Strength.
     bit_offset: 4
     bit_size: 3
-  - name: BUFBIAS
+  - name: bufbias
     description: Buffer Bias Setting.
     bit_offset: 8
     bit_size: 2
-  - name: MODE
+  - name: mode
     description: Mode Setting.
     bit_offset: 12
     bit_size: 1
-    enum: vals::MODE
-  - name: VLCD
+    enum: vals::Mode
+  - name: vlcd
     description: VLCD voltage level.
     bit_offset: 16
     bit_size: 5
-  - name: VDDXSEL
+  - name: vddxsel
     description: VDDX select.
     bit_offset: 22
     bit_size: 1
-    enum: vals::VDDXSEL
-  - name: LCDGATE
+    enum: vals::Vddxsel
+  - name: lcdgate
     description: LCD Gate.
     bit_offset: 26
     bit_size: 1
-  - name: DMAMODE
+  - name: dmamode
     description: DMA Mode.
     bit_offset: 30
     bit_size: 2
-    enum: vals::DMAMODE
-fieldset/regs::CMD:
+    enum: vals::Dmamode
+fieldset/regs::Cmd:
   description: No Description.
   fields:
-  - name: LOAD
+  - name: load
     description: Load command.
     bit_offset: 0
     bit_size: 1
-  - name: CLEAR
+  - name: clear
     description: Clear command.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::CTRL:
+fieldset/regs::Ctrl:
   description: No Description.
   fields:
-  - name: UDCTRL
+  - name: udctrl
     description: Update Data Control.
     bit_offset: 1
     bit_size: 2
-    enum: vals::UDCTRL
-  - name: DSC
+    enum: vals::Udctrl
+  - name: dsc
     description: Direct Segment Control.
     bit_offset: 16
     bit_size: 1
-  - name: WARMUPDLY
+  - name: warmupdly
     description: Warmup Delay.
     bit_offset: 18
     bit_size: 3
-    enum: vals::WARMUPDLY
-  - name: PRESCALE
+    enum: vals::Warmupdly
+  - name: prescale
     description: Presclae.
     bit_offset: 24
     bit_size: 7
-fieldset/regs::DISPCTRL:
+fieldset/regs::Dispctrl:
   description: No Description.
   fields:
-  - name: MUX
+  - name: mux
     description: Mux Configuration.
     bit_offset: 0
     bit_size: 3
-    enum: vals::MUX
-  - name: WAVE
+    enum: vals::Mux
+  - name: wave
     description: Waveform Selection.
     bit_offset: 4
     bit_size: 1
-    enum: vals::WAVE
-  - name: CHGRDST
+    enum: vals::Wave
+  - name: chgrdst
     description: Charge Redistribution Cycles.
     bit_offset: 20
     bit_size: 3
-    enum: vals::CHGRDST
-  - name: BIAS
+    enum: vals::Chgrdst
+  - name: bias
     description: Bias Configuration.
     bit_offset: 24
     bit_size: 2
-    enum: vals::BIAS
-fieldset/regs::DISPCTRLX:
+    enum: vals::Bias
+fieldset/regs::Dispctrlx:
   description: No Description.
   fields:
-  - name: DISPLAYDIV
+  - name: displaydiv
     description: Display Divider.
     bit_offset: 0
     bit_size: 10
-fieldset/regs::EN:
+fieldset/regs::En:
   description: No Description.
   fields:
-  - name: EN
+  - name: en
     description: Enable.
     bit_offset: 0
     bit_size: 1
-  - name: DISABLING
+  - name: disabling
     description: Disablement busy status.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::FRAMERATE:
+fieldset/regs::Framerate:
   description: No Description.
   fields:
-  - name: FRDIV
+  - name: frdiv
     description: Frame Rate Divider.
     bit_offset: 0
     bit_size: 9
-fieldset/regs::IEN:
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: FC
+  - name: fc
     description: Frame Counter.
     bit_offset: 0
     bit_size: 1
-  - name: DISPLAY
+  - name: display
     description: Display Update Event.
     bit_offset: 1
     bit_size: 1
-  - name: SYNCBUSYDONE
+  - name: syncbusydone
     description: Sync Busy Done.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: FC
+  - name: fc
     description: Frame Counter.
     bit_offset: 0
     bit_size: 1
-  - name: DISPLAY
+  - name: display
     description: Display Update Event.
     bit_offset: 1
     bit_size: 1
-  - name: SYNCBUSYDONE
+  - name: syncbusydone
     description: Synchronization is Done.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IPVERSION.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::SEGD0:
+fieldset/regs::Segd0:
   description: SEGD0 - Register for Segments 31:0.
   fields:
-  - name: SEGD0
+  - name: segd0
     description: COM0 Segment Data Low.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::SEGD0H:
+fieldset/regs::Segd0h:
   description: SEGD0H - Register for Segments 39:32.
   fields:
-  - name: SEGD0H
+  - name: segd0h
     description: COM0 Segment Data High.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::SEGD1:
+fieldset/regs::Segd1:
   description: SEGD1 - Register for Segments 31:0.
   fields:
-  - name: SEGD1
+  - name: segd1
     description: COM1 Segment Data Low.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::SEGD1H:
+fieldset/regs::Segd1h:
   description: SEGD1H - Register for Segments 39:32.
   fields:
-  - name: SEGD1H
+  - name: segd1h
     description: COM1 Segment Data High.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::SEGD2:
+fieldset/regs::Segd2:
   description: SEGD2 - Register for Segments 31:0.
   fields:
-  - name: SEGD2
+  - name: segd2
     description: COM2 Segment Data Low.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::SEGD2H:
+fieldset/regs::Segd2h:
   description: SEGD2H - Register for Segments 39:32.
   fields:
-  - name: SEGD2H
+  - name: segd2h
     description: COM2 Segment Data High.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::SEGD3:
+fieldset/regs::Segd3:
   description: SEGD3 - Register for Segments 31:0.
   fields:
-  - name: SEGD3
+  - name: segd3
     description: COM3 Segment Data Low.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::SEGD3H:
+fieldset/regs::Segd3h:
   description: SEGD3H - Register for Segments 39:32.
   fields:
-  - name: SEGD3H
+  - name: segd3h
     description: COM3 Segment Data High.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::SEGD4:
+fieldset/regs::Segd4:
   description: SEGD4 - Register for Segments 31:0.
   fields:
-  - name: SEGD4
+  - name: segd4
     description: COM4 Segment Data Low.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::SEGD4H:
+fieldset/regs::Segd4h:
   description: SEGD4H - Register for Segments 39:32.
   fields:
-  - name: SEGD4H
+  - name: segd4h
     description: COM4 Segment Data High.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::SEGD5:
+fieldset/regs::Segd5:
   description: SEGD5 - Register for Segments 31:0.
   fields:
-  - name: SEGD5
+  - name: segd5
     description: COM5 Segment Data Low.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::SEGD5H:
+fieldset/regs::Segd5h:
   description: SEGD5H - Register for Segments 39:32.
   fields:
-  - name: SEGD5H
+  - name: segd5h
     description: COM5 Segment Data High.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::SEGD6:
+fieldset/regs::Segd6:
   description: SEGD6 - Register for Segments 31:0.
   fields:
-  - name: SEGD6
+  - name: segd6
     description: COM6 Segment Data Low.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::SEGD6H:
+fieldset/regs::Segd6h:
   description: SEGD6H - Register for Segments 39:32.
   fields:
-  - name: SEGD6H
+  - name: segd6h
     description: COM6 Segment Data High.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::SEGD7:
+fieldset/regs::Segd7:
   description: SEGD7 - Register for Segments 31:0.
   fields:
-  - name: SEGD7
+  - name: segd7
     description: COM7 Segment Data Low.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::SEGD7H:
+fieldset/regs::Segd7h:
   description: SEGD7H - Register for Segments 39:32.
   fields:
-  - name: SEGD7H
+  - name: segd7h
     description: COM7 Segment Data High.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::STATUS:
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: ASTATE
+  - name: astate
     description: Current Animation State.
     bit_offset: 0
     bit_size: 4
-  - name: BLINK
+  - name: blink
     description: Blink State.
     bit_offset: 8
     bit_size: 1
-  - name: LOADBUSY
+  - name: loadbusy
     description: Load Synchronization is busy.
     bit_offset: 11
     bit_size: 1
-fieldset/regs::SWRST:
+fieldset/regs::Swrst:
   description: No Description.
   fields:
-  - name: SWRST
+  - name: swrst
     description: Software reset command.
     bit_offset: 0
     bit_size: 1
-  - name: RESETTING
+  - name: resetting
     description: Software reset busy status.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::UPDATECTRL:
+fieldset/regs::Updatectrl:
   description: No Description.
   fields:
-  - name: AUTOLOAD
+  - name: autoload
     description: Auto Load.
     bit_offset: 8
     bit_size: 1
-    enum: vals::AUTOLOAD
-  - name: LOADADDR
+    enum: vals::Autoload
+  - name: loadaddr
     description: Load Address.
     bit_offset: 13
     bit_size: 5
-    enum: vals::LOADADDR
-enum/vals::ALOC:
+    enum: vals::Loadaddr
+enum/vals::Aloc:
   bit_size: 1
   variants:
-  - name: SEG0TO7
+  - name: Seg0to7
     description: Animation appears on segments 0 to 7.
     value: 0
-  - name: SEG8TO15
+  - name: Seg8to15
     description: Animation appears on segments 8 to 15.
     value: 1
-enum/vals::ALOGSEL:
+enum/vals::Alogsel:
   bit_size: 1
   variants:
-  - name: AND
+  - name: And
     description: AREGA and AREGB AND'ed.
     value: 0
-  - name: OR
+  - name: Or
     description: AREGA and AREGB OR'ed.
     value: 1
-enum/vals::AREGASC:
+enum/vals::Aregasc:
   bit_size: 2
   variants:
-  - name: NOSHIFT
+  - name: Noshift
     description: No Shift operation on Animation Register A.
     value: 0
-  - name: SHIFTLEFT
+  - name: Shiftleft
     description: Animation Register A is shifted left.
     value: 1
-  - name: SHIFTRIGHT
+  - name: Shiftright
     description: Animation Register A is shifted right.
     value: 2
-enum/vals::AREGBSC:
+enum/vals::Aregbsc:
   bit_size: 2
   variants:
-  - name: NOSHIFT
+  - name: Noshift
     description: No Shift operation on Animation Register B.
     value: 0
-  - name: SHIFTLEFT
+  - name: Shiftleft
     description: Animation Register B is shifted left.
     value: 1
-  - name: SHIFTRIGHT
+  - name: Shiftright
     description: Animation Register B is shifted right.
     value: 2
-enum/vals::AUTOLOAD:
+enum/vals::Autoload:
   bit_size: 1
   variants:
-  - name: MANUAL
-    description: CLK_BUS register to CLK_PER register loads must be done manually with a write to CMD.LOAD.
-    value: 0
-  - name: AUTO
+  - name: Auto
     description: CLK_BUS register to CLK_PER register loads will be started automatically after a write to the register in UPDATECTRL.LOADADDR is detected.
     value: 1
-enum/vals::BIAS:
+  - name: Manual
+    description: CLK_BUS register to CLK_PER register loads must be done manually with a write to CMD.LOAD.
+    value: 0
+enum/vals::Bias:
   bit_size: 2
   variants:
-  - name: STATIC
-    description: Static.
-    value: 0
-  - name: ONEHALF
-    description: 1/2 Bias.
-    value: 1
-  - name: ONETHIRD
-    description: 1/3 Bias.
-    value: 2
-  - name: ONEFOURTH
+  - name: Onefourth
     description: 1/4 Bias.
     value: 3
-enum/vals::CHGRDST:
-  bit_size: 3
-  variants:
-  - name: DISABLE
-    description: Disable charge redistribution.
-    value: 0
-  - name: ONE
-    description: Use 1 prescaled low frequency clock cycle for charge redistribution.
+  - name: Onehalf
+    description: 1/2 Bias.
     value: 1
-  - name: TWO
-    description: Use 2 prescaled low frequency clock cycles for charge redistribution.
+  - name: Onethird
+    description: 1/3 Bias.
     value: 2
-  - name: THREE
-    description: Use 3 prescaled low frequency clock cycles for charge redistribution.
-    value: 3
-  - name: FOUR
-    description: Use 4 prescaled low frequency clock cycles for charge redistribution.
-    value: 4
-enum/vals::DMAMODE:
-  bit_size: 2
-  variants:
-  - name: DMADISABLE
-    description: No DMA requests are generated.
-    value: 0
-  - name: DMAFC
-    description: DMA request on frame counter event. This will also start a DMA transfer during EM23.
-    value: 1
-  - name: DMADISPLAY
-    description: DMA request on display counter event. This will also start a DMA transfer during EM23.
-    value: 2
-enum/vals::FCPRESC:
-  bit_size: 2
-  variants:
-  - name: DIV1
-    description: every frame clock.
-    value: 0
-  - name: DIV2
-    description: every 2nd frame clock.
-    value: 1
-  - name: DIV4
-    description: every 4th frame clock.
-    value: 2
-  - name: DIV8
-    description: every 8th frame clock.
-    value: 3
-enum/vals::LOADADDR:
-  bit_size: 5
-  variants:
-  - name: BACTRLWR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to BACTRL. Use with UPDATECTRL.AUTOLOAD.
-    value: 0
-  - name: AREGAWR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to AREGA. Use with UPDATECTRL.AUTOLOAD.
-    value: 1
-  - name: AREGBWR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to AREGB. Use with UPDATECTRL.AUTOLOAD.
-    value: 2
-  - name: SEGD0WR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD0. Use with UPDATECTRL.AUTOLOAD.
-    value: 3
-  - name: SEGD1WR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD1. Use with UPDATECTRL.AUTOLOAD.
-    value: 4
-  - name: SEGD2WR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD2. Use with UPDATECTRL.AUTOLOAD.
-    value: 5
-  - name: SEGD3WR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD3. Use with UPDATECTRL.AUTOLOAD.
-    value: 6
-  - name: SEGD4WR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD4. Use with UPDATECTRL.AUTOLOAD.
-    value: 7
-  - name: SEGD5WR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD5. Use with UPDATECTRL.AUTOLOAD.
-    value: 8
-  - name: SEGD6WR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD6. Use with UPDATECTRL.AUTOLOAD.
-    value: 9
-  - name: SEGD7WR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD7. Use with UPDATECTRL.AUTOLOAD.
-    value: 10
-  - name: SEGD0HWR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD0H. Use with UPDATECTRL.AUTOLOAD.
-    value: 11
-  - name: SEGD1HWR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD1H. Use with UPDATECTRL.AUTOLOAD.
-    value: 12
-  - name: SEGD2HWR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD2H. Use with UPDATECTRL.AUTOLOAD.
-    value: 13
-  - name: SEGD3HWR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD3H. Use with UPDATECTRL.AUTOLOAD.
-    value: 14
-  - name: SEGD4HWR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD4H. Use with UPDATECTRL.AUTOLOAD.
-    value: 15
-  - name: SEGD5HWR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD5H. Use with UPDATECTRL.AUTOLOAD.
-    value: 16
-  - name: SEGD6HWR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD6H. Use with UPDATECTRL.AUTOLOAD.
-    value: 17
-  - name: SEGD7HWR
-    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD7H. Use with UPDATECTRL.AUTOLOAD.
-    value: 18
-enum/vals::MODE:
-  bit_size: 1
-  variants:
-  - name: STEPDOWN
-    description: Use step down control with VLCD less than VDDX. Use VLCD[4:0] to control VLCD level, and use SPEED to adjust VLCD drive strength.
-    value: 0
-  - name: CHARGEPUMP
-    description: Use the charge pump to pump VLCD above VDDX.
-    value: 1
-enum/vals::MUX:
-  bit_size: 3
-  variants:
-  - name: STATIC
+  - name: Static
     description: Static.
     value: 0
-  - name: DUPLEX
-    description: Duplex.
-    value: 1
-  - name: TRIPLEX
-    description: Triplex.
-    value: 2
-  - name: QUADRUPLEX
-    description: Quadruplex.
-    value: 3
-  - name: SEXTAPLEX
-    description: Sextaplex.
-    value: 5
-  - name: OCTAPLEX
-    description: Octaplex.
-    value: 7
-enum/vals::UDCTRL:
-  bit_size: 2
-  variants:
-  - name: REGULAR
-    description: The data transfer is controlled by SW. Transfer is performed as soon as possible on the next CTRL.PRESCALE clock. This is primarily available for debug only since only some of the new SEGMENT data may be ready by the time of the UPDATE. This should not be used with interrupts since partially updating SEGMENT data may have indeterminant results.
-    value: 0
-  - name: FRAMESTART
-    description: Data is loaded continuously at every frame start.
-    value: 1
-  - name: FCEVENT
-    description: The data transfer is done at the next Frame Counter event.
-    value: 2
-  - name: DISPLAYEVENT
-    description: The data transfer is done at the next Display Counter event.
-    value: 3
-enum/vals::VDDXSEL:
-  bit_size: 1
-  variants:
-  - name: DVDD
-    description: Connect charge pump to digital DVDD supply.
-    value: 0
-  - name: AVDD
-    description: Connect charge pump to analog AVDD supply.
-    value: 1
-enum/vals::WARMUPDLY:
+enum/vals::Chgrdst:
   bit_size: 3
   variants:
-  - name: WARMUP1
-    description: 1mswarm up.
+  - name: Disable
+    description: Disable charge redistribution.
     value: 0
-  - name: WARMUP31
-    description: 31ms warm up.
-    value: 1
-  - name: WARMUP63
-    description: 62ms warm up.
-    value: 2
-  - name: WARMUP125
-    description: 125ms warm up.
-    value: 3
-  - name: WARMUP250
-    description: 250ms warm up.
+  - name: Four
+    description: Use 4 prescaled low frequency clock cycles for charge redistribution.
     value: 4
-  - name: WARMUP500
-    description: 500ms warm up.
+  - name: One
+    description: Use 1 prescaled low frequency clock cycle for charge redistribution.
+    value: 1
+  - name: Three
+    description: Use 3 prescaled low frequency clock cycles for charge redistribution.
+    value: 3
+  - name: Two
+    description: Use 2 prescaled low frequency clock cycles for charge redistribution.
+    value: 2
+enum/vals::Dmamode:
+  bit_size: 2
+  variants:
+  - name: Dmadisable
+    description: No DMA requests are generated.
+    value: 0
+  - name: Dmadisplay
+    description: DMA request on display counter event. This will also start a DMA transfer during EM23.
+    value: 2
+  - name: Dmafc
+    description: DMA request on frame counter event. This will also start a DMA transfer during EM23.
+    value: 1
+enum/vals::Fcpresc:
+  bit_size: 2
+  variants:
+  - name: Div1
+    description: every frame clock.
+    value: 0
+  - name: Div2
+    description: every 2nd frame clock.
+    value: 1
+  - name: Div4
+    description: every 4th frame clock.
+    value: 2
+  - name: Div8
+    description: every 8th frame clock.
+    value: 3
+enum/vals::Loadaddr:
+  bit_size: 5
+  variants:
+  - name: Aregawr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to AREGA. Use with UPDATECTRL.AUTOLOAD.
+    value: 1
+  - name: Aregbwr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to AREGB. Use with UPDATECTRL.AUTOLOAD.
+    value: 2
+  - name: Bactrlwr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to BACTRL. Use with UPDATECTRL.AUTOLOAD.
+    value: 0
+  - name: Segd0hwr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD0H. Use with UPDATECTRL.AUTOLOAD.
+    value: 11
+  - name: Segd0wr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD0. Use with UPDATECTRL.AUTOLOAD.
+    value: 3
+  - name: Segd1hwr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD1H. Use with UPDATECTRL.AUTOLOAD.
+    value: 12
+  - name: Segd1wr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD1. Use with UPDATECTRL.AUTOLOAD.
+    value: 4
+  - name: Segd2hwr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD2H. Use with UPDATECTRL.AUTOLOAD.
+    value: 13
+  - name: Segd2wr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD2. Use with UPDATECTRL.AUTOLOAD.
     value: 5
-  - name: WARMUP1000
-    description: 1000ms warm up.
+  - name: Segd3hwr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD3H. Use with UPDATECTRL.AUTOLOAD.
+    value: 14
+  - name: Segd3wr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD3. Use with UPDATECTRL.AUTOLOAD.
     value: 6
-  - name: WARMUP2000
-    description: 2000ms warm up.
+  - name: Segd4hwr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD4H. Use with UPDATECTRL.AUTOLOAD.
+    value: 15
+  - name: Segd4wr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD4. Use with UPDATECTRL.AUTOLOAD.
     value: 7
-enum/vals::WAVE:
+  - name: Segd5hwr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD5H. Use with UPDATECTRL.AUTOLOAD.
+    value: 16
+  - name: Segd5wr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD5. Use with UPDATECTRL.AUTOLOAD.
+    value: 8
+  - name: Segd6hwr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD6H. Use with UPDATECTRL.AUTOLOAD.
+    value: 17
+  - name: Segd6wr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD6. Use with UPDATECTRL.AUTOLOAD.
+    value: 9
+  - name: Segd7hwr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD7H. Use with UPDATECTRL.AUTOLOAD.
+    value: 18
+  - name: Segd7wr
+    description: Starts synchronizing registers from CLK_BUS to CLK_PER after a write to SEGD7. Use with UPDATECTRL.AUTOLOAD.
+    value: 10
+enum/vals::Mode:
   bit_size: 1
   variants:
-  - name: TYPEB
-    description: Type B waveform.
+  - name: Chargepump
+    description: Use the charge pump to pump VLCD above VDDX.
+    value: 1
+  - name: Stepdown
+    description: Use step down control with VLCD less than VDDX. Use VLCD[4:0] to control VLCD level, and use SPEED to adjust VLCD drive strength.
     value: 0
-  - name: TYPEA
+enum/vals::Mux:
+  bit_size: 3
+  variants:
+  - name: Duplex
+    description: Duplex.
+    value: 1
+  - name: Octaplex
+    description: Octaplex.
+    value: 7
+  - name: Quadruplex
+    description: Quadruplex.
+    value: 3
+  - name: Sextaplex
+    description: Sextaplex.
+    value: 5
+  - name: Static
+    description: Static.
+    value: 0
+  - name: Triplex
+    description: Triplex.
+    value: 2
+enum/vals::Udctrl:
+  bit_size: 2
+  variants:
+  - name: Displayevent
+    description: The data transfer is done at the next Display Counter event.
+    value: 3
+  - name: Fcevent
+    description: The data transfer is done at the next Frame Counter event.
+    value: 2
+  - name: Framestart
+    description: Data is loaded continuously at every frame start.
+    value: 1
+  - name: Regular
+    description: The data transfer is controlled by SW. Transfer is performed as soon as possible on the next CTRL.PRESCALE clock. This is primarily available for debug only since only some of the new SEGMENT data may be ready by the time of the UPDATE. This should not be used with interrupts since partially updating SEGMENT data may have indeterminant results.
+    value: 0
+enum/vals::Vddxsel:
+  bit_size: 1
+  variants:
+  - name: Avdd
+    description: Connect charge pump to analog AVDD supply.
+    value: 1
+  - name: Dvdd
+    description: Connect charge pump to digital DVDD supply.
+    value: 0
+enum/vals::Warmupdly:
+  bit_size: 3
+  variants:
+  - name: Warmup1
+    description: 1mswarm up.
+    value: 0
+  - name: Warmup1000
+    description: 1000ms warm up.
+    value: 6
+  - name: Warmup125
+    description: 125ms warm up.
+    value: 3
+  - name: Warmup2000
+    description: 2000ms warm up.
+    value: 7
+  - name: Warmup250
+    description: 250ms warm up.
+    value: 4
+  - name: Warmup31
+    description: 31ms warm up.
+    value: 1
+  - name: Warmup500
+    description: 500ms warm up.
+    value: 5
+  - name: Warmup63
+    description: 62ms warm up.
+    value: 2
+enum/vals::Wave:
+  bit_size: 1
+  variants:
+  - name: Typea
     description: Type A waveform.
     value: 1
+  - name: Typeb
+    description: Type B waveform.
+    value: 0

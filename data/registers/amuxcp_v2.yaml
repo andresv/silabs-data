@@ -1,180 +1,180 @@
-block/AMUXCP:
+block/Amuxcp:
   description: AMUXCP peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: IPVERSION.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: CTRL
+    fieldset: regs::Ipversion
+  - name: ctrl
     description: Control.
     byte_offset: 8
-    fieldset: regs::CTRL
-  - name: STATUS
+    fieldset: regs::Ctrl
+  - name: status
     description: Status.
     byte_offset: 12
     access: Read
-    fieldset: regs::STATUS
-  - name: TEST
+    fieldset: regs::Status
+  - name: test
     description: Test.
     byte_offset: 16
-    fieldset: regs::TEST
-  - name: TRIM
+    fieldset: regs::Test
+  - name: trim
     description: Trim.
     byte_offset: 20
-    fieldset: regs::TRIM
-fieldset/regs::CTRL:
+    fieldset: regs::Trim
+fieldset/regs::Ctrl:
   description: Control.
   fields:
-  - name: FORCEHP
+  - name: forcehp
     description: Force High Power.
     bit_offset: 0
     bit_size: 1
-  - name: FORCELP
+  - name: forcelp
     description: Force Low Power.
     bit_offset: 1
     bit_size: 1
-  - name: FORCERUN
+  - name: forcerun
     description: Force run.
     bit_offset: 4
     bit_size: 1
-  - name: FORCESTOP
+  - name: forcestop
     description: Force stop.
     bit_offset: 5
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: IPVERSION.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IPVERSION.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::STATUS:
+fieldset/regs::Status:
   description: Status.
   fields:
-  - name: RUN
+  - name: run
     description: running.
     bit_offset: 0
     bit_size: 1
-  - name: HICAP
+  - name: hicap
     description: high cap.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::TEST:
+fieldset/regs::Test:
   description: Test.
   fields:
-  - name: SYNCCLK
+  - name: syncclk
     description: Sync Clock.
     bit_offset: 0
     bit_size: 1
-  - name: SYNCMODE
+  - name: syncmode
     description: Sync Mode.
     bit_offset: 1
     bit_size: 1
-  - name: FORCEREQUEST
+  - name: forcerequest
     description: Force Request.
     bit_offset: 4
     bit_size: 1
-  - name: FORCEHICAP
+  - name: forcehicap
     description: Force high capacitance driver.
     bit_offset: 8
     bit_size: 1
-  - name: FORCELOCAP
+  - name: forcelocap
     description: Force low capacitance driver.
     bit_offset: 9
     bit_size: 1
-  - name: FORCEBOOSTON
+  - name: forcebooston
     description: Force Boost On.
     bit_offset: 12
     bit_size: 1
-  - name: FORCEBOOSTOFF
+  - name: forceboostoff
     description: Force Boost Off.
     bit_offset: 13
     bit_size: 1
-  - name: STATUSEN
+  - name: statusen
     description: Enable write to status bits.
     bit_offset: 31
     bit_size: 1
-fieldset/regs::TRIM:
+fieldset/regs::Trim:
   description: Trim.
   fields:
-  - name: WARMUPTIME
+  - name: warmuptime
     description: Warm up time.
     bit_offset: 0
     bit_size: 2
-    enum: vals::WARMUPTIME
-  - name: FLOATVDDCPLO
+    enum: vals::Warmuptime
+  - name: floatvddcplo
     description: Float VDDCP Low Power.
     bit_offset: 2
     bit_size: 1
-  - name: FLOATVDDCPHI
+  - name: floatvddcphi
     description: Float VDDCP High Power.
     bit_offset: 3
     bit_size: 1
-  - name: BYPASSDIV2LO
+  - name: bypassdiv2lo
     description: Bypass Div2 Low Power.
     bit_offset: 4
     bit_size: 1
-  - name: BYPASSDIV2HI
+  - name: bypassdiv2hi
     description: Bypass Div2 High Power.
     bit_offset: 5
     bit_size: 1
-  - name: BUMP0P5XLO
+  - name: bump0p5xlo
     description: Bump 0.5X Low Power.
     bit_offset: 6
     bit_size: 1
-  - name: BUMP0P5XHI
+  - name: bump0p5xhi
     description: Bump 0.5X High Power.
     bit_offset: 7
     bit_size: 1
-  - name: BIAS2XLO
+  - name: bias2xlo
     description: Bias 2x Low Power.
     bit_offset: 8
     bit_size: 1
-  - name: BIAS2XHI
+  - name: bias2xhi
     description: Bias 2x High Power.
     bit_offset: 9
     bit_size: 1
-  - name: VOLTAGECTRLLO
+  - name: voltagectrllo
     description: Charge Pump Voltage Control Low Power.
     bit_offset: 10
     bit_size: 2
-  - name: VOLTAGECTRLHI
+  - name: voltagectrlhi
     description: Charge Pump Voltage Control High Power.
     bit_offset: 13
     bit_size: 2
-  - name: BIASCTRLLO
+  - name: biasctrllo
     description: Bias Control Low Power.
     bit_offset: 15
     bit_size: 3
-  - name: BIASCTRLLOCONT
+  - name: biasctrllocont
     description: Bias Control Low Power Continuous.
     bit_offset: 18
     bit_size: 3
-  - name: BIASCTRLHI
+  - name: biasctrlhi
     description: Bias Control High Power.
     bit_offset: 21
     bit_size: 3
-  - name: PUMPCAPLO
+  - name: pumpcaplo
     description: Pump Cap Low Power.
     bit_offset: 24
     bit_size: 3
-  - name: PUMPCAPHI
+  - name: pumpcaphi
     description: Pump Cap High Power.
     bit_offset: 28
     bit_size: 3
-enum/vals::WARMUPTIME:
+enum/vals::Warmuptime:
   bit_size: 2
   variants:
-  - name: WUCYCLES72
-    description: Warm up cycle = 72; 3.6us @20 MHz.
-    value: 0
-  - name: WUCYCLES96
-    description: Warm up cycle = 96; 4.8us @ 20 MHz.
-    value: 1
-  - name: WUCYCLES128
+  - name: Wucycles128
     description: Warm up cycle = 128; 6.4us @ 20 MHz.
     value: 2
-  - name: WUCYCLES160
+  - name: Wucycles160
     description: Warm up cycle = 160; 8.0us @ 20 MHz.
     value: 3
+  - name: Wucycles72
+    description: Warm up cycle = 72; 3.6us @20 MHz.
+    value: 0
+  - name: Wucycles96
+    description: Warm up cycle = 96; 4.8us @ 20 MHz.
+    value: 1

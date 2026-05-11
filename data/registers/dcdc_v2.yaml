@@ -1,276 +1,276 @@
-block/DCDC:
+block/Dcdc:
   description: DCDC peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: IPVERSION.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: CTRL
+    fieldset: regs::Ipversion
+  - name: ctrl
     description: Control.
     byte_offset: 4
-    fieldset: regs::CTRL
-  - name: EM01CTRL0
+    fieldset: regs::Ctrl
+  - name: em01ctrl0
     description: EM01 Configurations.
     byte_offset: 8
-    fieldset: regs::EM01CTRL0
-  - name: EM23CTRL0
+    fieldset: regs::Em01ctrl0
+  - name: em23ctrl0
     description: EM23 Configurations.
     byte_offset: 16
-    fieldset: regs::EM23CTRL0
-  - name: PFMXCTRL
+    fieldset: regs::Em23ctrl0
+  - name: pfmxctrl
     description: PFMX Control Register.
     byte_offset: 32
-    fieldset: regs::PFMXCTRL
-  - name: IF
+    fieldset: regs::Pfmxctrl
+  - name: if_
     description: Interrupt Flags.
     byte_offset: 40
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: Interrupt Enable.
     byte_offset: 44
-    fieldset: regs::IEN
-  - name: STATUS
+    fieldset: regs::Ien
+  - name: status
     description: DCDC Status Register.
     byte_offset: 48
     access: Read
-    fieldset: regs::STATUS
-  - name: SYNCBUSY
+    fieldset: regs::Status
+  - name: syncbusy
     description: Syncbusy Status Register.
     byte_offset: 52
     access: Read
-    fieldset: regs::SYNCBUSY
-  - name: LOCK
+    fieldset: regs::Syncbusy
+  - name: lock
     description: No Description.
     byte_offset: 64
     access: Write
-    fieldset: regs::LOCK
-  - name: LOCKSTATUS
+    fieldset: regs::Lock
+  - name: lockstatus
     description: No Description.
     byte_offset: 68
     access: Read
-    fieldset: regs::LOCKSTATUS
-fieldset/regs::CTRL:
+    fieldset: regs::Lockstatus
+fieldset/regs::Ctrl:
   description: Control.
   fields:
-  - name: MODE
+  - name: mode
     description: DCDC/Bypass Mode Control.
     bit_offset: 0
     bit_size: 1
-    enum: vals::MODE
-  - name: IPKTMAXCTRL
+    enum: vals::Mode
+  - name: ipktmaxctrl
     description: Ton_max timeout control.
     bit_offset: 4
     bit_size: 5
-  - name: PFMXEXTREQ
+  - name: pfmxextreq
     description: PFMX Enable.
     bit_offset: 31
     bit_size: 1
-    enum: vals::PFMXEXTREQ
-fieldset/regs::EM01CTRL0:
+    enum: vals::Pfmxextreq
+fieldset/regs::Em01ctrl0:
   description: EM01 Configurations.
   fields:
-  - name: IPKVAL
+  - name: ipkval
     description: EM01 Peak Current Setting.
     bit_offset: 0
     bit_size: 4
-    enum: vals::EM01CTRL0_IPKVAL
-  - name: DRVSPEED
+    enum: vals::Em01ctrl0Ipkval
+  - name: drvspeed
     description: EM01 Drive Speed Setting.
     bit_offset: 8
     bit_size: 2
-    enum: vals::EM01CTRL0_DRVSPEED
-fieldset/regs::EM23CTRL0:
+    enum: vals::Em01ctrl0Drvspeed
+fieldset/regs::Em23ctrl0:
   description: EM23 Configurations.
   fields:
-  - name: IPKVAL
+  - name: ipkval
     description: EM23 Peak Current Setting.
     bit_offset: 0
     bit_size: 4
-    enum: vals::EM23CTRL0_IPKVAL
-  - name: DRVSPEED
+    enum: vals::Em23ctrl0Ipkval
+  - name: drvspeed
     description: EM23 Drive Speed Setting.
     bit_offset: 8
     bit_size: 2
-    enum: vals::EM23CTRL0_DRVSPEED
-fieldset/regs::IEN:
+    enum: vals::Em23ctrl0Drvspeed
+fieldset/regs::Ien:
   description: Interrupt Enable.
   fields:
-  - name: BYPSW
+  - name: bypsw
     description: Bypass Switch Enabled Interrupt Enable.
     bit_offset: 0
     bit_size: 1
-  - name: WARM
+  - name: warm
     description: DCDC Warmup Time Done Interrupt Enable.
     bit_offset: 1
     bit_size: 1
-  - name: RUNNING
+  - name: running
     description: DCDC Running Interrupt Enable.
     bit_offset: 2
     bit_size: 1
-  - name: VREGINLOW
+  - name: vreginlow
     description: VREGIN below threshold Interrupt Enable.
     bit_offset: 3
     bit_size: 1
-  - name: VREGINHIGH
+  - name: vreginhigh
     description: VREGIN above threshold Interrupt Enable.
     bit_offset: 4
     bit_size: 1
-  - name: REGULATION
+  - name: regulation
     description: DCDC in Regulation Interrupt Enable.
     bit_offset: 5
     bit_size: 1
-  - name: TMAX
+  - name: tmax
     description: Ton_max Timeout Interrupt Enable.
     bit_offset: 6
     bit_size: 1
-  - name: EM4ERR
+  - name: em4err
     description: EM4 Entry Req Interrupt Enable.
     bit_offset: 7
     bit_size: 1
-  - name: PFMXMODE
+  - name: pfmxmode
     description: PFMX Mode Interrupt Enable.
     bit_offset: 9
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: Interrupt Flags.
   fields:
-  - name: BYPSW
+  - name: bypsw
     description: Bypass Switch Enabled.
     bit_offset: 0
     bit_size: 1
-  - name: WARM
+  - name: warm
     description: DCDC Warmup Time Done.
     bit_offset: 1
     bit_size: 1
-  - name: RUNNING
+  - name: running
     description: DCDC Running.
     bit_offset: 2
     bit_size: 1
-  - name: VREGINLOW
+  - name: vreginlow
     description: VREGIN below threshold.
     bit_offset: 3
     bit_size: 1
-  - name: VREGINHIGH
+  - name: vreginhigh
     description: VREGIN above threshold.
     bit_offset: 4
     bit_size: 1
-  - name: REGULATION
+  - name: regulation
     description: DCDC in regulation.
     bit_offset: 5
     bit_size: 1
-  - name: TMAX
+  - name: tmax
     description: Ton_max Timeout Reached.
     bit_offset: 6
     bit_size: 1
-  - name: EM4ERR
+  - name: em4err
     description: EM4 Entry Request Error.
     bit_offset: 7
     bit_size: 1
-  - name: PFMXMODE
+  - name: pfmxmode
     description: Entered PFMX mode.
     bit_offset: 9
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: IPVERSION.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IPVERSION.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::LOCK:
+fieldset/regs::Lock:
   description: No Description.
   fields:
-  - name: LOCKKEY
+  - name: lockkey
     description: Configuration Lock Key.
     bit_offset: 0
     bit_size: 16
-    enum: vals::LOCKKEY
-fieldset/regs::LOCKSTATUS:
+    enum: vals::Lockkey
+fieldset/regs::Lockstatus:
   description: No Description.
   fields:
-  - name: LOCK
+  - name: lock
     description: Lock Status.
     bit_offset: 0
     bit_size: 1
-fieldset/regs::PFMXCTRL:
+fieldset/regs::Pfmxctrl:
   description: PFMX Control Register.
   fields:
-  - name: IPKVAL
+  - name: ipkval
     description: PFMX mode Peak Current Setting.
     bit_offset: 0
     bit_size: 4
-    enum: vals::PFMXCTRL_IPKVAL
-  - name: IPKTMAXCTRL
+    enum: vals::PfmxctrlIpkval
+  - name: ipktmaxctrl
     description: Ton_max timeout control.
     bit_offset: 8
     bit_size: 5
-fieldset/regs::STATUS:
+fieldset/regs::Status:
   description: DCDC Status Register.
   fields:
-  - name: BYPSW
+  - name: bypsw
     description: Bypass Switch is currently enabled.
     bit_offset: 0
     bit_size: 1
-  - name: WARM
+  - name: warm
     description: DCDC Warmup Done.
     bit_offset: 1
     bit_size: 1
-  - name: RUNNING
+  - name: running
     description: DCDC is running.
     bit_offset: 2
     bit_size: 1
-  - name: VREGIN
+  - name: vregin
     description: VREGVDD comparator status.
     bit_offset: 3
     bit_size: 1
-  - name: BYPCMPOUT
+  - name: bypcmpout
     description: Bypass Comparator Output.
     bit_offset: 4
     bit_size: 1
-  - name: PFMXMODE
+  - name: pfmxmode
     description: DCDC in PFMX mode.
     bit_offset: 9
     bit_size: 1
-fieldset/regs::SYNCBUSY:
+fieldset/regs::Syncbusy:
   description: Syncbusy Status Register.
   fields:
-  - name: CTRL
+  - name: ctrl
     description: CTRL Sync Busy Status.
     bit_offset: 0
     bit_size: 1
-  - name: EM01CTRL0
+  - name: em01ctrl0
     description: EM01CTRL0 Sync Busy Status.
     bit_offset: 1
     bit_size: 1
-  - name: EM01CTRL1
+  - name: em01ctrl1
     description: EM01CTRL1 Sync Bust Status.
     bit_offset: 2
     bit_size: 1
-  - name: EM23CTRL0
+  - name: em23ctrl0
     description: EM23CTRL0 Sync Busy Status.
     bit_offset: 3
     bit_size: 1
-  - name: PFMXCTRL
+  - name: pfmxctrl
     description: PFMXCTRL Sync Busy Status.
     bit_offset: 7
     bit_size: 1
-enum/vals::EM01CTRL0_DRVSPEED:
+enum/vals::Em01ctrl0Drvspeed:
   bit_size: 2
   variants:
-  - name: BEST_EMI
-    description: Not recommended for use (no benefit to this setting).
-    value: 0
-  - name: DEFAULT_SETTING
-    description: Recommended for use for best efficiency and low EMI.
-    value: 1
-  - name: INTERMEDIATE
-    description: Not recommended for use (no benefit to this setting).
-    value: 2
-  - name: BEST_EFFICIENCY
+  - name: BestEfficiency
     description: Not recommended for use (no benefit to this setting).
     value: 3
-enum/vals::EM01CTRL0_IPKVAL:
+  - name: BestEmi
+    description: Not recommended for use (no benefit to this setting).
+    value: 0
+  - name: DefaultSetting
+    description: Recommended for use for best efficiency and low EMI.
+    value: 1
+  - name: Intermediate
+    description: Not recommended for use (no benefit to this setting).
+    value: 2
+enum/vals::Em01ctrl0Ipkval:
   bit_size: 4
   variants:
   - name: Load36mA
@@ -294,84 +294,84 @@ enum/vals::EM01CTRL0_IPKVAL:
   - name: Load60mA
     description: Ipeak = 150mA, Iload = 60mA.
     value: 9
-enum/vals::EM23CTRL0_DRVSPEED:
+enum/vals::Em23ctrl0Drvspeed:
   bit_size: 2
   variants:
-  - name: BEST_EMI
+  - name: BestEfficiency
+    description: Not recommended for use (no benefit to this setting).
+    value: 3
+  - name: BestEmi
     description: Not recommended for use (no benefit to this setting).
     value: 0
-  - name: DEFAULT_SETTING
+  - name: DefaultSetting
     description: Recommended for use for best efficiency and low EMI.
     value: 1
-  - name: INTERMEDIATE
+  - name: Intermediate
     description: Not recommended for use (no benefit to this setting).
     value: 2
-  - name: BEST_EFFICIENCY
-    description: Not recommended for use (no benefit to this setting).
-    value: 3
-enum/vals::EM23CTRL0_IPKVAL:
+enum/vals::Em23ctrl0Ipkval:
   bit_size: 4
   variants:
-  - name: Load5mA
-    description: Ipeak = 90mA, Iload = 5 mA.
-    value: 3
   - name: Load10mA
     description: Ipeak = 150mA, Iload = 10 mA.
     value: 9
-enum/vals::LOCKKEY:
+  - name: Load5mA
+    description: Ipeak = 90mA, Iload = 5 mA.
+    value: 3
+enum/vals::Lockkey:
   bit_size: 16
   variants:
-  - name: UNLOCKKEY
+  - name: Unlockkey
     description: UNLOCKKEY.
     value: 43981
-enum/vals::MODE:
+enum/vals::Mode:
   bit_size: 1
   variants:
-  - name: BYPASS
+  - name: Bypass
     description: DCDC is OFF, bypass switch is enabled.
     value: 0
-  - name: DCDCREGULATION
+  - name: Dcdcregulation
     description: Request DCDC regulation, bypass switch disabled.
     value: 1
-enum/vals::PFMXCTRL_IPKVAL:
+enum/vals::PfmxctrlIpkval:
   bit_size: 4
   variants:
-  - name: LOAD50MA
-    description: Ipeak = 90 mA, Iload = 50 mA.
-    value: 3
-  - name: LOAD65MA
-    description: Ipeak = 100 mA, Iload = 65 mA.
-    value: 4
-  - name: LOAD73MA
-    description: Ipeak = 110 mA, Iload = 73 mA.
-    value: 5
-  - name: LOAD80MA
-    description: Ipeak = 120 mA, Iload = 80 mA.
-    value: 6
-  - name: LOAD86MA
-    description: Ipeak = 130 mA, Iload = 86 mA.
-    value: 7
-  - name: LOAD93MA
-    description: Ipeak = 140 mA, Iload = 93 mA.
-    value: 8
-  - name: LOAD100MA
+  - name: Load100ma
     description: Ipeak = 150 mA, Iload = 100 mA.
     value: 9
-  - name: LOAD106MA
+  - name: Load106ma
     description: Ipeak = 160 mA, Iload = 106 mA.
     value: 10
-  - name: LOAD113MA
+  - name: Load113ma
     description: Ipeak = 170 mA, Iload = 113 mA.
     value: 11
-  - name: LOAD120MA
+  - name: Load120ma
     description: Ipeak = 180 mA, Iload = 120 mA.
     value: 12
-enum/vals::PFMXEXTREQ:
+  - name: Load50ma
+    description: Ipeak = 90 mA, Iload = 50 mA.
+    value: 3
+  - name: Load65ma
+    description: Ipeak = 100 mA, Iload = 65 mA.
+    value: 4
+  - name: Load73ma
+    description: Ipeak = 110 mA, Iload = 73 mA.
+    value: 5
+  - name: Load80ma
+    description: Ipeak = 120 mA, Iload = 80 mA.
+    value: 6
+  - name: Load86ma
+    description: Ipeak = 130 mA, Iload = 86 mA.
+    value: 7
+  - name: Load93ma
+    description: Ipeak = 140 mA, Iload = 93 mA.
+    value: 8
+enum/vals::Pfmxextreq:
   bit_size: 1
   variants:
-  - name: EXTLOWLOAD
-    description: Disable PFMX mode.
-    value: 0
-  - name: EXTHIGHLOAD
+  - name: Exthighload
     description: Enable PFMX mode to support high load current.
     value: 1
+  - name: Extlowload
+    description: Disable PFMX mode.
+    value: 0

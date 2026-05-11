@@ -1,2557 +1,2527 @@
-block/DEVINFO:
+block/Devinfo:
   description: DEVINFO peripheral.
   items:
-  - name: INFO
+  - name: info
     description: Version of the device info structure being used.
     byte_offset: 0
     access: Read
-    fieldset: regs::INFO
-  - name: PART
+    fieldset: regs::Info
+  - name: part
     description: Part description.
     byte_offset: 4
     access: Read
-    fieldset: regs::PART
-  - name: MEMINFO
+    fieldset: regs::Part
+  - name: meminfo
     description: Flash page size and misc. chip information.
     byte_offset: 8
     access: Read
-    fieldset: regs::MEMINFO
-  - name: MSIZE
+    fieldset: regs::Meminfo
+  - name: msize
     description: Flash and SRAM Memory size in kB.
     byte_offset: 12
     access: Read
-    fieldset: regs::MSIZE
-  - name: PKGINFO
+    fieldset: regs::Msize
+  - name: pkginfo
     description: Miscellaneous device information.
     byte_offset: 16
     access: Read
-    fieldset: regs::PKGINFO
-  - name: CUSTOMINFO
+    fieldset: regs::Pkginfo
+  - name: custominfo
     description: Custom information.
     byte_offset: 20
     access: Read
-    fieldset: regs::CUSTOMINFO
-  - name: SWFIX
+    fieldset: regs::Custominfo
+  - name: swfix
     description: Used to track s/w workaround info.
     byte_offset: 24
     access: Read
-    fieldset: regs::SWFIX
-  - name: SWCAPA0
+    fieldset: regs::Swfix
+  - name: swcapa0
     description: Software Capability Vector 0.
     byte_offset: 28
     access: Read
-    fieldset: regs::SWCAPA0
-  - name: SWCAPA1
+    fieldset: regs::Swcapa0
+  - name: swcapa1
     description: Software Capability Vector 1.
     byte_offset: 32
     access: Read
-    fieldset: regs::SWCAPA1
-  - name: EXTINFO
+    fieldset: regs::Swcapa1
+  - name: extinfo
     description: External component description.
     byte_offset: 40
     access: Read
-    fieldset: regs::EXTINFO
-  - name: EUI48L
+    fieldset: regs::Extinfo
+  - name: eui48l
     description: MA-L compliant EUI48 OUI (low bits) and Unique Identifier (24-bit).
     byte_offset: 64
     access: Read
-    fieldset: regs::EUI48L
-  - name: EUI48H
+    fieldset: regs::Eui48l
+  - name: eui48h
     description: MA-L compliant EUI48 OUI (high bits).
     byte_offset: 68
     access: Read
-    fieldset: regs::EUI48H
-  - name: EUI64L
+    fieldset: regs::Eui48h
+  - name: eui64l
     description: MA-L compliant EUI64 Unique Identifier (low bits).
     byte_offset: 72
     access: Read
-    fieldset: regs::EUI64L
-  - name: EUI64H
+    fieldset: regs::Eui64l
+  - name: eui64h
     description: MA-L compliant EUI64 OUI and Unique Identifier (high bits).
     byte_offset: 76
     access: Read
-    fieldset: regs::EUI64H
-  - name: CALTEMP
+    fieldset: regs::Eui64h
+  - name: caltemp
     description: Calibration Temperature Information.
     byte_offset: 80
     access: Read
-    fieldset: regs::CALTEMP
-  - name: EMUTEMP
+    fieldset: regs::Caltemp
+  - name: emutemp
     description: EMU Temperature Sensor Calibration.
     byte_offset: 84
     access: Read
-    fieldset: regs::EMUTEMP
-  - name: HFRCODPLLCAL0
+    fieldset: regs::Emutemp
+  - name: hfrcodpllcal0
     description: HFRCODPLL Calibration.
     byte_offset: 88
     access: Read
-    fieldset: regs::HFRCODPLLCAL0
-  - name: HFRCODPLLCAL1
+    fieldset: regs::Hfrcodpllcal0
+  - name: hfrcodpllcal1
     description: HFRCODPLL Calibration.
     byte_offset: 92
     access: Read
-    fieldset: regs::HFRCODPLLCAL1
-  - name: HFRCODPLLCAL2
+    fieldset: regs::Hfrcodpllcal1
+  - name: hfrcodpllcal2
     description: HFRCODPLL Calibration.
     byte_offset: 96
     access: Read
-    fieldset: regs::HFRCODPLLCAL2
-  - name: HFRCODPLLCAL3
+    fieldset: regs::Hfrcodpllcal2
+  - name: hfrcodpllcal3
     description: HFRCODPLL Calibration.
     byte_offset: 100
     access: Read
-    fieldset: regs::HFRCODPLLCAL3
-  - name: HFRCODPLLCAL4
+    fieldset: regs::Hfrcodpllcal3
+  - name: hfrcodpllcal4
     description: HFRCODPLL Calibration.
     byte_offset: 104
     access: Read
-    fieldset: regs::HFRCODPLLCAL4
-  - name: HFRCODPLLCAL5
+    fieldset: regs::Hfrcodpllcal4
+  - name: hfrcodpllcal5
     description: HFRCODPLL Calibration.
     byte_offset: 108
     access: Read
-    fieldset: regs::HFRCODPLLCAL5
-  - name: HFRCODPLLCAL6
+    fieldset: regs::Hfrcodpllcal5
+  - name: hfrcodpllcal6
     description: HFRCODPLL Calibration.
     byte_offset: 112
     access: Read
-    fieldset: regs::HFRCODPLLCAL6
-  - name: HFRCODPLLCAL7
+    fieldset: regs::Hfrcodpllcal6
+  - name: hfrcodpllcal7
     description: HFRCODPLL Calibration.
     byte_offset: 116
     access: Read
-    fieldset: regs::HFRCODPLLCAL7
-  - name: HFRCODPLLCAL8
+    fieldset: regs::Hfrcodpllcal7
+  - name: hfrcodpllcal8
     description: HFRCODPLL Calibration.
     byte_offset: 120
     access: Read
-    fieldset: regs::HFRCODPLLCAL8
-  - name: HFRCODPLLCAL9
+    fieldset: regs::Hfrcodpllcal8
+  - name: hfrcodpllcal9
     description: HFRCODPLL Calibration.
     byte_offset: 124
     access: Read
-    fieldset: regs::HFRCODPLLCAL9
-  - name: HFRCODPLLCAL10
+    fieldset: regs::Hfrcodpllcal9
+  - name: hfrcodpllcal10
     description: HFRCODPLL Calibration.
     byte_offset: 128
     access: Read
-    fieldset: regs::HFRCODPLLCAL10
-  - name: HFRCODPLLCAL11
+    fieldset: regs::Hfrcodpllcal10
+  - name: hfrcodpllcal11
     description: HFRCODPLL Calibration.
     byte_offset: 132
     access: Read
-    fieldset: regs::HFRCODPLLCAL11
-  - name: HFRCODPLLCAL12
+    fieldset: regs::Hfrcodpllcal11
+  - name: hfrcodpllcal12
     description: HFRCODPLL Calibration.
     byte_offset: 136
     access: Read
-    fieldset: regs::HFRCODPLLCAL12
-  - name: HFRCODPLLCAL13
+    fieldset: regs::Hfrcodpllcal12
+  - name: hfrcodpllcal13
     description: HFRCODPLL Calibration.
     byte_offset: 140
     access: Read
-    fieldset: regs::HFRCODPLLCAL13
-  - name: HFRCODPLLCAL14
+    fieldset: regs::Hfrcodpllcal13
+  - name: hfrcodpllcal14
     description: HFRCODPLL Calibration.
     byte_offset: 144
     access: Read
-    fieldset: regs::HFRCODPLLCAL14
-  - name: HFRCODPLLCAL15
+    fieldset: regs::Hfrcodpllcal14
+  - name: hfrcodpllcal15
     description: HFRCODPLL Calibration.
     byte_offset: 148
     access: Read
-    fieldset: regs::HFRCODPLLCAL15
-  - name: HFRCODPLLCAL16
+    fieldset: regs::Hfrcodpllcal15
+  - name: hfrcodpllcal16
     description: HFRCODPLL Calibration.
     byte_offset: 152
     access: Read
-    fieldset: regs::HFRCODPLLCAL16
-  - name: HFRCODPLLCAL17
+    fieldset: regs::Hfrcodpllcal16
+  - name: hfrcodpllcal17
     description: HFRCODPLL Calibration.
     byte_offset: 156
     access: Read
-    fieldset: regs::HFRCODPLLCAL17
-  - name: HFRCOEM23CAL0
+    fieldset: regs::Hfrcodpllcal17
+  - name: hfrcoem23cal0
     description: HFRCOEM23 Calibration.
     byte_offset: 160
     access: Read
-    fieldset: regs::HFRCOEM23CAL0
-  - name: HFRCOEM23CAL1
+    fieldset: regs::Hfrcoem23cal0
+  - name: hfrcoem23cal1
     description: HFRCOEM23 Calibration.
     byte_offset: 164
     access: Read
-    fieldset: regs::HFRCOEM23CAL1
-  - name: HFRCOEM23CAL2
+    fieldset: regs::Hfrcoem23cal1
+  - name: hfrcoem23cal2
     description: HFRCOEM23 Calibration.
     byte_offset: 168
     access: Read
-    fieldset: regs::HFRCOEM23CAL2
-  - name: HFRCOEM23CAL3
+    fieldset: regs::Hfrcoem23cal2
+  - name: hfrcoem23cal3
     description: HFRCOEM23 Calibration.
     byte_offset: 172
     access: Read
-    fieldset: regs::HFRCOEM23CAL3
-  - name: HFRCOEM23CAL4
+    fieldset: regs::Hfrcoem23cal3
+  - name: hfrcoem23cal4
     description: HFRCOEM23 Calibration.
     byte_offset: 176
     access: Read
-    fieldset: regs::HFRCOEM23CAL4
-  - name: HFRCOEM23CAL5
+    fieldset: regs::Hfrcoem23cal4
+  - name: hfrcoem23cal5
     description: HFRCOEM23 Calibration.
     byte_offset: 180
     access: Read
-    fieldset: regs::HFRCOEM23CAL5
-  - name: HFRCOEM23CAL6
+    fieldset: regs::Hfrcoem23cal5
+  - name: hfrcoem23cal6
     description: HFRCOEM23 Calibration.
     byte_offset: 184
     access: Read
-    fieldset: regs::HFRCOEM23CAL6
-  - name: HFRCOEM23CAL7
+    fieldset: regs::Hfrcoem23cal6
+  - name: hfrcoem23cal7
     description: HFRCOEM23 Calibration.
     byte_offset: 188
     access: Read
-    fieldset: regs::HFRCOEM23CAL7
-  - name: HFRCOEM23CAL8
+    fieldset: regs::Hfrcoem23cal7
+  - name: hfrcoem23cal8
     description: HFRCOEM23 Calibration.
     byte_offset: 192
     access: Read
-    fieldset: regs::HFRCOEM23CAL8
-  - name: HFRCOEM23CAL9
+    fieldset: regs::Hfrcoem23cal8
+  - name: hfrcoem23cal9
     description: HFRCOEM23 Calibration.
     byte_offset: 196
     access: Read
-    fieldset: regs::HFRCOEM23CAL9
-  - name: HFRCOEM23CAL10
+    fieldset: regs::Hfrcoem23cal9
+  - name: hfrcoem23cal10
     description: HFRCOEM23 Calibration.
     byte_offset: 200
     access: Read
-    fieldset: regs::HFRCOEM23CAL10
-  - name: HFRCOEM23CAL11
+    fieldset: regs::Hfrcoem23cal10
+  - name: hfrcoem23cal11
     description: HFRCOEM23 Calibration.
     byte_offset: 204
     access: Read
-    fieldset: regs::HFRCOEM23CAL11
-  - name: HFRCOEM23CAL12
+    fieldset: regs::Hfrcoem23cal11
+  - name: hfrcoem23cal12
     description: HFRCOEM23 Calibration.
     byte_offset: 208
     access: Read
-    fieldset: regs::HFRCOEM23CAL12
-  - name: HFRCOEM23CAL13
+    fieldset: regs::Hfrcoem23cal12
+  - name: hfrcoem23cal13
     description: HFRCOEM23 Calibration.
     byte_offset: 212
     access: Read
-    fieldset: regs::HFRCOEM23CAL13
-  - name: HFRCOEM23CAL14
+    fieldset: regs::Hfrcoem23cal13
+  - name: hfrcoem23cal14
     description: HFRCOEM23 Calibration.
     byte_offset: 216
     access: Read
-    fieldset: regs::HFRCOEM23CAL14
-  - name: HFRCOEM23CAL15
+    fieldset: regs::Hfrcoem23cal14
+  - name: hfrcoem23cal15
     description: HFRCOEM23 Calibration.
     byte_offset: 220
     access: Read
-    fieldset: regs::HFRCOEM23CAL15
-  - name: HFRCOEM23CAL16
+    fieldset: regs::Hfrcoem23cal15
+  - name: hfrcoem23cal16
     description: HFRCOEM23 Calibration.
     byte_offset: 224
     access: Read
-    fieldset: regs::HFRCOEM23CAL16
-  - name: HFRCOEM23CAL17
+    fieldset: regs::Hfrcoem23cal16
+  - name: hfrcoem23cal17
     description: HFRCOEM23 Calibration.
     byte_offset: 228
     access: Read
-    fieldset: regs::HFRCOEM23CAL17
-  - name: MODULENAME0
+    fieldset: regs::Hfrcoem23cal17
+  - name: modulename0
     description: Characters 1-4 of Module Name stored as a null terminated string.
     byte_offset: 304
     access: Read
-    fieldset: regs::MODULENAME0
-  - name: MODULENAME1
+    fieldset: regs::Modulename0
+  - name: modulename1
     description: Characters 5-8 of Module Name stored as a null terminated string.
     byte_offset: 308
     access: Read
-    fieldset: regs::MODULENAME1
-  - name: MODULENAME2
+    fieldset: regs::Modulename1
+  - name: modulename2
     description: Characters 9-12 of Module Name stored as a null terminated string.
     byte_offset: 312
     access: Read
-    fieldset: regs::MODULENAME2
-  - name: MODULENAME3
+    fieldset: regs::Modulename2
+  - name: modulename3
     description: Characters 13-16 of Module Name stored as a null terminated string.
     byte_offset: 316
     access: Read
-    fieldset: regs::MODULENAME3
-  - name: MODULENAME4
+    fieldset: regs::Modulename3
+  - name: modulename4
     description: Characters 17-20 of Module Name stored as a null terminated string.
     byte_offset: 320
     access: Read
-    fieldset: regs::MODULENAME4
-  - name: MODULENAME5
+    fieldset: regs::Modulename4
+  - name: modulename5
     description: Characters 21-24 of Module Name stored as a null terminated string.
     byte_offset: 324
     access: Read
-    fieldset: regs::MODULENAME5
-  - name: MODULENAME6
+    fieldset: regs::Modulename5
+  - name: modulename6
     description: Characters 25-26 of Module Name stored as a null terminated string.
     byte_offset: 328
     access: Read
-    fieldset: regs::MODULENAME6
-  - name: MODULEINFO
+    fieldset: regs::Modulename6
+  - name: moduleinfo
     description: Module Information.
     byte_offset: 332
     access: Read
-    fieldset: regs::MODULEINFO
-  - name: MODXOCAL
+    fieldset: regs::Moduleinfo
+  - name: modxocal
     description: Module Crystal Oscillator Calibration.
     byte_offset: 336
     access: Read
-    fieldset: regs::MODXOCAL
-  - name: IADC0GAIN0
+    fieldset: regs::Modxocal
+  - name: iadc0gain0
     description: IADC0 Gain Calibration Info.
     byte_offset: 384
     access: Read
-    fieldset: regs::IADC0GAIN0
-  - name: IADC0GAIN1
+    fieldset: regs::Iadc0gain0
+  - name: iadc0gain1
     description: IADC0 Gain Calibration Info.
     byte_offset: 388
     access: Read
-    fieldset: regs::IADC0GAIN1
-  - name: IADC0OFFSETCAL0
+    fieldset: regs::Iadc0gain1
+  - name: iadc0offsetcal0
     description: IADC0 Offset Calibration Info.
     byte_offset: 392
     access: Read
-    fieldset: regs::IADC0OFFSETCAL0
-  - name: IADC0NORMALOFFSETCAL0
+    fieldset: regs::Iadc0offsetcal0
+  - name: iadc0normaloffsetcal0
     description: IADC0 Normal Offset Calibration Info.
     byte_offset: 396
     access: Read
-    fieldset: regs::IADC0NORMALOFFSETCAL0
-  - name: IADC0NORMALOFFSETCAL1
+    fieldset: regs::Iadc0normaloffsetcal0
+  - name: iadc0normaloffsetcal1
     description: IADC0 Normal Offset Calibration Info.
     byte_offset: 400
     access: Read
-    fieldset: regs::IADC0NORMALOFFSETCAL1
-  - name: IADC0HISPDOFFSETCAL0
+    fieldset: regs::Iadc0normaloffsetcal1
+  - name: iadc0hispdoffsetcal0
     description: IADC High Speed Offset Calibration Info.
     byte_offset: 404
     access: Read
-    fieldset: regs::IADC0HISPDOFFSETCAL0
-  - name: IADC0HISPDOFFSETCAL1
+    fieldset: regs::Iadc0hispdoffsetcal0
+  - name: iadc0hispdoffsetcal1
     description: IADC High Speed Offset Calibration Info.
     byte_offset: 408
     access: Read
-    fieldset: regs::IADC0HISPDOFFSETCAL1
-  - name: LEGACY
+    fieldset: regs::Iadc0hispdoffsetcal1
+  - name: legacy
     description: This is the legacy device detection information for tools compatability.
     byte_offset: 508
     access: Read
-    fieldset: regs::LEGACY
-  - name: RTHERM
+    fieldset: regs::Legacy
+  - name: rtherm
     description: Thermistor Calibrated Internal Resistance.
     byte_offset: 604
     access: Read
-    fieldset: regs::RTHERM
-  - name: FENOTCHCAL
+    fieldset: regs::Rtherm
+  - name: fenotchcal
     description: FENOTCH Calibration.
     byte_offset: 612
     access: Read
-    fieldset: regs::FENOTCHCAL
-fieldset/regs::CALTEMP:
+    fieldset: regs::Fenotchcal
+fieldset/regs::Caltemp:
   description: Calibration Temperature Information.
   fields:
-  - name: TEMP
+  - name: temp
     description: Cal Temp.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CUSTOMINFO:
+fieldset/regs::Custominfo:
   description: Custom information.
   fields:
-  - name: PARTNO
+  - name: partno
     description: Part Number.
     bit_offset: 16
     bit_size: 16
-fieldset/regs::EMUTEMP:
+fieldset/regs::Emutemp:
   description: EMU Temperature Sensor Calibration.
   fields:
-  - name: EMUTEMPROOM
+  - name: emutemproom
     description: Emu Room Temperature.
     bit_offset: 2
     bit_size: 9
-fieldset/regs::EUI48H:
+fieldset/regs::Eui48h:
   description: MA-L compliant EUI48 OUI (high bits).
   fields:
-  - name: OUI48H
+  - name: oui48h
     description: OUI48H.
     bit_offset: 0
     bit_size: 16
-  - name: RESERVED
+  - name: reserved
     description: RESERVED.
     bit_offset: 16
     bit_size: 16
-fieldset/regs::EUI48L:
+fieldset/regs::Eui48l:
   description: MA-L compliant EUI48 OUI (low bits) and Unique Identifier (24-bit).
   fields:
-  - name: UNIQUEID
+  - name: uniqueid
     description: Unique ID.
     bit_offset: 0
     bit_size: 24
-  - name: OUI48L
+  - name: oui48l
     description: OUI48L.
     bit_offset: 24
     bit_size: 8
-fieldset/regs::EUI64H:
+fieldset/regs::Eui64h:
   description: MA-L compliant EUI64 OUI and Unique Identifier (high bits).
   fields:
-  - name: UNIQUEH
+  - name: uniqueh
     description: UNIQUEH.
     bit_offset: 0
     bit_size: 8
-  - name: OUI64
+  - name: oui64
     description: OUI64.
     bit_offset: 8
     bit_size: 24
-fieldset/regs::EUI64L:
+fieldset/regs::Eui64l:
   description: MA-L compliant EUI64 Unique Identifier (low bits).
   fields:
-  - name: UNIQUEL
+  - name: uniquel
     description: UNIQUEL.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::EXTINFO:
+fieldset/regs::Extinfo:
   description: External component description.
   fields:
-  - name: TYPE
+  - name: type_
     description: Type.
     bit_offset: 0
     bit_size: 8
-    enum: vals::EXTINFO_TYPE
-  - name: CONNECTION
+    enum: vals::ExtinfoType
+  - name: connection
     description: Connection.
     bit_offset: 8
     bit_size: 8
-    enum: vals::CONNECTION
-  - name: REV
+    enum: vals::Connection
+  - name: rev
     description: Revision.
     bit_offset: 16
     bit_size: 8
-fieldset/regs::FENOTCHCAL:
+fieldset/regs::Fenotchcal:
   description: FENOTCH Calibration.
   fields:
-  - name: FENOTCHCAPCRSE
+  - name: fenotchcapcrse
     description: Cap Coarse.
     bit_offset: 0
     bit_size: 4
-  - name: FENOTCHCAPFINE
+  - name: fenotchcapfine
     description: Cap Fine.
     bit_offset: 4
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL0:
+fieldset/regs::Hfrcodpllcal0:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL1:
+fieldset/regs::Hfrcodpllcal1:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL10:
+fieldset/regs::Hfrcodpllcal10:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL11:
+fieldset/regs::Hfrcodpllcal11:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL12:
+fieldset/regs::Hfrcodpllcal12:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL13:
+fieldset/regs::Hfrcodpllcal13:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL14:
+fieldset/regs::Hfrcodpllcal14:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL15:
+fieldset/regs::Hfrcodpllcal15:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL16:
+fieldset/regs::Hfrcodpllcal16:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL17:
+fieldset/regs::Hfrcodpllcal17:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL2:
+fieldset/regs::Hfrcodpllcal2:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL3:
+fieldset/regs::Hfrcodpllcal3:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL4:
+fieldset/regs::Hfrcodpllcal4:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL5:
+fieldset/regs::Hfrcodpllcal5:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL6:
+fieldset/regs::Hfrcodpllcal6:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL7:
+fieldset/regs::Hfrcodpllcal7:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL8:
+fieldset/regs::Hfrcodpllcal8:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCODPLLCAL9:
+fieldset/regs::Hfrcodpllcal9:
   description: HFRCODPLL Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL0:
+fieldset/regs::Hfrcoem23cal0:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL1:
+fieldset/regs::Hfrcoem23cal1:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL10:
+fieldset/regs::Hfrcoem23cal10:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL11:
+fieldset/regs::Hfrcoem23cal11:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL12:
+fieldset/regs::Hfrcoem23cal12:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL13:
+fieldset/regs::Hfrcoem23cal13:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL14:
+fieldset/regs::Hfrcoem23cal14:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL15:
+fieldset/regs::Hfrcoem23cal15:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL16:
+fieldset/regs::Hfrcoem23cal16:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL17:
+fieldset/regs::Hfrcoem23cal17:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL2:
+fieldset/regs::Hfrcoem23cal2:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL3:
+fieldset/regs::Hfrcoem23cal3:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL4:
+fieldset/regs::Hfrcoem23cal4:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL5:
+fieldset/regs::Hfrcoem23cal5:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL6:
+fieldset/regs::Hfrcoem23cal6:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL7:
+fieldset/regs::Hfrcoem23cal7:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL8:
+fieldset/regs::Hfrcoem23cal8:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::HFRCOEM23CAL9:
+fieldset/regs::Hfrcoem23cal9:
   description: HFRCOEM23 Calibration.
   fields:
-  - name: TUNING
+  - name: tuning
     description: No Description.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: No Description.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: No Description.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: No Description.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: No Description.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: No Description.
     bit_offset: 24
     bit_size: 2
-  - name: CMPSEL
+  - name: cmpsel
     description: No Description.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: No Description.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::IADC0GAIN0:
+fieldset/regs::Iadc0gain0:
   description: IADC0 Gain Calibration Info.
   fields:
-  - name: GAINCANA1
+  - name: gaincana1
     description: No Description.
     bit_offset: 0
     bit_size: 16
-  - name: GAINCANA2
+  - name: gaincana2
     description: No Description.
     bit_offset: 16
     bit_size: 16
-fieldset/regs::IADC0GAIN1:
+fieldset/regs::Iadc0gain1:
   description: IADC0 Gain Calibration Info.
   fields:
-  - name: GAINCANA3
+  - name: gaincana3
     description: No Description.
     bit_offset: 0
     bit_size: 16
-  - name: GAINCANA4
+  - name: gaincana4
     description: No Description.
     bit_offset: 16
     bit_size: 16
-fieldset/regs::IADC0HISPDOFFSETCAL0:
+fieldset/regs::Iadc0hispdoffsetcal0:
   description: IADC High Speed Offset Calibration Info.
   fields:
-  - name: OFFSETANA1HISPD
+  - name: offsetana1hispd
     description: No Description.
     bit_offset: 0
     bit_size: 16
-  - name: OFFSETANA2HISPD
+  - name: offsetana2hispd
     description: No Description.
     bit_offset: 16
     bit_size: 16
-fieldset/regs::IADC0HISPDOFFSETCAL1:
+fieldset/regs::Iadc0hispdoffsetcal1:
   description: IADC High Speed Offset Calibration Info.
   fields:
-  - name: OFFSETANA3HISPD
+  - name: offsetana3hispd
     description: No Description.
     bit_offset: 0
     bit_size: 16
-fieldset/regs::IADC0NORMALOFFSETCAL0:
+fieldset/regs::Iadc0normaloffsetcal0:
   description: IADC0 Normal Offset Calibration Info.
   fields:
-  - name: OFFSETANA1NORM
+  - name: offsetana1norm
     description: No Description.
     bit_offset: 0
     bit_size: 16
-  - name: OFFSETANA2NORM
+  - name: offsetana2norm
     description: No Description.
     bit_offset: 16
     bit_size: 16
-fieldset/regs::IADC0NORMALOFFSETCAL1:
+fieldset/regs::Iadc0normaloffsetcal1:
   description: IADC0 Normal Offset Calibration Info.
   fields:
-  - name: OFFSETANA3NORM
+  - name: offsetana3norm
     description: No Description.
     bit_offset: 0
     bit_size: 16
-fieldset/regs::IADC0OFFSETCAL0:
+fieldset/regs::Iadc0offsetcal0:
   description: IADC0 Offset Calibration Info.
   fields:
-  - name: OFFSETANABASE
+  - name: offsetanabase
     description: No Description.
     bit_offset: 0
     bit_size: 16
-  - name: OFFSETANA1HIACC
+  - name: offsetana1hiacc
     description: No Description.
     bit_offset: 16
     bit_size: 16
-fieldset/regs::INFO:
+fieldset/regs::Info:
   description: Version of the device info structure being used.
   fields:
-  - name: CRC
+  - name: crc
     description: CRC.
     bit_offset: 0
     bit_size: 16
-  - name: PRODREV
+  - name: prodrev
     description: Production Revision.
     bit_offset: 16
     bit_size: 8
-  - name: DEVINFOREV
+  - name: devinforev
     description: DI Page Version.
     bit_offset: 24
     bit_size: 8
-fieldset/regs::LEGACY:
+fieldset/regs::Legacy:
   description: This is the legacy device detection information for tools compatability.
   fields:
-  - name: DEVICEFAMILY
+  - name: devicefamily
     description: Device Family.
     bit_offset: 16
     bit_size: 8
-    enum: vals::DEVICEFAMILY
-fieldset/regs::MEMINFO:
+    enum: vals::Devicefamily
+fieldset/regs::Meminfo:
   description: Flash page size and misc. chip information.
   fields:
-  - name: FLASHPAGESIZE
+  - name: flashpagesize
     description: Flash Page Size.
     bit_offset: 0
     bit_size: 8
-  - name: UDPAGESIZE
+  - name: udpagesize
     description: User Data Page Size.
     bit_offset: 8
     bit_size: 8
-  - name: DILEN
+  - name: dilen
     description: Length of DI Page.
     bit_offset: 16
     bit_size: 16
-fieldset/regs::MODULEINFO:
+fieldset/regs::Moduleinfo:
   description: Module Information.
   fields:
-  - name: HWREV
+  - name: hwrev
     description: No Description.
     bit_offset: 0
     bit_size: 5
-  - name: ANTENNA
+  - name: antenna
     description: No Description.
     bit_offset: 5
     bit_size: 3
-    enum: vals::ANTENNA
-  - name: MODNUMBER
+    enum: vals::Antenna
+  - name: modnumber
     description: No Description.
     bit_offset: 8
     bit_size: 7
-  - name: TYPE
+  - name: type_
     description: No Description.
     bit_offset: 15
     bit_size: 1
-    enum: vals::MODULEINFO_TYPE
-  - name: LFXO
+    enum: vals::ModuleinfoType
+  - name: lfxo
     description: No Description.
     bit_offset: 16
     bit_size: 1
-    enum: vals::LFXO
-  - name: EXPRESS
+    enum: vals::Lfxo
+  - name: express
     description: No Description.
     bit_offset: 17
     bit_size: 1
-    enum: vals::EXPRESS
-  - name: LFXOCALVAL
+    enum: vals::Express
+  - name: lfxocalval
     description: No Description.
     bit_offset: 18
     bit_size: 1
-    enum: vals::LFXOCALVAL
-  - name: HFXOCALVAL
+  - name: hfxocalval
     description: No Description.
     bit_offset: 19
     bit_size: 1
-    enum: vals::HFXOCALVAL
-  - name: MODNUMBERMSB
+  - name: modnumbermsb
     description: No Description.
     bit_offset: 20
     bit_size: 9
-  - name: PADCDC
+  - name: padcdc
     description: No Description.
     bit_offset: 29
     bit_size: 1
-    enum: vals::PADCDC
-  - name: PHYLIMITED
+    enum: vals::Padcdc
+  - name: phylimited
     description: No Description.
     bit_offset: 30
     bit_size: 1
-    enum: vals::PHYLIMITED
-  - name: EXTVALID
+  - name: extvalid
     description: No Description.
     bit_offset: 31
     bit_size: 1
-    enum: vals::EXTVALID
-fieldset/regs::MODULENAME0:
+    enum: vals::Extvalid
+fieldset/regs::Modulename0:
   description: Characters 1-4 of Module Name stored as a null terminated string.
   fields:
-  - name: MODCHAR1
+  - name: modchar1
     description: No Description.
     bit_offset: 0
     bit_size: 8
-  - name: MODCHAR2
+  - name: modchar2
     description: No Description.
     bit_offset: 8
     bit_size: 8
-  - name: MODCHAR3
+  - name: modchar3
     description: No Description.
     bit_offset: 16
     bit_size: 8
-  - name: MODCHAR4
+  - name: modchar4
     description: No Description.
     bit_offset: 24
     bit_size: 8
-fieldset/regs::MODULENAME1:
+fieldset/regs::Modulename1:
   description: Characters 5-8 of Module Name stored as a null terminated string.
   fields:
-  - name: MODCHAR5
+  - name: modchar5
     description: No Description.
     bit_offset: 0
     bit_size: 8
-  - name: MODCHAR6
+  - name: modchar6
     description: No Description.
     bit_offset: 8
     bit_size: 8
-  - name: MODCHAR7
+  - name: modchar7
     description: No Description.
     bit_offset: 16
     bit_size: 8
-  - name: MODCHAR8
+  - name: modchar8
     description: No Description.
     bit_offset: 24
     bit_size: 8
-fieldset/regs::MODULENAME2:
+fieldset/regs::Modulename2:
   description: Characters 9-12 of Module Name stored as a null terminated string.
   fields:
-  - name: MODCHAR9
+  - name: modchar9
     description: No Description.
     bit_offset: 0
     bit_size: 8
-  - name: MODCHAR10
+  - name: modchar10
     description: No Description.
     bit_offset: 8
     bit_size: 8
-  - name: MODCHAR11
+  - name: modchar11
     description: No Description.
     bit_offset: 16
     bit_size: 8
-  - name: MODCHAR12
+  - name: modchar12
     description: No Description.
     bit_offset: 24
     bit_size: 8
-fieldset/regs::MODULENAME3:
+fieldset/regs::Modulename3:
   description: Characters 13-16 of Module Name stored as a null terminated string.
   fields:
-  - name: MODCHAR13
+  - name: modchar13
     description: No Description.
     bit_offset: 0
     bit_size: 8
-  - name: MODCHAR14
+  - name: modchar14
     description: No Description.
     bit_offset: 8
     bit_size: 8
-  - name: MODCHAR15
+  - name: modchar15
     description: No Description.
     bit_offset: 16
     bit_size: 8
-  - name: MODCHAR16
+  - name: modchar16
     description: No Description.
     bit_offset: 24
     bit_size: 8
-fieldset/regs::MODULENAME4:
+fieldset/regs::Modulename4:
   description: Characters 17-20 of Module Name stored as a null terminated string.
   fields:
-  - name: MODCHAR17
+  - name: modchar17
     description: No Description.
     bit_offset: 0
     bit_size: 8
-  - name: MODCHAR18
+  - name: modchar18
     description: No Description.
     bit_offset: 8
     bit_size: 8
-  - name: MODCHAR19
+  - name: modchar19
     description: No Description.
     bit_offset: 16
     bit_size: 8
-  - name: MODCHAR20
+  - name: modchar20
     description: No Description.
     bit_offset: 24
     bit_size: 8
-fieldset/regs::MODULENAME5:
+fieldset/regs::Modulename5:
   description: Characters 21-24 of Module Name stored as a null terminated string.
   fields:
-  - name: MODCHAR21
+  - name: modchar21
     description: No Description.
     bit_offset: 0
     bit_size: 8
-  - name: MODCHAR22
+  - name: modchar22
     description: No Description.
     bit_offset: 8
     bit_size: 8
-  - name: MODCHAR23
+  - name: modchar23
     description: No Description.
     bit_offset: 16
     bit_size: 8
-  - name: MODCHAR24
+  - name: modchar24
     description: No Description.
     bit_offset: 24
     bit_size: 8
-fieldset/regs::MODULENAME6:
+fieldset/regs::Modulename6:
   description: Characters 25-26 of Module Name stored as a null terminated string.
   fields:
-  - name: MODCHAR25
+  - name: modchar25
     description: No Description.
     bit_offset: 0
     bit_size: 8
-  - name: MODCHAR26
+  - name: modchar26
     description: No Description.
     bit_offset: 8
     bit_size: 8
-  - name: RSV
+  - name: rsv
     description: No Description.
     bit_offset: 16
     bit_size: 16
-fieldset/regs::MODXOCAL:
+fieldset/regs::Modxocal:
   description: Module Crystal Oscillator Calibration.
   fields:
-  - name: HFXOCTUNEXIANA
+  - name: hfxoctunexiana
     description: No Description.
     bit_offset: 0
     bit_size: 8
-  - name: HFXOCTUNEXOANA
+  - name: hfxoctunexoana
     description: No Description.
     bit_offset: 8
     bit_size: 8
-  - name: LFXOCAPTUNE
+  - name: lfxocaptune
     description: No Description.
     bit_offset: 16
     bit_size: 7
-fieldset/regs::MSIZE:
+fieldset/regs::Msize:
   description: Flash and SRAM Memory size in kB.
   fields:
-  - name: FLASH
+  - name: flash
     description: Flash Size.
     bit_offset: 0
     bit_size: 16
-  - name: SRAM
+  - name: sram
     description: Sram Size.
     bit_offset: 16
     bit_size: 11
-fieldset/regs::PART:
+fieldset/regs::Part:
   description: Part description.
   fields:
-  - name: DEVICENUM
+  - name: devicenum
     description: Device Number.
     bit_offset: 0
     bit_size: 16
-  - name: FAMILYNUM
+  - name: familynum
     description: Device Family.
     bit_offset: 16
     bit_size: 6
-  - name: FAMILY
+  - name: family
     description: Device Family.
     bit_offset: 24
     bit_size: 6
-    enum: vals::FAMILY
-fieldset/regs::PKGINFO:
+    enum: vals::Family
+fieldset/regs::Pkginfo:
   description: Miscellaneous device information.
   fields:
-  - name: TEMPGRADE
+  - name: tempgrade
     description: Temperature Grade.
     bit_offset: 0
     bit_size: 8
-    enum: vals::TEMPGRADE
-  - name: PKGTYPE
+    enum: vals::Tempgrade
+  - name: pkgtype
     description: Package Type.
     bit_offset: 8
     bit_size: 8
-    enum: vals::PKGTYPE
-  - name: PINCOUNT
+    enum: vals::Pkgtype
+  - name: pincount
     description: Pin Count.
     bit_offset: 16
     bit_size: 8
-fieldset/regs::RTHERM:
+fieldset/regs::Rtherm:
   description: Thermistor Calibrated Internal Resistance.
   fields:
-  - name: RTHERM
+  - name: rtherm
     description: No Description.
     bit_offset: 0
     bit_size: 16
-fieldset/regs::SWCAPA0:
+fieldset/regs::Swcapa0:
   description: Software Capability Vector 0.
   fields:
-  - name: ZIGBEE
+  - name: zigbee
     description: Zigbee Capability.
     bit_offset: 0
     bit_size: 2
-    enum: vals::ZIGBEE
-  - name: THREAD
+    enum: vals::Zigbee
+  - name: thread
     description: Thread Capability.
     bit_offset: 4
     bit_size: 2
-    enum: vals::THREAD
-  - name: RF4CE
+    enum: vals::Thread
+  - name: rf4ce
     description: RF4CE Capability.
     bit_offset: 8
     bit_size: 2
-    enum: vals::RF4CE
-  - name: BTSMART
+    enum: vals::Rf4ce
+  - name: btsmart
     description: Bluetooth Smart Capability.
     bit_offset: 12
     bit_size: 2
-    enum: vals::BTSMART
-  - name: CONNECT
+    enum: vals::Btsmart
+  - name: connect
     description: Connect Capability.
     bit_offset: 16
     bit_size: 2
-    enum: vals::CONNECT
-  - name: SRI
+    enum: vals::Connect
+  - name: sri
     description: RAIL Capability.
     bit_offset: 20
     bit_size: 2
-    enum: vals::SRI
-  - name: ZWAVE
+    enum: vals::Sri
+  - name: zwave
     description: Z-Wave Capability.
     bit_offset: 24
     bit_size: 3
-    enum: vals::ZWAVE
-fieldset/regs::SWCAPA1:
+    enum: vals::Zwave
+fieldset/regs::Swcapa1:
   description: Software Capability Vector 1.
   fields:
-  - name: RFMCUEN
+  - name: rfmcuen
     description: RF-MCU.
     bit_offset: 0
     bit_size: 1
-  - name: NCPEN
+  - name: ncpen
     description: NCP.
     bit_offset: 1
     bit_size: 1
-  - name: GWEN
+  - name: gwen
     description: Gateway.
     bit_offset: 2
     bit_size: 1
-  - name: XOUT
+  - name: xout
     description: XOUT.
     bit_offset: 3
     bit_size: 1
-  - name: FENOTCH
+  - name: fenotch
     description: FENOTCH.
     bit_offset: 4
     bit_size: 1
-fieldset/regs::SWFIX:
+fieldset/regs::Swfix:
   description: Used to track s/w workaround info.
   fields:
-  - name: RSV
+  - name: rsv
     description: Reserved.
     bit_offset: 0
     bit_size: 32
-enum/vals::ANTENNA:
+enum/vals::Antenna:
   bit_size: 3
   variants:
-  - name: BUILTIN
+  - name: Builtin
     description: BUILTIN.
     value: 0
-  - name: CONNECTOR
+  - name: Connector
     description: CONNECTOR.
     value: 1
-  - name: RFPAD
-    description: RFPAD.
-    value: 2
-  - name: INVERTEDF
+  - name: Invertedf
     description: INVERTEDF.
     value: 3
-enum/vals::BTSMART:
+  - name: Rfpad
+    description: RFPAD.
+    value: 2
+enum/vals::Btsmart:
   bit_size: 2
   variants:
-  - name: LEVEL0
+  - name: Level0
     description: Bluetooth SMART stack capability not available.
     value: 0
-  - name: LEVEL1
+  - name: Level1
     description: Bluetooth SMART enabled.
     value: 1
-  - name: LEVEL2
+  - name: Level2
     description: N/A.
     value: 2
-  - name: LEVEL3
+  - name: Level3
     description: N/A.
     value: 3
-enum/vals::CONNECT:
+enum/vals::Connect:
   bit_size: 2
   variants:
-  - name: LEVEL0
+  - name: Level0
     description: Connect stack capability not available.
     value: 0
-  - name: LEVEL1
+  - name: Level1
     description: Connect enabled.
     value: 1
-  - name: LEVEL2
+  - name: Level2
     description: N/A.
     value: 2
-  - name: LEVEL3
+  - name: Level3
     description: N/A.
     value: 3
-enum/vals::CONNECTION:
+enum/vals::Connection:
   bit_size: 8
   variants:
-  - name: SPI
-    description: SPI control interface.
-    value: 0
-  - name: NONE
+  - name: None
     description: No interface.
     value: 255
-enum/vals::DEVICEFAMILY:
+  - name: Spi
+    description: SPI control interface.
+    value: 0
+enum/vals::Devicefamily:
   bit_size: 8
   variants:
-  - name: EFR32MG1P
-    description: EFR32 Mighty Gecko Family Series 1 Device Config 1.
-    value: 16
-  - name: EFR32MG1B
-    description: EFR32 Mighty Gecko Family Series 1 Device Config 1.
-    value: 17
-  - name: EFR32MG1V
-    description: EFR32 Mighty Gecko Family Series 1 Device Config 1.
-    value: 18
-  - name: EFR32BG1P
-    description: EFR32 Blue Gecko Family Series 1 Device Config 1.
-    value: 19
-  - name: EFR32BG1B
-    description: EFR32 Blue Gecko Family Series 1 Device Config 1.
-    value: 20
-  - name: EFR32BG1V
-    description: EFR32 Blue Gecko Family Series 1 Device Config 1.
-    value: 21
-  - name: EFR32FG1P
-    description: EFR32 Flex Gecko Family Series 1 Device Config 1.
-    value: 25
-  - name: EFR32FG1B
-    description: EFR32 Flex Gecko Family Series 1 Device Config 1.
-    value: 26
-  - name: EFR32FG1V
-    description: EFR32 Flex Gecko Family Series 1 Device Config 1.
-    value: 27
-  - name: EFR32MG12P
-    description: EFR32 Mighty Gecko Family Series 1 Device Config 2.
-    value: 28
-  - name: EFR32MG12B
-    description: EFR32 Mighty Gecko Family Series 1 Device Config 2.
-    value: 29
-  - name: EFR32MG12V
-    description: EFR32 Mighty Gecko Family Series 1 Device Config 2.
-    value: 30
-  - name: EFR32BG12P
-    description: EFR32 Blue Gecko Family Series 1 Device Config 2.
-    value: 31
-  - name: EFR32BG12B
-    description: EFR32 Blue Gecko Family Series 1 Device Config 2.
-    value: 32
-  - name: EFR32BG12V
-    description: EFR32 Blue Gecko Family Series 1 Device Config 2.
-    value: 33
-  - name: EFR32FG12P
-    description: EFR32 Flex Gecko Family Series 1 Device Config 2.
-    value: 37
-  - name: EFR32FG12B
-    description: EFR32 Flex Gecko Family Series 1 Device Config 2.
-    value: 38
-  - name: EFR32FG12V
-    description: EFR32 Flex Gecko Family Series 1 Device Config 2.
-    value: 39
-  - name: EFR32MG13P
-    description: EFR32 Mighty Gecko Family Series 13 Device Config 3.
-    value: 40
-  - name: EFR32MG13B
-    description: EFR32 Mighty Gecko Family Series 13 Device Config 3.
-    value: 41
-  - name: EFR32MG13V
-    description: EFR32 Mighty Gecko Family Series 1 Device Config 3.
-    value: 42
-  - name: EFR32BG13P
-    description: EFR32 Blue Gecko Family Series 1 Device Config 3.
-    value: 43
-  - name: EFR32BG13B
-    description: EFR32 Blue Gecko Family Series 1 Device Config 3.
-    value: 44
-  - name: EFR32BG13V
-    description: EFR32 Blue Gecko Family Series 1 Device Config 3.
-    value: 45
-  - name: EFR32FG13P
-    description: EFR32 Flex Gecko Family Series 1 Device Config 3.
-    value: 49
-  - name: EFR32FG13B
-    description: EFR32 Flex Gecko Family Series 1 Device Config 3.
-    value: 50
-  - name: EFR32FG13V
-    description: EFR32 Flex Gecko Family Series 1 Device Config 3.
-    value: 51
-  - name: EFR32MG14P
-    description: EFR32 Mighty Gecko Family Series 1 Device Config 4.
-    value: 52
-  - name: EFR32MG14B
-    description: EFR32 Mighty Gecko Family Series 1 Device Config 4.
-    value: 53
-  - name: EFR32MG14V
-    description: EFR32 Mighty Gecko Family Series 1 Device Config 4.
-    value: 54
-  - name: EFR32BG14P
-    description: EFR32 Blue Gecko Family Series 1 Device Config 4.
-    value: 55
-  - name: EFR32BG14B
-    description: EFR32 Blue Gecko Family Series 1 Device Config 4.
-    value: 56
-  - name: EFR32BG14V
-    description: EFR32 Blue Gecko Family Series 1 Device Config 4.
-    value: 57
-  - name: EFR32FG14P
-    description: EFR32 Flex Gecko Family Series 1 Device Config 4.
-    value: 61
-  - name: EFR32FG14B
-    description: EFR32 Flex Gecko Family Series 1 Device Config 4.
-    value: 62
-  - name: EFR32FG14V
-    description: EFR32 Flex Gecko Family Series 1 Device Config 4.
-    value: 63
-  - name: EFM32G
+  - name: Efm32g
     description: EFM32 Gecko Device Family.
     value: 71
-  - name: EFM32GG
+  - name: Efm32gg
     description: EFM32 Giant Gecko Device Family.
     value: 72
-  - name: EFM32TG
-    description: EFM32 Tiny Gecko Device Family.
-    value: 73
-  - name: EFM32LG
-    description: EFM32 Leopard Gecko Device Family.
-    value: 74
-  - name: EFM32WG
-    description: EFM32 Wonder Gecko Device Family.
-    value: 75
-  - name: EFM32ZG
-    description: EFM32 Zero Gecko Device Family.
-    value: 76
-  - name: EFM32HG
-    description: EFM32 Happy Gecko Device Family.
-    value: 77
-  - name: EFM32PG1B
-    description: EFM32 Pearl Gecko Device Family Series 1 Device Config 1.
-    value: 81
-  - name: EFM32JG1B
-    description: EFM32 Jade Gecko Device Family Series 1 Device Config 1.
-    value: 83
-  - name: EFM32PG12B
-    description: EFM32 Pearl Gecko Device Family Series 1 Device Config 2.
-    value: 85
-  - name: EFM32JG12B
-    description: EFM32 Jade Gecko Device Family Series 1 Device Config 2.
-    value: 87
-  - name: EFM32PG13B
-    description: EFM32 Pearl Gecko Device Family Series 1 Device Config 3.
-    value: 89
-  - name: EFM32JG13B
-    description: EFM32 Jade Gecko Device Family Series 1 Device Config 3.
-    value: 91
-  - name: EFM32GG11B
+  - name: Efm32gg11b
     description: EFM32 Giant Gecko Device Family Series 1 Device Config 1.
     value: 100
-  - name: EFM32TG11B
+  - name: Efm32hg
+    description: EFM32 Happy Gecko Device Family.
+    value: 77
+  - name: Efm32jg12b
+    description: EFM32 Jade Gecko Device Family Series 1 Device Config 2.
+    value: 87
+  - name: Efm32jg13b
+    description: EFM32 Jade Gecko Device Family Series 1 Device Config 3.
+    value: 91
+  - name: Efm32jg1b
+    description: EFM32 Jade Gecko Device Family Series 1 Device Config 1.
+    value: 83
+  - name: Efm32lg
+    description: EFM32 Leopard Gecko Device Family.
+    value: 74
+  - name: Efm32pg12b
+    description: EFM32 Pearl Gecko Device Family Series 1 Device Config 2.
+    value: 85
+  - name: Efm32pg13b
+    description: EFM32 Pearl Gecko Device Family Series 1 Device Config 3.
+    value: 89
+  - name: Efm32pg1b
+    description: EFM32 Pearl Gecko Device Family Series 1 Device Config 1.
+    value: 81
+  - name: Efm32tg
+    description: EFM32 Tiny Gecko Device Family.
+    value: 73
+  - name: Efm32tg11b
     description: EFM32 Giant Gecko Device Family Series 1 Device Config 1.
     value: 103
-  - name: EZR32LG
-    description: EZR32 Leopard Gecko Device Family.
-    value: 120
-  - name: EZR32WG
-    description: EZR32 Wonder Gecko Device Family.
-    value: 121
-  - name: EZR32HG
+  - name: Efm32wg
+    description: EFM32 Wonder Gecko Device Family.
+    value: 75
+  - name: Efm32zg
+    description: EFM32 Zero Gecko Device Family.
+    value: 76
+  - name: Efr32bg12b
+    description: EFR32 Blue Gecko Family Series 1 Device Config 2.
+    value: 32
+  - name: Efr32bg12p
+    description: EFR32 Blue Gecko Family Series 1 Device Config 2.
+    value: 31
+  - name: Efr32bg12v
+    description: EFR32 Blue Gecko Family Series 1 Device Config 2.
+    value: 33
+  - name: Efr32bg13b
+    description: EFR32 Blue Gecko Family Series 1 Device Config 3.
+    value: 44
+  - name: Efr32bg13p
+    description: EFR32 Blue Gecko Family Series 1 Device Config 3.
+    value: 43
+  - name: Efr32bg13v
+    description: EFR32 Blue Gecko Family Series 1 Device Config 3.
+    value: 45
+  - name: Efr32bg14b
+    description: EFR32 Blue Gecko Family Series 1 Device Config 4.
+    value: 56
+  - name: Efr32bg14p
+    description: EFR32 Blue Gecko Family Series 1 Device Config 4.
+    value: 55
+  - name: Efr32bg14v
+    description: EFR32 Blue Gecko Family Series 1 Device Config 4.
+    value: 57
+  - name: Efr32bg1b
+    description: EFR32 Blue Gecko Family Series 1 Device Config 1.
+    value: 20
+  - name: Efr32bg1p
+    description: EFR32 Blue Gecko Family Series 1 Device Config 1.
+    value: 19
+  - name: Efr32bg1v
+    description: EFR32 Blue Gecko Family Series 1 Device Config 1.
+    value: 21
+  - name: Efr32fg12b
+    description: EFR32 Flex Gecko Family Series 1 Device Config 2.
+    value: 38
+  - name: Efr32fg12p
+    description: EFR32 Flex Gecko Family Series 1 Device Config 2.
+    value: 37
+  - name: Efr32fg12v
+    description: EFR32 Flex Gecko Family Series 1 Device Config 2.
+    value: 39
+  - name: Efr32fg13b
+    description: EFR32 Flex Gecko Family Series 1 Device Config 3.
+    value: 50
+  - name: Efr32fg13p
+    description: EFR32 Flex Gecko Family Series 1 Device Config 3.
+    value: 49
+  - name: Efr32fg13v
+    description: EFR32 Flex Gecko Family Series 1 Device Config 3.
+    value: 51
+  - name: Efr32fg14b
+    description: EFR32 Flex Gecko Family Series 1 Device Config 4.
+    value: 62
+  - name: Efr32fg14p
+    description: EFR32 Flex Gecko Family Series 1 Device Config 4.
+    value: 61
+  - name: Efr32fg14v
+    description: EFR32 Flex Gecko Family Series 1 Device Config 4.
+    value: 63
+  - name: Efr32fg1b
+    description: EFR32 Flex Gecko Family Series 1 Device Config 1.
+    value: 26
+  - name: Efr32fg1p
+    description: EFR32 Flex Gecko Family Series 1 Device Config 1.
+    value: 25
+  - name: Efr32fg1v
+    description: EFR32 Flex Gecko Family Series 1 Device Config 1.
+    value: 27
+  - name: Efr32mg12b
+    description: EFR32 Mighty Gecko Family Series 1 Device Config 2.
+    value: 29
+  - name: Efr32mg12p
+    description: EFR32 Mighty Gecko Family Series 1 Device Config 2.
+    value: 28
+  - name: Efr32mg12v
+    description: EFR32 Mighty Gecko Family Series 1 Device Config 2.
+    value: 30
+  - name: Efr32mg13b
+    description: EFR32 Mighty Gecko Family Series 13 Device Config 3.
+    value: 41
+  - name: Efr32mg13p
+    description: EFR32 Mighty Gecko Family Series 13 Device Config 3.
+    value: 40
+  - name: Efr32mg13v
+    description: EFR32 Mighty Gecko Family Series 1 Device Config 3.
+    value: 42
+  - name: Efr32mg14b
+    description: EFR32 Mighty Gecko Family Series 1 Device Config 4.
+    value: 53
+  - name: Efr32mg14p
+    description: EFR32 Mighty Gecko Family Series 1 Device Config 4.
+    value: 52
+  - name: Efr32mg14v
+    description: EFR32 Mighty Gecko Family Series 1 Device Config 4.
+    value: 54
+  - name: Efr32mg1b
+    description: EFR32 Mighty Gecko Family Series 1 Device Config 1.
+    value: 17
+  - name: Efr32mg1p
+    description: EFR32 Mighty Gecko Family Series 1 Device Config 1.
+    value: 16
+  - name: Efr32mg1v
+    description: EFR32 Mighty Gecko Family Series 1 Device Config 1.
+    value: 18
+  - name: Ezr32hg
     description: EZR32 Happy Gecko Device Family.
     value: 122
-  - name: SERIES2V0
+  - name: Ezr32lg
+    description: EZR32 Leopard Gecko Device Family.
+    value: 120
+  - name: Ezr32wg
+    description: EZR32 Wonder Gecko Device Family.
+    value: 121
+  - name: Series2v0
     description: DI page is encoded with the series 2 layout. Check alternate location.
     value: 128
-enum/vals::EXPRESS:
+enum/vals::Express:
   bit_size: 1
   variants:
-  - name: SUPPORTED
+  - name: None
+    description: NONE.
+    value: 1
+  - name: Supported
     description: SUPPORTED.
     value: 0
-  - name: NONE
-    description: NONE.
-    value: 1
-enum/vals::EXTINFO_TYPE:
+enum/vals::ExtinfoType:
   bit_size: 8
   variants:
-  - name: NONE
+  - name: None
     description: NONE.
     value: 255
-enum/vals::EXTVALID:
+enum/vals::Extvalid:
   bit_size: 1
   variants:
-  - name: EXTUSED
-    description: EXTUSED.
-    value: 0
-  - name: EXTUNUSED
+  - name: Extunused
     description: EXTUNUSED.
     value: 1
-enum/vals::FAMILY:
+  - name: Extused
+    description: EXTUSED.
+    value: 0
+enum/vals::Family:
   bit_size: 6
   variants:
-  - name: MG
-    description: Mighty Gecko.
-    value: 1
-  - name: BG
+  - name: Bg
     description: Blue Gecko.
     value: 2
-  - name: PG
+  - name: Mg
+    description: Mighty Gecko.
+    value: 1
+  - name: Pg
     description: Pearl Gecko.
     value: 5
-enum/vals::HFXOCALVAL:
+enum/vals::Lfxo:
   bit_size: 1
   variants:
-  - name: VALID
-    description: VALID.
-    value: 0
-  - name: NOTVALID
-    description: NOTVALID.
-    value: 1
-enum/vals::LFXO:
-  bit_size: 1
-  variants:
-  - name: NONE
+  - name: None
     description: NONE.
     value: 0
-  - name: PRESENT
+  - name: Present
     description: PRESENT.
     value: 1
-enum/vals::LFXOCALVAL:
+enum/vals::ModuleinfoType:
   bit_size: 1
   variants:
-  - name: VALID
-    description: VALID.
-    value: 0
-  - name: NOTVALID
-    description: NOTVALID.
-    value: 1
-enum/vals::MODULEINFO_TYPE:
-  bit_size: 1
-  variants:
-  - name: PCB
+  - name: Pcb
     description: PCB.
     value: 0
-  - name: SIP
+  - name: Sip
     description: SIP.
     value: 1
-enum/vals::PADCDC:
+enum/vals::Padcdc:
   bit_size: 1
   variants:
-  - name: VDCDC
-    description: VDCDC.
-    value: 0
-  - name: OTHER
+  - name: Other
     description: OTHER.
     value: 1
-enum/vals::PHYLIMITED:
-  bit_size: 1
-  variants:
-  - name: LIMITED
-    description: LIMITED.
+  - name: Vdcdc
+    description: VDCDC.
     value: 0
-  - name: UNLIMITED
-    description: UNLIMITED.
-    value: 1
-enum/vals::PKGTYPE:
+enum/vals::Pkgtype:
   bit_size: 8
   variants:
-  - name: WLCSP
-    description: WLCSP package.
-    value: 74
-  - name: BGA
+  - name: Bga
     description: BGA package.
     value: 76
-  - name: QFN
+  - name: Qfn
     description: QFN package.
     value: 77
-  - name: QFP
+  - name: Qfp
     description: QFP package.
     value: 81
-enum/vals::RF4CE:
+  - name: Wlcsp
+    description: WLCSP package.
+    value: 74
+enum/vals::Rf4ce:
   bit_size: 2
   variants:
-  - name: LEVEL0
+  - name: Level0
     description: Thread stack capability not available.
     value: 0
-  - name: LEVEL1
+  - name: Level1
     description: Thread stack enabled.
     value: 1
-  - name: LEVEL2
+  - name: Level2
     description: N/A.
     value: 2
-  - name: LEVEL3
+  - name: Level3
     description: N/A.
     value: 3
-enum/vals::SRI:
+enum/vals::Sri:
   bit_size: 2
   variants:
-  - name: LEVEL0
+  - name: Level0
     description: RAIL capability not available.
     value: 0
-  - name: LEVEL1
+  - name: Level1
     description: RAIL enabled.
     value: 1
-  - name: LEVEL2
+  - name: Level2
     description: N/A.
     value: 2
-  - name: LEVEL3
+  - name: Level3
     description: N/A.
     value: 3
-enum/vals::TEMPGRADE:
+enum/vals::Tempgrade:
   bit_size: 8
   variants:
-  - name: N40TO85
-    description: -40 to 85 degC.
-    value: 0
-  - name: N40TO125
-    description: -40 to 125 degC.
-    value: 1
-  - name: N40TO105
-    description: -40 to 105 degC.
-    value: 2
-  - name: N0TO70
+  - name: N0to70
     description: 0 to 70 degC.
     value: 3
-enum/vals::THREAD:
+  - name: N40to105
+    description: -40 to 105 degC.
+    value: 2
+  - name: N40to125
+    description: -40 to 125 degC.
+    value: 1
+  - name: N40to85
+    description: -40 to 85 degC.
+    value: 0
+enum/vals::Thread:
   bit_size: 2
   variants:
-  - name: LEVEL0
+  - name: Level0
     description: RF4CE stack capability not available.
     value: 0
-  - name: LEVEL1
+  - name: Level1
     description: RF4CE stack enabled.
     value: 1
-  - name: LEVEL2
+  - name: Level2
     description: N/A.
     value: 2
-  - name: LEVEL3
+  - name: Level3
     description: N/A.
     value: 3
-enum/vals::ZIGBEE:
+enum/vals::Zigbee:
   bit_size: 2
   variants:
-  - name: LEVEL0
+  - name: Level0
     description: ZigBee stack capability not available.
     value: 0
-  - name: LEVEL1
+  - name: Level1
     description: GreenPower only.
     value: 1
-  - name: LEVEL2
+  - name: Level2
     description: ZigBee and GreenPower.
     value: 2
-  - name: LEVEL3
+  - name: Level3
     description: ZigBee Only.
     value: 3
-enum/vals::ZWAVE:
+enum/vals::Zwave:
   bit_size: 3
   variants:
-  - name: LEVEL0
+  - name: Level0
     description: Z-Wave stack capability not available.
     value: 0
-  - name: LEVEL1
+  - name: Level1
     description: Z-Wave Gateway.
     value: 1
-  - name: LEVEL2
+  - name: Level2
     description: Z-Wave End Device.
     value: 2
-  - name: LEVEL3
+  - name: Level3
     description: Z-Wave Sensor.
     value: 3
-  - name: LEVEL4
+  - name: Level4
     description: Z-Wave Lighting.
     value: 4

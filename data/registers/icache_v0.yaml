@@ -1,176 +1,176 @@
-block/ICACHE:
+block/Icache:
   description: ICACHE peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: The read only IPVERSION field gives the version for this module. There may be minor software changes required for modules with different values of IPVERSION.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: CTRL
+    fieldset: regs::Ipversion
+  - name: ctrl
     description: No Description.
     byte_offset: 4
-    fieldset: regs::CTRL
-  - name: PCHITS
+    fieldset: regs::Ctrl
+  - name: pchits
     description: No Description.
     byte_offset: 8
     access: Read
-    fieldset: regs::PCHITS
-  - name: PCMISSES
+    fieldset: regs::Pchits
+  - name: pcmisses
     description: No Description.
     byte_offset: 12
     access: Read
-    fieldset: regs::PCMISSES
-  - name: PCAHITS
+    fieldset: regs::Pcmisses
+  - name: pcahits
     description: No Description.
     byte_offset: 16
     access: Read
-    fieldset: regs::PCAHITS
-  - name: STATUS
+    fieldset: regs::Pcahits
+  - name: status
     description: No Description.
     byte_offset: 20
     access: Read
-    fieldset: regs::STATUS
-  - name: CMD
+    fieldset: regs::Status
+  - name: cmd
     description: No Description.
     byte_offset: 24
     access: Write
-    fieldset: regs::CMD
-  - name: LPMODE
+    fieldset: regs::Cmd
+  - name: lpmode
     description: No Description.
     byte_offset: 28
-    fieldset: regs::LPMODE
-  - name: IF
+    fieldset: regs::Lpmode
+  - name: if_
     description: No Description.
     byte_offset: 32
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 36
-    fieldset: regs::IEN
-fieldset/regs::CMD:
+    fieldset: regs::Ien
+fieldset/regs::Cmd:
   description: No Description.
   fields:
-  - name: FLUSH
+  - name: flush
     description: Flush.
     bit_offset: 0
     bit_size: 1
-  - name: STARTPC
+  - name: startpc
     description: Start Performance Counters.
     bit_offset: 1
     bit_size: 1
-  - name: STOPPC
+  - name: stoppc
     description: Stop Performance Counters.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::CTRL:
+fieldset/regs::Ctrl:
   description: No Description.
   fields:
-  - name: CACHEDIS
+  - name: cachedis
     description: Cache Disable.
     bit_offset: 0
     bit_size: 1
-  - name: USEMPU
+  - name: usempu
     description: Use MPU.
     bit_offset: 1
     bit_size: 1
-  - name: AUTOFLUSHDIS
+  - name: autoflushdis
     description: Automatic Flushing Disable.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::IEN:
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: HITOF
+  - name: hitof
     description: Hit Overflow Interrupt Enable.
     bit_offset: 0
     bit_size: 1
-  - name: MISSOF
+  - name: missof
     description: Miss Overflow Interrupt Enable.
     bit_offset: 1
     bit_size: 1
-  - name: AHITOF
+  - name: ahitof
     description: Advanced Hit Overflow Interrupt Enable.
     bit_offset: 2
     bit_size: 1
-  - name: RAMERROR
+  - name: ramerror
     description: RAM error Interrupt Enable.
     bit_offset: 8
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: HITOF
+  - name: hitof
     description: Hit Overflow Interrupt Flag.
     bit_offset: 0
     bit_size: 1
-  - name: MISSOF
+  - name: missof
     description: Miss Overflow Interrupt Flag.
     bit_offset: 1
     bit_size: 1
-  - name: AHITOF
+  - name: ahitof
     description: Advanced Hit Overflow Interrupt Flag.
     bit_offset: 2
     bit_size: 1
-  - name: RAMERROR
+  - name: ramerror
     description: RAM error Interrupt Flag.
     bit_offset: 8
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: The read only IPVERSION field gives the version for this module. There may be minor software changes required for modules with different values of IPVERSION.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IP version ID.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::LPMODE:
+fieldset/regs::Lpmode:
   description: No Description.
   fields:
-  - name: LPLEVEL
+  - name: lplevel
     description: Low Power Level.
     bit_offset: 0
     bit_size: 2
-    enum: vals::LPLEVEL
-  - name: NESTFACTOR
+    enum: vals::Lplevel
+  - name: nestfactor
     description: Low Power Nest Factor.
     bit_offset: 4
     bit_size: 4
-fieldset/regs::PCAHITS:
+fieldset/regs::Pcahits:
   description: No Description.
   fields:
-  - name: PCAHITS
+  - name: pcahits
     description: Performance Counter Advanced Hits.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PCHITS:
+fieldset/regs::Pchits:
   description: No Description.
   fields:
-  - name: PCHITS
+  - name: pchits
     description: Performance Counter Hits.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::PCMISSES:
+fieldset/regs::Pcmisses:
   description: No Description.
   fields:
-  - name: PCMISSES
+  - name: pcmisses
     description: Performance Counter Misses.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::STATUS:
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: PCRUNNING
+  - name: pcrunning
     description: PC Running.
     bit_offset: 0
     bit_size: 1
-enum/vals::LPLEVEL:
+enum/vals::Lplevel:
   bit_size: 2
   variants:
-  - name: BASIC
-    description: Base instruction cache functionality.
-    value: 0
-  - name: ADVANCED
+  - name: Advanced
     description: Advanced buffering mode, where the cache uses the fetch pattern to predict highly accessed data and store it in low-energy memory.
     value: 1
-  - name: MINACTIVITY
+  - name: Basic
+    description: Base instruction cache functionality.
+    value: 0
+  - name: Minactivity
     description: Minimum activity mode, which allows the cache to minimize activity in logic that it predicts has a low probability being used. This mode can introduce wait-states into the instruction fetch stream when the cache exits one of its low-activity states. The number of wait-states introduced is small, but users running with 0-wait-state memory and wishing to reduce the variability that the cache might introduce with additional wait-states may wish to lower the cache low-power level. Note, this mode includes the advanced buffering mode functionality.
     value: 3

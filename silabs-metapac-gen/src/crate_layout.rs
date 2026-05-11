@@ -17,12 +17,27 @@
 //! ```
 
 use anyhow::{Context, Result};
+use convert_case::{Boundary, Case, Casing};
 use silabs_data_gen::chip_json::{ChipFile, Interrupt, PeripheralInstance};
 use silabs_data_gen::pdsc::MemoryRegion;
 use std::collections::BTreeSet;
 use std::path::Path;
 
 use crate::registers::module_name;
+
+/// Convert a perimap-routed block name (e.g. `GPIO`, `EUSART`, `I2C`) into the
+/// PascalCase identifier `chiptool::transform::sanitize::Sanitize::default()`
+/// produces (e.g. `Gpio`, `Eusart`, `I2c`).
+///
+/// Mirrors chiptool's `sanitize_with_case`, which first removes digit
+/// boundaries so `I2C` is treated as the merged token `i2c` rather than
+/// three separate words. Without that step `I2C` would round-trip to `I2C`
+/// under `Case::Pascal` and miss the struct named `I2c` in the YAML.
+fn block_struct_ident(block: &str) -> String {
+    block
+        .remove_boundaries(&Boundary::digits())
+        .to_case(Case::Pascal)
+}
 
 /// Lower-cased Cargo feature name for a given chip name (`EFR32MG26B211F2048IM68`).
 pub fn feature_name(chip: &str) -> String {
@@ -259,7 +274,7 @@ fn emit_typed_peripheral_consts(s: &mut String, peripherals: &[PeripheralInstanc
 
     for (name, p) in by_base {
         let mod_name = module_name(&p.kind, &p.register_version);
-        let struct_name = &p.block;
+        let struct_name = block_struct_ident(&p.block);
         s.push_str(&format!(
             "pub const {name}: crate::{mod_name}::{struct_name} = unsafe {{ \
              crate::{mod_name}::{struct_name}::from_ptr(0x{:08X} as *mut ()) }};\n",
@@ -390,15 +405,18 @@ mod tests {
     #[test]
     fn mod_rs_emits_typed_consts_and_dedupes_interrupts() {
         let s = build_chip_mod_rs(&fake_chip());
+        // The chip JSON's `block` field holds the perimap-routed name in raw
+        // form (e.g. "ACMP"); `block_struct_ident` Pascal-cases it to match
+        // `Sanitize::default()`'s output in the rendered register YAML.
         assert!(
             s.contains(
-                "pub const ACMP0: crate::acmp_v2::ACMP = unsafe { crate::acmp_v2::ACMP::from_ptr(0x4000E000 as *mut ()) };"
+                "pub const ACMP0: crate::acmp_v2::Acmp = unsafe { crate::acmp_v2::Acmp::from_ptr(0x4000E000 as *mut ()) };"
             ),
             "missing typed ACMP0 const:\n{s}"
         );
         assert!(!s.contains("ACMP0_S"), "_S consts must not be emitted; got:\n{s}");
         assert!(
-            s.contains("pub const DCDC: crate::dcdc_v1::DCDC"),
+            s.contains("pub const DCDC: crate::dcdc_v1::Dcdc"),
             "missing typed DCDC const:\n{s}"
         );
         assert_eq!(s.matches("pub const ACMP0: u8").count(), 1);

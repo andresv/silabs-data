@@ -1,93 +1,93 @@
-block/HOSTMAILBOX:
+block/Hostmailbox:
   description: HOSTMAILBOX peripheral.
   items:
-  - name: MSGPTR0
+  - name: msgptr0
     description: No Description.
     byte_offset: 0
-    fieldset: regs::MSGPTR0
-  - name: MSGPTR1
+    fieldset: regs::Msgptr0
+  - name: msgptr1
     description: No Description.
     byte_offset: 4
-    fieldset: regs::MSGPTR1
-  - name: MSGPTR2
+    fieldset: regs::Msgptr1
+  - name: msgptr2
     description: No Description.
     byte_offset: 8
-    fieldset: regs::MSGPTR2
-  - name: MSGPTR3
+    fieldset: regs::Msgptr2
+  - name: msgptr3
     description: No Description.
     byte_offset: 12
-    fieldset: regs::MSGPTR3
-  - name: IF
+    fieldset: regs::Msgptr3
+  - name: if_
     description: No Description.
     byte_offset: 64
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 68
-    fieldset: regs::IEN
-fieldset/regs::IEN:
+    fieldset: regs::Ien
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: MBOXIEN0
+  - name: mboxien0
     description: Mailbox Interrupt Enable.
     bit_offset: 0
     bit_size: 1
-  - name: MBOXIEN1
+  - name: mboxien1
     description: Mailbox Interrupt Enable.
     bit_offset: 1
     bit_size: 1
-  - name: MBOXIEN2
+  - name: mboxien2
     description: Mailbox Interrupt Enable.
     bit_offset: 2
     bit_size: 1
-  - name: MBOXIEN3
+  - name: mboxien3
     description: Mailbox Interrupt Enable.
     bit_offset: 3
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: MBOXIF0
+  - name: mboxif0
     description: Mailbox Interupt Flag.
     bit_offset: 0
     bit_size: 1
-  - name: MBOXIF1
+  - name: mboxif1
     description: Mailbox Interupt Flag.
     bit_offset: 1
     bit_size: 1
-  - name: MBOXIF2
+  - name: mboxif2
     description: Mailbox Interupt Flag.
     bit_offset: 2
     bit_size: 1
-  - name: MBOXIF3
+  - name: mboxif3
     description: Mailbox Interupt Flag.
     bit_offset: 3
     bit_size: 1
-fieldset/regs::MSGPTR0:
+fieldset/regs::Msgptr0:
   description: No Description.
   fields:
-  - name: PTR
+  - name: ptr
     description: Pointer.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::MSGPTR1:
+fieldset/regs::Msgptr1:
   description: No Description.
   fields:
-  - name: PTR
+  - name: ptr
     description: Pointer.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::MSGPTR2:
+fieldset/regs::Msgptr2:
   description: No Description.
   fields:
-  - name: PTR
+  - name: ptr
     description: Pointer.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::MSGPTR3:
+fieldset/regs::Msgptr3:
   description: No Description.
   fields:
-  - name: PTR
+  - name: ptr
     description: Pointer.
     bit_offset: 0
     bit_size: 32

@@ -1,5223 +1,5223 @@
-block/GPIO:
+block/Gpio:
   description: GPIO peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: P_CTRL
+    fieldset: regs::Ipversion
+  - name: p_ctrl
     description: Port control.
     array:
       len: 4
       stride: 48
     byte_offset: 48
-    fieldset: regs::PORT_CTRL
-  - name: P_MODEL
+    fieldset: regs::PortCtrl
+  - name: p_model
     description: mode low.
     array:
       len: 4
       stride: 48
     byte_offset: 52
-    fieldset: regs::PORT_MODEL
-  - name: P_MODEH
+    fieldset: regs::PortModel
+  - name: p_modeh
     description: mode high.
     array:
       len: 2
       stride: 96
     byte_offset: 60
-    fieldset: regs::PORT_MODEH
-  - name: P_DOUT
+    fieldset: regs::PortModeh
+  - name: p_dout
     description: data out.
     array:
       len: 4
       stride: 48
     byte_offset: 64
-    fieldset: regs::PORT_DOUT
-  - name: P_DIN
+    fieldset: regs::PortDout
+  - name: p_din
     description: data in.
     array:
       len: 4
       stride: 48
     byte_offset: 68
     access: Read
-    fieldset: regs::PORT_DIN
-  - name: LOCK
+    fieldset: regs::PortDin
+  - name: lock
     description: No Description.
     byte_offset: 768
     access: Write
-    fieldset: regs::LOCK
-  - name: GPIOLOCKSTATUS
+    fieldset: regs::Lock
+  - name: gpiolockstatus
     description: No Description.
     byte_offset: 784
     access: Read
-    fieldset: regs::GPIOLOCKSTATUS
-  - name: ABUSALLOC
+    fieldset: regs::Gpiolockstatus
+  - name: abusalloc
     description: A Bus allocation.
     byte_offset: 800
-    fieldset: regs::ABUSALLOC
-  - name: BBUSALLOC
+    fieldset: regs::Abusalloc
+  - name: bbusalloc
     description: B Bus allocation.
     byte_offset: 804
-    fieldset: regs::BBUSALLOC
-  - name: CDBUSALLOC
+    fieldset: regs::Bbusalloc
+  - name: cdbusalloc
     description: CD Bus allocation.
     byte_offset: 808
-    fieldset: regs::CDBUSALLOC
-  - name: EXTIPSELL
+    fieldset: regs::Cdbusalloc
+  - name: extipsell
     description: External Interrupt Port Select Low.
     byte_offset: 1024
-    fieldset: regs::EXTIPSELL
-  - name: EXTIPSELH
+    fieldset: regs::Extipsell
+  - name: extipselh
     description: External interrupt Port Select High.
     byte_offset: 1028
-    fieldset: regs::EXTIPSELH
-  - name: EXTIPINSELL
+    fieldset: regs::Extipselh
+  - name: extipinsell
     description: External Interrupt Pin Select Low.
     byte_offset: 1032
-    fieldset: regs::EXTIPINSELL
-  - name: EXTIPINSELH
+    fieldset: regs::Extipinsell
+  - name: extipinselh
     description: External Interrupt Pin Select High.
     byte_offset: 1036
-    fieldset: regs::EXTIPINSELH
-  - name: EXTIRISE
+    fieldset: regs::Extipinselh
+  - name: extirise
     description: External Interrupt Rising Edge Trigger.
     byte_offset: 1040
-    fieldset: regs::EXTIRISE
-  - name: EXTIFALL
+    fieldset: regs::Extirise
+  - name: extifall
     description: External Interrupt Falling Edge Trigger.
     byte_offset: 1044
-    fieldset: regs::EXTIFALL
-  - name: IF
+    fieldset: regs::Extifall
+  - name: if_
     description: Interrupt Flag.
     byte_offset: 1056
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: Interrupt Enable.
     byte_offset: 1060
-    fieldset: regs::IEN
-  - name: EM4WUEN
+    fieldset: regs::Ien
+  - name: em4wuen
     description: No Description.
     byte_offset: 1068
-    fieldset: regs::EM4WUEN
-  - name: EM4WUPOL
+    fieldset: regs::Em4wuen
+  - name: em4wupol
     description: No Description.
     byte_offset: 1072
-    fieldset: regs::EM4WUPOL
-  - name: DBGROUTEPEN
+    fieldset: regs::Em4wupol
+  - name: dbgroutepen
     description: No Description.
     byte_offset: 1088
-    fieldset: regs::DBGROUTEPEN
-  - name: TRACEROUTEPEN
+    fieldset: regs::Dbgroutepen
+  - name: traceroutepen
     description: No Description.
     byte_offset: 1092
-    fieldset: regs::TRACEROUTEPEN
-  - name: ACMP0_ROUTEEN
+    fieldset: regs::Traceroutepen
+  - name: acmp0_routeen
     description: ACMP0 pin enable.
     byte_offset: 1104
-    fieldset: regs::ACMP0_ROUTEEN
-  - name: ACMP0_ACMPOUTROUTE
+    fieldset: regs::Acmp0Routeen
+  - name: acmp0_acmpoutroute
     description: ACMPOUT port/pin select.
     byte_offset: 1108
-    fieldset: regs::ACMP0_ACMPOUTROUTE
-  - name: ACMP1_ROUTEEN
+    fieldset: regs::Acmp0Acmpoutroute
+  - name: acmp1_routeen
     description: ACMP1 pin enable.
     byte_offset: 1116
-    fieldset: regs::ACMP1_ROUTEEN
-  - name: ACMP1_ACMPOUTROUTE
+    fieldset: regs::Acmp1Routeen
+  - name: acmp1_acmpoutroute
     description: ACMPOUT port/pin select.
     byte_offset: 1120
-    fieldset: regs::ACMP1_ACMPOUTROUTE
-  - name: CMU_ROUTEEN
+    fieldset: regs::Acmp1Acmpoutroute
+  - name: cmu_routeen
     description: CMU pin enable.
     byte_offset: 1128
-    fieldset: regs::CMU_ROUTEEN
-  - name: CMU_CLKIN0ROUTE
+    fieldset: regs::CmuRouteen
+  - name: cmu_clkin0route
     description: CLKIN0 port/pin select.
     byte_offset: 1132
-    fieldset: regs::CMU_CLKIN0ROUTE
-  - name: CMU_CLKOUT0ROUTE
+    fieldset: regs::CmuClkin0route
+  - name: cmu_clkout0route
     description: CLKOUT0 port/pin select.
     byte_offset: 1136
-    fieldset: regs::CMU_CLKOUT0ROUTE
-  - name: CMU_CLKOUT1ROUTE
+    fieldset: regs::CmuClkout0route
+  - name: cmu_clkout1route
     description: CLKOUT1 port/pin select.
     byte_offset: 1140
-    fieldset: regs::CMU_CLKOUT1ROUTE
-  - name: CMU_CLKOUT2ROUTE
+    fieldset: regs::CmuClkout1route
+  - name: cmu_clkout2route
     description: CLKOUT2 port/pin select.
     byte_offset: 1144
-    fieldset: regs::CMU_CLKOUT2ROUTE
-  - name: EUSART0_ROUTEEN
+    fieldset: regs::CmuClkout2route
+  - name: eusart0_routeen
     description: EUSART0 pin enable.
     byte_offset: 1172
-    fieldset: regs::EUSART0_ROUTEEN
-  - name: EUSART0_CSROUTE
+    fieldset: regs::Eusart0Routeen
+  - name: eusart0_csroute
     description: CS port/pin select.
     byte_offset: 1176
-    fieldset: regs::EUSART0_CSROUTE
-  - name: EUSART0_CTSROUTE
+    fieldset: regs::Eusart0Csroute
+  - name: eusart0_ctsroute
     description: CTS port/pin select.
     byte_offset: 1180
-    fieldset: regs::EUSART0_CTSROUTE
-  - name: EUSART0_RTSROUTE
+    fieldset: regs::Eusart0Ctsroute
+  - name: eusart0_rtsroute
     description: RTS port/pin select.
     byte_offset: 1184
-    fieldset: regs::EUSART0_RTSROUTE
-  - name: EUSART0_RXROUTE
+    fieldset: regs::Eusart0Rtsroute
+  - name: eusart0_rxroute
     description: RX port/pin select.
     byte_offset: 1188
-    fieldset: regs::EUSART0_RXROUTE
-  - name: EUSART0_SCLKROUTE
+    fieldset: regs::Eusart0Rxroute
+  - name: eusart0_sclkroute
     description: SCLK port/pin select.
     byte_offset: 1192
-    fieldset: regs::EUSART0_SCLKROUTE
-  - name: EUSART0_TXROUTE
+    fieldset: regs::Eusart0Sclkroute
+  - name: eusart0_txroute
     description: TX port/pin select.
     byte_offset: 1196
-    fieldset: regs::EUSART0_TXROUTE
-  - name: EUSART1_ROUTEEN
+    fieldset: regs::Eusart0Txroute
+  - name: eusart1_routeen
     description: EUSART1 pin enable.
     byte_offset: 1204
-    fieldset: regs::EUSART1_ROUTEEN
-  - name: EUSART1_CSROUTE
+    fieldset: regs::Eusart1Routeen
+  - name: eusart1_csroute
     description: CS port/pin select.
     byte_offset: 1208
-    fieldset: regs::EUSART1_CSROUTE
-  - name: EUSART1_CTSROUTE
+    fieldset: regs::Eusart1Csroute
+  - name: eusart1_ctsroute
     description: CTS port/pin select.
     byte_offset: 1212
-    fieldset: regs::EUSART1_CTSROUTE
-  - name: EUSART1_RTSROUTE
+    fieldset: regs::Eusart1Ctsroute
+  - name: eusart1_rtsroute
     description: RTS port/pin select.
     byte_offset: 1216
-    fieldset: regs::EUSART1_RTSROUTE
-  - name: EUSART1_RXROUTE
+    fieldset: regs::Eusart1Rtsroute
+  - name: eusart1_rxroute
     description: RX port/pin select.
     byte_offset: 1220
-    fieldset: regs::EUSART1_RXROUTE
-  - name: EUSART1_SCLKROUTE
+    fieldset: regs::Eusart1Rxroute
+  - name: eusart1_sclkroute
     description: SCLK port/pin select.
     byte_offset: 1224
-    fieldset: regs::EUSART1_SCLKROUTE
-  - name: EUSART1_TXROUTE
+    fieldset: regs::Eusart1Sclkroute
+  - name: eusart1_txroute
     description: TX port/pin select.
     byte_offset: 1228
-    fieldset: regs::EUSART1_TXROUTE
-  - name: FRC_ROUTEEN
+    fieldset: regs::Eusart1Txroute
+  - name: frc_routeen
     description: FRC pin enable.
     byte_offset: 1236
-    fieldset: regs::FRC_ROUTEEN
-  - name: FRC_DCLKROUTE
+    fieldset: regs::FrcRouteen
+  - name: frc_dclkroute
     description: DCLK port/pin select.
     byte_offset: 1240
-    fieldset: regs::FRC_DCLKROUTE
-  - name: FRC_DFRAMEROUTE
+    fieldset: regs::FrcDclkroute
+  - name: frc_dframeroute
     description: DFRAME port/pin select.
     byte_offset: 1244
-    fieldset: regs::FRC_DFRAMEROUTE
-  - name: FRC_DOUTROUTE
+    fieldset: regs::FrcDframeroute
+  - name: frc_doutroute
     description: DOUT port/pin select.
     byte_offset: 1248
-    fieldset: regs::FRC_DOUTROUTE
-  - name: I2C0_ROUTEEN
+    fieldset: regs::FrcDoutroute
+  - name: i2c0_routeen
     description: I2C0 pin enable.
     byte_offset: 1256
-    fieldset: regs::I2C0_ROUTEEN
-  - name: I2C0_SCLROUTE
+    fieldset: regs::I2c0Routeen
+  - name: i2c0_sclroute
     description: SCL port/pin select.
     byte_offset: 1260
-    fieldset: regs::I2C0_SCLROUTE
-  - name: I2C0_SDAROUTE
+    fieldset: regs::I2c0Sclroute
+  - name: i2c0_sdaroute
     description: SDA port/pin select.
     byte_offset: 1264
-    fieldset: regs::I2C0_SDAROUTE
-  - name: I2C1_ROUTEEN
+    fieldset: regs::I2c0Sdaroute
+  - name: i2c1_routeen
     description: I2C1 pin enable.
     byte_offset: 1272
-    fieldset: regs::I2C1_ROUTEEN
-  - name: I2C1_SCLROUTE
+    fieldset: regs::I2c1Routeen
+  - name: i2c1_sclroute
     description: SCL port/pin select.
     byte_offset: 1276
-    fieldset: regs::I2C1_SCLROUTE
-  - name: I2C1_SDAROUTE
+    fieldset: regs::I2c1Sclroute
+  - name: i2c1_sdaroute
     description: SDA port/pin select.
     byte_offset: 1280
-    fieldset: regs::I2C1_SDAROUTE
-  - name: KEYSCAN_ROUTEEN
+    fieldset: regs::I2c1Sdaroute
+  - name: keyscan_routeen
     description: KEYSCAN pin enable.
     byte_offset: 1288
-    fieldset: regs::KEYSCAN_ROUTEEN
-  - name: KEYSCAN_COLOUT0ROUTE
+    fieldset: regs::KeyscanRouteen
+  - name: keyscan_colout0route
     description: COLOUT0 port/pin select.
     byte_offset: 1292
-    fieldset: regs::KEYSCAN_COLOUT0ROUTE
-  - name: KEYSCAN_COLOUT1ROUTE
+    fieldset: regs::KeyscanColout0route
+  - name: keyscan_colout1route
     description: COLOUT1 port/pin select.
     byte_offset: 1296
-    fieldset: regs::KEYSCAN_COLOUT1ROUTE
-  - name: KEYSCAN_COLOUT2ROUTE
+    fieldset: regs::KeyscanColout1route
+  - name: keyscan_colout2route
     description: COLOUT2 port/pin select.
     byte_offset: 1300
-    fieldset: regs::KEYSCAN_COLOUT2ROUTE
-  - name: KEYSCAN_COLOUT3ROUTE
+    fieldset: regs::KeyscanColout2route
+  - name: keyscan_colout3route
     description: COLOUT3 port/pin select.
     byte_offset: 1304
-    fieldset: regs::KEYSCAN_COLOUT3ROUTE
-  - name: KEYSCAN_COLOUT4ROUTE
+    fieldset: regs::KeyscanColout3route
+  - name: keyscan_colout4route
     description: COLOUT4 port/pin select.
     byte_offset: 1308
-    fieldset: regs::KEYSCAN_COLOUT4ROUTE
-  - name: KEYSCAN_COLOUT5ROUTE
+    fieldset: regs::KeyscanColout4route
+  - name: keyscan_colout5route
     description: COLOUT5 port/pin select.
     byte_offset: 1312
-    fieldset: regs::KEYSCAN_COLOUT5ROUTE
-  - name: KEYSCAN_COLOUT6ROUTE
+    fieldset: regs::KeyscanColout5route
+  - name: keyscan_colout6route
     description: COLOUT6 port/pin select.
     byte_offset: 1316
-    fieldset: regs::KEYSCAN_COLOUT6ROUTE
-  - name: KEYSCAN_COLOUT7ROUTE
+    fieldset: regs::KeyscanColout6route
+  - name: keyscan_colout7route
     description: COLOUT7 port/pin select.
     byte_offset: 1320
-    fieldset: regs::KEYSCAN_COLOUT7ROUTE
-  - name: KEYSCAN_ROWSENSE0ROUTE
+    fieldset: regs::KeyscanColout7route
+  - name: keyscan_rowsense0route
     description: ROWSENSE0 port/pin select.
     byte_offset: 1324
-    fieldset: regs::KEYSCAN_ROWSENSE0ROUTE
-  - name: KEYSCAN_ROWSENSE1ROUTE
+    fieldset: regs::KeyscanRowsense0route
+  - name: keyscan_rowsense1route
     description: ROWSENSE1 port/pin select.
     byte_offset: 1328
-    fieldset: regs::KEYSCAN_ROWSENSE1ROUTE
-  - name: KEYSCAN_ROWSENSE2ROUTE
+    fieldset: regs::KeyscanRowsense1route
+  - name: keyscan_rowsense2route
     description: ROWSENSE2 port/pin select.
     byte_offset: 1332
-    fieldset: regs::KEYSCAN_ROWSENSE2ROUTE
-  - name: KEYSCAN_ROWSENSE3ROUTE
+    fieldset: regs::KeyscanRowsense2route
+  - name: keyscan_rowsense3route
     description: ROWSENSE3 port/pin select.
     byte_offset: 1336
-    fieldset: regs::KEYSCAN_ROWSENSE3ROUTE
-  - name: KEYSCAN_ROWSENSE4ROUTE
+    fieldset: regs::KeyscanRowsense3route
+  - name: keyscan_rowsense4route
     description: ROWSENSE4 port/pin select.
     byte_offset: 1340
-    fieldset: regs::KEYSCAN_ROWSENSE4ROUTE
-  - name: KEYSCAN_ROWSENSE5ROUTE
+    fieldset: regs::KeyscanRowsense4route
+  - name: keyscan_rowsense5route
     description: ROWSENSE5 port/pin select.
     byte_offset: 1344
-    fieldset: regs::KEYSCAN_ROWSENSE5ROUTE
-  - name: LETIMER_ROUTEEN
+    fieldset: regs::KeyscanRowsense5route
+  - name: letimer_routeen
     description: LETIMER pin enable.
     byte_offset: 1352
-    fieldset: regs::LETIMER_ROUTEEN
-  - name: LETIMER_OUT0ROUTE
+    fieldset: regs::LetimerRouteen
+  - name: letimer_out0route
     description: OUT0 port/pin select.
     byte_offset: 1356
-    fieldset: regs::LETIMER_OUT0ROUTE
-  - name: LETIMER_OUT1ROUTE
+    fieldset: regs::LetimerOut0route
+  - name: letimer_out1route
     description: OUT1 port/pin select.
     byte_offset: 1360
-    fieldset: regs::LETIMER_OUT1ROUTE
-  - name: MODEM_ROUTEEN
+    fieldset: regs::LetimerOut1route
+  - name: modem_routeen
     description: MODEM pin enable.
     byte_offset: 1368
-    fieldset: regs::MODEM_ROUTEEN
-  - name: MODEM_ANT0ROUTE
+    fieldset: regs::ModemRouteen
+  - name: modem_ant0route
     description: ANT0 port/pin select.
     byte_offset: 1372
-    fieldset: regs::MODEM_ANT0ROUTE
-  - name: MODEM_ANT1ROUTE
+    fieldset: regs::ModemAnt0route
+  - name: modem_ant1route
     description: ANT1 port/pin select.
     byte_offset: 1376
-    fieldset: regs::MODEM_ANT1ROUTE
-  - name: MODEM_ANTROLLOVERROUTE
+    fieldset: regs::ModemAnt1route
+  - name: modem_antrolloverroute
     description: ANTROLLOVER port/pin select.
     byte_offset: 1380
-    fieldset: regs::MODEM_ANTROLLOVERROUTE
-  - name: MODEM_ANTRR0ROUTE
+    fieldset: regs::ModemAntrolloverroute
+  - name: modem_antrr0route
     description: ANTRR0 port/pin select.
     byte_offset: 1384
-    fieldset: regs::MODEM_ANTRR0ROUTE
-  - name: MODEM_ANTRR1ROUTE
+    fieldset: regs::ModemAntrr0route
+  - name: modem_antrr1route
     description: ANTRR1 port/pin select.
     byte_offset: 1388
-    fieldset: regs::MODEM_ANTRR1ROUTE
-  - name: MODEM_ANTRR2ROUTE
+    fieldset: regs::ModemAntrr1route
+  - name: modem_antrr2route
     description: ANTRR2 port/pin select.
     byte_offset: 1392
-    fieldset: regs::MODEM_ANTRR2ROUTE
-  - name: MODEM_ANTRR3ROUTE
+    fieldset: regs::ModemAntrr2route
+  - name: modem_antrr3route
     description: ANTRR3 port/pin select.
     byte_offset: 1396
-    fieldset: regs::MODEM_ANTRR3ROUTE
-  - name: MODEM_ANTRR4ROUTE
+    fieldset: regs::ModemAntrr3route
+  - name: modem_antrr4route
     description: ANTRR4 port/pin select.
     byte_offset: 1400
-    fieldset: regs::MODEM_ANTRR4ROUTE
-  - name: MODEM_ANTRR5ROUTE
+    fieldset: regs::ModemAntrr4route
+  - name: modem_antrr5route
     description: ANTRR5 port/pin select.
     byte_offset: 1404
-    fieldset: regs::MODEM_ANTRR5ROUTE
-  - name: MODEM_ANTSWENROUTE
+    fieldset: regs::ModemAntrr5route
+  - name: modem_antswenroute
     description: ANTSWEN port/pin select.
     byte_offset: 1408
-    fieldset: regs::MODEM_ANTSWENROUTE
-  - name: MODEM_ANTSWUSROUTE
+    fieldset: regs::ModemAntswenroute
+  - name: modem_antswusroute
     description: ANTSWUS port/pin select.
     byte_offset: 1412
-    fieldset: regs::MODEM_ANTSWUSROUTE
-  - name: MODEM_ANTTRIGROUTE
+    fieldset: regs::ModemAntswusroute
+  - name: modem_anttrigroute
     description: ANTTRIG port/pin select.
     byte_offset: 1416
-    fieldset: regs::MODEM_ANTTRIGROUTE
-  - name: MODEM_ANTTRIGSTOPROUTE
+    fieldset: regs::ModemAnttrigroute
+  - name: modem_anttrigstoproute
     description: ANTTRIGSTOP port/pin select.
     byte_offset: 1420
-    fieldset: regs::MODEM_ANTTRIGSTOPROUTE
-  - name: MODEM_DCLKROUTE
+    fieldset: regs::ModemAnttrigstoproute
+  - name: modem_dclkroute
     description: DCLK port/pin select.
     byte_offset: 1424
-    fieldset: regs::MODEM_DCLKROUTE
-  - name: MODEM_DINROUTE
+    fieldset: regs::ModemDclkroute
+  - name: modem_dinroute
     description: DIN port/pin select.
     byte_offset: 1428
-    fieldset: regs::MODEM_DINROUTE
-  - name: MODEM_DOUTROUTE
+    fieldset: regs::ModemDinroute
+  - name: modem_doutroute
     description: DOUT port/pin select.
     byte_offset: 1432
-    fieldset: regs::MODEM_DOUTROUTE
-  - name: PCNT0_S0INROUTE
+    fieldset: regs::ModemDoutroute
+  - name: pcnt0_s0inroute
     description: S0IN port/pin select.
     byte_offset: 1444
-    fieldset: regs::PCNT0_S0INROUTE
-  - name: PCNT0_S1INROUTE
+    fieldset: regs::Pcnt0S0inroute
+  - name: pcnt0_s1inroute
     description: S1IN port/pin select.
     byte_offset: 1448
-    fieldset: regs::PCNT0_S1INROUTE
-  - name: PRS0_ROUTEEN
+    fieldset: regs::Pcnt0S1inroute
+  - name: prs0_routeen
     description: PRS0 pin enable.
     byte_offset: 1456
-    fieldset: regs::PRS0_ROUTEEN
-  - name: PRS0_ASYNCH0ROUTE
+    fieldset: regs::Prs0Routeen
+  - name: prs0_asynch0route
     description: ASYNCH0 port/pin select.
     byte_offset: 1460
-    fieldset: regs::PRS0_ASYNCH0ROUTE
-  - name: PRS0_ASYNCH1ROUTE
+    fieldset: regs::Prs0Asynch0route
+  - name: prs0_asynch1route
     description: ASYNCH1 port/pin select.
     byte_offset: 1464
-    fieldset: regs::PRS0_ASYNCH1ROUTE
-  - name: PRS0_ASYNCH2ROUTE
+    fieldset: regs::Prs0Asynch1route
+  - name: prs0_asynch2route
     description: ASYNCH2 port/pin select.
     byte_offset: 1468
-    fieldset: regs::PRS0_ASYNCH2ROUTE
-  - name: PRS0_ASYNCH3ROUTE
+    fieldset: regs::Prs0Asynch2route
+  - name: prs0_asynch3route
     description: ASYNCH3 port/pin select.
     byte_offset: 1472
-    fieldset: regs::PRS0_ASYNCH3ROUTE
-  - name: PRS0_ASYNCH4ROUTE
+    fieldset: regs::Prs0Asynch3route
+  - name: prs0_asynch4route
     description: ASYNCH4 port/pin select.
     byte_offset: 1476
-    fieldset: regs::PRS0_ASYNCH4ROUTE
-  - name: PRS0_ASYNCH5ROUTE
+    fieldset: regs::Prs0Asynch4route
+  - name: prs0_asynch5route
     description: ASYNCH5 port/pin select.
     byte_offset: 1480
-    fieldset: regs::PRS0_ASYNCH5ROUTE
-  - name: PRS0_ASYNCH6ROUTE
+    fieldset: regs::Prs0Asynch5route
+  - name: prs0_asynch6route
     description: ASYNCH6 port/pin select.
     byte_offset: 1484
-    fieldset: regs::PRS0_ASYNCH6ROUTE
-  - name: PRS0_ASYNCH7ROUTE
+    fieldset: regs::Prs0Asynch6route
+  - name: prs0_asynch7route
     description: ASYNCH7 port/pin select.
     byte_offset: 1488
-    fieldset: regs::PRS0_ASYNCH7ROUTE
-  - name: PRS0_ASYNCH8ROUTE
+    fieldset: regs::Prs0Asynch7route
+  - name: prs0_asynch8route
     description: ASYNCH8 port/pin select.
     byte_offset: 1492
-    fieldset: regs::PRS0_ASYNCH8ROUTE
-  - name: PRS0_ASYNCH9ROUTE
+    fieldset: regs::Prs0Asynch8route
+  - name: prs0_asynch9route
     description: ASYNCH9 port/pin select.
     byte_offset: 1496
-    fieldset: regs::PRS0_ASYNCH9ROUTE
-  - name: PRS0_ASYNCH10ROUTE
+    fieldset: regs::Prs0Asynch9route
+  - name: prs0_asynch10route
     description: ASYNCH10 port/pin select.
     byte_offset: 1500
-    fieldset: regs::PRS0_ASYNCH10ROUTE
-  - name: PRS0_ASYNCH11ROUTE
+    fieldset: regs::Prs0Asynch10route
+  - name: prs0_asynch11route
     description: ASYNCH11 port/pin select.
     byte_offset: 1504
-    fieldset: regs::PRS0_ASYNCH11ROUTE
-  - name: PRS0_ASYNCH12ROUTE
+    fieldset: regs::Prs0Asynch11route
+  - name: prs0_asynch12route
     description: ASYNCH12 port/pin select.
     byte_offset: 1508
-    fieldset: regs::PRS0_ASYNCH12ROUTE
-  - name: PRS0_ASYNCH13ROUTE
+    fieldset: regs::Prs0Asynch12route
+  - name: prs0_asynch13route
     description: ASYNCH13 port/pin select.
     byte_offset: 1512
-    fieldset: regs::PRS0_ASYNCH13ROUTE
-  - name: PRS0_ASYNCH14ROUTE
+    fieldset: regs::Prs0Asynch13route
+  - name: prs0_asynch14route
     description: ASYNCH14 port/pin select.
     byte_offset: 1516
-    fieldset: regs::PRS0_ASYNCH14ROUTE
-  - name: PRS0_ASYNCH15ROUTE
+    fieldset: regs::Prs0Asynch14route
+  - name: prs0_asynch15route
     description: ASYNCH15 port/pin select.
     byte_offset: 1520
-    fieldset: regs::PRS0_ASYNCH15ROUTE
-  - name: PRS0_SYNCH0ROUTE
+    fieldset: regs::Prs0Asynch15route
+  - name: prs0_synch0route
     description: SYNCH0 port/pin select.
     byte_offset: 1524
-    fieldset: regs::PRS0_SYNCH0ROUTE
-  - name: PRS0_SYNCH1ROUTE
+    fieldset: regs::Prs0Synch0route
+  - name: prs0_synch1route
     description: SYNCH1 port/pin select.
     byte_offset: 1528
-    fieldset: regs::PRS0_SYNCH1ROUTE
-  - name: PRS0_SYNCH2ROUTE
+    fieldset: regs::Prs0Synch1route
+  - name: prs0_synch2route
     description: SYNCH2 port/pin select.
     byte_offset: 1532
-    fieldset: regs::PRS0_SYNCH2ROUTE
-  - name: PRS0_SYNCH3ROUTE
+    fieldset: regs::Prs0Synch2route
+  - name: prs0_synch3route
     description: SYNCH3 port/pin select.
     byte_offset: 1536
-    fieldset: regs::PRS0_SYNCH3ROUTE
-  - name: RAC_ROUTEEN
+    fieldset: regs::Prs0Synch3route
+  - name: rac_routeen
     description: RAC pin enable.
     byte_offset: 1544
-    fieldset: regs::RAC_ROUTEEN
-  - name: RAC_LNAENROUTE
+    fieldset: regs::RacRouteen
+  - name: rac_lnaenroute
     description: LNAEN port/pin select.
     byte_offset: 1548
-    fieldset: regs::RAC_LNAENROUTE
-  - name: RAC_PAENROUTE
+    fieldset: regs::RacLnaenroute
+  - name: rac_paenroute
     description: PAEN port/pin select.
     byte_offset: 1552
-    fieldset: regs::RAC_PAENROUTE
-  - name: SYXO0_BUFOUTREQINASYNCROUTE
+    fieldset: regs::RacPaenroute
+  - name: syxo0_bufoutreqinasyncroute
     description: BUFOUTREQINASYNC port/pin select.
     byte_offset: 1656
-    fieldset: regs::SYXO0_BUFOUTREQINASYNCROUTE
-  - name: TIMER0_ROUTEEN
+    fieldset: regs::Syxo0Bufoutreqinasyncroute
+  - name: timer0_routeen
     description: TIMER0 pin enable.
     byte_offset: 1664
-    fieldset: regs::TIMER0_ROUTEEN
-  - name: TIMER0_CC0ROUTE
+    fieldset: regs::Timer0Routeen
+  - name: timer0_cc0route
     description: CC0 port/pin select.
     byte_offset: 1668
-    fieldset: regs::TIMER0_CC0ROUTE
-  - name: TIMER0_CC1ROUTE
+    fieldset: regs::Timer0Cc0route
+  - name: timer0_cc1route
     description: CC1 port/pin select.
     byte_offset: 1672
-    fieldset: regs::TIMER0_CC1ROUTE
-  - name: TIMER0_CC2ROUTE
+    fieldset: regs::Timer0Cc1route
+  - name: timer0_cc2route
     description: CC2 port/pin select.
     byte_offset: 1676
-    fieldset: regs::TIMER0_CC2ROUTE
-  - name: TIMER0_CDTI0ROUTE
+    fieldset: regs::Timer0Cc2route
+  - name: timer0_cdti0route
     description: CDTI0 port/pin select.
     byte_offset: 1680
-    fieldset: regs::TIMER0_CDTI0ROUTE
-  - name: TIMER0_CDTI1ROUTE
+    fieldset: regs::Timer0Cdti0route
+  - name: timer0_cdti1route
     description: CDTI1 port/pin select.
     byte_offset: 1684
-    fieldset: regs::TIMER0_CDTI1ROUTE
-  - name: TIMER0_CDTI2ROUTE
+    fieldset: regs::Timer0Cdti1route
+  - name: timer0_cdti2route
     description: CDTI2 port/pin select.
     byte_offset: 1688
-    fieldset: regs::TIMER0_CDTI2ROUTE
-  - name: TIMER1_ROUTEEN
+    fieldset: regs::Timer0Cdti2route
+  - name: timer1_routeen
     description: TIMER1 pin enable.
     byte_offset: 1696
-    fieldset: regs::TIMER1_ROUTEEN
-  - name: TIMER1_CC0ROUTE
+    fieldset: regs::Timer1Routeen
+  - name: timer1_cc0route
     description: CC0 port/pin select.
     byte_offset: 1700
-    fieldset: regs::TIMER1_CC0ROUTE
-  - name: TIMER1_CC1ROUTE
+    fieldset: regs::Timer1Cc0route
+  - name: timer1_cc1route
     description: CC1 port/pin select.
     byte_offset: 1704
-    fieldset: regs::TIMER1_CC1ROUTE
-  - name: TIMER1_CC2ROUTE
+    fieldset: regs::Timer1Cc1route
+  - name: timer1_cc2route
     description: CC2 port/pin select.
     byte_offset: 1708
-    fieldset: regs::TIMER1_CC2ROUTE
-  - name: TIMER1_CDTI0ROUTE
+    fieldset: regs::Timer1Cc2route
+  - name: timer1_cdti0route
     description: CDTI0 port/pin select.
     byte_offset: 1712
-    fieldset: regs::TIMER1_CDTI0ROUTE
-  - name: TIMER1_CDTI1ROUTE
+    fieldset: regs::Timer1Cdti0route
+  - name: timer1_cdti1route
     description: CDTI1 port/pin select.
     byte_offset: 1716
-    fieldset: regs::TIMER1_CDTI1ROUTE
-  - name: TIMER1_CDTI2ROUTE
+    fieldset: regs::Timer1Cdti1route
+  - name: timer1_cdti2route
     description: CDTI2 port/pin select.
     byte_offset: 1720
-    fieldset: regs::TIMER1_CDTI2ROUTE
-  - name: TIMER2_ROUTEEN
+    fieldset: regs::Timer1Cdti2route
+  - name: timer2_routeen
     description: TIMER2 pin enable.
     byte_offset: 1728
-    fieldset: regs::TIMER2_ROUTEEN
-  - name: TIMER2_CC0ROUTE
+    fieldset: regs::Timer2Routeen
+  - name: timer2_cc0route
     description: CC0 port/pin select.
     byte_offset: 1732
-    fieldset: regs::TIMER2_CC0ROUTE
-  - name: TIMER2_CC1ROUTE
+    fieldset: regs::Timer2Cc0route
+  - name: timer2_cc1route
     description: CC1 port/pin select.
     byte_offset: 1736
-    fieldset: regs::TIMER2_CC1ROUTE
-  - name: TIMER2_CC2ROUTE
+    fieldset: regs::Timer2Cc1route
+  - name: timer2_cc2route
     description: CC2 port/pin select.
     byte_offset: 1740
-    fieldset: regs::TIMER2_CC2ROUTE
-  - name: TIMER2_CDTI0ROUTE
+    fieldset: regs::Timer2Cc2route
+  - name: timer2_cdti0route
     description: CDTI0 port/pin select.
     byte_offset: 1744
-    fieldset: regs::TIMER2_CDTI0ROUTE
-  - name: TIMER2_CDTI1ROUTE
+    fieldset: regs::Timer2Cdti0route
+  - name: timer2_cdti1route
     description: CDTI1 port/pin select.
     byte_offset: 1748
-    fieldset: regs::TIMER2_CDTI1ROUTE
-  - name: TIMER2_CDTI2ROUTE
+    fieldset: regs::Timer2Cdti1route
+  - name: timer2_cdti2route
     description: CDTI2 port/pin select.
     byte_offset: 1752
-    fieldset: regs::TIMER2_CDTI2ROUTE
-  - name: TIMER3_ROUTEEN
+    fieldset: regs::Timer2Cdti2route
+  - name: timer3_routeen
     description: TIMER3 pin enable.
     byte_offset: 1760
-    fieldset: regs::TIMER3_ROUTEEN
-  - name: TIMER3_CC0ROUTE
+    fieldset: regs::Timer3Routeen
+  - name: timer3_cc0route
     description: CC0 port/pin select.
     byte_offset: 1764
-    fieldset: regs::TIMER3_CC0ROUTE
-  - name: TIMER3_CC1ROUTE
+    fieldset: regs::Timer3Cc0route
+  - name: timer3_cc1route
     description: CC1 port/pin select.
     byte_offset: 1768
-    fieldset: regs::TIMER3_CC1ROUTE
-  - name: TIMER3_CC2ROUTE
+    fieldset: regs::Timer3Cc1route
+  - name: timer3_cc2route
     description: CC2 port/pin select.
     byte_offset: 1772
-    fieldset: regs::TIMER3_CC2ROUTE
-  - name: TIMER3_CDTI0ROUTE
+    fieldset: regs::Timer3Cc2route
+  - name: timer3_cdti0route
     description: CDTI0 port/pin select.
     byte_offset: 1776
-    fieldset: regs::TIMER3_CDTI0ROUTE
-  - name: TIMER3_CDTI1ROUTE
+    fieldset: regs::Timer3Cdti0route
+  - name: timer3_cdti1route
     description: CDTI1 port/pin select.
     byte_offset: 1780
-    fieldset: regs::TIMER3_CDTI1ROUTE
-  - name: TIMER3_CDTI2ROUTE
+    fieldset: regs::Timer3Cdti1route
+  - name: timer3_cdti2route
     description: CDTI2 port/pin select.
     byte_offset: 1784
-    fieldset: regs::TIMER3_CDTI2ROUTE
-  - name: TIMER4_ROUTEEN
+    fieldset: regs::Timer3Cdti2route
+  - name: timer4_routeen
     description: TIMER4 pin enable.
     byte_offset: 1792
-    fieldset: regs::TIMER4_ROUTEEN
-  - name: TIMER4_CC0ROUTE
+    fieldset: regs::Timer4Routeen
+  - name: timer4_cc0route
     description: CC0 port/pin select.
     byte_offset: 1796
-    fieldset: regs::TIMER4_CC0ROUTE
-  - name: TIMER4_CC1ROUTE
+    fieldset: regs::Timer4Cc0route
+  - name: timer4_cc1route
     description: CC1 port/pin select.
     byte_offset: 1800
-    fieldset: regs::TIMER4_CC1ROUTE
-  - name: TIMER4_CC2ROUTE
+    fieldset: regs::Timer4Cc1route
+  - name: timer4_cc2route
     description: CC2 port/pin select.
     byte_offset: 1804
-    fieldset: regs::TIMER4_CC2ROUTE
-  - name: TIMER4_CDTI0ROUTE
+    fieldset: regs::Timer4Cc2route
+  - name: timer4_cdti0route
     description: CDTI0 port/pin select.
     byte_offset: 1808
-    fieldset: regs::TIMER4_CDTI0ROUTE
-  - name: TIMER4_CDTI1ROUTE
+    fieldset: regs::Timer4Cdti0route
+  - name: timer4_cdti1route
     description: CDTI1 port/pin select.
     byte_offset: 1812
-    fieldset: regs::TIMER4_CDTI1ROUTE
-  - name: TIMER4_CDTI2ROUTE
+    fieldset: regs::Timer4Cdti1route
+  - name: timer4_cdti2route
     description: CDTI2 port/pin select.
     byte_offset: 1816
-    fieldset: regs::TIMER4_CDTI2ROUTE
-  - name: USART0_ROUTEEN
+    fieldset: regs::Timer4Cdti2route
+  - name: usart0_routeen
     description: USART0 pin enable.
     byte_offset: 1824
-    fieldset: regs::USART0_ROUTEEN
-  - name: USART0_CSROUTE
+    fieldset: regs::Usart0Routeen
+  - name: usart0_csroute
     description: CS port/pin select.
     byte_offset: 1828
-    fieldset: regs::USART0_CSROUTE
-  - name: USART0_CTSROUTE
+    fieldset: regs::Usart0Csroute
+  - name: usart0_ctsroute
     description: CTS port/pin select.
     byte_offset: 1832
-    fieldset: regs::USART0_CTSROUTE
-  - name: USART0_RTSROUTE
+    fieldset: regs::Usart0Ctsroute
+  - name: usart0_rtsroute
     description: RTS port/pin select.
     byte_offset: 1836
-    fieldset: regs::USART0_RTSROUTE
-  - name: USART0_RXROUTE
+    fieldset: regs::Usart0Rtsroute
+  - name: usart0_rxroute
     description: RX port/pin select.
     byte_offset: 1840
-    fieldset: regs::USART0_RXROUTE
-  - name: USART0_CLKROUTE
+    fieldset: regs::Usart0Rxroute
+  - name: usart0_clkroute
     description: SCLK port/pin select.
     byte_offset: 1844
-    fieldset: regs::USART0_CLKROUTE
-  - name: USART0_TXROUTE
+    fieldset: regs::Usart0Clkroute
+  - name: usart0_txroute
     description: TX port/pin select.
     byte_offset: 1848
-    fieldset: regs::USART0_TXROUTE
-fieldset/regs::ABUSALLOC:
+    fieldset: regs::Usart0Txroute
+fieldset/regs::Abusalloc:
   description: A Bus allocation.
   fields:
-  - name: AEVEN0
+  - name: aeven0
     description: A Bus Even 0.
     bit_offset: 0
     bit_size: 4
-    enum: vals::AEVEN0
-  - name: AEVEN1
+    enum: vals::Aeven0
+  - name: aeven1
     description: A Bus Even 1.
     bit_offset: 8
     bit_size: 4
-    enum: vals::AEVEN1
-  - name: AODD0
+    enum: vals::Aeven1
+  - name: aodd0
     description: A Bus Odd 0.
     bit_offset: 16
     bit_size: 4
-    enum: vals::AODD0
-  - name: AODD1
+    enum: vals::Aodd0
+  - name: aodd1
     description: A Bus Odd 1.
     bit_offset: 24
     bit_size: 4
-    enum: vals::AODD1
-fieldset/regs::ACMP0_ACMPOUTROUTE:
+    enum: vals::Aodd1
+fieldset/regs::Acmp0Acmpoutroute:
   description: ACMPOUT port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ACMPOUT port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ACMPOUT pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::ACMP0_ROUTEEN:
+fieldset/regs::Acmp0Routeen:
   description: ACMP0 pin enable.
   fields:
-  - name: ACMPOUTPEN
+  - name: acmpoutpen
     description: ACMPOUT pin enable control bit.
     bit_offset: 0
     bit_size: 1
-fieldset/regs::ACMP1_ACMPOUTROUTE:
+fieldset/regs::Acmp1Acmpoutroute:
   description: ACMPOUT port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ACMPOUT port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ACMPOUT pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::ACMP1_ROUTEEN:
+fieldset/regs::Acmp1Routeen:
   description: ACMP1 pin enable.
   fields:
-  - name: ACMPOUTPEN
+  - name: acmpoutpen
     description: ACMPOUT pin enable control bit.
     bit_offset: 0
     bit_size: 1
-fieldset/regs::BBUSALLOC:
+fieldset/regs::Bbusalloc:
   description: B Bus allocation.
   fields:
-  - name: BEVEN0
+  - name: beven0
     description: B Bus Even 0.
     bit_offset: 0
     bit_size: 4
-    enum: vals::BEVEN0
-  - name: BEVEN1
+    enum: vals::Beven0
+  - name: beven1
     description: B Bus Even 1.
     bit_offset: 8
     bit_size: 4
-    enum: vals::BEVEN1
-  - name: BODD0
+    enum: vals::Beven1
+  - name: bodd0
     description: B Bus Odd 0.
     bit_offset: 16
     bit_size: 4
-    enum: vals::BODD0
-  - name: BODD1
+    enum: vals::Bodd0
+  - name: bodd1
     description: B Bus Odd 1.
     bit_offset: 24
     bit_size: 4
-    enum: vals::BODD1
-fieldset/regs::CDBUSALLOC:
+    enum: vals::Bodd1
+fieldset/regs::Cdbusalloc:
   description: CD Bus allocation.
   fields:
-  - name: CDEVEN0
+  - name: cdeven0
     description: CD Bus Even 0.
     bit_offset: 0
     bit_size: 4
-    enum: vals::CDEVEN0
-  - name: CDEVEN1
+    enum: vals::Cdeven0
+  - name: cdeven1
     description: CD Bus Even 1.
     bit_offset: 8
     bit_size: 4
-    enum: vals::CDEVEN1
-  - name: CDODD0
+    enum: vals::Cdeven1
+  - name: cdodd0
     description: CD Bus Odd 0.
     bit_offset: 16
     bit_size: 4
-    enum: vals::CDODD0
-  - name: CDODD1
+    enum: vals::Cdodd0
+  - name: cdodd1
     description: CD Bus Odd 1.
     bit_offset: 24
     bit_size: 4
-    enum: vals::CDODD1
-fieldset/regs::CMU_CLKIN0ROUTE:
+    enum: vals::Cdodd1
+fieldset/regs::CmuClkin0route:
   description: CLKIN0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CLKIN0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CLKIN0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::CMU_CLKOUT0ROUTE:
+fieldset/regs::CmuClkout0route:
   description: CLKOUT0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CLKOUT0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CLKOUT0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::CMU_CLKOUT1ROUTE:
+fieldset/regs::CmuClkout1route:
   description: CLKOUT1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CLKOUT1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CLKOUT1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::CMU_CLKOUT2ROUTE:
+fieldset/regs::CmuClkout2route:
   description: CLKOUT2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CLKOUT2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CLKOUT2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::CMU_ROUTEEN:
+fieldset/regs::CmuRouteen:
   description: CMU pin enable.
   fields:
-  - name: CLKOUT0PEN
+  - name: clkout0pen
     description: CLKOUT0 pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: CLKOUT1PEN
+  - name: clkout1pen
     description: CLKOUT1 pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: CLKOUT2PEN
+  - name: clkout2pen
     description: CLKOUT2 pin enable control bit.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::DBGROUTEPEN:
+fieldset/regs::Dbgroutepen:
   description: No Description.
   fields:
-  - name: SWCLKTCKPEN
+  - name: swclktckpen
     description: Route Pin Enable.
     bit_offset: 0
     bit_size: 1
-  - name: SWDIOTMSPEN
+  - name: swdiotmspen
     description: Route Location 0.
     bit_offset: 1
     bit_size: 1
-  - name: TDOPEN
+  - name: tdopen
     description: JTAG Test Debug Output Pin Enable.
     bit_offset: 2
     bit_size: 1
-  - name: TDIPEN
+  - name: tdipen
     description: JTAG Test Debug Input Pin Enable.
     bit_offset: 3
     bit_size: 1
-fieldset/regs::EM4WUEN:
+fieldset/regs::Em4wuen:
   description: No Description.
   fields:
-  - name: EM4WUEN
+  - name: em4wuen
     description: EM4 wake up enable.
     bit_offset: 16
     bit_size: 12
-fieldset/regs::EM4WUPOL:
+fieldset/regs::Em4wupol:
   description: No Description.
   fields:
-  - name: EM4WUPOL
+  - name: em4wupol
     description: EM4 Wake-Up Polarity.
     bit_offset: 16
     bit_size: 12
-fieldset/regs::EUSART0_CSROUTE:
+fieldset/regs::Eusart0Csroute:
   description: CS port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CS port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CS pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::EUSART0_CTSROUTE:
+fieldset/regs::Eusart0Ctsroute:
   description: CTS port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CTS port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CTS pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::EUSART0_ROUTEEN:
+fieldset/regs::Eusart0Routeen:
   description: EUSART0 pin enable.
   fields:
-  - name: CSPEN
+  - name: cspen
     description: CS pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: RTSPEN
+  - name: rtspen
     description: RTS pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: RXPEN
+  - name: rxpen
     description: RX pin enable control bit.
     bit_offset: 2
     bit_size: 1
-  - name: SCLKPEN
+  - name: sclkpen
     description: SCLK pin enable control bit.
     bit_offset: 3
     bit_size: 1
-  - name: TXPEN
+  - name: txpen
     description: TX pin enable control bit.
     bit_offset: 4
     bit_size: 1
-fieldset/regs::EUSART0_RTSROUTE:
+fieldset/regs::Eusart0Rtsroute:
   description: RTS port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: RTS port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: RTS pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::EUSART0_RXROUTE:
+fieldset/regs::Eusart0Rxroute:
   description: RX port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: RX port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: RX pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::EUSART0_SCLKROUTE:
+fieldset/regs::Eusart0Sclkroute:
   description: SCLK port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: SCLK port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: SCLK pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::EUSART0_TXROUTE:
+fieldset/regs::Eusart0Txroute:
   description: TX port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: TX port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: TX pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::EUSART1_CSROUTE:
+fieldset/regs::Eusart1Csroute:
   description: CS port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CS port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CS pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::EUSART1_CTSROUTE:
+fieldset/regs::Eusart1Ctsroute:
   description: CTS port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CTS port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CTS pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::EUSART1_ROUTEEN:
+fieldset/regs::Eusart1Routeen:
   description: EUSART1 pin enable.
   fields:
-  - name: CSPEN
+  - name: cspen
     description: CS pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: RTSPEN
+  - name: rtspen
     description: RTS pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: RXPEN
+  - name: rxpen
     description: RX pin enable control bit.
     bit_offset: 2
     bit_size: 1
-  - name: SCLKPEN
+  - name: sclkpen
     description: SCLK pin enable control bit.
     bit_offset: 3
     bit_size: 1
-  - name: TXPEN
+  - name: txpen
     description: TX pin enable control bit.
     bit_offset: 4
     bit_size: 1
-fieldset/regs::EUSART1_RTSROUTE:
+fieldset/regs::Eusart1Rtsroute:
   description: RTS port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: RTS port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: RTS pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::EUSART1_RXROUTE:
+fieldset/regs::Eusart1Rxroute:
   description: RX port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: RX port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: RX pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::EUSART1_SCLKROUTE:
+fieldset/regs::Eusart1Sclkroute:
   description: SCLK port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: SCLK port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: SCLK pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::EUSART1_TXROUTE:
+fieldset/regs::Eusart1Txroute:
   description: TX port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: TX port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: TX pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::EXTIFALL:
+fieldset/regs::Extifall:
   description: External Interrupt Falling Edge Trigger.
   fields:
-  - name: EXTIFALL
+  - name: extifall
     description: EXT Int FALL.
     bit_offset: 0
     bit_size: 12
-fieldset/regs::EXTIPINSELH:
+fieldset/regs::Extipinselh:
   description: External Interrupt Pin Select High.
   fields:
-  - name: EXTIPINSEL0
+  - name: extipinsel0
     description: External Interrupt Pin select.
     bit_offset: 0
     bit_size: 2
-    enum: vals::EXTIPINSELH_EXTIPINSEL0
-  - name: EXTIPINSEL1
+    enum: vals::ExtipinselhExtipinsel0
+  - name: extipinsel1
     description: External Interrupt Pin select.
     bit_offset: 4
     bit_size: 2
-    enum: vals::EXTIPINSELH_EXTIPINSEL1
-  - name: EXTIPINSEL2
+    enum: vals::ExtipinselhExtipinsel1
+  - name: extipinsel2
     description: External Interrupt Pin select.
     bit_offset: 8
     bit_size: 2
-    enum: vals::EXTIPINSELH_EXTIPINSEL2
-  - name: EXTIPINSEL3
+    enum: vals::ExtipinselhExtipinsel2
+  - name: extipinsel3
     description: External Interrupt Pin select.
     bit_offset: 12
     bit_size: 2
-    enum: vals::EXTIPINSELH_EXTIPINSEL3
-fieldset/regs::EXTIPINSELL:
+    enum: vals::ExtipinselhExtipinsel3
+fieldset/regs::Extipinsell:
   description: External Interrupt Pin Select Low.
   fields:
-  - name: EXTIPINSEL0
+  - name: extipinsel0
     description: External Interrupt Pin select.
     bit_offset: 0
     bit_size: 2
-    enum: vals::EXTIPINSELL_EXTIPINSEL0
-  - name: EXTIPINSEL1
+    enum: vals::ExtipinsellExtipinsel0
+  - name: extipinsel1
     description: External Interrupt Pin select.
     bit_offset: 4
     bit_size: 2
-    enum: vals::EXTIPINSELL_EXTIPINSEL1
-  - name: EXTIPINSEL2
+    enum: vals::ExtipinsellExtipinsel1
+  - name: extipinsel2
     description: External Interrupt Pin select.
     bit_offset: 8
     bit_size: 2
-    enum: vals::EXTIPINSELL_EXTIPINSEL2
-  - name: EXTIPINSEL3
+    enum: vals::ExtipinsellExtipinsel2
+  - name: extipinsel3
     description: External Interrupt Pin select.
     bit_offset: 12
     bit_size: 2
-    enum: vals::EXTIPINSELL_EXTIPINSEL3
-  - name: EXTIPINSEL4
+    enum: vals::ExtipinsellExtipinsel3
+  - name: extipinsel4
     description: External Interrupt Pin select.
     bit_offset: 16
     bit_size: 2
-    enum: vals::EXTIPINSEL4
-  - name: EXTIPINSEL5
+    enum: vals::Extipinsel4
+  - name: extipinsel5
     description: External Interrupt Pin select.
     bit_offset: 20
     bit_size: 2
-    enum: vals::EXTIPINSEL5
-  - name: EXTIPINSEL6
+    enum: vals::Extipinsel5
+  - name: extipinsel6
     description: External Interrupt Pin select.
     bit_offset: 24
     bit_size: 2
-    enum: vals::EXTIPINSEL6
-  - name: EXTIPINSEL7
+    enum: vals::Extipinsel6
+  - name: extipinsel7
     description: External Interrupt Pin select.
     bit_offset: 28
     bit_size: 2
-    enum: vals::EXTIPINSEL7
-fieldset/regs::EXTIPSELH:
+    enum: vals::Extipinsel7
+fieldset/regs::Extipselh:
   description: External interrupt Port Select High.
   fields:
-  - name: EXTIPSEL0
+  - name: extipsel0
     description: External Interrupt Port Select.
     bit_offset: 0
     bit_size: 2
-    enum: vals::EXTIPSELH_EXTIPSEL0
-  - name: EXTIPSEL1
+    enum: vals::ExtipselhExtipsel0
+  - name: extipsel1
     description: External Interrupt Port Select.
     bit_offset: 4
     bit_size: 2
-    enum: vals::EXTIPSELH_EXTIPSEL1
-  - name: EXTIPSEL2
+    enum: vals::ExtipselhExtipsel1
+  - name: extipsel2
     description: External Interrupt Port Select.
     bit_offset: 8
     bit_size: 2
-    enum: vals::EXTIPSELH_EXTIPSEL2
-  - name: EXTIPSEL3
+    enum: vals::ExtipselhExtipsel2
+  - name: extipsel3
     description: External Interrupt Port Select.
     bit_offset: 12
     bit_size: 2
-    enum: vals::EXTIPSELH_EXTIPSEL3
-fieldset/regs::EXTIPSELL:
+    enum: vals::ExtipselhExtipsel3
+fieldset/regs::Extipsell:
   description: External Interrupt Port Select Low.
   fields:
-  - name: EXTIPSEL0
+  - name: extipsel0
     description: External Interrupt Port Select.
     bit_offset: 0
     bit_size: 2
-    enum: vals::EXTIPSELL_EXTIPSEL0
-  - name: EXTIPSEL1
+    enum: vals::ExtipsellExtipsel0
+  - name: extipsel1
     description: External Interrupt Port Select.
     bit_offset: 4
     bit_size: 2
-    enum: vals::EXTIPSELL_EXTIPSEL1
-  - name: EXTIPSEL2
+    enum: vals::ExtipsellExtipsel1
+  - name: extipsel2
     description: External Interrupt Port Select.
     bit_offset: 8
     bit_size: 2
-    enum: vals::EXTIPSELL_EXTIPSEL2
-  - name: EXTIPSEL3
+    enum: vals::ExtipsellExtipsel2
+  - name: extipsel3
     description: External Interrupt Port Select.
     bit_offset: 12
     bit_size: 2
-    enum: vals::EXTIPSELL_EXTIPSEL3
-  - name: EXTIPSEL4
+    enum: vals::ExtipsellExtipsel3
+  - name: extipsel4
     description: External Interrupt Port Select.
     bit_offset: 16
     bit_size: 2
-    enum: vals::EXTIPSEL4
-  - name: EXTIPSEL5
+    enum: vals::Extipsel4
+  - name: extipsel5
     description: External Interrupt Port Select.
     bit_offset: 20
     bit_size: 2
-    enum: vals::EXTIPSEL5
-  - name: EXTIPSEL6
+    enum: vals::Extipsel5
+  - name: extipsel6
     description: External Interrupt Port Select.
     bit_offset: 24
     bit_size: 2
-    enum: vals::EXTIPSEL6
-  - name: EXTIPSEL7
+    enum: vals::Extipsel6
+  - name: extipsel7
     description: External Interrupt Port Select.
     bit_offset: 28
     bit_size: 2
-    enum: vals::EXTIPSEL7
-fieldset/regs::EXTIRISE:
+    enum: vals::Extipsel7
+fieldset/regs::Extirise:
   description: External Interrupt Rising Edge Trigger.
   fields:
-  - name: EXTIRISE
+  - name: extirise
     description: EXT Int Rise.
     bit_offset: 0
     bit_size: 12
-fieldset/regs::FRC_DCLKROUTE:
+fieldset/regs::FrcDclkroute:
   description: DCLK port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: DCLK port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: DCLK pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::FRC_DFRAMEROUTE:
+fieldset/regs::FrcDframeroute:
   description: DFRAME port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: DFRAME port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: DFRAME pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::FRC_DOUTROUTE:
+fieldset/regs::FrcDoutroute:
   description: DOUT port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: DOUT port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: DOUT pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::FRC_ROUTEEN:
+fieldset/regs::FrcRouteen:
   description: FRC pin enable.
   fields:
-  - name: DCLKPEN
+  - name: dclkpen
     description: DCLK pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: DFRAMEPEN
+  - name: dframepen
     description: DFRAME pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: DOUTPEN
+  - name: doutpen
     description: DOUT pin enable control bit.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::GPIOLOCKSTATUS:
+fieldset/regs::Gpiolockstatus:
   description: No Description.
   fields:
-  - name: LOCK
+  - name: lock
     description: GPIO LOCK status.
     bit_offset: 0
     bit_size: 1
-fieldset/regs::I2C0_ROUTEEN:
+fieldset/regs::I2c0Routeen:
   description: I2C0 pin enable.
   fields:
-  - name: SCLPEN
+  - name: sclpen
     description: SCL pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: SDAPEN
+  - name: sdapen
     description: SDA pin enable control bit.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::I2C0_SCLROUTE:
+fieldset/regs::I2c0Sclroute:
   description: SCL port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: SCL port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: SCL pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::I2C0_SDAROUTE:
+fieldset/regs::I2c0Sdaroute:
   description: SDA port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: SDA port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: SDA pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::I2C1_ROUTEEN:
+fieldset/regs::I2c1Routeen:
   description: I2C1 pin enable.
   fields:
-  - name: SCLPEN
+  - name: sclpen
     description: SCL pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: SDAPEN
+  - name: sdapen
     description: SDA pin enable control bit.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::I2C1_SCLROUTE:
+fieldset/regs::I2c1Sclroute:
   description: SCL port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: SCL port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: SCL pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::I2C1_SDAROUTE:
+fieldset/regs::I2c1Sdaroute:
   description: SDA port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: SDA port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: SDA pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::IEN:
+fieldset/regs::Ien:
   description: Interrupt Enable.
   fields:
-  - name: EXTIEN0
+  - name: extien0
     description: External Pin Enable.
     bit_offset: 0
     bit_size: 1
-  - name: EXTIEN1
+  - name: extien1
     description: External Pin Enable.
     bit_offset: 1
     bit_size: 1
-  - name: EXTIEN2
+  - name: extien2
     description: External Pin Enable.
     bit_offset: 2
     bit_size: 1
-  - name: EXTIEN3
+  - name: extien3
     description: External Pin Enable.
     bit_offset: 3
     bit_size: 1
-  - name: EXTIEN4
+  - name: extien4
     description: External Pin Enable.
     bit_offset: 4
     bit_size: 1
-  - name: EXTIEN5
+  - name: extien5
     description: External Pin Enable.
     bit_offset: 5
     bit_size: 1
-  - name: EXTIEN6
+  - name: extien6
     description: External Pin Enable.
     bit_offset: 6
     bit_size: 1
-  - name: EXTIEN7
+  - name: extien7
     description: External Pin Enable.
     bit_offset: 7
     bit_size: 1
-  - name: EXTIEN8
+  - name: extien8
     description: External Pin Enable.
     bit_offset: 8
     bit_size: 1
-  - name: EXTIEN9
+  - name: extien9
     description: External Pin Enable.
     bit_offset: 9
     bit_size: 1
-  - name: EXTIEN10
+  - name: extien10
     description: External Pin Enable.
     bit_offset: 10
     bit_size: 1
-  - name: EXTIEN11
+  - name: extien11
     description: External Pin Enable.
     bit_offset: 11
     bit_size: 1
-  - name: EM4WUIEN0
+  - name: em4wuien0
     description: EM4 Wake Up Interrupt En.
     bit_offset: 16
     bit_size: 1
-  - name: EM4WUIEN1
+  - name: em4wuien1
     description: EM4 Wake Up Interrupt En.
     bit_offset: 17
     bit_size: 1
-  - name: EM4WUIEN2
+  - name: em4wuien2
     description: EM4 Wake Up Interrupt En.
     bit_offset: 18
     bit_size: 1
-  - name: EM4WUIEN3
+  - name: em4wuien3
     description: EM4 Wake Up Interrupt En.
     bit_offset: 19
     bit_size: 1
-  - name: EM4WUIEN4
+  - name: em4wuien4
     description: EM4 Wake Up Interrupt En.
     bit_offset: 20
     bit_size: 1
-  - name: EM4WUIEN5
+  - name: em4wuien5
     description: EM4 Wake Up Interrupt En.
     bit_offset: 21
     bit_size: 1
-  - name: EM4WUIEN6
+  - name: em4wuien6
     description: EM4 Wake Up Interrupt En.
     bit_offset: 22
     bit_size: 1
-  - name: EM4WUIEN7
+  - name: em4wuien7
     description: EM4 Wake Up Interrupt En.
     bit_offset: 23
     bit_size: 1
-  - name: EM4WUIEN8
+  - name: em4wuien8
     description: EM4 Wake Up Interrupt En.
     bit_offset: 24
     bit_size: 1
-  - name: EM4WUIEN9
+  - name: em4wuien9
     description: EM4 Wake Up Interrupt En.
     bit_offset: 25
     bit_size: 1
-  - name: EM4WUIEN10
+  - name: em4wuien10
     description: EM4 Wake Up Interrupt En.
     bit_offset: 26
     bit_size: 1
-  - name: EM4WUIEN11
+  - name: em4wuien11
     description: EM4 Wake Up Interrupt En.
     bit_offset: 27
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: Interrupt Flag.
   fields:
-  - name: EXTIF0
+  - name: extif0
     description: External Pin Flag.
     bit_offset: 0
     bit_size: 1
-  - name: EXTIF1
+  - name: extif1
     description: External Pin Flag.
     bit_offset: 1
     bit_size: 1
-  - name: EXTIF2
+  - name: extif2
     description: External Pin Flag.
     bit_offset: 2
     bit_size: 1
-  - name: EXTIF3
+  - name: extif3
     description: External Pin Flag.
     bit_offset: 3
     bit_size: 1
-  - name: EXTIF4
+  - name: extif4
     description: External Pin Flag.
     bit_offset: 4
     bit_size: 1
-  - name: EXTIF5
+  - name: extif5
     description: External Pin Flag.
     bit_offset: 5
     bit_size: 1
-  - name: EXTIF6
+  - name: extif6
     description: External Pin Flag.
     bit_offset: 6
     bit_size: 1
-  - name: EXTIF7
+  - name: extif7
     description: External Pin Flag.
     bit_offset: 7
     bit_size: 1
-  - name: EXTIF8
+  - name: extif8
     description: External Pin Flag.
     bit_offset: 8
     bit_size: 1
-  - name: EXTIF9
+  - name: extif9
     description: External Pin Flag.
     bit_offset: 9
     bit_size: 1
-  - name: EXTIF10
+  - name: extif10
     description: External Pin Flag.
     bit_offset: 10
     bit_size: 1
-  - name: EXTIF11
+  - name: extif11
     description: External Pin Flag.
     bit_offset: 11
     bit_size: 1
-  - name: EM4WU
+  - name: em4wu
     description: EM4 wake up.
     bit_offset: 16
     bit_size: 12
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: ip version id.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::KEYSCAN_COLOUT0ROUTE:
+fieldset/regs::KeyscanColout0route:
   description: COLOUT0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: COLOUT0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: COLOUT0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_COLOUT1ROUTE:
+fieldset/regs::KeyscanColout1route:
   description: COLOUT1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: COLOUT1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: COLOUT1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_COLOUT2ROUTE:
+fieldset/regs::KeyscanColout2route:
   description: COLOUT2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: COLOUT2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: COLOUT2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_COLOUT3ROUTE:
+fieldset/regs::KeyscanColout3route:
   description: COLOUT3 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: COLOUT3 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: COLOUT3 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_COLOUT4ROUTE:
+fieldset/regs::KeyscanColout4route:
   description: COLOUT4 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: COLOUT4 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: COLOUT4 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_COLOUT5ROUTE:
+fieldset/regs::KeyscanColout5route:
   description: COLOUT5 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: COLOUT5 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: COLOUT5 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_COLOUT6ROUTE:
+fieldset/regs::KeyscanColout6route:
   description: COLOUT6 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: COLOUT6 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: COLOUT6 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_COLOUT7ROUTE:
+fieldset/regs::KeyscanColout7route:
   description: COLOUT7 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: COLOUT7 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: COLOUT7 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_ROUTEEN:
+fieldset/regs::KeyscanRouteen:
   description: KEYSCAN pin enable.
   fields:
-  - name: COLOUT0PEN
+  - name: colout0pen
     description: COLOUT0 pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: COLOUT1PEN
+  - name: colout1pen
     description: COLOUT1 pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: COLOUT2PEN
+  - name: colout2pen
     description: COLOUT2 pin enable control bit.
     bit_offset: 2
     bit_size: 1
-  - name: COLOUT3PEN
+  - name: colout3pen
     description: COLOUT3 pin enable control bit.
     bit_offset: 3
     bit_size: 1
-  - name: COLOUT4PEN
+  - name: colout4pen
     description: COLOUT4 pin enable control bit.
     bit_offset: 4
     bit_size: 1
-  - name: COLOUT5PEN
+  - name: colout5pen
     description: COLOUT5 pin enable control bit.
     bit_offset: 5
     bit_size: 1
-  - name: COLOUT6PEN
+  - name: colout6pen
     description: COLOUT6 pin enable control bit.
     bit_offset: 6
     bit_size: 1
-  - name: COLOUT7PEN
+  - name: colout7pen
     description: COLOUT7 pin enable control bit.
     bit_offset: 7
     bit_size: 1
-fieldset/regs::KEYSCAN_ROWSENSE0ROUTE:
+fieldset/regs::KeyscanRowsense0route:
   description: ROWSENSE0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ROWSENSE0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ROWSENSE0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_ROWSENSE1ROUTE:
+fieldset/regs::KeyscanRowsense1route:
   description: ROWSENSE1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ROWSENSE1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ROWSENSE1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_ROWSENSE2ROUTE:
+fieldset/regs::KeyscanRowsense2route:
   description: ROWSENSE2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ROWSENSE2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ROWSENSE2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_ROWSENSE3ROUTE:
+fieldset/regs::KeyscanRowsense3route:
   description: ROWSENSE3 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ROWSENSE3 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ROWSENSE3 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_ROWSENSE4ROUTE:
+fieldset/regs::KeyscanRowsense4route:
   description: ROWSENSE4 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ROWSENSE4 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ROWSENSE4 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::KEYSCAN_ROWSENSE5ROUTE:
+fieldset/regs::KeyscanRowsense5route:
   description: ROWSENSE5 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ROWSENSE5 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ROWSENSE5 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::LETIMER_OUT0ROUTE:
+fieldset/regs::LetimerOut0route:
   description: OUT0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: OUT0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: OUT0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::LETIMER_OUT1ROUTE:
+fieldset/regs::LetimerOut1route:
   description: OUT1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: OUT1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: OUT1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::LETIMER_ROUTEEN:
+fieldset/regs::LetimerRouteen:
   description: LETIMER pin enable.
   fields:
-  - name: OUT0PEN
+  - name: out0pen
     description: OUT0 pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: OUT1PEN
+  - name: out1pen
     description: OUT1 pin enable control bit.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::LOCK:
+fieldset/regs::Lock:
   description: No Description.
   fields:
-  - name: LOCKKEY
+  - name: lockkey
     description: Configuration Lock Key.
     bit_offset: 0
     bit_size: 16
-    enum: vals::LOCKKEY
-fieldset/regs::MODEM_ANT0ROUTE:
+    enum: vals::Lockkey
+fieldset/regs::ModemAnt0route:
   description: ANT0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANT0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANT0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ANT1ROUTE:
+fieldset/regs::ModemAnt1route:
   description: ANT1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANT1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANT1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ANTROLLOVERROUTE:
+fieldset/regs::ModemAntrolloverroute:
   description: ANTROLLOVER port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANTROLLOVER port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANTROLLOVER pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ANTRR0ROUTE:
+fieldset/regs::ModemAntrr0route:
   description: ANTRR0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANTRR0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANTRR0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ANTRR1ROUTE:
+fieldset/regs::ModemAntrr1route:
   description: ANTRR1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANTRR1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANTRR1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ANTRR2ROUTE:
+fieldset/regs::ModemAntrr2route:
   description: ANTRR2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANTRR2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANTRR2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ANTRR3ROUTE:
+fieldset/regs::ModemAntrr3route:
   description: ANTRR3 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANTRR3 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANTRR3 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ANTRR4ROUTE:
+fieldset/regs::ModemAntrr4route:
   description: ANTRR4 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANTRR4 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANTRR4 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ANTRR5ROUTE:
+fieldset/regs::ModemAntrr5route:
   description: ANTRR5 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANTRR5 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANTRR5 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ANTSWENROUTE:
+fieldset/regs::ModemAntswenroute:
   description: ANTSWEN port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANTSWEN port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANTSWEN pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ANTSWUSROUTE:
+fieldset/regs::ModemAntswusroute:
   description: ANTSWUS port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANTSWUS port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANTSWUS pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ANTTRIGROUTE:
+fieldset/regs::ModemAnttrigroute:
   description: ANTTRIG port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANTTRIG port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANTTRIG pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ANTTRIGSTOPROUTE:
+fieldset/regs::ModemAnttrigstoproute:
   description: ANTTRIGSTOP port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ANTTRIGSTOP port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ANTTRIGSTOP pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_DCLKROUTE:
+fieldset/regs::ModemDclkroute:
   description: DCLK port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: DCLK port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: DCLK pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_DINROUTE:
+fieldset/regs::ModemDinroute:
   description: DIN port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: DIN port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: DIN pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_DOUTROUTE:
+fieldset/regs::ModemDoutroute:
   description: DOUT port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: DOUT port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: DOUT pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::MODEM_ROUTEEN:
+fieldset/regs::ModemRouteen:
   description: MODEM pin enable.
   fields:
-  - name: ANT0PEN
+  - name: ant0pen
     description: ANT0 pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: ANT1PEN
+  - name: ant1pen
     description: ANT1 pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: ANTROLLOVERPEN
+  - name: antrolloverpen
     description: ANTROLLOVER pin enable control bit.
     bit_offset: 2
     bit_size: 1
-  - name: ANTRR0PEN
+  - name: antrr0pen
     description: ANTRR0 pin enable control bit.
     bit_offset: 3
     bit_size: 1
-  - name: ANTRR1PEN
+  - name: antrr1pen
     description: ANTRR1 pin enable control bit.
     bit_offset: 4
     bit_size: 1
-  - name: ANTRR2PEN
+  - name: antrr2pen
     description: ANTRR2 pin enable control bit.
     bit_offset: 5
     bit_size: 1
-  - name: ANTRR3PEN
+  - name: antrr3pen
     description: ANTRR3 pin enable control bit.
     bit_offset: 6
     bit_size: 1
-  - name: ANTRR4PEN
+  - name: antrr4pen
     description: ANTRR4 pin enable control bit.
     bit_offset: 7
     bit_size: 1
-  - name: ANTRR5PEN
+  - name: antrr5pen
     description: ANTRR5 pin enable control bit.
     bit_offset: 8
     bit_size: 1
-  - name: ANTSWENPEN
+  - name: antswenpen
     description: ANTSWEN pin enable control bit.
     bit_offset: 9
     bit_size: 1
-  - name: ANTSWUSPEN
+  - name: antswuspen
     description: ANTSWUS pin enable control bit.
     bit_offset: 10
     bit_size: 1
-  - name: ANTTRIGPEN
+  - name: anttrigpen
     description: ANTTRIG pin enable control bit.
     bit_offset: 11
     bit_size: 1
-  - name: ANTTRIGSTOPPEN
+  - name: anttrigstoppen
     description: ANTTRIGSTOP pin enable control bit.
     bit_offset: 12
     bit_size: 1
-  - name: DCLKPEN
+  - name: dclkpen
     description: DCLK pin enable control bit.
     bit_offset: 13
     bit_size: 1
-  - name: DOUTPEN
+  - name: doutpen
     description: DOUT pin enable control bit.
     bit_offset: 14
     bit_size: 1
-fieldset/regs::PCNT0_S0INROUTE:
+fieldset/regs::Pcnt0S0inroute:
   description: S0IN port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: S0IN port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: S0IN pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PCNT0_S1INROUTE:
+fieldset/regs::Pcnt0S1inroute:
   description: S1IN port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: S1IN port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: S1IN pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PORT_CTRL:
+fieldset/regs::PortCtrl:
   description: Port control.
   fields:
-  - name: SLEWRATE
+  - name: slewrate
     description: Slew Rate.
     bit_offset: 4
     bit_size: 3
-  - name: DINDIS
+  - name: dindis
     description: Data In Disable.
     bit_offset: 12
     bit_size: 1
-  - name: SLEWRATEALT
+  - name: slewratealt
     description: Slew Rate Alt.
     bit_offset: 20
     bit_size: 3
-  - name: DINDISALT
+  - name: dindisalt
     description: Data In Disable Alt.
     bit_offset: 28
     bit_size: 1
-fieldset/regs::PORT_DIN:
+fieldset/regs::PortDin:
   description: data in.
   fields:
-  - name: DIN
+  - name: din
     description: Data input.
     bit_offset: 0
     bit_size: 10
-fieldset/regs::PORT_DOUT:
+fieldset/regs::PortDout:
   description: data out.
   fields:
-  - name: DOUT
+  - name: dout
     description: Data output.
     bit_offset: 0
     bit_size: 10
-fieldset/regs::PORT_MODEH:
+fieldset/regs::PortModeh:
   description: mode high.
   fields:
-  - name: MODE0
+  - name: mode0
     description: MODE n.
     bit_offset: 0
     bit_size: 4
-    enum: vals::PORTA_MODEH_MODE0
-  - name: MODE1
+    enum: vals::PortaModehMode0
+  - name: mode1
     description: MODE n.
     bit_offset: 4
     bit_size: 4
-    enum: vals::PORTA_MODEH_MODE1
-fieldset/regs::PORT_MODEL:
+    enum: vals::PortaModehMode1
+fieldset/regs::PortModel:
   description: mode low.
   fields:
-  - name: MODE0
+  - name: mode0
     description: MODE n.
     bit_offset: 0
     bit_size: 4
-    enum: vals::PORTA_MODEL_MODE0
-  - name: MODE1
+    enum: vals::PortaModelMode0
+  - name: mode1
     description: MODE n.
     bit_offset: 4
     bit_size: 4
-    enum: vals::PORTA_MODEL_MODE1
-  - name: MODE2
+    enum: vals::PortaModelMode1
+  - name: mode2
     description: MODE n.
     bit_offset: 8
     bit_size: 4
-    enum: vals::PORTA_MODEL_MODE2
-  - name: MODE3
+    enum: vals::PortaModelMode2
+  - name: mode3
     description: MODE n.
     bit_offset: 12
     bit_size: 4
-    enum: vals::PORTA_MODEL_MODE3
-  - name: MODE4
+    enum: vals::PortaModelMode3
+  - name: mode4
     description: MODE n.
     bit_offset: 16
     bit_size: 4
-    enum: vals::PORTA_MODEL_MODE4
-  - name: MODE5
+    enum: vals::PortaModelMode4
+  - name: mode5
     description: MODE n.
     bit_offset: 20
     bit_size: 4
-    enum: vals::PORTA_MODEL_MODE5
-  - name: MODE6
+    enum: vals::PortaModelMode5
+  - name: mode6
     description: MODE n.
     bit_offset: 24
     bit_size: 4
-    enum: vals::PORTA_MODEL_MODE6
-  - name: MODE7
+    enum: vals::PortaModelMode6
+  - name: mode7
     description: MODE n.
     bit_offset: 28
     bit_size: 4
-    enum: vals::PORTA_MODEL_MODE7
-fieldset/regs::PRS0_ASYNCH0ROUTE:
+    enum: vals::PortaModelMode7
+fieldset/regs::Prs0Asynch0route:
   description: ASYNCH0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH10ROUTE:
+fieldset/regs::Prs0Asynch10route:
   description: ASYNCH10 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH10 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH10 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH11ROUTE:
+fieldset/regs::Prs0Asynch11route:
   description: ASYNCH11 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH11 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH11 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH12ROUTE:
+fieldset/regs::Prs0Asynch12route:
   description: ASYNCH12 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH12 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH12 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH13ROUTE:
+fieldset/regs::Prs0Asynch13route:
   description: ASYNCH13 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH13 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH13 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH14ROUTE:
+fieldset/regs::Prs0Asynch14route:
   description: ASYNCH14 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH14 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH14 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH15ROUTE:
+fieldset/regs::Prs0Asynch15route:
   description: ASYNCH15 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH15 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH15 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH1ROUTE:
+fieldset/regs::Prs0Asynch1route:
   description: ASYNCH1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH2ROUTE:
+fieldset/regs::Prs0Asynch2route:
   description: ASYNCH2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH3ROUTE:
+fieldset/regs::Prs0Asynch3route:
   description: ASYNCH3 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH3 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH3 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH4ROUTE:
+fieldset/regs::Prs0Asynch4route:
   description: ASYNCH4 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH4 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH4 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH5ROUTE:
+fieldset/regs::Prs0Asynch5route:
   description: ASYNCH5 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH5 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH5 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH6ROUTE:
+fieldset/regs::Prs0Asynch6route:
   description: ASYNCH6 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH6 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH6 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH7ROUTE:
+fieldset/regs::Prs0Asynch7route:
   description: ASYNCH7 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH7 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH7 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH8ROUTE:
+fieldset/regs::Prs0Asynch8route:
   description: ASYNCH8 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH8 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH8 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ASYNCH9ROUTE:
+fieldset/regs::Prs0Asynch9route:
   description: ASYNCH9 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: ASYNCH9 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: ASYNCH9 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_ROUTEEN:
+fieldset/regs::Prs0Routeen:
   description: PRS0 pin enable.
   fields:
-  - name: ASYNCH0PEN
+  - name: asynch0pen
     description: ASYNCH0 pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: ASYNCH1PEN
+  - name: asynch1pen
     description: ASYNCH1 pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: ASYNCH2PEN
+  - name: asynch2pen
     description: ASYNCH2 pin enable control bit.
     bit_offset: 2
     bit_size: 1
-  - name: ASYNCH3PEN
+  - name: asynch3pen
     description: ASYNCH3 pin enable control bit.
     bit_offset: 3
     bit_size: 1
-  - name: ASYNCH4PEN
+  - name: asynch4pen
     description: ASYNCH4 pin enable control bit.
     bit_offset: 4
     bit_size: 1
-  - name: ASYNCH5PEN
+  - name: asynch5pen
     description: ASYNCH5 pin enable control bit.
     bit_offset: 5
     bit_size: 1
-  - name: ASYNCH6PEN
+  - name: asynch6pen
     description: ASYNCH6 pin enable control bit.
     bit_offset: 6
     bit_size: 1
-  - name: ASYNCH7PEN
+  - name: asynch7pen
     description: ASYNCH7 pin enable control bit.
     bit_offset: 7
     bit_size: 1
-  - name: ASYNCH8PEN
+  - name: asynch8pen
     description: ASYNCH8 pin enable control bit.
     bit_offset: 8
     bit_size: 1
-  - name: ASYNCH9PEN
+  - name: asynch9pen
     description: ASYNCH9 pin enable control bit.
     bit_offset: 9
     bit_size: 1
-  - name: ASYNCH10PEN
+  - name: asynch10pen
     description: ASYNCH10 pin enable control bit.
     bit_offset: 10
     bit_size: 1
-  - name: ASYNCH11PEN
+  - name: asynch11pen
     description: ASYNCH11 pin enable control bit.
     bit_offset: 11
     bit_size: 1
-  - name: ASYNCH12PEN
+  - name: asynch12pen
     description: ASYNCH12 pin enable control bit.
     bit_offset: 12
     bit_size: 1
-  - name: ASYNCH13PEN
+  - name: asynch13pen
     description: ASYNCH13 pin enable control bit.
     bit_offset: 13
     bit_size: 1
-  - name: ASYNCH14PEN
+  - name: asynch14pen
     description: ASYNCH14 pin enable control bit.
     bit_offset: 14
     bit_size: 1
-  - name: ASYNCH15PEN
+  - name: asynch15pen
     description: ASYNCH15 pin enable control bit.
     bit_offset: 15
     bit_size: 1
-  - name: SYNCH0PEN
+  - name: synch0pen
     description: SYNCH0 pin enable control bit.
     bit_offset: 16
     bit_size: 1
-  - name: SYNCH1PEN
+  - name: synch1pen
     description: SYNCH1 pin enable control bit.
     bit_offset: 17
     bit_size: 1
-  - name: SYNCH2PEN
+  - name: synch2pen
     description: SYNCH2 pin enable control bit.
     bit_offset: 18
     bit_size: 1
-  - name: SYNCH3PEN
+  - name: synch3pen
     description: SYNCH3 pin enable control bit.
     bit_offset: 19
     bit_size: 1
-fieldset/regs::PRS0_SYNCH0ROUTE:
+fieldset/regs::Prs0Synch0route:
   description: SYNCH0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: SYNCH0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: SYNCH0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_SYNCH1ROUTE:
+fieldset/regs::Prs0Synch1route:
   description: SYNCH1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: SYNCH1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: SYNCH1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_SYNCH2ROUTE:
+fieldset/regs::Prs0Synch2route:
   description: SYNCH2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: SYNCH2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: SYNCH2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::PRS0_SYNCH3ROUTE:
+fieldset/regs::Prs0Synch3route:
   description: SYNCH3 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: SYNCH3 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: SYNCH3 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::RAC_LNAENROUTE:
+fieldset/regs::RacLnaenroute:
   description: LNAEN port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: LNAEN port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: LNAEN pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::RAC_PAENROUTE:
+fieldset/regs::RacPaenroute:
   description: PAEN port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: PAEN port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: PAEN pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::RAC_ROUTEEN:
+fieldset/regs::RacRouteen:
   description: RAC pin enable.
   fields:
-  - name: LNAENPEN
+  - name: lnaenpen
     description: LNAEN pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: PAENPEN
+  - name: paenpen
     description: PAEN pin enable control bit.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::SYXO0_BUFOUTREQINASYNCROUTE:
+fieldset/regs::Syxo0Bufoutreqinasyncroute:
   description: BUFOUTREQINASYNC port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: BUFOUTREQINASYNC port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: BUFOUTREQINASYNC pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER0_CC0ROUTE:
+fieldset/regs::Timer0Cc0route:
   description: CC0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER0_CC1ROUTE:
+fieldset/regs::Timer0Cc1route:
   description: CC1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER0_CC2ROUTE:
+fieldset/regs::Timer0Cc2route:
   description: CC2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER0_CDTI0ROUTE:
+fieldset/regs::Timer0Cdti0route:
   description: CDTI0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER0_CDTI1ROUTE:
+fieldset/regs::Timer0Cdti1route:
   description: CDTI1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER0_CDTI2ROUTE:
+fieldset/regs::Timer0Cdti2route:
   description: CDTI2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER0_ROUTEEN:
+fieldset/regs::Timer0Routeen:
   description: TIMER0 pin enable.
   fields:
-  - name: CC0PEN
+  - name: cc0pen
     description: CC0 pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: CC1PEN
+  - name: cc1pen
     description: CC1 pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: CC2PEN
+  - name: cc2pen
     description: CC2 pin enable control bit.
     bit_offset: 2
     bit_size: 1
-  - name: CCC0PEN
+  - name: ccc0pen
     description: CDTI0 pin enable control bit.
     bit_offset: 3
     bit_size: 1
-  - name: CCC1PEN
+  - name: ccc1pen
     description: CDTI1 pin enable control bit.
     bit_offset: 4
     bit_size: 1
-  - name: CCC2PEN
+  - name: ccc2pen
     description: CDTI2 pin enable control bit.
     bit_offset: 5
     bit_size: 1
-fieldset/regs::TIMER1_CC0ROUTE:
+fieldset/regs::Timer1Cc0route:
   description: CC0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER1_CC1ROUTE:
+fieldset/regs::Timer1Cc1route:
   description: CC1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER1_CC2ROUTE:
+fieldset/regs::Timer1Cc2route:
   description: CC2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER1_CDTI0ROUTE:
+fieldset/regs::Timer1Cdti0route:
   description: CDTI0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER1_CDTI1ROUTE:
+fieldset/regs::Timer1Cdti1route:
   description: CDTI1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER1_CDTI2ROUTE:
+fieldset/regs::Timer1Cdti2route:
   description: CDTI2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER1_ROUTEEN:
+fieldset/regs::Timer1Routeen:
   description: TIMER1 pin enable.
   fields:
-  - name: CC0PEN
+  - name: cc0pen
     description: CC0 pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: CC1PEN
+  - name: cc1pen
     description: CC1 pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: CC2PEN
+  - name: cc2pen
     description: CC2 pin enable control bit.
     bit_offset: 2
     bit_size: 1
-  - name: CCC0PEN
+  - name: ccc0pen
     description: CDTI0 pin enable control bit.
     bit_offset: 3
     bit_size: 1
-  - name: CCC1PEN
+  - name: ccc1pen
     description: CDTI1 pin enable control bit.
     bit_offset: 4
     bit_size: 1
-  - name: CCC2PEN
+  - name: ccc2pen
     description: CDTI2 pin enable control bit.
     bit_offset: 5
     bit_size: 1
-fieldset/regs::TIMER2_CC0ROUTE:
+fieldset/regs::Timer2Cc0route:
   description: CC0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER2_CC1ROUTE:
+fieldset/regs::Timer2Cc1route:
   description: CC1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER2_CC2ROUTE:
+fieldset/regs::Timer2Cc2route:
   description: CC2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER2_CDTI0ROUTE:
+fieldset/regs::Timer2Cdti0route:
   description: CDTI0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER2_CDTI1ROUTE:
+fieldset/regs::Timer2Cdti1route:
   description: CDTI1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER2_CDTI2ROUTE:
+fieldset/regs::Timer2Cdti2route:
   description: CDTI2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER2_ROUTEEN:
+fieldset/regs::Timer2Routeen:
   description: TIMER2 pin enable.
   fields:
-  - name: CC0PEN
+  - name: cc0pen
     description: CC0 pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: CC1PEN
+  - name: cc1pen
     description: CC1 pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: CC2PEN
+  - name: cc2pen
     description: CC2 pin enable control bit.
     bit_offset: 2
     bit_size: 1
-  - name: CCC0PEN
+  - name: ccc0pen
     description: CDTI0 pin enable control bit.
     bit_offset: 3
     bit_size: 1
-  - name: CCC1PEN
+  - name: ccc1pen
     description: CDTI1 pin enable control bit.
     bit_offset: 4
     bit_size: 1
-  - name: CCC2PEN
+  - name: ccc2pen
     description: CDTI2 pin enable control bit.
     bit_offset: 5
     bit_size: 1
-fieldset/regs::TIMER3_CC0ROUTE:
+fieldset/regs::Timer3Cc0route:
   description: CC0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER3_CC1ROUTE:
+fieldset/regs::Timer3Cc1route:
   description: CC1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER3_CC2ROUTE:
+fieldset/regs::Timer3Cc2route:
   description: CC2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER3_CDTI0ROUTE:
+fieldset/regs::Timer3Cdti0route:
   description: CDTI0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER3_CDTI1ROUTE:
+fieldset/regs::Timer3Cdti1route:
   description: CDTI1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER3_CDTI2ROUTE:
+fieldset/regs::Timer3Cdti2route:
   description: CDTI2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER3_ROUTEEN:
+fieldset/regs::Timer3Routeen:
   description: TIMER3 pin enable.
   fields:
-  - name: CC0PEN
+  - name: cc0pen
     description: CC0 pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: CC1PEN
+  - name: cc1pen
     description: CC1 pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: CC2PEN
+  - name: cc2pen
     description: CC2 pin enable control bit.
     bit_offset: 2
     bit_size: 1
-  - name: CCC0PEN
+  - name: ccc0pen
     description: CDTI0 pin enable control bit.
     bit_offset: 3
     bit_size: 1
-  - name: CCC1PEN
+  - name: ccc1pen
     description: CDTI1 pin enable control bit.
     bit_offset: 4
     bit_size: 1
-  - name: CCC2PEN
+  - name: ccc2pen
     description: CDTI2 pin enable control bit.
     bit_offset: 5
     bit_size: 1
-fieldset/regs::TIMER4_CC0ROUTE:
+fieldset/regs::Timer4Cc0route:
   description: CC0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER4_CC1ROUTE:
+fieldset/regs::Timer4Cc1route:
   description: CC1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER4_CC2ROUTE:
+fieldset/regs::Timer4Cc2route:
   description: CC2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CC2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CC2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER4_CDTI0ROUTE:
+fieldset/regs::Timer4Cdti0route:
   description: CDTI0 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI0 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI0 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER4_CDTI1ROUTE:
+fieldset/regs::Timer4Cdti1route:
   description: CDTI1 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI1 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI1 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER4_CDTI2ROUTE:
+fieldset/regs::Timer4Cdti2route:
   description: CDTI2 port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CDTI2 port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CDTI2 pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::TIMER4_ROUTEEN:
+fieldset/regs::Timer4Routeen:
   description: TIMER4 pin enable.
   fields:
-  - name: CC0PEN
+  - name: cc0pen
     description: CC0 pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: CC1PEN
+  - name: cc1pen
     description: CC1 pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: CC2PEN
+  - name: cc2pen
     description: CC2 pin enable control bit.
     bit_offset: 2
     bit_size: 1
-  - name: CCC0PEN
+  - name: ccc0pen
     description: CDTI0 pin enable control bit.
     bit_offset: 3
     bit_size: 1
-  - name: CCC1PEN
+  - name: ccc1pen
     description: CDTI1 pin enable control bit.
     bit_offset: 4
     bit_size: 1
-  - name: CCC2PEN
+  - name: ccc2pen
     description: CDTI2 pin enable control bit.
     bit_offset: 5
     bit_size: 1
-fieldset/regs::TRACEROUTEPEN:
+fieldset/regs::Traceroutepen:
   description: No Description.
   fields:
-  - name: SWVPEN
+  - name: swvpen
     description: Serial Wire Viewer Output Pin Enable.
     bit_offset: 0
     bit_size: 1
-  - name: TRACECLKPEN
+  - name: traceclkpen
     description: Trace Clk Pin Enable.
     bit_offset: 1
     bit_size: 1
-  - name: TRACEDATA0PEN
+  - name: tracedata0pen
     description: Trace Data0 Pin Enable.
     bit_offset: 2
     bit_size: 1
-  - name: TRACEDATA1PEN
+  - name: tracedata1pen
     description: Trace Data1 Pin Enable.
     bit_offset: 3
     bit_size: 1
-  - name: TRACEDATA2PEN
+  - name: tracedata2pen
     description: Trace Data2 Pin Enable.
     bit_offset: 4
     bit_size: 1
-  - name: TRACEDATA3PEN
+  - name: tracedata3pen
     description: Trace Data3 Pin Enable.
     bit_offset: 5
     bit_size: 1
-fieldset/regs::USART0_CLKROUTE:
+fieldset/regs::Usart0Clkroute:
   description: SCLK port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: SCLK port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: SCLK pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::USART0_CSROUTE:
+fieldset/regs::Usart0Csroute:
   description: CS port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CS port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CS pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::USART0_CTSROUTE:
+fieldset/regs::Usart0Ctsroute:
   description: CTS port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: CTS port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: CTS pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::USART0_ROUTEEN:
+fieldset/regs::Usart0Routeen:
   description: USART0 pin enable.
   fields:
-  - name: CSPEN
+  - name: cspen
     description: CS pin enable control bit.
     bit_offset: 0
     bit_size: 1
-  - name: RTSPEN
+  - name: rtspen
     description: RTS pin enable control bit.
     bit_offset: 1
     bit_size: 1
-  - name: RXPEN
+  - name: rxpen
     description: RX pin enable control bit.
     bit_offset: 2
     bit_size: 1
-  - name: CLKPEN
+  - name: clkpen
     description: SCLK pin enable control bit.
     bit_offset: 3
     bit_size: 1
-  - name: TXPEN
+  - name: txpen
     description: TX pin enable control bit.
     bit_offset: 4
     bit_size: 1
-fieldset/regs::USART0_RTSROUTE:
+fieldset/regs::Usart0Rtsroute:
   description: RTS port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: RTS port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: RTS pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::USART0_RXROUTE:
+fieldset/regs::Usart0Rxroute:
   description: RX port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: RX port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: RX pin select register.
     bit_offset: 16
     bit_size: 4
-fieldset/regs::USART0_TXROUTE:
+fieldset/regs::Usart0Txroute:
   description: TX port/pin select.
   fields:
-  - name: PORT
+  - name: port
     description: TX port select register.
     bit_offset: 0
     bit_size: 2
-  - name: PIN
+  - name: pin
     description: TX pin select register.
     bit_offset: 16
     bit_size: 4
-enum/vals::AEVEN0:
+enum/vals::Aeven0:
   bit_size: 4
   variants:
-  - name: TRISTATE
-    description: The bus is not allocated.
-    value: 0
-  - name: ADC0
-    description: The bus is allocated to ADC0.
-    value: 1
-  - name: ACMP0
+  - name: Acmp0
     description: The bus is allocated to ACMP0.
     value: 2
-  - name: ACMP1
+  - name: Acmp1
     description: The bus is allocated to ACMP1.
     value: 3
-  - name: VDAC0CH0
+  - name: Adc0
+    description: The bus is allocated to ADC0.
+    value: 1
+  - name: Tristate
+    description: The bus is not allocated.
+    value: 0
+  - name: Vdac0ch0
     description: The bus is allocated to VDAC0 CH0.
     value: 4
-  - name: VDAC1CH0
+  - name: Vdac1ch0
     description: The bus is allocated to VDAC1 CH0.
     value: 5
-enum/vals::AEVEN1:
+enum/vals::Aeven1:
   bit_size: 4
   variants:
-  - name: TRISTATE
-    description: The bus is not allocated.
-    value: 0
-  - name: ADC0
-    description: The bus is allocated to ADC0.
-    value: 1
-  - name: ACMP0
+  - name: Acmp0
     description: The bus is allocated to ACMP0.
     value: 2
-  - name: ACMP1
+  - name: Acmp1
     description: The bus is allocated to ACMP1.
     value: 3
-  - name: VDAC0CH1
+  - name: Adc0
+    description: The bus is allocated to ADC0.
+    value: 1
+  - name: Tristate
+    description: The bus is not allocated.
+    value: 0
+  - name: Vdac0ch1
     description: The bus is allocated to VDAC0 CH1.
     value: 4
-  - name: VDAC1CH1
+  - name: Vdac1ch1
     description: The bus is allocated to VDAC1 CH1.
     value: 5
-enum/vals::AODD0:
+enum/vals::Aodd0:
   bit_size: 4
   variants:
-  - name: TRISTATE
-    description: The bus is not allocated.
-    value: 0
-  - name: ADC0
-    description: The bus is allocated to ADC0.
-    value: 1
-  - name: ACMP0
+  - name: Acmp0
     description: The bus is allocated to ACMP0.
     value: 2
-  - name: ACMP1
+  - name: Acmp1
     description: The bus is allocated to ACMP1.
     value: 3
-  - name: VDAC0CH0
+  - name: Adc0
+    description: The bus is allocated to ADC0.
+    value: 1
+  - name: Tristate
+    description: The bus is not allocated.
+    value: 0
+  - name: Vdac0ch0
     description: The bus is allocated to VDAC0 CH0.
     value: 4
-  - name: VDAC1CH0
+  - name: Vdac1ch0
     description: The bus is allocated to VDAC1 CH0.
     value: 5
-enum/vals::AODD1:
+enum/vals::Aodd1:
   bit_size: 4
   variants:
-  - name: TRISTATE
-    description: The bus is not allocated.
-    value: 0
-  - name: ADC0
-    description: The bus is allocated to ADC0.
-    value: 1
-  - name: ACMP0
+  - name: Acmp0
     description: The bus is allocated to ACMP0.
     value: 2
-  - name: ACMP1
+  - name: Acmp1
     description: The bus is allocated to ACMP1.
     value: 3
-  - name: VDAC0CH1
+  - name: Adc0
+    description: The bus is allocated to ADC0.
+    value: 1
+  - name: Tristate
+    description: The bus is not allocated.
+    value: 0
+  - name: Vdac0ch1
     description: The bus is allocated to VDAC0 CH1.
     value: 4
-  - name: VDAC1CH1
+  - name: Vdac1ch1
     description: The bus is allocated to VDAC1 CH1.
     value: 5
-enum/vals::BEVEN0:
+enum/vals::Beven0:
   bit_size: 4
   variants:
-  - name: TRISTATE
-    description: The bus is not allocated.
-    value: 0
-  - name: ADC0
-    description: The bus is allocated to ADC0.
-    value: 1
-  - name: ACMP0
+  - name: Acmp0
     description: The bus is allocated to ACMP0.
     value: 2
-  - name: ACMP1
+  - name: Acmp1
     description: The bus is allocated to ACMP1.
     value: 3
-  - name: VDAC0CH0
+  - name: Adc0
+    description: The bus is allocated to ADC0.
+    value: 1
+  - name: Tristate
+    description: The bus is not allocated.
+    value: 0
+  - name: Vdac0ch0
     description: The bus is allocated to VDAC0 CH0.
     value: 4
-  - name: VDAC1CH0
+  - name: Vdac1ch0
     description: The bus is allocated to VDAC1 CH0.
     value: 5
-enum/vals::BEVEN1:
+enum/vals::Beven1:
   bit_size: 4
   variants:
-  - name: TRISTATE
-    description: The bus is not allocated.
-    value: 0
-  - name: ADC0
-    description: The bus is allocated to ADC0.
-    value: 1
-  - name: ACMP0
+  - name: Acmp0
     description: The bus is allocated to ACMP0.
     value: 2
-  - name: ACMP1
+  - name: Acmp1
     description: The bus is allocated to ACMP1.
     value: 3
-  - name: VDAC0CH1
+  - name: Adc0
+    description: The bus is allocated to ADC0.
+    value: 1
+  - name: Tristate
+    description: The bus is not allocated.
+    value: 0
+  - name: Vdac0ch1
     description: The bus is allocated to VDAC0 CH1.
     value: 4
-  - name: VDAC1CH1
+  - name: Vdac1ch1
     description: The bus is allocated to VDAC1 CH1.
     value: 5
-enum/vals::BODD0:
+enum/vals::Bodd0:
   bit_size: 4
   variants:
-  - name: TRISTATE
-    description: The bus is not allocated.
-    value: 0
-  - name: ADC0
-    description: The bus is allocated to ADC0.
-    value: 1
-  - name: ACMP0
+  - name: Acmp0
     description: The bus is allocated to ACMP0.
     value: 2
-  - name: ACMP1
+  - name: Acmp1
     description: The bus is allocated to ACMP1.
     value: 3
-  - name: VDAC0CH0
+  - name: Adc0
+    description: The bus is allocated to ADC0.
+    value: 1
+  - name: Tristate
+    description: The bus is not allocated.
+    value: 0
+  - name: Vdac0ch0
     description: The bus is allocated to VDAC0 CH0.
     value: 4
-  - name: VDAC1CH0
+  - name: Vdac1ch0
     description: The bus is allocated to VDAC1 CH0.
     value: 5
-enum/vals::BODD1:
+enum/vals::Bodd1:
   bit_size: 4
   variants:
-  - name: TRISTATE
-    description: The bus is not allocated.
-    value: 0
-  - name: ADC0
-    description: The bus is allocated to ADC0.
-    value: 1
-  - name: ACMP0
+  - name: Acmp0
     description: The bus is allocated to ACMP0.
     value: 2
-  - name: ACMP1
+  - name: Acmp1
     description: The bus is allocated to ACMP1.
     value: 3
-  - name: VDAC0CH1
+  - name: Adc0
+    description: The bus is allocated to ADC0.
+    value: 1
+  - name: Tristate
+    description: The bus is not allocated.
+    value: 0
+  - name: Vdac0ch1
     description: The bus is allocated to VDAC0 CH1.
     value: 4
-  - name: VDAC1CH1
+  - name: Vdac1ch1
     description: The bus is allocated to VDAC1 CH1.
     value: 5
-enum/vals::CDEVEN0:
+enum/vals::Cdeven0:
   bit_size: 4
   variants:
-  - name: TRISTATE
-    description: The bus is not allocated.
-    value: 0
-  - name: ADC0
-    description: The bus is allocated to ADC0.
-    value: 1
-  - name: ACMP0
+  - name: Acmp0
     description: The bus is allocated to ACMP0.
     value: 2
-  - name: ACMP1
+  - name: Acmp1
     description: The bus is allocated to ACMP1.
     value: 3
-  - name: VDAC0CH0
+  - name: Adc0
+    description: The bus is allocated to ADC0.
+    value: 1
+  - name: Tristate
+    description: The bus is not allocated.
+    value: 0
+  - name: Vdac0ch0
     description: The bus is allocated to VDAC0 CH0.
     value: 4
-  - name: VDAC1CH0
+  - name: Vdac1ch0
     description: The bus is allocated to VDAC1 CH0.
     value: 5
-enum/vals::CDEVEN1:
+enum/vals::Cdeven1:
   bit_size: 4
   variants:
-  - name: TRISTATE
-    description: The bus is not allocated.
-    value: 0
-  - name: ADC0
-    description: The bus is allocated to ADC0.
-    value: 1
-  - name: ACMP0
+  - name: Acmp0
     description: The bus is allocated to ACMP0.
     value: 2
-  - name: ACMP1
+  - name: Acmp1
     description: The bus is allocated to ACMP1.
     value: 3
-  - name: VDAC0CH1
+  - name: Adc0
+    description: The bus is allocated to ADC0.
+    value: 1
+  - name: Tristate
+    description: The bus is not allocated.
+    value: 0
+  - name: Vdac0ch1
     description: The bus is allocated to VDAC0 CH1.
     value: 4
-  - name: VDAC1CH1
+  - name: Vdac1ch1
     description: The bus is allocated to VDAC1 CH1.
     value: 5
-enum/vals::CDODD0:
+enum/vals::Cdodd0:
   bit_size: 4
   variants:
-  - name: TRISTATE
-    description: The bus is not allocated.
-    value: 0
-  - name: ADC0
-    description: The bus is allocated to ADC0.
-    value: 1
-  - name: ACMP0
+  - name: Acmp0
     description: The bus is allocated to ACMP0.
     value: 2
-  - name: ACMP1
+  - name: Acmp1
     description: The bus is allocated to ACMP1.
     value: 3
-  - name: VDAC0CH0
+  - name: Adc0
+    description: The bus is allocated to ADC0.
+    value: 1
+  - name: Tristate
+    description: The bus is not allocated.
+    value: 0
+  - name: Vdac0ch0
     description: The bus is allocated to VDAC0 CH0.
     value: 4
-  - name: VDAC1CH0
+  - name: Vdac1ch0
     description: The bus is allocated to VDAC1 CH0.
     value: 5
-enum/vals::CDODD1:
+enum/vals::Cdodd1:
   bit_size: 4
   variants:
-  - name: TRISTATE
-    description: The bus is not allocated.
-    value: 0
-  - name: ADC0
-    description: The bus is allocated to ADC0.
-    value: 1
-  - name: ACMP0
+  - name: Acmp0
     description: The bus is allocated to ACMP0.
     value: 2
-  - name: ACMP1
+  - name: Acmp1
     description: The bus is allocated to ACMP1.
     value: 3
-  - name: VDAC0CH1
+  - name: Adc0
+    description: The bus is allocated to ADC0.
+    value: 1
+  - name: Tristate
+    description: The bus is not allocated.
+    value: 0
+  - name: Vdac0ch1
     description: The bus is allocated to VDAC0 CH1.
     value: 4
-  - name: VDAC1CH1
+  - name: Vdac1ch1
     description: The bus is allocated to VDAC1 CH1.
     value: 5
-enum/vals::EXTIPINSEL4:
+enum/vals::Extipinsel4:
   bit_size: 2
   variants:
-  - name: PIN0
+  - name: Pin0
     description: OFFSET=0.
     value: 0
-  - name: PIN1
+  - name: Pin1
     description: OFFSET=1.
     value: 1
-  - name: PIN2
+  - name: Pin2
     description: OFFSET=2.
     value: 2
-  - name: PIN3
+  - name: Pin3
     description: OFFSET=3.
     value: 3
-enum/vals::EXTIPINSEL5:
+enum/vals::Extipinsel5:
   bit_size: 2
   variants:
-  - name: PIN0
+  - name: Pin0
     description: OFFSET=0.
     value: 0
-  - name: PIN1
+  - name: Pin1
     description: OFFSET=1.
     value: 1
-  - name: PIN2
+  - name: Pin2
     description: OFFSET=2.
     value: 2
-  - name: PIN3
+  - name: Pin3
     description: OFFSET=3.
     value: 3
-enum/vals::EXTIPINSEL6:
+enum/vals::Extipinsel6:
   bit_size: 2
   variants:
-  - name: PIN0
+  - name: Pin0
     description: OFFSET=0.
     value: 0
-  - name: PIN1
+  - name: Pin1
     description: OFFSET=1.
     value: 1
-  - name: PIN2
+  - name: Pin2
     description: OFFSET=2.
     value: 2
-  - name: PIN3
+  - name: Pin3
     description: OFFSET=3.
     value: 3
-enum/vals::EXTIPINSEL7:
+enum/vals::Extipinsel7:
   bit_size: 2
   variants:
-  - name: PIN0
+  - name: Pin0
     description: OFFSET=0.
     value: 0
-  - name: PIN1
+  - name: Pin1
     description: OFFSET=1.
     value: 1
-  - name: PIN2
+  - name: Pin2
     description: OFFSET=2.
     value: 2
-  - name: PIN3
+  - name: Pin3
     description: OFFSET=3.
     value: 3
-enum/vals::EXTIPINSELH_EXTIPINSEL0:
+enum/vals::ExtipinselhExtipinsel0:
   bit_size: 2
   variants:
-  - name: PIN8
-    description: OFFSET=8.
-    value: 0
-  - name: PIN9
-    description: OFFSET=9.
-    value: 1
-  - name: PIN10
+  - name: Pin10
     description: OFFSET=10.
     value: 2
-  - name: PIN11
+  - name: Pin11
     description: OFFSET=11.
     value: 3
-enum/vals::EXTIPINSELH_EXTIPINSEL1:
-  bit_size: 2
-  variants:
-  - name: PIN8
+  - name: Pin8
     description: OFFSET=8.
     value: 0
-  - name: PIN9
+  - name: Pin9
     description: OFFSET=9.
     value: 1
-  - name: PIN10
-    description: OFFSET=10.
-    value: 2
-  - name: PIN11
-    description: OFFSET=11.
-    value: 3
-enum/vals::EXTIPINSELH_EXTIPINSEL2:
+enum/vals::ExtipinselhExtipinsel1:
   bit_size: 2
   variants:
-  - name: PIN8
+  - name: Pin10
+    description: OFFSET=10.
+    value: 2
+  - name: Pin11
+    description: OFFSET=11.
+    value: 3
+  - name: Pin8
     description: OFFSET=8.
     value: 0
-  - name: PIN9
+  - name: Pin9
     description: OFFSET=9.
     value: 1
-  - name: PIN10
-    description: OFFSET=10.
-    value: 2
-  - name: PIN11
-    description: OFFSET=11.
-    value: 3
-enum/vals::EXTIPINSELH_EXTIPINSEL3:
+enum/vals::ExtipinselhExtipinsel2:
   bit_size: 2
   variants:
-  - name: PIN8
+  - name: Pin10
+    description: OFFSET=10.
+    value: 2
+  - name: Pin11
+    description: OFFSET=11.
+    value: 3
+  - name: Pin8
     description: OFFSET=8.
     value: 0
-  - name: PIN9
+  - name: Pin9
     description: OFFSET=9.
     value: 1
-  - name: PIN10
+enum/vals::ExtipinselhExtipinsel3:
+  bit_size: 2
+  variants:
+  - name: Pin10
     description: OFFSET=10.
     value: 2
-  - name: PIN11
+  - name: Pin11
     description: OFFSET=11.
     value: 3
-enum/vals::EXTIPINSELL_EXTIPINSEL0:
+  - name: Pin8
+    description: OFFSET=8.
+    value: 0
+  - name: Pin9
+    description: OFFSET=9.
+    value: 1
+enum/vals::ExtipinsellExtipinsel0:
   bit_size: 2
   variants:
-  - name: PIN0
+  - name: Pin0
     description: OFFSET=0.
     value: 0
-  - name: PIN1
+  - name: Pin1
     description: OFFSET=1.
     value: 1
-  - name: PIN2
+  - name: Pin2
     description: OFFSET=2.
     value: 2
-  - name: PIN3
+  - name: Pin3
     description: OFFSET=3.
     value: 3
-enum/vals::EXTIPINSELL_EXTIPINSEL1:
+enum/vals::ExtipinsellExtipinsel1:
   bit_size: 2
   variants:
-  - name: PIN0
+  - name: Pin0
     description: OFFSET=0.
     value: 0
-  - name: PIN1
+  - name: Pin1
     description: OFFSET=1.
     value: 1
-  - name: PIN2
+  - name: Pin2
     description: OFFSET=2.
     value: 2
-  - name: PIN3
+  - name: Pin3
     description: OFFSET=3.
     value: 3
-enum/vals::EXTIPINSELL_EXTIPINSEL2:
+enum/vals::ExtipinsellExtipinsel2:
   bit_size: 2
   variants:
-  - name: PIN0
+  - name: Pin0
     description: OFFSET=0.
     value: 0
-  - name: PIN1
+  - name: Pin1
     description: OFFSET=1.
     value: 1
-  - name: PIN2
+  - name: Pin2
     description: OFFSET=2.
     value: 2
-  - name: PIN3
+  - name: Pin3
     description: OFFSET=3.
     value: 3
-enum/vals::EXTIPINSELL_EXTIPINSEL3:
+enum/vals::ExtipinsellExtipinsel3:
   bit_size: 2
   variants:
-  - name: PIN0
+  - name: Pin0
     description: OFFSET=0.
     value: 0
-  - name: PIN1
+  - name: Pin1
     description: OFFSET=1.
     value: 1
-  - name: PIN2
+  - name: Pin2
     description: OFFSET=2.
     value: 2
-  - name: PIN3
+  - name: Pin3
     description: OFFSET=3.
     value: 3
-enum/vals::EXTIPSEL4:
+enum/vals::Extipsel4:
   bit_size: 2
   variants:
-  - name: PORTA
+  - name: Porta
     description: Port A group selected.
     value: 0
-  - name: PORTB
+  - name: Portb
     description: Port B group selected.
     value: 1
-  - name: PORTC
+  - name: Portc
     description: Port C group selected.
     value: 2
-  - name: PORTD
+  - name: Portd
     description: Port D group selected.
     value: 3
-enum/vals::EXTIPSEL5:
+enum/vals::Extipsel5:
   bit_size: 2
   variants:
-  - name: PORTA
+  - name: Porta
     description: Port A group selected.
     value: 0
-  - name: PORTB
+  - name: Portb
     description: Port B group selected.
     value: 1
-  - name: PORTC
+  - name: Portc
     description: Port C group selected.
     value: 2
-  - name: PORTD
+  - name: Portd
     description: Port D group selected.
     value: 3
-enum/vals::EXTIPSEL6:
+enum/vals::Extipsel6:
   bit_size: 2
   variants:
-  - name: PORTA
+  - name: Porta
     description: Port A group selected.
     value: 0
-  - name: PORTB
+  - name: Portb
     description: Port B group selected.
     value: 1
-  - name: PORTC
+  - name: Portc
     description: Port C group selected.
     value: 2
-  - name: PORTD
+  - name: Portd
     description: Port D group selected.
     value: 3
-enum/vals::EXTIPSEL7:
+enum/vals::Extipsel7:
   bit_size: 2
   variants:
-  - name: PORTA
+  - name: Porta
     description: Port A group selected.
     value: 0
-  - name: PORTB
+  - name: Portb
     description: Port B group selected.
     value: 1
-  - name: PORTC
+  - name: Portc
     description: Port C group selected.
     value: 2
-  - name: PORTD
+  - name: Portd
     description: Port D group selected.
     value: 3
-enum/vals::EXTIPSELH_EXTIPSEL0:
+enum/vals::ExtipselhExtipsel0:
   bit_size: 2
   variants:
-  - name: PORTA
+  - name: Porta
     description: Port A group selected.
     value: 0
-  - name: PORTB
+  - name: Portb
     description: Port B group selected.
     value: 1
-  - name: PORTC
+  - name: Portc
     description: Port C group selected.
     value: 2
-  - name: PORTD
+  - name: Portd
     description: Port D group selected.
     value: 3
-enum/vals::EXTIPSELH_EXTIPSEL1:
+enum/vals::ExtipselhExtipsel1:
   bit_size: 2
   variants:
-  - name: PORTA
+  - name: Porta
     description: Port A group selected.
     value: 0
-  - name: PORTB
+  - name: Portb
     description: Port B group selected.
     value: 1
-  - name: PORTC
+  - name: Portc
     description: Port C group selected.
     value: 2
-  - name: PORTD
+  - name: Portd
     description: Port D group selected.
     value: 3
-enum/vals::EXTIPSELH_EXTIPSEL2:
+enum/vals::ExtipselhExtipsel2:
   bit_size: 2
   variants:
-  - name: PORTA
+  - name: Porta
     description: Port A group selected.
     value: 0
-  - name: PORTB
+  - name: Portb
     description: Port B group selected.
     value: 1
-  - name: PORTC
+  - name: Portc
     description: Port C group selected.
     value: 2
-  - name: PORTD
+  - name: Portd
     description: Port D group selected.
     value: 3
-enum/vals::EXTIPSELH_EXTIPSEL3:
+enum/vals::ExtipselhExtipsel3:
   bit_size: 2
   variants:
-  - name: PORTA
+  - name: Porta
     description: Port A group selected.
     value: 0
-  - name: PORTB
+  - name: Portb
     description: Port B group selected.
     value: 1
-  - name: PORTC
+  - name: Portc
     description: Port C group selected.
     value: 2
-  - name: PORTD
+  - name: Portd
     description: Port D group selected.
     value: 3
-enum/vals::EXTIPSELL_EXTIPSEL0:
+enum/vals::ExtipsellExtipsel0:
   bit_size: 2
   variants:
-  - name: PORTA
+  - name: Porta
     description: Port A group selected.
     value: 0
-  - name: PORTB
+  - name: Portb
     description: Port B group selected.
     value: 1
-  - name: PORTC
+  - name: Portc
     description: Port C group selected.
     value: 2
-  - name: PORTD
+  - name: Portd
     description: Port D group selected.
     value: 3
-enum/vals::EXTIPSELL_EXTIPSEL1:
+enum/vals::ExtipsellExtipsel1:
   bit_size: 2
   variants:
-  - name: PORTA
+  - name: Porta
     description: Port A group selected.
     value: 0
-  - name: PORTB
+  - name: Portb
     description: Port B group selected.
     value: 1
-  - name: PORTC
+  - name: Portc
     description: Port C group selected.
     value: 2
-  - name: PORTD
+  - name: Portd
     description: Port D group selected.
     value: 3
-enum/vals::EXTIPSELL_EXTIPSEL2:
+enum/vals::ExtipsellExtipsel2:
   bit_size: 2
   variants:
-  - name: PORTA
+  - name: Porta
     description: Port A group selected.
     value: 0
-  - name: PORTB
+  - name: Portb
     description: Port B group selected.
     value: 1
-  - name: PORTC
+  - name: Portc
     description: Port C group selected.
     value: 2
-  - name: PORTD
+  - name: Portd
     description: Port D group selected.
     value: 3
-enum/vals::EXTIPSELL_EXTIPSEL3:
+enum/vals::ExtipsellExtipsel3:
   bit_size: 2
   variants:
-  - name: PORTA
+  - name: Porta
     description: Port A group selected.
     value: 0
-  - name: PORTB
+  - name: Portb
     description: Port B group selected.
     value: 1
-  - name: PORTC
+  - name: Portc
     description: Port C group selected.
     value: 2
-  - name: PORTD
+  - name: Portd
     description: Port D group selected.
     value: 3
-enum/vals::LOCKKEY:
+enum/vals::Lockkey:
   bit_size: 16
   variants:
-  - name: UNLOCK
+  - name: Unlock
     description: Unlock code.
     value: 42292
-enum/vals::PORTA_MODEH_MODE0:
+enum/vals::PortaModehMode0:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTA_MODEH_MODE1:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortaModehMode1:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTA_MODEL_MODE0:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortaModelMode0:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTA_MODEL_MODE1:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortaModelMode1:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTA_MODEL_MODE2:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortaModelMode2:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTA_MODEL_MODE3:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortaModelMode3:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTA_MODEL_MODE4:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortaModelMode4:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTA_MODEL_MODE5:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortaModelMode5:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTA_MODEL_MODE6:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortaModelMode6:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTA_MODEL_MODE7:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortaModelMode7:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTB_MODEL_MODE0:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortbModelMode0:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTB_MODEL_MODE1:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortbModelMode1:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTB_MODEL_MODE2:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortbModelMode2:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTB_MODEL_MODE3:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortbModelMode3:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTB_MODEL_MODE4:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortbModelMode4:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTB_MODEL_MODE5:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortbModelMode5:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTC_MODEH_MODE0:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortcModehMode0:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTC_MODEH_MODE1:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortcModehMode1:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTC_MODEL_MODE0:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortcModelMode0:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTC_MODEL_MODE1:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortcModelMode1:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTC_MODEL_MODE2:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortcModelMode2:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTC_MODEL_MODE3:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortcModelMode3:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTC_MODEL_MODE4:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortcModelMode4:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTC_MODEL_MODE5:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortcModelMode5:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTC_MODEL_MODE6:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortcModelMode6:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTC_MODEL_MODE7:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortcModelMode7:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTD_MODEL_MODE0:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortdModelMode0:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTD_MODEL_MODE1:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortdModelMode1:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTD_MODEL_MODE2:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortdModelMode2:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTD_MODEL_MODE3:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortdModelMode3:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTD_MODEL_MODE4:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortdModelMode4:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
-enum/vals::PORTD_MODEL_MODE5:
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::PortdModelMode5:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Input disabled. Pullup if DOUT is set.
     value: 0
-  - name: INPUT
+  - name: Input
     description: Input enabled. Filter if DOUT is set.
     value: 1
-  - name: INPUTPULL
+  - name: Inputpull
     description: Input enabled. DOUT determines pull direction.
     value: 2
-  - name: INPUTPULLFILTER
+  - name: Inputpullfilter
     description: Input enabled with filter. DOUT determines pull direction.
     value: 3
-  - name: PUSHPULL
+  - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: PUSHPULLALT
+  - name: Pushpullalt
     description: Push-pull using alternate control.
     value: 5
-  - name: WIREDOR
-    description: Wired-or output.
-    value: 6
-  - name: WIREDORPULLDOWN
-    description: Wired-or output with pull-down.
-    value: 7
-  - name: WIREDAND
+  - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: WIREDANDFILTER
-    description: Open-drain output with filter.
-    value: 9
-  - name: WIREDANDPULLUP
-    description: Open-drain output with pullup.
-    value: 10
-  - name: WIREDANDPULLUPFILTER
-    description: Open-drain output with filter and pullup.
-    value: 11
-  - name: WIREDANDALT
+  - name: Wiredandalt
     description: Open-drain output using alternate control.
     value: 12
-  - name: WIREDANDALTFILTER
+  - name: Wiredandaltfilter
     description: Open-drain output using alternate control with filter.
     value: 13
-  - name: WIREDANDALTPULLUP
+  - name: Wiredandaltpullup
     description: Open-drain output using alternate control with pullup.
     value: 14
-  - name: WIREDANDALTPULLUPFILTER
+  - name: Wiredandaltpullupfilter
     description: Open-drain output using alternate control with filter and pullup.
     value: 15
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7

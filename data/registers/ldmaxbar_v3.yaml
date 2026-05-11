@@ -1,135 +1,135 @@
-block/LDMAXBAR:
+block/Ldmaxbar:
   description: LDMAXBAR peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: CH0_REQSEL
+    fieldset: regs::Ipversion
+  - name: ch0_reqsel
     description: No Description.
     byte_offset: 4
-    fieldset: regs::CH0_REQSEL
-  - name: CH1_REQSEL
+    fieldset: regs::Ch0Reqsel
+  - name: ch1_reqsel
     description: No Description.
     byte_offset: 8
-    fieldset: regs::CH1_REQSEL
-  - name: CH2_REQSEL
+    fieldset: regs::Ch1Reqsel
+  - name: ch2_reqsel
     description: No Description.
     byte_offset: 12
-    fieldset: regs::CH2_REQSEL
-  - name: CH3_REQSEL
+    fieldset: regs::Ch2Reqsel
+  - name: ch3_reqsel
     description: No Description.
     byte_offset: 16
-    fieldset: regs::CH3_REQSEL
-  - name: CH4_REQSEL
+    fieldset: regs::Ch3Reqsel
+  - name: ch4_reqsel
     description: No Description.
     byte_offset: 20
-    fieldset: regs::CH4_REQSEL
-  - name: CH5_REQSEL
+    fieldset: regs::Ch4Reqsel
+  - name: ch5_reqsel
     description: No Description.
     byte_offset: 24
-    fieldset: regs::CH5_REQSEL
-  - name: CH6_REQSEL
+    fieldset: regs::Ch5Reqsel
+  - name: ch6_reqsel
     description: No Description.
     byte_offset: 28
-    fieldset: regs::CH6_REQSEL
-  - name: CH7_REQSEL
+    fieldset: regs::Ch6Reqsel
+  - name: ch7_reqsel
     description: No Description.
     byte_offset: 32
-    fieldset: regs::CH7_REQSEL
-fieldset/regs::CH0_REQSEL:
+    fieldset: regs::Ch7Reqsel
+fieldset/regs::Ch0Reqsel:
   description: No Description.
   fields:
-  - name: SIGSEL
+  - name: sigsel
     description: Signal Select.
     bit_offset: 0
     bit_size: 4
-  - name: SOURCESEL
+  - name: sourcesel
     description: Source Select.
     bit_offset: 16
     bit_size: 6
-fieldset/regs::CH1_REQSEL:
+fieldset/regs::Ch1Reqsel:
   description: No Description.
   fields:
-  - name: SIGSEL
+  - name: sigsel
     description: Signal Select.
     bit_offset: 0
     bit_size: 4
-  - name: SOURCESEL
+  - name: sourcesel
     description: Source Select.
     bit_offset: 16
     bit_size: 6
-fieldset/regs::CH2_REQSEL:
+fieldset/regs::Ch2Reqsel:
   description: No Description.
   fields:
-  - name: SIGSEL
+  - name: sigsel
     description: Signal Select.
     bit_offset: 0
     bit_size: 4
-  - name: SOURCESEL
+  - name: sourcesel
     description: Source Select.
     bit_offset: 16
     bit_size: 6
-fieldset/regs::CH3_REQSEL:
+fieldset/regs::Ch3Reqsel:
   description: No Description.
   fields:
-  - name: SIGSEL
+  - name: sigsel
     description: Signal Select.
     bit_offset: 0
     bit_size: 4
-  - name: SOURCESEL
+  - name: sourcesel
     description: Source Select.
     bit_offset: 16
     bit_size: 6
-fieldset/regs::CH4_REQSEL:
+fieldset/regs::Ch4Reqsel:
   description: No Description.
   fields:
-  - name: SIGSEL
+  - name: sigsel
     description: Signal Select.
     bit_offset: 0
     bit_size: 4
-  - name: SOURCESEL
+  - name: sourcesel
     description: Source Select.
     bit_offset: 16
     bit_size: 6
-fieldset/regs::CH5_REQSEL:
+fieldset/regs::Ch5Reqsel:
   description: No Description.
   fields:
-  - name: SIGSEL
+  - name: sigsel
     description: Signal Select.
     bit_offset: 0
     bit_size: 4
-  - name: SOURCESEL
+  - name: sourcesel
     description: Source Select.
     bit_offset: 16
     bit_size: 6
-fieldset/regs::CH6_REQSEL:
+fieldset/regs::Ch6Reqsel:
   description: No Description.
   fields:
-  - name: SIGSEL
+  - name: sigsel
     description: Signal Select.
     bit_offset: 0
     bit_size: 4
-  - name: SOURCESEL
+  - name: sourcesel
     description: Source Select.
     bit_offset: 16
     bit_size: 6
-fieldset/regs::CH7_REQSEL:
+fieldset/regs::Ch7Reqsel:
   description: No Description.
   fields:
-  - name: SIGSEL
+  - name: sigsel
     description: Signal Select.
     bit_offset: 0
     bit_size: 4
-  - name: SOURCESEL
+  - name: sourcesel
     description: Source Select.
     bit_offset: 16
     bit_size: 6
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IP Version ID.
     bit_offset: 0
     bit_size: 32

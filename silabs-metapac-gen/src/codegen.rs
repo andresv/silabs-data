@@ -82,6 +82,13 @@ pub fn generate(input: GenerateInput<'_>) -> Result<Generated> {
         apply_transform_file(&mut ir, t)?;
     }
 
+    // Match stm32-metapac casing: Pascal blocks/fieldsets/enums, snake
+    // fields/block-items, Pascal enum variants. Must run after per-block
+    // transforms — their regexes target raw SVD UPPER_SNAKE names.
+    chiptool::transform::sanitize::Sanitize::default()
+        .run(&mut ir)
+        .context("Sanitize")?;
+
     let opts = Options::default()
         .with_common_module(CommonModule::Builtin)
         .with_defmt(DefmtOption::Feature("defmt".to_owned()))

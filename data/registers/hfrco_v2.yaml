@@ -1,155 +1,155 @@
-block/HFRCO:
+block/Hfrco:
   description: HFRCO peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: CTRL
+    fieldset: regs::Ipversion
+  - name: ctrl
     description: No Description.
     byte_offset: 4
-    fieldset: regs::CTRL
-  - name: CAL
+    fieldset: regs::Ctrl
+  - name: cal
     description: No Description.
     byte_offset: 8
-    fieldset: regs::CAL
-  - name: STATUS
+    fieldset: regs::Cal
+  - name: status
     description: No Description.
     byte_offset: 12
     access: Read
-    fieldset: regs::STATUS
-  - name: IF
+    fieldset: regs::Status
+  - name: if_
     description: No Description.
     byte_offset: 16
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 20
-    fieldset: regs::IEN
-  - name: LOCK
+    fieldset: regs::Ien
+  - name: lock
     description: No Description.
     byte_offset: 28
     access: Write
-    fieldset: regs::LOCK
-fieldset/regs::CAL:
+    fieldset: regs::Lock
+fieldset/regs::Cal:
   description: No Description.
   fields:
-  - name: TUNING
+  - name: tuning
     description: Tuning Value.
     bit_offset: 0
     bit_size: 7
-  - name: FINETUNING
+  - name: finetuning
     description: Fine Tuning Value.
     bit_offset: 8
     bit_size: 6
-  - name: LDOHP
+  - name: ldohp
     description: LDO High Power Mode.
     bit_offset: 15
     bit_size: 1
-  - name: FREQRANGE
+  - name: freqrange
     description: Frequency Range.
     bit_offset: 16
     bit_size: 5
-  - name: CMPBIAS
+  - name: cmpbias
     description: Comparator Bias Current.
     bit_offset: 21
     bit_size: 3
-  - name: CLKDIV
+  - name: clkdiv
     description: Locally Divide HFRCO Clock Output.
     bit_offset: 24
     bit_size: 2
-    enum: vals::CLKDIV
-  - name: CMPSEL
+    enum: vals::Clkdiv
+  - name: cmpsel
     description: Comparator Load Select.
     bit_offset: 26
     bit_size: 2
-  - name: IREFTC
+  - name: ireftc
     description: Tempco Trim on Comparator Current.
     bit_offset: 28
     bit_size: 4
-fieldset/regs::CTRL:
+fieldset/regs::Ctrl:
   description: No Description.
   fields:
-  - name: FORCEEN
+  - name: forceen
     description: Force Enable.
     bit_offset: 0
     bit_size: 1
-  - name: DISONDEMAND
+  - name: disondemand
     description: Disable On-demand.
     bit_offset: 1
     bit_size: 1
-  - name: EM23ONDEMAND
+  - name: em23ondemand
     description: EM23 On-demand.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::IEN:
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: RDY
+  - name: rdy
     description: RDY Interrupt Enable.
     bit_offset: 0
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: RDY
+  - name: rdy
     description: Ready Interrupt Flag.
     bit_offset: 0
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IP Version.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::LOCK:
+fieldset/regs::Lock:
   description: No Description.
   fields:
-  - name: LOCKKEY
+  - name: lockkey
     description: Lock Key.
     bit_offset: 0
     bit_size: 16
-    enum: vals::LOCKKEY
-fieldset/regs::STATUS:
+    enum: vals::Lockkey
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: RDY
+  - name: rdy
     description: Ready.
     bit_offset: 0
     bit_size: 1
-  - name: FREQBSY
+  - name: freqbsy
     description: Frequency Updating Busy.
     bit_offset: 1
     bit_size: 1
-  - name: SYNCBUSY
+  - name: syncbusy
     description: Synchronization Busy.
     bit_offset: 2
     bit_size: 1
-  - name: ENS
+  - name: ens
     description: Enable Status.
     bit_offset: 16
     bit_size: 1
-  - name: LOCK
+  - name: lock
     description: Lock Status.
     bit_offset: 31
     bit_size: 1
-enum/vals::CLKDIV:
+enum/vals::Clkdiv:
   bit_size: 2
   variants:
-  - name: DIV1
+  - name: Div1
     description: Divide by 1.
     value: 0
-  - name: DIV2
+  - name: Div2
     description: Divide by 2.
     value: 1
-  - name: DIV4
+  - name: Div4
     description: Divide by 4.
     value: 2
-enum/vals::LOCKKEY:
+enum/vals::Lockkey:
   bit_size: 16
   variants:
-  - name: UNLOCK
+  - name: Unlock
     description: Unlock code.
     value: 33173

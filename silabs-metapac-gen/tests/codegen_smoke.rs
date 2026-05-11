@@ -100,27 +100,25 @@ fn gpio_array_recovered_from_real_transforms() {
     let ir = extract_ip(gpio, "GPIO", &version, &transforms_dir())
         .expect("extract_ip");
 
-    // After array recovery, the GPIO block carries a `P_DOUT` array item
-    // instead of separate PORTA_DOUT/PORTB_DOUT/... entries.
-    let block = ir.blocks.get("GPIO").expect("GPIO block");
+    // After array recovery and Sanitize: block name → `Gpio`, block items
+    // → snake_case (`p_dout`), fieldset → `regs::PortDout`.
+    let block = ir.blocks.get("Gpio").expect("Gpio block");
     let names: Vec<&str> = block.items.iter().map(|i| i.name.as_str()).collect();
     assert!(
-        names.contains(&"P_DOUT"),
-        "P_DOUT array missing; block items: {:?}",
+        names.contains(&"p_dout"),
+        "p_dout array missing; block items: {:?}",
         names
     );
-    for forbidden in ["PORTA_DOUT", "PORTB_DOUT", "PORTC_DOUT", "PORTD_DOUT"] {
+    for forbidden in ["porta_dout", "portb_dout", "portc_dout", "portd_dout"] {
         assert!(
             !names.contains(&forbidden),
             "raw port register `{forbidden}` leaked through array recovery: {:?}",
             names
         );
     }
-    // The merged fieldset should be `regs::PORT_DOUT` (BlockWithRegsVals
-    // namespace; the outer `Gpio::` prefix is stripped post-extract).
     assert!(
-        ir.fieldsets.contains_key("regs::PORT_DOUT"),
-        "merged PORT_DOUT fieldset missing; fieldsets: {:?}",
+        ir.fieldsets.contains_key("regs::PortDout"),
+        "merged regs::PortDout fieldset missing; fieldsets: {:?}",
         ir.fieldsets.keys().collect::<Vec<_>>()
     );
 }

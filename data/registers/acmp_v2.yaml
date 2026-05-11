@@ -1,770 +1,770 @@
-block/ACMP:
+block/Acmp:
   description: ACMP peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: EN
+    fieldset: regs::Ipversion
+  - name: en
     description: No Description.
     byte_offset: 4
-    fieldset: regs::EN
-  - name: SWRST
+    fieldset: regs::En
+  - name: swrst
     description: No Description.
     byte_offset: 8
-    fieldset: regs::SWRST
-  - name: CFG
+    fieldset: regs::Swrst
+  - name: cfg
     description: No Description.
     byte_offset: 12
-    fieldset: regs::CFG
-  - name: CTRL
+    fieldset: regs::Cfg
+  - name: ctrl
     description: No Description.
     byte_offset: 16
-    fieldset: regs::CTRL
-  - name: INPUTCTRL
+    fieldset: regs::Ctrl
+  - name: inputctrl
     description: No Description.
     byte_offset: 20
-    fieldset: regs::INPUTCTRL
-  - name: STATUS
+    fieldset: regs::Inputctrl
+  - name: status
     description: No Description.
     byte_offset: 24
     access: Read
-    fieldset: regs::STATUS
-  - name: IF
+    fieldset: regs::Status
+  - name: if_
     description: No Description.
     byte_offset: 28
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 32
-    fieldset: regs::IEN
-  - name: SYNCBUSY
+    fieldset: regs::Ien
+  - name: syncbusy
     description: No Description.
     byte_offset: 36
     access: Read
-    fieldset: regs::SYNCBUSY
-fieldset/regs::CFG:
+    fieldset: regs::Syncbusy
+fieldset/regs::Cfg:
   description: No Description.
   fields:
-  - name: BIAS
+  - name: bias
     description: Bias Configuration.
     bit_offset: 0
     bit_size: 3
-  - name: HYST
+  - name: hyst
     description: Hysteresis mode.
     bit_offset: 8
     bit_size: 4
-    enum: vals::HYST
-  - name: INPUTRANGE
+    enum: vals::Hyst
+  - name: inputrange
     description: Input Range.
     bit_offset: 16
     bit_size: 1
-    enum: vals::INPUTRANGE
-  - name: ACCURACY
+    enum: vals::Inputrange
+  - name: accuracy
     description: ACMP accuracy mode.
     bit_offset: 17
     bit_size: 1
-    enum: vals::ACCURACY
-fieldset/regs::CTRL:
+    enum: vals::Accuracy
+fieldset/regs::Ctrl:
   description: No Description.
   fields:
-  - name: NOTRDYVAL
+  - name: notrdyval
     description: Not Ready Value.
     bit_offset: 0
     bit_size: 1
-    enum: vals::NOTRDYVAL
-  - name: GPIOINV
+    enum: vals::Notrdyval
+  - name: gpioinv
     description: Comparator GPIO Output Invert.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::EN:
+fieldset/regs::En:
   description: No Description.
   fields:
-  - name: EN
+  - name: en
     description: Module enable.
     bit_offset: 0
     bit_size: 1
-  - name: DISABLING
+  - name: disabling
     description: Disablement busy status.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::IEN:
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: RISE
+  - name: rise
     description: Rising edge interrupt enable.
     bit_offset: 0
     bit_size: 1
-  - name: FALL
+  - name: fall
     description: Falling edge interrupt enable.
     bit_offset: 1
     bit_size: 1
-  - name: ACMPRDY
+  - name: acmprdy
     description: ACMP ready interrupt enable.
     bit_offset: 2
     bit_size: 1
-  - name: INPUTCONFLICT
+  - name: inputconflict
     description: Input conflict interrupt enable.
     bit_offset: 3
     bit_size: 1
-  - name: PORTALLOCERR
+  - name: portallocerr
     description: Port allocation error interrupt enable.
     bit_offset: 4
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: RISE
+  - name: rise
     description: Rising Edge Triggered Interrupt Flag.
     bit_offset: 0
     bit_size: 1
-  - name: FALL
+  - name: fall
     description: Falling Edge Triggered Interrupt Flag.
     bit_offset: 1
     bit_size: 1
-  - name: ACMPRDY
+  - name: acmprdy
     description: ACMP ready Interrupt flag.
     bit_offset: 2
     bit_size: 1
-  - name: INPUTCONFLICT
+  - name: inputconflict
     description: Input conflict.
     bit_offset: 3
     bit_size: 1
-  - name: PORTALLOCERR
+  - name: portallocerr
     description: Port allocation error.
     bit_offset: 4
     bit_size: 1
-fieldset/regs::INPUTCTRL:
+fieldset/regs::Inputctrl:
   description: No Description.
   fields:
-  - name: POSSEL
+  - name: possel
     description: Positive Input Select.
     bit_offset: 0
     bit_size: 8
-    enum: vals::POSSEL
-  - name: NEGSEL
+    enum: vals::Possel
+  - name: negsel
     description: Negative Input Select.
     bit_offset: 8
     bit_size: 8
-    enum: vals::NEGSEL
-  - name: VREFDIV
+    enum: vals::Negsel
+  - name: vrefdiv
     description: VREF division.
     bit_offset: 16
     bit_size: 6
-  - name: CSRESSEL
+  - name: csressel
     description: Capacitive Sense Mode Internal Resistor.
     bit_offset: 28
     bit_size: 3
-    enum: vals::CSRESSEL
-fieldset/regs::IPVERSION:
+    enum: vals::Csressel
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IP version ID.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::STATUS:
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: ACMPOUT
+  - name: acmpout
     description: Analog Comparator Output.
     bit_offset: 0
     bit_size: 1
-  - name: ACMPRDY
+  - name: acmprdy
     description: Analog Comparator Ready.
     bit_offset: 2
     bit_size: 1
-  - name: INPUTCONFLICT
+  - name: inputconflict
     description: INPUT conflict.
     bit_offset: 3
     bit_size: 1
-  - name: PORTALLOCERR
+  - name: portallocerr
     description: Port allocation error.
     bit_offset: 4
     bit_size: 1
-fieldset/regs::SWRST:
+fieldset/regs::Swrst:
   description: No Description.
   fields:
-  - name: SWRST
+  - name: swrst
     description: Software reset.
     bit_offset: 0
     bit_size: 1
-  - name: RESETTING
+  - name: resetting
     description: Software reset busy status.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::SYNCBUSY:
+fieldset/regs::Syncbusy:
   description: No Description.
   fields:
-  - name: INPUTCTRL
+  - name: inputctrl
     description: Syncbusy for INPUTCTRL.
     bit_offset: 0
     bit_size: 1
-enum/vals::ACCURACY:
+enum/vals::Accuracy:
   bit_size: 1
   variants:
-  - name: LOW
-    description: ACMP operates in low-accuracy mode but consumes less current.
-    value: 0
-  - name: HIGH
+  - name: High
     description: ACMP operates in high-accuracy mode but consumes more current.
     value: 1
-enum/vals::CSRESSEL:
+  - name: Low
+    description: ACMP operates in low-accuracy mode but consumes less current.
+    value: 0
+enum/vals::Csressel:
   bit_size: 3
   variants:
-  - name: RES0
+  - name: Res0
     description: Internal capacitive sense resistor value 0.
     value: 0
-  - name: RES1
+  - name: Res1
     description: Internal capacitive sense resistor value 1.
     value: 1
-  - name: RES2
+  - name: Res2
     description: Internal capacitive sense resistor value 2.
     value: 2
-  - name: RES3
+  - name: Res3
     description: Internal capacitive sense resistor value 3.
     value: 3
-  - name: RES4
+  - name: Res4
     description: Internal capacitive sense resistor value 4.
     value: 4
-  - name: RES5
+  - name: Res5
     description: Internal capacitive sense resistor value 5.
     value: 5
-  - name: RES6
+  - name: Res6
     description: Internal capacitive sense resistor value 6.
     value: 6
-enum/vals::HYST:
+enum/vals::Hyst:
   bit_size: 4
   variants:
-  - name: DISABLED
+  - name: Disabled
     description: Hysteresis disabled.
     value: 0
-  - name: SYM10MV
-    description: 10mV symmetrical hysteresis.
-    value: 1
-  - name: SYM20MV
-    description: 20mV symmetrical hysteresis.
-    value: 2
-  - name: SYM30MV
-    description: 30mV symmetrical hysteresis.
-    value: 3
-  - name: POS10MV
-    description: 10mV hysteresis on positive edge transitions.
-    value: 4
-  - name: POS20MV
-    description: 20mV hysteresis on positive edge transitions.
-    value: 5
-  - name: POS30MV
-    description: 30mV hysteresis on positive edge transitions.
-    value: 6
-  - name: NEG10MV
+  - name: Neg10mv
     description: 10mV hysteresis on negative edge transitions.
     value: 8
-  - name: NEG20MV
+  - name: Neg20mv
     description: 20mV hysteresis on negative edge transitions.
     value: 9
-  - name: NEG30MV
+  - name: Neg30mv
     description: 30mV hysteresis on negative edge transitions.
     value: 10
-enum/vals::INPUTRANGE:
+  - name: Pos10mv
+    description: 10mV hysteresis on positive edge transitions.
+    value: 4
+  - name: Pos20mv
+    description: 20mV hysteresis on positive edge transitions.
+    value: 5
+  - name: Pos30mv
+    description: 30mV hysteresis on positive edge transitions.
+    value: 6
+  - name: Sym10mv
+    description: 10mV symmetrical hysteresis.
+    value: 1
+  - name: Sym20mv
+    description: 20mV symmetrical hysteresis.
+    value: 2
+  - name: Sym30mv
+    description: 30mV symmetrical hysteresis.
+    value: 3
+enum/vals::Inputrange:
   bit_size: 1
   variants:
-  - name: FULL
+  - name: Full
     description: Use this setting when the input to the comparator core can be from 0 to AVDD.
     value: 0
-  - name: REDUCED
+  - name: Reduced
     description: It is recommended to use this setting when the input to the comparator core will always be less than AVDD-0.7V.
     value: 1
-enum/vals::NEGSEL:
+enum/vals::Negsel:
   bit_size: 8
   variants:
-  - name: VSS
-    description: VSS.
-    value: 0
-  - name: VREFDIVAVDD
-    description: Divided AVDD.
-    value: 16
-  - name: VREFDIVAVDDLP
-    description: Low-Power Divided AVDD.
-    value: 17
-  - name: VREFDIV1V25
-    description: Divided 1V25 reference.
-    value: 18
-  - name: VREFDIV1V25LP
-    description: Low-power Divided 1V25 reference.
-    value: 19
-  - name: VREFDIV2V5
-    description: Divided 2V5 reference.
-    value: 20
-  - name: VREFDIV2V5LP
-    description: Low-power Divided 2V5 reference.
-    value: 21
-  - name: VSENSE01DIV4
-    description: VSENSE0 divided by 4.
-    value: 32
-  - name: VSENSE01DIV4LP
-    description: Low-power VSENSE0 divided by 4.
-    value: 33
-  - name: VSENSE11DIV4
-    description: VSENSE1 divided by 4.
-    value: 34
-  - name: VSENSE11DIV4LP
-    description: Low-power VSENSE1 divided by 4.
-    value: 35
-  - name: CAPSENSE
+  - name: Capsense
     description: Deprecated capacitive sensing feature, not recommended for new designs.
     value: 48
-  - name: VDAC0OUT0
+  - name: Pa0
+    description: Port A, Pin0.
+    value: 128
+  - name: Pa1
+    description: Port A, Pin1.
+    value: 129
+  - name: Pa10
+    description: Port A, Pin10.
+    value: 138
+  - name: Pa11
+    description: Port A, Pin11.
+    value: 139
+  - name: Pa12
+    description: Port A, Pin12.
+    value: 140
+  - name: Pa13
+    description: Port A, Pin13.
+    value: 141
+  - name: Pa14
+    description: Port A, Pin14.
+    value: 142
+  - name: Pa15
+    description: Port A, Pin15.
+    value: 143
+  - name: Pa2
+    description: Port A, Pin2.
+    value: 130
+  - name: Pa3
+    description: Port A, Pin3.
+    value: 131
+  - name: Pa4
+    description: Port A, Pin4.
+    value: 132
+  - name: Pa5
+    description: Port A, Pin5.
+    value: 133
+  - name: Pa6
+    description: Port A, Pin6.
+    value: 134
+  - name: Pa7
+    description: Port A, Pin7.
+    value: 135
+  - name: Pa8
+    description: Port A, Pin8.
+    value: 136
+  - name: Pa9
+    description: Port A, Pin9.
+    value: 137
+  - name: Pb0
+    description: Port B, Pin0.
+    value: 144
+  - name: Pb1
+    description: Port B, Pin1.
+    value: 145
+  - name: Pb10
+    description: Port B, Pin10.
+    value: 154
+  - name: Pb11
+    description: Port B, Pin11.
+    value: 155
+  - name: Pb12
+    description: Port B, Pin12.
+    value: 156
+  - name: Pb13
+    description: Port B, Pin13.
+    value: 157
+  - name: Pb14
+    description: Port B, Pin14.
+    value: 158
+  - name: Pb15
+    description: Port B, Pin15.
+    value: 159
+  - name: Pb2
+    description: Port B, Pin2.
+    value: 146
+  - name: Pb3
+    description: Port B, Pin3.
+    value: 147
+  - name: Pb4
+    description: Port B, Pin4.
+    value: 148
+  - name: Pb5
+    description: Port B, Pin5.
+    value: 149
+  - name: Pb6
+    description: Port B, Pin6.
+    value: 150
+  - name: Pb7
+    description: Port B, Pin7.
+    value: 151
+  - name: Pb8
+    description: Port B, Pin8.
+    value: 152
+  - name: Pb9
+    description: Port B, Pin9.
+    value: 153
+  - name: Pc0
+    description: Port C, Pin0.
+    value: 160
+  - name: Pc1
+    description: Port C, Pin1.
+    value: 161
+  - name: Pc10
+    description: Port C, Pin10.
+    value: 170
+  - name: Pc11
+    description: Port C, Pin11.
+    value: 171
+  - name: Pc12
+    description: Port C, Pin12.
+    value: 172
+  - name: Pc13
+    description: Port C, Pin13.
+    value: 173
+  - name: Pc14
+    description: Port C, Pin14.
+    value: 174
+  - name: Pc15
+    description: Port C, Pin15.
+    value: 175
+  - name: Pc2
+    description: Port C, Pin2.
+    value: 162
+  - name: Pc3
+    description: Port C, Pin3.
+    value: 163
+  - name: Pc4
+    description: Port C, Pin4.
+    value: 164
+  - name: Pc5
+    description: Port C, Pin5.
+    value: 165
+  - name: Pc6
+    description: Port C, Pin6.
+    value: 166
+  - name: Pc7
+    description: Port C, Pin7.
+    value: 167
+  - name: Pc8
+    description: Port C, Pin8.
+    value: 168
+  - name: Pc9
+    description: Port C, Pin9.
+    value: 169
+  - name: Pd0
+    description: Port D, Pin0.
+    value: 176
+  - name: Pd1
+    description: Port D, Pin1.
+    value: 177
+  - name: Pd10
+    description: Port D, Pin10.
+    value: 186
+  - name: Pd11
+    description: Port D, Pin11.
+    value: 187
+  - name: Pd12
+    description: Port D, Pin12.
+    value: 188
+  - name: Pd13
+    description: Port D, Pin13.
+    value: 189
+  - name: Pd14
+    description: Port D, Pin14.
+    value: 190
+  - name: Pd15
+    description: Port D, Pin15.
+    value: 191
+  - name: Pd2
+    description: Port D, Pin2.
+    value: 178
+  - name: Pd3
+    description: Port D, Pin3.
+    value: 179
+  - name: Pd4
+    description: Port D, Pin4.
+    value: 180
+  - name: Pd5
+    description: Port D, Pin5.
+    value: 181
+  - name: Pd6
+    description: Port D, Pin6.
+    value: 182
+  - name: Pd7
+    description: Port D, Pin7.
+    value: 183
+  - name: Pd8
+    description: Port D, Pin8.
+    value: 184
+  - name: Pd9
+    description: Port D, Pin9.
+    value: 185
+  - name: Vdac0out0
     description: VDAC0 channel 0 output.
     value: 64
-  - name: VDAC1OUT0
+  - name: Vdac1out0
     description: VDAC1 channel 0 output.
     value: 66
-  - name: PA0
-    description: Port A, Pin0.
-    value: 128
-  - name: PA1
-    description: Port A, Pin1.
-    value: 129
-  - name: PA2
-    description: Port A, Pin2.
-    value: 130
-  - name: PA3
-    description: Port A, Pin3.
-    value: 131
-  - name: PA4
-    description: Port A, Pin4.
-    value: 132
-  - name: PA5
-    description: Port A, Pin5.
-    value: 133
-  - name: PA6
-    description: Port A, Pin6.
-    value: 134
-  - name: PA7
-    description: Port A, Pin7.
-    value: 135
-  - name: PA8
-    description: Port A, Pin8.
-    value: 136
-  - name: PA9
-    description: Port A, Pin9.
-    value: 137
-  - name: PA10
-    description: Port A, Pin10.
-    value: 138
-  - name: PA11
-    description: Port A, Pin11.
-    value: 139
-  - name: PA12
-    description: Port A, Pin12.
-    value: 140
-  - name: PA13
-    description: Port A, Pin13.
-    value: 141
-  - name: PA14
-    description: Port A, Pin14.
-    value: 142
-  - name: PA15
-    description: Port A, Pin15.
-    value: 143
-  - name: PB0
-    description: Port B, Pin0.
-    value: 144
-  - name: PB1
-    description: Port B, Pin1.
-    value: 145
-  - name: PB2
-    description: Port B, Pin2.
-    value: 146
-  - name: PB3
-    description: Port B, Pin3.
-    value: 147
-  - name: PB4
-    description: Port B, Pin4.
-    value: 148
-  - name: PB5
-    description: Port B, Pin5.
-    value: 149
-  - name: PB6
-    description: Port B, Pin6.
-    value: 150
-  - name: PB7
-    description: Port B, Pin7.
-    value: 151
-  - name: PB8
-    description: Port B, Pin8.
-    value: 152
-  - name: PB9
-    description: Port B, Pin9.
-    value: 153
-  - name: PB10
-    description: Port B, Pin10.
-    value: 154
-  - name: PB11
-    description: Port B, Pin11.
-    value: 155
-  - name: PB12
-    description: Port B, Pin12.
-    value: 156
-  - name: PB13
-    description: Port B, Pin13.
-    value: 157
-  - name: PB14
-    description: Port B, Pin14.
-    value: 158
-  - name: PB15
-    description: Port B, Pin15.
-    value: 159
-  - name: PC0
-    description: Port C, Pin0.
-    value: 160
-  - name: PC1
-    description: Port C, Pin1.
-    value: 161
-  - name: PC2
-    description: Port C, Pin2.
-    value: 162
-  - name: PC3
-    description: Port C, Pin3.
-    value: 163
-  - name: PC4
-    description: Port C, Pin4.
-    value: 164
-  - name: PC5
-    description: Port C, Pin5.
-    value: 165
-  - name: PC6
-    description: Port C, Pin6.
-    value: 166
-  - name: PC7
-    description: Port C, Pin7.
-    value: 167
-  - name: PC8
-    description: Port C, Pin8.
-    value: 168
-  - name: PC9
-    description: Port C, Pin9.
-    value: 169
-  - name: PC10
-    description: Port C, Pin10.
-    value: 170
-  - name: PC11
-    description: Port C, Pin11.
-    value: 171
-  - name: PC12
-    description: Port C, Pin12.
-    value: 172
-  - name: PC13
-    description: Port C, Pin13.
-    value: 173
-  - name: PC14
-    description: Port C, Pin14.
-    value: 174
-  - name: PC15
-    description: Port C, Pin15.
-    value: 175
-  - name: PD0
-    description: Port D, Pin0.
-    value: 176
-  - name: PD1
-    description: Port D, Pin1.
-    value: 177
-  - name: PD2
-    description: Port D, Pin2.
-    value: 178
-  - name: PD3
-    description: Port D, Pin3.
-    value: 179
-  - name: PD4
-    description: Port D, Pin4.
-    value: 180
-  - name: PD5
-    description: Port D, Pin5.
-    value: 181
-  - name: PD6
-    description: Port D, Pin6.
-    value: 182
-  - name: PD7
-    description: Port D, Pin7.
-    value: 183
-  - name: PD8
-    description: Port D, Pin8.
-    value: 184
-  - name: PD9
-    description: Port D, Pin9.
-    value: 185
-  - name: PD10
-    description: Port D, Pin10.
-    value: 186
-  - name: PD11
-    description: Port D, Pin11.
-    value: 187
-  - name: PD12
-    description: Port D, Pin12.
-    value: 188
-  - name: PD13
-    description: Port D, Pin13.
-    value: 189
-  - name: PD14
-    description: Port D, Pin14.
-    value: 190
-  - name: PD15
-    description: Port D, Pin15.
-    value: 191
-enum/vals::NOTRDYVAL:
-  bit_size: 1
-  variants:
-  - name: LOW
-    description: ACMP output is 0 when the ACMP is not ready.
-    value: 0
-  - name: HIGH
-    description: ACMP output is 1 when the ACMP is not ready.
-    value: 1
-enum/vals::POSSEL:
-  bit_size: 8
-  variants:
-  - name: VSS
-    description: VSS.
-    value: 0
-  - name: VREFDIVAVDD
-    description: Divided AVDD.
-    value: 16
-  - name: VREFDIVAVDDLP
-    description: Low-Power Divided AVDD.
-    value: 17
-  - name: VREFDIV1V25
+  - name: Vrefdiv1v25
     description: Divided 1V25 reference.
     value: 18
-  - name: VREFDIV1V25LP
+  - name: Vrefdiv1v25lp
     description: Low-power Divided 1V25 reference.
     value: 19
-  - name: VREFDIV2V5
+  - name: Vrefdiv2v5
     description: Divided 2V5 reference.
     value: 20
-  - name: VREFDIV2V5LP
+  - name: Vrefdiv2v5lp
     description: Low-power Divided 2V5 reference.
     value: 21
-  - name: VSENSE01DIV4
+  - name: Vrefdivavdd
+    description: Divided AVDD.
+    value: 16
+  - name: Vrefdivavddlp
+    description: Low-Power Divided AVDD.
+    value: 17
+  - name: Vsense01div4
     description: VSENSE0 divided by 4.
     value: 32
-  - name: VSENSE01DIV4LP
+  - name: Vsense01div4lp
     description: Low-power VSENSE0 divided by 4.
     value: 33
-  - name: VSENSE11DIV4
+  - name: Vsense11div4
     description: VSENSE1 divided by 4.
     value: 34
-  - name: VSENSE11DIV4LP
+  - name: Vsense11div4lp
     description: Low-power VSENSE1 divided by 4.
     value: 35
-  - name: VDAC0OUT1
-    description: VDAC0 channel 1 output.
-    value: 65
-  - name: VDAC1OUT1
-    description: VDAC1 channel 1 output.
-    value: 67
-  - name: EXTPA
+  - name: Vss
+    description: VSS.
+    value: 0
+enum/vals::Notrdyval:
+  bit_size: 1
+  variants:
+  - name: High
+    description: ACMP output is 1 when the ACMP is not ready.
+    value: 1
+  - name: Low
+    description: ACMP output is 0 when the ACMP is not ready.
+    value: 0
+enum/vals::Possel:
+  bit_size: 8
+  variants:
+  - name: Extpa
     description: External interface, base is PA0.
     value: 80
-  - name: EXTPB
+  - name: Extpb
     description: External interface, base is PB0.
     value: 81
-  - name: EXTPC
+  - name: Extpc
     description: External interface, base is PC0.
     value: 82
-  - name: EXTPD
+  - name: Extpd
     description: External interface, base is PD0.
     value: 83
-  - name: PA0
+  - name: Pa0
     description: Port A, Pin0.
     value: 128
-  - name: PA1
+  - name: Pa1
     description: Port A, Pin1.
     value: 129
-  - name: PA2
-    description: Port A, Pin2.
-    value: 130
-  - name: PA3
-    description: Port A, Pin3.
-    value: 131
-  - name: PA4
-    description: Port A, Pin4.
-    value: 132
-  - name: PA5
-    description: Port A, Pin5.
-    value: 133
-  - name: PA6
-    description: Port A, Pin6.
-    value: 134
-  - name: PA7
-    description: Port A, Pin7.
-    value: 135
-  - name: PA8
-    description: Port A, Pin8.
-    value: 136
-  - name: PA9
-    description: Port A, Pin9.
-    value: 137
-  - name: PA10
+  - name: Pa10
     description: Port A, Pin10.
     value: 138
-  - name: PA11
+  - name: Pa11
     description: Port A, Pin11.
     value: 139
-  - name: PA12
+  - name: Pa12
     description: Port A, Pin12.
     value: 140
-  - name: PA13
+  - name: Pa13
     description: Port A, Pin13.
     value: 141
-  - name: PA14
+  - name: Pa14
     description: Port A, Pin14.
     value: 142
-  - name: PA15
+  - name: Pa15
     description: Port A, Pin15.
     value: 143
-  - name: PB0
+  - name: Pa2
+    description: Port A, Pin2.
+    value: 130
+  - name: Pa3
+    description: Port A, Pin3.
+    value: 131
+  - name: Pa4
+    description: Port A, Pin4.
+    value: 132
+  - name: Pa5
+    description: Port A, Pin5.
+    value: 133
+  - name: Pa6
+    description: Port A, Pin6.
+    value: 134
+  - name: Pa7
+    description: Port A, Pin7.
+    value: 135
+  - name: Pa8
+    description: Port A, Pin8.
+    value: 136
+  - name: Pa9
+    description: Port A, Pin9.
+    value: 137
+  - name: Pb0
     description: Port B, Pin0.
     value: 144
-  - name: PB1
+  - name: Pb1
     description: Port B, Pin1.
     value: 145
-  - name: PB2
-    description: Port B, Pin2.
-    value: 146
-  - name: PB3
-    description: Port B, Pin3.
-    value: 147
-  - name: PB4
-    description: Port B, Pin4.
-    value: 148
-  - name: PB5
-    description: Port B, Pin5.
-    value: 149
-  - name: PB6
-    description: Port B, Pin6.
-    value: 150
-  - name: PB7
-    description: Port B, Pin7.
-    value: 151
-  - name: PB8
-    description: Port B, Pin8.
-    value: 152
-  - name: PB9
-    description: Port B, Pin9.
-    value: 153
-  - name: PB10
+  - name: Pb10
     description: Port B, Pin10.
     value: 154
-  - name: PB11
+  - name: Pb11
     description: Port B, Pin11.
     value: 155
-  - name: PB12
+  - name: Pb12
     description: Port B, Pin12.
     value: 156
-  - name: PB13
+  - name: Pb13
     description: Port B, Pin13.
     value: 157
-  - name: PB14
+  - name: Pb14
     description: Port B, Pin14.
     value: 158
-  - name: PB15
+  - name: Pb15
     description: Port B, Pin15.
     value: 159
-  - name: PC0
+  - name: Pb2
+    description: Port B, Pin2.
+    value: 146
+  - name: Pb3
+    description: Port B, Pin3.
+    value: 147
+  - name: Pb4
+    description: Port B, Pin4.
+    value: 148
+  - name: Pb5
+    description: Port B, Pin5.
+    value: 149
+  - name: Pb6
+    description: Port B, Pin6.
+    value: 150
+  - name: Pb7
+    description: Port B, Pin7.
+    value: 151
+  - name: Pb8
+    description: Port B, Pin8.
+    value: 152
+  - name: Pb9
+    description: Port B, Pin9.
+    value: 153
+  - name: Pc0
     description: Port C, Pin0.
     value: 160
-  - name: PC1
+  - name: Pc1
     description: Port C, Pin1.
     value: 161
-  - name: PC2
-    description: Port C, Pin2.
-    value: 162
-  - name: PC3
-    description: Port C, Pin3.
-    value: 163
-  - name: PC4
-    description: Port C, Pin4.
-    value: 164
-  - name: PC5
-    description: Port C, Pin5.
-    value: 165
-  - name: PC6
-    description: Port C, Pin6.
-    value: 166
-  - name: PC7
-    description: Port C, Pin7.
-    value: 167
-  - name: PC8
-    description: Port C, Pin8.
-    value: 168
-  - name: PC9
-    description: Port C, Pin9.
-    value: 169
-  - name: PC10
+  - name: Pc10
     description: Port C, Pin10.
     value: 170
-  - name: PC11
+  - name: Pc11
     description: Port C, Pin11.
     value: 171
-  - name: PC12
+  - name: Pc12
     description: Port C, Pin12.
     value: 172
-  - name: PC13
+  - name: Pc13
     description: Port C, Pin13.
     value: 173
-  - name: PC14
+  - name: Pc14
     description: Port C, Pin14.
     value: 174
-  - name: PC15
+  - name: Pc15
     description: Port C, Pin15.
     value: 175
-  - name: PD0
+  - name: Pc2
+    description: Port C, Pin2.
+    value: 162
+  - name: Pc3
+    description: Port C, Pin3.
+    value: 163
+  - name: Pc4
+    description: Port C, Pin4.
+    value: 164
+  - name: Pc5
+    description: Port C, Pin5.
+    value: 165
+  - name: Pc6
+    description: Port C, Pin6.
+    value: 166
+  - name: Pc7
+    description: Port C, Pin7.
+    value: 167
+  - name: Pc8
+    description: Port C, Pin8.
+    value: 168
+  - name: Pc9
+    description: Port C, Pin9.
+    value: 169
+  - name: Pd0
     description: Port D, Pin0.
     value: 176
-  - name: PD1
+  - name: Pd1
     description: Port D, Pin1.
     value: 177
-  - name: PD2
-    description: Port D, Pin2.
-    value: 178
-  - name: PD3
-    description: Port D, Pin3.
-    value: 179
-  - name: PD4
-    description: Port D, Pin4.
-    value: 180
-  - name: PD5
-    description: Port D, Pin5.
-    value: 181
-  - name: PD6
-    description: Port D, Pin6.
-    value: 182
-  - name: PD7
-    description: Port D, Pin7.
-    value: 183
-  - name: PD8
-    description: Port D, Pin8.
-    value: 184
-  - name: PD9
-    description: Port D, Pin9.
-    value: 185
-  - name: PD10
+  - name: Pd10
     description: Port D, Pin10.
     value: 186
-  - name: PD11
+  - name: Pd11
     description: Port D, Pin11.
     value: 187
-  - name: PD12
+  - name: Pd12
     description: Port D, Pin12.
     value: 188
-  - name: PD13
+  - name: Pd13
     description: Port D, Pin13.
     value: 189
-  - name: PD14
+  - name: Pd14
     description: Port D, Pin14.
     value: 190
-  - name: PD15
+  - name: Pd15
     description: Port D, Pin15.
     value: 191
+  - name: Pd2
+    description: Port D, Pin2.
+    value: 178
+  - name: Pd3
+    description: Port D, Pin3.
+    value: 179
+  - name: Pd4
+    description: Port D, Pin4.
+    value: 180
+  - name: Pd5
+    description: Port D, Pin5.
+    value: 181
+  - name: Pd6
+    description: Port D, Pin6.
+    value: 182
+  - name: Pd7
+    description: Port D, Pin7.
+    value: 183
+  - name: Pd8
+    description: Port D, Pin8.
+    value: 184
+  - name: Pd9
+    description: Port D, Pin9.
+    value: 185
+  - name: Vdac0out1
+    description: VDAC0 channel 1 output.
+    value: 65
+  - name: Vdac1out1
+    description: VDAC1 channel 1 output.
+    value: 67
+  - name: Vrefdiv1v25
+    description: Divided 1V25 reference.
+    value: 18
+  - name: Vrefdiv1v25lp
+    description: Low-power Divided 1V25 reference.
+    value: 19
+  - name: Vrefdiv2v5
+    description: Divided 2V5 reference.
+    value: 20
+  - name: Vrefdiv2v5lp
+    description: Low-power Divided 2V5 reference.
+    value: 21
+  - name: Vrefdivavdd
+    description: Divided AVDD.
+    value: 16
+  - name: Vrefdivavddlp
+    description: Low-Power Divided AVDD.
+    value: 17
+  - name: Vsense01div4
+    description: VSENSE0 divided by 4.
+    value: 32
+  - name: Vsense01div4lp
+    description: Low-power VSENSE0 divided by 4.
+    value: 33
+  - name: Vsense11div4
+    description: VSENSE1 divided by 4.
+    value: 34
+  - name: Vsense11div4lp
+    description: Low-power VSENSE1 divided by 4.
+    value: 35
+  - name: Vss
+    description: VSS.
+    value: 0

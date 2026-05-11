@@ -135,10 +135,17 @@ pub fn extract_ip(
         .run(&mut ir)
         .context("DeleteUselessEnums")?;
 
-    // Final sort to keep the YAML output deterministic.
     chiptool::transform::sort::Sort {}
         .run(&mut ir)
-        .context("final sort")?;
+        .context("sort")?;
+
+    // Canonicalise casing the same way stm32-metapac does: blocks/fieldsets/
+    // enums in PathSnakePascal, fields and block-items in Snake, enum
+    // variants in Pascal. Must run AFTER per-block transforms — their
+    // regexes are written against raw SVD UPPER_SNAKE names.
+    chiptool::transform::sanitize::Sanitize::default()
+        .run(&mut ir)
+        .context("Sanitize")?;
 
     Ok(ir)
 }

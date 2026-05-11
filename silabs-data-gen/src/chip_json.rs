@@ -96,43 +96,66 @@ mod tests {
         }
     }
 
+    /// Verify that `build()` threads the perimap-routed `(kind, version,
+    /// block)` triple from each `Entry` into the corresponding
+    /// `PeripheralInstance` and that the result round-trips through JSON.
+    ///
+    /// Uses a hand-rolled minimal `Entry` list (not `perimap::compile()`),
+    /// so adding real perimap entries doesn't churn this test. The actual
+    /// routing semantics of real entries are covered by `perimap.rs` tests.
     #[test]
-    fn build_routes_peripherals_via_perimap() {
+    fn build_threads_routed_kind_version_block_into_json() {
+        use crate::perimap::Entry;
+        use regex::Regex;
+
+        let entries = vec![
+            Entry {
+                key: Regex::new("^FAKE:FOO_NS:1$").unwrap(),
+                kind: "foo",
+                version: "v1_custom",
+                block: "FooBlock",
+            },
+        ];
+
         let peripherals = vec![
+            // Matches the custom Entry above — should pick up "foo"/"v1_custom"/"FooBlock".
             PeripheralIr {
-                name: "GPIO_NS".to_string(),
-                base_address: 0x5003_C000,
-                version: Some("7".to_string()),
+                name: "FOO_NS".to_string(),
+                base_address: 0x1000_0000,
+                version: Some("1".to_string()),
                 registers: vec![],
                 fingerprint: "deadbeef".repeat(8),
             },
+            // Matches no Entry — should fall through to `default_route`.
             PeripheralIr {
-                name: "EUSART0_NS".to_string(),
-                base_address: 0x5B01_0000,
-                version: Some("2".to_string()),
+                name: "BAR0_NS".to_string(),
+                base_address: 0x2000_0000,
+                version: Some("3".to_string()),
                 registers: vec![],
                 fingerprint: "feedface".repeat(8),
             },
         ];
-        let entries = perimap::compile().unwrap();
-        let cf = build(
-            fake_chip("EFR32MG26B211F2048IM68"),
-            &peripherals,
-            &[],
-            &entries,
-        );
-        assert_eq!(cf.peripherals.len(), 2);
-        assert_eq!(cf.peripherals[0].kind, "gpio");
-        assert_eq!(cf.peripherals[0].register_version, "v7");
-        assert_eq!(cf.peripherals[0].block, "GPIO");
-        assert_eq!(cf.peripherals[1].kind, "eusart");
-        assert_eq!(cf.peripherals[1].register_version, "v2");
-        assert_eq!(cf.peripherals[1].block, "EUSART");
 
-        // Roundtrip via JSON.
+        let cf = build(fake_chip("FAKE"), &peripherals, &[], &entries);
+
+        assert_eq!(cf.peripherals.len(), 2);
+
+        // Routed via the custom Entry.
+        assert_eq!(cf.peripherals[0].kind, "foo");
+        assert_eq!(cf.peripherals[0].register_version, "v1_custom");
+        assert_eq!(cf.peripherals[0].block, "FooBlock");
+
+        // Routed via default — strip `_NS`, strip trailing digit, lowercase kind,
+        // prepend `v` to SVD version, block name without suffix.
+        assert_eq!(cf.peripherals[1].kind, "bar");
+        assert_eq!(cf.peripherals[1].register_version, "v3");
+        assert_eq!(cf.peripherals[1].block, "BAR");
+
+        // JSON round-trip.
         let json = serde_json::to_string(&cf).unwrap();
         let back: ChipFile = serde_json::from_str(&json).unwrap();
-        assert_eq!(back.peripherals[0].kind, "gpio");
-        assert_eq!(back.peripherals[1].register_version, "v2");
+        assert_eq!(back.peripherals[0].kind, "foo");
+        assert_eq!(back.peripherals[0].block, "FooBlock");
+        assert_eq!(back.peripherals[1].register_version, "v3");
     }
 }

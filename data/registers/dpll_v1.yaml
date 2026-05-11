@@ -1,155 +1,155 @@
-block/DPLL:
+block/Dpll:
   description: DPLL peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: EN
+    fieldset: regs::Ipversion
+  - name: en
     description: No Description.
     byte_offset: 4
-    fieldset: regs::EN
-  - name: CFG
+    fieldset: regs::En
+  - name: cfg
     description: No Description.
     byte_offset: 8
-    fieldset: regs::CFG
-  - name: CFG1
+    fieldset: regs::Cfg
+  - name: cfg1
     description: No Description.
     byte_offset: 12
-    fieldset: regs::CFG1
-  - name: IF
+    fieldset: regs::Cfg1
+  - name: if_
     description: No Description.
     byte_offset: 16
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 20
-    fieldset: regs::IEN
-  - name: STATUS
+    fieldset: regs::Ien
+  - name: status
     description: No Description.
     byte_offset: 24
     access: Read
-    fieldset: regs::STATUS
-  - name: LOCK
+    fieldset: regs::Status
+  - name: lock
     description: No Description.
     byte_offset: 36
     access: Write
-    fieldset: regs::LOCK
-fieldset/regs::CFG:
+    fieldset: regs::Lock
+fieldset/regs::Cfg:
   description: No Description.
   fields:
-  - name: MODE
+  - name: mode
     description: Operating Mode Control.
     bit_offset: 0
     bit_size: 1
-    enum: vals::MODE
-  - name: EDGESEL
+    enum: vals::Mode
+  - name: edgesel
     description: Reference Edge Select.
     bit_offset: 1
     bit_size: 1
-  - name: AUTORECOVER
+  - name: autorecover
     description: Automatic Recovery Control.
     bit_offset: 2
     bit_size: 1
-  - name: DITHEN
+  - name: dithen
     description: Dither Enable Control.
     bit_offset: 6
     bit_size: 1
-fieldset/regs::CFG1:
+fieldset/regs::Cfg1:
   description: No Description.
   fields:
-  - name: M
+  - name: m
     description: Factor M.
     bit_offset: 0
     bit_size: 12
-  - name: N
+  - name: n
     description: Factor N.
     bit_offset: 16
     bit_size: 12
-fieldset/regs::EN:
+fieldset/regs::En:
   description: No Description.
   fields:
-  - name: EN
+  - name: en
     description: Module Enable.
     bit_offset: 0
     bit_size: 1
-  - name: DISABLING
+  - name: disabling
     description: Disablement Busy Status.
     bit_offset: 1
     bit_size: 1
-fieldset/regs::IEN:
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: LOCK
+  - name: lock
     description: LOCK interrupt Enable.
     bit_offset: 0
     bit_size: 1
-  - name: LOCKFAILLOW
+  - name: lockfaillow
     description: LOCKFAILLOW Interrupe Enable.
     bit_offset: 1
     bit_size: 1
-  - name: LOCKFAILHIGH
+  - name: lockfailhigh
     description: LOCKFAILHIGH Interrupt Enable.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: LOCK
+  - name: lock
     description: Lock Interrupt Flag.
     bit_offset: 0
     bit_size: 1
-  - name: LOCKFAILLOW
+  - name: lockfaillow
     description: Lock Failure Low Interrupt Flag.
     bit_offset: 1
     bit_size: 1
-  - name: LOCKFAILHIGH
+  - name: lockfailhigh
     description: Lock Failure High Interrupt Flag.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IP Version ID.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::LOCK:
+fieldset/regs::Lock:
   description: No Description.
   fields:
-  - name: LOCKKEY
+  - name: lockkey
     description: Lock Key.
     bit_offset: 0
     bit_size: 16
-    enum: vals::LOCKKEY
-fieldset/regs::STATUS:
+    enum: vals::Lockkey
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: RDY
+  - name: rdy
     description: Ready Status.
     bit_offset: 0
     bit_size: 1
-  - name: ENS
+  - name: ens
     description: Enable Status.
     bit_offset: 1
     bit_size: 1
-  - name: LOCK
+  - name: lock
     description: Lock Status.
     bit_offset: 31
     bit_size: 1
-enum/vals::LOCKKEY:
+enum/vals::Lockkey:
   bit_size: 16
   variants:
-  - name: UNLOCK
+  - name: Unlock
     description: Unlock code.
     value: 28930
-enum/vals::MODE:
+enum/vals::Mode:
   bit_size: 1
   variants:
-  - name: FLL
+  - name: Fll
     description: Frequency Lock Mode.
     value: 0
-  - name: PLL
+  - name: Pll
     description: Phase Lock Mode.
     value: 1

@@ -1,214 +1,214 @@
-block/LFXO:
+block/Lfxo:
   description: LFXO peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: CTRL
+    fieldset: regs::Ipversion
+  - name: ctrl
     description: No Description.
     byte_offset: 4
-    fieldset: regs::CTRL
-  - name: CFG
+    fieldset: regs::Ctrl
+  - name: cfg
     description: Do not write to this register unless the oscillator is forced off. The oscillator is forced off if DISONDEMAND is set and FORCEEN is cleared.
     byte_offset: 8
-    fieldset: regs::CFG
-  - name: STATUS
+    fieldset: regs::Cfg
+  - name: status
     description: No Description.
     byte_offset: 16
     access: Read
-    fieldset: regs::STATUS
-  - name: CAL
+    fieldset: regs::Status
+  - name: cal
     description: Do not write to this register unless CALBSY in SYNCBUSY register is low.
     byte_offset: 20
-    fieldset: regs::CAL
-  - name: IF
+    fieldset: regs::Cal
+  - name: if_
     description: No Description.
     byte_offset: 24
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 28
-    fieldset: regs::IEN
-  - name: SYNCBUSY
+    fieldset: regs::Ien
+  - name: syncbusy
     description: No Description.
     byte_offset: 32
     access: Read
-    fieldset: regs::SYNCBUSY
-  - name: LOCK
+    fieldset: regs::Syncbusy
+  - name: lock
     description: No Description.
     byte_offset: 36
     access: Write
-    fieldset: regs::LOCK
-fieldset/regs::CAL:
+    fieldset: regs::Lock
+fieldset/regs::Cal:
   description: Do not write to this register unless CALBSY in SYNCBUSY register is low.
   fields:
-  - name: CAPTUNE
+  - name: captune
     description: Internal Capacitance Tuning.
     bit_offset: 0
     bit_size: 7
-  - name: GAIN
+  - name: gain
     description: LFXO Startup Gain.
     bit_offset: 8
     bit_size: 2
-fieldset/regs::CFG:
+fieldset/regs::Cfg:
   description: Do not write to this register unless the oscillator is forced off. The oscillator is forced off if DISONDEMAND is set and FORCEEN is cleared.
   fields:
-  - name: AGC
+  - name: agc
     description: LFXO AGC Enable.
     bit_offset: 0
     bit_size: 1
-  - name: HIGHAMPL
+  - name: highampl
     description: LFXO High Amplitude Enable.
     bit_offset: 1
     bit_size: 1
-  - name: MODE
+  - name: mode
     description: LFXO Mode.
     bit_offset: 4
     bit_size: 2
-    enum: vals::MODE
-  - name: TIMEOUT
+    enum: vals::Mode
+  - name: timeout
     description: LFXO Start-up Delay.
     bit_offset: 8
     bit_size: 3
-    enum: vals::TIMEOUT
-fieldset/regs::CTRL:
+    enum: vals::Timeout
+fieldset/regs::Ctrl:
   description: No Description.
   fields:
-  - name: FORCEEN
+  - name: forceen
     description: LFXO Force Enable.
     bit_offset: 0
     bit_size: 1
-  - name: DISONDEMAND
+  - name: disondemand
     description: LFXO Disable On-demand requests.
     bit_offset: 1
     bit_size: 1
-  - name: FAILDETEN
+  - name: faildeten
     description: LFXO Failure Detection Enable.
     bit_offset: 4
     bit_size: 1
-  - name: FAILDETEM4WUEN
+  - name: faildetem4wuen
     description: LFXO Failure Detection EM4WU Enable.
     bit_offset: 5
     bit_size: 1
-fieldset/regs::IEN:
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: RDY
+  - name: rdy
     description: LFXO Ready Interrupt Enable.
     bit_offset: 0
     bit_size: 1
-  - name: POSEDGE
+  - name: posedge
     description: Rising Edge Interrupt Enable.
     bit_offset: 1
     bit_size: 1
-  - name: NEGEDGE
+  - name: negedge
     description: Falling Edge Interrupt Enable.
     bit_offset: 2
     bit_size: 1
-  - name: FAIL
+  - name: fail
     description: LFXO Failure Interrupt Enable.
     bit_offset: 3
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: RDY
+  - name: rdy
     description: LFXO Ready Interrupt Flag.
     bit_offset: 0
     bit_size: 1
-  - name: POSEDGE
+  - name: posedge
     description: Rising Edge Interrupt Flag.
     bit_offset: 1
     bit_size: 1
-  - name: NEGEDGE
+  - name: negedge
     description: Falling Edge Interrupt Flag.
     bit_offset: 2
     bit_size: 1
-  - name: FAIL
+  - name: fail
     description: LFXO Failure Interrupt Flag.
     bit_offset: 3
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IP Version ID.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::LOCK:
+fieldset/regs::Lock:
   description: No Description.
   fields:
-  - name: LOCKKEY
+  - name: lockkey
     description: Lock Key.
     bit_offset: 0
     bit_size: 16
-    enum: vals::LOCKKEY
-fieldset/regs::STATUS:
+    enum: vals::Lockkey
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: RDY
+  - name: rdy
     description: LFXO Ready Status.
     bit_offset: 0
     bit_size: 1
-  - name: ENS
+  - name: ens
     description: LFXO Enable Status.
     bit_offset: 16
     bit_size: 1
-  - name: LOCK
+  - name: lock
     description: LFXO Locked Status.
     bit_offset: 31
     bit_size: 1
-fieldset/regs::SYNCBUSY:
+fieldset/regs::Syncbusy:
   description: No Description.
   fields:
-  - name: CAL
+  - name: cal
     description: LFXO Synchronization status.
     bit_offset: 0
     bit_size: 1
-enum/vals::LOCKKEY:
+enum/vals::Lockkey:
   bit_size: 16
   variants:
-  - name: UNLOCK
+  - name: Unlock
     description: Unlock LFXO lockable registers.
     value: 6688
-enum/vals::MODE:
+enum/vals::Mode:
   bit_size: 2
   variants:
-  - name: XTAL
-    description: A 32768Hz crystal should be connected to the LF crystal pads. Voltage must not exceed VDDIO.
-    value: 0
-  - name: BUFEXTCLK
+  - name: Bufextclk
     description: An external sine source with minimum amplitude 100mv (zero-to-peak) and maximum amplitude 500mV (zero-to-peak) should be connected in series with LFXTAL_I pin. Minimum voltage should be larger than ground and maximum voltage smaller than VDDIO. The sine source does not need to be ac coupled externally as it is ac couples inside LFXO. LFXTAL_O is free to be used as a general purpose GPIO.
     value: 1
-  - name: DIGEXTCLK
+  - name: Digextclk
     description: An external 32KHz CMOS clock should be provided on LFXTAL_I. LFXTAL_O is free to be used as a general purpose GPIO.
     value: 2
-enum/vals::TIMEOUT:
+  - name: Xtal
+    description: A 32768Hz crystal should be connected to the LF crystal pads. Voltage must not exceed VDDIO.
+    value: 0
+enum/vals::Timeout:
   bit_size: 3
   variants:
-  - name: CYCLES2
-    description: Timeout period of 2 cycles.
-    value: 0
-  - name: CYCLES256
-    description: Timeout period of 256 cycles.
-    value: 1
-  - name: CYCLES1K
-    description: Timeout period of 1024 cycles.
-    value: 2
-  - name: CYCLES2K
-    description: Timeout period of 2048 cycles.
-    value: 3
-  - name: CYCLES4K
-    description: Timeout period of 4096 cycles.
-    value: 4
-  - name: CYCLES8K
-    description: Timeout period of 8192 cycles.
-    value: 5
-  - name: CYCLES16K
+  - name: Cycles16k
     description: Timeout period of 16384 cycles.
     value: 6
-  - name: CYCLES32K
+  - name: Cycles1k
+    description: Timeout period of 1024 cycles.
+    value: 2
+  - name: Cycles2
+    description: Timeout period of 2 cycles.
+    value: 0
+  - name: Cycles256
+    description: Timeout period of 256 cycles.
+    value: 1
+  - name: Cycles2k
+    description: Timeout period of 2048 cycles.
+    value: 3
+  - name: Cycles32k
     description: Timeout period of 32768 cycles.
     value: 7
+  - name: Cycles4k
+    description: Timeout period of 4096 cycles.
+    value: 4
+  - name: Cycles8k
+    description: Timeout period of 8192 cycles.
+    value: 5

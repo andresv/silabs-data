@@ -1,69 +1,69 @@
-block/ULFRCO:
+block/Ulfrco:
   description: ULFRCO peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: STATUS
+    fieldset: regs::Ipversion
+  - name: status
     description: No Description.
     byte_offset: 8
     access: Read
-    fieldset: regs::STATUS
-  - name: IF
+    fieldset: regs::Status
+  - name: if_
     description: No Description.
     byte_offset: 20
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 24
-    fieldset: regs::IEN
-fieldset/regs::IEN:
+    fieldset: regs::Ien
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: RDY
+  - name: rdy
     description: Enable Ready Interrupt.
     bit_offset: 0
     bit_size: 1
-  - name: POSEDGE
+  - name: posedge
     description: Enable Positive Edge Interrupt.
     bit_offset: 1
     bit_size: 1
-  - name: NEGEDGE
+  - name: negedge
     description: Enable Negative Edge Interrupt.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: RDY
+  - name: rdy
     description: Ready Interrupt Flag.
     bit_offset: 0
     bit_size: 1
-  - name: POSEDGE
+  - name: posedge
     description: Positive Edge Interrupt Flag.
     bit_offset: 1
     bit_size: 1
-  - name: NEGEDGE
+  - name: negedge
     description: Negative Edge Interrupt Flag.
     bit_offset: 2
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: ULFRCO IP version.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::STATUS:
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: RDY
+  - name: rdy
     description: Ready Status.
     bit_offset: 0
     bit_size: 1
-  - name: ENS
+  - name: ens
     description: Enable Status.
     bit_offset: 16
     bit_size: 1

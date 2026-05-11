@@ -1,189 +1,189 @@
-block/GPCRC:
+block/Gpcrc:
   description: GPCRC peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: EN
+    fieldset: regs::Ipversion
+  - name: en
     description: No Description.
     byte_offset: 4
-    fieldset: regs::EN
-  - name: CTRL
+    fieldset: regs::En
+  - name: ctrl
     description: No Description.
     byte_offset: 8
-    fieldset: regs::CTRL
-  - name: CMD
+    fieldset: regs::Ctrl
+  - name: cmd
     description: No Description.
     byte_offset: 12
     access: Write
-    fieldset: regs::CMD
-  - name: INIT
+    fieldset: regs::Cmd
+  - name: init
     description: No Description.
     byte_offset: 16
-    fieldset: regs::INIT
-  - name: POLY
+    fieldset: regs::Init
+  - name: poly
     description: No Description.
     byte_offset: 20
-    fieldset: regs::POLY
-  - name: INPUTDATA
+    fieldset: regs::Poly
+  - name: inputdata
     description: No Description.
     byte_offset: 24
     access: Write
-    fieldset: regs::INPUTDATA
-  - name: INPUTDATAHWORD
+    fieldset: regs::Inputdata
+  - name: inputdatahword
     description: No Description.
     byte_offset: 28
     access: Write
-    fieldset: regs::INPUTDATAHWORD
-  - name: INPUTDATABYTE
+    fieldset: regs::Inputdatahword
+  - name: inputdatabyte
     description: No Description.
     byte_offset: 32
     access: Write
-    fieldset: regs::INPUTDATABYTE
-  - name: DATA
+    fieldset: regs::Inputdatabyte
+  - name: data
     description: No Description.
     byte_offset: 36
     access: Read
-    fieldset: regs::DATA
-  - name: DATAREV
+    fieldset: regs::Data
+  - name: datarev
     description: No Description.
     byte_offset: 40
     access: Read
-    fieldset: regs::DATAREV
-  - name: DATABYTEREV
+    fieldset: regs::Datarev
+  - name: databyterev
     description: No Description.
     byte_offset: 44
     access: Read
-    fieldset: regs::DATABYTEREV
-fieldset/regs::CMD:
+    fieldset: regs::Databyterev
+fieldset/regs::Cmd:
   description: No Description.
   fields:
-  - name: INIT
+  - name: init
     description: Initialization Enable.
     bit_offset: 0
     bit_size: 1
-fieldset/regs::CTRL:
+fieldset/regs::Ctrl:
   description: No Description.
   fields:
-  - name: POLYSEL
+  - name: polysel
     description: Polynomial Select.
     bit_offset: 4
     bit_size: 1
-    enum: vals::POLYSEL
-  - name: BYTEMODE
+    enum: vals::Polysel
+  - name: bytemode
     description: Byte Mode Enable.
     bit_offset: 8
     bit_size: 1
-  - name: BITREVERSE
+  - name: bitreverse
     description: Byte-level Bit Reverse Enable.
     bit_offset: 9
     bit_size: 1
-    enum: vals::BITREVERSE
-  - name: BYTEREVERSE
+    enum: vals::Bitreverse
+  - name: bytereverse
     description: Byte Reverse Mode.
     bit_offset: 10
     bit_size: 1
-    enum: vals::BYTEREVERSE
-  - name: AUTOINIT
+    enum: vals::Bytereverse
+  - name: autoinit
     description: Auto Init Enable.
     bit_offset: 13
     bit_size: 1
-fieldset/regs::DATA:
+fieldset/regs::Data:
   description: No Description.
   fields:
-  - name: DATA
+  - name: data
     description: CRC Data Register.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::DATABYTEREV:
+fieldset/regs::Databyterev:
   description: No Description.
   fields:
-  - name: DATABYTEREV
+  - name: databyterev
     description: Data Byte Reverse Value.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::DATAREV:
+fieldset/regs::Datarev:
   description: No Description.
   fields:
-  - name: DATAREV
+  - name: datarev
     description: Data Reverse Value.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::EN:
+fieldset/regs::En:
   description: No Description.
   fields:
-  - name: EN
+  - name: en
     description: CRC Enable.
     bit_offset: 0
     bit_size: 1
-fieldset/regs::INIT:
+fieldset/regs::Init:
   description: No Description.
   fields:
-  - name: INIT
+  - name: init
     description: CRC Initialization Value.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::INPUTDATA:
+fieldset/regs::Inputdata:
   description: No Description.
   fields:
-  - name: INPUTDATA
+  - name: inputdata
     description: Input Data for 32-bit.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::INPUTDATABYTE:
+fieldset/regs::Inputdatabyte:
   description: No Description.
   fields:
-  - name: INPUTDATABYTE
+  - name: inputdatabyte
     description: Input Data for 8-bit.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::INPUTDATAHWORD:
+fieldset/regs::Inputdatahword:
   description: No Description.
   fields:
-  - name: INPUTDATAHWORD
+  - name: inputdatahword
     description: Input Data for 16-bit.
     bit_offset: 0
     bit_size: 16
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IP Version ID.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::POLY:
+fieldset/regs::Poly:
   description: No Description.
   fields:
-  - name: POLY
+  - name: poly
     description: CRC Polynomial Value.
     bit_offset: 0
     bit_size: 16
-enum/vals::BITREVERSE:
+enum/vals::Bitreverse:
   bit_size: 1
   variants:
-  - name: NORMAL
+  - name: Normal
     description: No reverse.
     value: 0
-  - name: REVERSED
+  - name: Reversed
     description: Reverse bit order in each byte.
     value: 1
-enum/vals::BYTEREVERSE:
+enum/vals::Bytereverse:
   bit_size: 1
   variants:
-  - name: NORMAL
+  - name: Normal
     description: 'No reverse: B3, B2, B1, B0.'
     value: 0
-  - name: REVERSED
+  - name: Reversed
     description: 'Reverse byte order. For 32-bit: B0, B1, B2, B3; For 16-bit: 0, 0, B0, B1.'
     value: 1
-enum/vals::POLYSEL:
+enum/vals::Polysel:
   bit_size: 1
   variants:
-  - name: CRC32
-    description: CRC-32 (0x04C11DB7) polynomial selected.
-    value: 0
-  - name: CRC16
+  - name: Crc16
     description: 16-bit CRC programmable polynomial selected.
     value: 1
+  - name: Crc32
+    description: CRC-32 (0x04C11DB7) polynomial selected.
+    value: 0

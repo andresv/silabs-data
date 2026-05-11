@@ -1,1320 +1,1320 @@
-block/USART:
+block/Usart:
   description: USART peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: EN
+    fieldset: regs::Ipversion
+  - name: en
     description: No Description.
     byte_offset: 4
-    fieldset: regs::EN
-  - name: CTRL
+    fieldset: regs::En
+  - name: ctrl
     description: No Description.
     byte_offset: 8
-    fieldset: regs::CTRL
-  - name: FRAME
+    fieldset: regs::Ctrl
+  - name: frame
     description: No Description.
     byte_offset: 12
-    fieldset: regs::FRAME
-  - name: TRIGCTRL
+    fieldset: regs::Frame
+  - name: trigctrl
     description: No Description.
     byte_offset: 16
-    fieldset: regs::TRIGCTRL
-  - name: CMD
+    fieldset: regs::Trigctrl
+  - name: cmd
     description: No Description.
     byte_offset: 20
     access: Write
-    fieldset: regs::CMD
-  - name: STATUS
+    fieldset: regs::Cmd
+  - name: status
     description: No Description.
     byte_offset: 24
     access: Read
-    fieldset: regs::STATUS
-  - name: CLKDIV
+    fieldset: regs::Status
+  - name: clkdiv
     description: No Description.
     byte_offset: 28
-    fieldset: regs::CLKDIV
-  - name: RXDATAX
+    fieldset: regs::Clkdiv
+  - name: rxdatax
     description: No Description.
     byte_offset: 32
     access: Read
-    fieldset: regs::RXDATAX
-  - name: RXDATA
+    fieldset: regs::Rxdatax
+  - name: rxdata
     description: No Description.
     byte_offset: 36
     access: Read
-    fieldset: regs::RXDATA
-  - name: RXDOUBLEX
+    fieldset: regs::Rxdata
+  - name: rxdoublex
     description: No Description.
     byte_offset: 40
     access: Read
-    fieldset: regs::RXDOUBLEX
-  - name: RXDOUBLE
+    fieldset: regs::Rxdoublex
+  - name: rxdouble
     description: No Description.
     byte_offset: 44
     access: Read
-    fieldset: regs::RXDOUBLE
-  - name: RXDATAXP
+    fieldset: regs::Rxdouble
+  - name: rxdataxp
     description: No Description.
     byte_offset: 48
     access: Read
-    fieldset: regs::RXDATAXP
-  - name: RXDOUBLEXP
+    fieldset: regs::Rxdataxp
+  - name: rxdoublexp
     description: No Description.
     byte_offset: 52
     access: Read
-    fieldset: regs::RXDOUBLEXP
-  - name: TXDATAX
+    fieldset: regs::Rxdoublexp
+  - name: txdatax
     description: No Description.
     byte_offset: 56
     access: Write
-    fieldset: regs::TXDATAX
-  - name: TXDATA
+    fieldset: regs::Txdatax
+  - name: txdata
     description: No Description.
     byte_offset: 60
     access: Write
-    fieldset: regs::TXDATA
-  - name: TXDOUBLEX
+    fieldset: regs::Txdata
+  - name: txdoublex
     description: No Description.
     byte_offset: 64
     access: Write
-    fieldset: regs::TXDOUBLEX
-  - name: TXDOUBLE
+    fieldset: regs::Txdoublex
+  - name: txdouble
     description: No Description.
     byte_offset: 68
     access: Write
-    fieldset: regs::TXDOUBLE
-  - name: IF
+    fieldset: regs::Txdouble
+  - name: if_
     description: No Description.
     byte_offset: 72
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 76
-    fieldset: regs::IEN
-  - name: IRCTRL
+    fieldset: regs::Ien
+  - name: irctrl
     description: No Description.
     byte_offset: 80
-    fieldset: regs::IRCTRL
-  - name: I2SCTRL
+    fieldset: regs::Irctrl
+  - name: i2sctrl
     description: No Description.
     byte_offset: 84
-    fieldset: regs::I2SCTRL
-  - name: TIMING
+    fieldset: regs::I2sctrl
+  - name: timing
     description: No Description.
     byte_offset: 88
-    fieldset: regs::TIMING
-  - name: CTRLX
+    fieldset: regs::Timing
+  - name: ctrlx
     description: No Description.
     byte_offset: 92
-    fieldset: regs::CTRLX
-  - name: TIMECMP0
+    fieldset: regs::Ctrlx
+  - name: timecmp0
     description: No Description.
     byte_offset: 96
-    fieldset: regs::TIMECMP0
-  - name: TIMECMP1
+    fieldset: regs::Timecmp0
+  - name: timecmp1
     description: No Description.
     byte_offset: 100
-    fieldset: regs::TIMECMP1
-  - name: TIMECMP2
+    fieldset: regs::Timecmp1
+  - name: timecmp2
     description: No Description.
     byte_offset: 104
-    fieldset: regs::TIMECMP2
-fieldset/regs::CLKDIV:
+    fieldset: regs::Timecmp2
+fieldset/regs::Clkdiv:
   description: No Description.
   fields:
-  - name: DIV
+  - name: div
     description: Fractional Clock Divider.
     bit_offset: 3
     bit_size: 20
-  - name: AUTOBAUDEN
+  - name: autobauden
     description: AUTOBAUD detection enable.
     bit_offset: 31
     bit_size: 1
-fieldset/regs::CMD:
+fieldset/regs::Cmd:
   description: No Description.
   fields:
-  - name: RXEN
+  - name: rxen
     description: Receiver Enable.
     bit_offset: 0
     bit_size: 1
-  - name: RXDIS
+  - name: rxdis
     description: Receiver Disable.
     bit_offset: 1
     bit_size: 1
-  - name: TXEN
+  - name: txen
     description: Transmitter Enable.
     bit_offset: 2
     bit_size: 1
-  - name: TXDIS
+  - name: txdis
     description: Transmitter Disable.
     bit_offset: 3
     bit_size: 1
-  - name: MASTEREN
+  - name: masteren
     description: Main Mode Enable.
     bit_offset: 4
     bit_size: 1
-  - name: MASTERDIS
+  - name: masterdis
     description: Main Mode Disable.
     bit_offset: 5
     bit_size: 1
-  - name: RXBLOCKEN
+  - name: rxblocken
     description: Receiver Block Enable.
     bit_offset: 6
     bit_size: 1
-  - name: RXBLOCKDIS
+  - name: rxblockdis
     description: Receiver Block Disable.
     bit_offset: 7
     bit_size: 1
-  - name: TXTRIEN
+  - name: txtrien
     description: Transmitter Tristate Enable.
     bit_offset: 8
     bit_size: 1
-  - name: TXTRIDIS
+  - name: txtridis
     description: Transmitter Tristate Disable.
     bit_offset: 9
     bit_size: 1
-  - name: CLEARTX
+  - name: cleartx
     description: Clear TX.
     bit_offset: 10
     bit_size: 1
-  - name: CLEARRX
+  - name: clearrx
     description: Clear RX.
     bit_offset: 11
     bit_size: 1
-fieldset/regs::CTRL:
+fieldset/regs::Ctrl:
   description: No Description.
   fields:
-  - name: SYNC
+  - name: sync
     description: USART Synchronous Mode.
     bit_offset: 0
     bit_size: 1
-  - name: LOOPBK
+  - name: loopbk
     description: Loopback Enable.
     bit_offset: 1
     bit_size: 1
-  - name: CCEN
+  - name: ccen
     description: Collision Check Enable.
     bit_offset: 2
     bit_size: 1
-  - name: MPM
+  - name: mpm
     description: Multi-Processor Mode.
     bit_offset: 3
     bit_size: 1
-  - name: MPAB
+  - name: mpab
     description: Multi-Processor Address-Bit.
     bit_offset: 4
     bit_size: 1
-  - name: OVS
+  - name: ovs
     description: Oversampling.
     bit_offset: 5
     bit_size: 2
-    enum: vals::OVS
-  - name: CLKPOL
+    enum: vals::Ovs
+  - name: clkpol
     description: Clock Polarity.
     bit_offset: 8
     bit_size: 1
-    enum: vals::CLKPOL
-  - name: CLKPHA
+    enum: vals::Clkpol
+  - name: clkpha
     description: Clock Edge For Setup/Sample.
     bit_offset: 9
     bit_size: 1
-    enum: vals::CLKPHA
-  - name: MSBF
+    enum: vals::Clkpha
+  - name: msbf
     description: Most Significant Bit First.
     bit_offset: 10
     bit_size: 1
-  - name: CSMA
+  - name: csma
     description: Action On Chip Select In Main Mode.
     bit_offset: 11
     bit_size: 1
-    enum: vals::CSMA
-  - name: TXBIL
+    enum: vals::Csma
+  - name: txbil
     description: TX Buffer Interrupt Level.
     bit_offset: 12
     bit_size: 1
-    enum: vals::TXBIL
-  - name: RXINV
+    enum: vals::Txbil
+  - name: rxinv
     description: Receiver Input Invert.
     bit_offset: 13
     bit_size: 1
-  - name: TXINV
+  - name: txinv
     description: Transmitter output Invert.
     bit_offset: 14
     bit_size: 1
-  - name: CSINV
+  - name: csinv
     description: Chip Select Invert.
     bit_offset: 15
     bit_size: 1
-  - name: AUTOCS
+  - name: autocs
     description: Automatic Chip Select.
     bit_offset: 16
     bit_size: 1
-  - name: AUTOTRI
+  - name: autotri
     description: Automatic TX Tristate.
     bit_offset: 17
     bit_size: 1
-  - name: SCMODE
+  - name: scmode
     description: SmartCard Mode.
     bit_offset: 18
     bit_size: 1
-  - name: SCRETRANS
+  - name: scretrans
     description: SmartCard Retransmit.
     bit_offset: 19
     bit_size: 1
-  - name: SKIPPERRF
+  - name: skipperrf
     description: Skip Parity Error Frames.
     bit_offset: 20
     bit_size: 1
-  - name: BIT8DV
+  - name: bit8dv
     description: Bit 8 Default Value.
     bit_offset: 21
     bit_size: 1
-  - name: ERRSDMA
+  - name: errsdma
     description: Halt DMA On Error.
     bit_offset: 22
     bit_size: 1
-  - name: ERRSRX
+  - name: errsrx
     description: Disable RX On Error.
     bit_offset: 23
     bit_size: 1
-  - name: ERRSTX
+  - name: errstx
     description: Disable TX On Error.
     bit_offset: 24
     bit_size: 1
-  - name: SSSEARLY
+  - name: sssearly
     description: Synchronous Secondary Setup Early.
     bit_offset: 25
     bit_size: 1
-  - name: BYTESWAP
+  - name: byteswap
     description: Byteswap In Double Accesses.
     bit_offset: 28
     bit_size: 1
-  - name: AUTOTX
+  - name: autotx
     description: Always Transmit When RX Not Full.
     bit_offset: 29
     bit_size: 1
-  - name: MVDIS
+  - name: mvdis
     description: Majority Vote Disable.
     bit_offset: 30
     bit_size: 1
-  - name: SMSDELAY
+  - name: smsdelay
     description: Synchronous Main Sample Delay.
     bit_offset: 31
     bit_size: 1
-fieldset/regs::CTRLX:
+fieldset/regs::Ctrlx:
   description: No Description.
   fields:
-  - name: DBGHALT
+  - name: dbghalt
     description: Debug halt.
     bit_offset: 0
     bit_size: 1
-  - name: CTSINV
+  - name: ctsinv
     description: CTS Pin Inversion.
     bit_offset: 1
     bit_size: 1
-  - name: CTSEN
+  - name: ctsen
     description: CTS Function enabled.
     bit_offset: 2
     bit_size: 1
-  - name: RTSINV
+  - name: rtsinv
     description: RTS Pin Inversion.
     bit_offset: 3
     bit_size: 1
-  - name: RXPRSEN
+  - name: rxprsen
     description: PRS RX Enable.
     bit_offset: 7
     bit_size: 1
-  - name: CLKPRSEN
+  - name: clkprsen
     description: PRS CLK Enable.
     bit_offset: 15
     bit_size: 1
-fieldset/regs::EN:
+fieldset/regs::En:
   description: No Description.
   fields:
-  - name: EN
+  - name: en
     description: USART Enable.
     bit_offset: 0
     bit_size: 1
-fieldset/regs::FRAME:
+fieldset/regs::Frame:
   description: No Description.
   fields:
-  - name: DATABITS
+  - name: databits
     description: Data-Bit Mode.
     bit_offset: 0
     bit_size: 4
-    enum: vals::DATABITS
-  - name: PARITY
+    enum: vals::Databits
+  - name: parity
     description: Parity-Bit Mode.
     bit_offset: 8
     bit_size: 2
-    enum: vals::PARITY
-  - name: STOPBITS
+    enum: vals::Parity
+  - name: stopbits
     description: Stop-Bit Mode.
     bit_offset: 12
     bit_size: 2
-    enum: vals::STOPBITS
-fieldset/regs::I2SCTRL:
+    enum: vals::Stopbits
+fieldset/regs::I2sctrl:
   description: No Description.
   fields:
-  - name: EN
+  - name: en
     description: Enable I2S Mode.
     bit_offset: 0
     bit_size: 1
-  - name: MONO
+  - name: mono
     description: Stero or Mono.
     bit_offset: 1
     bit_size: 1
-  - name: JUSTIFY
+  - name: justify
     description: Justification of I2S Data.
     bit_offset: 2
     bit_size: 1
-    enum: vals::JUSTIFY
-  - name: DMASPLIT
+    enum: vals::Justify
+  - name: dmasplit
     description: Separate DMA Request For Left/Right Data.
     bit_offset: 3
     bit_size: 1
-  - name: DELAY
+  - name: delay
     description: Delay on I2S data.
     bit_offset: 4
     bit_size: 1
-  - name: FORMAT
+  - name: format
     description: I2S Word Format.
     bit_offset: 8
     bit_size: 3
-    enum: vals::FORMAT
-fieldset/regs::IEN:
+    enum: vals::Format
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: TXC
+  - name: txc
     description: TX Complete Interrupt Enable.
     bit_offset: 0
     bit_size: 1
-  - name: TXBL
+  - name: txbl
     description: TX Buffer Level Interrupt Enable.
     bit_offset: 1
     bit_size: 1
-  - name: RXDATAV
+  - name: rxdatav
     description: RX Data Valid Interrupt Enable.
     bit_offset: 2
     bit_size: 1
-  - name: RXFULL
+  - name: rxfull
     description: RX Buffer Full Interrupt Enable.
     bit_offset: 3
     bit_size: 1
-  - name: RXOF
+  - name: rxof
     description: RX Overflow Interrupt Enable.
     bit_offset: 4
     bit_size: 1
-  - name: RXUF
+  - name: rxuf
     description: RX Underflow Interrupt Enable.
     bit_offset: 5
     bit_size: 1
-  - name: TXOF
+  - name: txof
     description: TX Overflow Interrupt Enable.
     bit_offset: 6
     bit_size: 1
-  - name: TXUF
+  - name: txuf
     description: TX Underflow Interrupt Enable.
     bit_offset: 7
     bit_size: 1
-  - name: PERR
+  - name: perr
     description: Parity Error Interrupt Enable.
     bit_offset: 8
     bit_size: 1
-  - name: FERR
+  - name: ferr
     description: Framing Error Interrupt Enable.
     bit_offset: 9
     bit_size: 1
-  - name: MPAF
+  - name: mpaf
     description: Multi-Processor Address Frame Interrupt.
     bit_offset: 10
     bit_size: 1
-  - name: SSM
+  - name: ssm
     description: Chip-Select In Main Mode Interrupt Flag.
     bit_offset: 11
     bit_size: 1
-  - name: CCF
+  - name: ccf
     description: Collision Check Fail Interrupt Enable.
     bit_offset: 12
     bit_size: 1
-  - name: TXIDLE
+  - name: txidle
     description: TX Idle Interrupt Enable.
     bit_offset: 13
     bit_size: 1
-  - name: TCMP0
+  - name: tcmp0
     description: Timer comparator 0 Interrupt Enable.
     bit_offset: 14
     bit_size: 1
-  - name: TCMP1
+  - name: tcmp1
     description: Timer comparator 1 Interrupt Enable.
     bit_offset: 15
     bit_size: 1
-  - name: TCMP2
+  - name: tcmp2
     description: Timer comparator 2 Interrupt Enable.
     bit_offset: 16
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: TXC
+  - name: txc
     description: TX Complete Interrupt Flag.
     bit_offset: 0
     bit_size: 1
-  - name: TXBL
+  - name: txbl
     description: TX Buffer Level Interrupt Flag.
     bit_offset: 1
     bit_size: 1
-  - name: RXDATAV
+  - name: rxdatav
     description: RX Data Valid Interrupt Flag.
     bit_offset: 2
     bit_size: 1
-  - name: RXFULL
+  - name: rxfull
     description: RX Buffer Full Interrupt Flag.
     bit_offset: 3
     bit_size: 1
-  - name: RXOF
+  - name: rxof
     description: RX Overflow Interrupt Flag.
     bit_offset: 4
     bit_size: 1
-  - name: RXUF
+  - name: rxuf
     description: RX Underflow Interrupt Flag.
     bit_offset: 5
     bit_size: 1
-  - name: TXOF
+  - name: txof
     description: TX Overflow Interrupt Flag.
     bit_offset: 6
     bit_size: 1
-  - name: TXUF
+  - name: txuf
     description: TX Underflow Interrupt Flag.
     bit_offset: 7
     bit_size: 1
-  - name: PERR
+  - name: perr
     description: Parity Error Interrupt Flag.
     bit_offset: 8
     bit_size: 1
-  - name: FERR
+  - name: ferr
     description: Framing Error Interrupt Flag.
     bit_offset: 9
     bit_size: 1
-  - name: MPAF
+  - name: mpaf
     description: Multi-Processor Address Frame Interrupt.
     bit_offset: 10
     bit_size: 1
-  - name: SSM
+  - name: ssm
     description: Chip-Select In Main Mode Interrupt Flag.
     bit_offset: 11
     bit_size: 1
-  - name: CCF
+  - name: ccf
     description: Collision Check Fail Interrupt Flag.
     bit_offset: 12
     bit_size: 1
-  - name: TXIDLE
+  - name: txidle
     description: TX Idle Interrupt Flag.
     bit_offset: 13
     bit_size: 1
-  - name: TCMP0
+  - name: tcmp0
     description: Timer comparator 0 Interrupt Flag.
     bit_offset: 14
     bit_size: 1
-  - name: TCMP1
+  - name: tcmp1
     description: Timer comparator 1 Interrupt Flag.
     bit_offset: 15
     bit_size: 1
-  - name: TCMP2
+  - name: tcmp2
     description: Timer comparator 2 Interrupt Flag.
     bit_offset: 16
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IPVERSION.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::IRCTRL:
+fieldset/regs::Irctrl:
   description: No Description.
   fields:
-  - name: IREN
+  - name: iren
     description: Enable IrDA Module.
     bit_offset: 0
     bit_size: 1
-  - name: IRPW
+  - name: irpw
     description: IrDA TX Pulse Width.
     bit_offset: 1
     bit_size: 2
-    enum: vals::IRPW
-  - name: IRFILT
+    enum: vals::Irpw
+  - name: irfilt
     description: IrDA RX Filter.
     bit_offset: 3
     bit_size: 1
-fieldset/regs::RXDATA:
+fieldset/regs::Rxdata:
   description: No Description.
   fields:
-  - name: RXDATA
+  - name: rxdata
     description: RX Data.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::RXDATAX:
+fieldset/regs::Rxdatax:
   description: No Description.
   fields:
-  - name: RXDATA
+  - name: rxdata
     description: RX Data.
     bit_offset: 0
     bit_size: 9
-  - name: PERR
+  - name: perr
     description: Data Parity Error.
     bit_offset: 14
     bit_size: 1
-  - name: FERR
+  - name: ferr
     description: Data Framing Error.
     bit_offset: 15
     bit_size: 1
-fieldset/regs::RXDATAXP:
+fieldset/regs::Rxdataxp:
   description: No Description.
   fields:
-  - name: RXDATAP
+  - name: rxdatap
     description: RX Data Peek.
     bit_offset: 0
     bit_size: 9
-  - name: PERRP
+  - name: perrp
     description: Data Parity Error Peek.
     bit_offset: 14
     bit_size: 1
-  - name: FERRP
+  - name: ferrp
     description: Data Framing Error Peek.
     bit_offset: 15
     bit_size: 1
-fieldset/regs::RXDOUBLE:
+fieldset/regs::Rxdouble:
   description: No Description.
   fields:
-  - name: RXDATA0
+  - name: rxdata0
     description: RX Data 0.
     bit_offset: 0
     bit_size: 8
-  - name: RXDATA1
+  - name: rxdata1
     description: RX Data 1.
     bit_offset: 8
     bit_size: 8
-fieldset/regs::RXDOUBLEX:
+fieldset/regs::Rxdoublex:
   description: No Description.
   fields:
-  - name: RXDATA0
+  - name: rxdata0
     description: RX Data 0.
     bit_offset: 0
     bit_size: 9
-  - name: PERR0
+  - name: perr0
     description: Data Parity Error 0.
     bit_offset: 14
     bit_size: 1
-  - name: FERR0
+  - name: ferr0
     description: Data Framing Error 0.
     bit_offset: 15
     bit_size: 1
-  - name: RXDATA1
+  - name: rxdata1
     description: RX Data 1.
     bit_offset: 16
     bit_size: 9
-  - name: PERR1
+  - name: perr1
     description: Data Parity Error 1.
     bit_offset: 30
     bit_size: 1
-  - name: FERR1
+  - name: ferr1
     description: Data Framing Error 1.
     bit_offset: 31
     bit_size: 1
-fieldset/regs::RXDOUBLEXP:
+fieldset/regs::Rxdoublexp:
   description: No Description.
   fields:
-  - name: RXDATAP0
+  - name: rxdatap0
     description: RX Data 0 Peek.
     bit_offset: 0
     bit_size: 9
-  - name: PERRP0
+  - name: perrp0
     description: Data Parity Error 0 Peek.
     bit_offset: 14
     bit_size: 1
-  - name: FERRP0
+  - name: ferrp0
     description: Data Framing Error 0 Peek.
     bit_offset: 15
     bit_size: 1
-  - name: RXDATAP1
+  - name: rxdatap1
     description: RX Data 1 Peek.
     bit_offset: 16
     bit_size: 9
-  - name: PERRP1
+  - name: perrp1
     description: Data Parity Error 1 Peek.
     bit_offset: 30
     bit_size: 1
-  - name: FERRP1
+  - name: ferrp1
     description: Data Framing Error 1 Peek.
     bit_offset: 31
     bit_size: 1
-fieldset/regs::STATUS:
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: RXENS
+  - name: rxens
     description: Receiver Enable Status.
     bit_offset: 0
     bit_size: 1
-  - name: TXENS
+  - name: txens
     description: Transmitter Enable Status.
     bit_offset: 1
     bit_size: 1
-  - name: MASTER
+  - name: master
     description: SPI Main Mode.
     bit_offset: 2
     bit_size: 1
-  - name: RXBLOCK
+  - name: rxblock
     description: Block Incoming Data.
     bit_offset: 3
     bit_size: 1
-  - name: TXTRI
+  - name: txtri
     description: Transmitter Tristated.
     bit_offset: 4
     bit_size: 1
-  - name: TXC
+  - name: txc
     description: TX Complete.
     bit_offset: 5
     bit_size: 1
-  - name: TXBL
+  - name: txbl
     description: TX Buffer Level.
     bit_offset: 6
     bit_size: 1
-  - name: RXDATAV
+  - name: rxdatav
     description: RX Data Valid.
     bit_offset: 7
     bit_size: 1
-  - name: RXFULL
+  - name: rxfull
     description: RX FIFO Full.
     bit_offset: 8
     bit_size: 1
-  - name: TXBDRIGHT
+  - name: txbdright
     description: TX Buffer Expects Double Right Data.
     bit_offset: 9
     bit_size: 1
-  - name: TXBSRIGHT
+  - name: txbsright
     description: TX Buffer Expects Single Right Data.
     bit_offset: 10
     bit_size: 1
-  - name: RXDATAVRIGHT
+  - name: rxdatavright
     description: RX Data Right.
     bit_offset: 11
     bit_size: 1
-  - name: RXFULLRIGHT
+  - name: rxfullright
     description: RX Full of Right Data.
     bit_offset: 12
     bit_size: 1
-  - name: TXIDLE
+  - name: txidle
     description: TX Idle.
     bit_offset: 13
     bit_size: 1
-  - name: TIMERRESTARTED
+  - name: timerrestarted
     description: The USART Timer restarted itself.
     bit_offset: 14
     bit_size: 1
-  - name: TXBUFCNT
+  - name: txbufcnt
     description: TX Buffer Count.
     bit_offset: 16
     bit_size: 2
-fieldset/regs::TIMECMP0:
+fieldset/regs::Timecmp0:
   description: No Description.
   fields:
-  - name: TCMPVAL
+  - name: tcmpval
     description: Timer comparator 0.
     bit_offset: 0
     bit_size: 8
-  - name: TSTART
+  - name: tstart
     description: Timer start source.
     bit_offset: 16
     bit_size: 3
-    enum: vals::TIMECMP0_TSTART
-  - name: TSTOP
+    enum: vals::Timecmp0Tstart
+  - name: tstop
     description: Source used to disable comparator 0.
     bit_offset: 20
     bit_size: 3
-    enum: vals::TIMECMP0_TSTOP
-  - name: RESTARTEN
+    enum: vals::Timecmp0Tstop
+  - name: restarten
     description: Restart Timer on TCMP0.
     bit_offset: 24
     bit_size: 1
-fieldset/regs::TIMECMP1:
+fieldset/regs::Timecmp1:
   description: No Description.
   fields:
-  - name: TCMPVAL
+  - name: tcmpval
     description: Timer comparator 1.
     bit_offset: 0
     bit_size: 8
-  - name: TSTART
+  - name: tstart
     description: Timer start source.
     bit_offset: 16
     bit_size: 3
-    enum: vals::TIMECMP1_TSTART
-  - name: TSTOP
+    enum: vals::Timecmp1Tstart
+  - name: tstop
     description: Source used to disable comparator 1.
     bit_offset: 20
     bit_size: 3
-    enum: vals::TIMECMP1_TSTOP
-  - name: RESTARTEN
+    enum: vals::Timecmp1Tstop
+  - name: restarten
     description: Restart Timer on TCMP1.
     bit_offset: 24
     bit_size: 1
-fieldset/regs::TIMECMP2:
+fieldset/regs::Timecmp2:
   description: No Description.
   fields:
-  - name: TCMPVAL
+  - name: tcmpval
     description: Timer comparator 2.
     bit_offset: 0
     bit_size: 8
-  - name: TSTART
+  - name: tstart
     description: Timer start source.
     bit_offset: 16
     bit_size: 3
-    enum: vals::TIMECMP2_TSTART
-  - name: TSTOP
+    enum: vals::Timecmp2Tstart
+  - name: tstop
     description: Source used to disable comparator 2.
     bit_offset: 20
     bit_size: 3
-    enum: vals::TIMECMP2_TSTOP
-  - name: RESTARTEN
+    enum: vals::Timecmp2Tstop
+  - name: restarten
     description: Restart Timer on TCMP2.
     bit_offset: 24
     bit_size: 1
-fieldset/regs::TIMING:
+fieldset/regs::Timing:
   description: No Description.
   fields:
-  - name: TXDELAY
+  - name: txdelay
     description: TX frame start delay.
     bit_offset: 16
     bit_size: 3
-    enum: vals::TXDELAY
-  - name: CSSETUP
+    enum: vals::Txdelay
+  - name: cssetup
     description: Chip Select Setup.
     bit_offset: 20
     bit_size: 3
-    enum: vals::CSSETUP
-  - name: ICS
+    enum: vals::Cssetup
+  - name: ics
     description: Inter-character spacing.
     bit_offset: 24
     bit_size: 3
-    enum: vals::ICS
-  - name: CSHOLD
+    enum: vals::Ics
+  - name: cshold
     description: Chip Select Hold.
     bit_offset: 28
     bit_size: 3
-    enum: vals::CSHOLD
-fieldset/regs::TRIGCTRL:
+    enum: vals::Cshold
+fieldset/regs::Trigctrl:
   description: No Description.
   fields:
-  - name: RXTEN
+  - name: rxten
     description: Receive Trigger Enable.
     bit_offset: 4
     bit_size: 1
-  - name: TXTEN
+  - name: txten
     description: Transmit Trigger Enable.
     bit_offset: 5
     bit_size: 1
-  - name: AUTOTXTEN
+  - name: autotxten
     description: AUTOTX Trigger Enable.
     bit_offset: 6
     bit_size: 1
-  - name: TXARX0EN
+  - name: txarx0en
     description: Enable Transmit Trigger after RX End of.
     bit_offset: 7
     bit_size: 1
-  - name: TXARX1EN
+  - name: txarx1en
     description: Enable Transmit Trigger after RX End of.
     bit_offset: 8
     bit_size: 1
-  - name: TXARX2EN
+  - name: txarx2en
     description: Enable Transmit Trigger after RX End of.
     bit_offset: 9
     bit_size: 1
-  - name: RXATX0EN
+  - name: rxatx0en
     description: Enable Receive Trigger after TX end of f.
     bit_offset: 10
     bit_size: 1
-  - name: RXATX1EN
+  - name: rxatx1en
     description: Enable Receive Trigger after TX end of f.
     bit_offset: 11
     bit_size: 1
-  - name: RXATX2EN
+  - name: rxatx2en
     description: Enable Receive Trigger after TX end of f.
     bit_offset: 12
     bit_size: 1
-fieldset/regs::TXDATA:
+fieldset/regs::Txdata:
   description: No Description.
   fields:
-  - name: TXDATA
+  - name: txdata
     description: TX Data.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::TXDATAX:
+fieldset/regs::Txdatax:
   description: No Description.
   fields:
-  - name: TXDATAX
+  - name: txdatax
     description: TX Data.
     bit_offset: 0
     bit_size: 9
-  - name: UBRXAT
+  - name: ubrxat
     description: Unblock RX After Transmission.
     bit_offset: 11
     bit_size: 1
-  - name: TXTRIAT
+  - name: txtriat
     description: Set TXTRI After Transmission.
     bit_offset: 12
     bit_size: 1
-  - name: TXBREAK
+  - name: txbreak
     description: Transmit Data As Break.
     bit_offset: 13
     bit_size: 1
-  - name: TXDISAT
+  - name: txdisat
     description: Clear TXEN After Transmission.
     bit_offset: 14
     bit_size: 1
-  - name: RXENAT
+  - name: rxenat
     description: Enable RX After Transmission.
     bit_offset: 15
     bit_size: 1
-fieldset/regs::TXDOUBLE:
+fieldset/regs::Txdouble:
   description: No Description.
   fields:
-  - name: TXDATA0
+  - name: txdata0
     description: TX Data.
     bit_offset: 0
     bit_size: 8
-  - name: TXDATA1
+  - name: txdata1
     description: TX Data.
     bit_offset: 8
     bit_size: 8
-fieldset/regs::TXDOUBLEX:
+fieldset/regs::Txdoublex:
   description: No Description.
   fields:
-  - name: TXDATA0
+  - name: txdata0
     description: TX Data.
     bit_offset: 0
     bit_size: 9
-  - name: UBRXAT0
+  - name: ubrxat0
     description: Unblock RX After Transmission.
     bit_offset: 11
     bit_size: 1
-  - name: TXTRIAT0
+  - name: txtriat0
     description: Set TXTRI After Transmission.
     bit_offset: 12
     bit_size: 1
-  - name: TXBREAK0
+  - name: txbreak0
     description: Transmit Data As Break.
     bit_offset: 13
     bit_size: 1
-  - name: TXDISAT0
+  - name: txdisat0
     description: Clear TXEN After Transmission.
     bit_offset: 14
     bit_size: 1
-  - name: RXENAT0
+  - name: rxenat0
     description: Enable RX After Transmission.
     bit_offset: 15
     bit_size: 1
-  - name: TXDATA1
+  - name: txdata1
     description: TX Data.
     bit_offset: 16
     bit_size: 9
-  - name: UBRXAT1
+  - name: ubrxat1
     description: Unblock RX After Transmission.
     bit_offset: 27
     bit_size: 1
-  - name: TXTRIAT1
+  - name: txtriat1
     description: Set TXTRI After Transmission.
     bit_offset: 28
     bit_size: 1
-  - name: TXBREAK1
+  - name: txbreak1
     description: Transmit Data As Break.
     bit_offset: 29
     bit_size: 1
-  - name: TXDISAT1
+  - name: txdisat1
     description: Clear TXEN After Transmission.
     bit_offset: 30
     bit_size: 1
-  - name: RXENAT1
+  - name: rxenat1
     description: Enable RX After Transmission.
     bit_offset: 31
     bit_size: 1
-enum/vals::CLKPHA:
+enum/vals::Clkpha:
   bit_size: 1
   variants:
-  - name: SAMPLELEADING
+  - name: Sampleleading
     description: Data is sampled on the leading edge and set-up on the trailing edge of the bus clock in synchronous mode.
     value: 0
-  - name: SAMPLETRAILING
+  - name: Sampletrailing
     description: Data is set-up on the leading edge and sampled on the trailing edge of the bus clock in synchronous mode.
     value: 1
-enum/vals::CLKPOL:
+enum/vals::Clkpol:
   bit_size: 1
   variants:
-  - name: IDLELOW
-    description: The bus clock used in synchronous mode has a low base value.
-    value: 0
-  - name: IDLEHIGH
+  - name: Idlehigh
     description: The bus clock used in synchronous mode has a high base value.
     value: 1
-enum/vals::CSHOLD:
+  - name: Idlelow
+    description: The bus clock used in synchronous mode has a low base value.
+    value: 0
+enum/vals::Cshold:
   bit_size: 3
   variants:
-  - name: ZERO
-    description: Disable CS being asserted after the end of transmission.
-    value: 0
-  - name: ONE
+  - name: One
     description: CS is asserted for 1 baud-times after the end of transmission.
     value: 1
-  - name: TWO
-    description: CS is asserted for 2 baud-times after the end of transmission.
-    value: 2
-  - name: THREE
-    description: CS is asserted for 3 baud-times after the end of transmission.
-    value: 3
-  - name: SEVEN
+  - name: Seven
     description: CS is asserted for 7 baud-times after the end of transmission.
     value: 4
-  - name: TCMP0
+  - name: Tcmp0
     description: CS is asserted after the end of transmission for TCMPVAL0 baud-times.
     value: 5
-  - name: TCMP1
+  - name: Tcmp1
     description: CS is asserted after the end of transmission for TCMPVAL1 baud-times.
     value: 6
-  - name: TCMP2
+  - name: Tcmp2
     description: CS is asserted after the end of transmission for TCMPVAL2 baud-times.
     value: 7
-enum/vals::CSMA:
+  - name: Three
+    description: CS is asserted for 3 baud-times after the end of transmission.
+    value: 3
+  - name: Two
+    description: CS is asserted for 2 baud-times after the end of transmission.
+    value: 2
+  - name: Zero
+    description: Disable CS being asserted after the end of transmission.
+    value: 0
+enum/vals::Csma:
   bit_size: 1
   variants:
-  - name: NOACTION
-    description: No action taken.
-    value: 0
-  - name: GOTOSLAVEMODE
+  - name: Gotoslavemode
     description: Go to secondary mode.
     value: 1
-enum/vals::CSSETUP:
+  - name: Noaction
+    description: No action taken.
+    value: 0
+enum/vals::Cssetup:
   bit_size: 3
   variants:
-  - name: ZERO
-    description: CS is not asserted before start of transmission.
-    value: 0
-  - name: ONE
+  - name: One
     description: CS is asserted for 1 baud-times before start of transmission.
     value: 1
-  - name: TWO
-    description: CS is asserted for 2 baud-times before start of transmission.
-    value: 2
-  - name: THREE
-    description: CS is asserted for 3 baud-times before start of transmission.
-    value: 3
-  - name: SEVEN
+  - name: Seven
     description: CS is asserted for 7 baud-times before start of transmission.
     value: 4
-  - name: TCMP0
+  - name: Tcmp0
     description: CS is asserted before the start of transmission for TCMPVAL0 baud-times.
     value: 5
-  - name: TCMP1
+  - name: Tcmp1
     description: CS is asserted before the start of transmission for TCMPVAL1 baud-times.
     value: 6
-  - name: TCMP2
+  - name: Tcmp2
     description: CS is asserted before the start of transmission for TCMPVAL2 baud-times.
     value: 7
-enum/vals::DATABITS:
+  - name: Three
+    description: CS is asserted for 3 baud-times before start of transmission.
+    value: 3
+  - name: Two
+    description: CS is asserted for 2 baud-times before start of transmission.
+    value: 2
+  - name: Zero
+    description: CS is not asserted before start of transmission.
+    value: 0
+enum/vals::Databits:
   bit_size: 4
   variants:
-  - name: FOUR
-    description: Each frame contains 4 data bits.
-    value: 1
-  - name: FIVE
-    description: Each frame contains 5 data bits.
-    value: 2
-  - name: SIX
-    description: Each frame contains 6 data bits.
-    value: 3
-  - name: SEVEN
-    description: Each frame contains 7 data bits.
-    value: 4
-  - name: EIGHT
+  - name: Eight
     description: Each frame contains 8 data bits.
     value: 5
-  - name: NINE
-    description: Each frame contains 9 data bits.
-    value: 6
-  - name: TEN
-    description: Each frame contains 10 data bits.
-    value: 7
-  - name: ELEVEN
+  - name: Eleven
     description: Each frame contains 11 data bits.
     value: 8
-  - name: TWELVE
-    description: Each frame contains 12 data bits.
-    value: 9
-  - name: THIRTEEN
-    description: Each frame contains 13 data bits.
-    value: 10
-  - name: FOURTEEN
-    description: Each frame contains 14 data bits.
-    value: 11
-  - name: FIFTEEN
+  - name: Fifteen
     description: Each frame contains 15 data bits.
     value: 12
-  - name: SIXTEEN
+  - name: Five
+    description: Each frame contains 5 data bits.
+    value: 2
+  - name: Four
+    description: Each frame contains 4 data bits.
+    value: 1
+  - name: Fourteen
+    description: Each frame contains 14 data bits.
+    value: 11
+  - name: Nine
+    description: Each frame contains 9 data bits.
+    value: 6
+  - name: Seven
+    description: Each frame contains 7 data bits.
+    value: 4
+  - name: Six
+    description: Each frame contains 6 data bits.
+    value: 3
+  - name: Sixteen
     description: Each frame contains 16 data bits.
     value: 13
-enum/vals::FORMAT:
+  - name: Ten
+    description: Each frame contains 10 data bits.
+    value: 7
+  - name: Thirteen
+    description: Each frame contains 13 data bits.
+    value: 10
+  - name: Twelve
+    description: Each frame contains 12 data bits.
+    value: 9
+enum/vals::Format:
   bit_size: 3
   variants:
-  - name: W32D32
-    description: 32-bit word, 32-bit data.
-    value: 0
-  - name: W32D24M
-    description: 32-bit word, 32-bit data with 8 lsb masked.
-    value: 1
-  - name: W32D24
-    description: 32-bit word, 24-bit data.
-    value: 2
-  - name: W32D16
-    description: 32-bit word, 16-bit data.
-    value: 3
-  - name: W32D8
-    description: 32-bit word, 8-bit data.
-    value: 4
-  - name: W16D16
+  - name: W16d16
     description: 16-bit word, 16-bit data.
     value: 5
-  - name: W16D8
+  - name: W16d8
     description: 16-bit word, 8-bit data.
     value: 6
-  - name: W8D8
+  - name: W32d16
+    description: 32-bit word, 16-bit data.
+    value: 3
+  - name: W32d24
+    description: 32-bit word, 24-bit data.
+    value: 2
+  - name: W32d24m
+    description: 32-bit word, 32-bit data with 8 lsb masked.
+    value: 1
+  - name: W32d32
+    description: 32-bit word, 32-bit data.
+    value: 0
+  - name: W32d8
+    description: 32-bit word, 8-bit data.
+    value: 4
+  - name: W8d8
     description: 8-bit word, 8-bit data.
     value: 7
-enum/vals::ICS:
+enum/vals::Ics:
   bit_size: 3
   variants:
-  - name: ZERO
-    description: There is no space between charcters.
-    value: 0
-  - name: ONE
+  - name: One
     description: Create a space of 1 baud-times before start of transmission.
     value: 1
-  - name: TWO
-    description: Create a space of 2 baud-times before start of transmission.
-    value: 2
-  - name: THREE
-    description: Create a space of 3 baud-times before start of transmission.
-    value: 3
-  - name: SEVEN
+  - name: Seven
     description: Create a space of 7 baud-times before start of transmission.
     value: 4
-  - name: TCMP0
+  - name: Tcmp0
     description: Create a space of before the start of transmission for TCMPVAL0 baud-times.
     value: 5
-  - name: TCMP1
+  - name: Tcmp1
     description: Create a space of before the start of transmission for TCMPVAL1 baud-times.
     value: 6
-  - name: TCMP2
+  - name: Tcmp2
     description: Create a space of before the start of transmission for TCMPVAL2 baud-times.
     value: 7
-enum/vals::IRPW:
+  - name: Three
+    description: Create a space of 3 baud-times before start of transmission.
+    value: 3
+  - name: Two
+    description: Create a space of 2 baud-times before start of transmission.
+    value: 2
+  - name: Zero
+    description: There is no space between charcters.
+    value: 0
+enum/vals::Irpw:
   bit_size: 2
   variants:
-  - name: ONE
-    description: IrDA pulse width is 1/16 for OVS=0 and 1/8 for OVS=1.
-    value: 0
-  - name: TWO
-    description: IrDA pulse width is 2/16 for OVS=0 and 2/8 for OVS=1.
-    value: 1
-  - name: THREE
-    description: IrDA pulse width is 3/16 for OVS=0 and 3/8 for OVS=1.
-    value: 2
-  - name: FOUR
+  - name: Four
     description: IrDA pulse width is 4/16 for OVS=0 and 4/8 for OVS=1.
     value: 3
-enum/vals::JUSTIFY:
+  - name: One
+    description: IrDA pulse width is 1/16 for OVS=0 and 1/8 for OVS=1.
+    value: 0
+  - name: Three
+    description: IrDA pulse width is 3/16 for OVS=0 and 3/8 for OVS=1.
+    value: 2
+  - name: Two
+    description: IrDA pulse width is 2/16 for OVS=0 and 2/8 for OVS=1.
+    value: 1
+enum/vals::Justify:
   bit_size: 1
   variants:
-  - name: LEFT
+  - name: Left
     description: Data is left-justified.
     value: 0
-  - name: RIGHT
+  - name: Right
     description: Data is right-justified.
     value: 1
-enum/vals::OVS:
+enum/vals::Ovs:
   bit_size: 2
   variants:
   - name: X16
     description: Regular UART mode with 16X oversampling in asynchronous mode.
     value: 0
-  - name: X8
-    description: Double speed with 8X oversampling in asynchronous mode.
-    value: 1
-  - name: X6
-    description: 6X oversampling in asynchronous mode.
-    value: 2
   - name: X4
     description: Quadruple speed with 4X oversampling in asynchronous mode.
     value: 3
-enum/vals::PARITY:
+  - name: X6
+    description: 6X oversampling in asynchronous mode.
+    value: 2
+  - name: X8
+    description: Double speed with 8X oversampling in asynchronous mode.
+    value: 1
+enum/vals::Parity:
   bit_size: 2
   variants:
-  - name: NONE
-    description: Parity bits are not used.
-    value: 0
-  - name: EVEN
+  - name: Even
     description: Even parity are used. Parity bits are automatically generated and checked by hardware.
     value: 2
-  - name: ODD
+  - name: None
+    description: Parity bits are not used.
+    value: 0
+  - name: Odd
     description: Odd parity is used. Parity bits are automatically generated and checked by hardware.
     value: 3
-enum/vals::STOPBITS:
+enum/vals::Stopbits:
   bit_size: 2
   variants:
-  - name: HALF
+  - name: Half
     description: The transmitter generates a half stop bit. Stop-bits are not verified by receiver.
     value: 0
-  - name: ONE
+  - name: One
     description: One stop bit is generated and verified.
     value: 1
-  - name: ONEANDAHALF
+  - name: Oneandahalf
     description: The transmitter generates one and a half stop bit. The receiver verifies the first stop bit.
     value: 2
-  - name: TWO
+  - name: Two
     description: The transmitter generates two stop bits. The receiver checks the first stop-bit only.
     value: 3
-enum/vals::TIMECMP0_TSTART:
+enum/vals::Timecmp0Tstart:
   bit_size: 3
   variants:
-  - name: DISABLE
+  - name: Disable
     description: Comparator 0 is disabled.
     value: 0
-  - name: TXEOF
-    description: Comparator 0 and timer are started at TX end of frame.
-    value: 1
-  - name: TXC
-    description: Comparator 0 and timer are started at TX Complete.
-    value: 2
-  - name: RXACT
+  - name: Rxact
     description: 'Comparator 0 and timer are started at RX going going Active (default: low).'
     value: 3
-  - name: RXEOF
+  - name: Rxeof
     description: Comparator 0 and timer are started at RX end of frame.
     value: 4
-enum/vals::TIMECMP0_TSTOP:
+  - name: Txc
+    description: Comparator 0 and timer are started at TX Complete.
+    value: 2
+  - name: Txeof
+    description: Comparator 0 and timer are started at TX end of frame.
+    value: 1
+enum/vals::Timecmp0Tstop:
   bit_size: 3
   variants:
-  - name: TCMP0
-    description: Comparator 0 is disabled when the counter equals TCMPVAL and triggers a TCMP0 event.
-    value: 0
-  - name: TXST
-    description: Comparator 0 is disabled at TX start TX Engine.
-    value: 1
-  - name: RXACT
+  - name: Rxact
     description: 'Comparator 0 is disabled on RX going going Active (default: low).'
     value: 2
-  - name: RXACTN
+  - name: Rxactn
     description: Comparator 0 is disabled on RX going Inactive.
     value: 3
-enum/vals::TIMECMP1_TSTART:
+  - name: Tcmp0
+    description: Comparator 0 is disabled when the counter equals TCMPVAL and triggers a TCMP0 event.
+    value: 0
+  - name: Txst
+    description: Comparator 0 is disabled at TX start TX Engine.
+    value: 1
+enum/vals::Timecmp1Tstart:
   bit_size: 3
   variants:
-  - name: DISABLE
+  - name: Disable
     description: Comparator 1 is disabled.
     value: 0
-  - name: TXEOF
-    description: Comparator 1 and timer are started at TX end of frame.
-    value: 1
-  - name: TXC
-    description: Comparator 1 and timer are started at TX Complete.
-    value: 2
-  - name: RXACT
+  - name: Rxact
     description: 'Comparator 1 and timer are started at RX going going Active (default: low).'
     value: 3
-  - name: RXEOF
+  - name: Rxeof
     description: Comparator 1 and timer are started at RX end of frame.
     value: 4
-enum/vals::TIMECMP1_TSTOP:
+  - name: Txc
+    description: Comparator 1 and timer are started at TX Complete.
+    value: 2
+  - name: Txeof
+    description: Comparator 1 and timer are started at TX end of frame.
+    value: 1
+enum/vals::Timecmp1Tstop:
   bit_size: 3
   variants:
-  - name: TCMP1
-    description: Comparator 1 is disabled when the counter equals TCMPVAL and triggers a TCMP1 event.
-    value: 0
-  - name: TXST
-    description: Comparator 1 is disabled at TX start TX Engine.
-    value: 1
-  - name: RXACT
+  - name: Rxact
     description: 'Comparator 1 is disabled on RX going going Active (default: low).'
     value: 2
-  - name: RXACTN
+  - name: Rxactn
     description: Comparator 1 is disabled on RX going Inactive.
     value: 3
-enum/vals::TIMECMP2_TSTART:
+  - name: Tcmp1
+    description: Comparator 1 is disabled when the counter equals TCMPVAL and triggers a TCMP1 event.
+    value: 0
+  - name: Txst
+    description: Comparator 1 is disabled at TX start TX Engine.
+    value: 1
+enum/vals::Timecmp2Tstart:
   bit_size: 3
   variants:
-  - name: DISABLE
+  - name: Disable
     description: Comparator 2 is disabled.
     value: 0
-  - name: TXEOF
-    description: Comparator 2 and timer are started at TX end of frame.
-    value: 1
-  - name: TXC
-    description: Comparator 2 and timer are started at TX Complete.
-    value: 2
-  - name: RXACT
+  - name: Rxact
     description: 'Comparator 2 and timer are started at RX going going Active (default: low).'
     value: 3
-  - name: RXEOF
+  - name: Rxeof
     description: Comparator 2 and timer are started at RX end of frame.
     value: 4
-enum/vals::TIMECMP2_TSTOP:
+  - name: Txc
+    description: Comparator 2 and timer are started at TX Complete.
+    value: 2
+  - name: Txeof
+    description: Comparator 2 and timer are started at TX end of frame.
+    value: 1
+enum/vals::Timecmp2Tstop:
   bit_size: 3
   variants:
-  - name: TCMP2
-    description: Comparator 2 is disabled when the counter equals TCMPVAL and triggers a TCMP2 event.
-    value: 0
-  - name: TXST
-    description: Comparator 2 is disabled at TX start TX Engine.
-    value: 1
-  - name: RXACT
+  - name: Rxact
     description: 'Comparator 2 is disabled on RX going going Active (default: low).'
     value: 2
-  - name: RXACTN
+  - name: Rxactn
     description: Comparator 2 is disabled on RX going Inactive.
     value: 3
-enum/vals::TXBIL:
+  - name: Tcmp2
+    description: Comparator 2 is disabled when the counter equals TCMPVAL and triggers a TCMP2 event.
+    value: 0
+  - name: Txst
+    description: Comparator 2 is disabled at TX start TX Engine.
+    value: 1
+enum/vals::Txbil:
   bit_size: 1
   variants:
-  - name: EMPTY
+  - name: Empty
     description: TXBL and the TXBL interrupt flag are set when the transmit buffer becomes empty. TXBL is cleared when the buffer becomes nonempty.
     value: 0
-  - name: HALFFULL
+  - name: Halffull
     description: TXBL and TXBLIF are set when the transmit buffer goes from full to half-full or empty. TXBL is cleared when the buffer becomes full.
     value: 1
-enum/vals::TXDELAY:
+enum/vals::Txdelay:
   bit_size: 3
   variants:
-  - name: DISABLE
+  - name: Disable
     description: Disable - TXDELAY in USARTn_CTRL can be used for legacy.
     value: 0
-  - name: ONE
+  - name: One
     description: Start of transmission is delayed for 1 baud-times.
     value: 1
-  - name: TWO
-    description: Start of transmission is delayed for 2 baud-times.
-    value: 2
-  - name: THREE
-    description: Start of transmission is delayed for 3 baud-times.
-    value: 3
-  - name: SEVEN
+  - name: Seven
     description: Start of transmission is delayed for 7 baud-times.
     value: 4
-  - name: TCMP0
+  - name: Tcmp0
     description: Start of transmission is delayed for TCMPVAL0 baud-times.
     value: 5
-  - name: TCMP1
+  - name: Tcmp1
     description: Start of transmission is delayed for TCMPVAL1 baud-times.
     value: 6
-  - name: TCMP2
+  - name: Tcmp2
     description: Start of transmission is delayed for TCMPVAL2 baud-times.
     value: 7
+  - name: Three
+    description: Start of transmission is delayed for 3 baud-times.
+    value: 3
+  - name: Two
+    description: Start of transmission is delayed for 2 baud-times.
+    value: 2

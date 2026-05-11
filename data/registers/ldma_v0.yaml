@@ -1,2886 +1,2886 @@
-block/LDMA:
+block/Ldma:
   description: LDMA peripheral.
   items:
-  - name: IPVERSION
+  - name: ipversion
     description: No Description.
     byte_offset: 0
     access: Read
-    fieldset: regs::IPVERSION
-  - name: EN
+    fieldset: regs::Ipversion
+  - name: en
     description: No Description.
     byte_offset: 4
-    fieldset: regs::EN
-  - name: CTRL
+    fieldset: regs::En
+  - name: ctrl
     description: No Description.
     byte_offset: 8
-    fieldset: regs::CTRL
-  - name: STATUS
+    fieldset: regs::Ctrl
+  - name: status
     description: No Description.
     byte_offset: 12
     access: Read
-    fieldset: regs::STATUS
-  - name: SYNCSWSET
+    fieldset: regs::Status
+  - name: syncswset
     description: No Description.
     byte_offset: 16
     access: Write
-    fieldset: regs::SYNCSWSET
-  - name: SYNCSWCLR
+    fieldset: regs::Syncswset
+  - name: syncswclr
     description: No Description.
     byte_offset: 20
     access: Write
-    fieldset: regs::SYNCSWCLR
-  - name: SYNCHWEN
+    fieldset: regs::Syncswclr
+  - name: synchwen
     description: No Description.
     byte_offset: 24
-    fieldset: regs::SYNCHWEN
-  - name: SYNCHWSEL
+    fieldset: regs::Synchwen
+  - name: synchwsel
     description: No Description.
     byte_offset: 28
-    fieldset: regs::SYNCHWSEL
-  - name: SYNCSTATUS
+    fieldset: regs::Synchwsel
+  - name: syncstatus
     description: No Description.
     byte_offset: 32
     access: Read
-    fieldset: regs::SYNCSTATUS
-  - name: CHEN
+    fieldset: regs::Syncstatus
+  - name: chen
     description: No Description.
     byte_offset: 36
     access: Write
-    fieldset: regs::CHEN
-  - name: CHDIS
+    fieldset: regs::Chen
+  - name: chdis
     description: No Description.
     byte_offset: 40
     access: Write
-    fieldset: regs::CHDIS
-  - name: CHSTATUS
+    fieldset: regs::Chdis
+  - name: chstatus
     description: No Description.
     byte_offset: 44
     access: Read
-    fieldset: regs::CHSTATUS
-  - name: CHBUSY
+    fieldset: regs::Chstatus
+  - name: chbusy
     description: No Description.
     byte_offset: 48
     access: Read
-    fieldset: regs::CHBUSY
-  - name: CHDONE
+    fieldset: regs::Chbusy
+  - name: chdone
     description: No Description.
     byte_offset: 52
-    fieldset: regs::CHDONE
-  - name: DBGHALT
+    fieldset: regs::Chdone
+  - name: dbghalt
     description: No Description.
     byte_offset: 56
-    fieldset: regs::DBGHALT
-  - name: SWREQ
+    fieldset: regs::Dbghalt
+  - name: swreq
     description: No Description.
     byte_offset: 60
     access: Write
-    fieldset: regs::SWREQ
-  - name: REQDIS
+    fieldset: regs::Swreq
+  - name: reqdis
     description: No Description.
     byte_offset: 64
-    fieldset: regs::REQDIS
-  - name: REQPEND
+    fieldset: regs::Reqdis
+  - name: reqpend
     description: No Description.
     byte_offset: 68
     access: Read
-    fieldset: regs::REQPEND
-  - name: LINKLOAD
+    fieldset: regs::Reqpend
+  - name: linkload
     description: No Description.
     byte_offset: 72
     access: Write
-    fieldset: regs::LINKLOAD
-  - name: REQCLEAR
+    fieldset: regs::Linkload
+  - name: reqclear
     description: No Description.
     byte_offset: 76
     access: Write
-    fieldset: regs::REQCLEAR
-  - name: IF
+    fieldset: regs::Reqclear
+  - name: if_
     description: No Description.
     byte_offset: 80
-    fieldset: regs::IF
-  - name: IEN
+    fieldset: regs::If
+  - name: ien
     description: No Description.
     byte_offset: 84
-    fieldset: regs::IEN
-  - name: CH0_CFG
+    fieldset: regs::Ien
+  - name: ch0_cfg
     description: No Description.
     byte_offset: 92
-    fieldset: regs::CH0_CFG
-  - name: CH0_LOOP
+    fieldset: regs::Ch0Cfg
+  - name: ch0_loop
     description: No Description.
     byte_offset: 96
-    fieldset: regs::CH0_LOOP
-  - name: CH0_CTRL
+    fieldset: regs::Ch0Loop
+  - name: ch0_ctrl
     description: No Description.
     byte_offset: 100
-    fieldset: regs::CH0_CTRL
-  - name: CH0_SRC
+    fieldset: regs::Ch0Ctrl
+  - name: ch0_src
     description: No Description.
     byte_offset: 104
-    fieldset: regs::CH0_SRC
-  - name: CH0_DST
+    fieldset: regs::Ch0Src
+  - name: ch0_dst
     description: No Description.
     byte_offset: 108
-    fieldset: regs::CH0_DST
-  - name: CH0_LINK
+    fieldset: regs::Ch0Dst
+  - name: ch0_link
     description: No Description.
     byte_offset: 112
-    fieldset: regs::CH0_LINK
-  - name: CH1_CFG
+    fieldset: regs::Ch0Link
+  - name: ch1_cfg
     description: No Description.
     byte_offset: 140
-    fieldset: regs::CH1_CFG
-  - name: CH1_LOOP
+    fieldset: regs::Ch1Cfg
+  - name: ch1_loop
     description: No Description.
     byte_offset: 144
-    fieldset: regs::CH1_LOOP
-  - name: CH1_CTRL
+    fieldset: regs::Ch1Loop
+  - name: ch1_ctrl
     description: No Description.
     byte_offset: 148
-    fieldset: regs::CH1_CTRL
-  - name: CH1_SRC
+    fieldset: regs::Ch1Ctrl
+  - name: ch1_src
     description: No Description.
     byte_offset: 152
-    fieldset: regs::CH1_SRC
-  - name: CH1_DST
+    fieldset: regs::Ch1Src
+  - name: ch1_dst
     description: No Description.
     byte_offset: 156
-    fieldset: regs::CH1_DST
-  - name: CH1_LINK
+    fieldset: regs::Ch1Dst
+  - name: ch1_link
     description: No Description.
     byte_offset: 160
-    fieldset: regs::CH1_LINK
-  - name: CH2_CFG
+    fieldset: regs::Ch1Link
+  - name: ch2_cfg
     description: No Description.
     byte_offset: 188
-    fieldset: regs::CH2_CFG
-  - name: CH2_LOOP
+    fieldset: regs::Ch2Cfg
+  - name: ch2_loop
     description: No Description.
     byte_offset: 192
-    fieldset: regs::CH2_LOOP
-  - name: CH2_CTRL
+    fieldset: regs::Ch2Loop
+  - name: ch2_ctrl
     description: No Description.
     byte_offset: 196
-    fieldset: regs::CH2_CTRL
-  - name: CH2_SRC
+    fieldset: regs::Ch2Ctrl
+  - name: ch2_src
     description: No Description.
     byte_offset: 200
-    fieldset: regs::CH2_SRC
-  - name: CH2_DST
+    fieldset: regs::Ch2Src
+  - name: ch2_dst
     description: No Description.
     byte_offset: 204
-    fieldset: regs::CH2_DST
-  - name: CH2_LINK
+    fieldset: regs::Ch2Dst
+  - name: ch2_link
     description: No Description.
     byte_offset: 208
-    fieldset: regs::CH2_LINK
-  - name: CH3_CFG
+    fieldset: regs::Ch2Link
+  - name: ch3_cfg
     description: No Description.
     byte_offset: 236
-    fieldset: regs::CH3_CFG
-  - name: CH3_LOOP
+    fieldset: regs::Ch3Cfg
+  - name: ch3_loop
     description: No Description.
     byte_offset: 240
-    fieldset: regs::CH3_LOOP
-  - name: CH3_CTRL
+    fieldset: regs::Ch3Loop
+  - name: ch3_ctrl
     description: No Description.
     byte_offset: 244
-    fieldset: regs::CH3_CTRL
-  - name: CH3_SRC
+    fieldset: regs::Ch3Ctrl
+  - name: ch3_src
     description: No Description.
     byte_offset: 248
-    fieldset: regs::CH3_SRC
-  - name: CH3_DST
+    fieldset: regs::Ch3Src
+  - name: ch3_dst
     description: No Description.
     byte_offset: 252
-    fieldset: regs::CH3_DST
-  - name: CH3_LINK
+    fieldset: regs::Ch3Dst
+  - name: ch3_link
     description: No Description.
     byte_offset: 256
-    fieldset: regs::CH3_LINK
-  - name: CH4_CFG
+    fieldset: regs::Ch3Link
+  - name: ch4_cfg
     description: No Description.
     byte_offset: 284
-    fieldset: regs::CH4_CFG
-  - name: CH4_LOOP
+    fieldset: regs::Ch4Cfg
+  - name: ch4_loop
     description: No Description.
     byte_offset: 288
-    fieldset: regs::CH4_LOOP
-  - name: CH4_CTRL
+    fieldset: regs::Ch4Loop
+  - name: ch4_ctrl
     description: No Description.
     byte_offset: 292
-    fieldset: regs::CH4_CTRL
-  - name: CH4_SRC
+    fieldset: regs::Ch4Ctrl
+  - name: ch4_src
     description: No Description.
     byte_offset: 296
-    fieldset: regs::CH4_SRC
-  - name: CH4_DST
+    fieldset: regs::Ch4Src
+  - name: ch4_dst
     description: No Description.
     byte_offset: 300
-    fieldset: regs::CH4_DST
-  - name: CH4_LINK
+    fieldset: regs::Ch4Dst
+  - name: ch4_link
     description: No Description.
     byte_offset: 304
-    fieldset: regs::CH4_LINK
-  - name: CH5_CFG
+    fieldset: regs::Ch4Link
+  - name: ch5_cfg
     description: No Description.
     byte_offset: 332
-    fieldset: regs::CH5_CFG
-  - name: CH5_LOOP
+    fieldset: regs::Ch5Cfg
+  - name: ch5_loop
     description: No Description.
     byte_offset: 336
-    fieldset: regs::CH5_LOOP
-  - name: CH5_CTRL
+    fieldset: regs::Ch5Loop
+  - name: ch5_ctrl
     description: No Description.
     byte_offset: 340
-    fieldset: regs::CH5_CTRL
-  - name: CH5_SRC
+    fieldset: regs::Ch5Ctrl
+  - name: ch5_src
     description: No Description.
     byte_offset: 344
-    fieldset: regs::CH5_SRC
-  - name: CH5_DST
+    fieldset: regs::Ch5Src
+  - name: ch5_dst
     description: No Description.
     byte_offset: 348
-    fieldset: regs::CH5_DST
-  - name: CH5_LINK
+    fieldset: regs::Ch5Dst
+  - name: ch5_link
     description: No Description.
     byte_offset: 352
-    fieldset: regs::CH5_LINK
-  - name: CH6_CFG
+    fieldset: regs::Ch5Link
+  - name: ch6_cfg
     description: No Description.
     byte_offset: 380
-    fieldset: regs::CH6_CFG
-  - name: CH6_LOOP
+    fieldset: regs::Ch6Cfg
+  - name: ch6_loop
     description: No Description.
     byte_offset: 384
-    fieldset: regs::CH6_LOOP
-  - name: CH6_CTRL
+    fieldset: regs::Ch6Loop
+  - name: ch6_ctrl
     description: No Description.
     byte_offset: 388
-    fieldset: regs::CH6_CTRL
-  - name: CH6_SRC
+    fieldset: regs::Ch6Ctrl
+  - name: ch6_src
     description: No Description.
     byte_offset: 392
-    fieldset: regs::CH6_SRC
-  - name: CH6_DST
+    fieldset: regs::Ch6Src
+  - name: ch6_dst
     description: No Description.
     byte_offset: 396
-    fieldset: regs::CH6_DST
-  - name: CH6_LINK
+    fieldset: regs::Ch6Dst
+  - name: ch6_link
     description: No Description.
     byte_offset: 400
-    fieldset: regs::CH6_LINK
-  - name: CH7_CFG
+    fieldset: regs::Ch6Link
+  - name: ch7_cfg
     description: No Description.
     byte_offset: 428
-    fieldset: regs::CH7_CFG
-  - name: CH7_LOOP
+    fieldset: regs::Ch7Cfg
+  - name: ch7_loop
     description: No Description.
     byte_offset: 432
-    fieldset: regs::CH7_LOOP
-  - name: CH7_CTRL
+    fieldset: regs::Ch7Loop
+  - name: ch7_ctrl
     description: No Description.
     byte_offset: 436
-    fieldset: regs::CH7_CTRL
-  - name: CH7_SRC
+    fieldset: regs::Ch7Ctrl
+  - name: ch7_src
     description: No Description.
     byte_offset: 440
-    fieldset: regs::CH7_SRC
-  - name: CH7_DST
+    fieldset: regs::Ch7Src
+  - name: ch7_dst
     description: No Description.
     byte_offset: 444
-    fieldset: regs::CH7_DST
-  - name: CH7_LINK
+    fieldset: regs::Ch7Dst
+  - name: ch7_link
     description: No Description.
     byte_offset: 448
-    fieldset: regs::CH7_LINK
-fieldset/regs::CH0_CFG:
+    fieldset: regs::Ch7Link
+fieldset/regs::Ch0Cfg:
   description: No Description.
   fields:
-  - name: ARBSLOTS
+  - name: arbslots
     description: Arbitration Slot Number Select.
     bit_offset: 16
     bit_size: 2
-    enum: vals::CH0_CFG_ARBSLOTS
-  - name: SRCINCSIGN
+    enum: vals::Ch0CfgArbslots
+  - name: srcincsign
     description: Source Address Increment Sign.
     bit_offset: 20
     bit_size: 1
-    enum: vals::CH0_CFG_SRCINCSIGN
-  - name: DSTINCSIGN
+    enum: vals::Ch0CfgSrcincsign
+  - name: dstincsign
     description: Destination Address Increment Sign.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH0_CFG_DSTINCSIGN
-fieldset/regs::CH0_CTRL:
+    enum: vals::Ch0CfgDstincsign
+fieldset/regs::Ch0Ctrl:
   description: No Description.
   fields:
-  - name: STRUCTTYPE
+  - name: structtype
     description: DMA Structure Type.
     bit_offset: 0
     bit_size: 2
-    enum: vals::CH0_CTRL_STRUCTTYPE
-  - name: STRUCTREQ
+    enum: vals::Ch0CtrlStructtype
+  - name: structreq
     description: Structure DMA Transfer Request.
     bit_offset: 3
     bit_size: 1
-  - name: XFERCNT
+  - name: xfercnt
     description: DMA Unit Data Transfer Count.
     bit_offset: 4
     bit_size: 11
-  - name: BYTESWAP
+  - name: byteswap
     description: Endian Byte Swap.
     bit_offset: 15
     bit_size: 1
-  - name: BLOCKSIZE
+  - name: blocksize
     description: Block Transfer Size.
     bit_offset: 16
     bit_size: 4
-    enum: vals::CH0_CTRL_BLOCKSIZE
-  - name: DONEIEN
+    enum: vals::Ch0CtrlBlocksize
+  - name: doneien
     description: DMA Operation Done Interrupt Flag Set En.
     bit_offset: 20
     bit_size: 1
-  - name: REQMODE
+  - name: reqmode
     description: DMA Request Transfer Mode Select.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH0_CTRL_REQMODE
-  - name: DECLOOPCNT
+    enum: vals::Ch0CtrlReqmode
+  - name: decloopcnt
     description: Decrement Loop Count.
     bit_offset: 22
     bit_size: 1
-  - name: IGNORESREQ
+  - name: ignoresreq
     description: Ignore Sreq.
     bit_offset: 23
     bit_size: 1
-  - name: SRCINC
+  - name: srcinc
     description: Source Address Increment Size.
     bit_offset: 24
     bit_size: 2
-    enum: vals::CH0_CTRL_SRCINC
-  - name: SIZE
+    enum: vals::Ch0CtrlSrcinc
+  - name: size
     description: Unit Data Transfer Size.
     bit_offset: 26
     bit_size: 2
-    enum: vals::CH0_CTRL_SIZE
-  - name: DSTINC
+    enum: vals::Ch0CtrlSize
+  - name: dstinc
     description: Destination Address Increment Size.
     bit_offset: 28
     bit_size: 2
-    enum: vals::CH0_CTRL_DSTINC
-  - name: SRCMODE
+    enum: vals::Ch0CtrlDstinc
+  - name: srcmode
     description: Source Addressing Mode.
     bit_offset: 30
     bit_size: 1
-    enum: vals::CH0_CTRL_SRCMODE
-  - name: DSTMODE
+    enum: vals::Ch0CtrlSrcmode
+  - name: dstmode
     description: Destination Addressing Mode.
     bit_offset: 31
     bit_size: 1
-    enum: vals::CH0_CTRL_DSTMODE
-fieldset/regs::CH0_DST:
+    enum: vals::Ch0CtrlDstmode
+fieldset/regs::Ch0Dst:
   description: No Description.
   fields:
-  - name: DSTADDR
+  - name: dstaddr
     description: Destination Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH0_LINK:
+fieldset/regs::Ch0Link:
   description: No Description.
   fields:
-  - name: LINKMODE
+  - name: linkmode
     description: Link Structure Addressing Mode.
     bit_offset: 0
     bit_size: 1
-    enum: vals::CH0_LINK_LINKMODE
-  - name: LINK
+    enum: vals::Ch0LinkLinkmode
+  - name: link
     description: Link Next Structure.
     bit_offset: 1
     bit_size: 1
-  - name: LINKADDR
+  - name: linkaddr
     description: Link Structure Address.
     bit_offset: 2
     bit_size: 30
-fieldset/regs::CH0_LOOP:
+fieldset/regs::Ch0Loop:
   description: No Description.
   fields:
-  - name: LOOPCNT
+  - name: loopcnt
     description: Linked Structure Sequence Loop Counter.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CH0_SRC:
+fieldset/regs::Ch0Src:
   description: No Description.
   fields:
-  - name: SRCADDR
+  - name: srcaddr
     description: Source Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH1_CFG:
+fieldset/regs::Ch1Cfg:
   description: No Description.
   fields:
-  - name: ARBSLOTS
+  - name: arbslots
     description: Arbitration Slot Number Select.
     bit_offset: 16
     bit_size: 2
-    enum: vals::CH1_CFG_ARBSLOTS
-  - name: SRCINCSIGN
+    enum: vals::Ch1CfgArbslots
+  - name: srcincsign
     description: Source Address Increment Sign.
     bit_offset: 20
     bit_size: 1
-    enum: vals::CH1_CFG_SRCINCSIGN
-  - name: DSTINCSIGN
+    enum: vals::Ch1CfgSrcincsign
+  - name: dstincsign
     description: Destination Address Increment Sign.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH1_CFG_DSTINCSIGN
-fieldset/regs::CH1_CTRL:
+    enum: vals::Ch1CfgDstincsign
+fieldset/regs::Ch1Ctrl:
   description: No Description.
   fields:
-  - name: STRUCTTYPE
+  - name: structtype
     description: DMA Structure Type.
     bit_offset: 0
     bit_size: 2
-    enum: vals::CH1_CTRL_STRUCTTYPE
-  - name: STRUCTREQ
+    enum: vals::Ch1CtrlStructtype
+  - name: structreq
     description: Structure DMA Transfer Request.
     bit_offset: 3
     bit_size: 1
-  - name: XFERCNT
+  - name: xfercnt
     description: DMA Unit Data Transfer Count.
     bit_offset: 4
     bit_size: 11
-  - name: BYTESWAP
+  - name: byteswap
     description: Endian Byte Swap.
     bit_offset: 15
     bit_size: 1
-  - name: BLOCKSIZE
+  - name: blocksize
     description: Block Transfer Size.
     bit_offset: 16
     bit_size: 4
-    enum: vals::CH1_CTRL_BLOCKSIZE
-  - name: DONEIEN
+    enum: vals::Ch1CtrlBlocksize
+  - name: doneien
     description: DMA Operation Done Interrupt Flag Set En.
     bit_offset: 20
     bit_size: 1
-  - name: REQMODE
+  - name: reqmode
     description: DMA Request Transfer Mode Select.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH1_CTRL_REQMODE
-  - name: DECLOOPCNT
+    enum: vals::Ch1CtrlReqmode
+  - name: decloopcnt
     description: Decrement Loop Count.
     bit_offset: 22
     bit_size: 1
-  - name: IGNORESREQ
+  - name: ignoresreq
     description: Ignore Sreq.
     bit_offset: 23
     bit_size: 1
-  - name: SRCINC
+  - name: srcinc
     description: Source Address Increment Size.
     bit_offset: 24
     bit_size: 2
-    enum: vals::CH1_CTRL_SRCINC
-  - name: SIZE
+    enum: vals::Ch1CtrlSrcinc
+  - name: size
     description: Unit Data Transfer Size.
     bit_offset: 26
     bit_size: 2
-    enum: vals::CH1_CTRL_SIZE
-  - name: DSTINC
+    enum: vals::Ch1CtrlSize
+  - name: dstinc
     description: Destination Address Increment Size.
     bit_offset: 28
     bit_size: 2
-    enum: vals::CH1_CTRL_DSTINC
-  - name: SRCMODE
+    enum: vals::Ch1CtrlDstinc
+  - name: srcmode
     description: Source Addressing Mode.
     bit_offset: 30
     bit_size: 1
-    enum: vals::CH1_CTRL_SRCMODE
-  - name: DSTMODE
+    enum: vals::Ch1CtrlSrcmode
+  - name: dstmode
     description: Destination Addressing Mode.
     bit_offset: 31
     bit_size: 1
-    enum: vals::CH1_CTRL_DSTMODE
-fieldset/regs::CH1_DST:
+    enum: vals::Ch1CtrlDstmode
+fieldset/regs::Ch1Dst:
   description: No Description.
   fields:
-  - name: DSTADDR
+  - name: dstaddr
     description: Destination Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH1_LINK:
+fieldset/regs::Ch1Link:
   description: No Description.
   fields:
-  - name: LINKMODE
+  - name: linkmode
     description: Link Structure Addressing Mode.
     bit_offset: 0
     bit_size: 1
-    enum: vals::CH1_LINK_LINKMODE
-  - name: LINK
+    enum: vals::Ch1LinkLinkmode
+  - name: link
     description: Link Next Structure.
     bit_offset: 1
     bit_size: 1
-  - name: LINKADDR
+  - name: linkaddr
     description: Link Structure Address.
     bit_offset: 2
     bit_size: 30
-fieldset/regs::CH1_LOOP:
+fieldset/regs::Ch1Loop:
   description: No Description.
   fields:
-  - name: LOOPCNT
+  - name: loopcnt
     description: Linked Structure Sequence Loop Counter.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CH1_SRC:
+fieldset/regs::Ch1Src:
   description: No Description.
   fields:
-  - name: SRCADDR
+  - name: srcaddr
     description: Source Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH2_CFG:
+fieldset/regs::Ch2Cfg:
   description: No Description.
   fields:
-  - name: ARBSLOTS
+  - name: arbslots
     description: Arbitration Slot Number Select.
     bit_offset: 16
     bit_size: 2
-    enum: vals::CH2_CFG_ARBSLOTS
-  - name: SRCINCSIGN
+    enum: vals::Ch2CfgArbslots
+  - name: srcincsign
     description: Source Address Increment Sign.
     bit_offset: 20
     bit_size: 1
-    enum: vals::CH2_CFG_SRCINCSIGN
-  - name: DSTINCSIGN
+    enum: vals::Ch2CfgSrcincsign
+  - name: dstincsign
     description: Destination Address Increment Sign.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH2_CFG_DSTINCSIGN
-fieldset/regs::CH2_CTRL:
+    enum: vals::Ch2CfgDstincsign
+fieldset/regs::Ch2Ctrl:
   description: No Description.
   fields:
-  - name: STRUCTTYPE
+  - name: structtype
     description: DMA Structure Type.
     bit_offset: 0
     bit_size: 2
-    enum: vals::CH2_CTRL_STRUCTTYPE
-  - name: STRUCTREQ
+    enum: vals::Ch2CtrlStructtype
+  - name: structreq
     description: Structure DMA Transfer Request.
     bit_offset: 3
     bit_size: 1
-  - name: XFERCNT
+  - name: xfercnt
     description: DMA Unit Data Transfer Count.
     bit_offset: 4
     bit_size: 11
-  - name: BYTESWAP
+  - name: byteswap
     description: Endian Byte Swap.
     bit_offset: 15
     bit_size: 1
-  - name: BLOCKSIZE
+  - name: blocksize
     description: Block Transfer Size.
     bit_offset: 16
     bit_size: 4
-    enum: vals::CH2_CTRL_BLOCKSIZE
-  - name: DONEIEN
+    enum: vals::Ch2CtrlBlocksize
+  - name: doneien
     description: DMA Operation Done Interrupt Flag Set En.
     bit_offset: 20
     bit_size: 1
-  - name: REQMODE
+  - name: reqmode
     description: DMA Request Transfer Mode Select.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH2_CTRL_REQMODE
-  - name: DECLOOPCNT
+    enum: vals::Ch2CtrlReqmode
+  - name: decloopcnt
     description: Decrement Loop Count.
     bit_offset: 22
     bit_size: 1
-  - name: IGNORESREQ
+  - name: ignoresreq
     description: Ignore Sreq.
     bit_offset: 23
     bit_size: 1
-  - name: SRCINC
+  - name: srcinc
     description: Source Address Increment Size.
     bit_offset: 24
     bit_size: 2
-    enum: vals::CH2_CTRL_SRCINC
-  - name: SIZE
+    enum: vals::Ch2CtrlSrcinc
+  - name: size
     description: Unit Data Transfer Size.
     bit_offset: 26
     bit_size: 2
-    enum: vals::CH2_CTRL_SIZE
-  - name: DSTINC
+    enum: vals::Ch2CtrlSize
+  - name: dstinc
     description: Destination Address Increment Size.
     bit_offset: 28
     bit_size: 2
-    enum: vals::CH2_CTRL_DSTINC
-  - name: SRCMODE
+    enum: vals::Ch2CtrlDstinc
+  - name: srcmode
     description: Source Addressing Mode.
     bit_offset: 30
     bit_size: 1
-    enum: vals::CH2_CTRL_SRCMODE
-  - name: DSTMODE
+    enum: vals::Ch2CtrlSrcmode
+  - name: dstmode
     description: Destination Addressing Mode.
     bit_offset: 31
     bit_size: 1
-    enum: vals::CH2_CTRL_DSTMODE
-fieldset/regs::CH2_DST:
+    enum: vals::Ch2CtrlDstmode
+fieldset/regs::Ch2Dst:
   description: No Description.
   fields:
-  - name: DSTADDR
+  - name: dstaddr
     description: Destination Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH2_LINK:
+fieldset/regs::Ch2Link:
   description: No Description.
   fields:
-  - name: LINKMODE
+  - name: linkmode
     description: Link Structure Addressing Mode.
     bit_offset: 0
     bit_size: 1
-    enum: vals::CH2_LINK_LINKMODE
-  - name: LINK
+    enum: vals::Ch2LinkLinkmode
+  - name: link
     description: Link Next Structure.
     bit_offset: 1
     bit_size: 1
-  - name: LINKADDR
+  - name: linkaddr
     description: Link Structure Address.
     bit_offset: 2
     bit_size: 30
-fieldset/regs::CH2_LOOP:
+fieldset/regs::Ch2Loop:
   description: No Description.
   fields:
-  - name: LOOPCNT
+  - name: loopcnt
     description: Linked Structure Sequence Loop Counter.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CH2_SRC:
+fieldset/regs::Ch2Src:
   description: No Description.
   fields:
-  - name: SRCADDR
+  - name: srcaddr
     description: Source Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH3_CFG:
+fieldset/regs::Ch3Cfg:
   description: No Description.
   fields:
-  - name: ARBSLOTS
+  - name: arbslots
     description: Arbitration Slot Number Select.
     bit_offset: 16
     bit_size: 2
-    enum: vals::CH3_CFG_ARBSLOTS
-  - name: SRCINCSIGN
+    enum: vals::Ch3CfgArbslots
+  - name: srcincsign
     description: Source Address Increment Sign.
     bit_offset: 20
     bit_size: 1
-    enum: vals::CH3_CFG_SRCINCSIGN
-  - name: DSTINCSIGN
+    enum: vals::Ch3CfgSrcincsign
+  - name: dstincsign
     description: Destination Address Increment Sign.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH3_CFG_DSTINCSIGN
-fieldset/regs::CH3_CTRL:
+    enum: vals::Ch3CfgDstincsign
+fieldset/regs::Ch3Ctrl:
   description: No Description.
   fields:
-  - name: STRUCTTYPE
+  - name: structtype
     description: DMA Structure Type.
     bit_offset: 0
     bit_size: 2
-    enum: vals::CH3_CTRL_STRUCTTYPE
-  - name: STRUCTREQ
+    enum: vals::Ch3CtrlStructtype
+  - name: structreq
     description: Structure DMA Transfer Request.
     bit_offset: 3
     bit_size: 1
-  - name: XFERCNT
+  - name: xfercnt
     description: DMA Unit Data Transfer Count.
     bit_offset: 4
     bit_size: 11
-  - name: BYTESWAP
+  - name: byteswap
     description: Endian Byte Swap.
     bit_offset: 15
     bit_size: 1
-  - name: BLOCKSIZE
+  - name: blocksize
     description: Block Transfer Size.
     bit_offset: 16
     bit_size: 4
-    enum: vals::CH3_CTRL_BLOCKSIZE
-  - name: DONEIEN
+    enum: vals::Ch3CtrlBlocksize
+  - name: doneien
     description: DMA Operation Done Interrupt Flag Set En.
     bit_offset: 20
     bit_size: 1
-  - name: REQMODE
+  - name: reqmode
     description: DMA Request Transfer Mode Select.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH3_CTRL_REQMODE
-  - name: DECLOOPCNT
+    enum: vals::Ch3CtrlReqmode
+  - name: decloopcnt
     description: Decrement Loop Count.
     bit_offset: 22
     bit_size: 1
-  - name: IGNORESREQ
+  - name: ignoresreq
     description: Ignore Sreq.
     bit_offset: 23
     bit_size: 1
-  - name: SRCINC
+  - name: srcinc
     description: Source Address Increment Size.
     bit_offset: 24
     bit_size: 2
-    enum: vals::CH3_CTRL_SRCINC
-  - name: SIZE
+    enum: vals::Ch3CtrlSrcinc
+  - name: size
     description: Unit Data Transfer Size.
     bit_offset: 26
     bit_size: 2
-    enum: vals::CH3_CTRL_SIZE
-  - name: DSTINC
+    enum: vals::Ch3CtrlSize
+  - name: dstinc
     description: Destination Address Increment Size.
     bit_offset: 28
     bit_size: 2
-    enum: vals::CH3_CTRL_DSTINC
-  - name: SRCMODE
+    enum: vals::Ch3CtrlDstinc
+  - name: srcmode
     description: Source Addressing Mode.
     bit_offset: 30
     bit_size: 1
-    enum: vals::CH3_CTRL_SRCMODE
-  - name: DSTMODE
+    enum: vals::Ch3CtrlSrcmode
+  - name: dstmode
     description: Destination Addressing Mode.
     bit_offset: 31
     bit_size: 1
-    enum: vals::CH3_CTRL_DSTMODE
-fieldset/regs::CH3_DST:
+    enum: vals::Ch3CtrlDstmode
+fieldset/regs::Ch3Dst:
   description: No Description.
   fields:
-  - name: DSTADDR
+  - name: dstaddr
     description: Destination Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH3_LINK:
+fieldset/regs::Ch3Link:
   description: No Description.
   fields:
-  - name: LINKMODE
+  - name: linkmode
     description: Link Structure Addressing Mode.
     bit_offset: 0
     bit_size: 1
-    enum: vals::CH3_LINK_LINKMODE
-  - name: LINK
+    enum: vals::Ch3LinkLinkmode
+  - name: link
     description: Link Next Structure.
     bit_offset: 1
     bit_size: 1
-  - name: LINKADDR
+  - name: linkaddr
     description: Link Structure Address.
     bit_offset: 2
     bit_size: 30
-fieldset/regs::CH3_LOOP:
+fieldset/regs::Ch3Loop:
   description: No Description.
   fields:
-  - name: LOOPCNT
+  - name: loopcnt
     description: Linked Structure Sequence Loop Counter.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CH3_SRC:
+fieldset/regs::Ch3Src:
   description: No Description.
   fields:
-  - name: SRCADDR
+  - name: srcaddr
     description: Source Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH4_CFG:
+fieldset/regs::Ch4Cfg:
   description: No Description.
   fields:
-  - name: ARBSLOTS
+  - name: arbslots
     description: Arbitration Slot Number Select.
     bit_offset: 16
     bit_size: 2
-    enum: vals::CH4_CFG_ARBSLOTS
-  - name: SRCINCSIGN
+    enum: vals::Ch4CfgArbslots
+  - name: srcincsign
     description: Source Address Increment Sign.
     bit_offset: 20
     bit_size: 1
-    enum: vals::CH4_CFG_SRCINCSIGN
-  - name: DSTINCSIGN
+    enum: vals::Ch4CfgSrcincsign
+  - name: dstincsign
     description: Destination Address Increment Sign.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH4_CFG_DSTINCSIGN
-fieldset/regs::CH4_CTRL:
+    enum: vals::Ch4CfgDstincsign
+fieldset/regs::Ch4Ctrl:
   description: No Description.
   fields:
-  - name: STRUCTTYPE
+  - name: structtype
     description: DMA Structure Type.
     bit_offset: 0
     bit_size: 2
-    enum: vals::CH4_CTRL_STRUCTTYPE
-  - name: STRUCTREQ
+    enum: vals::Ch4CtrlStructtype
+  - name: structreq
     description: Structure DMA Transfer Request.
     bit_offset: 3
     bit_size: 1
-  - name: XFERCNT
+  - name: xfercnt
     description: DMA Unit Data Transfer Count.
     bit_offset: 4
     bit_size: 11
-  - name: BYTESWAP
+  - name: byteswap
     description: Endian Byte Swap.
     bit_offset: 15
     bit_size: 1
-  - name: BLOCKSIZE
+  - name: blocksize
     description: Block Transfer Size.
     bit_offset: 16
     bit_size: 4
-    enum: vals::CH4_CTRL_BLOCKSIZE
-  - name: DONEIEN
+    enum: vals::Ch4CtrlBlocksize
+  - name: doneien
     description: DMA Operation Done Interrupt Flag Set En.
     bit_offset: 20
     bit_size: 1
-  - name: REQMODE
+  - name: reqmode
     description: DMA Request Transfer Mode Select.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH4_CTRL_REQMODE
-  - name: DECLOOPCNT
+    enum: vals::Ch4CtrlReqmode
+  - name: decloopcnt
     description: Decrement Loop Count.
     bit_offset: 22
     bit_size: 1
-  - name: IGNORESREQ
+  - name: ignoresreq
     description: Ignore Sreq.
     bit_offset: 23
     bit_size: 1
-  - name: SRCINC
+  - name: srcinc
     description: Source Address Increment Size.
     bit_offset: 24
     bit_size: 2
-    enum: vals::CH4_CTRL_SRCINC
-  - name: SIZE
+    enum: vals::Ch4CtrlSrcinc
+  - name: size
     description: Unit Data Transfer Size.
     bit_offset: 26
     bit_size: 2
-    enum: vals::CH4_CTRL_SIZE
-  - name: DSTINC
+    enum: vals::Ch4CtrlSize
+  - name: dstinc
     description: Destination Address Increment Size.
     bit_offset: 28
     bit_size: 2
-    enum: vals::CH4_CTRL_DSTINC
-  - name: SRCMODE
+    enum: vals::Ch4CtrlDstinc
+  - name: srcmode
     description: Source Addressing Mode.
     bit_offset: 30
     bit_size: 1
-    enum: vals::CH4_CTRL_SRCMODE
-  - name: DSTMODE
+    enum: vals::Ch4CtrlSrcmode
+  - name: dstmode
     description: Destination Addressing Mode.
     bit_offset: 31
     bit_size: 1
-    enum: vals::CH4_CTRL_DSTMODE
-fieldset/regs::CH4_DST:
+    enum: vals::Ch4CtrlDstmode
+fieldset/regs::Ch4Dst:
   description: No Description.
   fields:
-  - name: DSTADDR
+  - name: dstaddr
     description: Destination Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH4_LINK:
+fieldset/regs::Ch4Link:
   description: No Description.
   fields:
-  - name: LINKMODE
+  - name: linkmode
     description: Link Structure Addressing Mode.
     bit_offset: 0
     bit_size: 1
-    enum: vals::CH4_LINK_LINKMODE
-  - name: LINK
+    enum: vals::Ch4LinkLinkmode
+  - name: link
     description: Link Next Structure.
     bit_offset: 1
     bit_size: 1
-  - name: LINKADDR
+  - name: linkaddr
     description: Link Structure Address.
     bit_offset: 2
     bit_size: 30
-fieldset/regs::CH4_LOOP:
+fieldset/regs::Ch4Loop:
   description: No Description.
   fields:
-  - name: LOOPCNT
+  - name: loopcnt
     description: Linked Structure Sequence Loop Counter.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CH4_SRC:
+fieldset/regs::Ch4Src:
   description: No Description.
   fields:
-  - name: SRCADDR
+  - name: srcaddr
     description: Source Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH5_CFG:
+fieldset/regs::Ch5Cfg:
   description: No Description.
   fields:
-  - name: ARBSLOTS
+  - name: arbslots
     description: Arbitration Slot Number Select.
     bit_offset: 16
     bit_size: 2
-    enum: vals::CH5_CFG_ARBSLOTS
-  - name: SRCINCSIGN
+    enum: vals::Ch5CfgArbslots
+  - name: srcincsign
     description: Source Address Increment Sign.
     bit_offset: 20
     bit_size: 1
-    enum: vals::CH5_CFG_SRCINCSIGN
-  - name: DSTINCSIGN
+    enum: vals::Ch5CfgSrcincsign
+  - name: dstincsign
     description: Destination Address Increment Sign.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH5_CFG_DSTINCSIGN
-fieldset/regs::CH5_CTRL:
+    enum: vals::Ch5CfgDstincsign
+fieldset/regs::Ch5Ctrl:
   description: No Description.
   fields:
-  - name: STRUCTTYPE
+  - name: structtype
     description: DMA Structure Type.
     bit_offset: 0
     bit_size: 2
-    enum: vals::CH5_CTRL_STRUCTTYPE
-  - name: STRUCTREQ
+    enum: vals::Ch5CtrlStructtype
+  - name: structreq
     description: Structure DMA Transfer Request.
     bit_offset: 3
     bit_size: 1
-  - name: XFERCNT
+  - name: xfercnt
     description: DMA Unit Data Transfer Count.
     bit_offset: 4
     bit_size: 11
-  - name: BYTESWAP
+  - name: byteswap
     description: Endian Byte Swap.
     bit_offset: 15
     bit_size: 1
-  - name: BLOCKSIZE
+  - name: blocksize
     description: Block Transfer Size.
     bit_offset: 16
     bit_size: 4
-    enum: vals::CH5_CTRL_BLOCKSIZE
-  - name: DONEIEN
+    enum: vals::Ch5CtrlBlocksize
+  - name: doneien
     description: DMA Operation Done Interrupt Flag Set En.
     bit_offset: 20
     bit_size: 1
-  - name: REQMODE
+  - name: reqmode
     description: DMA Request Transfer Mode Select.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH5_CTRL_REQMODE
-  - name: DECLOOPCNT
+    enum: vals::Ch5CtrlReqmode
+  - name: decloopcnt
     description: Decrement Loop Count.
     bit_offset: 22
     bit_size: 1
-  - name: IGNORESREQ
+  - name: ignoresreq
     description: Ignore Sreq.
     bit_offset: 23
     bit_size: 1
-  - name: SRCINC
+  - name: srcinc
     description: Source Address Increment Size.
     bit_offset: 24
     bit_size: 2
-    enum: vals::CH5_CTRL_SRCINC
-  - name: SIZE
+    enum: vals::Ch5CtrlSrcinc
+  - name: size
     description: Unit Data Transfer Size.
     bit_offset: 26
     bit_size: 2
-    enum: vals::CH5_CTRL_SIZE
-  - name: DSTINC
+    enum: vals::Ch5CtrlSize
+  - name: dstinc
     description: Destination Address Increment Size.
     bit_offset: 28
     bit_size: 2
-    enum: vals::CH5_CTRL_DSTINC
-  - name: SRCMODE
+    enum: vals::Ch5CtrlDstinc
+  - name: srcmode
     description: Source Addressing Mode.
     bit_offset: 30
     bit_size: 1
-    enum: vals::CH5_CTRL_SRCMODE
-  - name: DSTMODE
+    enum: vals::Ch5CtrlSrcmode
+  - name: dstmode
     description: Destination Addressing Mode.
     bit_offset: 31
     bit_size: 1
-    enum: vals::CH5_CTRL_DSTMODE
-fieldset/regs::CH5_DST:
+    enum: vals::Ch5CtrlDstmode
+fieldset/regs::Ch5Dst:
   description: No Description.
   fields:
-  - name: DSTADDR
+  - name: dstaddr
     description: Destination Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH5_LINK:
+fieldset/regs::Ch5Link:
   description: No Description.
   fields:
-  - name: LINKMODE
+  - name: linkmode
     description: Link Structure Addressing Mode.
     bit_offset: 0
     bit_size: 1
-    enum: vals::CH5_LINK_LINKMODE
-  - name: LINK
+    enum: vals::Ch5LinkLinkmode
+  - name: link
     description: Link Next Structure.
     bit_offset: 1
     bit_size: 1
-  - name: LINKADDR
+  - name: linkaddr
     description: Link Structure Address.
     bit_offset: 2
     bit_size: 30
-fieldset/regs::CH5_LOOP:
+fieldset/regs::Ch5Loop:
   description: No Description.
   fields:
-  - name: LOOPCNT
+  - name: loopcnt
     description: Linked Structure Sequence Loop Counter.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CH5_SRC:
+fieldset/regs::Ch5Src:
   description: No Description.
   fields:
-  - name: SRCADDR
+  - name: srcaddr
     description: Source Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH6_CFG:
+fieldset/regs::Ch6Cfg:
   description: No Description.
   fields:
-  - name: ARBSLOTS
+  - name: arbslots
     description: Arbitration Slot Number Select.
     bit_offset: 16
     bit_size: 2
-    enum: vals::CH6_CFG_ARBSLOTS
-  - name: SRCINCSIGN
+    enum: vals::Ch6CfgArbslots
+  - name: srcincsign
     description: Source Address Increment Sign.
     bit_offset: 20
     bit_size: 1
-    enum: vals::CH6_CFG_SRCINCSIGN
-  - name: DSTINCSIGN
+    enum: vals::Ch6CfgSrcincsign
+  - name: dstincsign
     description: Destination Address Increment Sign.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH6_CFG_DSTINCSIGN
-fieldset/regs::CH6_CTRL:
+    enum: vals::Ch6CfgDstincsign
+fieldset/regs::Ch6Ctrl:
   description: No Description.
   fields:
-  - name: STRUCTTYPE
+  - name: structtype
     description: DMA Structure Type.
     bit_offset: 0
     bit_size: 2
-    enum: vals::CH6_CTRL_STRUCTTYPE
-  - name: STRUCTREQ
+    enum: vals::Ch6CtrlStructtype
+  - name: structreq
     description: Structure DMA Transfer Request.
     bit_offset: 3
     bit_size: 1
-  - name: XFERCNT
+  - name: xfercnt
     description: DMA Unit Data Transfer Count.
     bit_offset: 4
     bit_size: 11
-  - name: BYTESWAP
+  - name: byteswap
     description: Endian Byte Swap.
     bit_offset: 15
     bit_size: 1
-  - name: BLOCKSIZE
+  - name: blocksize
     description: Block Transfer Size.
     bit_offset: 16
     bit_size: 4
-    enum: vals::CH6_CTRL_BLOCKSIZE
-  - name: DONEIEN
+    enum: vals::Ch6CtrlBlocksize
+  - name: doneien
     description: DMA Operation Done Interrupt Flag Set En.
     bit_offset: 20
     bit_size: 1
-  - name: REQMODE
+  - name: reqmode
     description: DMA Request Transfer Mode Select.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH6_CTRL_REQMODE
-  - name: DECLOOPCNT
+    enum: vals::Ch6CtrlReqmode
+  - name: decloopcnt
     description: Decrement Loop Count.
     bit_offset: 22
     bit_size: 1
-  - name: IGNORESREQ
+  - name: ignoresreq
     description: Ignore Sreq.
     bit_offset: 23
     bit_size: 1
-  - name: SRCINC
+  - name: srcinc
     description: Source Address Increment Size.
     bit_offset: 24
     bit_size: 2
-    enum: vals::CH6_CTRL_SRCINC
-  - name: SIZE
+    enum: vals::Ch6CtrlSrcinc
+  - name: size
     description: Unit Data Transfer Size.
     bit_offset: 26
     bit_size: 2
-    enum: vals::CH6_CTRL_SIZE
-  - name: DSTINC
+    enum: vals::Ch6CtrlSize
+  - name: dstinc
     description: Destination Address Increment Size.
     bit_offset: 28
     bit_size: 2
-    enum: vals::CH6_CTRL_DSTINC
-  - name: SRCMODE
+    enum: vals::Ch6CtrlDstinc
+  - name: srcmode
     description: Source Addressing Mode.
     bit_offset: 30
     bit_size: 1
-    enum: vals::CH6_CTRL_SRCMODE
-  - name: DSTMODE
+    enum: vals::Ch6CtrlSrcmode
+  - name: dstmode
     description: Destination Addressing Mode.
     bit_offset: 31
     bit_size: 1
-    enum: vals::CH6_CTRL_DSTMODE
-fieldset/regs::CH6_DST:
+    enum: vals::Ch6CtrlDstmode
+fieldset/regs::Ch6Dst:
   description: No Description.
   fields:
-  - name: DSTADDR
+  - name: dstaddr
     description: Destination Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH6_LINK:
+fieldset/regs::Ch6Link:
   description: No Description.
   fields:
-  - name: LINKMODE
+  - name: linkmode
     description: Link Structure Addressing Mode.
     bit_offset: 0
     bit_size: 1
-    enum: vals::CH6_LINK_LINKMODE
-  - name: LINK
+    enum: vals::Ch6LinkLinkmode
+  - name: link
     description: Link Next Structure.
     bit_offset: 1
     bit_size: 1
-  - name: LINKADDR
+  - name: linkaddr
     description: Link Structure Address.
     bit_offset: 2
     bit_size: 30
-fieldset/regs::CH6_LOOP:
+fieldset/regs::Ch6Loop:
   description: No Description.
   fields:
-  - name: LOOPCNT
+  - name: loopcnt
     description: Linked Structure Sequence Loop Counter.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CH6_SRC:
+fieldset/regs::Ch6Src:
   description: No Description.
   fields:
-  - name: SRCADDR
+  - name: srcaddr
     description: Source Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH7_CFG:
+fieldset/regs::Ch7Cfg:
   description: No Description.
   fields:
-  - name: ARBSLOTS
+  - name: arbslots
     description: Arbitration Slot Number Select.
     bit_offset: 16
     bit_size: 2
-    enum: vals::CH7_CFG_ARBSLOTS
-  - name: SRCINCSIGN
+    enum: vals::Ch7CfgArbslots
+  - name: srcincsign
     description: Source Address Increment Sign.
     bit_offset: 20
     bit_size: 1
-    enum: vals::CH7_CFG_SRCINCSIGN
-  - name: DSTINCSIGN
+    enum: vals::Ch7CfgSrcincsign
+  - name: dstincsign
     description: Destination Address Increment Sign.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH7_CFG_DSTINCSIGN
-fieldset/regs::CH7_CTRL:
+    enum: vals::Ch7CfgDstincsign
+fieldset/regs::Ch7Ctrl:
   description: No Description.
   fields:
-  - name: STRUCTTYPE
+  - name: structtype
     description: DMA Structure Type.
     bit_offset: 0
     bit_size: 2
-    enum: vals::CH7_CTRL_STRUCTTYPE
-  - name: STRUCTREQ
+    enum: vals::Ch7CtrlStructtype
+  - name: structreq
     description: Structure DMA Transfer Request.
     bit_offset: 3
     bit_size: 1
-  - name: XFERCNT
+  - name: xfercnt
     description: DMA Unit Data Transfer Count.
     bit_offset: 4
     bit_size: 11
-  - name: BYTESWAP
+  - name: byteswap
     description: Endian Byte Swap.
     bit_offset: 15
     bit_size: 1
-  - name: BLOCKSIZE
+  - name: blocksize
     description: Block Transfer Size.
     bit_offset: 16
     bit_size: 4
-    enum: vals::CH7_CTRL_BLOCKSIZE
-  - name: DONEIEN
+    enum: vals::Ch7CtrlBlocksize
+  - name: doneien
     description: DMA Operation Done Interrupt Flag Set En.
     bit_offset: 20
     bit_size: 1
-  - name: REQMODE
+  - name: reqmode
     description: DMA Request Transfer Mode Select.
     bit_offset: 21
     bit_size: 1
-    enum: vals::CH7_CTRL_REQMODE
-  - name: DECLOOPCNT
+    enum: vals::Ch7CtrlReqmode
+  - name: decloopcnt
     description: Decrement Loop Count.
     bit_offset: 22
     bit_size: 1
-  - name: IGNORESREQ
+  - name: ignoresreq
     description: Ignore Sreq.
     bit_offset: 23
     bit_size: 1
-  - name: SRCINC
+  - name: srcinc
     description: Source Address Increment Size.
     bit_offset: 24
     bit_size: 2
-    enum: vals::CH7_CTRL_SRCINC
-  - name: SIZE
+    enum: vals::Ch7CtrlSrcinc
+  - name: size
     description: Unit Data Transfer Size.
     bit_offset: 26
     bit_size: 2
-    enum: vals::CH7_CTRL_SIZE
-  - name: DSTINC
+    enum: vals::Ch7CtrlSize
+  - name: dstinc
     description: Destination Address Increment Size.
     bit_offset: 28
     bit_size: 2
-    enum: vals::CH7_CTRL_DSTINC
-  - name: SRCMODE
+    enum: vals::Ch7CtrlDstinc
+  - name: srcmode
     description: Source Addressing Mode.
     bit_offset: 30
     bit_size: 1
-    enum: vals::CH7_CTRL_SRCMODE
-  - name: DSTMODE
+    enum: vals::Ch7CtrlSrcmode
+  - name: dstmode
     description: Destination Addressing Mode.
     bit_offset: 31
     bit_size: 1
-    enum: vals::CH7_CTRL_DSTMODE
-fieldset/regs::CH7_DST:
+    enum: vals::Ch7CtrlDstmode
+fieldset/regs::Ch7Dst:
   description: No Description.
   fields:
-  - name: DSTADDR
+  - name: dstaddr
     description: Destination Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CH7_LINK:
+fieldset/regs::Ch7Link:
   description: No Description.
   fields:
-  - name: LINKMODE
+  - name: linkmode
     description: Link Structure Addressing Mode.
     bit_offset: 0
     bit_size: 1
-    enum: vals::CH7_LINK_LINKMODE
-  - name: LINK
+    enum: vals::Ch7LinkLinkmode
+  - name: link
     description: Link Next Structure.
     bit_offset: 1
     bit_size: 1
-  - name: LINKADDR
+  - name: linkaddr
     description: Link Structure Address.
     bit_offset: 2
     bit_size: 30
-fieldset/regs::CH7_LOOP:
+fieldset/regs::Ch7Loop:
   description: No Description.
   fields:
-  - name: LOOPCNT
+  - name: loopcnt
     description: Linked Structure Sequence Loop Counter.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CH7_SRC:
+fieldset/regs::Ch7Src:
   description: No Description.
   fields:
-  - name: SRCADDR
+  - name: srcaddr
     description: Source Data Address.
     bit_offset: 0
     bit_size: 32
-fieldset/regs::CHBUSY:
+fieldset/regs::Chbusy:
   description: No Description.
   fields:
-  - name: BUSY
+  - name: busy
     description: Channels Busy.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CHDIS:
+fieldset/regs::Chdis:
   description: No Description.
   fields:
-  - name: CHDIS
+  - name: chdis
     description: DMA Channel disable.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CHDONE:
+fieldset/regs::Chdone:
   description: No Description.
   fields:
-  - name: CHDONE0
+  - name: chdone0
     description: DMA Channel Link done intr flag.
     bit_offset: 0
     bit_size: 1
-  - name: CHDONE1
+  - name: chdone1
     description: DMA Channel Link done intr flag.
     bit_offset: 1
     bit_size: 1
-  - name: CHDONE2
+  - name: chdone2
     description: DMA Channel Link done intr flag.
     bit_offset: 2
     bit_size: 1
-  - name: CHDONE3
+  - name: chdone3
     description: DMA Channel Link done intr flag.
     bit_offset: 3
     bit_size: 1
-  - name: CHDONE4
+  - name: chdone4
     description: DMA Channel Link done intr flag.
     bit_offset: 4
     bit_size: 1
-  - name: CHDONE5
+  - name: chdone5
     description: DMA Channel Link done intr flag.
     bit_offset: 5
     bit_size: 1
-  - name: CHDONE6
+  - name: chdone6
     description: DMA Channel Link done intr flag.
     bit_offset: 6
     bit_size: 1
-  - name: CHDONE7
+  - name: chdone7
     description: DMA Channel Link done intr flag.
     bit_offset: 7
     bit_size: 1
-fieldset/regs::CHEN:
+fieldset/regs::Chen:
   description: No Description.
   fields:
-  - name: CHEN
+  - name: chen
     description: Channel Enables.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CHSTATUS:
+fieldset/regs::Chstatus:
   description: No Description.
   fields:
-  - name: CHSTATUS
+  - name: chstatus
     description: DMA Channel Status.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::CTRL:
+fieldset/regs::Ctrl:
   description: No Description.
   fields:
-  - name: NUMFIXED
+  - name: numfixed
     description: Number of Fixed Priority Channels.
     bit_offset: 24
     bit_size: 5
-  - name: CORERST
+  - name: corerst
     description: Reset DMA controller.
     bit_offset: 31
     bit_size: 1
-fieldset/regs::DBGHALT:
+fieldset/regs::Dbghalt:
   description: No Description.
   fields:
-  - name: DBGHALT
+  - name: dbghalt
     description: DMA Debug Halt.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::EN:
+fieldset/regs::En:
   description: No Description.
   fields:
-  - name: EN
+  - name: en
     description: LDMA module enable and disable register.
     bit_offset: 0
     bit_size: 1
-fieldset/regs::IEN:
+fieldset/regs::Ien:
   description: No Description.
   fields:
-  - name: CHDONE
+  - name: chdone
     description: Enable or disable the done interrupt.
     bit_offset: 0
     bit_size: 8
-  - name: ERROR
+  - name: error
     description: Enable or disable the error interrupt.
     bit_offset: 31
     bit_size: 1
-fieldset/regs::IF:
+fieldset/regs::If:
   description: No Description.
   fields:
-  - name: DONE0
+  - name: done0
     description: DMA Structure Operation Done.
     bit_offset: 0
     bit_size: 1
-  - name: DONE1
+  - name: done1
     description: DMA Structure Operation Done.
     bit_offset: 1
     bit_size: 1
-  - name: DONE2
+  - name: done2
     description: DMA Structure Operation Done.
     bit_offset: 2
     bit_size: 1
-  - name: DONE3
+  - name: done3
     description: DMA Structure Operation Done.
     bit_offset: 3
     bit_size: 1
-  - name: DONE4
+  - name: done4
     description: DMA Structure Operation Done.
     bit_offset: 4
     bit_size: 1
-  - name: DONE5
+  - name: done5
     description: DMA Structure Operation Done.
     bit_offset: 5
     bit_size: 1
-  - name: DONE6
+  - name: done6
     description: DMA Structure Operation Done.
     bit_offset: 6
     bit_size: 1
-  - name: DONE7
+  - name: done7
     description: DMA Structure Operation Done.
     bit_offset: 7
     bit_size: 1
-  - name: ERROR
+  - name: error
     description: Error Flag.
     bit_offset: 31
     bit_size: 1
-fieldset/regs::IPVERSION:
+fieldset/regs::Ipversion:
   description: No Description.
   fields:
-  - name: IPVERSION
+  - name: ipversion
     description: IPVERSION.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::LINKLOAD:
+fieldset/regs::Linkload:
   description: No Description.
   fields:
-  - name: LINKLOAD
+  - name: linkload
     description: DMA Link Loads.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::REQCLEAR:
+fieldset/regs::Reqclear:
   description: No Description.
   fields:
-  - name: REQCLEAR
+  - name: reqclear
     description: DMA Request Clear.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::REQDIS:
+fieldset/regs::Reqdis:
   description: No Description.
   fields:
-  - name: REQDIS
+  - name: reqdis
     description: DMA Request Disables.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::REQPEND:
+fieldset/regs::Reqpend:
   description: No Description.
   fields:
-  - name: REQPEND
+  - name: reqpend
     description: DMA Requests Pending.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::STATUS:
+fieldset/regs::Status:
   description: No Description.
   fields:
-  - name: ANYBUSY
+  - name: anybusy
     description: Any DMA Channel Busy.
     bit_offset: 0
     bit_size: 1
-  - name: ANYREQ
+  - name: anyreq
     description: Any DMA Channel Request Pending.
     bit_offset: 1
     bit_size: 1
-  - name: CHGRANT
+  - name: chgrant
     description: Granted Channel Number.
     bit_offset: 3
     bit_size: 5
-  - name: CHERROR
+  - name: cherror
     description: Errant Channel Number.
     bit_offset: 8
     bit_size: 5
-  - name: FIFOLEVEL
+  - name: fifolevel
     description: FIFO Level.
     bit_offset: 16
     bit_size: 5
-  - name: CHNUM
+  - name: chnum
     description: Number of Channels.
     bit_offset: 24
     bit_size: 5
-fieldset/regs::SWREQ:
+fieldset/regs::Swreq:
   description: No Description.
   fields:
-  - name: SWREQ
+  - name: swreq
     description: Software Transfer Requests.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::SYNCHWEN:
+fieldset/regs::Synchwen:
   description: No Description.
   fields:
-  - name: SYNCSETEN
+  - name: syncseten
     description: Hardware Sync Trigger Set Enable.
     bit_offset: 0
     bit_size: 8
-  - name: SYNCCLREN
+  - name: syncclren
     description: Hardware Sync Trigger Clear Enable.
     bit_offset: 16
     bit_size: 8
-fieldset/regs::SYNCHWSEL:
+fieldset/regs::Synchwsel:
   description: No Description.
   fields:
-  - name: SYNCSETEDGE
+  - name: syncsetedge
     description: Hardware Sync Trigger Set Edge Select.
     bit_offset: 0
     bit_size: 8
-    enum: vals::SYNCSETEDGE
-  - name: SYNCCLREDGE
+    enum: vals::Syncsetedge
+  - name: syncclredge
     description: Hardware Sync Trigger Clear Edge Select.
     bit_offset: 16
     bit_size: 8
-    enum: vals::SYNCCLREDGE
-fieldset/regs::SYNCSTATUS:
+    enum: vals::Syncclredge
+fieldset/regs::Syncstatus:
   description: No Description.
   fields:
-  - name: SYNCTRIG
+  - name: synctrig
     description: sync trig status.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::SYNCSWCLR:
+fieldset/regs::Syncswclr:
   description: No Description.
   fields:
-  - name: SYNCSWCLR
+  - name: syncswclr
     description: DMA SYNC Software Trigger Clear.
     bit_offset: 0
     bit_size: 8
-fieldset/regs::SYNCSWSET:
+fieldset/regs::Syncswset:
   description: No Description.
   fields:
-  - name: SYNCSWSET
+  - name: syncswset
     description: DMA SYNC Software Trigger Set.
     bit_offset: 0
     bit_size: 8
-enum/vals::CH0_CFG_ARBSLOTS:
+enum/vals::Ch0CfgArbslots:
   bit_size: 2
   variants:
-  - name: ONE
-    description: One arbitration slot selected.
-    value: 0
-  - name: TWO
-    description: Two arbitration slots selected.
-    value: 1
-  - name: FOUR
-    description: Four arbitration slots selected.
-    value: 2
-  - name: EIGHT
+  - name: Eight
     description: Eight arbitration slots selected.
     value: 3
-enum/vals::CH0_CFG_DSTINCSIGN:
-  bit_size: 1
-  variants:
-  - name: POSITIVE
-    description: Increment destination address.
-    value: 0
-  - name: NEGATIVE
-    description: Decrement destination address.
-    value: 1
-enum/vals::CH0_CFG_SRCINCSIGN:
-  bit_size: 1
-  variants:
-  - name: POSITIVE
-    description: Increment source address.
-    value: 0
-  - name: NEGATIVE
-    description: Decrement source address.
-    value: 1
-enum/vals::CH0_CTRL_BLOCKSIZE:
-  bit_size: 4
-  variants:
-  - name: UNIT1
-    description: One unit transfer per arbitration.
-    value: 0
-  - name: UNIT2
-    description: Two unit transfers per arbitration.
-    value: 1
-  - name: UNIT3
-    description: Three unit transfers per arbitration.
-    value: 2
-  - name: UNIT4
-    description: Four unit transfers per arbitration.
-    value: 3
-  - name: UNIT6
-    description: Six unit transfers per arbitration.
-    value: 4
-  - name: UNIT8
-    description: Eight unit transfers per arbitration.
-    value: 5
-  - name: UNIT16
-    description: Sixteen unit transfers per arbitration.
-    value: 7
-  - name: UNIT32
-    description: 32 unit transfers per arbitration.
-    value: 9
-  - name: UNIT64
-    description: 64 unit transfers per arbitration.
-    value: 10
-  - name: UNIT128
-    description: 128 unit transfers per arbitration.
-    value: 11
-  - name: UNIT256
-    description: 256 unit transfers per arbitration.
-    value: 12
-  - name: UNIT512
-    description: 512 unit transfers per arbitration.
-    value: 13
-  - name: UNIT1024
-    description: 1024 unit transfers per arbitration.
-    value: 14
-  - name: ALL
-    description: Transfer all units as specified by the XFRCNT field.
-    value: 15
-enum/vals::CH0_CTRL_DSTINC:
-  bit_size: 2
-  variants:
-  - name: ONE
-    description: Increment destination address by one unit data size after each write.
-    value: 0
-  - name: TWO
-    description: Increment destination address by two unit data sizes after each write.
-    value: 1
-  - name: FOUR
-    description: Increment destination address by four unit data sizes after each write.
-    value: 2
-  - name: NONE
-    description: Do not increment the destination address. Writes are made to a fixed destination address, for example writing to a FIFO.
-    value: 3
-enum/vals::CH0_CTRL_DSTMODE:
-  bit_size: 1
-  variants:
-  - name: ABSOLUTE
-    description: The DSTADDR field of LDMA_CHx_DST contains the absolute address of the destination data.
-    value: 0
-  - name: RELATIVE
-    description: The DSTADDR field of LDMA_CHx_DST contains the relative offset of the destination data.
-    value: 1
-enum/vals::CH0_CTRL_REQMODE:
-  bit_size: 1
-  variants:
-  - name: BLOCK
-    description: The LDMA transfers one BLOCKSIZE per transfer request.
-    value: 0
-  - name: ALL
-    description: One transfer request transfers all units as defined by the XFRCNT field.
-    value: 1
-enum/vals::CH0_CTRL_SIZE:
-  bit_size: 2
-  variants:
-  - name: BYTE
-    description: Each unit transfer is a byte.
-    value: 0
-  - name: HALFWORD
-    description: Each unit transfer is a half-word.
-    value: 1
-  - name: WORD
-    description: Each unit transfer is a word.
-    value: 2
-enum/vals::CH0_CTRL_SRCINC:
-  bit_size: 2
-  variants:
-  - name: ONE
-    description: Increment source address by one unit data size after each read.
-    value: 0
-  - name: TWO
-    description: Increment source address by two unit data sizes after each read.
-    value: 1
-  - name: FOUR
-    description: Increment source address by four unit data sizes after each read.
-    value: 2
-  - name: NONE
-    description: Do not increment the source address. In this mode reads are made from a fixed source address, for example reading FIFO.
-    value: 3
-enum/vals::CH0_CTRL_SRCMODE:
-  bit_size: 1
-  variants:
-  - name: ABSOLUTE
-    description: The SRCADDR field of LDMA_CHx_SRC contains the absolute address of the source data.
-    value: 0
-  - name: RELATIVE
-    description: The SRCADDR field of LDMA_CHx_SRC contains the relative offset of the source data.
-    value: 1
-enum/vals::CH0_CTRL_STRUCTTYPE:
-  bit_size: 2
-  variants:
-  - name: TRANSFER
-    description: DMA transfer structure type selected.
-    value: 0
-  - name: SYNCHRONIZE
-    description: Synchronization structure type selected.
-    value: 1
-  - name: WRITE
-    description: Write immediate value structure type selected.
-    value: 2
-enum/vals::CH0_LINK_LINKMODE:
-  bit_size: 1
-  variants:
-  - name: ABSOLUTE
-    description: The LINKADDR field of LDMA_CHx_LINK contains the absolute address of the linked descriptor.
-    value: 0
-  - name: RELATIVE
-    description: The LINKADDR field of LDMA_CHx_LINK contains the relative offset of the linked descriptor.
-    value: 1
-enum/vals::CH1_CFG_ARBSLOTS:
-  bit_size: 2
-  variants:
-  - name: ONE
-    description: One arbitration slot selected.
-    value: 0
-  - name: TWO
-    description: Two arbitration slots selected.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Four arbitration slots selected.
     value: 2
-  - name: EIGHT
-    description: Eight arbitration slots selected.
-    value: 3
-enum/vals::CH1_CFG_DSTINCSIGN:
-  bit_size: 1
-  variants:
-  - name: POSITIVE
-    description: Increment destination address.
-    value: 0
-  - name: NEGATIVE
-    description: Decrement destination address.
-    value: 1
-enum/vals::CH1_CFG_SRCINCSIGN:
-  bit_size: 1
-  variants:
-  - name: POSITIVE
-    description: Increment source address.
-    value: 0
-  - name: NEGATIVE
-    description: Decrement source address.
-    value: 1
-enum/vals::CH1_CTRL_BLOCKSIZE:
-  bit_size: 4
-  variants:
-  - name: UNIT1
-    description: One unit transfer per arbitration.
-    value: 0
-  - name: UNIT2
-    description: Two unit transfers per arbitration.
-    value: 1
-  - name: UNIT3
-    description: Three unit transfers per arbitration.
-    value: 2
-  - name: UNIT4
-    description: Four unit transfers per arbitration.
-    value: 3
-  - name: UNIT6
-    description: Six unit transfers per arbitration.
-    value: 4
-  - name: UNIT8
-    description: Eight unit transfers per arbitration.
-    value: 5
-  - name: UNIT16
-    description: Sixteen unit transfers per arbitration.
-    value: 7
-  - name: UNIT32
-    description: 32 unit transfers per arbitration.
-    value: 9
-  - name: UNIT64
-    description: 64 unit transfers per arbitration.
-    value: 10
-  - name: UNIT128
-    description: 128 unit transfers per arbitration.
-    value: 11
-  - name: UNIT256
-    description: 256 unit transfers per arbitration.
-    value: 12
-  - name: UNIT512
-    description: 512 unit transfers per arbitration.
-    value: 13
-  - name: UNIT1024
-    description: 1024 unit transfers per arbitration.
-    value: 14
-  - name: ALL
-    description: Transfer all units as specified by the XFRCNT field.
-    value: 15
-enum/vals::CH1_CTRL_DSTINC:
-  bit_size: 2
-  variants:
-  - name: ONE
-    description: Increment destination address by one unit data size after each write.
-    value: 0
-  - name: TWO
-    description: Increment destination address by two unit data sizes after each write.
-    value: 1
-  - name: FOUR
-    description: Increment destination address by four unit data sizes after each write.
-    value: 2
-  - name: NONE
-    description: Do not increment the destination address. Writes are made to a fixed destination address, for example writing to a FIFO.
-    value: 3
-enum/vals::CH1_CTRL_DSTMODE:
-  bit_size: 1
-  variants:
-  - name: ABSOLUTE
-    description: The DSTADDR field of LDMA_CHx_DST contains the absolute address of the destination data.
-    value: 0
-  - name: RELATIVE
-    description: The DSTADDR field of LDMA_CHx_DST contains the relative offset of the destination data.
-    value: 1
-enum/vals::CH1_CTRL_REQMODE:
-  bit_size: 1
-  variants:
-  - name: BLOCK
-    description: The LDMA transfers one BLOCKSIZE per transfer request.
-    value: 0
-  - name: ALL
-    description: One transfer request transfers all units as defined by the XFRCNT field.
-    value: 1
-enum/vals::CH1_CTRL_SIZE:
-  bit_size: 2
-  variants:
-  - name: BYTE
-    description: Each unit transfer is a byte.
-    value: 0
-  - name: HALFWORD
-    description: Each unit transfer is a half-word.
-    value: 1
-  - name: WORD
-    description: Each unit transfer is a word.
-    value: 2
-enum/vals::CH1_CTRL_SRCINC:
-  bit_size: 2
-  variants:
-  - name: ONE
-    description: Increment source address by one unit data size after each read.
-    value: 0
-  - name: TWO
-    description: Increment source address by two unit data sizes after each read.
-    value: 1
-  - name: FOUR
-    description: Increment source address by four unit data sizes after each read.
-    value: 2
-  - name: NONE
-    description: Do not increment the source address. In this mode reads are made from a fixed source address, for example reading FIFO.
-    value: 3
-enum/vals::CH1_CTRL_SRCMODE:
-  bit_size: 1
-  variants:
-  - name: ABSOLUTE
-    description: The SRCADDR field of LDMA_CHx_SRC contains the absolute address of the source data.
-    value: 0
-  - name: RELATIVE
-    description: The SRCADDR field of LDMA_CHx_SRC contains the relative offset of the source data.
-    value: 1
-enum/vals::CH1_CTRL_STRUCTTYPE:
-  bit_size: 2
-  variants:
-  - name: TRANSFER
-    description: DMA transfer structure type selected.
-    value: 0
-  - name: SYNCHRONIZE
-    description: Synchronization structure type selected.
-    value: 1
-  - name: WRITE
-    description: Write immediate value structure type selected.
-    value: 2
-enum/vals::CH1_LINK_LINKMODE:
-  bit_size: 1
-  variants:
-  - name: ABSOLUTE
-    description: The LINKADDR field of LDMA_CHx_LINK contains the absolute address of the linked descriptor.
-    value: 0
-  - name: RELATIVE
-    description: The LINKADDR field of LDMA_CHx_LINK contains the relative offset of the linked descriptor.
-    value: 1
-enum/vals::CH2_CFG_ARBSLOTS:
-  bit_size: 2
-  variants:
-  - name: ONE
+  - name: One
     description: One arbitration slot selected.
     value: 0
-  - name: TWO
+  - name: Two
     description: Two arbitration slots selected.
     value: 1
-  - name: FOUR
-    description: Four arbitration slots selected.
-    value: 2
-  - name: EIGHT
-    description: Eight arbitration slots selected.
-    value: 3
-enum/vals::CH2_CFG_DSTINCSIGN:
+enum/vals::Ch0CfgDstincsign:
   bit_size: 1
   variants:
-  - name: POSITIVE
-    description: Increment destination address.
-    value: 0
-  - name: NEGATIVE
+  - name: Negative
     description: Decrement destination address.
     value: 1
-enum/vals::CH2_CFG_SRCINCSIGN:
+  - name: Positive
+    description: Increment destination address.
+    value: 0
+enum/vals::Ch0CfgSrcincsign:
   bit_size: 1
   variants:
-  - name: POSITIVE
-    description: Increment source address.
-    value: 0
-  - name: NEGATIVE
+  - name: Negative
     description: Decrement source address.
     value: 1
-enum/vals::CH2_CTRL_BLOCKSIZE:
+  - name: Positive
+    description: Increment source address.
+    value: 0
+enum/vals::Ch0CtrlBlocksize:
   bit_size: 4
   variants:
-  - name: UNIT1
-    description: One unit transfer per arbitration.
-    value: 0
-  - name: UNIT2
-    description: Two unit transfers per arbitration.
-    value: 1
-  - name: UNIT3
-    description: Three unit transfers per arbitration.
-    value: 2
-  - name: UNIT4
-    description: Four unit transfers per arbitration.
-    value: 3
-  - name: UNIT6
-    description: Six unit transfers per arbitration.
-    value: 4
-  - name: UNIT8
-    description: Eight unit transfers per arbitration.
-    value: 5
-  - name: UNIT16
-    description: Sixteen unit transfers per arbitration.
-    value: 7
-  - name: UNIT32
-    description: 32 unit transfers per arbitration.
-    value: 9
-  - name: UNIT64
-    description: 64 unit transfers per arbitration.
-    value: 10
-  - name: UNIT128
-    description: 128 unit transfers per arbitration.
-    value: 11
-  - name: UNIT256
-    description: 256 unit transfers per arbitration.
-    value: 12
-  - name: UNIT512
-    description: 512 unit transfers per arbitration.
-    value: 13
-  - name: UNIT1024
-    description: 1024 unit transfers per arbitration.
-    value: 14
-  - name: ALL
+  - name: All
     description: Transfer all units as specified by the XFRCNT field.
     value: 15
-enum/vals::CH2_CTRL_DSTINC:
+  - name: Unit1
+    description: One unit transfer per arbitration.
+    value: 0
+  - name: Unit1024
+    description: 1024 unit transfers per arbitration.
+    value: 14
+  - name: Unit128
+    description: 128 unit transfers per arbitration.
+    value: 11
+  - name: Unit16
+    description: Sixteen unit transfers per arbitration.
+    value: 7
+  - name: Unit2
+    description: Two unit transfers per arbitration.
+    value: 1
+  - name: Unit256
+    description: 256 unit transfers per arbitration.
+    value: 12
+  - name: Unit3
+    description: Three unit transfers per arbitration.
+    value: 2
+  - name: Unit32
+    description: 32 unit transfers per arbitration.
+    value: 9
+  - name: Unit4
+    description: Four unit transfers per arbitration.
+    value: 3
+  - name: Unit512
+    description: 512 unit transfers per arbitration.
+    value: 13
+  - name: Unit6
+    description: Six unit transfers per arbitration.
+    value: 4
+  - name: Unit64
+    description: 64 unit transfers per arbitration.
+    value: 10
+  - name: Unit8
+    description: Eight unit transfers per arbitration.
+    value: 5
+enum/vals::Ch0CtrlDstinc:
   bit_size: 2
   variants:
-  - name: ONE
-    description: Increment destination address by one unit data size after each write.
-    value: 0
-  - name: TWO
-    description: Increment destination address by two unit data sizes after each write.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Increment destination address by four unit data sizes after each write.
     value: 2
-  - name: NONE
+  - name: None
     description: Do not increment the destination address. Writes are made to a fixed destination address, for example writing to a FIFO.
     value: 3
-enum/vals::CH2_CTRL_DSTMODE:
+  - name: One
+    description: Increment destination address by one unit data size after each write.
+    value: 0
+  - name: Two
+    description: Increment destination address by two unit data sizes after each write.
+    value: 1
+enum/vals::Ch0CtrlDstmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The DSTADDR field of LDMA_CHx_DST contains the absolute address of the destination data.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The DSTADDR field of LDMA_CHx_DST contains the relative offset of the destination data.
     value: 1
-enum/vals::CH2_CTRL_REQMODE:
+enum/vals::Ch0CtrlReqmode:
   bit_size: 1
   variants:
-  - name: BLOCK
-    description: The LDMA transfers one BLOCKSIZE per transfer request.
-    value: 0
-  - name: ALL
+  - name: All
     description: One transfer request transfers all units as defined by the XFRCNT field.
     value: 1
-enum/vals::CH2_CTRL_SIZE:
+  - name: Block
+    description: The LDMA transfers one BLOCKSIZE per transfer request.
+    value: 0
+enum/vals::Ch0CtrlSize:
   bit_size: 2
   variants:
-  - name: BYTE
+  - name: Byte
     description: Each unit transfer is a byte.
     value: 0
-  - name: HALFWORD
+  - name: Halfword
     description: Each unit transfer is a half-word.
     value: 1
-  - name: WORD
+  - name: Word
     description: Each unit transfer is a word.
     value: 2
-enum/vals::CH2_CTRL_SRCINC:
+enum/vals::Ch0CtrlSrcinc:
   bit_size: 2
   variants:
-  - name: ONE
-    description: Increment source address by one unit data size after each read.
-    value: 0
-  - name: TWO
-    description: Increment source address by two unit data sizes after each read.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Increment source address by four unit data sizes after each read.
     value: 2
-  - name: NONE
+  - name: None
     description: Do not increment the source address. In this mode reads are made from a fixed source address, for example reading FIFO.
     value: 3
-enum/vals::CH2_CTRL_SRCMODE:
+  - name: One
+    description: Increment source address by one unit data size after each read.
+    value: 0
+  - name: Two
+    description: Increment source address by two unit data sizes after each read.
+    value: 1
+enum/vals::Ch0CtrlSrcmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The SRCADDR field of LDMA_CHx_SRC contains the absolute address of the source data.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The SRCADDR field of LDMA_CHx_SRC contains the relative offset of the source data.
     value: 1
-enum/vals::CH2_CTRL_STRUCTTYPE:
+enum/vals::Ch0CtrlStructtype:
   bit_size: 2
   variants:
-  - name: TRANSFER
-    description: DMA transfer structure type selected.
-    value: 0
-  - name: SYNCHRONIZE
+  - name: Synchronize
     description: Synchronization structure type selected.
     value: 1
-  - name: WRITE
+  - name: Transfer
+    description: DMA transfer structure type selected.
+    value: 0
+  - name: Write
     description: Write immediate value structure type selected.
     value: 2
-enum/vals::CH2_LINK_LINKMODE:
+enum/vals::Ch0LinkLinkmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The LINKADDR field of LDMA_CHx_LINK contains the absolute address of the linked descriptor.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The LINKADDR field of LDMA_CHx_LINK contains the relative offset of the linked descriptor.
     value: 1
-enum/vals::CH3_CFG_ARBSLOTS:
+enum/vals::Ch1CfgArbslots:
   bit_size: 2
   variants:
-  - name: ONE
+  - name: Eight
+    description: Eight arbitration slots selected.
+    value: 3
+  - name: Four
+    description: Four arbitration slots selected.
+    value: 2
+  - name: One
     description: One arbitration slot selected.
     value: 0
-  - name: TWO
+  - name: Two
     description: Two arbitration slots selected.
     value: 1
-  - name: FOUR
-    description: Four arbitration slots selected.
-    value: 2
-  - name: EIGHT
-    description: Eight arbitration slots selected.
-    value: 3
-enum/vals::CH3_CFG_DSTINCSIGN:
+enum/vals::Ch1CfgDstincsign:
   bit_size: 1
   variants:
-  - name: POSITIVE
-    description: Increment destination address.
-    value: 0
-  - name: NEGATIVE
+  - name: Negative
     description: Decrement destination address.
     value: 1
-enum/vals::CH3_CFG_SRCINCSIGN:
+  - name: Positive
+    description: Increment destination address.
+    value: 0
+enum/vals::Ch1CfgSrcincsign:
   bit_size: 1
   variants:
-  - name: POSITIVE
-    description: Increment source address.
-    value: 0
-  - name: NEGATIVE
+  - name: Negative
     description: Decrement source address.
     value: 1
-enum/vals::CH3_CTRL_BLOCKSIZE:
+  - name: Positive
+    description: Increment source address.
+    value: 0
+enum/vals::Ch1CtrlBlocksize:
   bit_size: 4
   variants:
-  - name: UNIT1
-    description: One unit transfer per arbitration.
-    value: 0
-  - name: UNIT2
-    description: Two unit transfers per arbitration.
-    value: 1
-  - name: UNIT3
-    description: Three unit transfers per arbitration.
-    value: 2
-  - name: UNIT4
-    description: Four unit transfers per arbitration.
-    value: 3
-  - name: UNIT6
-    description: Six unit transfers per arbitration.
-    value: 4
-  - name: UNIT8
-    description: Eight unit transfers per arbitration.
-    value: 5
-  - name: UNIT16
-    description: Sixteen unit transfers per arbitration.
-    value: 7
-  - name: UNIT32
-    description: 32 unit transfers per arbitration.
-    value: 9
-  - name: UNIT64
-    description: 64 unit transfers per arbitration.
-    value: 10
-  - name: UNIT128
-    description: 128 unit transfers per arbitration.
-    value: 11
-  - name: UNIT256
-    description: 256 unit transfers per arbitration.
-    value: 12
-  - name: UNIT512
-    description: 512 unit transfers per arbitration.
-    value: 13
-  - name: UNIT1024
-    description: 1024 unit transfers per arbitration.
-    value: 14
-  - name: ALL
+  - name: All
     description: Transfer all units as specified by the XFRCNT field.
     value: 15
-enum/vals::CH3_CTRL_DSTINC:
+  - name: Unit1
+    description: One unit transfer per arbitration.
+    value: 0
+  - name: Unit1024
+    description: 1024 unit transfers per arbitration.
+    value: 14
+  - name: Unit128
+    description: 128 unit transfers per arbitration.
+    value: 11
+  - name: Unit16
+    description: Sixteen unit transfers per arbitration.
+    value: 7
+  - name: Unit2
+    description: Two unit transfers per arbitration.
+    value: 1
+  - name: Unit256
+    description: 256 unit transfers per arbitration.
+    value: 12
+  - name: Unit3
+    description: Three unit transfers per arbitration.
+    value: 2
+  - name: Unit32
+    description: 32 unit transfers per arbitration.
+    value: 9
+  - name: Unit4
+    description: Four unit transfers per arbitration.
+    value: 3
+  - name: Unit512
+    description: 512 unit transfers per arbitration.
+    value: 13
+  - name: Unit6
+    description: Six unit transfers per arbitration.
+    value: 4
+  - name: Unit64
+    description: 64 unit transfers per arbitration.
+    value: 10
+  - name: Unit8
+    description: Eight unit transfers per arbitration.
+    value: 5
+enum/vals::Ch1CtrlDstinc:
   bit_size: 2
   variants:
-  - name: ONE
-    description: Increment destination address by one unit data size after each write.
-    value: 0
-  - name: TWO
-    description: Increment destination address by two unit data sizes after each write.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Increment destination address by four unit data sizes after each write.
     value: 2
-  - name: NONE
+  - name: None
     description: Do not increment the destination address. Writes are made to a fixed destination address, for example writing to a FIFO.
     value: 3
-enum/vals::CH3_CTRL_DSTMODE:
+  - name: One
+    description: Increment destination address by one unit data size after each write.
+    value: 0
+  - name: Two
+    description: Increment destination address by two unit data sizes after each write.
+    value: 1
+enum/vals::Ch1CtrlDstmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The DSTADDR field of LDMA_CHx_DST contains the absolute address of the destination data.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The DSTADDR field of LDMA_CHx_DST contains the relative offset of the destination data.
     value: 1
-enum/vals::CH3_CTRL_REQMODE:
+enum/vals::Ch1CtrlReqmode:
   bit_size: 1
   variants:
-  - name: BLOCK
-    description: The LDMA transfers one BLOCKSIZE per transfer request.
-    value: 0
-  - name: ALL
+  - name: All
     description: One transfer request transfers all units as defined by the XFRCNT field.
     value: 1
-enum/vals::CH3_CTRL_SIZE:
+  - name: Block
+    description: The LDMA transfers one BLOCKSIZE per transfer request.
+    value: 0
+enum/vals::Ch1CtrlSize:
   bit_size: 2
   variants:
-  - name: BYTE
+  - name: Byte
     description: Each unit transfer is a byte.
     value: 0
-  - name: HALFWORD
+  - name: Halfword
     description: Each unit transfer is a half-word.
     value: 1
-  - name: WORD
+  - name: Word
     description: Each unit transfer is a word.
     value: 2
-enum/vals::CH3_CTRL_SRCINC:
+enum/vals::Ch1CtrlSrcinc:
   bit_size: 2
   variants:
-  - name: ONE
-    description: Increment source address by one unit data size after each read.
-    value: 0
-  - name: TWO
-    description: Increment source address by two unit data sizes after each read.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Increment source address by four unit data sizes after each read.
     value: 2
-  - name: NONE
+  - name: None
     description: Do not increment the source address. In this mode reads are made from a fixed source address, for example reading FIFO.
     value: 3
-enum/vals::CH3_CTRL_SRCMODE:
+  - name: One
+    description: Increment source address by one unit data size after each read.
+    value: 0
+  - name: Two
+    description: Increment source address by two unit data sizes after each read.
+    value: 1
+enum/vals::Ch1CtrlSrcmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The SRCADDR field of LDMA_CHx_SRC contains the absolute address of the source data.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The SRCADDR field of LDMA_CHx_SRC contains the relative offset of the source data.
     value: 1
-enum/vals::CH3_CTRL_STRUCTTYPE:
+enum/vals::Ch1CtrlStructtype:
   bit_size: 2
   variants:
-  - name: TRANSFER
-    description: DMA transfer structure type selected.
-    value: 0
-  - name: SYNCHRONIZE
+  - name: Synchronize
     description: Synchronization structure type selected.
     value: 1
-  - name: WRITE
+  - name: Transfer
+    description: DMA transfer structure type selected.
+    value: 0
+  - name: Write
     description: Write immediate value structure type selected.
     value: 2
-enum/vals::CH3_LINK_LINKMODE:
+enum/vals::Ch1LinkLinkmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The LINKADDR field of LDMA_CHx_LINK contains the absolute address of the linked descriptor.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The LINKADDR field of LDMA_CHx_LINK contains the relative offset of the linked descriptor.
     value: 1
-enum/vals::CH4_CFG_ARBSLOTS:
+enum/vals::Ch2CfgArbslots:
   bit_size: 2
   variants:
-  - name: ONE
+  - name: Eight
+    description: Eight arbitration slots selected.
+    value: 3
+  - name: Four
+    description: Four arbitration slots selected.
+    value: 2
+  - name: One
     description: One arbitration slot selected.
     value: 0
-  - name: TWO
+  - name: Two
     description: Two arbitration slots selected.
     value: 1
-  - name: FOUR
-    description: Four arbitration slots selected.
-    value: 2
-  - name: EIGHT
-    description: Eight arbitration slots selected.
-    value: 3
-enum/vals::CH4_CFG_DSTINCSIGN:
+enum/vals::Ch2CfgDstincsign:
   bit_size: 1
   variants:
-  - name: POSITIVE
-    description: Increment destination address.
-    value: 0
-  - name: NEGATIVE
+  - name: Negative
     description: Decrement destination address.
     value: 1
-enum/vals::CH4_CFG_SRCINCSIGN:
+  - name: Positive
+    description: Increment destination address.
+    value: 0
+enum/vals::Ch2CfgSrcincsign:
   bit_size: 1
   variants:
-  - name: POSITIVE
-    description: Increment source address.
-    value: 0
-  - name: NEGATIVE
+  - name: Negative
     description: Decrement source address.
     value: 1
-enum/vals::CH4_CTRL_BLOCKSIZE:
+  - name: Positive
+    description: Increment source address.
+    value: 0
+enum/vals::Ch2CtrlBlocksize:
   bit_size: 4
   variants:
-  - name: UNIT1
-    description: One unit transfer per arbitration.
-    value: 0
-  - name: UNIT2
-    description: Two unit transfers per arbitration.
-    value: 1
-  - name: UNIT3
-    description: Three unit transfers per arbitration.
-    value: 2
-  - name: UNIT4
-    description: Four unit transfers per arbitration.
-    value: 3
-  - name: UNIT6
-    description: Six unit transfers per arbitration.
-    value: 4
-  - name: UNIT8
-    description: Eight unit transfers per arbitration.
-    value: 5
-  - name: UNIT16
-    description: Sixteen unit transfers per arbitration.
-    value: 7
-  - name: UNIT32
-    description: 32 unit transfers per arbitration.
-    value: 9
-  - name: UNIT64
-    description: 64 unit transfers per arbitration.
-    value: 10
-  - name: UNIT128
-    description: 128 unit transfers per arbitration.
-    value: 11
-  - name: UNIT256
-    description: 256 unit transfers per arbitration.
-    value: 12
-  - name: UNIT512
-    description: 512 unit transfers per arbitration.
-    value: 13
-  - name: UNIT1024
-    description: 1024 unit transfers per arbitration.
-    value: 14
-  - name: ALL
+  - name: All
     description: Transfer all units as specified by the XFRCNT field.
     value: 15
-enum/vals::CH4_CTRL_DSTINC:
+  - name: Unit1
+    description: One unit transfer per arbitration.
+    value: 0
+  - name: Unit1024
+    description: 1024 unit transfers per arbitration.
+    value: 14
+  - name: Unit128
+    description: 128 unit transfers per arbitration.
+    value: 11
+  - name: Unit16
+    description: Sixteen unit transfers per arbitration.
+    value: 7
+  - name: Unit2
+    description: Two unit transfers per arbitration.
+    value: 1
+  - name: Unit256
+    description: 256 unit transfers per arbitration.
+    value: 12
+  - name: Unit3
+    description: Three unit transfers per arbitration.
+    value: 2
+  - name: Unit32
+    description: 32 unit transfers per arbitration.
+    value: 9
+  - name: Unit4
+    description: Four unit transfers per arbitration.
+    value: 3
+  - name: Unit512
+    description: 512 unit transfers per arbitration.
+    value: 13
+  - name: Unit6
+    description: Six unit transfers per arbitration.
+    value: 4
+  - name: Unit64
+    description: 64 unit transfers per arbitration.
+    value: 10
+  - name: Unit8
+    description: Eight unit transfers per arbitration.
+    value: 5
+enum/vals::Ch2CtrlDstinc:
   bit_size: 2
   variants:
-  - name: ONE
-    description: Increment destination address by one unit data size after each write.
-    value: 0
-  - name: TWO
-    description: Increment destination address by two unit data sizes after each write.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Increment destination address by four unit data sizes after each write.
     value: 2
-  - name: NONE
+  - name: None
     description: Do not increment the destination address. Writes are made to a fixed destination address, for example writing to a FIFO.
     value: 3
-enum/vals::CH4_CTRL_DSTMODE:
+  - name: One
+    description: Increment destination address by one unit data size after each write.
+    value: 0
+  - name: Two
+    description: Increment destination address by two unit data sizes after each write.
+    value: 1
+enum/vals::Ch2CtrlDstmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The DSTADDR field of LDMA_CHx_DST contains the absolute address of the destination data.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The DSTADDR field of LDMA_CHx_DST contains the relative offset of the destination data.
     value: 1
-enum/vals::CH4_CTRL_REQMODE:
+enum/vals::Ch2CtrlReqmode:
   bit_size: 1
   variants:
-  - name: BLOCK
-    description: The LDMA transfers one BLOCKSIZE per transfer request.
-    value: 0
-  - name: ALL
+  - name: All
     description: One transfer request transfers all units as defined by the XFRCNT field.
     value: 1
-enum/vals::CH4_CTRL_SIZE:
+  - name: Block
+    description: The LDMA transfers one BLOCKSIZE per transfer request.
+    value: 0
+enum/vals::Ch2CtrlSize:
   bit_size: 2
   variants:
-  - name: BYTE
+  - name: Byte
     description: Each unit transfer is a byte.
     value: 0
-  - name: HALFWORD
+  - name: Halfword
     description: Each unit transfer is a half-word.
     value: 1
-  - name: WORD
+  - name: Word
     description: Each unit transfer is a word.
     value: 2
-enum/vals::CH4_CTRL_SRCINC:
+enum/vals::Ch2CtrlSrcinc:
   bit_size: 2
   variants:
-  - name: ONE
-    description: Increment source address by one unit data size after each read.
-    value: 0
-  - name: TWO
-    description: Increment source address by two unit data sizes after each read.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Increment source address by four unit data sizes after each read.
     value: 2
-  - name: NONE
+  - name: None
     description: Do not increment the source address. In this mode reads are made from a fixed source address, for example reading FIFO.
     value: 3
-enum/vals::CH4_CTRL_SRCMODE:
+  - name: One
+    description: Increment source address by one unit data size after each read.
+    value: 0
+  - name: Two
+    description: Increment source address by two unit data sizes after each read.
+    value: 1
+enum/vals::Ch2CtrlSrcmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The SRCADDR field of LDMA_CHx_SRC contains the absolute address of the source data.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The SRCADDR field of LDMA_CHx_SRC contains the relative offset of the source data.
     value: 1
-enum/vals::CH4_CTRL_STRUCTTYPE:
+enum/vals::Ch2CtrlStructtype:
   bit_size: 2
   variants:
-  - name: TRANSFER
-    description: DMA transfer structure type selected.
-    value: 0
-  - name: SYNCHRONIZE
+  - name: Synchronize
     description: Synchronization structure type selected.
     value: 1
-  - name: WRITE
+  - name: Transfer
+    description: DMA transfer structure type selected.
+    value: 0
+  - name: Write
     description: Write immediate value structure type selected.
     value: 2
-enum/vals::CH4_LINK_LINKMODE:
+enum/vals::Ch2LinkLinkmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The LINKADDR field of LDMA_CHx_LINK contains the absolute address of the linked descriptor.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The LINKADDR field of LDMA_CHx_LINK contains the relative offset of the linked descriptor.
     value: 1
-enum/vals::CH5_CFG_ARBSLOTS:
+enum/vals::Ch3CfgArbslots:
   bit_size: 2
   variants:
-  - name: ONE
+  - name: Eight
+    description: Eight arbitration slots selected.
+    value: 3
+  - name: Four
+    description: Four arbitration slots selected.
+    value: 2
+  - name: One
     description: One arbitration slot selected.
     value: 0
-  - name: TWO
+  - name: Two
     description: Two arbitration slots selected.
     value: 1
-  - name: FOUR
-    description: Four arbitration slots selected.
-    value: 2
-  - name: EIGHT
-    description: Eight arbitration slots selected.
-    value: 3
-enum/vals::CH5_CFG_DSTINCSIGN:
+enum/vals::Ch3CfgDstincsign:
   bit_size: 1
   variants:
-  - name: POSITIVE
-    description: Increment destination address.
-    value: 0
-  - name: NEGATIVE
+  - name: Negative
     description: Decrement destination address.
     value: 1
-enum/vals::CH5_CFG_SRCINCSIGN:
+  - name: Positive
+    description: Increment destination address.
+    value: 0
+enum/vals::Ch3CfgSrcincsign:
   bit_size: 1
   variants:
-  - name: POSITIVE
-    description: Increment source address.
-    value: 0
-  - name: NEGATIVE
+  - name: Negative
     description: Decrement source address.
     value: 1
-enum/vals::CH5_CTRL_BLOCKSIZE:
+  - name: Positive
+    description: Increment source address.
+    value: 0
+enum/vals::Ch3CtrlBlocksize:
   bit_size: 4
   variants:
-  - name: UNIT1
-    description: One unit transfer per arbitration.
-    value: 0
-  - name: UNIT2
-    description: Two unit transfers per arbitration.
-    value: 1
-  - name: UNIT3
-    description: Three unit transfers per arbitration.
-    value: 2
-  - name: UNIT4
-    description: Four unit transfers per arbitration.
-    value: 3
-  - name: UNIT6
-    description: Six unit transfers per arbitration.
-    value: 4
-  - name: UNIT8
-    description: Eight unit transfers per arbitration.
-    value: 5
-  - name: UNIT16
-    description: Sixteen unit transfers per arbitration.
-    value: 7
-  - name: UNIT32
-    description: 32 unit transfers per arbitration.
-    value: 9
-  - name: UNIT64
-    description: 64 unit transfers per arbitration.
-    value: 10
-  - name: UNIT128
-    description: 128 unit transfers per arbitration.
-    value: 11
-  - name: UNIT256
-    description: 256 unit transfers per arbitration.
-    value: 12
-  - name: UNIT512
-    description: 512 unit transfers per arbitration.
-    value: 13
-  - name: UNIT1024
-    description: 1024 unit transfers per arbitration.
-    value: 14
-  - name: ALL
+  - name: All
     description: Transfer all units as specified by the XFRCNT field.
     value: 15
-enum/vals::CH5_CTRL_DSTINC:
+  - name: Unit1
+    description: One unit transfer per arbitration.
+    value: 0
+  - name: Unit1024
+    description: 1024 unit transfers per arbitration.
+    value: 14
+  - name: Unit128
+    description: 128 unit transfers per arbitration.
+    value: 11
+  - name: Unit16
+    description: Sixteen unit transfers per arbitration.
+    value: 7
+  - name: Unit2
+    description: Two unit transfers per arbitration.
+    value: 1
+  - name: Unit256
+    description: 256 unit transfers per arbitration.
+    value: 12
+  - name: Unit3
+    description: Three unit transfers per arbitration.
+    value: 2
+  - name: Unit32
+    description: 32 unit transfers per arbitration.
+    value: 9
+  - name: Unit4
+    description: Four unit transfers per arbitration.
+    value: 3
+  - name: Unit512
+    description: 512 unit transfers per arbitration.
+    value: 13
+  - name: Unit6
+    description: Six unit transfers per arbitration.
+    value: 4
+  - name: Unit64
+    description: 64 unit transfers per arbitration.
+    value: 10
+  - name: Unit8
+    description: Eight unit transfers per arbitration.
+    value: 5
+enum/vals::Ch3CtrlDstinc:
   bit_size: 2
   variants:
-  - name: ONE
-    description: Increment destination address by one unit data size after each write.
-    value: 0
-  - name: TWO
-    description: Increment destination address by two unit data sizes after each write.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Increment destination address by four unit data sizes after each write.
     value: 2
-  - name: NONE
+  - name: None
     description: Do not increment the destination address. Writes are made to a fixed destination address, for example writing to a FIFO.
     value: 3
-enum/vals::CH5_CTRL_DSTMODE:
+  - name: One
+    description: Increment destination address by one unit data size after each write.
+    value: 0
+  - name: Two
+    description: Increment destination address by two unit data sizes after each write.
+    value: 1
+enum/vals::Ch3CtrlDstmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The DSTADDR field of LDMA_CHx_DST contains the absolute address of the destination data.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The DSTADDR field of LDMA_CHx_DST contains the relative offset of the destination data.
     value: 1
-enum/vals::CH5_CTRL_REQMODE:
+enum/vals::Ch3CtrlReqmode:
   bit_size: 1
   variants:
-  - name: BLOCK
-    description: The LDMA transfers one BLOCKSIZE per transfer request.
-    value: 0
-  - name: ALL
+  - name: All
     description: One transfer request transfers all units as defined by the XFRCNT field.
     value: 1
-enum/vals::CH5_CTRL_SIZE:
+  - name: Block
+    description: The LDMA transfers one BLOCKSIZE per transfer request.
+    value: 0
+enum/vals::Ch3CtrlSize:
   bit_size: 2
   variants:
-  - name: BYTE
+  - name: Byte
     description: Each unit transfer is a byte.
     value: 0
-  - name: HALFWORD
+  - name: Halfword
     description: Each unit transfer is a half-word.
     value: 1
-  - name: WORD
+  - name: Word
     description: Each unit transfer is a word.
     value: 2
-enum/vals::CH5_CTRL_SRCINC:
+enum/vals::Ch3CtrlSrcinc:
   bit_size: 2
   variants:
-  - name: ONE
-    description: Increment source address by one unit data size after each read.
-    value: 0
-  - name: TWO
-    description: Increment source address by two unit data sizes after each read.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Increment source address by four unit data sizes after each read.
     value: 2
-  - name: NONE
+  - name: None
     description: Do not increment the source address. In this mode reads are made from a fixed source address, for example reading FIFO.
     value: 3
-enum/vals::CH5_CTRL_SRCMODE:
+  - name: One
+    description: Increment source address by one unit data size after each read.
+    value: 0
+  - name: Two
+    description: Increment source address by two unit data sizes after each read.
+    value: 1
+enum/vals::Ch3CtrlSrcmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The SRCADDR field of LDMA_CHx_SRC contains the absolute address of the source data.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The SRCADDR field of LDMA_CHx_SRC contains the relative offset of the source data.
     value: 1
-enum/vals::CH5_CTRL_STRUCTTYPE:
+enum/vals::Ch3CtrlStructtype:
   bit_size: 2
   variants:
-  - name: TRANSFER
-    description: DMA transfer structure type selected.
-    value: 0
-  - name: SYNCHRONIZE
+  - name: Synchronize
     description: Synchronization structure type selected.
     value: 1
-  - name: WRITE
+  - name: Transfer
+    description: DMA transfer structure type selected.
+    value: 0
+  - name: Write
     description: Write immediate value structure type selected.
     value: 2
-enum/vals::CH5_LINK_LINKMODE:
+enum/vals::Ch3LinkLinkmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The LINKADDR field of LDMA_CHx_LINK contains the absolute address of the linked descriptor.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The LINKADDR field of LDMA_CHx_LINK contains the relative offset of the linked descriptor.
     value: 1
-enum/vals::CH6_CFG_ARBSLOTS:
+enum/vals::Ch4CfgArbslots:
   bit_size: 2
   variants:
-  - name: ONE
+  - name: Eight
+    description: Eight arbitration slots selected.
+    value: 3
+  - name: Four
+    description: Four arbitration slots selected.
+    value: 2
+  - name: One
     description: One arbitration slot selected.
     value: 0
-  - name: TWO
+  - name: Two
     description: Two arbitration slots selected.
     value: 1
-  - name: FOUR
-    description: Four arbitration slots selected.
-    value: 2
-  - name: EIGHT
-    description: Eight arbitration slots selected.
-    value: 3
-enum/vals::CH6_CFG_DSTINCSIGN:
+enum/vals::Ch4CfgDstincsign:
   bit_size: 1
   variants:
-  - name: POSITIVE
-    description: Increment destination address.
-    value: 0
-  - name: NEGATIVE
+  - name: Negative
     description: Decrement destination address.
     value: 1
-enum/vals::CH6_CFG_SRCINCSIGN:
+  - name: Positive
+    description: Increment destination address.
+    value: 0
+enum/vals::Ch4CfgSrcincsign:
   bit_size: 1
   variants:
-  - name: POSITIVE
-    description: Increment source address.
-    value: 0
-  - name: NEGATIVE
+  - name: Negative
     description: Decrement source address.
     value: 1
-enum/vals::CH6_CTRL_BLOCKSIZE:
+  - name: Positive
+    description: Increment source address.
+    value: 0
+enum/vals::Ch4CtrlBlocksize:
   bit_size: 4
   variants:
-  - name: UNIT1
-    description: One unit transfer per arbitration.
-    value: 0
-  - name: UNIT2
-    description: Two unit transfers per arbitration.
-    value: 1
-  - name: UNIT3
-    description: Three unit transfers per arbitration.
-    value: 2
-  - name: UNIT4
-    description: Four unit transfers per arbitration.
-    value: 3
-  - name: UNIT6
-    description: Six unit transfers per arbitration.
-    value: 4
-  - name: UNIT8
-    description: Eight unit transfers per arbitration.
-    value: 5
-  - name: UNIT16
-    description: Sixteen unit transfers per arbitration.
-    value: 7
-  - name: UNIT32
-    description: 32 unit transfers per arbitration.
-    value: 9
-  - name: UNIT64
-    description: 64 unit transfers per arbitration.
-    value: 10
-  - name: UNIT128
-    description: 128 unit transfers per arbitration.
-    value: 11
-  - name: UNIT256
-    description: 256 unit transfers per arbitration.
-    value: 12
-  - name: UNIT512
-    description: 512 unit transfers per arbitration.
-    value: 13
-  - name: UNIT1024
-    description: 1024 unit transfers per arbitration.
-    value: 14
-  - name: ALL
+  - name: All
     description: Transfer all units as specified by the XFRCNT field.
     value: 15
-enum/vals::CH6_CTRL_DSTINC:
+  - name: Unit1
+    description: One unit transfer per arbitration.
+    value: 0
+  - name: Unit1024
+    description: 1024 unit transfers per arbitration.
+    value: 14
+  - name: Unit128
+    description: 128 unit transfers per arbitration.
+    value: 11
+  - name: Unit16
+    description: Sixteen unit transfers per arbitration.
+    value: 7
+  - name: Unit2
+    description: Two unit transfers per arbitration.
+    value: 1
+  - name: Unit256
+    description: 256 unit transfers per arbitration.
+    value: 12
+  - name: Unit3
+    description: Three unit transfers per arbitration.
+    value: 2
+  - name: Unit32
+    description: 32 unit transfers per arbitration.
+    value: 9
+  - name: Unit4
+    description: Four unit transfers per arbitration.
+    value: 3
+  - name: Unit512
+    description: 512 unit transfers per arbitration.
+    value: 13
+  - name: Unit6
+    description: Six unit transfers per arbitration.
+    value: 4
+  - name: Unit64
+    description: 64 unit transfers per arbitration.
+    value: 10
+  - name: Unit8
+    description: Eight unit transfers per arbitration.
+    value: 5
+enum/vals::Ch4CtrlDstinc:
   bit_size: 2
   variants:
-  - name: ONE
-    description: Increment destination address by one unit data size after each write.
-    value: 0
-  - name: TWO
-    description: Increment destination address by two unit data sizes after each write.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Increment destination address by four unit data sizes after each write.
     value: 2
-  - name: NONE
+  - name: None
     description: Do not increment the destination address. Writes are made to a fixed destination address, for example writing to a FIFO.
     value: 3
-enum/vals::CH6_CTRL_DSTMODE:
+  - name: One
+    description: Increment destination address by one unit data size after each write.
+    value: 0
+  - name: Two
+    description: Increment destination address by two unit data sizes after each write.
+    value: 1
+enum/vals::Ch4CtrlDstmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The DSTADDR field of LDMA_CHx_DST contains the absolute address of the destination data.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The DSTADDR field of LDMA_CHx_DST contains the relative offset of the destination data.
     value: 1
-enum/vals::CH6_CTRL_REQMODE:
+enum/vals::Ch4CtrlReqmode:
   bit_size: 1
   variants:
-  - name: BLOCK
-    description: The LDMA transfers one BLOCKSIZE per transfer request.
-    value: 0
-  - name: ALL
+  - name: All
     description: One transfer request transfers all units as defined by the XFRCNT field.
     value: 1
-enum/vals::CH6_CTRL_SIZE:
+  - name: Block
+    description: The LDMA transfers one BLOCKSIZE per transfer request.
+    value: 0
+enum/vals::Ch4CtrlSize:
   bit_size: 2
   variants:
-  - name: BYTE
+  - name: Byte
     description: Each unit transfer is a byte.
     value: 0
-  - name: HALFWORD
+  - name: Halfword
     description: Each unit transfer is a half-word.
     value: 1
-  - name: WORD
+  - name: Word
     description: Each unit transfer is a word.
     value: 2
-enum/vals::CH6_CTRL_SRCINC:
+enum/vals::Ch4CtrlSrcinc:
   bit_size: 2
   variants:
-  - name: ONE
-    description: Increment source address by one unit data size after each read.
-    value: 0
-  - name: TWO
-    description: Increment source address by two unit data sizes after each read.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Increment source address by four unit data sizes after each read.
     value: 2
-  - name: NONE
+  - name: None
     description: Do not increment the source address. In this mode reads are made from a fixed source address, for example reading FIFO.
     value: 3
-enum/vals::CH6_CTRL_SRCMODE:
+  - name: One
+    description: Increment source address by one unit data size after each read.
+    value: 0
+  - name: Two
+    description: Increment source address by two unit data sizes after each read.
+    value: 1
+enum/vals::Ch4CtrlSrcmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The SRCADDR field of LDMA_CHx_SRC contains the absolute address of the source data.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The SRCADDR field of LDMA_CHx_SRC contains the relative offset of the source data.
     value: 1
-enum/vals::CH6_CTRL_STRUCTTYPE:
+enum/vals::Ch4CtrlStructtype:
   bit_size: 2
   variants:
-  - name: TRANSFER
-    description: DMA transfer structure type selected.
-    value: 0
-  - name: SYNCHRONIZE
+  - name: Synchronize
     description: Synchronization structure type selected.
     value: 1
-  - name: WRITE
+  - name: Transfer
+    description: DMA transfer structure type selected.
+    value: 0
+  - name: Write
     description: Write immediate value structure type selected.
     value: 2
-enum/vals::CH6_LINK_LINKMODE:
+enum/vals::Ch4LinkLinkmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The LINKADDR field of LDMA_CHx_LINK contains the absolute address of the linked descriptor.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The LINKADDR field of LDMA_CHx_LINK contains the relative offset of the linked descriptor.
     value: 1
-enum/vals::CH7_CFG_ARBSLOTS:
+enum/vals::Ch5CfgArbslots:
   bit_size: 2
   variants:
-  - name: ONE
+  - name: Eight
+    description: Eight arbitration slots selected.
+    value: 3
+  - name: Four
+    description: Four arbitration slots selected.
+    value: 2
+  - name: One
     description: One arbitration slot selected.
     value: 0
-  - name: TWO
+  - name: Two
     description: Two arbitration slots selected.
     value: 1
-  - name: FOUR
-    description: Four arbitration slots selected.
-    value: 2
-  - name: EIGHT
-    description: Eight arbitration slots selected.
-    value: 3
-enum/vals::CH7_CFG_DSTINCSIGN:
+enum/vals::Ch5CfgDstincsign:
   bit_size: 1
   variants:
-  - name: POSITIVE
-    description: Increment destination address.
-    value: 0
-  - name: NEGATIVE
+  - name: Negative
     description: Decrement destination address.
     value: 1
-enum/vals::CH7_CFG_SRCINCSIGN:
+  - name: Positive
+    description: Increment destination address.
+    value: 0
+enum/vals::Ch5CfgSrcincsign:
   bit_size: 1
   variants:
-  - name: POSITIVE
-    description: Increment source address.
-    value: 0
-  - name: NEGATIVE
+  - name: Negative
     description: Decrement source address.
     value: 1
-enum/vals::CH7_CTRL_BLOCKSIZE:
+  - name: Positive
+    description: Increment source address.
+    value: 0
+enum/vals::Ch5CtrlBlocksize:
   bit_size: 4
   variants:
-  - name: UNIT1
-    description: One unit transfer per arbitration.
-    value: 0
-  - name: UNIT2
-    description: Two unit transfers per arbitration.
-    value: 1
-  - name: UNIT3
-    description: Three unit transfers per arbitration.
-    value: 2
-  - name: UNIT4
-    description: Four unit transfers per arbitration.
-    value: 3
-  - name: UNIT6
-    description: Six unit transfers per arbitration.
-    value: 4
-  - name: UNIT8
-    description: Eight unit transfers per arbitration.
-    value: 5
-  - name: UNIT16
-    description: Sixteen unit transfers per arbitration.
-    value: 7
-  - name: UNIT32
-    description: 32 unit transfers per arbitration.
-    value: 9
-  - name: UNIT64
-    description: 64 unit transfers per arbitration.
-    value: 10
-  - name: UNIT128
-    description: 128 unit transfers per arbitration.
-    value: 11
-  - name: UNIT256
-    description: 256 unit transfers per arbitration.
-    value: 12
-  - name: UNIT512
-    description: 512 unit transfers per arbitration.
-    value: 13
-  - name: UNIT1024
-    description: 1024 unit transfers per arbitration.
-    value: 14
-  - name: ALL
+  - name: All
     description: Transfer all units as specified by the XFRCNT field.
     value: 15
-enum/vals::CH7_CTRL_DSTINC:
+  - name: Unit1
+    description: One unit transfer per arbitration.
+    value: 0
+  - name: Unit1024
+    description: 1024 unit transfers per arbitration.
+    value: 14
+  - name: Unit128
+    description: 128 unit transfers per arbitration.
+    value: 11
+  - name: Unit16
+    description: Sixteen unit transfers per arbitration.
+    value: 7
+  - name: Unit2
+    description: Two unit transfers per arbitration.
+    value: 1
+  - name: Unit256
+    description: 256 unit transfers per arbitration.
+    value: 12
+  - name: Unit3
+    description: Three unit transfers per arbitration.
+    value: 2
+  - name: Unit32
+    description: 32 unit transfers per arbitration.
+    value: 9
+  - name: Unit4
+    description: Four unit transfers per arbitration.
+    value: 3
+  - name: Unit512
+    description: 512 unit transfers per arbitration.
+    value: 13
+  - name: Unit6
+    description: Six unit transfers per arbitration.
+    value: 4
+  - name: Unit64
+    description: 64 unit transfers per arbitration.
+    value: 10
+  - name: Unit8
+    description: Eight unit transfers per arbitration.
+    value: 5
+enum/vals::Ch5CtrlDstinc:
   bit_size: 2
   variants:
-  - name: ONE
-    description: Increment destination address by one unit data size after each write.
-    value: 0
-  - name: TWO
-    description: Increment destination address by two unit data sizes after each write.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Increment destination address by four unit data sizes after each write.
     value: 2
-  - name: NONE
+  - name: None
     description: Do not increment the destination address. Writes are made to a fixed destination address, for example writing to a FIFO.
     value: 3
-enum/vals::CH7_CTRL_DSTMODE:
+  - name: One
+    description: Increment destination address by one unit data size after each write.
+    value: 0
+  - name: Two
+    description: Increment destination address by two unit data sizes after each write.
+    value: 1
+enum/vals::Ch5CtrlDstmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The DSTADDR field of LDMA_CHx_DST contains the absolute address of the destination data.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The DSTADDR field of LDMA_CHx_DST contains the relative offset of the destination data.
     value: 1
-enum/vals::CH7_CTRL_REQMODE:
+enum/vals::Ch5CtrlReqmode:
   bit_size: 1
   variants:
-  - name: BLOCK
-    description: The LDMA transfers one BLOCKSIZE per transfer request.
-    value: 0
-  - name: ALL
+  - name: All
     description: One transfer request transfers all units as defined by the XFRCNT field.
     value: 1
-enum/vals::CH7_CTRL_SIZE:
+  - name: Block
+    description: The LDMA transfers one BLOCKSIZE per transfer request.
+    value: 0
+enum/vals::Ch5CtrlSize:
   bit_size: 2
   variants:
-  - name: BYTE
+  - name: Byte
     description: Each unit transfer is a byte.
     value: 0
-  - name: HALFWORD
+  - name: Halfword
     description: Each unit transfer is a half-word.
     value: 1
-  - name: WORD
+  - name: Word
     description: Each unit transfer is a word.
     value: 2
-enum/vals::CH7_CTRL_SRCINC:
+enum/vals::Ch5CtrlSrcinc:
   bit_size: 2
   variants:
-  - name: ONE
-    description: Increment source address by one unit data size after each read.
-    value: 0
-  - name: TWO
-    description: Increment source address by two unit data sizes after each read.
-    value: 1
-  - name: FOUR
+  - name: Four
     description: Increment source address by four unit data sizes after each read.
     value: 2
-  - name: NONE
+  - name: None
     description: Do not increment the source address. In this mode reads are made from a fixed source address, for example reading FIFO.
     value: 3
-enum/vals::CH7_CTRL_SRCMODE:
+  - name: One
+    description: Increment source address by one unit data size after each read.
+    value: 0
+  - name: Two
+    description: Increment source address by two unit data sizes after each read.
+    value: 1
+enum/vals::Ch5CtrlSrcmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The SRCADDR field of LDMA_CHx_SRC contains the absolute address of the source data.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The SRCADDR field of LDMA_CHx_SRC contains the relative offset of the source data.
     value: 1
-enum/vals::CH7_CTRL_STRUCTTYPE:
+enum/vals::Ch5CtrlStructtype:
   bit_size: 2
   variants:
-  - name: TRANSFER
-    description: DMA transfer structure type selected.
-    value: 0
-  - name: SYNCHRONIZE
+  - name: Synchronize
     description: Synchronization structure type selected.
     value: 1
-  - name: WRITE
+  - name: Transfer
+    description: DMA transfer structure type selected.
+    value: 0
+  - name: Write
     description: Write immediate value structure type selected.
     value: 2
-enum/vals::CH7_LINK_LINKMODE:
+enum/vals::Ch5LinkLinkmode:
   bit_size: 1
   variants:
-  - name: ABSOLUTE
+  - name: Absolute
     description: The LINKADDR field of LDMA_CHx_LINK contains the absolute address of the linked descriptor.
     value: 0
-  - name: RELATIVE
+  - name: Relative
     description: The LINKADDR field of LDMA_CHx_LINK contains the relative offset of the linked descriptor.
     value: 1
-enum/vals::SYNCCLREDGE:
+enum/vals::Ch6CfgArbslots:
+  bit_size: 2
+  variants:
+  - name: Eight
+    description: Eight arbitration slots selected.
+    value: 3
+  - name: Four
+    description: Four arbitration slots selected.
+    value: 2
+  - name: One
+    description: One arbitration slot selected.
+    value: 0
+  - name: Two
+    description: Two arbitration slots selected.
+    value: 1
+enum/vals::Ch6CfgDstincsign:
+  bit_size: 1
+  variants:
+  - name: Negative
+    description: Decrement destination address.
+    value: 1
+  - name: Positive
+    description: Increment destination address.
+    value: 0
+enum/vals::Ch6CfgSrcincsign:
+  bit_size: 1
+  variants:
+  - name: Negative
+    description: Decrement source address.
+    value: 1
+  - name: Positive
+    description: Increment source address.
+    value: 0
+enum/vals::Ch6CtrlBlocksize:
+  bit_size: 4
+  variants:
+  - name: All
+    description: Transfer all units as specified by the XFRCNT field.
+    value: 15
+  - name: Unit1
+    description: One unit transfer per arbitration.
+    value: 0
+  - name: Unit1024
+    description: 1024 unit transfers per arbitration.
+    value: 14
+  - name: Unit128
+    description: 128 unit transfers per arbitration.
+    value: 11
+  - name: Unit16
+    description: Sixteen unit transfers per arbitration.
+    value: 7
+  - name: Unit2
+    description: Two unit transfers per arbitration.
+    value: 1
+  - name: Unit256
+    description: 256 unit transfers per arbitration.
+    value: 12
+  - name: Unit3
+    description: Three unit transfers per arbitration.
+    value: 2
+  - name: Unit32
+    description: 32 unit transfers per arbitration.
+    value: 9
+  - name: Unit4
+    description: Four unit transfers per arbitration.
+    value: 3
+  - name: Unit512
+    description: 512 unit transfers per arbitration.
+    value: 13
+  - name: Unit6
+    description: Six unit transfers per arbitration.
+    value: 4
+  - name: Unit64
+    description: 64 unit transfers per arbitration.
+    value: 10
+  - name: Unit8
+    description: Eight unit transfers per arbitration.
+    value: 5
+enum/vals::Ch6CtrlDstinc:
+  bit_size: 2
+  variants:
+  - name: Four
+    description: Increment destination address by four unit data sizes after each write.
+    value: 2
+  - name: None
+    description: Do not increment the destination address. Writes are made to a fixed destination address, for example writing to a FIFO.
+    value: 3
+  - name: One
+    description: Increment destination address by one unit data size after each write.
+    value: 0
+  - name: Two
+    description: Increment destination address by two unit data sizes after each write.
+    value: 1
+enum/vals::Ch6CtrlDstmode:
+  bit_size: 1
+  variants:
+  - name: Absolute
+    description: The DSTADDR field of LDMA_CHx_DST contains the absolute address of the destination data.
+    value: 0
+  - name: Relative
+    description: The DSTADDR field of LDMA_CHx_DST contains the relative offset of the destination data.
+    value: 1
+enum/vals::Ch6CtrlReqmode:
+  bit_size: 1
+  variants:
+  - name: All
+    description: One transfer request transfers all units as defined by the XFRCNT field.
+    value: 1
+  - name: Block
+    description: The LDMA transfers one BLOCKSIZE per transfer request.
+    value: 0
+enum/vals::Ch6CtrlSize:
+  bit_size: 2
+  variants:
+  - name: Byte
+    description: Each unit transfer is a byte.
+    value: 0
+  - name: Halfword
+    description: Each unit transfer is a half-word.
+    value: 1
+  - name: Word
+    description: Each unit transfer is a word.
+    value: 2
+enum/vals::Ch6CtrlSrcinc:
+  bit_size: 2
+  variants:
+  - name: Four
+    description: Increment source address by four unit data sizes after each read.
+    value: 2
+  - name: None
+    description: Do not increment the source address. In this mode reads are made from a fixed source address, for example reading FIFO.
+    value: 3
+  - name: One
+    description: Increment source address by one unit data size after each read.
+    value: 0
+  - name: Two
+    description: Increment source address by two unit data sizes after each read.
+    value: 1
+enum/vals::Ch6CtrlSrcmode:
+  bit_size: 1
+  variants:
+  - name: Absolute
+    description: The SRCADDR field of LDMA_CHx_SRC contains the absolute address of the source data.
+    value: 0
+  - name: Relative
+    description: The SRCADDR field of LDMA_CHx_SRC contains the relative offset of the source data.
+    value: 1
+enum/vals::Ch6CtrlStructtype:
+  bit_size: 2
+  variants:
+  - name: Synchronize
+    description: Synchronization structure type selected.
+    value: 1
+  - name: Transfer
+    description: DMA transfer structure type selected.
+    value: 0
+  - name: Write
+    description: Write immediate value structure type selected.
+    value: 2
+enum/vals::Ch6LinkLinkmode:
+  bit_size: 1
+  variants:
+  - name: Absolute
+    description: The LINKADDR field of LDMA_CHx_LINK contains the absolute address of the linked descriptor.
+    value: 0
+  - name: Relative
+    description: The LINKADDR field of LDMA_CHx_LINK contains the relative offset of the linked descriptor.
+    value: 1
+enum/vals::Ch7CfgArbslots:
+  bit_size: 2
+  variants:
+  - name: Eight
+    description: Eight arbitration slots selected.
+    value: 3
+  - name: Four
+    description: Four arbitration slots selected.
+    value: 2
+  - name: One
+    description: One arbitration slot selected.
+    value: 0
+  - name: Two
+    description: Two arbitration slots selected.
+    value: 1
+enum/vals::Ch7CfgDstincsign:
+  bit_size: 1
+  variants:
+  - name: Negative
+    description: Decrement destination address.
+    value: 1
+  - name: Positive
+    description: Increment destination address.
+    value: 0
+enum/vals::Ch7CfgSrcincsign:
+  bit_size: 1
+  variants:
+  - name: Negative
+    description: Decrement source address.
+    value: 1
+  - name: Positive
+    description: Increment source address.
+    value: 0
+enum/vals::Ch7CtrlBlocksize:
+  bit_size: 4
+  variants:
+  - name: All
+    description: Transfer all units as specified by the XFRCNT field.
+    value: 15
+  - name: Unit1
+    description: One unit transfer per arbitration.
+    value: 0
+  - name: Unit1024
+    description: 1024 unit transfers per arbitration.
+    value: 14
+  - name: Unit128
+    description: 128 unit transfers per arbitration.
+    value: 11
+  - name: Unit16
+    description: Sixteen unit transfers per arbitration.
+    value: 7
+  - name: Unit2
+    description: Two unit transfers per arbitration.
+    value: 1
+  - name: Unit256
+    description: 256 unit transfers per arbitration.
+    value: 12
+  - name: Unit3
+    description: Three unit transfers per arbitration.
+    value: 2
+  - name: Unit32
+    description: 32 unit transfers per arbitration.
+    value: 9
+  - name: Unit4
+    description: Four unit transfers per arbitration.
+    value: 3
+  - name: Unit512
+    description: 512 unit transfers per arbitration.
+    value: 13
+  - name: Unit6
+    description: Six unit transfers per arbitration.
+    value: 4
+  - name: Unit64
+    description: 64 unit transfers per arbitration.
+    value: 10
+  - name: Unit8
+    description: Eight unit transfers per arbitration.
+    value: 5
+enum/vals::Ch7CtrlDstinc:
+  bit_size: 2
+  variants:
+  - name: Four
+    description: Increment destination address by four unit data sizes after each write.
+    value: 2
+  - name: None
+    description: Do not increment the destination address. Writes are made to a fixed destination address, for example writing to a FIFO.
+    value: 3
+  - name: One
+    description: Increment destination address by one unit data size after each write.
+    value: 0
+  - name: Two
+    description: Increment destination address by two unit data sizes after each write.
+    value: 1
+enum/vals::Ch7CtrlDstmode:
+  bit_size: 1
+  variants:
+  - name: Absolute
+    description: The DSTADDR field of LDMA_CHx_DST contains the absolute address of the destination data.
+    value: 0
+  - name: Relative
+    description: The DSTADDR field of LDMA_CHx_DST contains the relative offset of the destination data.
+    value: 1
+enum/vals::Ch7CtrlReqmode:
+  bit_size: 1
+  variants:
+  - name: All
+    description: One transfer request transfers all units as defined by the XFRCNT field.
+    value: 1
+  - name: Block
+    description: The LDMA transfers one BLOCKSIZE per transfer request.
+    value: 0
+enum/vals::Ch7CtrlSize:
+  bit_size: 2
+  variants:
+  - name: Byte
+    description: Each unit transfer is a byte.
+    value: 0
+  - name: Halfword
+    description: Each unit transfer is a half-word.
+    value: 1
+  - name: Word
+    description: Each unit transfer is a word.
+    value: 2
+enum/vals::Ch7CtrlSrcinc:
+  bit_size: 2
+  variants:
+  - name: Four
+    description: Increment source address by four unit data sizes after each read.
+    value: 2
+  - name: None
+    description: Do not increment the source address. In this mode reads are made from a fixed source address, for example reading FIFO.
+    value: 3
+  - name: One
+    description: Increment source address by one unit data size after each read.
+    value: 0
+  - name: Two
+    description: Increment source address by two unit data sizes after each read.
+    value: 1
+enum/vals::Ch7CtrlSrcmode:
+  bit_size: 1
+  variants:
+  - name: Absolute
+    description: The SRCADDR field of LDMA_CHx_SRC contains the absolute address of the source data.
+    value: 0
+  - name: Relative
+    description: The SRCADDR field of LDMA_CHx_SRC contains the relative offset of the source data.
+    value: 1
+enum/vals::Ch7CtrlStructtype:
+  bit_size: 2
+  variants:
+  - name: Synchronize
+    description: Synchronization structure type selected.
+    value: 1
+  - name: Transfer
+    description: DMA transfer structure type selected.
+    value: 0
+  - name: Write
+    description: Write immediate value structure type selected.
+    value: 2
+enum/vals::Ch7LinkLinkmode:
+  bit_size: 1
+  variants:
+  - name: Absolute
+    description: The LINKADDR field of LDMA_CHx_LINK contains the absolute address of the linked descriptor.
+    value: 0
+  - name: Relative
+    description: The LINKADDR field of LDMA_CHx_LINK contains the relative offset of the linked descriptor.
+    value: 1
+enum/vals::Syncclredge:
   bit_size: 8
   variants:
-  - name: RISE
-    description: Use rising edge detection.
-    value: 0
-  - name: FALL
+  - name: Fall
     description: Use falling edge detection.
     value: 1
-enum/vals::SYNCSETEDGE:
+  - name: Rise
+    description: Use rising edge detection.
+    value: 0
+enum/vals::Syncsetedge:
   bit_size: 8
   variants:
-  - name: RISE
-    description: Use rising edge detection.
-    value: 0
-  - name: FALL
+  - name: Fall
     description: Use falling edge detection.
     value: 1
+  - name: Rise
+    description: Use rising edge detection.
+    value: 0
