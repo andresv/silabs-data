@@ -192,15 +192,6 @@ fieldset/regs::STATUS:
     description: Lock Status.
     bit_offset: 31
     bit_size: 1
-enum/vals::LOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: Access to configuration registers not locked.
-    value: 0
-  - name: LOCKED
-    description: Access to configuration registers locked.
-    value: 1
 enum/vals::LOCKKEY:
   bit_size: 16
   variants:

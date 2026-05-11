@@ -521,24 +521,6 @@ fieldset/regs::VREGVDDCMPCTRL:
     description: VREGVDD comparator threshold programming.
     bit_offset: 1
     bit_size: 2
-enum/vals::AVDDBODRMODE:
-  bit_size: 1
-  variants:
-  - name: DISABLED
-    description: Reset Request is block.
-    value: 0
-  - name: ENABLED
-    description: The entire device is reset except some EMU registers.
-    value: 1
-enum/vals::DECBODRMODE:
-  bit_size: 1
-  variants:
-  - name: DISABLED
-    description: Reset request is blocked.
-    value: 0
-  - name: ENABLED
-    description: The entire device is reset.
-    value: 1
 enum/vals::EM23VSCALE:
   bit_size: 2
   variants:
@@ -563,39 +545,12 @@ enum/vals::EM4IORETMODE:
   - name: SWUNLATCH
     description: 'Retention through EM4 and Wakeup: software writes UNLATCH register to remove retention.'
     value: 2
-enum/vals::IOVDD0BODRMODE:
-  bit_size: 1
-  variants:
-  - name: DISABLED
-    description: Reset request is blocked.
-    value: 0
-  - name: ENABLED
-    description: The entire device is reset except some EMU registers.
-    value: 1
-enum/vals::LOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: All EMU lockable registers are unlocked.
-    value: 0
-  - name: LOCKED
-    description: All EMU lockable registers are locked.
-    value: 1
 enum/vals::LOCKKEY:
   bit_size: 16
   variants:
   - name: UNLOCK
     description: Unlock EMU register.
     value: 44520
-enum/vals::LOCKUPRMODE:
-  bit_size: 1
-  variants:
-  - name: DISABLED
-    description: Reset Request is Block.
-    value: 0
-  - name: ENABLED
-    description: The entire device is reset except some EMU registers.
-    value: 1
 enum/vals::PD1PARETDIS:
   bit_size: 16
   variants:
@@ -605,15 +560,6 @@ enum/vals::PD1PARETDIS:
   - name: RADIONORETAIN
     description: Bit[1]. When set, do not retain RADIO associated registers when in EM2/3.
     value: 2
-enum/vals::SYSRMODE:
-  bit_size: 1
-  variants:
-  - name: DISABLED
-    description: Reset request is blocked.
-    value: 0
-  - name: ENABLED
-    description: Device is reset except some EMU registers.
-    value: 1
 enum/vals::TEMPAVGNUM:
   bit_size: 1
   variants:
@@ -635,12 +581,3 @@ enum/vals::VSCALE:
   - name: VSCALE2
     description: Voltage scaling set to 1.1v.
     value: 2
-enum/vals::WDOG0RMODE:
-  bit_size: 1
-  variants:
-  - name: DISABLED
-    description: Reset request is blocked.
-    value: 0
-  - name: ENABLED
-    description: The entire device is reset except some EMU registers.
-    value: 1

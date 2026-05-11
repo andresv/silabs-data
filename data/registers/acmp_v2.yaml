@@ -234,15 +234,6 @@ enum/vals::CSRESSEL:
   - name: RES6
     description: Internal capacitive sense resistor value 6.
     value: 6
-enum/vals::GPIOINV:
-  bit_size: 1
-  variants:
-  - name: NOTINV
-    description: The comparator output to GPIO is not inverted.
-    value: 0
-  - name: INV
-    description: The comparator output to GPIO is inverted.
-    value: 1
 enum/vals::HYST:
   bit_size: 4
   variants:

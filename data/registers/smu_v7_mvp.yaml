@@ -873,15 +873,6 @@ fieldset/regs::STATUS:
     description: SMU Programming Error.
     bit_offset: 1
     bit_size: 1
-enum/vals::SMULOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: UNLOCKED.
-    value: 0
-  - name: LOCKED
-    description: LOCKED.
-    value: 1
 enum/vals::SMULOCKKEY:
   bit_size: 24
   variants:

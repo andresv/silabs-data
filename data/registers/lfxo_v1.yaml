@@ -167,15 +167,6 @@ fieldset/regs::SYNCBUSY:
     description: LFXO Synchronization status.
     bit_offset: 0
     bit_size: 1
-enum/vals::LOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: LFXO lockable registers are not locked.
-    value: 0
-  - name: LOCKED
-    description: LFXO lockable registers are locked.
-    value: 1
 enum/vals::LOCKKEY:
   bit_size: 16
   variants:

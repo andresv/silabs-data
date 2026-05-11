@@ -5004,15 +5004,6 @@ enum/vals::EXTIPSELL_EXTIPSEL7:
   - name: PORTD
     description: Port D group selected.
     value: 3
-enum/vals::LOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: Registers are unlocked.
-    value: 0
-  - name: LOCKED
-    description: Registers are locked.
-    value: 1
 enum/vals::LOCKKEY:
   bit_size: 16
   variants:

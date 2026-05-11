@@ -245,15 +245,6 @@ enum/vals::DEBDLY:
   - name: DEBDLY32
     description: 32ms Debounce Delay.
     value: 15
-enum/vals::EN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Stops clocking and resets peripheral core logic.
-    value: 0
-  - name: ENABLE
-    description: Enables clocking, and begins scanning if CFG.AUTOSTART is 0x1.
-    value: 1
 enum/vals::NUMROWS:
   bit_size: 3
   variants:

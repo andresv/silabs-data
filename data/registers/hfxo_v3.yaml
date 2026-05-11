@@ -449,33 +449,6 @@ enum/vals::CTUNEFIXANA:
   - name: BOTH
     description: Adds fixed capacitance on both XI and XO nodes.
     value: 3
-enum/vals::FORCEXI2GNDANA:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disabled (not pulled).
-    value: 0
-  - name: ENABLE
-    description: Enabled (pulled).
-    value: 1
-enum/vals::FORCEXO2GNDANA:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disabled (not pulled).
-    value: 0
-  - name: ENABLE
-    description: Enabled (pulled).
-    value: 1
-enum/vals::LOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: Configuration lock is unlocked.
-    value: 0
-  - name: LOCKED
-    description: Configuration lock is locked.
-    value: 1
 enum/vals::LOCKKEY:
   bit_size: 16
   variants:
@@ -605,15 +578,6 @@ enum/vals::PRSSTATUSSEL1:
   - name: BUFOUTHWREQ
     description: PRS mux outputs oscillator requested by BUFOUT request status.
     value: 10
-enum/vals::SQBUFSCHTRGANA:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Squaring buffer schmitt trigger is disabled.
-    value: 0
-  - name: ENABLE
-    description: Squaring buffer schmitt trigger is enabled.
-    value: 1
 enum/vals::TIMEOUTCBLSB:
   bit_size: 4
   variants:

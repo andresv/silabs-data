@@ -898,15 +898,6 @@ enum/vals::IADCCLKCTRL_CLKSEL:
   - name: HFRCOEM23
     description: HFRCOEM23 is clocking IADCCLK.
     value: 3
-enum/vals::LOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: Configuration lock is unlocked.
-    value: 0
-  - name: LOCKED
-    description: Configuration lock is locked.
-    value: 1
 enum/vals::LOCK_LOCKKEY:
   bit_size: 16
   variants:
@@ -1096,15 +1087,6 @@ enum/vals::WDOG1CLKCTRL_CLKSEL:
   - name: HCLKDIV1024
     description: HCLKDIV1024 is clocking WDOG0CLK.
     value: 4
-enum/vals::WDOGLOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: WDOG configuration lock is unlocked.
-    value: 0
-  - name: LOCKED
-    description: WDOG configuration lock is locked.
-    value: 1
 enum/vals::WDOGLOCK_LOCKKEY:
   bit_size: 16
   variants:

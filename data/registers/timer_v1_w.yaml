@@ -923,15 +923,6 @@ fieldset/regs::TOPB:
     description: Counter Top Buffer Register.
     bit_offset: 0
     bit_size: 32
-enum/vals::CC0_CFG_FILT:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Digital Filter Disabled.
-    value: 0
-  - name: ENABLE
-    description: Digital Filter Enabled.
-    value: 1
 enum/vals::CC0_CFG_INSEL:
   bit_size: 2
   variants:
@@ -1046,15 +1037,6 @@ enum/vals::CC0_CTRL_ICEVCTRL:
   - name: FALLING
     description: PRS output pulse and interrupt flag set on falling edge only (if ICEDGE = BOTH).
     value: 3
-enum/vals::CC1_CFG_FILT:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Digital Filter Disabled.
-    value: 0
-  - name: ENABLE
-    description: Digital Filter Enabled.
-    value: 1
 enum/vals::CC1_CFG_INSEL:
   bit_size: 2
   variants:
@@ -1169,15 +1151,6 @@ enum/vals::CC1_CTRL_ICEVCTRL:
   - name: FALLING
     description: PRS output pulse and interrupt flag set on falling edge only (if ICEDGE = BOTH).
     value: 3
-enum/vals::CC2_CFG_FILT:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Digital Filter Disabled.
-    value: 0
-  - name: ENABLE
-    description: Digital Filter Enabled.
-    value: 1
 enum/vals::CC2_CFG_INSEL:
   bit_size: 2
   variants:
@@ -1373,15 +1346,6 @@ enum/vals::DISSYNCOUT:
   - name: DIS
     description: Timer cannot start/stop/reload other timers with SYNC bit set.
     value: 1
-enum/vals::DTDAS:
-  bit_size: 1
-  variants:
-  - name: NORESTART
-    description: No DTI restart on debugger exit.
-    value: 0
-  - name: RESTART
-    description: DTI restart on debugger exit.
-    value: 1
 enum/vals::DTFA:
   bit_size: 2
   variants:
@@ -1403,15 +1367,6 @@ enum/vals::DTILOCKKEY:
   - name: UNLOCK
     description: Write to unlock TIMER DTI registers.
     value: 52864
-enum/vals::DTILOCKSTATUS:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: DTI registers are unlocked.
-    value: 0
-  - name: LOCKED
-    description: DTI registers are locked.
-    value: 1
 enum/vals::FALLA:
   bit_size: 2
   variants:
@@ -1478,15 +1433,6 @@ enum/vals::QDM:
   - name: X4
     description: X4 mode selected.
     value: 1
-enum/vals::RETIMEEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: PWM outputs are not re-timed.
-    value: 0
-  - name: ENABLE
-    description: PWM outputs are re-timed.
-    value: 1
 enum/vals::RISEA:
   bit_size: 2
   variants:
@@ -1502,21 +1448,3 @@ enum/vals::RISEA:
   - name: RELOADSTART
     description: Reload and start counter.
     value: 3
-enum/vals::SYNC:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Timer operation is unaffected by other timers.
-    value: 0
-  - name: ENABLE
-    description: Timer may be started, stopped and re-loaded from other timer instances.
-    value: 1
-enum/vals::TIMERLOCKSTATUS:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: TIMER registers are unlocked.
-    value: 0
-  - name: LOCKED
-    description: TIMER registers are locked.
-    value: 1

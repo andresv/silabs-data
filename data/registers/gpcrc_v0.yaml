@@ -178,15 +178,6 @@ enum/vals::BYTEREVERSE:
   - name: REVERSED
     description: 'Reverse byte order. For 32-bit: B0, B1, B2, B3; For 16-bit: 0, 0, B0, B1.'
     value: 1
-enum/vals::EN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disable CRC function. Reordering functions are still available. Only BITREVERSE and BYTEREVERSE bits are configurable in this mode.
-    value: 0
-  - name: ENABLE
-    description: Writes to INPUTDATA registers will result in CRC operations.
-    value: 1
 enum/vals::POLYSEL:
   bit_size: 1
   variants:

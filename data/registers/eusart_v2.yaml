@@ -714,24 +714,6 @@ fieldset/regs::TXDATA:
     description: TX Data and Control bits.
     bit_offset: 0
     bit_size: 16
-enum/vals::AUTOTRI:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The output on UARTn_TX when the transmitter is idle is defined by TXINV.
-    value: 0
-  - name: ENABLE
-    description: UARTn_TX is tristated whenever the transmitter is idle.
-    value: 1
-enum/vals::CCEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Collision check is disabled.
-    value: 0
-  - name: ENABLE
-    description: Collision check is enabled. The receiver must be enabled for the check to be performed.
-    value: 1
 enum/vals::CLKPHA:
   bit_size: 1
   variants:
@@ -813,24 +795,6 @@ enum/vals::CSSETUP:
   - name: SEVEN
     description: CS is asserted 7 additional baud-times before start of transmission.
     value: 7
-enum/vals::CTSEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Ignore CTS.
-    value: 0
-  - name: ENABLE
-    description: Stop transmitting when CTS is inactive.
-    value: 1
-enum/vals::CTSINV:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The CTS pin is active low.
-    value: 0
-  - name: ENABLE
-    description: The CTS pin is active high.
-    value: 1
 enum/vals::DALIRXDATABITS:
   bit_size: 5
   variants:
@@ -1020,42 +984,6 @@ enum/vals::DATABITS:
   - name: SIXTEEN
     description: Each frame contains 16 data bits.
     value: 10
-enum/vals::DBGHALT:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Continue normal EUSART operation even if core is halted.
-    value: 0
-  - name: ENABLE
-    description: If core is halted, receive one frame and then halt reception by deactivating RTS. Next frame reception happens when the core is unhalted during single stepping.
-    value: 1
-enum/vals::ERRSDMA:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Framing and parity errors have no effect on DMA requests from the EUSART.
-    value: 0
-  - name: ENABLE
-    description: DMA requests from the EUSART are blocked while the PERR or FERR interrupt flags are set.
-    value: 1
-enum/vals::ERRSRX:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Framing and parity errors have no effect on receiver.
-    value: 0
-  - name: ENABLE
-    description: Framing and parity errors disable the receiver.
-    value: 1
-enum/vals::ERRSTX:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Received framing and parity errors have no effect on transmitter.
-    value: 0
-  - name: ENABLE
-    description: Received framing and parity errors disable the transmitter.
-    value: 1
 enum/vals::ICS:
   bit_size: 3
   variants:
@@ -1083,15 +1011,6 @@ enum/vals::ICS:
   - name: SEVEN
     description: Create a space of 7 baud-times between frames.
     value: 7
-enum/vals::IRHFFILT:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: No filter enabled.
-    value: 0
-  - name: ENABLE
-    description: Filter enabled. IrDA pulse must be high for at least 5 consecutive clock cycles to be detected.
-    value: 1
 enum/vals::IRHFPW:
   bit_size: 2
   variants:
@@ -1107,15 +1026,6 @@ enum/vals::IRHFPW:
   - name: FOUR
     description: IrDA pulse width is 4/16 for OVS=0 and 4/8 for OVS=1.
     value: 3
-enum/vals::LOOPBK:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The receiver is connected to and receives data from UARTn_RX.
-    value: 0
-  - name: ENABLE
-    description: The receiver is connected to and receives data from UARTn_TX.
-    value: 1
 enum/vals::MASTER:
   bit_size: 1
   variants:
@@ -1124,24 +1034,6 @@ enum/vals::MASTER:
     value: 0
   - name: MASTER
     description: Main mode.
-    value: 1
-enum/vals::MPM:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The 9th bit of incoming frames has no special function.
-    value: 0
-  - name: ENABLE
-    description: An incoming frame with the 9th bit equal to MPAB will be loaded into the RX FIFO regardless of RXBLOCK and will result in the MPAB interrupt flag being set.
-    value: 1
-enum/vals::MSBF:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Data is sent with the least significant bit first.
-    value: 0
-  - name: ENABLE
-    description: Data is sent with the most significant bit first.
     value: 1
 enum/vals::OVS:
   bit_size: 3
@@ -1173,15 +1065,6 @@ enum/vals::PARITY:
   - name: ODD
     description: Odd parity is used. Parity bits are automatically generated and checked by hardware.
     value: 3
-enum/vals::RTSINV:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The RTS pin is active low.
-    value: 0
-  - name: ENABLE
-    description: The RTS pin is active high.
-    value: 1
 enum/vals::RTSRXFW:
   bit_size: 4
   variants:
@@ -1284,15 +1167,6 @@ enum/vals::RXFIW:
   - name: SIXTEENFRAMES
     description: RXFL status flag and IF are set when the RX FIFO has at least sixteen frames in it.
     value: 15
-enum/vals::RXINV:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Input is passed directly to the receiver.
-    value: 0
-  - name: ENABLE
-    description: Input is inverted before it is passed to the receiver.
-    value: 1
 enum/vals::RXTIMEOUT:
   bit_size: 3
   variants:
@@ -1410,12 +1284,3 @@ enum/vals::TXFIW:
   - name: SIXTEENFRAMES
     description: TXFL status flag and IF are set when the TX FIFO has space for at least sixteen more frames.
     value: 15
-enum/vals::TXINV:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Output from the transmitter is passed unchanged to UARTn_TX.
-    value: 0
-  - name: ENABLE
-    description: Output from the transmitter is inverted before it is passed to UARTn_TX.
-    value: 1

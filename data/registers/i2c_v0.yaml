@@ -515,42 +515,6 @@ fieldset/regs::TXDOUBLE:
     description: TX Data.
     bit_offset: 8
     bit_size: 8
-enum/vals::ARBDIS:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: When a device loses arbitration, the ARBIF interrupt flag is set and the bus is released.
-    value: 0
-  - name: ENABLE
-    description: When a device loses arbitration, the ARBIF interrupt flag is set, but communication proceeds.
-    value: 1
-enum/vals::AUTOACK:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Software must give one ACK command for each ACK transmitted on the I2C bus.
-    value: 0
-  - name: ENABLE
-    description: Addresses that are not automatically NACK'ed, and all data is automatically acknowledged.
-    value: 1
-enum/vals::AUTOSE:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: A stop must be sent manually when no more data is to be transmitted.
-    value: 0
-  - name: ENABLE
-    description: The leader automatically sends a STOP when no more data is available for transmission.
-    value: 1
-enum/vals::AUTOSN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Stop is not automatically sent if a NACK is received from a follower.
-    value: 0
-  - name: ENABLE
-    description: The leader automatically sends a STOP if a NACK is received from a follower.
-    value: 1
 enum/vals::BITO:
   bit_size: 2
   variants:
@@ -599,69 +563,6 @@ enum/vals::CLTO:
   - name: I2C1024PCC
     description: Timeout after 1024 prescaled clock cycles. In standard mode at 100 kHz, this results in a 1280us timeout.
     value: 5
-enum/vals::CORERST:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: No change to internal state registers.
-    value: 0
-  - name: ENABLE
-    description: Reset the internal state registers.
-    value: 1
-enum/vals::EN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disable Peripheral Clock.
-    value: 0
-  - name: ENABLE
-    description: Enable Peripheral Clock.
-    value: 1
-enum/vals::GCAMEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: General call address will be NACK'ed if it is not included by the follower address and address mask.
-    value: 0
-  - name: ENABLE
-    description: When a general call address is received, a software response is required.
-    value: 1
-enum/vals::GIBITO:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: A bus idle timeout has no effect on the bus state.
-    value: 0
-  - name: ENABLE
-    description: A bus idle timeout tells the I2C module that the bus is idle, allowing new transfers to be initiated.
-    value: 1
-enum/vals::SCLMONEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disable SCL monitor.
-    value: 0
-  - name: ENABLE
-    description: Enable SCL monitor.
-    value: 1
-enum/vals::SDAMONEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disable SDA Monitor.
-    value: 0
-  - name: ENABLE
-    description: Enable SDA Monitor.
-    value: 1
-enum/vals::SLAVE:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: All addresses will be responded to with a NACK.
-    value: 0
-  - name: ENABLE
-    description: Addresses matching the programmed follower address or the general call address (if enabled) require a response from software. Other addresses are automatically responded to with a NACK.
-    value: 1
 enum/vals::STATE:
   bit_size: 3
   variants:

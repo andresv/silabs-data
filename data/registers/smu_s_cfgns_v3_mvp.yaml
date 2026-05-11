@@ -341,15 +341,6 @@ fieldset/regs::PPUNSPATD1:
     description: AHBRADIO Privileged Access.
     bit_offset: 21
     bit_size: 1
-enum/vals::SMUNSLOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: UNLOCKED.
-    value: 0
-  - name: LOCKED
-    description: LOCKED.
-    value: 1
 enum/vals::SMUNSLOCKKEY:
   bit_size: 24
   variants:

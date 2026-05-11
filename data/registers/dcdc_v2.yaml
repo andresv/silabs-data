@@ -318,15 +318,6 @@ enum/vals::EM23CTRL0_IPKVAL:
   - name: Load10mA
     description: Ipeak = 150mA, Iload = 10 mA.
     value: 9
-enum/vals::LOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: Unlocked State.
-    value: 0
-  - name: LOCKED
-    description: LOCKED STATE.
-    value: 1
 enum/vals::LOCKKEY:
   bit_size: 16
   variants:

@@ -251,15 +251,6 @@ enum/vals::CNTPRESC:
   - name: DIV32768
     description: CLK_CNT = (BURTC LF CLK)/32768.
     value: 15
-enum/vals::COMPTOP:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The top value of the BURTC is 4294967295 (0xFFFFFFFF).
-    value: 0
-  - name: ENABLE
-    description: The top value of the BURTC is given by COMP.
-    value: 1
 enum/vals::DEBUGRUN:
   bit_size: 1
   variants:
@@ -268,15 +259,6 @@ enum/vals::DEBUGRUN:
     value: 0
   - name: X1
     description: BURTC is running in debug mode.
-    value: 1
-enum/vals::LOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: All BURTC lockable registers are unlocked.
-    value: 0
-  - name: LOCKED
-    description: All BURTC lockable registers are locked.
     value: 1
 enum/vals::LOCKKEY:
   bit_size: 16

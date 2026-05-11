@@ -1423,24 +1423,6 @@ enum/vals::DBGHALT:
   - name: HALT
     description: Complete the current conversion and then halt during debug mode.
     value: 1
-enum/vals::DMAWUFIFOSCAN:
-  bit_size: 1
-  variants:
-  - name: DISABLED
-    description: While in EM2 or EM3, the DMA controller will not be requested.
-    value: 0
-  - name: ENABLED
-    description: While in EM2 or EM3, the DMA controller will be requested when the scan FIFO reaches its Data Valid Level. [DVL must be set to 0 (VALID1).].
-    value: 1
-enum/vals::DMAWUFIFOSINGLE:
-  bit_size: 1
-  variants:
-  - name: DISABLED
-    description: While in EM2 or EM3, the DMA controller will not be requested.
-    value: 0
-  - name: ENABLED
-    description: While in EM2 or EM3, the DMA controller will be requested when the single FIFO reaches its Data Valid Level. [DVL must be set to 0 (VALID1).].
-    value: 1
 enum/vals::EM23WUCONVERT:
   bit_size: 1
   variants:
@@ -1449,15 +1431,6 @@ enum/vals::EM23WUCONVERT:
     value: 0
   - name: WUCONVERT
     description: When using suspend mode, conversions performed in EM2 or EM3 will wake up the DMA and keep it awake until the conversions are done, regardless of the DVL setting. This mode burns more power, but it is useful when the conversion rate is faster than the time for the DMA to cycle through wake up and going back to sleep as it converts more than 4 scan table entries. Without using the wake up on conversion mode, the FIFO may overflow while the DMA is going in and out of sleep.
-    value: 1
-enum/vals::EN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disable.
-    value: 0
-  - name: ENABLE
-    description: Enable.
     value: 1
 enum/vals::HSCLKRATE:
   bit_size: 3

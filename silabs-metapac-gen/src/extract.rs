@@ -126,12 +126,14 @@ pub fn extract_ip(
             .with_context(|| format!("apply {}", bv_yaml.display()))?;
     }
 
-    // Inline the only useful "global" cleanup: prune the soft-disabled enums
-    // chiptool can't tell apart from real ones. Equivalent to stm32-data's
-    // `DeleteUselessEnums { soft: true }` but without an opt-in YAML.
-    chiptool::transform::delete_useless_enums::DeleteUselessEnums { soft: true }
+    // Prune trivially useless on/off enums (DISABLE/ENABLE, DIS/EN, OFF/ON,
+    // etc.). `soft: false` removes both the field references *and* the enum
+    // definitions; with `soft: true` the orphan enum definitions linger in
+    // the YAML, bloating downstream Rust output. Matches stm32-data's
+    // per-peripheral `!DeleteEnums from: ^(...)$` intent at a generic level.
+    chiptool::transform::delete_useless_enums::DeleteUselessEnums { soft: false }
         .run(&mut ir)
-        .context("DeleteUselessEnums (soft)")?;
+        .context("DeleteUselessEnums")?;
 
     // Final sort to keep the YAML output deterministic.
     chiptool::transform::sort::Sort {}

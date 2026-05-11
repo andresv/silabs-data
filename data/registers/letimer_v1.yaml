@@ -344,15 +344,6 @@ fieldset/regs::TOPBUFF:
     description: Buffered Counter TOP Value.
     bit_offset: 0
     bit_size: 24
-enum/vals::BUFTOP:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: TOP is only written by software.
-    value: 0
-  - name: ENABLE
-    description: TOP is set to TOPBUFF value when REP0 reaches 0.
-    value: 1
 enum/vals::CNTPRESC:
   bit_size: 4
   variants:
@@ -383,39 +374,12 @@ enum/vals::CNTPRESC:
   - name: DIV256
     description: CLK_CNT = (LETIMER LF CLK)/256.
     value: 8
-enum/vals::CNTTOPEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The top value of the LETIMER is 65535 (0xFFFF).
-    value: 0
-  - name: ENABLE
-    description: The top value of the LETIMER is given by TOP.
-    value: 1
-enum/vals::DEBUGRUN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: LETIMER is frozen in debug mode.
-    value: 0
-  - name: ENABLE
-    description: LETIMER is running in debug mode.
-    value: 1
 enum/vals::LETIMERLOCKKEY:
   bit_size: 16
   variants:
   - name: UNLOCK
     description: Write to unock LETIMER lockable registers.
     value: 52476
-enum/vals::LETIMERLOCKSTATUS:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: LETIMER registers are unlocked.
-    value: 0
-  - name: LOCKED
-    description: LETIMER registers are locked.
-    value: 1
 enum/vals::PRSCLEARMODE:
   bit_size: 2
   variants:

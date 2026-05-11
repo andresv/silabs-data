@@ -396,12 +396,3 @@ enum/vals::MODE:
   - name: WS3
     description: Three wait-states inserted for eatch fetch or read transfer. See Flash Wait-States table for details.
     value: 3
-enum/vals::REGLOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: UNLOCKED.
-    value: 0
-  - name: LOCKED
-    description: LOCKED.
-    value: 1

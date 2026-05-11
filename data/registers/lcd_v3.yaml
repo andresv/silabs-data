@@ -581,15 +581,6 @@ enum/vals::BIAS:
   - name: ONEFOURTH
     description: 1/4 Bias.
     value: 3
-enum/vals::BLANK:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Display is not "blanked".
-    value: 0
-  - name: ENABLE
-    description: Display is "blanked".
-    value: 1
 enum/vals::CHGRDST:
   bit_size: 3
   variants:
@@ -608,15 +599,6 @@ enum/vals::CHGRDST:
   - name: FOUR
     description: Use 4 prescaled low frequency clock cycles for charge redistribution.
     value: 4
-enum/vals::DISPLAYCNTEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disable the display counter.
-    value: 0
-  - name: ENABLE
-    description: Enable the display counter.
-    value: 1
 enum/vals::DMAMODE:
   bit_size: 2
   variants:
@@ -629,24 +611,6 @@ enum/vals::DMAMODE:
   - name: DMADISPLAY
     description: DMA request on display counter event. This will also start a DMA transfer during EM23.
     value: 2
-enum/vals::DSC:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: DSC disable.
-    value: 0
-  - name: ENABLE
-    description: DSC enable.
-    value: 1
-enum/vals::EN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disable.
-    value: 0
-  - name: ENABLE
-    description: Enable.
-    value: 1
 enum/vals::FCPRESC:
   bit_size: 2
   variants:
@@ -662,15 +626,6 @@ enum/vals::FCPRESC:
   - name: DIV8
     description: every 8th frame clock.
     value: 3
-enum/vals::LCDGATE:
-  bit_size: 1
-  variants:
-  - name: UNGATE
-    description: LCD BIAS voltages driven onto pins.
-    value: 0
-  - name: GATE
-    description: LCD BIAS MUX tristated at the pins.
-    value: 1
 enum/vals::LOADADDR:
   bit_size: 5
   variants:

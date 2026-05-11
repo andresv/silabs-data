@@ -940,33 +940,6 @@ fieldset/regs::TXDOUBLEX:
     description: Enable RX After Transmission.
     bit_offset: 31
     bit_size: 1
-enum/vals::AUTOTRI:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The output on U(S)n_TX when the transmitter is idle is defined by TXINV.
-    value: 0
-  - name: ENABLE
-    description: U(S)n_TX is tristated whenever the transmitter is idle.
-    value: 1
-enum/vals::BYTESWAP:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Normal byte order.
-    value: 0
-  - name: ENABLE
-    description: Byte order swapped.
-    value: 1
-enum/vals::CCEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Collision check is disabled.
-    value: 0
-  - name: ENABLE
-    description: Collision check is enabled. The receiver must be enabled for the check to be performed.
-    value: 1
 enum/vals::CLKPHA:
   bit_size: 1
   variants:
@@ -1012,15 +985,6 @@ enum/vals::CSHOLD:
   - name: TCMP2
     description: CS is asserted after the end of transmission for TCMPVAL2 baud-times.
     value: 7
-enum/vals::CSINV:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Chip select is active low.
-    value: 0
-  - name: ENABLE
-    description: Chip select is active high.
-    value: 1
 enum/vals::CSMA:
   bit_size: 1
   variants:
@@ -1057,24 +1021,6 @@ enum/vals::CSSETUP:
   - name: TCMP2
     description: CS is asserted before the start of transmission for TCMPVAL2 baud-times.
     value: 7
-enum/vals::CTSEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Ingore CTS.
-    value: 0
-  - name: ENABLE
-    description: Stop transmitting when CTS is negated.
-    value: 1
-enum/vals::CTSINV:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The USn_CTS pin is low true.
-    value: 0
-  - name: ENABLE
-    description: The USn_CTS pin is high true.
-    value: 1
 enum/vals::DATABITS:
   bit_size: 4
   variants:
@@ -1117,42 +1063,6 @@ enum/vals::DATABITS:
   - name: SIXTEEN
     description: Each frame contains 16 data bits.
     value: 13
-enum/vals::DBGHALT:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Continue to transmit until TX buffer is empty.
-    value: 0
-  - name: ENABLE
-    description: Negate RTS to stop link partner's transmission during debug HALT. NOTE** The core clock should be equal to or faster than the peripheral clock; otherwise, each single step could transmit multiple frames instead of just transmitting one frame.
-    value: 1
-enum/vals::ERRSDMA:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Framing and parity errors have no effect on DMA requests from the USART.
-    value: 0
-  - name: ENABLE
-    description: DMA requests from the USART are blocked while the PERR or FERR interrupt flags are set.
-    value: 1
-enum/vals::ERRSRX:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Framing and parity errors have no effect on receiver.
-    value: 0
-  - name: ENABLE
-    description: Framing and parity errors disable the receiver.
-    value: 1
-enum/vals::ERRSTX:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Received framing and parity errors have no effect on transmitter.
-    value: 0
-  - name: ENABLE
-    description: Received framing and parity errors disable the transmitter.
-    value: 1
 enum/vals::FORMAT:
   bit_size: 3
   variants:
@@ -1207,15 +1117,6 @@ enum/vals::ICS:
   - name: TCMP2
     description: Create a space of before the start of transmission for TCMPVAL2 baud-times.
     value: 7
-enum/vals::IRFILT:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: No filter enabled.
-    value: 0
-  - name: ENABLE
-    description: Filter enabled. IrDA pulse must be high for at least 5 consecutive clock cycles to be detected.
-    value: 1
 enum/vals::IRPW:
   bit_size: 2
   variants:
@@ -1239,33 +1140,6 @@ enum/vals::JUSTIFY:
     value: 0
   - name: RIGHT
     description: Data is right-justified.
-    value: 1
-enum/vals::LOOPBK:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The receiver is connected to and receives data from U(S)n_RX.
-    value: 0
-  - name: ENABLE
-    description: The receiver is connected to and receives data from U(S)n_TX.
-    value: 1
-enum/vals::MPM:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The 9th bit of incoming frames has no special function.
-    value: 0
-  - name: ENABLE
-    description: An incoming frame with the 9th bit equal to MPAB will be loaded into the receive buffer regardless of RXBLOCK and will result in the MPAB interrupt flag being set.
-    value: 1
-enum/vals::MSBF:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Data is sent with the least significant bit first.
-    value: 0
-  - name: ENABLE
-    description: Data is sent with the most significant bit first.
     value: 1
 enum/vals::OVS:
   bit_size: 2
@@ -1294,24 +1168,6 @@ enum/vals::PARITY:
   - name: ODD
     description: Odd parity is used. Parity bits are automatically generated and checked by hardware.
     value: 3
-enum/vals::RTSINV:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The USn_RTS pin is low true.
-    value: 0
-  - name: ENABLE
-    description: The USn_RTS pin is high true.
-    value: 1
-enum/vals::RXINV:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Input is passed directly to the receiver.
-    value: 0
-  - name: ENABLE
-    description: Input is inverted before it is passed to the receiver.
-    value: 1
 enum/vals::STOPBITS:
   bit_size: 2
   variants:
@@ -1327,24 +1183,6 @@ enum/vals::STOPBITS:
   - name: TWO
     description: The transmitter generates two stop bits. The receiver checks the first stop-bit only.
     value: 3
-enum/vals::SYNC:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: The USART operates in asynchronous mode.
-    value: 0
-  - name: ENABLE
-    description: The USART operates in synchronous mode.
-    value: 1
-enum/vals::TIMECMP0_RESTARTEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disable the timer restarting on TCMP0.
-    value: 0
-  - name: ENABLE
-    description: Enable the timer restarting on TCMP0.
-    value: 1
 enum/vals::TIMECMP0_TSTART:
   bit_size: 3
   variants:
@@ -1378,15 +1216,6 @@ enum/vals::TIMECMP0_TSTOP:
   - name: RXACTN
     description: Comparator 0 is disabled on RX going Inactive.
     value: 3
-enum/vals::TIMECMP1_RESTARTEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disable the timer restarting on TCMP1.
-    value: 0
-  - name: ENABLE
-    description: Enable the timer restarting on TCMP1.
-    value: 1
 enum/vals::TIMECMP1_TSTART:
   bit_size: 3
   variants:
@@ -1420,15 +1249,6 @@ enum/vals::TIMECMP1_TSTOP:
   - name: RXACTN
     description: Comparator 1 is disabled on RX going Inactive.
     value: 3
-enum/vals::TIMECMP2_RESTARTEN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disable the timer restarting on TCMP2.
-    value: 0
-  - name: ENABLE
-    description: Enable the timer restarting on TCMP2.
-    value: 1
 enum/vals::TIMECMP2_TSTART:
   bit_size: 3
   variants:
@@ -1498,12 +1318,3 @@ enum/vals::TXDELAY:
   - name: TCMP2
     description: Start of transmission is delayed for TCMPVAL2 baud-times.
     value: 7
-enum/vals::TXINV:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Output from the transmitter is passed unchanged to U(S)n_TX.
-    value: 0
-  - name: ENABLE
-    description: Output from the transmitter is inverted before it is passed to U(S)n_TX.
-    value: 1

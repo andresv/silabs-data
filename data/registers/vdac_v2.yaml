@@ -575,15 +575,6 @@ enum/vals::CH0CFG_TRIGMODE:
   - name: ASYNCPRS
     description: Channel 0 is triggered by Async PRS input.
     value: 5
-enum/vals::CH0PRESCRST:
-  bit_size: 1
-  variants:
-  - name: NORESETPRESC
-    description: Prescaler not reset on channel 0 start.
-    value: 0
-  - name: RESETPRESC
-    description: Prescaler reset on channel 0 start.
-    value: 1
 enum/vals::CH1CFG_CONVMODE:
   bit_size: 1
   variants:
@@ -652,15 +643,6 @@ enum/vals::DIFF:
     value: 0
   - name: DIFFERENTIAL
     description: Differential output.
-    value: 1
-enum/vals::EN:
-  bit_size: 1
-  variants:
-  - name: DISABLE
-    description: Disable.
-    value: 0
-  - name: ENABLE
-    description: Enable.
     value: 1
 enum/vals::REFRESHPERIOD:
   bit_size: 3

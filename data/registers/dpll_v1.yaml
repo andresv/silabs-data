@@ -138,15 +138,6 @@ fieldset/regs::STATUS:
     description: Lock Status.
     bit_offset: 31
     bit_size: 1
-enum/vals::LOCK:
-  bit_size: 1
-  variants:
-  - name: UNLOCKED
-    description: DPLL is unlocked.
-    value: 0
-  - name: LOCKED
-    description: DPLL is locked.
-    value: 1
 enum/vals::LOCKKEY:
   bit_size: 16
   variants:
