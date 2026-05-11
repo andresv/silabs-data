@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Hand-crafted GPIO-shaped fixture for the per-kind transforms smoke test.
+  Models the four-port GPIO from EFR32MG24/MG26 closely enough to exercise
+  data/transforms/GPIO.yaml's PORT[A-D]_* register array recovery:
+    - 4 ports × 1 register kind (DOUT) at stride 0x30
+    - Numeric values mirror the real Silabs SVD: NS at 0x5003_C000.
+  Two peripherals × {NS, S} so we also exercise the strip-secure preprocess
+  step (the _S alias must be dropped before chiptool sees the SVD).
+-->
+<device xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.3" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd">
+  <vendor>Silicon Labs</vendor>
+  <vendorID>SLAB</vendorID>
+  <name>EFR32_GPIO_SMOKE</name>
+  <series>EFR32</series>
+  <version>B</version>
+  <description>GPIO-only smoke fixture exercising PORT[A-D]_* array recovery.</description>
+  <cpu>
+    <name>CM33</name>
+    <revision>r0p4</revision>
+    <endian>little</endian>
+    <mpuPresent>false</mpuPresent>
+    <fpuPresent>false</fpuPresent>
+    <nvicPrioBits>4</nvicPrioBits>
+    <vendorSystickConfig>false</vendorSystickConfig>
+  </cpu>
+  <addressUnitBits>8</addressUnitBits>
+  <width>32</width>
+  <size>32</size>
+  <access>read-write</access>
+  <resetValue>0</resetValue>
+  <resetMask>4294967295</resetMask>
+  <peripherals>
+    <peripheral>
+      <name>GPIO_NS</name>
+      <version>7</version>
+      <description>GPIO non-secure</description>
+      <baseAddress>0x5003C000</baseAddress>
+      <registers>
+        <register>
+          <name>PORTA_DOUT</name>
+          <description>Port A data out</description>
+          <addressOffset>0x040</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>DOUT</name>
+              <description>Data out bits</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>PORTB_DOUT</name>
+          <description>Port B data out</description>
+          <addressOffset>0x070</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>DOUT</name>
+              <description>Data out bits</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>PORTC_DOUT</name>
+          <description>Port C data out</description>
+          <addressOffset>0x0A0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>DOUT</name>
+              <description>Data out bits</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>PORTD_DOUT</name>
+          <description>Port D data out</description>
+          <addressOffset>0x0D0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>DOUT</name>
+              <description>Data out bits</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>GPIO_S</name>
+      <version>7</version>
+      <description>GPIO secure alias (stripped pre-codegen)</description>
+      <baseAddress>0x4003C000</baseAddress>
+      <registers>
+        <register>
+          <name>PORTA_DOUT</name>
+          <description>Port A data out</description>
+          <addressOffset>0x040</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>DOUT</name>
+              <description>Data out bits</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+  </peripherals>
+</device>

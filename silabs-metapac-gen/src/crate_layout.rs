@@ -1,0 +1,437 @@
+//! Assemble a `silabs-metapac` Cargo crate from per-chip JSON files.
+//!
+//! Layout produced:
+//!
+//! ```text
+//! silabs-metapac/
+//! ├── Cargo.toml
+//! ├── README.md
+//! └── src/
+//!     ├── lib.rs
+//!     ├── common.rs
+//!     ├── registers/<kind>_<version>.rs
+//!     └── chips/
+//!         └── <chip>/
+//!             ├── device.x      # cortex-m-rt linker fragment (or stub)
+//!             └── mod.rs        # peripheral instances + interrupts + memory map
+//! ```
+
+use anyhow::{Context, Result};
+use silabs_data_gen::chip_json::{ChipFile, Interrupt, PeripheralInstance};
+use silabs_data_gen::pdsc::MemoryRegion;
+use std::collections::BTreeSet;
+use std::path::Path;
+
+use crate::registers::module_name;
+
+/// Lower-cased Cargo feature name for a given chip name (`EFR32MG26B211F2048IM68`).
+pub fn feature_name(chip: &str) -> String {
+    chip.to_ascii_lowercase()
+}
+
+/// Write Cargo.toml with one boolean feature per chip OPN.
+pub fn write_cargo_toml(chip_features: &[String], out: &Path) -> Result<()> {
+    let mut s = String::new();
+    s.push_str(
+        r#"# Standalone crate — keep it out of any enclosing workspace.
+[workspace]
+
+[package]
+name = "silabs-metapac"
+version = "0.0.1"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+description = "Generated Silicon Labs PAC. Do not edit by hand — regenerate via silabs-metapac-gen."
+
+[dependencies]
+cortex-m = "0.7"
+# `device` feature is required for the `cortex_m_rt::interrupt` proc-macro
+# attribute referenced by the chiptool-emitted Interrupt enum.
+cortex-m-rt = { version = "0.7", features = ["device"], optional = true }
+defmt = { version = "0.3", optional = true }
+
+[features]
+default = []
+rt = ["cortex-m-rt"]
+"#,
+    );
+    for f in chip_features {
+        s.push_str(&format!("{f} = []\n"));
+    }
+    std::fs::write(out, s)
+        .with_context(|| format!("write Cargo.toml at {}", out.display()))?;
+    Ok(())
+}
+
+/// Write src/lib.rs.
+pub fn write_lib_rs(
+    chip_features: &[String],
+    register_modules: &[(String, Vec<String>)],
+    out: &Path,
+) -> Result<()> {
+    let mut s = String::new();
+    s.push_str(
+        r#"#![no_std]
+#![allow(non_snake_case)]
+#![allow(non_camel_case_types)]
+#![allow(non_upper_case_globals)]
+#![allow(clippy::all)]
+#![allow(unused)]
+
+"#,
+    );
+
+    if !chip_features.is_empty() {
+        s.push_str("#[cfg(not(any(\n");
+        for (i, f) in chip_features.iter().enumerate() {
+            let comma = if i + 1 == chip_features.len() { "" } else { "," };
+            s.push_str(&format!("    feature = \"{f}\"{comma}\n"));
+        }
+        s.push_str(")))]\n");
+        s.push_str(
+            "compile_error!(\"a silabs-metapac chip feature must be enabled (e.g. --features efr32mg26b211f2048im68)\");\n\n",
+        );
+    }
+
+    s.push_str("pub mod common;\n\n");
+
+    for (mod_name, chips_using) in register_modules {
+        s.push_str("#[cfg(any(\n");
+        for (i, f) in chips_using.iter().enumerate() {
+            let comma = if i + 1 == chips_using.len() { "" } else { "," };
+            s.push_str(&format!("    feature = \"{f}\"{comma}\n"));
+        }
+        s.push_str("))]\n");
+        s.push_str(&format!(
+            "#[path = \"registers/{mod_name}.rs\"]\npub mod {mod_name};\n\n"
+        ));
+    }
+
+    for f in chip_features {
+        s.push_str(&format!("#[cfg(feature = \"{f}\")]\n"));
+        s.push_str("pub mod chip {\n");
+        s.push_str(&format!("    include!(\"chips/{f}/mod.rs\");\n"));
+        s.push_str("}\n");
+        s.push_str(&format!("#[cfg(feature = \"{f}\")]\n"));
+        s.push_str("pub use chip::*;\n\n");
+    }
+
+    std::fs::write(out, s)
+        .with_context(|| format!("write lib.rs at {}", out.display()))?;
+    Ok(())
+}
+
+/// Build the `chips/<chip>/mod.rs` content from a parsed ChipFile.
+///
+/// Each peripheral instance in `chip.peripherals` carries its routed
+/// `(kind, register_version, block)` triple (assigned by perimap during
+/// `silabs-data-gen gen`). We use those directly — there's no separate
+/// `kinds` lookup parameter.
+pub fn build_chip_mod_rs(chip: &ChipFile) -> String {
+    let mut s = String::new();
+    s.push_str("// Per-chip metadata: typed peripheral consts, interrupts, memory map.\n");
+    s.push_str(&format!("// Generated for {}.\n\n", chip.chip.name));
+
+    s.push_str("/// Memory map (flash/RAM regions, from the CMSIS pdsc).\n");
+    s.push_str("pub mod memory {\n");
+    for m in &chip.chip.memory {
+        emit_memory_consts(&mut s, m);
+    }
+    s.push_str("}\n\n");
+
+    s.push_str("/// Typed peripheral instance constants.\n");
+    s.push_str("///\n");
+    s.push_str("/// Each peripheral is exposed once at its **non-secure** address (the alias\n");
+    s.push_str("/// reachable from non-secure CPU state on TrustZone-enabled images). The\n");
+    s.push_str("/// secure alias for any peripheral on Series 2 is `addr ^ 0x0100_0000`.\n");
+    s.push_str("/// Secure-state code can XOR the bit explicitly when crossing the\n");
+    s.push_str("/// security boundary.\n");
+    emit_typed_peripheral_consts(&mut s, &chip.peripherals);
+
+    emit_gpio_port_constants(&mut s, &chip.peripherals);
+
+    s.push_str("/// Cortex-M interrupt numbers (deduped by name).\n");
+    s.push_str("pub mod interrupts {\n");
+    emit_interrupt_consts(&mut s, &chip.interrupts);
+    s.push_str("}\n\n");
+
+    emit_cortex_m_rt_glue(&mut s, &chip.interrupts);
+
+    s
+}
+
+fn emit_cortex_m_rt_glue(s: &mut String, interrupts: &[Interrupt]) {
+    let mut by_value: std::collections::BTreeMap<u32, &Interrupt> = std::collections::BTreeMap::new();
+    let mut seen: BTreeSet<&str> = BTreeSet::new();
+    for i in interrupts {
+        if !seen.insert(i.name.as_str()) {
+            continue;
+        }
+        by_value.insert(i.value, i);
+    }
+
+    let max_value = by_value.keys().copied().max().unwrap_or(0);
+    let len = (max_value as usize) + 1;
+
+    s.push_str("#[derive(Copy, Clone, Debug, PartialEq, Eq)]\n");
+    s.push_str("#[cfg_attr(feature = \"defmt\", derive(defmt::Format))]\n");
+    s.push_str("#[repr(u16)]\n");
+    s.push_str("pub enum Interrupt {\n");
+    for (v, i) in &by_value {
+        if let Some(d) = &i.description {
+            let d = d.replace('\n', " ").replace('\r', "");
+            s.push_str(&format!("    /// {v} - {d}\n"));
+        }
+        s.push_str(&format!("    {} = {v},\n", i.name));
+    }
+    s.push_str("}\n\n");
+
+    s.push_str("unsafe impl cortex_m::interrupt::InterruptNumber for Interrupt {\n");
+    s.push_str("    #[inline(always)]\n");
+    s.push_str("    fn number(self) -> u16 { self as u16 }\n");
+    s.push_str("}\n\n");
+
+    s.push_str("#[cfg(feature = \"rt\")]\n");
+    s.push_str("mod _vectors {\n");
+    s.push_str("    unsafe extern \"C\" {\n");
+    for i in by_value.values() {
+        s.push_str(&format!("        fn {}();\n", i.name));
+    }
+    s.push_str("    }\n\n");
+    s.push_str("    pub union Vector {\n");
+    s.push_str("        _handler: unsafe extern \"C\" fn(),\n");
+    s.push_str("        _reserved: u32,\n");
+    s.push_str("    }\n\n");
+    s.push_str("    #[unsafe(link_section = \".vector_table.interrupts\")]\n");
+    s.push_str("    #[unsafe(no_mangle)]\n");
+    s.push_str(&format!("    pub static __INTERRUPTS: [Vector; {len}] = [\n"));
+    for v in 0..len as u32 {
+        match by_value.get(&v) {
+            Some(i) => s.push_str(&format!(
+                "        Vector {{ _handler: {} }},\n",
+                i.name
+            )),
+            None => s.push_str("        Vector { _reserved: 0 },\n"),
+        }
+    }
+    s.push_str("    ];\n");
+    s.push_str("}\n\n");
+
+    s.push_str("/// Number available in the NVIC for configuring priority.\n");
+    s.push_str("#[cfg(feature = \"rt\")]\n");
+    s.push_str("pub const NVIC_PRIO_BITS: u8 = 4;\n\n");
+
+    s.push_str("#[cfg(feature = \"rt\")]\n");
+    s.push_str("pub use cortex_m_rt::interrupt;\n");
+    s.push_str("#[cfg(feature = \"rt\")]\n");
+    s.push_str("pub use Interrupt as interrupt;\n");
+}
+
+fn emit_memory_consts(s: &mut String, m: &MemoryRegion) {
+    let id = m.id.to_ascii_uppercase();
+    s.push_str(&format!(
+        "    pub const {id}_BASE: usize = 0x{:08X};\n",
+        m.start
+    ));
+    s.push_str(&format!(
+        "    pub const {id}_SIZE: usize = 0x{:08X};\n",
+        m.size
+    ));
+}
+
+/// Emit typed peripheral instance consts, one per NS peripheral. Each carries
+/// its perimap-routed `(kind, register_version, block)` triple in the chip
+/// JSON; we reference the resulting `crate::<kind>_<version>::<Block>` type.
+fn emit_typed_peripheral_consts(s: &mut String, peripherals: &[PeripheralInstance]) {
+    use std::collections::BTreeMap;
+    let mut by_base: BTreeMap<String, &PeripheralInstance> = BTreeMap::new();
+    for p in peripherals {
+        if p.name.ends_with("_S") && !p.name.ends_with("_NS") {
+            continue;
+        }
+        let base_name = p
+            .name
+            .strip_suffix("_NS")
+            .map(str::to_owned)
+            .unwrap_or_else(|| p.name.clone());
+        by_base.entry(base_name).or_insert(p);
+    }
+
+    for (name, p) in by_base {
+        let mod_name = module_name(&p.kind, &p.register_version);
+        let struct_name = &p.block;
+        s.push_str(&format!(
+            "pub const {name}: crate::{mod_name}::{struct_name} = unsafe {{ \
+             crate::{mod_name}::{struct_name}::from_ptr(0x{:08X} as *mut ()) }};\n",
+            p.base_address
+        ));
+    }
+    s.push('\n');
+}
+
+fn emit_gpio_port_constants(s: &mut String, peripherals: &[PeripheralInstance]) {
+    if !peripherals
+        .iter()
+        .any(|p| p.name == "GPIO_NS" || p.name == "GPIO")
+    {
+        return;
+    }
+    s.push_str("/// GPIO port indices, mirroring `efr32mg<NN>_gpio.h`'s\n");
+    s.push_str("/// `#define GPIO_PORTA 0` etc. Use as `GPIO.p(gpio_port::PORTC)`\n");
+    s.push_str("/// (or just `GPIO.p(2)` — they're equivalent).\n");
+    s.push_str("pub mod gpio_port {\n");
+    for (i, ch) in ['A', 'B', 'C', 'D'].iter().enumerate() {
+        s.push_str(&format!("    pub const PORT{ch}: usize = {i};\n"));
+    }
+    s.push_str("}\n\n");
+}
+
+fn emit_interrupt_consts(s: &mut String, interrupts: &[Interrupt]) {
+    let mut seen: BTreeSet<String> = BTreeSet::new();
+    for i in interrupts {
+        if !seen.insert(i.name.clone()) {
+            continue;
+        }
+        if let Some(desc) = &i.description {
+            let desc = desc.replace('\n', " ").replace('\r', "");
+            s.push_str(&format!("    /// {desc}\n"));
+        }
+        s.push_str(&format!(
+            "    pub const {name}: u8 = {value};\n",
+            name = i.name,
+            value = i.value
+        ));
+    }
+}
+
+/// Stub `device.x` placeholder.
+pub fn stub_device_x(chip_name: &str) -> String {
+    format!("/* device.x for {chip_name} not yet generated */\n")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use silabs_data_gen::chip_json::{Interrupt, PeripheralInstance};
+    use silabs_data_gen::pdsc::{Chip, MemoryRegion};
+
+    fn fake_chip() -> ChipFile {
+        ChipFile {
+            chip: Chip {
+                name: "EFR32MG26B211F2048IM68".into(),
+                core: "Cortex-M33".into(),
+                fpu: false,
+                mpu: false,
+                trustzone: false,
+                memory: vec![
+                    MemoryRegion {
+                        id: "IROM1".into(),
+                        start: 0x0800_0000,
+                        size: 0x0020_0000,
+                        access: "rx".into(),
+                    },
+                    MemoryRegion {
+                        id: "IRAM1".into(),
+                        start: 0x2000_0000,
+                        size: 0x0004_0000,
+                        access: "rwx".into(),
+                    },
+                ],
+                flash_algo: None,
+                svd: "x.svd".into(),
+                package: None,
+            },
+            peripherals: vec![
+                PeripheralInstance {
+                    name: "ACMP0_NS".into(),
+                    base_address: 0x4000_E000,
+                    version: Some("2".into()),
+                    kind: "acmp".into(),
+                    register_version: "v2".into(),
+                    block: "ACMP".into(),
+                },
+                PeripheralInstance {
+                    name: "ACMP0_S".into(),
+                    base_address: 0x5000_E000,
+                    version: Some("2".into()),
+                    kind: "acmp".into(),
+                    register_version: "v2".into(),
+                    block: "ACMP".into(),
+                },
+                PeripheralInstance {
+                    name: "DCDC".into(),
+                    base_address: 0x4000_4000,
+                    version: Some("1".into()),
+                    kind: "dcdc".into(),
+                    register_version: "v1".into(),
+                    block: "DCDC".into(),
+                },
+            ],
+            interrupts: vec![
+                Interrupt {
+                    name: "ACMP0".into(),
+                    value: 41,
+                    description: Some("Analog comparator 0".into()),
+                },
+                Interrupt {
+                    name: "ACMP0".into(),
+                    value: 41,
+                    description: None,
+                },
+                Interrupt {
+                    name: "TIMER0".into(),
+                    value: 25,
+                    description: None,
+                },
+            ],
+        }
+    }
+
+    #[test]
+    fn mod_rs_emits_typed_consts_and_dedupes_interrupts() {
+        let s = build_chip_mod_rs(&fake_chip());
+        assert!(
+            s.contains(
+                "pub const ACMP0: crate::acmp_v2::ACMP = unsafe { crate::acmp_v2::ACMP::from_ptr(0x4000E000 as *mut ()) };"
+            ),
+            "missing typed ACMP0 const:\n{s}"
+        );
+        assert!(!s.contains("ACMP0_S"), "_S consts must not be emitted; got:\n{s}");
+        assert!(
+            s.contains("pub const DCDC: crate::dcdc_v1::DCDC"),
+            "missing typed DCDC const:\n{s}"
+        );
+        assert_eq!(s.matches("pub const ACMP0: u8").count(), 1);
+        assert!(s.contains("pub const TIMER0: u8 = 25"));
+        assert!(s.contains("IROM1_BASE: usize = 0x08000000"));
+        assert!(s.contains("IROM1_SIZE: usize = 0x00200000"));
+    }
+
+    #[test]
+    fn gpio_port_constants_emitted_only_when_gpio_present() {
+        let mut chip = fake_chip();
+        chip.peripherals.push(PeripheralInstance {
+            name: "GPIO_NS".into(),
+            base_address: 0x5003_C000,
+            version: Some("7".into()),
+            kind: "gpio".into(),
+            register_version: "v7".into(),
+            block: "GPIO".into(),
+        });
+        let s = build_chip_mod_rs(&chip);
+        assert!(s.contains("pub mod gpio_port"), "missing gpio_port mod:\n{s}");
+        assert!(s.contains("pub const PORTA: usize = 0;"));
+        assert!(s.contains("pub const PORTD: usize = 3;"));
+
+        let s = build_chip_mod_rs(&fake_chip());
+        assert!(!s.contains("gpio_port"));
+    }
+
+    #[test]
+    fn feature_name_lowercases() {
+        assert_eq!(
+            feature_name("EFR32MG26B211F2048IM68"),
+            "efr32mg26b211f2048im68"
+        );
+    }
+}

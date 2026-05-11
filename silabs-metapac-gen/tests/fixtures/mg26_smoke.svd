@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Hand-crafted EFR32MG26-shaped fixture for the codegen smoke test.
+  All numeric values are taken VERBATIM from
+    SiliconLabs.GeckoPlatform_EFR32MG26_DFP.2025.12.1.pack
+    SVD/EFR32MG26/EFR32MG26B211F2048IM68.svd
+  so the test exercises Silabs's actual NS/S address convention
+  (NS=0x5xxxxxxx, S=0x4xxxxxxx — opposite of typical ARMv8-M).
+
+  Two peripherals × {NS, S} = four entries. Two registers each, one
+  interrupt (so device.x has a PROVIDE line). Minimal but realistic.
+-->
+<device xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.3" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd">
+  <vendor>Silicon Labs</vendor>
+  <vendorID>SLAB</vendorID>
+  <name>EFR32MG26_SMOKE</name>
+  <series>EFR32</series>
+  <version>B</version>
+  <description>Smoke-test SVD modeled on EFR32MG26B211F2048IM68.</description>
+  <cpu>
+    <name>CM33</name>
+    <revision>r0p4</revision>
+    <endian>little</endian>
+    <mpuPresent>false</mpuPresent>
+    <fpuPresent>false</fpuPresent>
+    <nvicPrioBits>4</nvicPrioBits>
+    <vendorSystickConfig>false</vendorSystickConfig>
+  </cpu>
+  <addressUnitBits>8</addressUnitBits>
+  <width>32</width>
+  <size>32</size>
+  <access>read-write</access>
+  <resetValue>0</resetValue>
+  <resetMask>4294967295</resetMask>
+  <peripherals>
+    <peripheral>
+      <name>EUSART0_NS</name>
+      <version>1</version>
+      <description>EUSART0 non-secure</description>
+      <baseAddress>0x5B010000</baseAddress>
+      <interrupt>
+        <name>EUSART0_RX</name>
+        <description>EUSART0 RX</description>
+        <value>15</value>
+      </interrupt>
+      <registers>
+        <register>
+          <name>EN</name>
+          <description>Enable</description>
+          <addressOffset>0x004</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>EN</name>
+              <description>Enable bit</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>STATUS</name>
+          <description>Status</description>
+          <addressOffset>0x008</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000010</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>READY</name>
+              <description>Ready</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>EUSART0_S</name>
+      <version>1</version>
+      <description>EUSART0 secure alias</description>
+      <baseAddress>0x4B010000</baseAddress>
+      <registers>
+        <register>
+          <name>EN</name>
+          <description>Enable</description>
+          <addressOffset>0x004</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>EN</name>
+              <description>Enable bit</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>STATUS</name>
+          <description>Status</description>
+          <addressOffset>0x008</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <resetValue>0x00000010</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>READY</name>
+              <description>Ready</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>GPIO_NS</name>
+      <version>7</version>
+      <description>GPIO non-secure</description>
+      <baseAddress>0x5003C000</baseAddress>
+      <registers>
+        <register>
+          <name>PORTA_DOUT</name>
+          <description>Port A data out</description>
+          <addressOffset>0x040</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>DOUT</name>
+              <description>Data out bits</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>GPIO_S</name>
+      <version>7</version>
+      <description>GPIO secure alias</description>
+      <baseAddress>0x4003C000</baseAddress>
+      <registers>
+        <register>
+          <name>PORTA_DOUT</name>
+          <description>Port A data out</description>
+          <addressOffset>0x040</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <resetMask>0xFFFFFFFF</resetMask>
+          <fields>
+            <field>
+              <name>DOUT</name>
+              <description>Data out bits</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+  </peripherals>
+</device>
