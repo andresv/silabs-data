@@ -215,6 +215,7 @@ fn run_gen(
         .map(|c| crate_layout::feature_name(&c.chip.name))
         .collect();
     crate_layout::write_cargo_toml(&chip_features, &out_dir.join("Cargo.toml"))?;
+    crate_layout::write_build_rs(&out_dir.join("build.rs"))?;
 
     let register_modules: Vec<(String, Vec<String>)> = module_users
         .iter()
