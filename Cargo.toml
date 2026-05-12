@@ -17,7 +17,7 @@ serde_json = "1"
 sha2 = "0.11"
 zip = { version = "8.6", default-features = false, features = ["deflate"] }
 anyhow = "1"
-chiptool = { path = "/Users/andres/Development/github/chiptool" }
+chiptool = { git = "https://github.com/andresv/chiptool.git", rev = "cab99e1aef4ebda9ee5368e6cb0dff571050f04b" }
 svd-parser = { git = "https://github.com/embassy-rs/svd.git", rev = "f4f192d083946fc6227db7ac17eba8aa58bb9d4c", features = ["derive-from", "expand"] }
 # `serde_yaml` is unmaintained; upstream chiptool pins this exact published version.
 # Match it here so Cargo's resolver sees a single version across the workspace.

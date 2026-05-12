@@ -97,6 +97,7 @@ checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"
 [[package]]
 name = "chiptool"
 version = "0.1.0"
+source = "git+https://github.com/andresv/chiptool.git?rev=cab99e1aef4ebda9ee5368e6cb0dff571050f04b#cab99e1aef4ebda9ee5368e6cb0dff571050f04b"
 dependencies = [
  "anyhow",
  "clap",

@@ -175,7 +175,7 @@ Load-bearing rules that future automation should pick up:
 ## Dependencies
 
 - Rust 2024 (workspace).
-- A local clone of [embassy-rs/chiptool](https://github.com/embassy-rs/chiptool) at `/Users/andres/Development/github/chiptool`. The workspace path-pins it. Any Silabs-specific chiptool changes go on the `silabs` branch in that clone.
+- [`chiptool`](https://github.com/andresv/chiptool) — a fork of [embassy-rs/chiptool](https://github.com/embassy-rs/chiptool) with Silabs-specific changes on the `silabs` branch.
 
 ## License
 
