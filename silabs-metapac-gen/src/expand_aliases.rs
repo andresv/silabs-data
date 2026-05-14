@@ -23,24 +23,63 @@
 //! flag) register on Series 2: writes to base `IF` are *silently
 //! ignored*, and clearing flags requires writing to `IF_CLR`.
 
+use anyhow::{Context, Result};
 use chiptool::ir::{Access, BlockItem, BlockItemInner, IR};
+use regex::Regex;
+use std::collections::HashSet;
+use std::path::Path;
+use std::sync::OnceLock;
 
-/// Peripheral kinds with `_HAS_SET_CLEAR` on EFR32MG24/MG26. Derived by
-/// grepping the CMSIS device headers in `Device/SiliconLabs/<FAMILY>/
-/// Include/` for `_HAS_SET_CLEAR`. Lowercase, matches `kind` in
-/// `data/registers/<kind>_v<version>.yaml`.
-const BANKED_KINDS: &[&str] = &[
-    "acmp", "amuxcp", "buram", "burtc", "cmu", "dcdc", "dpll", "emu",
-    "eusart", "fsrco", "gpcrc", "gpio", "hfrco", "hfxo", "i2c", "iadc",
-    "icache", "keyscan", "lcd", "lcdrf", "ldma", "ldmaxbar", "letimer",
-    "lfrco", "lfxo", "mailbox", "mpahbram", "msc", "mvp", "pcnt", "prs",
-    "smu", "syscfg", "sysrtc", "timer", "ulfrco", "usart", "vdac", "wdog",
-];
+/// Scan the extracted CMSIS pack(s) under `extract_dirs` for peripherals
+/// marked `#define <PERI>_HAS_SET_CLEAR` and return the set of kinds
+/// (lowercase, matching `kind` in `data/registers/<kind>_v<version>.yaml`).
+///
+/// Looks at every `Device/SiliconLabs/<FAMILY>/Include/efr32*_*.h`
+/// per-peripheral header — those are where Silicon Labs declares the
+/// banking marker (the per-chip header just `#include`s them).
+///
+/// Returns an empty set if no extract dirs are provided (e.g. a user
+/// running `metapac-gen` without `--pack`). The caller decides whether
+/// that's a hard error or just "no aliases this run".
+pub fn discover_banked_kinds(extract_dirs: &[&Path]) -> Result<HashSet<String>> {
+    static MARKER_RE: OnceLock<Regex> = OnceLock::new();
+    let marker = MARKER_RE.get_or_init(|| {
+        // Anchored: must be a real `#define` directive, not an in-comment mention.
+        Regex::new(r"(?m)^\s*#\s*define\s+([A-Z][A-Z0-9_]*)_HAS_SET_CLEAR\b")
+            .expect("regex compiles")
+    });
 
-/// `true` if the given lowercase peripheral kind is register-banked on
-/// EFR32 Series 2 (`#define <PERI>_HAS_SET_CLEAR` in the device header).
-pub fn is_banked(kind: &str) -> bool {
-    BANKED_KINDS.contains(&kind)
+    let mut out: HashSet<String> = HashSet::new();
+    for dir in extract_dirs {
+        let include_glob = dir.join("Device/SiliconLabs");
+        if !include_glob.is_dir() {
+            continue;
+        }
+        // <extract>/Device/SiliconLabs/<FAMILY>/Include/*.h
+        for family in std::fs::read_dir(&include_glob)
+            .with_context(|| format!("read {}", include_glob.display()))?
+        {
+            let family = family?;
+            let include = family.path().join("Include");
+            if !include.is_dir() {
+                continue;
+            }
+            for entry in std::fs::read_dir(&include)
+                .with_context(|| format!("read {}", include.display()))?
+            {
+                let path = entry?.path();
+                if path.extension().and_then(|s| s.to_str()) != Some("h") {
+                    continue;
+                }
+                let text = std::fs::read_to_string(&path)
+                    .with_context(|| format!("read {}", path.display()))?;
+                for caps in marker.captures_iter(&text) {
+                    out.insert(caps.get(1).unwrap().as_str().to_ascii_lowercase());
+                }
+            }
+        }
+    }
+    Ok(out)
 }
 
 const SET_OFFSET: u32 = 0x1000;
@@ -237,13 +276,52 @@ mod tests {
         }
     }
 
+    /// Discover banked kinds from a synthetic on-disk layout that mirrors
+    /// the real `Device/SiliconLabs/<FAMILY>/Include/efr32<family>_<peri>.h`
+    /// shape. Keeps the test hermetic — no dependency on `silabs-data-source/`.
     #[test]
-    fn banked_kind_membership() {
-        assert!(is_banked("timer"));
-        assert!(is_banked("gpio"));
-        assert!(is_banked("eusart"));
-        assert!(!is_banked("aes"));
-        assert!(!is_banked("semailbox"));
-        assert!(!is_banked("TIMER"), "kind list is case-sensitive lowercase");
+    fn discover_banked_kinds_picks_up_has_set_clear_defines() {
+        use std::fs;
+        let tmp = std::env::temp_dir().join(format!(
+            "expand-aliases-test-{}",
+            std::process::id()
+        ));
+        let include = tmp.join("Device/SiliconLabs/EFR32XX/Include");
+        fs::create_dir_all(&include).unwrap();
+
+        fs::write(
+            include.join("efr32xx_timer.h"),
+            "/* ... */\n#define TIMER_HAS_SET_CLEAR\n#define TIMER_FOO 1\n",
+        )
+        .unwrap();
+        fs::write(
+            include.join("efr32xx_gpio.h"),
+            "#define GPIO_HAS_SET_CLEAR\n",
+        )
+        .unwrap();
+        // Non-banked peripheral — no marker.
+        fs::write(
+            include.join("efr32xx_aes.h"),
+            "#define AES_FOO 1\n",
+        )
+        .unwrap();
+        // In-comment mention must NOT match.
+        fs::write(
+            include.join("efr32xx_buzz.h"),
+            "/* This file does NOT have BUZZ_HAS_SET_CLEAR. */\n",
+        )
+        .unwrap();
+
+        let found =
+            discover_banked_kinds(&[tmp.as_path()]).expect("discover");
+        assert!(found.contains("timer"), "found: {found:?}");
+        assert!(found.contains("gpio"), "found: {found:?}");
+        assert!(!found.contains("aes"), "found: {found:?}");
+        assert!(!found.contains("buzz"), "found: {found:?}");
+
+        // Output is lowercase.
+        assert!(!found.contains("TIMER"));
+
+        fs::remove_dir_all(&tmp).ok();
     }
 }

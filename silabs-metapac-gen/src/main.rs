@@ -172,6 +172,28 @@ fn run_gen(
     };
     let only_set: BTreeSet<String> = only.iter().map(|s| s.to_ascii_lowercase()).collect();
 
+    // ----- Discover register-banked peripheral kinds. -----
+    //
+    // Series 2 marks each peripheral with `#define <PERI>_HAS_SET_CLEAR`
+    // in its per-peripheral CMSIS device header. We scan the extracted
+    // pack(s) to recover the set rather than hard-coding it, so new
+    // packs/families pick up new banked kinds automatically.
+    let extract_refs: Vec<&Path> = extract_dirs.iter().map(PathBuf::as_path).collect();
+    let banked_kinds: std::collections::HashSet<String> =
+        silabs_metapac_gen::expand_aliases::discover_banked_kinds(&extract_refs)?;
+    if extract_dirs.is_empty() {
+        eprintln!(
+            "warning: no --pack passed; cannot discover banked peripherals — \
+             generated metapac will lack SET/CLR/TGL register aliases",
+        );
+    } else {
+        eprintln!(
+            "Discovered {} banked peripheral kind(s) from {} pack(s)",
+            banked_kinds.len(),
+            extract_dirs.len(),
+        );
+    }
+
     // ----- Collect every (kind, version) referenced by any chip. -----
     let mut module_users: BTreeMap<IpKey, BTreeSet<String>> = BTreeMap::new();
     for chip in &chips {
@@ -202,10 +224,10 @@ fn run_gen(
             .with_context(|| format!("parse {}", path.display()))?;
         // For Series 2 banked peripherals, materialise the
         // _SET/_CLR/_TGL alias views at +0x1000/+0x2000/+0x3000. The
-        // SVD/YAML only carry the base layout; the per-chip CMSIS
+        // SVD/YAML only carry the base layout; the per-peripheral CMSIS
         // device header is what marks these peripherals with
-        // `_HAS_SET_CLEAR`.
-        if silabs_metapac_gen::expand_aliases::is_banked(&key.0) {
+        // `_HAS_SET_CLEAR` (see `discover_banked_kinds` above).
+        if banked_kinds.contains(&key.0) {
             silabs_metapac_gen::expand_aliases::expand_series2_aliases(&mut ir);
         }
         irs.insert(key.clone(), ir);

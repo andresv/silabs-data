@@ -14,6 +14,7 @@ sha2.workspace = true
 zip.workspace = true
 anyhow.workspace = true
 chiptool.workspace = true
+regex.workspace = true
 svd-parser.workspace = true
 serde_yaml.workspace = true
 quote.workspace = true
