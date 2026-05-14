@@ -9,7 +9,7 @@
 //! └── src/
 //!     ├── lib.rs
 //!     ├── common.rs
-//!     ├── registers/<kind>_<version>.rs
+//!     ├── peripherals/<kind>_<version>.rs
 //!     └── chips/
 //!         └── <chip>/
 //!             ├── device.x      # cortex-m-rt linker fragment (or stub)
@@ -23,7 +23,7 @@ use silabs_data_gen::pdsc::MemoryRegion;
 use std::collections::BTreeSet;
 use std::path::Path;
 
-use crate::registers::module_name;
+use crate::pac::module_name;
 
 /// Convert a perimap-routed block name (e.g. `GPIO`, `EUSART`, `I2C`) into the
 /// PascalCase identifier `chiptool::transform::sanitize::Sanitize::default()`
@@ -145,7 +145,7 @@ rt = ["cortex-m-rt"]
 /// Write src/lib.rs.
 pub fn write_lib_rs(
     chip_features: &[String],
-    register_modules: &[(String, Vec<String>)],
+    peripheral_modules: &[(String, Vec<String>)],
     out: &Path,
 ) -> Result<()> {
     let mut s = String::new();
@@ -174,7 +174,7 @@ pub fn write_lib_rs(
 
     s.push_str("pub mod common;\n\n");
 
-    for (mod_name, chips_using) in register_modules {
+    for (mod_name, chips_using) in peripheral_modules {
         s.push_str("#[cfg(any(\n");
         for (i, f) in chips_using.iter().enumerate() {
             let comma = if i + 1 == chips_using.len() { "" } else { "," };
@@ -182,7 +182,7 @@ pub fn write_lib_rs(
         }
         s.push_str("))]\n");
         s.push_str(&format!(
-            "#[path = \"registers/{mod_name}.rs\"]\npub mod {mod_name};\n\n"
+            "#[path = \"peripherals/{mod_name}.rs\"]\npub mod {mod_name};\n\n"
         ));
     }
 

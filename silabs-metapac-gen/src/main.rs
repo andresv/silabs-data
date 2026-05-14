@@ -23,7 +23,7 @@ use silabs_metapac_gen::codegen::{self, GenerateInput};
 use silabs_metapac_gen::crate_layout;
 use silabs_metapac_gen::extract;
 use silabs_metapac_gen::peripheral;
-use silabs_metapac_gen::registers::{self, IpKey, module_name};
+use silabs_metapac_gen::pac::{self, IpKey, module_name};
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
 use svd_parser::ValidateLevel;
@@ -233,11 +233,11 @@ fn run_gen(
         irs.insert(key.clone(), ir);
     }
 
-    // ----- Emit src/registers/<kind>_<version>.rs -----
+    // ----- Emit src/peripherals/<kind>_<version>.rs -----
     std::fs::create_dir_all(out_dir.join("src/chips"))
         .with_context(|| format!("create out dir {}", out_dir.display()))?;
-    registers::write_registers_dir(&irs, &out_dir.join("src/registers"))?;
-    registers::write_common_module(&out_dir.join("src/common.rs"))?;
+    pac::write_peripherals_dir(&irs, &out_dir.join("src/peripherals"))?;
+    pac::write_common_module(&out_dir.join("src/common.rs"))?;
 
     // ----- Cargo.toml + lib.rs -----
     let chip_features: Vec<String> = chips
@@ -247,7 +247,7 @@ fn run_gen(
     crate_layout::write_cargo_toml(&chip_features, &out_dir.join("Cargo.toml"))?;
     crate_layout::write_build_rs(&out_dir.join("build.rs"))?;
 
-    let register_modules: Vec<(String, Vec<String>)> = module_users
+    let peripheral_modules: Vec<(String, Vec<String>)> = module_users
         .iter()
         .map(|(key, users)| {
             let mod_name = module_name(&key.0, &key.1);
@@ -256,7 +256,7 @@ fn run_gen(
             (mod_name, users)
         })
         .collect();
-    crate_layout::write_lib_rs(&chip_features, &register_modules, &out_dir.join("src/lib.rs"))?;
+    crate_layout::write_lib_rs(&chip_features, &peripheral_modules, &out_dir.join("src/lib.rs"))?;
 
     std::fs::write(
         out_dir.join("README.md"),

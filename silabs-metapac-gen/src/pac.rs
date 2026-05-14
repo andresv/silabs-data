@@ -1,4 +1,9 @@
-//! Render per-IP register modules to `src/registers/<kind>_<version>.rs`.
+//! Render per-IP PAC modules to `src/peripherals/<kind>_<version>.rs`.
+//!
+//! Directory name mirrors `stm32-metapac/src/peripherals/`. Each emitted
+//! file contains the chiptool-rendered Rust PAC for one `(kind, version)`
+//! pair: the typed peripheral struct (e.g. `pub struct Timer { ptr }`),
+//! its accessor methods, and the `regs`/`vals` submodules.
 
 use anyhow::{Context, Result};
 use chiptool::generate::{self, CommonModule, DefmtOption, Options};
@@ -6,7 +11,7 @@ use chiptool::ir::IR;
 use std::collections::BTreeMap;
 use std::path::Path;
 
-/// `(kind, version)` key for the register module set.
+/// `(kind, version)` key for the peripheral module set.
 pub type IpKey = (String, String);
 
 /// Module-name builder. The output is a valid Rust identifier of the form
@@ -21,7 +26,8 @@ pub fn module_name_from_key(key: &IpKey) -> String {
 }
 
 /// Render one Rust file per IR under `<out_dir>/<module_name>.rs`.
-pub fn write_registers_dir(
+/// Each file is rustfmt'd in place before returning.
+pub fn write_peripherals_dir(
     irs: &BTreeMap<IpKey, IR>,
     out_dir: &Path,
 ) -> Result<()> {
