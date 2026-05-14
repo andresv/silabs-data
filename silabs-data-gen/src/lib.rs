@@ -1,4 +1,5 @@
 pub mod chip_json;
+pub mod header;
 pub mod pack;
 pub mod pdsc;
 pub mod perimap;

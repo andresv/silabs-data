@@ -20,6 +20,24 @@ pub struct GenerateInput<'a> {
     pub svd_path: &'a Path,
     /// One or more transforms YAML files. Applied in order.
     pub transforms: &'a [&'a Path],
+    /// Authoritative interrupt table for the chip. Replaces the SVD's
+    /// `<interrupt>` blocks entirely — the Silicon Labs SVDs omit radio
+    /// peripheral IRQs (FRC, MODEM, AGC, BUFC, …), so `silabs-data-gen`
+    /// builds this list from the per-chip CMSIS device header instead
+    /// (see `silabs-data-gen/src/header.rs`). Feeds both the rendered
+    /// `Interrupt` enum in `lib.rs` and the PROVIDE entries in
+    /// `device.x`.
+    pub interrupts: &'a [Interrupt<'a>],
+}
+
+/// A single interrupt entry passed into the chiptool IR. Same shape as
+/// the chip-JSON `Interrupt`, but kept independent so
+/// `silabs-metapac-gen` doesn't depend on the JSON crate's type layout.
+#[derive(Debug, Clone, Copy)]
+pub struct Interrupt<'a> {
+    pub name: &'a str,
+    pub value: u32,
+    pub description: Option<&'a str>,
 }
 
 pub struct Generated {
@@ -89,6 +107,34 @@ pub fn generate(input: GenerateInput<'_>) -> Result<Generated> {
         .run(&mut ir)
         .context("Sanitize")?;
 
+    // Replace chiptool's SVD-derived interrupt list with the
+    // header-sourced one before rendering. The SVD's `<interrupt>` blocks
+    // are an incomplete subset on Silabs parts (radio peripherals are
+    // missing), so we ignore them entirely and let the caller — fed by
+    // the per-chip CMSIS device header — drive both the `Interrupt` enum
+    // in lib.rs and the PROVIDE lines in device.x.
+    let dev_key = ir
+        .devices
+        .keys()
+        .next()
+        .cloned()
+        .ok_or_else(|| anyhow!("no device in IR"))?;
+    let dev = ir
+        .devices
+        .get_mut(&dev_key)
+        .ok_or_else(|| anyhow!("no device in IR"))?;
+    dev.interrupts = input
+        .interrupts
+        .iter()
+        .map(|i| chiptool::ir::Interrupt {
+            name: i.name.to_string(),
+            description: i.description.map(|s| s.to_string()),
+            value: i.value,
+        })
+        .collect();
+    dev.interrupts
+        .sort_by(|a, b| a.value.cmp(&b.value).then_with(|| a.name.cmp(&b.name)));
+
     let opts = Options::default()
         .with_common_module(CommonModule::Builtin)
         .with_defmt(DefmtOption::Feature("defmt".to_owned()))
@@ -102,8 +148,7 @@ pub fn generate(input: GenerateInput<'_>) -> Result<Generated> {
 
     let dev = ir
         .devices
-        .values()
-        .next()
+        .get(&dev_key)
         .ok_or_else(|| anyhow!("no device in IR"))?;
     let device_x = generate::render_device_x(&ir, dev).context("render_device_x")?;
 

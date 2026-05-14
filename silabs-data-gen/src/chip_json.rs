@@ -1,6 +1,7 @@
+use crate::header::HeaderIrq;
 use crate::pdsc::Chip;
 use crate::perimap::{self, Entry};
-use crate::svd::{InterruptIr, PeripheralIr};
+use crate::svd::PeripheralIr;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
@@ -28,7 +29,7 @@ pub struct PeripheralInstance {
     pub block: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Interrupt {
     pub name: String,
     pub value: u32,
@@ -38,7 +39,7 @@ pub struct Interrupt {
 pub fn build(
     chip: Chip,
     peripherals: &[PeripheralIr],
-    interrupts: &[InterruptIr],
+    header_irqs: &[HeaderIrq],
     perimap_entries: &[Entry],
 ) -> ChipFile {
     let instances = peripherals
@@ -61,20 +62,35 @@ pub fn build(
         })
         .collect();
 
-    let ints = interrupts
-        .iter()
-        .map(|i| Interrupt {
-            name: i.name.clone(),
-            value: i.value,
-            description: i.description.clone(),
-        })
-        .collect();
-
     ChipFile {
         chip,
         peripherals: instances,
-        interrupts: ints,
+        interrupts: build_interrupts(header_irqs),
     }
+}
+
+/// Build the chip's interrupt table from the CMSIS device header.
+///
+/// The header (`Device/SiliconLabs/<FAMILY>/Include/<chip>.h`) is the
+/// authoritative IRQ table — it lists every vector slot including the
+/// radio peripherals (FRC, MODEM, AGC, BUFC, PROTIMER, SYNTH, RAC_*,
+/// RFECA*) that the public SVD omits. The SVD's `<interrupt>` blocks
+/// are intentionally ignored: they're an incomplete subset and using
+/// only the header matches stm32-data's approach
+/// (`stm32-data-gen/src/interrupts.rs`).
+///
+/// Output is sorted by IRQ value for determinism.
+fn build_interrupts(header: &[HeaderIrq]) -> Vec<Interrupt> {
+    let mut out: Vec<Interrupt> = header
+        .iter()
+        .map(|h| Interrupt {
+            name: h.name.clone(),
+            value: h.value,
+            description: None,
+        })
+        .collect();
+    out.sort_by(|a, b| a.value.cmp(&b.value).then_with(|| a.name.cmp(&b.name)));
+    out
 }
 
 #[cfg(test)]
@@ -157,5 +173,27 @@ mod tests {
         assert_eq!(back.peripherals[0].kind, "foo");
         assert_eq!(back.peripherals[0].block, "FooBlock");
         assert_eq!(back.peripherals[1].register_version, "v3");
+    }
+
+    /// The header drives the chip's interrupt table verbatim — including
+    /// radio peripherals (FRC, MODEM, AGC, BUFC, …) that the public SVD
+    /// omits. Output is sorted by IRQ value for deterministic device.x
+    /// ordering.
+    #[test]
+    fn build_interrupts_uses_header_verbatim_sorted_by_value() {
+        let header = vec![
+            HeaderIrq { name: "MODEM".into(), value: 50 },
+            HeaderIrq { name: "TIMER0".into(), value: 4 },
+            HeaderIrq { name: "FRC".into(), value: 49 },
+            HeaderIrq { name: "SMU_SECURE".into(), value: 0 },
+        ];
+
+        let irqs = build_interrupts(&header);
+
+        let names: Vec<&str> = irqs.iter().map(|i| i.name.as_str()).collect();
+        assert_eq!(names, ["SMU_SECURE", "TIMER0", "FRC", "MODEM"]);
+
+        let values: Vec<u32> = irqs.iter().map(|i| i.value).collect();
+        assert_eq!(values, [0, 4, 49, 50]);
     }
 }

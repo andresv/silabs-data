@@ -44,10 +44,11 @@ One feature per OPN gates the chip's content; pick exactly one. Enable the `rt` 
 
 Silicon Labs CMSIS DFP packs:
 
-- SVD per OPN — peripheral base addresses, register maps, interrupts. **Authoritative.**
+- SVD per OPN — peripheral base addresses and register maps. **Authoritative for register layout.** Its `<interrupt>` blocks are intentionally **not** consulted (the public SVD omits radio peripheral IRQs — FRC, MODEM, AGC, BUFC, PROTIMER, SYNTH, RAC_*, RFECA*).
+- Per-chip CMSIS device header (`Device/SiliconLabs/<FAMILY>/Include/<chip>.h`) — **authoritative for the IRQ table.** Parsed by `silabs-data-gen/src/header.rs` for `<NAME>_IRQn = <N>,` enum members. Mirrors stm32-data's approach (`stm32-data-gen/src/header.rs`), which treats the C header as the sole source of truth for interrupts.
 - pdsc manifest — chip list, memory map, package info, SVD↔OPN mapping.
 
-We do **not** consume Silabs's C headers (`efr32mgNN_*.h`). The SVD is generated from the same internal definitions and carries everything we need (base addresses, IRQ numbers, register layouts). No header parser, no `header_map.yaml` analogue is required. No CubeDB-style separate XML database either — pdsc is sufficient.
+No `header_map.yaml` analogue is required, and no CubeDB-style separate XML database either — pdsc is sufficient.
 
 ## Per-register YAML curation policy
 

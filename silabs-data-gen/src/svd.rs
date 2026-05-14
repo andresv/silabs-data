@@ -24,32 +24,15 @@ pub struct RegisterIr {
     pub reset: u64,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct InterruptIr {
-    pub name: String,
-    pub value: u32,
-    pub description: Option<String>,
-    /// Owning peripheral name (e.g. "EUSART0_NS"). Useful for traceability.
-    pub peripheral: String,
-}
-
 /// Parse all peripherals from an SVD document.
+///
+/// SVD `<interrupt>` blocks are intentionally not extracted — the CMSIS
+/// device header is the authoritative IRQ source (see
+/// `silabs_data_gen::header`). The interrupt table for a chip is built
+/// from the header alone, matching stm32-data.
 pub fn parse(xml: &str) -> Result<Vec<PeripheralIr>> {
-    let (peripherals, _interrupts) = parse_all(xml)?;
-    Ok(peripherals)
-}
-
-/// Parse interrupts from an SVD document.
-pub fn parse_interrupts(xml: &str) -> Result<Vec<InterruptIr>> {
-    let (_peripherals, interrupts) = parse_all(xml)?;
-    Ok(interrupts)
-}
-
-/// Parse both peripherals and interrupts in a single pass.
-pub fn parse_all(xml: &str) -> Result<(Vec<PeripheralIr>, Vec<InterruptIr>)> {
     let raw = parse_raw(xml)?;
     let mut peripherals: Vec<PeripheralIr> = Vec::with_capacity(raw.peripherals.len());
-    let mut interrupts: Vec<InterruptIr> = Vec::new();
 
     // Build a map of name -> raw peripheral for derivedFrom resolution.
     let by_name: HashMap<String, &RawPeripheral> = raw
@@ -103,18 +86,9 @@ pub fn parse_all(xml: &str) -> Result<(Vec<PeripheralIr>, Vec<InterruptIr>)> {
             registers: regs,
             fingerprint,
         });
-
-        for it in &p.interrupts {
-            interrupts.push(InterruptIr {
-                name: it.name.clone(),
-                value: it.value,
-                description: it.description.clone(),
-                peripheral: p.name.clone(),
-            });
-        }
     }
 
-    Ok((peripherals, interrupts))
+    Ok(peripherals)
 }
 
 fn compute_fingerprint(regs: &[RegisterIr]) -> String {
@@ -161,7 +135,6 @@ struct RawPeripheral {
     size: Option<u32>,
     reset: Option<u64>,
     registers: Vec<RawRegister>,
-    interrupts: Vec<RawInterrupt>,
 }
 
 #[derive(Debug, Default)]
@@ -170,13 +143,6 @@ struct RawRegister {
     offset: u32,
     size: Option<u32>,
     reset: Option<u64>,
-}
-
-#[derive(Debug, Default)]
-struct RawInterrupt {
-    name: String,
-    value: u32,
-    description: Option<String>,
 }
 
 fn parse_raw(xml: &str) -> Result<RawDevice> {
@@ -189,7 +155,6 @@ fn parse_raw(xml: &str) -> Result<RawDevice> {
     let mut dev = RawDevice::default();
     let mut cur_periph: Option<RawPeripheral> = None;
     let mut cur_reg: Option<RawRegister> = None;
-    let mut cur_int: Option<RawInterrupt> = None;
 
     loop {
         match reader.read_event_into(&mut buf)? {
@@ -211,9 +176,6 @@ fn parse_raw(xml: &str) -> Result<RawDevice> {
                     }
                     "register" => {
                         cur_reg = Some(RawRegister::default());
-                    }
-                    "interrupt" => {
-                        cur_int = Some(RawInterrupt::default());
                     }
                     _ => {}
                 }
@@ -284,22 +246,10 @@ fn parse_raw(xml: &str) -> Result<RawDevice> {
                     }
                 }
 
-                // Interrupt fields.
-                if let Some(it) = cur_int.as_mut()
-                    && parent == "interrupt"
-                {
-                    match last {
-                        "name" => it.name = trimmed.to_string(),
-                        "value" => it.value = parse_uint::<u32>(trimmed)?,
-                        "description" => it.description = Some(trimmed.to_string()),
-                        _ => {}
-                    }
-                }
-
-                // Peripheral-level direct fields (only when not inside register/interrupt).
+                // Peripheral-level direct fields (only when not inside register).
+                // The SVD's `<interrupt>` blocks are ignored — see `parse` doc.
                 if let Some(p) = cur_periph.as_mut()
                     && cur_reg.is_none()
-                    && cur_int.is_none()
                     && parent == "peripheral"
                 {
                     match last {
@@ -328,13 +278,6 @@ fn parse_raw(xml: &str) -> Result<RawDevice> {
                             && let Some(p) = cur_periph.as_mut()
                         {
                             p.registers.push(r);
-                        }
-                    }
-                    "interrupt" => {
-                        if let Some(it) = cur_int.take()
-                            && let Some(p) = cur_periph.as_mut()
-                        {
-                            p.interrupts.push(it);
                         }
                     }
                     _ => {}

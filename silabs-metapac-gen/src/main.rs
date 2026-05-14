@@ -252,9 +252,22 @@ fn run_gen(
                 .map(|d| d.join(&chip.chip.svd))
                 .find(|p| p.is_file())
                 .ok_or_else(|| anyhow!("SVD {} missing for {}", chip.chip.svd, chip.chip.name))?;
+            // Forward the chip JSON's interrupt list (header-derived) as
+            // the authoritative IRQ table — chiptool's SVD-derived list
+            // is discarded inside `codegen::generate`.
+            let irqs: Vec<codegen::Interrupt<'_>> = chip
+                .interrupts
+                .iter()
+                .map(|i| codegen::Interrupt {
+                    name: i.name.as_str(),
+                    value: i.value,
+                    description: i.description.as_deref(),
+                })
+                .collect();
             let generated = codegen::generate(GenerateInput {
                 svd_path: &svd_path,
                 transforms: &[],
+                interrupts: &irqs,
             })
             .with_context(|| format!("device.x codegen {}", chip.chip.name))?;
             std::fs::write(&device_x_path, &generated.device_x)?;

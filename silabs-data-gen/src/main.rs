@@ -75,14 +75,39 @@ fn main() -> anyhow::Result<()> {
                 let svd_xml = std::fs::read_to_string(&svd_path).map_err(|e| {
                     anyhow::anyhow!("reading SVD {}: {e}", svd_path.display())
                 })?;
-                let (peripherals, interrupts) =
-                    silabs_data_gen::svd::parse_all(&svd_xml)?;
+                let peripherals = silabs_data_gen::svd::parse(&svd_xml)?;
+
+                // The SVD's own `<interrupt>` blocks are intentionally not
+                // consulted — they're an incomplete subset (radio
+                // peripherals are missing). The per-chip CMSIS device
+                // header sits next to the SVD in the pack tree. Convention:
+                // `SVD/<FAMILY>/<CHIP>.svd` →
+                // `Device/SiliconLabs/<FAMILY>/Include/<chip_lowercase>.h`.
+                let header_irqs = match header_path_for_chip(&extract_dir, &chip) {
+                    Some(hpath) if hpath.is_file() => silabs_data_gen::header::parse_file(&hpath)
+                        .map_err(|e| {
+                            anyhow::anyhow!("reading header {}: {e}", hpath.display())
+                        })?,
+                    Some(hpath) => {
+                        anyhow::bail!(
+                            "no device header at {} for {} — header is the authoritative IRQ source and must be present",
+                            hpath.display(),
+                            chip.name,
+                        );
+                    }
+                    None => {
+                        anyhow::bail!(
+                            "could not derive header path for {} (svd = {:?})",
+                            chip.name, chip.svd,
+                        );
+                    }
+                };
 
                 let chip_name = chip.name.clone();
                 let chip_file = silabs_data_gen::chip_json::build(
                     chip,
                     &peripherals,
-                    &interrupts,
+                    &header_irqs,
                     &perimap_entries,
                 );
 
@@ -94,4 +119,37 @@ fn main() -> anyhow::Result<()> {
             Ok(())
         }
     }
+}
+
+/// Derive the per-chip CMSIS device header path from the SVD path inside an
+/// extracted Silicon Labs CMSIS pack.
+///
+/// Convention (verified across `SiliconLabs.GeckoPlatform_EFR32MG24_DFP` and
+/// `…_EFR32MG26_DFP` packs):
+///
+/// ```text
+/// SVD path:    SVD/<FAMILY>/<CHIP>.svd
+/// Header path: Device/SiliconLabs/<FAMILY>/Include/<chip_lowercase>.h
+/// ```
+///
+/// Returns `None` if the SVD path doesn't match the expected layout.
+fn header_path_for_chip(
+    extract_dir: &std::path::Path,
+    chip: &silabs_data_gen::pdsc::Chip,
+) -> Option<std::path::PathBuf> {
+    let svd = std::path::Path::new(&chip.svd);
+    let parent = svd.parent()?;
+    let family = parent.file_name()?.to_str()?;
+    if parent.parent().and_then(|p| p.file_name())?.to_str()? != "SVD" {
+        return None;
+    }
+    let header_file = format!("{}.h", chip.name.to_ascii_lowercase());
+    Some(
+        extract_dir
+            .join("Device")
+            .join("SiliconLabs")
+            .join(family)
+            .join("Include")
+            .join(header_file),
+    )
 }

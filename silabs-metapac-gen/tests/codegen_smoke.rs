@@ -6,7 +6,7 @@
 //! `EFR32MG26B211F2048IM68.svd` in DFP `2025.12.1`, so it exercises Silabs's
 //! actual NS/S address convention (NS=0x5xxx_xxxx, S=0x4xxx_xxxx).
 
-use silabs_metapac_gen::codegen::{GenerateInput, generate};
+use silabs_metapac_gen::codegen::{GenerateInput, Interrupt, generate};
 use silabs_metapac_gen::extract::extract_ip;
 use silabs_metapac_gen::peripheral::strip_secure_peripherals;
 use std::path::PathBuf;
@@ -28,9 +28,17 @@ fn transforms_dir() -> PathBuf {
 #[test]
 fn renders_mg26_shaped_svd() {
     let svd = fixture_svd();
+    // Fixture's only `<interrupt>` is EUSART0_RX at value 15. Pass it
+    // verbatim — the codegen no longer reads SVD interrupts itself.
+    let irqs = [Interrupt {
+        name: "EUSART0_RX",
+        value: 15,
+        description: Some("EUSART0 RX"),
+    }];
     let out = generate(GenerateInput {
         svd_path: &svd,
         transforms: &[],
+        interrupts: &irqs,
     })
     .expect("generate");
 
