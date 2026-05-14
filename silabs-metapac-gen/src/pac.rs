@@ -65,7 +65,7 @@ pub fn write_peripherals_dir(
 /// We invoke `rustfmt` directly rather than via `cargo fmt` so we don't
 /// need a project context — the emitted files live outside the
 /// silabs-data workspace.
-fn rustfmt_in_place(path: &Path) -> Result<()> {
+pub(crate) fn rustfmt_in_place(path: &Path) -> Result<()> {
     let status = std::process::Command::new("rustfmt")
         .arg("--edition=2024")
         .arg("--emit=files")

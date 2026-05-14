@@ -174,6 +174,11 @@ pub fn write_lib_rs(
 
     s.push_str("pub mod common;\n\n");
 
+    // IR-metadata type definitions (chiptool IR exposed as `&'static`).
+    // `metadata.rs` is a hand-curated template; the per-kind static
+    // `REGISTERS` values live under `pub mod registers` below.
+    s.push_str("pub mod metadata;\n\n");
+
     for (mod_name, chips_using) in peripheral_modules {
         s.push_str("#[cfg(any(\n");
         for (i, f) in chips_using.iter().enumerate() {
@@ -185,6 +190,21 @@ pub fn write_lib_rs(
             "#[path = \"peripherals/{mod_name}.rs\"]\npub mod {mod_name};\n\n"
         ));
     }
+
+    // Per-kind IR-metadata modules (parallel to the PAC modules above,
+    // gated by the same chip features). Each `<kind>_<version>.rs`
+    // exposes `pub static REGISTERS: IR`.
+    s.push_str("pub mod registers {\n");
+    for (mod_name, chips_using) in peripheral_modules {
+        s.push_str("    #[cfg(any(\n");
+        for (i, f) in chips_using.iter().enumerate() {
+            let comma = if i + 1 == chips_using.len() { "" } else { "," };
+            s.push_str(&format!("        feature = \"{f}\"{comma}\n"));
+        }
+        s.push_str("    ))]\n");
+        s.push_str(&format!("    pub mod {mod_name};\n"));
+    }
+    s.push_str("}\n\n");
 
     for f in chip_features {
         s.push_str(&format!("#[cfg(feature = \"{f}\")]\n"));

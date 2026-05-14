@@ -233,11 +233,20 @@ fn run_gen(
         irs.insert(key.clone(), ir);
     }
 
-    // ----- Emit src/peripherals/<kind>_<version>.rs -----
+    // ----- Emit src/peripherals/<kind>_<version>.rs + IR metadata -----
     std::fs::create_dir_all(out_dir.join("src/chips"))
         .with_context(|| format!("create out dir {}", out_dir.display()))?;
     pac::write_peripherals_dir(&irs, &out_dir.join("src/peripherals"))?;
     pac::write_common_module(&out_dir.join("src/common.rs"))?;
+
+    // IR-metadata module (`metadata.rs` type defs) + per-kind static IR
+    // (`src/registers/<kind>_<version>.rs`). Mirrors stm32-metapac's
+    // layout — see `silabs_metapac_gen::ir_metadata`.
+    silabs_metapac_gen::ir_metadata::write_metadata_module(out_dir)?;
+    silabs_metapac_gen::ir_metadata::write_registers_dir(
+        &irs,
+        &out_dir.join("src/registers"),
+    )?;
 
     // ----- Cargo.toml + lib.rs -----
     let chip_features: Vec<String> = chips
