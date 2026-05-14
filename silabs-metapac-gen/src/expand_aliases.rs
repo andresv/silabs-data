@@ -23,12 +23,13 @@
 //! flag) register on Series 2: writes to base `IF` are *silently
 //! ignored*, and clearing flags requires writing to `IF_CLR`.
 
-use anyhow::{Context, Result};
-use chiptool::ir::{Access, BlockItem, BlockItemInner, IR};
-use regex::Regex;
 use std::collections::HashSet;
 use std::path::Path;
 use std::sync::OnceLock;
+
+use anyhow::{Context, Result};
+use chiptool::ir::{Access, BlockItem, BlockItemInner, IR};
+use regex::Regex;
 
 /// Scan the extracted CMSIS pack(s) under `extract_dirs` for peripherals
 /// marked `#define <PERI>_HAS_SET_CLEAR` and return the set of kinds
@@ -45,8 +46,7 @@ pub fn discover_banked_kinds(extract_dirs: &[&Path]) -> Result<HashSet<String>> 
     static MARKER_RE: OnceLock<Regex> = OnceLock::new();
     let marker = MARKER_RE.get_or_init(|| {
         // Anchored: must be a real `#define` directive, not an in-comment mention.
-        Regex::new(r"(?m)^\s*#\s*define\s+([A-Z][A-Z0-9_]*)_HAS_SET_CLEAR\b")
-            .expect("regex compiles")
+        Regex::new(r"(?m)^\s*#\s*define\s+([A-Z][A-Z0-9_]*)_HAS_SET_CLEAR\b").expect("regex compiles")
     });
 
     let mut out: HashSet<String> = HashSet::new();
@@ -56,23 +56,18 @@ pub fn discover_banked_kinds(extract_dirs: &[&Path]) -> Result<HashSet<String>> 
             continue;
         }
         // <extract>/Device/SiliconLabs/<FAMILY>/Include/*.h
-        for family in std::fs::read_dir(&include_glob)
-            .with_context(|| format!("read {}", include_glob.display()))?
-        {
+        for family in std::fs::read_dir(&include_glob).with_context(|| format!("read {}", include_glob.display()))? {
             let family = family?;
             let include = family.path().join("Include");
             if !include.is_dir() {
                 continue;
             }
-            for entry in std::fs::read_dir(&include)
-                .with_context(|| format!("read {}", include.display()))?
-            {
+            for entry in std::fs::read_dir(&include).with_context(|| format!("read {}", include.display()))? {
                 let path = entry?.path();
                 if path.extension().and_then(|s| s.to_str()) != Some("h") {
                     continue;
                 }
-                let text = std::fs::read_to_string(&path)
-                    .with_context(|| format!("read {}", path.display()))?;
+                let text = std::fs::read_to_string(&path).with_context(|| format!("read {}", path.display()))?;
                 for caps in marker.captures_iter(&text) {
                     out.insert(caps.get(1).unwrap().as_str().to_ascii_lowercase());
                 }
@@ -119,9 +114,7 @@ pub fn expand_series2_aliases(ir: &mut IR) {
             // we get `if_clr` and not `if__clr`. Adding `_set`/`_clr`/
             // `_tgl` never produces a keyword, so no re-escape needed.
             let base_name = item.name.strip_suffix('_').unwrap_or(&item.name);
-            for (suffix, offset) in
-                [("set", SET_OFFSET), ("clr", CLR_OFFSET), ("tgl", TGL_OFFSET)]
-            {
+            for (suffix, offset) in [("set", SET_OFFSET), ("clr", CLR_OFFSET), ("tgl", TGL_OFFSET)] {
                 let alias_reg = chiptool::ir::Register {
                     access: Access::Write,
                     bit_size: reg.bit_size,
@@ -129,9 +122,10 @@ pub fn expand_series2_aliases(ir: &mut IR) {
                 };
                 aliases.push(BlockItem {
                     name: format!("{base_name}_{suffix}"),
-                    description: item.description.as_ref().map(|d| {
-                        format!("{d} (write-1-to-{suffix} alias)")
-                    }),
+                    description: item
+                        .description
+                        .as_ref()
+                        .map(|d| format!("{d} (write-1-to-{suffix} alias)")),
                     array: item.array.clone(),
                     byte_offset: item.byte_offset + offset,
                     inner: BlockItemInner::Register(alias_reg),
@@ -144,9 +138,11 @@ pub fn expand_series2_aliases(ir: &mut IR) {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use chiptool::ir::{Block, BlockItem, BlockItemInner, IR, Register};
     use std::collections::BTreeMap;
+
+    use chiptool::ir::{Block, BlockItem, BlockItemInner, IR, Register};
+
+    use super::*;
 
     fn rw_reg(name: &str, offset: u32, fieldset: &str) -> BlockItem {
         BlockItem {
@@ -206,8 +202,7 @@ mod tests {
         assert_eq!(names, ["if_", "if_set", "if_clr", "if_tgl"]);
 
         // Check offsets and access on each alias.
-        let by_name: std::collections::HashMap<&str, &BlockItem> =
-            items.iter().map(|i| (i.name.as_str(), i)).collect();
+        let by_name: std::collections::HashMap<&str, &BlockItem> = items.iter().map(|i| (i.name.as_str(), i)).collect();
         assert_eq!(by_name["if_set"].byte_offset, 0x14 + 0x1000);
         assert_eq!(by_name["if_clr"].byte_offset, 0x14 + 0x2000);
         assert_eq!(by_name["if_tgl"].byte_offset, 0x14 + 0x3000);
@@ -224,17 +219,10 @@ mod tests {
 
     #[test]
     fn read_only_registers_get_no_aliases() {
-        let mut ir = make_ir(vec![
-            ro_reg("ipversion", 0x00),
-            rw_reg("ctrl", 0x08, "regs::Ctrl"),
-        ]);
+        let mut ir = make_ir(vec![ro_reg("ipversion", 0x00), rw_reg("ctrl", 0x08, "regs::Ctrl")]);
         expand_series2_aliases(&mut ir);
 
-        let names: Vec<&str> = ir.blocks["Timer"]
-            .items
-            .iter()
-            .map(|i| i.name.as_str())
-            .collect();
+        let names: Vec<&str> = ir.blocks["Timer"].items.iter().map(|i| i.name.as_str()).collect();
         // ctrl gets 3 aliases; ipversion gets none.
         assert!(names.contains(&"ipversion"));
         assert!(!names.iter().any(|n| n.starts_with("ipversion_")));
@@ -256,11 +244,8 @@ mod tests {
         let mut ir = make_ir(vec![item]);
         expand_series2_aliases(&mut ir);
 
-        let by_name: std::collections::HashMap<String, &BlockItem> = ir.blocks["Timer"]
-            .items
-            .iter()
-            .map(|i| (i.name.clone(), i))
-            .collect();
+        let by_name: std::collections::HashMap<String, &BlockItem> =
+            ir.blocks["Timer"].items.iter().map(|i| (i.name.clone(), i)).collect();
         for suffix in ["set", "clr", "tgl"] {
             let alias = &by_name[&format!("p_dout_{suffix}")];
             assert!(
@@ -282,10 +267,7 @@ mod tests {
     #[test]
     fn discover_banked_kinds_picks_up_has_set_clear_defines() {
         use std::fs;
-        let tmp = std::env::temp_dir().join(format!(
-            "expand-aliases-test-{}",
-            std::process::id()
-        ));
+        let tmp = std::env::temp_dir().join(format!("expand-aliases-test-{}", std::process::id()));
         let include = tmp.join("Device/SiliconLabs/EFR32XX/Include");
         fs::create_dir_all(&include).unwrap();
 
@@ -294,17 +276,9 @@ mod tests {
             "/* ... */\n#define TIMER_HAS_SET_CLEAR\n#define TIMER_FOO 1\n",
         )
         .unwrap();
-        fs::write(
-            include.join("efr32xx_gpio.h"),
-            "#define GPIO_HAS_SET_CLEAR\n",
-        )
-        .unwrap();
+        fs::write(include.join("efr32xx_gpio.h"), "#define GPIO_HAS_SET_CLEAR\n").unwrap();
         // Non-banked peripheral — no marker.
-        fs::write(
-            include.join("efr32xx_aes.h"),
-            "#define AES_FOO 1\n",
-        )
-        .unwrap();
+        fs::write(include.join("efr32xx_aes.h"), "#define AES_FOO 1\n").unwrap();
         // In-comment mention must NOT match.
         fs::write(
             include.join("efr32xx_buzz.h"),
@@ -312,8 +286,7 @@ mod tests {
         )
         .unwrap();
 
-        let found =
-            discover_banked_kinds(&[tmp.as_path()]).expect("discover");
+        let found = discover_banked_kinds(&[tmp.as_path()]).expect("discover");
         assert!(found.contains("timer"), "found: {found:?}");
         assert!(found.contains("gpio"), "found: {found:?}");
         assert!(!found.contains("aes"), "found: {found:?}");

@@ -54,7 +54,6 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     // the others to `eusart_v2.yaml`.
     ("EFR32MG2[46].*:EUSART0_NS:.*", "eusart", "v2_lf", "EUSART"),
     ("EFR32MG2[46].*:EUSART[1-9]_NS:.*", "eusart", "v2", "EUSART"),
-
     // TIMER bit-width split. Wide (32-bit) and narrow (16-bit) timers
     // share <version>1</version> in the SVD but differ in the bit_size of
     // CNT / TOP / CCx. The instance-number grouping is:
@@ -64,16 +63,24 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     ("EFR32MG2[46].*:TIMER[01]_NS:.*", "timer", "v1_w", "TIMER"),
     ("EFR32MG26.*:TIMER[89]_NS:.*", "timer", "v1_w", "TIMER"),
     ("EFR32MG2[46].*:TIMER[2-7]_NS:.*", "timer", "v1", "TIMER"),
-
     // IADC high-accuracy variant. Some sub-families ship an IADC with an
     // extra `OSRHA` field plus HIGHACCURACY / HIGHSPEED ADCMODE enum
     // variants; others don't. All report <version>3</version>. The HA
     // sub-families differ per chip family:
     //   MG24: hundreds digit 1 or 3 (A1xx/B1xx/A3xx/B3xx).
     //   MG26: hundreds digit 3 or 5 (B3xx/B5xx).
-    ("EFR32MG24[A-Z][13][0-9][0-9].*:IADC[0-9]+_NS:.*", "iadc", "v3_ha", "IADC"),
-    ("EFR32MG26[A-Z][35][0-9][0-9].*:IADC[0-9]+_NS:.*", "iadc", "v3_ha", "IADC"),
-
+    (
+        "EFR32MG24[A-Z][13][0-9][0-9].*:IADC[0-9]+_NS:.*",
+        "iadc",
+        "v3_ha",
+        "IADC",
+    ),
+    (
+        "EFR32MG26[A-Z][35][0-9][0-9].*:IADC[0-9]+_NS:.*",
+        "iadc",
+        "v3_ha",
+        "IADC",
+    ),
     // SMU MVP-aware variant. Chips that include the MVP peripheral add
     // MVPAHBDATA0..2 fields and an MVP privilege/secure-access bit to
     // SMU's access-control registers. We enumerate the chip patterns
@@ -86,24 +93,40 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     // chip's MVP presence, not the SMU IP version.
     ("EFR32MG24B[23][0-9][0-9]F.*:SMU_NS:.*", "smu", "v3_mvp", "SMU"),
     ("EFR32MG26B[456][0-9]0F.*:SMU_NS:.*", "smu", "v7_mvp", "SMU"),
-
     // SYSCFG MVP-aware variant. Same chip set as SMU above adds
     // MVPAHBDATA0/1/2 PORTSEL fields to SYSCFG's port-select register.
     ("EFR32MG24B[23][0-9][0-9]F.*:SYSCFG_NS:.*", "syscfg", "v3_mvp", "SYSCFG"),
     ("EFR32MG26B[456][0-9]0F.*:SYSCFG_NS:.*", "syscfg", "v9_mvp", "SYSCFG"),
-
     // SMU_NS_CFGNS / SMU_S_CFGNS MVP-aware variants. Same chip set as SMU.
-    ("EFR32MG24B[23][0-9][0-9]F.*:SMU_NS_CFGNS:.*", "smu_ns_cfgns", "v3_mvp", "SMU_NS_CFGNS"),
-    ("EFR32MG24B[23][0-9][0-9]F.*:SMU_S_CFGNS:.*",  "smu_s_cfgns",  "v3_mvp", "SMU_S_CFGNS"),
-    ("EFR32MG26B[456][0-9]0F.*:SMU_NS_CFGNS:.*",    "smu_ns_cfgns", "v7_mvp", "SMU_NS_CFGNS"),
-    ("EFR32MG26B[456][0-9]0F.*:SMU_S_CFGNS:.*",     "smu_s_cfgns",  "v7_mvp", "SMU_S_CFGNS"),
-
+    (
+        "EFR32MG24B[23][0-9][0-9]F.*:SMU_NS_CFGNS:.*",
+        "smu_ns_cfgns",
+        "v3_mvp",
+        "SMU_NS_CFGNS",
+    ),
+    (
+        "EFR32MG24B[23][0-9][0-9]F.*:SMU_S_CFGNS:.*",
+        "smu_s_cfgns",
+        "v3_mvp",
+        "SMU_S_CFGNS",
+    ),
+    (
+        "EFR32MG26B[456][0-9]0F.*:SMU_NS_CFGNS:.*",
+        "smu_ns_cfgns",
+        "v7_mvp",
+        "SMU_NS_CFGNS",
+    ),
+    (
+        "EFR32MG26B[456][0-9]0F.*:SMU_S_CFGNS:.*",
+        "smu_s_cfgns",
+        "v7_mvp",
+        "SMU_S_CFGNS",
+    ),
     // DMEM wait-states variant. MG24 has a single DMEM_NS instance that
     // exposes a CTRL.WAITSTATES bit (RAM read wait-states). MG26 has two
     // DMEM instances (DMEM0_NS, DMEM1_NS) without that field. Both report
     // <version>2</version>; the WAITSTATES bit is the only IR difference.
     ("EFR32MG24.*:DMEM_NS:.*", "dmem", "v2_ws", "DMEM"),
-
     // DEVINFO is a per-family factory-programmed block. Both families
     // report <version>0.0</version> but their register layouts differ
     // substantially (different calibration data, chip-specific fields).
@@ -117,8 +140,7 @@ pub fn compile() -> Result<Vec<Entry>> {
     ENTRIES
         .iter()
         .map(|(key, kind, version, block)| {
-            let re = Regex::new(&format!("^{key}$"))
-                .with_context(|| format!("perimap key `{key}`"))?;
+            let re = Regex::new(&format!("^{key}$")).with_context(|| format!("perimap key `{key}`"))?;
             Ok(Entry {
                 key: re,
                 kind,
@@ -157,16 +179,8 @@ fn default_route(peripheral: &str, svd_version: Option<&str>) -> Route {
 
 /// Route a peripheral instance to its `(kind, version, block)`. The
 /// `compiled` argument should come from [`compile`].
-pub fn route(
-    compiled: &[Entry],
-    chip: &str,
-    peripheral: &str,
-    svd_version: Option<&str>,
-) -> Route {
-    let key = format!(
-        "{chip}:{peripheral}:{}",
-        svd_version.unwrap_or("")
-    );
+pub fn route(compiled: &[Entry], chip: &str, peripheral: &str, svd_version: Option<&str>) -> Route {
+    let key = format!("{chip}:{peripheral}:{}", svd_version.unwrap_or(""));
     for e in compiled {
         if e.key.is_match(&key) {
             return Route {

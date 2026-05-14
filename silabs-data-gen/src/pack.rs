@@ -1,9 +1,9 @@
-use anyhow::{Context, Result, bail};
 use std::path::{Path, PathBuf};
 
+use anyhow::{Context, Result, bail};
+
 pub fn extract_pack(pack: &Path, dst: &Path) -> Result<()> {
-    let file = std::fs::File::open(pack)
-        .with_context(|| format!("opening {}", pack.display()))?;
+    let file = std::fs::File::open(pack).with_context(|| format!("opening {}", pack.display()))?;
     let mut zip = zip::ZipArchive::new(file)?;
     std::fs::create_dir_all(dst)?;
     for i in 0..zip.len() {

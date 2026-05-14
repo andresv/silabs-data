@@ -8,12 +8,13 @@
 //! 5. Apply transforms loaded from one or more YAML files.
 //! 6. Render `lib.rs` token stream + `device.x` linker fragment.
 
+use std::path::Path;
+
 use anyhow::{Context, Result, anyhow};
 use chiptool::generate::{self, CommonModule, DefmtOption, Options};
 use chiptool::ir::IR;
 use chiptool::svd2ir::{self, NamespaceMode};
 use chiptool::transform::Transform;
-use std::path::Path;
 use svd_parser::ValidateLevel;
 
 pub struct GenerateInput<'a> {
@@ -55,10 +56,9 @@ struct TransformConfig {
 }
 
 fn apply_transform_file(ir: &mut IR, path: &Path) -> Result<()> {
-    let bytes = std::fs::read(path)
-        .with_context(|| format!("read transforms file {}", path.display()))?;
-    let cfg: TransformConfig = serde_yaml::from_slice(&bytes)
-        .with_context(|| format!("parse transforms file {}", path.display()))?;
+    let bytes = std::fs::read(path).with_context(|| format!("read transforms file {}", path.display()))?;
+    let cfg: TransformConfig =
+        serde_yaml::from_slice(&bytes).with_context(|| format!("parse transforms file {}", path.display()))?;
     // Resolve relative includes vs the parent directory of `path`.
     let parent = path.parent().unwrap_or_else(|| Path::new("."));
     for inc in &cfg.includes {
@@ -73,8 +73,8 @@ fn apply_transform_file(ir: &mut IR, path: &Path) -> Result<()> {
 }
 
 pub fn generate(input: GenerateInput<'_>) -> Result<Generated> {
-    let raw = std::fs::read_to_string(input.svd_path)
-        .with_context(|| format!("read SVD {}", input.svd_path.display()))?;
+    let raw =
+        std::fs::read_to_string(input.svd_path).with_context(|| format!("read SVD {}", input.svd_path.display()))?;
 
     let preprocessed = crate::peripheral::strip_secure_peripherals(&raw)?;
 
@@ -88,8 +88,7 @@ pub fn generate(input: GenerateInput<'_>) -> Result<Generated> {
     // each peripheral block gets its own module, and fieldsets/enums are split
     // into `regs::` and `vals::` submodules respectively. This prevents
     // collisions where a register and an enum share a name (e.g. WDOG `LOCK`).
-    let mut ir = svd2ir::convert_svd(&device, NamespaceMode::BlockWithRegsVals)
-        .context("svd2ir::convert_svd")?;
+    let mut ir = svd2ir::convert_svd(&device, NamespaceMode::BlockWithRegsVals).context("svd2ir::convert_svd")?;
 
     // Equivalent to chiptool's private `clean_up_ir`.
     chiptool::transform::clean_descriptions::CleanDescriptions {}
@@ -119,10 +118,7 @@ pub fn generate(input: GenerateInput<'_>) -> Result<Generated> {
         .next()
         .cloned()
         .ok_or_else(|| anyhow!("no device in IR"))?;
-    let dev = ir
-        .devices
-        .get_mut(&dev_key)
-        .ok_or_else(|| anyhow!("no device in IR"))?;
+    let dev = ir.devices.get_mut(&dev_key).ok_or_else(|| anyhow!("no device in IR"))?;
     dev.interrupts = input
         .interrupts
         .iter()
@@ -146,10 +142,7 @@ pub fn generate(input: GenerateInput<'_>) -> Result<Generated> {
     let tokens = generate::render(&ir, &opts).context("generate::render")?;
     let lib_rs = strip_crate_inner_attrs(&tokens.to_string());
 
-    let dev = ir
-        .devices
-        .get(&dev_key)
-        .ok_or_else(|| anyhow!("no device in IR"))?;
+    let dev = ir.devices.get(&dev_key).ok_or_else(|| anyhow!("no device in IR"))?;
     let device_x = generate::render_device_x(&ir, dev).context("render_device_x")?;
 
     Ok(Generated { lib_rs, device_x })

@@ -84,8 +84,8 @@ pub fn parse(xml: &str) -> Result<ChipDb> {
                 match local.as_str() {
                     "devices" => in_devices = true,
                     "family" if in_devices => {
-                        let dfam = attr(e.attributes(), "Dfamily")?
-                            .ok_or_else(|| anyhow!("<family> missing Dfamily"))?;
+                        let dfam =
+                            attr(e.attributes(), "Dfamily")?.ok_or_else(|| anyhow!("<family> missing Dfamily"))?;
                         family = Some(family_short_name(&dfam));
                         scopes.push(Scope::default());
                     }
@@ -93,8 +93,7 @@ pub fn parse(xml: &str) -> Result<ChipDb> {
                         scopes.push(Scope::default());
                     }
                     "device" if in_devices => {
-                        let dname = attr(e.attributes(), "Dname")?
-                            .ok_or_else(|| anyhow!("<device> missing Dname"))?;
+                        let dname = attr(e.attributes(), "Dname")?.ok_or_else(|| anyhow!("<device> missing Dname"))?;
                         current_device = Some(DeviceBuilder::new(dname));
                     }
                     "processor" if in_devices => {
@@ -264,12 +263,9 @@ impl DeviceBuilder {
         }
 
         // Flash algo / svd: device wins, else nearest enclosing scope wins.
-        let flash_algo = self.flash_algo.or_else(|| {
-            scopes
-                .iter()
-                .rev()
-                .find_map(|s| s.flash_algo.clone())
-        });
+        let flash_algo = self
+            .flash_algo
+            .or_else(|| scopes.iter().rev().find_map(|s| s.flash_algo.clone()));
         let svd = self
             .svd
             .or_else(|| scopes.iter().rev().find_map(|s| s.svd.clone()))
@@ -338,7 +334,12 @@ fn parse_memory(attrs: Attributes) -> Result<MemoryRegion> {
     let start = start.ok_or_else(|| anyhow!("<memory id={id}> missing start"))?;
     let size = size.ok_or_else(|| anyhow!("<memory id={id}> missing size"))?;
     let access = explicit_access.unwrap_or_else(|| default_access(&id));
-    Ok(MemoryRegion { id, start, size, access })
+    Ok(MemoryRegion {
+        id,
+        start,
+        size,
+        access,
+    })
 }
 
 fn default_access(id: &str) -> String {
@@ -355,8 +356,7 @@ fn default_access(id: &str) -> String {
 fn parse_hex_or_dec(s: &str) -> Result<u64> {
     let trimmed = s.trim();
     if let Some(stripped) = trimmed.strip_prefix("0x").or_else(|| trimmed.strip_prefix("0X")) {
-        u64::from_str_radix(stripped, 16)
-            .with_context(|| format!("invalid hex literal {trimmed:?}"))
+        u64::from_str_radix(stripped, 16).with_context(|| format!("invalid hex literal {trimmed:?}"))
     } else if trimmed.is_empty() {
         bail!("empty numeric literal");
     } else {

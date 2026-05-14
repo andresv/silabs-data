@@ -15,8 +15,9 @@
 //! That's a 76.9%/23.1% shared/split split — measured share ratio in the
 //! real SVDs was 79.5%, so 75% is the assertion threshold.
 
-use silabs_data_gen::svd::{self, PeripheralIr};
 use std::collections::HashMap;
+
+use silabs_data_gen::svd::{self, PeripheralIr};
 
 fn parse_subset(xml: &str) -> HashMap<String, PeripheralIr> {
     svd::parse(xml)

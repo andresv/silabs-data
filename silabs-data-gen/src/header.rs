@@ -19,17 +19,18 @@
 //! ```
 //!
 //! We parse those lines and use them verbatim as the chip's interrupt
-//! table in `chip_json::build`. The SVD's `<interrupt>` blocks are
+//! table in `chips::build`. The SVD's `<interrupt>` blocks are
 //! intentionally ignored.
 //!
 //! This mirrors stm32-data's approach: it doesn't trust the SVD for
 //! interrupts either, and parses STM32 HAL headers for `<NAME>_IRQn = N,`
 //! enum members (`stm32-data-gen/src/header.rs`).
 
-use anyhow::{Context, Result};
-use regex::Regex;
 use std::path::Path;
 use std::sync::OnceLock;
+
+use anyhow::{Context, Result};
+use regex::Regex;
 
 /// One IRQ enum entry recovered from the device header.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -53,8 +54,7 @@ pub fn parse(text: &str) -> Vec<HeaderIrq> {
     let re = RE.get_or_init(|| {
         // Anchored to the line start (after optional whitespace) so we don't
         // match `#define FOO_IRQn = 12` style macros or in-comment mentions.
-        Regex::new(r"^\s*([A-Za-z_][A-Za-z0-9_]*)_IRQn\s*=\s*(-?\d+)\s*,?")
-            .expect("regex compiles")
+        Regex::new(r"^\s*([A-Za-z_][A-Za-z0-9_]*)_IRQn\s*=\s*(-?\d+)\s*,?").expect("regex compiles")
     });
 
     let mut out = Vec::new();
@@ -62,7 +62,9 @@ pub fn parse(text: &str) -> Vec<HeaderIrq> {
         let Some(caps) = re.captures(line) else { continue };
         let name = caps.get(1).unwrap().as_str().to_string();
         let raw = caps.get(2).unwrap().as_str();
-        let Ok(value): Result<i64, _> = raw.parse() else { continue };
+        let Ok(value): Result<i64, _> = raw.parse() else {
+            continue;
+        };
         if value < 0 {
             // Cortex-M core exceptions (HardFault, MemoryManagement, etc.).
             // Not part of the device-specific vector table.
@@ -79,8 +81,7 @@ pub fn parse(text: &str) -> Vec<HeaderIrq> {
 /// Convenience wrapper: read a header from disk and parse it.
 pub fn parse_file(path: impl AsRef<Path>) -> Result<Vec<HeaderIrq>> {
     let path = path.as_ref();
-    let text = std::fs::read_to_string(path)
-        .with_context(|| format!("read header {}", path.display()))?;
+    let text = std::fs::read_to_string(path).with_context(|| format!("read header {}", path.display()))?;
     Ok(parse(&text))
 }
 
@@ -120,8 +121,7 @@ typedef enum IRQn {
         "#;
 
         let irqs = parse(sample);
-        let by_name: std::collections::HashMap<&str, u32> =
-            irqs.iter().map(|i| (i.name.as_str(), i.value)).collect();
+        let by_name: std::collections::HashMap<&str, u32> = irqs.iter().map(|i| (i.name.as_str(), i.value)).collect();
 
         // Radio peripherals — missing from the SVD.
         assert_eq!(by_name.get("FRC"), Some(&49));

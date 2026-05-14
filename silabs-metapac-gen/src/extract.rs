@@ -6,11 +6,12 @@
 //! extraction so every chip emitting the same `(kind, version)` produces a
 //! structurally identical IR.
 
+use std::path::Path;
+
 use anyhow::{Context, Result};
 use chiptool::ir::IR;
 use chiptool::svd2ir::NamespaceMode;
 use chiptool::transform::Transform;
-use std::path::Path;
 
 /// Strip a `<prefix>::` segment from every block / fieldset / enum name in
 /// `ir`, *and* from references inside blocks. Keys that don't start with the
@@ -74,10 +75,9 @@ struct TransformConfig {
 }
 
 fn apply_transform_file(ir: &mut IR, path: &Path) -> Result<()> {
-    let bytes = std::fs::read(path)
-        .with_context(|| format!("read transforms file {}", path.display()))?;
-    let cfg: TransformConfig = serde_yaml::from_slice(&bytes)
-        .with_context(|| format!("parse transforms file {}", path.display()))?;
+    let bytes = std::fs::read(path).with_context(|| format!("read transforms file {}", path.display()))?;
+    let cfg: TransformConfig =
+        serde_yaml::from_slice(&bytes).with_context(|| format!("parse transforms file {}", path.display()))?;
     let parent = path.parent().unwrap_or_else(|| Path::new("."));
     for inc in &cfg.includes {
         let sub = parent.join(inc);
@@ -116,14 +116,12 @@ pub fn extract_ip(
     // Apply per-block transform (e.g. transforms/GPIO.yaml). Missing file is OK.
     let block_yaml = transforms_dir.join(format!("{block}.yaml"));
     if block_yaml.is_file() {
-        apply_transform_file(&mut ir, &block_yaml)
-            .with_context(|| format!("apply {}", block_yaml.display()))?;
+        apply_transform_file(&mut ir, &block_yaml).with_context(|| format!("apply {}", block_yaml.display()))?;
     }
     // Apply per-(block, version) override if present.
     let bv_yaml = transforms_dir.join(format!("{block}_{version}.yaml"));
     if bv_yaml.is_file() {
-        apply_transform_file(&mut ir, &bv_yaml)
-            .with_context(|| format!("apply {}", bv_yaml.display()))?;
+        apply_transform_file(&mut ir, &bv_yaml).with_context(|| format!("apply {}", bv_yaml.display()))?;
     }
 
     // Prune trivially useless on/off enums (DISABLE/ENABLE, DIS/EN, OFF/ON,
@@ -135,9 +133,7 @@ pub fn extract_ip(
         .run(&mut ir)
         .context("DeleteUselessEnums")?;
 
-    chiptool::transform::sort::Sort {}
-        .run(&mut ir)
-        .context("sort")?;
+    chiptool::transform::sort::Sort {}.run(&mut ir).context("sort")?;
 
     // Canonicalise casing the same way stm32-metapac does: blocks/fieldsets/
     // enums in PathSnakePascal, fields and block-items in Snake, enum

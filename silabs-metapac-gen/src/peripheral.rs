@@ -1,8 +1,9 @@
+use std::io::Cursor;
+
 use anyhow::Result;
 use quick_xml::events::Event;
 use quick_xml::reader::Reader;
 use quick_xml::writer::Writer;
-use std::io::Cursor;
 
 /// Strip `_S` TrustZone-alias peripherals from an SVD XML.
 ///
@@ -111,10 +112,8 @@ mod tests {
     #[test]
     fn drops_secure_in_mg26_shaped_svd() {
         // The fixture lives in the silabs-metapac-gen tests dir.
-        let fixture =
-            std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/mg26_smoke.svd");
-        let xml = std::fs::read_to_string(&fixture)
-            .unwrap_or_else(|e| panic!("read {}: {e}", fixture.display()));
+        let fixture = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/mg26_smoke.svd");
+        let xml = std::fs::read_to_string(&fixture).unwrap_or_else(|e| panic!("read {}: {e}", fixture.display()));
 
         // Sanity: original has both NS and S peripherals (2 of each in fixture).
         let orig = peripheral_names(&xml);
@@ -128,10 +127,7 @@ mod tests {
 
         let stripped = strip_secure_peripherals(&xml).unwrap();
         let stripped_names = peripheral_names(&stripped);
-        let ns: Vec<_> = stripped_names
-            .iter()
-            .filter(|n| n.ends_with("_NS"))
-            .collect();
+        let ns: Vec<_> = stripped_names.iter().filter(|n| n.ends_with("_NS")).collect();
         let s: Vec<_> = stripped_names
             .iter()
             .filter(|n| n.ends_with("_S") && !n.ends_with("_NS"))

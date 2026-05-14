@@ -8,17 +8,16 @@
 //! introspect peripheral layouts at runtime without re-parsing the
 //! source YAML.
 
-use anyhow::{Context, Result};
-use chiptool::ir::{
-    Access, Array, BitOffset, Block, BlockItem, BlockItemInner, Enum, EnumVariant, Field,
-    FieldSet, IR,
-};
 use std::collections::BTreeMap;
 use std::fmt::Write as _;
 use std::path::Path;
 
-use crate::pac::IpKey;
-use crate::pac::module_name_from_key;
+use anyhow::{Context, Result};
+use chiptool::ir::{
+    Access, Array, BitOffset, Block, BlockItem, BlockItemInner, Enum, EnumVariant, Field, FieldSet, IR,
+};
+
+use crate::pac::{IpKey, module_name_from_key};
 
 /// The type-definitions module written to `<metapac>/src/metadata.rs`.
 ///
@@ -35,8 +34,7 @@ pub fn write_metadata_module(out_dir: &Path) -> Result<()> {
     if let Some(parent) = out.parent() {
         std::fs::create_dir_all(parent)?;
     }
-    std::fs::write(&out, METADATA_RS)
-        .with_context(|| format!("write {}", out.display()))?;
+    std::fs::write(&out, METADATA_RS).with_context(|| format!("write {}", out.display()))?;
     Ok(())
 }
 
@@ -47,20 +45,14 @@ pub fn write_metadata_module(out_dir: &Path) -> Result<()> {
 /// use crate::metadata::ir::*;
 /// pub(crate) static REGISTERS: IR = IR { blocks: &[...], ... };
 /// ```
-pub fn write_registers_dir(
-    irs: &BTreeMap<IpKey, IR>,
-    out_dir: &Path,
-) -> Result<()> {
-    std::fs::create_dir_all(out_dir)
-        .with_context(|| format!("create {}", out_dir.display()))?;
+pub fn write_registers_dir(irs: &BTreeMap<IpKey, IR>, out_dir: &Path) -> Result<()> {
+    std::fs::create_dir_all(out_dir).with_context(|| format!("create {}", out_dir.display()))?;
 
     for (key, ir) in irs {
         let body = render_ir(ir);
         let path = out_dir.join(format!("{}.rs", module_name_from_key(key)));
-        std::fs::write(&path, body)
-            .with_context(|| format!("write {}", path.display()))?;
-        crate::pac::rustfmt_in_place(&path)
-            .with_context(|| format!("rustfmt {}", path.display()))?;
+        std::fs::write(&path, body).with_context(|| format!("write {}", path.display()))?;
+        crate::pac::rustfmt_in_place(&path).with_context(|| format!("rustfmt {}", path.display()))?;
     }
     Ok(())
 }
@@ -129,7 +121,10 @@ fn render_block_item(s: &mut String, item: &BlockItem) {
 fn render_inner(inner: &BlockItemInner) -> String {
     match inner {
         BlockItemInner::Block(b) => {
-            format!("BlockItemInner::Block(BlockItemBlock {{ block: {} }})", quote_str(&b.block))
+            format!(
+                "BlockItemInner::Block(BlockItemBlock {{ block: {} }})",
+                quote_str(&b.block)
+            )
         }
         BlockItemInner::Register(r) => {
             format!(
@@ -179,11 +174,7 @@ fn render_fieldset(s: &mut String, name: &str, fs: &FieldSet) {
         "            extends: {},",
         quote_opt(strip_regs_prefix(fs.extends.as_deref()).as_deref())
     );
-    let _ = writeln!(
-        s,
-        "            description: {},",
-        quote_opt(fs.description.as_deref())
-    );
+    let _ = writeln!(s, "            description: {},", quote_opt(fs.description.as_deref()));
     let _ = writeln!(s, "            bit_size: {},", fs.bit_size);
     let _ = writeln!(s, "            fields: &[");
     for f in &fs.fields {
@@ -207,11 +198,7 @@ fn render_field(s: &mut String, f: &Field) {
         render_bit_offset(&f.bit_offset)
     );
     let _ = writeln!(s, "                    bit_size: {},", f.bit_size);
-    let _ = writeln!(
-        s,
-        "                    array: {},",
-        render_array(f.array.as_ref())
-    );
+    let _ = writeln!(s, "                    array: {},", render_array(f.array.as_ref()));
     let _ = writeln!(
         s,
         "                    enumm: {},",
@@ -242,11 +229,7 @@ fn render_bit_offset(b: &BitOffset) -> String {
 fn render_enum(s: &mut String, name: &str, en: &Enum) {
     let _ = writeln!(s, "        Enum {{");
     let _ = writeln!(s, "            name: {},", quote_str(&strip_vals_prefix_owned(name)));
-    let _ = writeln!(
-        s,
-        "            description: {},",
-        quote_opt(en.description.as_deref())
-    );
+    let _ = writeln!(s, "            description: {},", quote_opt(en.description.as_deref()));
     let _ = writeln!(s, "            bit_size: {},", en.bit_size);
     let _ = writeln!(s, "            variants: &[");
     for v in &en.variants {

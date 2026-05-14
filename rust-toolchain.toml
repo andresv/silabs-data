@@ -1,0 +1,7 @@
+[toolchain]
+# Nightly matches stm32-data and is required by the unstable
+# `group_imports`/`imports_granularity` rustfmt options in `rustfmt.toml`.
+# The thumbv8m.main target is for EFR32 Series 2 (Cortex-M33).
+channel = "nightly-2025-12-11"
+components = ["rust-src", "rustfmt", "llvm-tools"]
+targets = ["thumbv8m.main-none-eabihf"]

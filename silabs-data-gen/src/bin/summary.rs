@@ -5,7 +5,7 @@ use std::path::{Path, PathBuf};
 use anyhow::{Context, Result, bail};
 use clap::Parser;
 use regex::Regex;
-use silabs_data_gen::chip_json::ChipFile;
+use silabs_data_gen::chips::ChipFile;
 
 #[derive(Parser)]
 #[command(name = "summary")]
@@ -39,8 +39,8 @@ type Matrix = BTreeMap<String, BTreeMap<String, (BTreeSet<String>, bool)>>;
 fn main() -> Result<()> {
     let args = Args::parse();
 
-    let families = read_families(&args.families)
-        .with_context(|| format!("reading families from {}", args.families.display()))?;
+    let families =
+        read_families(&args.families).with_context(|| format!("reading families from {}", args.families.display()))?;
     if families.is_empty() {
         bail!("no families found in {}", args.families.display());
     }
@@ -54,8 +54,8 @@ fn main() -> Result<()> {
     let mut chip_count = 0usize;
     let mut processed = 0usize;
 
-    let entries = fs::read_dir(&args.chips_dir)
-        .with_context(|| format!("reading chips dir {}", args.chips_dir.display()))?;
+    let entries =
+        fs::read_dir(&args.chips_dir).with_context(|| format!("reading chips dir {}", args.chips_dir.display()))?;
     for entry in entries {
         let entry = entry?;
         let path = entry.path();
@@ -63,16 +63,11 @@ fn main() -> Result<()> {
             continue;
         }
         chip_count += 1;
-        let content = fs::read_to_string(&path)
-            .with_context(|| format!("reading {}", path.display()))?;
-        let chip: ChipFile = serde_json::from_str(&content)
-            .with_context(|| format!("parsing {}", path.display()))?;
+        let content = fs::read_to_string(&path).with_context(|| format!("reading {}", path.display()))?;
+        let chip: ChipFile = serde_json::from_str(&content).with_context(|| format!("parsing {}", path.display()))?;
 
         let Some(family) = family_of(&chip.chip.name, &families) else {
-            eprintln!(
-                "warning: no family match for chip {} (skipping)",
-                chip.chip.name
-            );
+            eprintln!("warning: no family match for chip {} (skipping)", chip.chip.name);
             continue;
         };
         processed += 1;
@@ -118,8 +113,7 @@ fn main() -> Result<()> {
 fn read_families(path: &Path) -> Result<Vec<String>> {
     let text = fs::read_to_string(path)?;
     let re = Regex::new(r#"(?m)^name\s*=\s*"([^"]+)"\s*$"#)?;
-    let mut names: Vec<String> =
-        re.captures_iter(&text).map(|c| c[1].to_string()).collect();
+    let mut names: Vec<String> = re.captures_iter(&text).map(|c| c[1].to_string()).collect();
     // Longest-first match to avoid prefix collisions (e.g. EFR32MG2 vs EFR32MG24).
     names.sort_by(|a, b| b.len().cmp(&a.len()).then_with(|| a.cmp(b)));
     Ok(names)
@@ -144,14 +138,15 @@ fn read_available_yamls(dir: &Path) -> Result<BTreeSet<String>> {
 }
 
 fn family_of(chip_name: &str, families: &[String]) -> Option<String> {
-    families
-        .iter()
-        .find(|f| chip_name.starts_with(f.as_str()))
-        .cloned()
+    families.iter().find(|f| chip_name.starts_with(f.as_str())).cloned()
 }
 
 fn family_label(family: &str) -> String {
-    family.strip_prefix("EFR32").or_else(|| family.strip_prefix("EFM32")).unwrap_or(family).to_string()
+    family
+        .strip_prefix("EFR32")
+        .or_else(|| family.strip_prefix("EFM32"))
+        .unwrap_or(family)
+        .to_string()
 }
 
 fn print_table(matrix: &Matrix, families: &[String]) {
@@ -214,10 +209,7 @@ fn print_sections(matrix: &Matrix) {
         let mut unsupported: BTreeSet<String> = BTreeSet::new();
         for (family, (versions, has_unsupported)) in kind_data {
             for v in versions {
-                by_version
-                    .entry(v.clone())
-                    .or_default()
-                    .insert(family_label(family));
+                by_version.entry(v.clone()).or_default().insert(family_label(family));
             }
             if *has_unsupported {
                 unsupported.insert(family_label(family));

@@ -1,5 +1,6 @@
-use clap::{Parser, Subcommand};
 use std::path::PathBuf;
+
+use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
 #[command(name = "silabs-data-gen")]
@@ -72,9 +73,8 @@ fn main() -> anyhow::Result<()> {
             let total = db.chips.len();
             for chip in db.chips {
                 let svd_path = extract_dir.join(&chip.svd);
-                let svd_xml = std::fs::read_to_string(&svd_path).map_err(|e| {
-                    anyhow::anyhow!("reading SVD {}: {e}", svd_path.display())
-                })?;
+                let svd_xml = std::fs::read_to_string(&svd_path)
+                    .map_err(|e| anyhow::anyhow!("reading SVD {}: {e}", svd_path.display()))?;
                 let peripherals = silabs_data_gen::svd::parse(&svd_xml)?;
 
                 // The SVD's own `<interrupt>` blocks are intentionally not
@@ -85,9 +85,7 @@ fn main() -> anyhow::Result<()> {
                 // `Device/SiliconLabs/<FAMILY>/Include/<chip_lowercase>.h`.
                 let header_irqs = match header_path_for_chip(&extract_dir, &chip) {
                     Some(hpath) if hpath.is_file() => silabs_data_gen::header::parse_file(&hpath)
-                        .map_err(|e| {
-                            anyhow::anyhow!("reading header {}: {e}", hpath.display())
-                        })?,
+                        .map_err(|e| anyhow::anyhow!("reading header {}: {e}", hpath.display()))?,
                     Some(hpath) => {
                         anyhow::bail!(
                             "no device header at {} for {} — header is the authoritative IRQ source and must be present",
@@ -96,20 +94,12 @@ fn main() -> anyhow::Result<()> {
                         );
                     }
                     None => {
-                        anyhow::bail!(
-                            "could not derive header path for {} (svd = {:?})",
-                            chip.name, chip.svd,
-                        );
+                        anyhow::bail!("could not derive header path for {} (svd = {:?})", chip.name, chip.svd,);
                     }
                 };
 
                 let chip_name = chip.name.clone();
-                let chip_file = silabs_data_gen::chip_json::build(
-                    chip,
-                    &peripherals,
-                    &header_irqs,
-                    &perimap_entries,
-                );
+                let chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_irqs, &perimap_entries);
 
                 let out = chips_dir.join(format!("{chip_name}.json"));
                 std::fs::write(&out, serde_json::to_string_pretty(&chip_file)?)?;

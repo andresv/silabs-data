@@ -16,12 +16,13 @@
 //!             └── mod.rs        # peripheral instances + interrupts + memory map
 //! ```
 
-use anyhow::{Context, Result};
-use convert_case::{Boundary, Case, Casing};
-use silabs_data_gen::chip_json::{ChipFile, Interrupt, PeripheralInstance};
-use silabs_data_gen::pdsc::MemoryRegion;
 use std::collections::BTreeSet;
 use std::path::Path;
+
+use anyhow::{Context, Result};
+use convert_case::{Boundary, Case, Casing};
+use silabs_data_gen::chips::{ChipFile, Interrupt, PeripheralInstance};
+use silabs_data_gen::pdsc::MemoryRegion;
 
 use crate::pac::module_name;
 
@@ -34,9 +35,7 @@ use crate::pac::module_name;
 /// three separate words. Without that step `I2C` would round-trip to `I2C`
 /// under `Case::Pascal` and miss the struct named `I2c` in the YAML.
 fn block_struct_ident(block: &str) -> String {
-    block
-        .remove_boundaries(&Boundary::digits())
-        .to_case(Case::Pascal)
+    block.remove_boundaries(&Boundary::digits()).to_case(Case::Pascal)
 }
 
 /// Lower-cased Cargo feature name for a given chip name (`EFR32MG26B211F2048IM68`).
@@ -137,17 +136,12 @@ rt = ["cortex-m-rt"]
     for f in chip_features {
         s.push_str(&format!("{f} = []\n"));
     }
-    std::fs::write(out, s)
-        .with_context(|| format!("write Cargo.toml at {}", out.display()))?;
+    std::fs::write(out, s).with_context(|| format!("write Cargo.toml at {}", out.display()))?;
     Ok(())
 }
 
 /// Write src/lib.rs.
-pub fn write_lib_rs(
-    chip_features: &[String],
-    peripheral_modules: &[(String, Vec<String>)],
-    out: &Path,
-) -> Result<()> {
+pub fn write_lib_rs(chip_features: &[String], peripheral_modules: &[(String, Vec<String>)], out: &Path) -> Result<()> {
     let mut s = String::new();
     s.push_str(
         r#"#![no_std]
@@ -215,8 +209,7 @@ pub fn write_lib_rs(
         s.push_str("pub use chip::*;\n\n");
     }
 
-    std::fs::write(out, s)
-        .with_context(|| format!("write lib.rs at {}", out.display()))?;
+    std::fs::write(out, s).with_context(|| format!("write lib.rs at {}", out.display()))?;
     Ok(())
 }
 
@@ -306,10 +299,7 @@ fn emit_cortex_m_rt_glue(s: &mut String, interrupts: &[Interrupt]) {
     s.push_str(&format!("    pub static __INTERRUPTS: [Vector; {len}] = [\n"));
     for v in 0..len as u32 {
         match by_value.get(&v) {
-            Some(i) => s.push_str(&format!(
-                "        Vector {{ _handler: {} }},\n",
-                i.name
-            )),
+            Some(i) => s.push_str(&format!("        Vector {{ _handler: {} }},\n", i.name)),
             None => s.push_str("        Vector { _reserved: 0 },\n"),
         }
     }
@@ -328,14 +318,8 @@ fn emit_cortex_m_rt_glue(s: &mut String, interrupts: &[Interrupt]) {
 
 fn emit_memory_consts(s: &mut String, m: &MemoryRegion) {
     let id = m.id.to_ascii_uppercase();
-    s.push_str(&format!(
-        "    pub const {id}_BASE: usize = 0x{:08X};\n",
-        m.start
-    ));
-    s.push_str(&format!(
-        "    pub const {id}_SIZE: usize = 0x{:08X};\n",
-        m.size
-    ));
+    s.push_str(&format!("    pub const {id}_BASE: usize = 0x{:08X};\n", m.start));
+    s.push_str(&format!("    pub const {id}_SIZE: usize = 0x{:08X};\n", m.size));
 }
 
 /// Emit typed peripheral instance consts, one per NS peripheral. Each carries
@@ -369,10 +353,7 @@ fn emit_typed_peripheral_consts(s: &mut String, peripherals: &[PeripheralInstanc
 }
 
 fn emit_gpio_port_constants(s: &mut String, peripherals: &[PeripheralInstance]) {
-    if !peripherals
-        .iter()
-        .any(|p| p.name == "GPIO_NS" || p.name == "GPIO")
-    {
+    if !peripherals.iter().any(|p| p.name == "GPIO_NS" || p.name == "GPIO") {
         return;
     }
     s.push_str("/// GPIO port indices, mirroring `efr32mg<NN>_gpio.h`'s\n");
@@ -410,9 +391,10 @@ pub fn stub_device_x(chip_name: &str) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use silabs_data_gen::chip_json::{Interrupt, PeripheralInstance};
+    use silabs_data_gen::chips::{Interrupt, PeripheralInstance};
     use silabs_data_gen::pdsc::{Chip, MemoryRegion};
+
+    use super::*;
 
     fn fake_chip() -> ChipFile {
         ChipFile {
@@ -531,9 +513,6 @@ mod tests {
 
     #[test]
     fn feature_name_lowercases() {
-        assert_eq!(
-            feature_name("EFR32MG26B211F2048IM68"),
-            "efr32mg26b211f2048im68"
-        );
+        assert_eq!(feature_name("EFR32MG26B211F2048IM68"), "efr32mg26b211f2048im68");
     }
 }

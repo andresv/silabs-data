@@ -1,8 +1,9 @@
+use serde::{Deserialize, Serialize};
+
 use crate::header::HeaderIrq;
 use crate::pdsc::Chip;
 use crate::perimap::{self, Entry};
 use crate::svd::PeripheralIr;
-use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct ChipFile {
@@ -45,12 +46,7 @@ pub fn build(
     let instances = peripherals
         .iter()
         .map(|p| {
-            let route = perimap::route(
-                perimap_entries,
-                &chip.name,
-                &p.name,
-                p.version.as_deref(),
-            );
+            let route = perimap::route(perimap_entries, &chip.name, &p.name, p.version.as_deref());
             PeripheralInstance {
                 name: p.name.clone(),
                 base_address: p.base_address,
@@ -121,17 +117,16 @@ mod tests {
     /// routing semantics of real entries are covered by `perimap.rs` tests.
     #[test]
     fn build_threads_routed_kind_version_block_into_json() {
-        use crate::perimap::Entry;
         use regex::Regex;
 
-        let entries = vec![
-            Entry {
-                key: Regex::new("^FAKE:FOO_NS:1$").unwrap(),
-                kind: "foo",
-                version: "v1_custom",
-                block: "FooBlock",
-            },
-        ];
+        use crate::perimap::Entry;
+
+        let entries = vec![Entry {
+            key: Regex::new("^FAKE:FOO_NS:1$").unwrap(),
+            kind: "foo",
+            version: "v1_custom",
+            block: "FooBlock",
+        }];
 
         let peripherals = vec![
             // Matches the custom Entry above — should pick up "foo"/"v1_custom"/"FooBlock".
@@ -182,10 +177,22 @@ mod tests {
     #[test]
     fn build_interrupts_uses_header_verbatim_sorted_by_value() {
         let header = vec![
-            HeaderIrq { name: "MODEM".into(), value: 50 },
-            HeaderIrq { name: "TIMER0".into(), value: 4 },
-            HeaderIrq { name: "FRC".into(), value: 49 },
-            HeaderIrq { name: "SMU_SECURE".into(), value: 0 },
+            HeaderIrq {
+                name: "MODEM".into(),
+                value: 50,
+            },
+            HeaderIrq {
+                name: "TIMER0".into(),
+                value: 4,
+            },
+            HeaderIrq {
+                name: "FRC".into(),
+                value: 49,
+            },
+            HeaderIrq {
+                name: "SMU_SECURE".into(),
+                value: 0,
+            },
         ];
 
         let irqs = build_interrupts(&header);

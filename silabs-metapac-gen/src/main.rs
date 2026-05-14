@@ -14,18 +14,17 @@
 //!   chips' IRs land in the same bucket but disagree, surfacing the conflict
 //!   for the human to resolve via transform / hand-curation / perimap split.
 
+use std::collections::{BTreeMap, BTreeSet};
+use std::path::{Path, PathBuf};
+
 use anyhow::{Context, Result, anyhow, bail};
 use clap::{Parser, Subcommand};
 use sha2::{Digest, Sha256};
-use silabs_data_gen::chip_json::ChipFile;
+use silabs_data_gen::chips::ChipFile;
 use silabs_data_gen::perimap;
 use silabs_metapac_gen::codegen::{self, GenerateInput};
-use silabs_metapac_gen::crate_layout;
-use silabs_metapac_gen::extract;
-use silabs_metapac_gen::peripheral;
 use silabs_metapac_gen::pac::{self, IpKey, module_name};
-use std::collections::{BTreeMap, BTreeSet};
-use std::path::{Path, PathBuf};
+use silabs_metapac_gen::{crate_layout, extract, peripheral};
 use svd_parser::ValidateLevel;
 
 #[derive(Parser)]
@@ -113,10 +112,7 @@ fn ir_hash(ir: &chiptool::ir::IR) -> String {
 
 fn load_chips(chips_dir: &Path) -> Result<Vec<ChipFile>> {
     if !chips_dir.is_dir() {
-        return Err(anyhow!(
-            "expected per-chip JSON directory at {}",
-            chips_dir.display()
-        ));
+        return Err(anyhow!("expected per-chip JSON directory at {}", chips_dir.display()));
     }
     let mut chips: Vec<ChipFile> = Vec::new();
     for entry in std::fs::read_dir(chips_dir)? {
@@ -125,10 +121,8 @@ fn load_chips(chips_dir: &Path) -> Result<Vec<ChipFile>> {
         if path.extension().and_then(|s| s.to_str()) != Some("json") {
             continue;
         }
-        let bytes = std::fs::read(&path)
-            .with_context(|| format!("read {}", path.display()))?;
-        let cf: ChipFile = serde_json::from_slice(&bytes)
-            .with_context(|| format!("parse {}", path.display()))?;
+        let bytes = std::fs::read(&path).with_context(|| format!("read {}", path.display()))?;
+        let cf: ChipFile = serde_json::from_slice(&bytes).with_context(|| format!("parse {}", path.display()))?;
         chips.push(cf);
     }
     chips.sort_by(|a, b| a.chip.name.cmp(&b.chip.name));
@@ -218,10 +212,9 @@ fn run_gen(
                 path.display()
             );
         }
-        let bytes = std::fs::read(&path)
-            .with_context(|| format!("read {}", path.display()))?;
-        let mut ir: chiptool::ir::IR = serde_yaml::from_slice(&bytes)
-            .with_context(|| format!("parse {}", path.display()))?;
+        let bytes = std::fs::read(&path).with_context(|| format!("read {}", path.display()))?;
+        let mut ir: chiptool::ir::IR =
+            serde_yaml::from_slice(&bytes).with_context(|| format!("parse {}", path.display()))?;
         // For Series 2 banked peripherals, materialise the
         // _SET/_CLR/_TGL alias views at +0x1000/+0x2000/+0x3000. The
         // SVD/YAML only carry the base layout; the per-peripheral CMSIS
@@ -243,16 +236,10 @@ fn run_gen(
     // (`src/registers/<kind>_<version>.rs`). Mirrors stm32-metapac's
     // layout — see `silabs_metapac_gen::ir_metadata`.
     silabs_metapac_gen::ir_metadata::write_metadata_module(out_dir)?;
-    silabs_metapac_gen::ir_metadata::write_registers_dir(
-        &irs,
-        &out_dir.join("src/registers"),
-    )?;
+    silabs_metapac_gen::ir_metadata::write_registers_dir(&irs, &out_dir.join("src/registers"))?;
 
     // ----- Cargo.toml + lib.rs -----
-    let chip_features: Vec<String> = chips
-        .iter()
-        .map(|c| crate_layout::feature_name(&c.chip.name))
-        .collect();
+    let chip_features: Vec<String> = chips.iter().map(|c| crate_layout::feature_name(&c.chip.name)).collect();
     crate_layout::write_cargo_toml(&chip_features, &out_dir.join("Cargo.toml"))?;
     crate_layout::write_build_rs(&out_dir.join("build.rs"))?;
 
@@ -283,8 +270,7 @@ fn run_gen(
         std::fs::write(chip_dir.join("mod.rs"), mod_rs)?;
 
         let device_x_path = chip_dir.join("device.x");
-        let render_device_x = !extract_dirs.is_empty()
-            && (only_set.is_empty() || only_set.contains(&feat));
+        let render_device_x = !extract_dirs.is_empty() && (only_set.is_empty() || only_set.contains(&feat));
         if render_device_x {
             let svd_path = extract_dirs
                 .iter()
@@ -331,30 +317,24 @@ fn bail_divergence(
 ) -> ! {
     eprintln!();
     eprintln!("=== seed divergence: (kind={}, version={}) ===", key.0, key.1);
-    eprintln!(
-        "  {a_chip} :: {a_peripheral}  →  IR hash {a_hash}"
-    );
-    eprintln!(
-        "  {b_chip} :: {b_peripheral}  →  IR hash {b_hash}"
-    );
+    eprintln!("  {a_chip} :: {a_peripheral}  →  IR hash {a_hash}");
+    eprintln!("  {b_chip} :: {b_peripheral}  →  IR hash {b_hash}");
     eprintln!();
     eprintln!("Both peripherals route to the same (kind, version) but extract to");
     eprintln!("different IRs. Resolve via one of:");
     eprintln!("  1. write a transforms/<BLOCK>.yaml rule that normalises both");
     eprintln!("     extractions to one canonical shape;");
-    eprintln!("  2. hand-curate data/registers/{}.yaml with the canonical/superset", module_name(&key.0, &key.1));
+    eprintln!(
+        "  2. hand-curate data/registers/{}.yaml with the canonical/superset",
+        module_name(&key.0, &key.1)
+    );
     eprintln!("     shape;");
     eprintln!("  3. add a perimap entry in silabs-data-gen/src/perimap.rs that");
     eprintln!("     splits one of these peripherals to a distinct version label.");
     std::process::exit(1);
 }
 
-fn run_seed(
-    packs: &[PathBuf],
-    data_dir: &Path,
-    transforms_dir: &Path,
-    registers_yaml_dir: &Path,
-) -> Result<()> {
+fn run_seed(packs: &[PathBuf], data_dir: &Path, transforms_dir: &Path, registers_yaml_dir: &Path) -> Result<()> {
     if packs.is_empty() {
         bail!("at least one --pack is required for seed");
     }
@@ -388,16 +368,14 @@ fn run_seed(
                     chip.chip.name
                 )
             })?;
-        let raw = std::fs::read_to_string(&svd_path)
-            .with_context(|| format!("read SVD {}", svd_path.display()))?;
+        let raw = std::fs::read_to_string(&svd_path).with_context(|| format!("read SVD {}", svd_path.display()))?;
         let preprocessed = peripheral::strip_secure_peripherals(&raw)
             .with_context(|| format!("strip _S in {}", svd_path.display()))?;
         let device = svd_parser::parse_with_config(&preprocessed, &cfg)
             .with_context(|| format!("parse SVD {}", svd_path.display()))?;
 
         // Build a per-chip name → routed-record lookup from chip JSON.
-        let mut by_name: BTreeMap<&str, &silabs_data_gen::chip_json::PeripheralInstance> =
-            BTreeMap::new();
+        let mut by_name: BTreeMap<&str, &silabs_data_gen::chips::PeripheralInstance> = BTreeMap::new();
         for p in &chip.peripherals {
             by_name.insert(p.name.as_str(), p);
         }
@@ -407,18 +385,19 @@ fn run_seed(
             let inst = match by_name.get(pname) {
                 Some(p) => *p,
                 None => bail!(
-                    "chip JSON for {} lacks peripheral `{pname}` (chip_json out of sync with SVD)",
+                    "chip JSON for {} lacks peripheral `{pname}` (chips out of sync with SVD)",
                     chip.chip.name
                 ),
             };
             let key: IpKey = (inst.kind.clone(), inst.register_version.clone());
-            let ir = extract::extract_ip(periph, &inst.block, &inst.register_version, transforms_dir)
-                .with_context(|| {
+            let ir = extract::extract_ip(periph, &inst.block, &inst.register_version, transforms_dir).with_context(
+                || {
                     format!(
                         "extract {pname} (kind={}, version={}) from {}",
                         inst.kind, inst.register_version, chip.chip.name
                     )
-                })?;
+                },
+            )?;
             let hash = ir_hash(&ir);
 
             match buckets.get(&key) {
@@ -451,15 +430,12 @@ fn run_seed(
         }
     }
 
-    std::fs::create_dir_all(registers_yaml_dir)
-        .with_context(|| format!("create {}", registers_yaml_dir.display()))?;
+    std::fs::create_dir_all(registers_yaml_dir).with_context(|| format!("create {}", registers_yaml_dir.display()))?;
     for (key, bucket) in &buckets {
         let fname = format!("{}.yaml", module_name(&key.0, &key.1));
         let path = registers_yaml_dir.join(&fname);
-        let mut f = std::fs::File::create(&path)
-            .with_context(|| format!("create {}", path.display()))?;
-        serde_yaml::to_writer(&mut f, &bucket.ir)
-            .with_context(|| format!("serialise IR to {}", path.display()))?;
+        let mut f = std::fs::File::create(&path).with_context(|| format!("create {}", path.display()))?;
+        serde_yaml::to_writer(&mut f, &bucket.ir).with_context(|| format!("serialise IR to {}", path.display()))?;
     }
     // Mention the block name for traceability — useful when debugging
     // mismatches between chip JSON and committed YAML.

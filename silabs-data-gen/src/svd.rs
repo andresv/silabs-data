@@ -1,9 +1,10 @@
+use std::collections::HashMap;
+
 use anyhow::{Context, Result, anyhow, bail};
 use quick_xml::events::Event;
 use quick_xml::reader::Reader;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
-use std::collections::HashMap;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PeripheralIr {
@@ -35,11 +36,7 @@ pub fn parse(xml: &str) -> Result<Vec<PeripheralIr>> {
     let mut peripherals: Vec<PeripheralIr> = Vec::with_capacity(raw.peripherals.len());
 
     // Build a map of name -> raw peripheral for derivedFrom resolution.
-    let by_name: HashMap<String, &RawPeripheral> = raw
-        .peripherals
-        .iter()
-        .map(|p| (p.name.clone(), p))
-        .collect();
+    let by_name: HashMap<String, &RawPeripheral> = raw.peripherals.iter().map(|p| (p.name.clone(), p)).collect();
 
     let dev_size = raw.device_size.unwrap_or(32);
     let dev_reset = raw.device_reset.unwrap_or(0);
@@ -97,11 +94,7 @@ fn compute_fingerprint(regs: &[RegisterIr]) -> String {
     let mut buf = String::with_capacity(regs.len() * 32);
     for r in regs {
         use std::fmt::Write as _;
-        let _ = writeln!(
-            &mut buf,
-            "{:08x}\t{}\t{:016x}\t{}",
-            r.offset, r.size, r.reset, r.name
-        );
+        let _ = writeln!(&mut buf, "{:08x}\t{}\t{:016x}\t{}", r.offset, r.size, r.reset, r.name);
     }
     let digest = Sha256::digest(buf.as_bytes());
     hex(&digest)
@@ -160,16 +153,14 @@ fn parse_raw(xml: &str) -> Result<RawDevice> {
         match reader.read_event_into(&mut buf)? {
             Event::Eof => break,
             Event::Start(e) => {
-                let local =
-                    std::str::from_utf8(e.name().as_ref())?.to_owned();
+                let local = std::str::from_utf8(e.name().as_ref())?.to_owned();
                 match local.as_str() {
                     "peripheral" => {
                         let mut p = RawPeripheral::default();
                         for a in e.attributes() {
                             let a = a?;
                             if std::str::from_utf8(a.key.as_ref())? == "derivedFrom" {
-                                p.derived_from =
-                                    Some(a.unescape_value()?.into_owned());
+                                p.derived_from = Some(a.unescape_value()?.into_owned());
                             }
                         }
                         cur_periph = Some(p);
@@ -182,16 +173,13 @@ fn parse_raw(xml: &str) -> Result<RawDevice> {
                 path.push(local);
             }
             Event::Empty(e) => {
-                let local =
-                    std::str::from_utf8(e.name().as_ref())?.to_owned();
+                let local = std::str::from_utf8(e.name().as_ref())?.to_owned();
                 if local == "peripheral" {
                     let mut p = RawPeripheral::default();
                     for a in e.attributes() {
                         let a = a?;
-                        if std::str::from_utf8(a.key.as_ref())? == "derivedFrom"
-                        {
-                            p.derived_from =
-                                Some(a.unescape_value()?.into_owned());
+                        if std::str::from_utf8(a.key.as_ref())? == "derivedFrom" {
+                            p.derived_from = Some(a.unescape_value()?.into_owned());
                         }
                     }
                     // Empty peripheral element — finalize immediately if we
@@ -265,8 +253,7 @@ fn parse_raw(xml: &str) -> Result<RawDevice> {
                 }
             }
             Event::End(e) => {
-                let local =
-                    std::str::from_utf8(e.name().as_ref())?.to_owned();
+                let local = std::str::from_utf8(e.name().as_ref())?.to_owned();
                 match local.as_str() {
                     "peripheral" => {
                         if let Some(p) = cur_periph.take() {
@@ -303,10 +290,7 @@ where
 
 fn parse_uint_u64(s: &str) -> Result<u64> {
     let trimmed = s.trim();
-    if let Some(stripped) = trimmed
-        .strip_prefix("0x")
-        .or_else(|| trimmed.strip_prefix("0X"))
-    {
+    if let Some(stripped) = trimmed.strip_prefix("0x").or_else(|| trimmed.strip_prefix("0X")) {
         u64::from_str_radix(stripped, 16).with_context(|| format!("invalid hex literal {trimmed:?}"))
     } else if trimmed.is_empty() {
         bail!("empty numeric literal");

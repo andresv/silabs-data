@@ -6,10 +6,11 @@
 //! `EFR32MG26B211F2048IM68.svd` in DFP `2025.12.1`, so it exercises Silabs's
 //! actual NS/S address convention (NS=0x5xxx_xxxx, S=0x4xxx_xxxx).
 
+use std::path::PathBuf;
+
 use silabs_metapac_gen::codegen::{GenerateInput, Interrupt, generate};
 use silabs_metapac_gen::extract::extract_ip;
 use silabs_metapac_gen::peripheral::strip_secure_peripherals;
-use std::path::PathBuf;
 use svd_parser::ValidateLevel;
 
 fn manifest_dir() -> PathBuf {
@@ -98,15 +99,11 @@ fn gpio_array_recovered_from_real_transforms() {
         .iter()
         .find(|p| p.name == "GPIO_NS")
         .expect("GPIO_NS peripheral");
-    let version = format!(
-        "v{}",
-        gpio.version.clone().unwrap_or_else(|| "unknown".to_string())
-    );
+    let version = format!("v{}", gpio.version.clone().unwrap_or_else(|| "unknown".to_string()));
     // The new perimap-driven pipeline routes GPIO_NS → block "GPIO". Pass that
     // directly here; the test doesn't need the perimap itself for this single
     // peripheral.
-    let ir = extract_ip(gpio, "GPIO", &version, &transforms_dir())
-        .expect("extract_ip");
+    let ir = extract_ip(gpio, "GPIO", &version, &transforms_dir()).expect("extract_ip");
 
     // After array recovery and Sanitize: block name → `Gpio`, block items
     // → snake_case (`p_dout`), fieldset → `regs::PortDout`.

@@ -5,11 +5,12 @@
 //! pair: the typed peripheral struct (e.g. `pub struct Timer { ptr }`),
 //! its accessor methods, and the `regs`/`vals` submodules.
 
+use std::collections::BTreeMap;
+use std::path::Path;
+
 use anyhow::{Context, Result};
 use chiptool::generate::{self, CommonModule, DefmtOption, Options};
 use chiptool::ir::IR;
-use std::collections::BTreeMap;
-use std::path::Path;
 
 /// `(kind, version)` key for the peripheral module set.
 pub type IpKey = (String, String);
@@ -27,30 +28,21 @@ pub fn module_name_from_key(key: &IpKey) -> String {
 
 /// Render one Rust file per IR under `<out_dir>/<module_name>.rs`.
 /// Each file is rustfmt'd in place before returning.
-pub fn write_peripherals_dir(
-    irs: &BTreeMap<IpKey, IR>,
-    out_dir: &Path,
-) -> Result<()> {
-    std::fs::create_dir_all(out_dir)
-        .with_context(|| format!("create {}", out_dir.display()))?;
+pub fn write_peripherals_dir(irs: &BTreeMap<IpKey, IR>, out_dir: &Path) -> Result<()> {
+    std::fs::create_dir_all(out_dir).with_context(|| format!("create {}", out_dir.display()))?;
 
     let opts = Options::default()
-        .with_common_module(CommonModule::External(
-            "crate::common".parse().expect("static path"),
-        ))
+        .with_common_module(CommonModule::External("crate::common".parse().expect("static path")))
         .with_defmt(DefmtOption::Feature("defmt".to_owned()))
         .with_skip_no_std(true);
 
     for (key, ir) in irs {
         let mod_name = module_name_from_key(key);
-        let tokens = generate::render(ir, &opts)
-            .with_context(|| format!("render {mod_name}"))?;
+        let tokens = generate::render(ir, &opts).with_context(|| format!("render {mod_name}"))?;
         let body = strip_inner_attrs_and_doc(&tokens.to_string());
         let path = out_dir.join(format!("{mod_name}.rs"));
-        std::fs::write(&path, &body)
-            .with_context(|| format!("write {}", path.display()))?;
-        rustfmt_in_place(&path)
-            .with_context(|| format!("rustfmt {}", path.display()))?;
+        std::fs::write(&path, &body).with_context(|| format!("write {}", path.display()))?;
+        rustfmt_in_place(&path).with_context(|| format!("rustfmt {}", path.display()))?;
     }
     Ok(())
 }
@@ -71,9 +63,7 @@ pub(crate) fn rustfmt_in_place(path: &Path) -> Result<()> {
         .arg("--emit=files")
         .arg(path)
         .status()
-        .with_context(|| {
-            "spawn rustfmt — ensure it's on PATH (e.g. `rustup component add rustfmt`)"
-        })?;
+        .with_context(|| "spawn rustfmt — ensure it's on PATH (e.g. `rustup component add rustfmt`)")?;
     if !status.success() {
         anyhow::bail!("rustfmt failed on {}: {status}", path.display());
     }

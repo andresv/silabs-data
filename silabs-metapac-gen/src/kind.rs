@@ -29,9 +29,7 @@ impl Kind {
         let trimmed = stripped.trim_end_matches(|c: char| c.is_ascii_digit());
         let base = if trimmed.is_empty() { stripped } else { trimmed };
         if base.is_empty() {
-            return Err(anyhow!(
-                "cannot derive kind from peripheral name `{name}`"
-            ));
+            return Err(anyhow!("cannot derive kind from peripheral name `{name}`"));
         }
         Ok(Kind(base.to_ascii_uppercase()))
     }
@@ -87,7 +85,10 @@ mod tests {
 
     #[test]
     fn pascal_case_roundtrip() {
-        assert_eq!(Kind::from_peripheral_name("EUSART0_NS").unwrap().pascal_case(), "Eusart");
+        assert_eq!(
+            Kind::from_peripheral_name("EUSART0_NS").unwrap().pascal_case(),
+            "Eusart"
+        );
         assert_eq!(Kind::from_peripheral_name("GPIO_NS").unwrap().pascal_case(), "Gpio");
         assert_eq!(Kind::from_peripheral_name("CMU_NS").unwrap().pascal_case(), "Cmu");
     }
