@@ -41,8 +41,35 @@ pub fn write_registers_dir(
             .with_context(|| format!("render {mod_name}"))?;
         let body = strip_inner_attrs_and_doc(&tokens.to_string());
         let path = out_dir.join(format!("{mod_name}.rs"));
-        std::fs::write(&path, body)
+        std::fs::write(&path, &body)
             .with_context(|| format!("write {}", path.display()))?;
+        rustfmt_in_place(&path)
+            .with_context(|| format!("rustfmt {}", path.display()))?;
+    }
+    Ok(())
+}
+
+/// Invoke `rustfmt` to reformat `path` in place.
+///
+/// chiptool's `proc_macro2::TokenStream::to_string()` emits valid Rust
+/// but with raw inter-token spacing (`# [doc = "..."]`, no indentation,
+/// no line breaks). Running rustfmt over the file gives readable,
+/// diff-friendly output that mirrors stm32-metapac's shape.
+///
+/// We invoke `rustfmt` directly rather than via `cargo fmt` so we don't
+/// need a project context — the emitted files live outside the
+/// silabs-data workspace.
+fn rustfmt_in_place(path: &Path) -> Result<()> {
+    let status = std::process::Command::new("rustfmt")
+        .arg("--edition=2024")
+        .arg("--emit=files")
+        .arg(path)
+        .status()
+        .with_context(|| {
+            "spawn rustfmt — ensure it's on PATH (e.g. `rustup component add rustfmt`)"
+        })?;
+    if !status.success() {
+        anyhow::bail!("rustfmt failed on {}: {status}", path.display());
     }
     Ok(())
 }
