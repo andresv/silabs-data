@@ -198,8 +198,16 @@ fn run_gen(
         }
         let bytes = std::fs::read(&path)
             .with_context(|| format!("read {}", path.display()))?;
-        let ir: chiptool::ir::IR = serde_yaml::from_slice(&bytes)
+        let mut ir: chiptool::ir::IR = serde_yaml::from_slice(&bytes)
             .with_context(|| format!("parse {}", path.display()))?;
+        // For Series 2 banked peripherals, materialise the
+        // _SET/_CLR/_TGL alias views at +0x1000/+0x2000/+0x3000. The
+        // SVD/YAML only carry the base layout; the per-chip CMSIS
+        // device header is what marks these peripherals with
+        // `_HAS_SET_CLEAR`.
+        if silabs_metapac_gen::expand_aliases::is_banked(&key.0) {
+            silabs_metapac_gen::expand_aliases::expand_series2_aliases(&mut ir);
+        }
         irs.insert(key.clone(), ir);
     }
 
