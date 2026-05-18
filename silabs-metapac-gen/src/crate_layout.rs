@@ -260,11 +260,9 @@ pub fn build_chip_pac_rs(chip: &ChipFile) -> String {
 
     emit_gpio_port_constants(&mut s, &chip.peripherals);
 
-    s.push_str("/// Cortex-M interrupt numbers (deduped by name).\n");
-    s.push_str("pub mod interrupts {\n");
-    emit_interrupt_consts(&mut s, &chip.interrupts);
-    s.push_str("}\n\n");
-
+    // Interrupts are emitted as the `pub enum Interrupt { … }` inside
+    // `emit_cortex_m_rt_glue` — same shape as stm32-metapac. Numeric
+    // values are reachable via `Interrupt::FOO as u16`.
     emit_cortex_m_rt_glue(&mut s, &chip.interrupts);
 
     s
@@ -382,24 +380,6 @@ fn emit_gpio_port_constants(s: &mut String, peripherals: &[PeripheralInstance]) 
         s.push_str(&format!("    pub const PORT{ch}: usize = {i};\n"));
     }
     s.push_str("}\n\n");
-}
-
-fn emit_interrupt_consts(s: &mut String, interrupts: &[Interrupt]) {
-    let mut seen: BTreeSet<String> = BTreeSet::new();
-    for i in interrupts {
-        if !seen.insert(i.name.clone()) {
-            continue;
-        }
-        if let Some(desc) = &i.description {
-            let desc = desc.replace('\n', " ").replace('\r', "");
-            s.push_str(&format!("    /// {desc}\n"));
-        }
-        s.push_str(&format!(
-            "    pub const {name}: u8 = {value};\n",
-            name = i.name,
-            value = i.value
-        ));
-    }
 }
 
 /// Stub `device.x` placeholder.
@@ -607,8 +587,16 @@ mod tests {
             s.contains("pub const DCDC: crate::dcdc_v1::Dcdc"),
             "missing typed DCDC const:\n{s}"
         );
-        assert_eq!(s.matches("pub const ACMP0: u8").count(), 1);
-        assert!(s.contains("pub const TIMER0: u8 = 25"));
+        // Interrupts are emitted only as the `pub enum Interrupt` variants —
+        // no separate `pub const ACMP0: u8 = 41;` const module, matching
+        // stm32-metapac's pac.rs shape.
+        assert!(
+            s.contains("ACMP0 = 41,"),
+            "missing ACMP0 enum variant:\n{s}"
+        );
+        assert!(s.contains("TIMER0 = 25,"));
+        assert!(!s.contains("pub const ACMP0: u8"));
+        assert!(!s.contains("pub mod interrupts"));
         assert!(s.contains("IROM1_BASE: usize = 0x08000000"));
         assert!(s.contains("IROM1_SIZE: usize = 0x00200000"));
 
