@@ -243,16 +243,7 @@ fn run_gen(
     crate_layout::write_cargo_toml(&chip_features, &out_dir.join("Cargo.toml"))?;
     crate_layout::write_build_rs(&out_dir.join("build.rs"))?;
 
-    let peripheral_modules: Vec<(String, Vec<String>)> = module_users
-        .iter()
-        .map(|(key, users)| {
-            let mod_name = module_name(&key.0, &key.1);
-            let mut users: Vec<String> = users.iter().cloned().collect();
-            users.sort();
-            (mod_name, users)
-        })
-        .collect();
-    crate_layout::write_lib_rs(&chip_features, &peripheral_modules, &out_dir.join("src/lib.rs"))?;
+    crate_layout::write_lib_rs(&out_dir.join("src/lib.rs"))?;
 
     std::fs::write(
         out_dir.join("README.md"),
@@ -266,8 +257,8 @@ fn run_gen(
         let chip_dir = out_dir.join("src/chips").join(&feat);
         std::fs::create_dir_all(&chip_dir)?;
 
-        let mod_rs = crate_layout::build_chip_mod_rs(chip);
-        std::fs::write(chip_dir.join("mod.rs"), mod_rs)?;
+        let pac_rs = crate_layout::build_chip_pac_rs(chip);
+        std::fs::write(chip_dir.join("pac.rs"), pac_rs)?;
 
         // Iterable chip metadata sibling — consumed by HAL build scripts
         // (e.g. embassy-silabs/build.rs) to generate singleton lists.

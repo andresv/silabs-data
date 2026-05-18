@@ -100,6 +100,15 @@ fn main() {
         chip_name,
     );
 
+    // Mirror stm32-metapac's env-var-driven include pattern: emit the
+    // selected chip's pac.rs / metadata.rs paths so `lib.rs` can collapse
+    // 66 cfg-gated `include!`s into a single `include!(env!(...))`.
+    println!("cargo:rustc-env=SILABS_METAPAC_PAC_PATH=chips/{}/pac.rs", chip_name);
+    println!(
+        "cargo:rustc-env=SILABS_METAPAC_METADATA_PATH=chips/{}/metadata.rs",
+        chip_name
+    );
+
     println!("cargo:rerun-if-changed=build.rs");
 }
 "##;
@@ -156,7 +165,7 @@ rt = ["cortex-m-rt"]
 }
 
 /// Write src/lib.rs.
-pub fn write_lib_rs(chip_features: &[String], peripheral_modules: &[(String, Vec<String>)], out: &Path) -> Result<()> {
+pub fn write_lib_rs(out: &Path) -> Result<()> {
     let mut s = String::new();
     s.push_str(
         r#"#![no_std]
@@ -169,74 +178,27 @@ pub fn write_lib_rs(chip_features: &[String], peripheral_modules: &[(String, Vec
 "#,
     );
 
-    if !chip_features.is_empty() {
-        s.push_str("#[cfg(not(any(\n");
-        for (i, f) in chip_features.iter().enumerate() {
-            let comma = if i + 1 == chip_features.len() { "" } else { "," };
-            s.push_str(&format!("    feature = \"{f}\"{comma}\n"));
-        }
-        s.push_str(")))]\n");
-        s.push_str(
-            "compile_error!(\"a silabs-metapac chip feature must be enabled (e.g. --features efr32mg26b211f2048im68)\");\n\n",
-        );
-    }
-
-    // ---------- metadata feature ----------
-    // Iterable chip metadata. HAL build scripts depend on this crate with
-    // `default-features = false, features = ["metadata", "<chip>"]` to
-    // get just this module with no `rt`/`defmt` linker-section code that
-    // would otherwise break host builds.
-    s.push_str("#[cfg(feature = \"metadata\")]\n");
-    s.push_str("pub mod metadata {\n");
-    // Type definitions copied verbatim from silabs-metapac-gen/res/metadata.rs.
-    s.push_str("    include!(\"metadata.rs\");\n\n");
-    // Per-chip METADATA static (sibling of chips/<chip>/mod.rs).
-    for f in chip_features {
-        s.push_str(&format!("    #[cfg(feature = \"{f}\")]\n"));
-        s.push_str(&format!("    include!(\"chips/{f}/metadata.rs\");\n"));
-    }
-    s.push_str("}\n\n");
-
-    // ---------- pac feature ----------
-    s.push_str("#[cfg(feature = \"pac\")]\n");
+    // Mirrors stm32-metapac/res/src/lib.rs exactly — the heavy lifting
+    // (per-kind `#[path] pub mod <kind>;` declarations and the typed
+    // peripheral consts) is done inside `chips/<chip>/pac.rs` and
+    // `chips/<chip>/metadata.rs`, which are selected by the env vars
+    // emitted from `build.rs`. The `include!`d file's tokens carry their
+    // original `Span`, so `#[path]` inside those files resolves relative
+    // to the chip directory — not lib.rs.
+    //
+    // Chip-feature presence is enforced by `build.rs` (panics on zero or
+    // multiple chip features) — matches stm32-data, which similarly has
+    // no `compile_error!` in lib.rs.
     s.push_str("pub mod common;\n\n");
 
-    for (mod_name, chips_using) in peripheral_modules {
-        s.push_str("#[cfg(all(feature = \"pac\", any(\n");
-        for (i, f) in chips_using.iter().enumerate() {
-            let comma = if i + 1 == chips_using.len() { "" } else { "," };
-            s.push_str(&format!("    feature = \"{f}\"{comma}\n"));
-        }
-        s.push_str(")))]\n");
-        s.push_str(&format!(
-            "#[path = \"peripherals/{mod_name}.rs\"]\npub mod {mod_name};\n\n"
-        ));
-    }
+    s.push_str("#[cfg(feature = \"pac\")]\n");
+    s.push_str("include!(env!(\"SILABS_METAPAC_PAC_PATH\"));\n\n");
 
-    // Per-kind IR-metadata modules. Each `<kind>_<version>.rs` exposes
-    // `pub static REGISTERS: IR` and `use crate::metadata::ir::*` — so
-    // these are gated by `feature = "metadata"`, not `feature = "pac"`.
     s.push_str("#[cfg(feature = \"metadata\")]\n");
-    s.push_str("pub mod registers {\n");
-    for (mod_name, chips_using) in peripheral_modules {
-        s.push_str("    #[cfg(any(\n");
-        for (i, f) in chips_using.iter().enumerate() {
-            let comma = if i + 1 == chips_using.len() { "" } else { "," };
-            s.push_str(&format!("        feature = \"{f}\"{comma}\n"));
-        }
-        s.push_str("    ))]\n");
-        s.push_str(&format!("    pub mod {mod_name};\n"));
-    }
-    s.push_str("}\n\n");
-
-    for f in chip_features {
-        s.push_str(&format!("#[cfg(all(feature = \"pac\", feature = \"{f}\"))]\n"));
-        s.push_str("pub mod chip {\n");
-        s.push_str(&format!("    include!(\"chips/{f}/mod.rs\");\n"));
-        s.push_str("}\n");
-        s.push_str(&format!("#[cfg(all(feature = \"pac\", feature = \"{f}\"))]\n"));
-        s.push_str("pub use chip::*;\n\n");
-    }
+    s.push_str("pub mod metadata {\n");
+    s.push_str("    include!(\"metadata.rs\");\n");
+    s.push_str("    include!(env!(\"SILABS_METAPAC_METADATA_PATH\"));\n");
+    s.push_str("}\n");
 
     std::fs::write(out, s).with_context(|| format!("write lib.rs at {}", out.display()))?;
     Ok(())
@@ -248,10 +210,37 @@ pub fn write_lib_rs(chip_features: &[String], peripheral_modules: &[(String, Vec
 /// `(kind, register_version, block)` triple (assigned by perimap during
 /// `silabs-data-gen gen`). We use those directly — there's no separate
 /// `kinds` lookup parameter.
-pub fn build_chip_mod_rs(chip: &ChipFile) -> String {
+pub fn build_chip_pac_rs(chip: &ChipFile) -> String {
     let mut s = String::new();
-    s.push_str("// Per-chip metadata: typed peripheral consts, interrupts, memory map.\n");
-    s.push_str(&format!("// Generated for {}.\n\n", chip.chip.name));
+    s.push_str("// Per-chip PAC content: peripheral module decls, typed peripheral\n");
+    s.push_str("// consts, interrupt enum + cortex-m-rt glue, memory map.\n");
+    s.push_str(&format!("// Generated for {}.\n//\n", chip.chip.name));
+    s.push_str("// This file is `include!`d at the metapac crate root by `lib.rs`\n");
+    s.push_str("// (selected via the `SILABS_METAPAC_PAC_PATH` env var emitted from\n");
+    s.push_str("// `build.rs`). Mirrors `stm32-metapac`'s `chips/<chip>/pac.rs`\n");
+    s.push_str("// layout — `#[path]` resolves relative to *this* file, so the\n");
+    s.push_str("// `../../peripherals/...` paths below reach the shared chiptool\n");
+    s.push_str("// peripheral modules under `src/peripherals/`.\n\n");
+
+    // ----- Per-kind chiptool peripheral mod decls -----
+    // Each chip declares only the (kind, version) pairs it actually uses.
+    // Module names keep `<kind>_<version>` to support chips with multiple
+    // versions of the same kind on the same die (e.g. EFR32MG26 with
+    // `eusart_v2` + `eusart_v2_lf`).
+    let mut kinds: BTreeSet<(String, String)> = BTreeSet::new();
+    for p in &chip.peripherals {
+        kinds.insert((p.kind.clone(), p.register_version.clone()));
+    }
+    if !kinds.is_empty() {
+        s.push_str("// Chiptool peripheral modules (shared register/field types).\n");
+        for (kind, version) in &kinds {
+            let mod_name = format!("{kind}_{version}");
+            s.push_str(&format!(
+                "#[path = \"../../peripherals/{mod_name}.rs\"]\npub mod {mod_name};\n"
+            ));
+        }
+        s.push_str("\n");
+    }
 
     s.push_str("/// Memory map (flash/RAM regions, from the CMSIS pdsc).\n");
     s.push_str("pub mod memory {\n");
@@ -499,7 +488,25 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
         ));
     }
     s.push_str("    ],\n");
-    s.push_str("};\n");
+    s.push_str("};\n\n");
+
+    // ----- Per-kind IR-static mod decls -----
+    // Each `<kind>_<version>.rs` exposes `pub static REGISTERS: IR`. The
+    // chip declares only the kinds it uses; `#[path]` is relative to this
+    // file, so `../../registers/...` reaches `src/registers/`.
+    let mut kinds: BTreeSet<(String, String)> = BTreeSet::new();
+    for p in &chip.peripherals {
+        kinds.insert((p.kind.clone(), p.register_version.clone()));
+    }
+    if !kinds.is_empty() {
+        s.push_str("// Per-kind IR statics (chiptool IR snapshots).\n");
+        for (kind, version) in &kinds {
+            let mod_name = format!("{kind}_{version}");
+            s.push_str(&format!(
+                "#[path = \"../../registers/{mod_name}.rs\"]\npub mod {mod_name};\n"
+            ));
+        }
+    }
 
     s
 }
@@ -584,8 +591,8 @@ mod tests {
     }
 
     #[test]
-    fn mod_rs_emits_typed_consts_and_dedupes_interrupts() {
-        let s = build_chip_mod_rs(&fake_chip());
+    fn pac_rs_emits_typed_consts_and_dedupes_interrupts() {
+        let s = build_chip_pac_rs(&fake_chip());
         // The chip JSON's `block` field holds the perimap-routed name in raw
         // form (e.g. "ACMP"); `block_struct_ident` Pascal-cases it to match
         // `Sanitize::default()`'s output in the rendered register YAML.
@@ -604,6 +611,37 @@ mod tests {
         assert!(s.contains("pub const TIMER0: u8 = 25"));
         assert!(s.contains("IROM1_BASE: usize = 0x08000000"));
         assert!(s.contains("IROM1_SIZE: usize = 0x00200000"));
+
+        // Per-kind chiptool mod decls — mirrors stm32 pac.rs structure.
+        // Both acmp_v2 (used by ACMP0/1) and dcdc_v1 (used by DCDC) appear once.
+        assert!(
+            s.contains("#[path = \"../../peripherals/acmp_v2.rs\"]\npub mod acmp_v2;"),
+            "missing acmp_v2 #[path] mod decl:\n{s}"
+        );
+        assert!(
+            s.contains("#[path = \"../../peripherals/dcdc_v1.rs\"]\npub mod dcdc_v1;"),
+            "missing dcdc_v1 #[path] mod decl:\n{s}"
+        );
+        assert_eq!(s.matches("pub mod acmp_v2;").count(), 1);
+    }
+
+    #[test]
+    fn metadata_rs_emits_per_kind_register_mod_decls() {
+        let s = build_chip_metadata_rs(&fake_chip());
+        assert!(
+            s.contains("pub static METADATA: Metadata = Metadata {"),
+            "missing METADATA static:\n{s}"
+        );
+        // Per-kind IR-static mod decls — declared inside `pub mod metadata`
+        // so REGISTERS are reachable at `crate::metadata::<kind>_<version>`.
+        assert!(
+            s.contains("#[path = \"../../registers/acmp_v2.rs\"]\npub mod acmp_v2;"),
+            "missing acmp_v2 register mod decl:\n{s}"
+        );
+        assert!(
+            s.contains("#[path = \"../../registers/dcdc_v1.rs\"]\npub mod dcdc_v1;"),
+            "missing dcdc_v1 register mod decl:\n{s}"
+        );
     }
 
     #[test]
@@ -617,12 +655,12 @@ mod tests {
             register_version: "v7".into(),
             block: "GPIO".into(),
         });
-        let s = build_chip_mod_rs(&chip);
+        let s = build_chip_pac_rs(&chip);
         assert!(s.contains("pub mod gpio_port"), "missing gpio_port mod:\n{s}");
         assert!(s.contains("pub const PORTA: usize = 0;"));
         assert!(s.contains("pub const PORTD: usize = 3;"));
 
-        let s = build_chip_mod_rs(&fake_chip());
+        let s = build_chip_pac_rs(&fake_chip());
         assert!(!s.contains("gpio_port"));
     }
 
