@@ -26,7 +26,7 @@ use crate::pac::{IpKey, module_name_from_key};
 /// specific and not included — we may grow our own later, but the IR
 /// portion alone is sufficient to consume the per-kind register modules
 /// emitted by [`write_registers_dir`].
-const METADATA_RS: &str = include_str!("../static/metadata.rs");
+const METADATA_RS: &str = include_str!("../res/metadata.rs");
 
 /// Write `<out_dir>/src/metadata.rs`.
 pub fn write_metadata_module(out_dir: &Path) -> Result<()> {

@@ -269,6 +269,11 @@ fn run_gen(
         let mod_rs = crate_layout::build_chip_mod_rs(chip);
         std::fs::write(chip_dir.join("mod.rs"), mod_rs)?;
 
+        // Iterable chip metadata sibling — consumed by HAL build scripts
+        // (e.g. embassy-silabs/build.rs) to generate singleton lists.
+        let metadata_rs = crate_layout::build_chip_metadata_rs(chip);
+        std::fs::write(chip_dir.join("metadata.rs"), metadata_rs)?;
+
         let device_x_path = chip_dir.join("device.x");
         let render_device_x = !extract_dirs.is_empty() && (only_set.is_empty() || only_set.contains(&feat));
         if render_device_x {

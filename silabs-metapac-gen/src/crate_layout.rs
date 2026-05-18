@@ -129,8 +129,23 @@ cortex-m-rt = { version = "0.7", features = ["device"], optional = true }
 defmt = { version = "0.3", optional = true }
 
 [features]
-default = []
+default = ["pac"]
+
+# Build the actual PAC. Set by default.
+# If you just want the metadata, unset it with `default-features = false`.
+pac = []
+
+# Build the chip metadata.
+# If set, a `silabs_metapac::metadata::METADATA` static will be exported,
+# containing all the metadata for the currently selected chip.
+metadata = []
+
+# Implement the `defmt::Format` trait for many types.
+defmt = ["dep:defmt"]
+
 rt = ["cortex-m-rt"]
+
+# Chip-selection features
 "#,
     );
     for f in chip_features {
@@ -166,28 +181,42 @@ pub fn write_lib_rs(chip_features: &[String], peripheral_modules: &[(String, Vec
         );
     }
 
+    // ---------- metadata feature ----------
+    // Iterable chip metadata. HAL build scripts depend on this crate with
+    // `default-features = false, features = ["metadata", "<chip>"]` to
+    // get just this module with no `rt`/`defmt` linker-section code that
+    // would otherwise break host builds.
+    s.push_str("#[cfg(feature = \"metadata\")]\n");
+    s.push_str("pub mod metadata {\n");
+    // Type definitions copied verbatim from silabs-metapac-gen/res/metadata.rs.
+    s.push_str("    include!(\"metadata.rs\");\n\n");
+    // Per-chip METADATA static (sibling of chips/<chip>/mod.rs).
+    for f in chip_features {
+        s.push_str(&format!("    #[cfg(feature = \"{f}\")]\n"));
+        s.push_str(&format!("    include!(\"chips/{f}/metadata.rs\");\n"));
+    }
+    s.push_str("}\n\n");
+
+    // ---------- pac feature ----------
+    s.push_str("#[cfg(feature = \"pac\")]\n");
     s.push_str("pub mod common;\n\n");
 
-    // IR-metadata type definitions (chiptool IR exposed as `&'static`).
-    // `metadata.rs` is a hand-curated template; the per-kind static
-    // `REGISTERS` values live under `pub mod registers` below.
-    s.push_str("pub mod metadata;\n\n");
-
     for (mod_name, chips_using) in peripheral_modules {
-        s.push_str("#[cfg(any(\n");
+        s.push_str("#[cfg(all(feature = \"pac\", any(\n");
         for (i, f) in chips_using.iter().enumerate() {
             let comma = if i + 1 == chips_using.len() { "" } else { "," };
             s.push_str(&format!("    feature = \"{f}\"{comma}\n"));
         }
-        s.push_str("))]\n");
+        s.push_str(")))]\n");
         s.push_str(&format!(
             "#[path = \"peripherals/{mod_name}.rs\"]\npub mod {mod_name};\n\n"
         ));
     }
 
-    // Per-kind IR-metadata modules (parallel to the PAC modules above,
-    // gated by the same chip features). Each `<kind>_<version>.rs`
-    // exposes `pub static REGISTERS: IR`.
+    // Per-kind IR-metadata modules. Each `<kind>_<version>.rs` exposes
+    // `pub static REGISTERS: IR` and `use crate::metadata::ir::*` — so
+    // these are gated by `feature = "metadata"`, not `feature = "pac"`.
+    s.push_str("#[cfg(feature = \"metadata\")]\n");
     s.push_str("pub mod registers {\n");
     for (mod_name, chips_using) in peripheral_modules {
         s.push_str("    #[cfg(any(\n");
@@ -201,11 +230,11 @@ pub fn write_lib_rs(chip_features: &[String], peripheral_modules: &[(String, Vec
     s.push_str("}\n\n");
 
     for f in chip_features {
-        s.push_str(&format!("#[cfg(feature = \"{f}\")]\n"));
+        s.push_str(&format!("#[cfg(all(feature = \"pac\", feature = \"{f}\"))]\n"));
         s.push_str("pub mod chip {\n");
         s.push_str(&format!("    include!(\"chips/{f}/mod.rs\");\n"));
         s.push_str("}\n");
-        s.push_str(&format!("#[cfg(feature = \"{f}\")]\n"));
+        s.push_str(&format!("#[cfg(all(feature = \"pac\", feature = \"{f}\"))]\n"));
         s.push_str("pub use chip::*;\n\n");
     }
 
@@ -387,6 +416,92 @@ fn emit_interrupt_consts(s: &mut String, interrupts: &[Interrupt]) {
 /// Stub `device.x` placeholder.
 pub fn stub_device_x(chip_name: &str) -> String {
     format!("/* device.x for {chip_name} not yet generated */\n")
+}
+
+/// Build the `chips/<chip>/metadata.rs` content from a parsed `ChipFile`.
+///
+/// Emits a `pub static METADATA: Metadata = …;` populated from the chip
+/// JSON. Mirrors stm32-metapac's per-chip metadata module so HAL build
+/// scripts can walk a chip's peripheral / interrupt / memory inventory
+/// at build time.
+///
+/// The file is `include!`d into the metapac crate's top-level
+/// `pub mod metadata` block (see [`write_lib_rs`]), so the type names
+/// `Metadata`, `MemoryRegion`, `Peripheral`, `Interrupt` resolve against
+/// the surrounding module without an explicit `use`.
+///
+/// Dedup: only the non-secure alias of each peripheral is emitted (same
+/// rule [`emit_typed_peripheral_consts`] applies for the typed consts).
+pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
+    use std::collections::BTreeMap;
+
+    let mut s = String::new();
+    s.push_str("// Per-chip iterable metadata. Generated for ");
+    s.push_str(&chip.chip.name);
+    s.push_str(".\n//\n");
+    s.push_str("// Included from `pub mod metadata` in the metapac crate root;\n");
+    s.push_str("// type names resolve to the surrounding module — see\n");
+    s.push_str("// silabs-metapac-gen/res/metadata.rs.\n\n");
+
+    // ----- Peripherals: dedup NS/S, strip the `_NS` suffix. -----
+    let mut by_base: BTreeMap<String, &PeripheralInstance> = BTreeMap::new();
+    for p in &chip.peripherals {
+        if p.name.ends_with("_S") && !p.name.ends_with("_NS") {
+            continue;
+        }
+        let base_name = p
+            .name
+            .strip_suffix("_NS")
+            .map(str::to_owned)
+            .unwrap_or_else(|| p.name.clone());
+        by_base.entry(base_name).or_insert(p);
+    }
+
+    // ----- Interrupts: dedup by name, preserve value ordering. -----
+    let mut seen_irq: BTreeSet<String> = BTreeSet::new();
+    let mut unique_irqs: Vec<&Interrupt> = Vec::new();
+    for i in &chip.interrupts {
+        if seen_irq.insert(i.name.clone()) {
+            unique_irqs.push(i);
+        }
+    }
+
+    s.push_str("pub static METADATA: Metadata = Metadata {\n");
+    s.push_str(&format!("    name: {:?},\n", chip.chip.name));
+    s.push_str(&format!("    core: {:?},\n", chip.chip.core));
+    s.push_str(&format!("    fpu: {},\n", chip.chip.fpu));
+    s.push_str(&format!("    mpu: {},\n", chip.chip.mpu));
+    s.push_str(&format!("    trustzone: {},\n", chip.chip.trustzone));
+
+    s.push_str("    memory: &[\n");
+    for m in &chip.chip.memory {
+        s.push_str(&format!(
+            "        MemoryRegion {{ name: {:?}, address: 0x{:08X}, size: 0x{:08X}, access: {:?} }},\n",
+            m.id, m.start, m.size, m.access,
+        ));
+    }
+    s.push_str("    ],\n");
+
+    s.push_str("    peripherals: &[\n");
+    for (name, p) in &by_base {
+        s.push_str(&format!(
+            "        Peripheral {{ name: {:?}, address: 0x{:08X}, kind: {:?}, version: {:?}, block: {:?} }},\n",
+            name, p.base_address, p.kind, p.register_version, p.block,
+        ));
+    }
+    s.push_str("    ],\n");
+
+    s.push_str("    interrupts: &[\n");
+    for i in &unique_irqs {
+        s.push_str(&format!(
+            "        Interrupt {{ name: {:?}, number: {} }},\n",
+            i.name, i.value,
+        ));
+    }
+    s.push_str("    ],\n");
+    s.push_str("};\n");
+
+    s
 }
 
 #[cfg(test)]
