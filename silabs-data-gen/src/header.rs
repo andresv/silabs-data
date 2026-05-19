@@ -85,6 +85,74 @@ pub fn parse_file(path: impl AsRef<Path>) -> Result<Vec<HeaderIrq>> {
     Ok(parse(&text))
 }
 
+/// Silicon Labs chip generation + within-series config, extracted from
+/// the per-chip CMSIS device header's `_SILICON_LABS_32B_SERIES` and
+/// `_SILICON_LABS_32B_SERIES_<N>_CONFIG` macros.
+#[derive(Debug, Copy, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+pub struct Series {
+    /// Series number (`_SILICON_LABS_32B_SERIES`). `2` for current
+    /// Cortex-M33 Series 2 chips (xG21..xG29), `3` for newer
+    /// `SI`-prefixed Series 3 chips.
+    pub series: u8,
+    /// Within-series config number (`_SILICON_LABS_32B_SERIES_<N>_CONFIG`).
+    /// Series 2: 1..9 (one per family). Series 3: 301+.
+    pub config: u16,
+}
+
+/// Parse the series + within-series config from a CMSIS device header.
+/// Looks for two `#define` lines:
+/// ```c
+/// #define _SILICON_LABS_32B_SERIES           2
+/// #define _SILICON_LABS_32B_SERIES_2_CONFIG  6
+/// ```
+/// The valueless companion macros (`_SILICON_LABS_32B_SERIES_2`,
+/// `_SILICON_LABS_32B_SERIES_2_CONFIG_6`) are redundant and ignored.
+pub fn extract_series(text: &str) -> Result<Series> {
+    static SERIES_RE: OnceLock<Regex> = OnceLock::new();
+    static CONFIG_RE: OnceLock<Regex> = OnceLock::new();
+
+    let series_re = SERIES_RE.get_or_init(|| {
+        // `#define _SILICON_LABS_32B_SERIES <number>` — note the trailing
+        // word boundary so we don't match `_SILICON_LABS_32B_SERIES_2`
+        // (no value) or `_SILICON_LABS_32B_SERIES_2_CONFIG`.
+        Regex::new(r"^\s*#\s*define\s+_SILICON_LABS_32B_SERIES\s+(\d+)\b").expect("series regex compiles")
+    });
+    let config_re = CONFIG_RE.get_or_init(|| {
+        // `#define _SILICON_LABS_32B_SERIES_<N>_CONFIG <number>`. The `_<N>_`
+        // distinguishes from the valueless tag `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>`.
+        Regex::new(r"^\s*#\s*define\s+_SILICON_LABS_32B_SERIES_\d+_CONFIG\s+(\d+)\b")
+            .expect("config regex compiles")
+    });
+
+    let mut series: Option<u8> = None;
+    let mut config: Option<u16> = None;
+    for line in text.lines() {
+        if let Some(caps) = series_re.captures(line)
+            && let Ok(n) = caps.get(1).unwrap().as_str().parse()
+        {
+            series = Some(n);
+        }
+        if let Some(caps) = config_re.captures(line)
+            && let Ok(n) = caps.get(1).unwrap().as_str().parse()
+        {
+            config = Some(n);
+        }
+    }
+
+    match (series, config) {
+        (Some(series), Some(config)) => Ok(Series { series, config }),
+        (None, _) => anyhow::bail!("no `#define _SILICON_LABS_32B_SERIES <N>` found in header"),
+        (_, None) => anyhow::bail!("no `#define _SILICON_LABS_32B_SERIES_<N>_CONFIG <M>` found in header"),
+    }
+}
+
+/// Convenience wrapper: read a header from disk and extract [`Series`].
+pub fn extract_series_file(path: impl AsRef<Path>) -> Result<Series> {
+    let path = path.as_ref();
+    let text = std::fs::read_to_string(path).with_context(|| format!("read header {}", path.display()))?;
+    extract_series(&text)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -158,5 +226,40 @@ struct foo { int FRC_IRQn; };
         let irqs = parse(sample);
         let names: Vec<&str> = irqs.iter().map(|i| i.name.as_str()).collect();
         assert!(names.is_empty(), "unexpected matches: {names:?}");
+    }
+
+    /// EFR32MG26 header slice — the four `_SILICON_LABS_32B_SERIES*` macros
+    /// in the shape Silicon Labs ships. We pull only the two valued ones
+    /// (`SERIES` and `SERIES_<N>_CONFIG`); the valueless tags
+    /// (`_SERIES_2`, `_SERIES_2_CONFIG_6`) must not poison the parse.
+    #[test]
+    fn extracts_series_from_efr32mg26_header() {
+        let sample = r#"
+#define _SILICON_LABS_32B_SERIES_2                                                             /** Product Series Identifier */
+#define _SILICON_LABS_32B_SERIES                          2                                    /** Product Series Identifier */
+#define _SILICON_LABS_32B_SERIES_2_CONFIG_6                                                    /** Product Config Identifier */
+#define _SILICON_LABS_32B_SERIES_2_CONFIG                 6                                    /** Product Config Identifier */
+        "#;
+        let s = extract_series(sample).expect("extract");
+        assert_eq!(s, Series { series: 2, config: 6 });
+    }
+
+    /// SIMG301 — Series 3 with 3-digit config number.
+    #[test]
+    fn extracts_series_3_config_301() {
+        let sample = r#"
+#define _SILICON_LABS_32B_SERIES                          3                              /** Product Series Identifier */
+#define _SILICON_LABS_32B_SERIES_3                                                       /** Product Series Identifier */
+#define _SILICON_LABS_32B_SERIES_3_CONFIG                 301                            /** Product Config Identifier */
+#define _SILICON_LABS_32B_SERIES_3_CONFIG_301                                            /** Product Config Identifier */
+        "#;
+        let s = extract_series(sample).expect("extract");
+        assert_eq!(s, Series { series: 3, config: 301 });
+    }
+
+    #[test]
+    fn extract_series_rejects_header_missing_both_macros() {
+        let err = extract_series("nothing relevant in this header").unwrap_err();
+        assert!(err.to_string().contains("_SILICON_LABS_32B_SERIES"));
     }
 }

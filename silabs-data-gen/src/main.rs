@@ -83,12 +83,11 @@ fn main() -> anyhow::Result<()> {
                 // header sits next to the SVD in the pack tree. Convention:
                 // `SVD/<FAMILY>/<CHIP>.svd` →
                 // `Device/SiliconLabs/<FAMILY>/Include/<chip_lowercase>.h`.
-                let header_irqs = match header_path_for_chip(&extract_dir, &chip) {
-                    Some(hpath) if hpath.is_file() => silabs_data_gen::header::parse_file(&hpath)
-                        .map_err(|e| anyhow::anyhow!("reading header {}: {e}", hpath.display()))?,
+                let hpath = match header_path_for_chip(&extract_dir, &chip) {
+                    Some(hpath) if hpath.is_file() => hpath,
                     Some(hpath) => {
                         anyhow::bail!(
-                            "no device header at {} for {} — header is the authoritative IRQ source and must be present",
+                            "no device header at {} for {} — header is the authoritative IRQ + series source and must be present",
                             hpath.display(),
                             chip.name,
                         );
@@ -97,6 +96,16 @@ fn main() -> anyhow::Result<()> {
                         anyhow::bail!("could not derive header path for {} (svd = {:?})", chip.name, chip.svd,);
                     }
                 };
+                let header_irqs = silabs_data_gen::header::parse_file(&hpath)
+                    .map_err(|e| anyhow::anyhow!("reading header {}: {e}", hpath.display()))?;
+                // Extract the `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>`
+                // identifier from the same header. Stored on `Chip` and
+                // consumed downstream by `silabs-metapac-gen`'s
+                // `build_chip_metadata_rs`.
+                let series = silabs_data_gen::header::extract_series_file(&hpath)
+                    .map_err(|e| anyhow::anyhow!("extracting series from {}: {e}", hpath.display()))?;
+                let mut chip = chip;
+                chip.series = Some(series);
 
                 let chip_name = chip.name.clone();
                 let chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_irqs, &perimap_entries);

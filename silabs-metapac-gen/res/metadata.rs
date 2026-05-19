@@ -121,6 +121,21 @@ pub mod ir {
     }
 }
 
+/// Silicon Labs chip generation.
+/// Mirrors the SDK's `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>` macro pair.
+/// HAL build scripts can emit `cargo:rustc-cfg=silabs_series_N_config="M"` based on this enum.
+/// In HAL source user can then do: #[cfg(any(silabs_series_2_config = "3", silabs_series_2_config = "8"))]
+#[derive(Debug, Eq, PartialEq, Clone, Copy)]
+pub enum Series {
+    /// Series 2 (Cortex-M33 + TrustZone, ~2020-2024). Within-series
+    /// config 1..9, one per chip family: xG21=1, xG22=2, xG23=3,
+    /// xG24=4, FG25=5, xG26=6, xG27=7, xG28=8, xG29=9.
+    Series2(u8),
+    /// Series 3 (~2024+, `SI`-prefixed chips). Within-series config
+    /// 301+ per Silicon Labs' new 3-digit numbering.
+    Series3(u16),
+}
+
 /// Chip-level metadata: peripherals, interrupts, memory regions.
 ///
 /// Mirrors `stm32-metapac::metadata::Metadata` so HAL build scripts can
@@ -140,6 +155,9 @@ pub struct Metadata {
     pub mpu: bool,
     /// Has Cortex-M TrustZone.
     pub trustzone: bool,
+    /// Silicon Labs chip generation + within-series config number.
+    /// See [`Series`].
+    pub series: Series,
     pub memory: &'static [MemoryRegion],
     /// Peripheral instances, deduplicated to the non-secure alias
     /// (the `_S` TrustZone alias is dropped — secure-state code can

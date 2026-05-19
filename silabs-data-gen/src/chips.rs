@@ -101,6 +101,7 @@ mod tests {
             fpu: true,
             mpu: true,
             trustzone: true,
+            series: Some(crate::header::Series { series: 2, config: 6 }),
             memory: vec![],
             flash_algo: None,
             svd: "fake.svd".to_string(),

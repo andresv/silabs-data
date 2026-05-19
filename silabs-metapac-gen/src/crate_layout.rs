@@ -387,6 +387,30 @@ pub fn stub_device_x(chip_name: &str) -> String {
     format!("/* device.x for {chip_name} not yet generated */\n")
 }
 
+/// Emit the `Series::Series<N>(<M>)` literal for a chip, sourced from
+/// the `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>` macros extracted from
+/// the chip's CMSIS device header by `silabs-data-gen` (see
+/// [`silabs_data_gen::header::extract_series`]).
+///
+/// Panics if the chip JSON predates the schema change that added
+/// `Chip.series` — regenerate with `./d gen-all`. Also panics on a
+/// series number outside the {2, 3} range, since the [`Series`] enum
+/// only covers Series 2 + Series 3 today (matches the metapac side).
+fn series_literal_for_chip(chip: &ChipFile) -> String {
+    let s = chip
+        .chip
+        .series
+        .expect("chip.series missing — re-run silabs-data-gen to populate it");
+    match s.series {
+        2 => {
+            let cfg: u8 = s.config.try_into().expect("Series 2 config fits in u8 (1..=9)");
+            format!("Series::Series2({cfg})")
+        }
+        3 => format!("Series::Series3({})", s.config),
+        n => panic!("unsupported chip series {n} — extend `Series` enum in silabs-metapac-gen/res/metadata.rs"),
+    }
+}
+
 /// Build the `chips/<chip>/metadata.rs` content from a parsed `ChipFile`.
 ///
 /// Emits a `pub static METADATA: Metadata = …;` populated from the chip
@@ -441,6 +465,7 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
     s.push_str(&format!("    fpu: {},\n", chip.chip.fpu));
     s.push_str(&format!("    mpu: {},\n", chip.chip.mpu));
     s.push_str(&format!("    trustzone: {},\n", chip.chip.trustzone));
+    s.push_str(&format!("    series: {},\n", series_literal_for_chip(chip)));
 
     s.push_str("    memory: &[\n");
     for m in &chip.chip.memory {
@@ -506,6 +531,7 @@ mod tests {
                 fpu: false,
                 mpu: false,
                 trustzone: false,
+                series: Some(silabs_data_gen::header::Series { series: 2, config: 6 }),
                 memory: vec![
                     MemoryRegion {
                         id: "IROM1".into(),
@@ -655,5 +681,44 @@ mod tests {
     #[test]
     fn feature_name_lowercases() {
         assert_eq!(feature_name("EFR32MG26B211F2048IM68"), "efr32mg26b211f2048im68");
+    }
+
+    #[test]
+    fn series_literal_for_chip_dispatches_on_series() {
+        // Series 2 — config fits in u8.
+        let mut c = fake_chip();
+        c.chip.series = Some(silabs_data_gen::header::Series { series: 2, config: 6 });
+        assert_eq!(series_literal_for_chip(&c), "Series::Series2(6)");
+        c.chip.series = Some(silabs_data_gen::header::Series { series: 2, config: 1 });
+        assert_eq!(series_literal_for_chip(&c), "Series::Series2(1)");
+
+        // Series 3 — config is u16 (3-digit numbering).
+        c.chip.series = Some(silabs_data_gen::header::Series { series: 3, config: 301 });
+        assert_eq!(series_literal_for_chip(&c), "Series::Series3(301)");
+    }
+
+    #[test]
+    #[should_panic(expected = "chip.series missing")]
+    fn series_literal_for_chip_panics_on_unpopulated_series() {
+        let mut c = fake_chip();
+        c.chip.series = None;
+        series_literal_for_chip(&c);
+    }
+
+    #[test]
+    #[should_panic(expected = "unsupported chip series")]
+    fn series_literal_for_chip_panics_on_unknown_series_number() {
+        let mut c = fake_chip();
+        c.chip.series = Some(silabs_data_gen::header::Series { series: 9, config: 1 });
+        series_literal_for_chip(&c);
+    }
+
+    #[test]
+    fn metadata_rs_emits_series_field() {
+        let s = build_chip_metadata_rs(&fake_chip());
+        assert!(
+            s.contains("series: Series::Series2(6),"),
+            "missing series field in metadata.rs:\n{s}"
+        );
     }
 }

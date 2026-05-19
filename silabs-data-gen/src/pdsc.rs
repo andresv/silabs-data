@@ -17,6 +17,17 @@ pub struct Chip {
     pub fpu: bool,
     pub mpu: bool,
     pub trustzone: bool,
+    /// Silicon Labs chip generation + within-series config number,
+    /// extracted from `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>` in the
+    /// per-chip CMSIS device header. Populated by `silabs-data-gen` via
+    /// [`crate::header::extract_series`] — pdsc files don't carry the
+    /// numeric series identifier.
+    ///
+    /// `Option` because the field was added after the initial schema;
+    /// regenerated JSON always has it. Code consuming the JSON should
+    /// treat `None` as "regenerate the chip JSON".
+    #[serde(default)]
+    pub series: Option<crate::header::Series>,
     pub memory: Vec<MemoryRegion>,
     pub flash_algo: Option<String>,
     pub svd: String,
@@ -283,6 +294,10 @@ impl DeviceBuilder {
             fpu: proc_info.fpu.unwrap_or(false),
             mpu: proc_info.mpu.unwrap_or(false),
             trustzone: proc_info.trustzone.unwrap_or(false),
+            // `series` is filled in by `silabs-data-gen` after pdsc
+            // parsing, from the per-chip CMSIS device header — pdsc
+            // doesn't carry the numeric series/config identifiers.
+            series: None,
             memory,
             flash_algo,
             svd,
