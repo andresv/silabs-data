@@ -112,8 +112,8 @@ pub fn extract_series(text: &str) -> Result<Series> {
     static CONFIG_RE: OnceLock<Regex> = OnceLock::new();
 
     let series_re = SERIES_RE.get_or_init(|| {
-        // `#define _SILICON_LABS_32B_SERIES <number>` — note the trailing
-        // word boundary so we don't match `_SILICON_LABS_32B_SERIES_2`
+        // `#define _SILICON_LABS_32B_SERIES <number>` — trailing word
+        // boundary prevents matching `_SILICON_LABS_32B_SERIES_2`
         // (no value) or `_SILICON_LABS_32B_SERIES_2_CONFIG`.
         Regex::new(r"^\s*#\s*define\s+_SILICON_LABS_32B_SERIES\s+(\d+)\b").expect("series regex compiles")
     });

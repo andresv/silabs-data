@@ -222,8 +222,8 @@ pub fn build_chip_pac_rs(chip: &ChipFile) -> String {
     s.push_str("// `../../peripherals/...` paths below reach the shared chiptool\n");
     s.push_str("// peripheral modules under `src/peripherals/`.\n\n");
 
-    // ----- Per-kind chiptool peripheral mod decls -----
-    // Each chip declares only the (kind, version) pairs it actually uses.
+    // Per-kind chiptool peripheral mod decls. Each chip declares only
+    // the (kind, version) pairs it actually uses.
     // Module names keep `<kind>_<version>` to support chips with multiple
     // versions of the same kind on the same die (e.g. EFR32MG26 with
     // `eusart_v2` + `eusart_v2_lf`).
@@ -436,7 +436,7 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
     s.push_str("// type names resolve to the surrounding module — see\n");
     s.push_str("// silabs-metapac-gen/res/metadata.rs.\n\n");
 
-    // ----- Peripherals: dedup NS/S, strip the `_NS` suffix. -----
+    // Peripherals: dedup NS/S, strip the `_NS` suffix.
     let mut by_base: BTreeMap<String, &PeripheralInstance> = BTreeMap::new();
     for p in &chip.peripherals {
         if p.name.ends_with("_S") && !p.name.ends_with("_NS") {
@@ -450,7 +450,7 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
         by_base.entry(base_name).or_insert(p);
     }
 
-    // ----- Interrupts: dedup by name, preserve value ordering. -----
+    // Interrupts: dedup by name, preserve value ordering.
     let mut seen_irq: BTreeSet<String> = BTreeSet::new();
     let mut unique_irqs: Vec<&Interrupt> = Vec::new();
     for i in &chip.interrupts {
@@ -495,8 +495,8 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
     s.push_str("    ],\n");
     s.push_str("};\n\n");
 
-    // ----- Per-kind IR-static mod decls -----
-    // Each `<kind>_<version>.rs` exposes `pub static REGISTERS: IR`. The
+    // Per-kind IR-static mod decls. Each `<kind>_<version>.rs` exposes
+    // `pub static REGISTERS: IR`. The
     // chip declares only the kinds it uses; `#[path]` is relative to this
     // file, so `../../registers/...` reaches `src/registers/`.
     let mut kinds: BTreeSet<(String, String)> = BTreeSet::new();

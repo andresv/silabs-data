@@ -166,7 +166,7 @@ fn run_gen(
     };
     let only_set: BTreeSet<String> = only.iter().map(|s| s.to_ascii_lowercase()).collect();
 
-    // ----- Discover register-banked peripheral kinds. -----
+    // Discover register-banked peripheral kinds.
     //
     // Series 2 marks each peripheral with `#define <PERI>_HAS_SET_CLEAR`
     // in its per-peripheral CMSIS device header. We scan the extracted
@@ -188,7 +188,7 @@ fn run_gen(
         );
     }
 
-    // ----- Collect every (kind, version) referenced by any chip. -----
+    // Collect every (kind, version) referenced by any chip.
     let mut module_users: BTreeMap<IpKey, BTreeSet<String>> = BTreeMap::new();
     for chip in &chips {
         let feat = crate_layout::feature_name(&chip.chip.name);
@@ -201,7 +201,7 @@ fn run_gen(
         }
     }
 
-    // ----- Load `data/registers/<kind>_<version>.yaml` for each key. -----
+    // Load `data/registers/<kind>_<version>.yaml` for each key.
     let mut irs: BTreeMap<IpKey, chiptool::ir::IR> = BTreeMap::new();
     for key in module_users.keys() {
         let mod_name = module_name(&key.0, &key.1);
@@ -226,7 +226,7 @@ fn run_gen(
         irs.insert(key.clone(), ir);
     }
 
-    // ----- Emit src/peripherals/<kind>_<version>.rs + IR metadata -----
+    // Emit src/peripherals/<kind>_<version>.rs + IR metadata.
     std::fs::create_dir_all(out_dir.join("src/chips"))
         .with_context(|| format!("create out dir {}", out_dir.display()))?;
     pac::write_peripherals_dir(&irs, &out_dir.join("src/peripherals"))?;
@@ -238,7 +238,7 @@ fn run_gen(
     silabs_metapac_gen::ir_metadata::write_metadata_module(out_dir)?;
     silabs_metapac_gen::ir_metadata::write_registers_dir(&irs, &out_dir.join("src/registers"))?;
 
-    // ----- Cargo.toml + lib.rs -----
+    // Cargo.toml + lib.rs.
     let chip_features: Vec<String> = chips.iter().map(|c| crate_layout::feature_name(&c.chip.name)).collect();
     crate_layout::write_cargo_toml(&chip_features, &out_dir.join("Cargo.toml"))?;
     crate_layout::write_build_rs(&out_dir.join("build.rs"))?;
@@ -251,7 +251,7 @@ fn run_gen(
          Generated Silicon Labs PAC. Do not edit by hand — regenerate via `silabs-metapac-gen`.\n",
     )?;
 
-    // ----- Per-chip mod.rs + device.x -----
+    // Per-chip mod.rs + device.x.
     for chip in &chips {
         let feat = crate_layout::feature_name(&chip.chip.name);
         let chip_dir = out_dir.join("src/chips").join(&feat);
