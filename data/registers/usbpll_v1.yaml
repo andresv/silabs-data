@@ -1,0 +1,138 @@
+block/Usbpll:
+  description: USBPLL peripheral.
+  items:
+  - name: ipversion
+    description: IPVERSION.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: ctrl
+    description: Control.
+    byte_offset: 12
+    fieldset: regs::Ctrl
+  - name: status
+    description: Status.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Status
+  - name: dcoctrl
+    description: DAC Controlled Oscillator.
+    byte_offset: 28
+    fieldset: regs::Dcoctrl
+  - name: lock
+    description: Lock PLL from APBIF access.
+    byte_offset: 48
+    access: Write
+    fieldset: regs::Lock
+  - name: if_
+    description: Interrupt flag.
+    byte_offset: 52
+    fieldset: regs::If
+  - name: ien
+    description: Interrupt enable.
+    byte_offset: 56
+    fieldset: regs::Ien
+fieldset/regs::Ctrl:
+  description: Control.
+  fields:
+  - name: forceen
+    description: Force Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: disondemand
+    description: Disable on Demand.
+    bit_offset: 1
+    bit_size: 1
+  - name: shuntreglpen
+    description: Shunt Regulator LP Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: divr
+    description: Divider R.
+    bit_offset: 8
+    bit_size: 5
+  - name: divx
+    description: Divider X.
+    bit_offset: 13
+    bit_size: 5
+  - name: divn
+    description: Divider N.
+    bit_offset: 18
+    bit_size: 7
+fieldset/regs::Dcoctrl:
+  description: DAC Controlled Oscillator.
+  fields:
+  - name: dcobiashalf
+    description: DCO Half bias.
+    bit_offset: 9
+    bit_size: 1
+fieldset/regs::Ien:
+  description: Interrupt enable.
+  fields:
+  - name: pllrdy
+    description: USBPLL Ready Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: plllockien
+    description: USBPLL Lock Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: pllnolockien
+    description: USBPLL Loss of Lock Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt flag.
+  fields:
+  - name: pllrdy
+    description: USBPLL Ready Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: plllockif
+    description: USBPLL Lock Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: pllnolockif
+    description: USBPLL Loss of Lock Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: IPVERSION.
+  fields:
+  - name: ipversion
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Lock:
+  description: Lock PLL from APBIF access.
+  fields:
+  - name: lockkey
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Status:
+  description: Status.
+  fields:
+  - name: pllrdy
+    description: USBPLL Ready.
+    bit_offset: 16
+    bit_size: 1
+  - name: plllock
+    description: USBPLL is locked.
+    bit_offset: 17
+    bit_size: 1
+  - name: syncbusy
+    description: Sync Busy.
+    bit_offset: 30
+    bit_size: 1
+  - name: lock
+    description: Locks out registers.
+    bit_offset: 31
+    bit_size: 1
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Unlock
+    description: Write this value to unlock.
+    value: 22542

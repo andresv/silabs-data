@@ -133,6 +133,27 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     // Route to family-specific versions.
     ("EFR32MG24.*:DEVINFO:.*", "devinfo", "v0_mg24", "DEVINFO"),
     ("EFR32MG26.*:DEVINFO:.*", "devinfo", "v0_mg26", "DEVINFO"),
+    // --- EFR32FG25 (Series 2, config 5) ---
+    // EUSART variant split, same rationale as the MG2x entries above:
+    // EUSART0 carries the LF sub-block, EUSART1+ don't, but all report
+    // <version>2</version> in the SVD. Reuse the shared eusart_v2_lf /
+    // eusart_v2 labels — they hold if FG25's EUSART matches MG2x's.
+    ("EFR32FG25.*:EUSART0_NS:.*", "eusart", "v2_lf", "EUSART"),
+    ("EFR32FG25.*:EUSART[1-9]_NS:.*", "eusart", "v2", "EUSART"),
+    // TIMER bit-width split, same rationale as the MG2x entries above.
+    // FG25 ships TIMER0..7; TIMER0/1 are 32-bit wide, TIMER2..7 are 16-bit
+    // narrow. Reuse the shared timer_v1_w / timer_v1 labels.
+    ("EFR32FG25.*:TIMER[01]_NS:.*", "timer", "v1_w", "TIMER"),
+    ("EFR32FG25.*:TIMER[2-7]_NS:.*", "timer", "v1", "TIMER"),
+    // The following three peripherals share an SVD <version> with the MG2x
+    // curated YAMLs but extract to a structurally different IR on FG25
+    // (config 5). Pin FG25-specific labels so they don't collide with the
+    // MG2x buckets. (All other shared (kind,version) buckets — EUSART,
+    // TIMER, I2C, BURTC, … — extract identically across FG25/MG24/MG26 and
+    // are reused.)
+    ("EFR32FG25.*:DMEM_NS:.*", "dmem", "v2_fg25", "DMEM"),
+    ("EFR32FG25.*:IADC[0-9]+_NS:.*", "iadc", "v3_fg25", "IADC"),
+    ("EFR32FG25.*:VDAC[0-9]+_NS:.*", "vdac", "v2_fg25", "VDAC"),
 ];
 
 /// Compile the static `ENTRIES` table into runtime `Entry`s.

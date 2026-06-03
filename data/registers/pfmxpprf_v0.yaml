@@ -1,0 +1,159 @@
+block/Pfmxpprf:
+  description: PFMXPPRF peripheral.
+  items:
+  - name: rfimdcdcctrl0
+    description: No Description.
+    byte_offset: 0
+    fieldset: regs::Rfimdcdcctrl0
+  - name: rfimdcdcctrl1
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::Rfimdcdcctrl1
+  - name: rfimdcdcctrl2
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Rfimdcdcctrl2
+  - name: rfimdcdcstatus
+    description: No Description.
+    byte_offset: 12
+    access: Read
+    fieldset: regs::Rfimdcdcstatus
+  - name: rpuratd0
+    description: Protected register address = (RPURATD register index X 32 + RPURATD bit index) X 4.
+    byte_offset: 16
+    fieldset: regs::Rpuratd0
+fieldset/regs::Rfimdcdcctrl0:
+  description: No Description.
+  fields:
+  - name: txmaxreq
+    description: TX Max Req.
+    bit_offset: 0
+    bit_size: 1
+  - name: rxppreq
+    description: RX PP Req.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Rfimdcdcctrl1:
+  description: No Description.
+  fields:
+  - name: dcdcdiven
+    description: DCDC DIV Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: dcdcdivinven
+    description: DCDC DIV Inverter Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: dcdcdivratio
+    description: DCDC DIV Ratio.
+    bit_offset: 2
+    bit_size: 4
+    enum: vals::Dcdcdivratio
+fieldset/regs::Rfimdcdcctrl2:
+  description: No Description.
+  fields:
+  - name: pptmax
+    description: Pulse Pairing Time Max.
+    bit_offset: 0
+    bit_size: 9
+  - name: pptmin
+    description: Pulse Pairing Time Min.
+    bit_offset: 9
+    bit_size: 9
+  - name: ppnd
+    description: Pulse Pairing Period.
+    bit_offset: 18
+    bit_size: 9
+  - name: ppcalen
+    description: Pulse Pairing Calibration Loop Enable.
+    bit_offset: 27
+    bit_size: 1
+  - name: ppsynconly
+    description: Pulse Pairing Sync Only.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Rfimdcdcstatus:
+  description: No Description.
+  fields:
+  - name: dcdcen
+    description: DCDC Enable Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: txmaxstatus
+    description: TX MAX Status.
+    bit_offset: 1
+    bit_size: 1
+  - name: rxppstatus
+    description: RX PP Status.
+    bit_offset: 2
+    bit_size: 1
+  - name: wno1
+    description: Cal Loop WNO1 value.
+    bit_offset: 8
+    bit_size: 9
+fieldset/regs::Rpuratd0:
+  description: Protected register address = (RPURATD register index X 32 + RPURATD bit index) X 4.
+  fields:
+  - name: ratdrfimdcdcctrl0
+    description: RFIMDCDCCTRL0 Protection Bit.
+    bit_offset: 0
+    bit_size: 1
+  - name: ratdrfimdcdcctrl1
+    description: RFIMDCDCCTRL1 Protection Bit.
+    bit_offset: 1
+    bit_size: 1
+  - name: ratdrfimdcdcctrl2
+    description: RFIMDCDCCTRL2 Protection Bit.
+    bit_offset: 2
+    bit_size: 1
+enum/vals::Dcdcdivratio:
+  bit_size: 4
+  variants:
+  - name: Divratio10
+    description: Dividing master_rf clk by 10, D=40%.
+    value: 2
+  - name: Divratio11
+    description: Dividing master_rf clk by 11, D=36.4%.
+    value: 3
+  - name: Divratio12
+    description: Dividing master_rf clk by 12, D=50%.
+    value: 4
+  - name: Divratio13
+    description: Dividing master_rf clk by 13, D=46.2%.
+    value: 5
+  - name: Divratio14
+    description: Dividing master_rf clk by 14, D=42.9%.
+    value: 6
+  - name: Divratio15
+    description: Dividing master_rf clk by 15, D=40%.
+    value: 7
+  - name: Divratio16
+    description: Dividing master_rf clk by 16, D=50%.
+    value: 8
+  - name: Divratio17
+    description: Dividing master_rf clk by 17, D=47.1%.
+    value: 9
+  - name: Divratio18
+    description: Dividing master_rf clk by 18, D=44.4%.
+    value: 10
+  - name: Divratio19
+    description: Dividing master_rf clk by 19, D=42.1%.
+    value: 11
+  - name: Divratio20
+    description: Dividing master_rf clk by 20, D=60%.
+    value: 12
+  - name: Divratio21
+    description: Dividing master_rf clk by 21, D=57.1%.
+    value: 13
+  - name: Divratio22
+    description: Dividing master_rf clk by 22, D=54.5%.
+    value: 14
+  - name: Divratio23
+    description: Dividing master_rf clk by 23, D=52.2%.
+    value: 15
+  - name: Divratio8
+    description: Dividing master_rf clk by 8, D=50%.
+    value: 0
+  - name: Divratio9
+    description: Dividing master_rf clk by 9, D=44.4%.
+    value: 1

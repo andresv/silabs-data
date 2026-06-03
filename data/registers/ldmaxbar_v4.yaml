@@ -1,0 +1,255 @@
+block/Ldmaxbar:
+  description: LDMAXBAR peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: ch0_reqsel
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::Ch0Reqsel
+  - name: ch1_reqsel
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Ch1Reqsel
+  - name: ch2_reqsel
+    description: No Description.
+    byte_offset: 12
+    fieldset: regs::Ch2Reqsel
+  - name: ch3_reqsel
+    description: No Description.
+    byte_offset: 16
+    fieldset: regs::Ch3Reqsel
+  - name: ch4_reqsel
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::Ch4Reqsel
+  - name: ch5_reqsel
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Ch5Reqsel
+  - name: ch6_reqsel
+    description: No Description.
+    byte_offset: 28
+    fieldset: regs::Ch6Reqsel
+  - name: ch7_reqsel
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::Ch7Reqsel
+  - name: ch8_reqsel
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::Ch8Reqsel
+  - name: ch9_reqsel
+    description: No Description.
+    byte_offset: 40
+    fieldset: regs::Ch9Reqsel
+  - name: ch10_reqsel
+    description: No Description.
+    byte_offset: 44
+    fieldset: regs::Ch10Reqsel
+  - name: ch11_reqsel
+    description: No Description.
+    byte_offset: 48
+    fieldset: regs::Ch11Reqsel
+  - name: ch12_reqsel
+    description: No Description.
+    byte_offset: 52
+    fieldset: regs::Ch12Reqsel
+  - name: ch13_reqsel
+    description: No Description.
+    byte_offset: 56
+    fieldset: regs::Ch13Reqsel
+  - name: ch14_reqsel
+    description: No Description.
+    byte_offset: 60
+    fieldset: regs::Ch14Reqsel
+  - name: ch15_reqsel
+    description: No Description.
+    byte_offset: 64
+    fieldset: regs::Ch15Reqsel
+fieldset/regs::Ch0Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch10Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch11Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch12Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch13Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch14Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch15Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch1Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch2Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch3Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch4Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch5Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch6Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch7Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch8Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ch9Reqsel:
+  description: No Description.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32

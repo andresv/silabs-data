@@ -1,0 +1,130 @@
+block/Rffpll:
+  description: RFFPLL peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: ctrl
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::Ctrl
+  - name: status
+    description: No Description.
+    byte_offset: 32
+    access: Read
+    fieldset: regs::Status
+  - name: rffpllctrl1
+    description: No Description.
+    byte_offset: 88
+    fieldset: regs::Rffpllctrl1
+  - name: if_
+    description: No Description.
+    byte_offset: 128
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 132
+    fieldset: regs::Ien
+  - name: lock
+    description: No Description.
+    byte_offset: 176
+    access: Write
+    fieldset: regs::Lock
+fieldset/regs::Ctrl:
+  description: No Description.
+  fields:
+  - name: forceen
+    description: Force PLL Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: disondemand
+    description: Disable On-demand request.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: rffpllradiordy
+    description: Radio Output Ready Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: rffpllsysrdy
+    description: Digital System Output Ready Interrupt.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: rffpllradiordy
+    description: Radio Output Ready Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: rffpllsysrdy
+    description: Digital System Output Ready Interrupt.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Lock:
+  description: No Description.
+  fields:
+  - name: lockkey
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Rffpllctrl1:
+  description: No Description.
+  fields:
+  - name: divn
+    description: Feedback Divider Ratio.
+    bit_offset: 0
+    bit_size: 7
+  - name: divx
+    description: Clock Divider Ratio for Radio.
+    bit_offset: 12
+    bit_size: 4
+  - name: divy
+    description: Clock Divider Ratio for digital.
+    bit_offset: 16
+    bit_size: 5
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: rffpllradiordy
+    description: Radio Clock Output Ready.
+    bit_offset: 0
+    bit_size: 1
+  - name: rffpllsysrdy
+    description: Digital System Clock Output Ready.
+    bit_offset: 1
+    bit_size: 1
+  - name: ens
+    description: Enabled Status.
+    bit_offset: 8
+    bit_size: 1
+  - name: hwreqradio
+    description: PLL Radio Output Requested.
+    bit_offset: 16
+    bit_size: 1
+  - name: hwreqsys
+    description: PLL Digital System Output Requested.
+    bit_offset: 17
+    bit_size: 1
+  - name: lock
+    description: Configuration Lock Status.
+    bit_offset: 31
+    bit_size: 1
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Unlock
+    description: Write this value to unlock.
+    value: 34217

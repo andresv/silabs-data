@@ -1,0 +1,6286 @@
+block/Lesense:
+  description: LESENSE peripheral.
+  items:
+  - name: ipversion
+    description: IPVERSION.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: en
+    description: Global Enable of LESENSE functions.
+    byte_offset: 4
+    fieldset: regs::En
+  - name: swrst
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Swrst
+  - name: cfg
+    description: Configuration Register.
+    byte_offset: 12
+    fieldset: regs::Cfg
+  - name: timctrl
+    description: Timing Control Register.
+    byte_offset: 16
+    fieldset: regs::Timctrl
+  - name: perctrl
+    description: Peripheral Control Register.
+    byte_offset: 20
+    fieldset: regs::Perctrl
+  - name: decctrl
+    description: Decoder control Register.
+    byte_offset: 24
+    fieldset: regs::Decctrl
+  - name: evalctrl
+    description: LESENSE evaluation control.
+    byte_offset: 28
+    fieldset: regs::Evalctrl
+  - name: prsctrl
+    description: PRS control register.
+    byte_offset: 32
+    fieldset: regs::Prsctrl
+  - name: cmd
+    description: Command Register.
+    byte_offset: 36
+    access: Write
+    fieldset: regs::Cmd
+  - name: chen
+    description: Channel enable Register.
+    byte_offset: 40
+    fieldset: regs::Chen
+  - name: scanres
+    description: Scan result register.
+    byte_offset: 44
+    access: Read
+    fieldset: regs::Scanres
+  - name: status
+    description: Status Register.
+    byte_offset: 48
+    access: Read
+    fieldset: regs::Status
+  - name: rescount
+    description: Result FIFO Count.
+    byte_offset: 52
+    access: Read
+    fieldset: regs::Rescount
+  - name: resfifo
+    description: Result Fifo.
+    byte_offset: 56
+    access: Read
+    fieldset: regs::Resfifo
+  - name: curch
+    description: Current channel index.
+    byte_offset: 60
+    access: Read
+    fieldset: regs::Curch
+  - name: decstate
+    description: Current decoder state.
+    byte_offset: 64
+    access: Read
+    fieldset: regs::Decstate
+  - name: sensorstate
+    description: Decoder input register.
+    byte_offset: 68
+    access: Read
+    fieldset: regs::Sensorstate
+  - name: idleconf
+    description: GPIO Idle phase configuration.
+    byte_offset: 72
+    fieldset: regs::Idleconf
+  - name: syncbusy
+    description: Synchronization Busy Register.
+    byte_offset: 80
+    access: Read
+    fieldset: regs::Syncbusy
+  - name: if_
+    description: Interrupt Flags.
+    byte_offset: 96
+    fieldset: regs::If
+  - name: ien
+    description: Interrupt Enables.
+    byte_offset: 100
+    fieldset: regs::Ien
+  - name: ch0_timing
+    description: No Description.
+    byte_offset: 256
+    fieldset: regs::Ch0Timing
+  - name: ch0_interact
+    description: No Description.
+    byte_offset: 260
+    fieldset: regs::Ch0Interact
+  - name: ch0_evalcfg
+    description: No Description.
+    byte_offset: 264
+    fieldset: regs::Ch0Evalcfg
+  - name: ch0_evalthres
+    description: No Description.
+    byte_offset: 268
+    fieldset: regs::Ch0Evalthres
+  - name: ch1_timing
+    description: No Description.
+    byte_offset: 272
+    fieldset: regs::Ch1Timing
+  - name: ch1_interact
+    description: No Description.
+    byte_offset: 276
+    fieldset: regs::Ch1Interact
+  - name: ch1_evalcfg
+    description: No Description.
+    byte_offset: 280
+    fieldset: regs::Ch1Evalcfg
+  - name: ch1_evalthres
+    description: No Description.
+    byte_offset: 284
+    fieldset: regs::Ch1Evalthres
+  - name: ch2_timing
+    description: No Description.
+    byte_offset: 288
+    fieldset: regs::Ch2Timing
+  - name: ch2_interact
+    description: No Description.
+    byte_offset: 292
+    fieldset: regs::Ch2Interact
+  - name: ch2_evalcfg
+    description: No Description.
+    byte_offset: 296
+    fieldset: regs::Ch2Evalcfg
+  - name: ch2_evalthres
+    description: No Description.
+    byte_offset: 300
+    fieldset: regs::Ch2Evalthres
+  - name: ch3_timing
+    description: No Description.
+    byte_offset: 304
+    fieldset: regs::Ch3Timing
+  - name: ch3_interact
+    description: No Description.
+    byte_offset: 308
+    fieldset: regs::Ch3Interact
+  - name: ch3_evalcfg
+    description: No Description.
+    byte_offset: 312
+    fieldset: regs::Ch3Evalcfg
+  - name: ch3_evalthres
+    description: No Description.
+    byte_offset: 316
+    fieldset: regs::Ch3Evalthres
+  - name: ch4_timing
+    description: No Description.
+    byte_offset: 320
+    fieldset: regs::Ch4Timing
+  - name: ch4_interact
+    description: No Description.
+    byte_offset: 324
+    fieldset: regs::Ch4Interact
+  - name: ch4_evalcfg
+    description: No Description.
+    byte_offset: 328
+    fieldset: regs::Ch4Evalcfg
+  - name: ch4_evalthres
+    description: No Description.
+    byte_offset: 332
+    fieldset: regs::Ch4Evalthres
+  - name: ch5_timing
+    description: No Description.
+    byte_offset: 336
+    fieldset: regs::Ch5Timing
+  - name: ch5_interact
+    description: No Description.
+    byte_offset: 340
+    fieldset: regs::Ch5Interact
+  - name: ch5_evalcfg
+    description: No Description.
+    byte_offset: 344
+    fieldset: regs::Ch5Evalcfg
+  - name: ch5_evalthres
+    description: No Description.
+    byte_offset: 348
+    fieldset: regs::Ch5Evalthres
+  - name: ch6_timing
+    description: No Description.
+    byte_offset: 352
+    fieldset: regs::Ch6Timing
+  - name: ch6_interact
+    description: No Description.
+    byte_offset: 356
+    fieldset: regs::Ch6Interact
+  - name: ch6_evalcfg
+    description: No Description.
+    byte_offset: 360
+    fieldset: regs::Ch6Evalcfg
+  - name: ch6_evalthres
+    description: No Description.
+    byte_offset: 364
+    fieldset: regs::Ch6Evalthres
+  - name: ch7_timing
+    description: No Description.
+    byte_offset: 368
+    fieldset: regs::Ch7Timing
+  - name: ch7_interact
+    description: No Description.
+    byte_offset: 372
+    fieldset: regs::Ch7Interact
+  - name: ch7_evalcfg
+    description: No Description.
+    byte_offset: 376
+    fieldset: regs::Ch7Evalcfg
+  - name: ch7_evalthres
+    description: No Description.
+    byte_offset: 380
+    fieldset: regs::Ch7Evalthres
+  - name: ch8_timing
+    description: No Description.
+    byte_offset: 384
+    fieldset: regs::Ch8Timing
+  - name: ch8_interact
+    description: No Description.
+    byte_offset: 388
+    fieldset: regs::Ch8Interact
+  - name: ch8_evalcfg
+    description: No Description.
+    byte_offset: 392
+    fieldset: regs::Ch8Evalcfg
+  - name: ch8_evalthres
+    description: No Description.
+    byte_offset: 396
+    fieldset: regs::Ch8Evalthres
+  - name: ch9_timing
+    description: No Description.
+    byte_offset: 400
+    fieldset: regs::Ch9Timing
+  - name: ch9_interact
+    description: No Description.
+    byte_offset: 404
+    fieldset: regs::Ch9Interact
+  - name: ch9_evalcfg
+    description: No Description.
+    byte_offset: 408
+    fieldset: regs::Ch9Evalcfg
+  - name: ch9_evalthres
+    description: No Description.
+    byte_offset: 412
+    fieldset: regs::Ch9Evalthres
+  - name: ch10_timing
+    description: No Description.
+    byte_offset: 416
+    fieldset: regs::Ch10Timing
+  - name: ch10_interact
+    description: No Description.
+    byte_offset: 420
+    fieldset: regs::Ch10Interact
+  - name: ch10_evalcfg
+    description: No Description.
+    byte_offset: 424
+    fieldset: regs::Ch10Evalcfg
+  - name: ch10_evalthres
+    description: No Description.
+    byte_offset: 428
+    fieldset: regs::Ch10Evalthres
+  - name: ch11_timing
+    description: No Description.
+    byte_offset: 432
+    fieldset: regs::Ch11Timing
+  - name: ch11_interact
+    description: No Description.
+    byte_offset: 436
+    fieldset: regs::Ch11Interact
+  - name: ch11_evalcfg
+    description: No Description.
+    byte_offset: 440
+    fieldset: regs::Ch11Evalcfg
+  - name: ch11_evalthres
+    description: No Description.
+    byte_offset: 444
+    fieldset: regs::Ch11Evalthres
+  - name: ch12_timing
+    description: No Description.
+    byte_offset: 448
+    fieldset: regs::Ch12Timing
+  - name: ch12_interact
+    description: No Description.
+    byte_offset: 452
+    fieldset: regs::Ch12Interact
+  - name: ch12_evalcfg
+    description: No Description.
+    byte_offset: 456
+    fieldset: regs::Ch12Evalcfg
+  - name: ch12_evalthres
+    description: No Description.
+    byte_offset: 460
+    fieldset: regs::Ch12Evalthres
+  - name: ch13_timing
+    description: No Description.
+    byte_offset: 464
+    fieldset: regs::Ch13Timing
+  - name: ch13_interact
+    description: No Description.
+    byte_offset: 468
+    fieldset: regs::Ch13Interact
+  - name: ch13_evalcfg
+    description: No Description.
+    byte_offset: 472
+    fieldset: regs::Ch13Evalcfg
+  - name: ch13_evalthres
+    description: No Description.
+    byte_offset: 476
+    fieldset: regs::Ch13Evalthres
+  - name: ch14_timing
+    description: No Description.
+    byte_offset: 480
+    fieldset: regs::Ch14Timing
+  - name: ch14_interact
+    description: No Description.
+    byte_offset: 484
+    fieldset: regs::Ch14Interact
+  - name: ch14_evalcfg
+    description: No Description.
+    byte_offset: 488
+    fieldset: regs::Ch14Evalcfg
+  - name: ch14_evalthres
+    description: No Description.
+    byte_offset: 492
+    fieldset: regs::Ch14Evalthres
+  - name: ch15_timing
+    description: No Description.
+    byte_offset: 496
+    fieldset: regs::Ch15Timing
+  - name: ch15_interact
+    description: No Description.
+    byte_offset: 500
+    fieldset: regs::Ch15Interact
+  - name: ch15_evalcfg
+    description: No Description.
+    byte_offset: 504
+    fieldset: regs::Ch15Evalcfg
+  - name: ch15_evalthres
+    description: No Description.
+    byte_offset: 508
+    fieldset: regs::Ch15Evalthres
+  - name: st0_arc
+    description: No Description.
+    byte_offset: 512
+    fieldset: regs::St0Arc
+  - name: st1_arc
+    description: No Description.
+    byte_offset: 516
+    fieldset: regs::St1Arc
+  - name: st2_arc
+    description: No Description.
+    byte_offset: 520
+    fieldset: regs::St2Arc
+  - name: st3_arc
+    description: No Description.
+    byte_offset: 524
+    fieldset: regs::St3Arc
+  - name: st4_arc
+    description: No Description.
+    byte_offset: 528
+    fieldset: regs::St4Arc
+  - name: st5_arc
+    description: No Description.
+    byte_offset: 532
+    fieldset: regs::St5Arc
+  - name: st6_arc
+    description: No Description.
+    byte_offset: 536
+    fieldset: regs::St6Arc
+  - name: st7_arc
+    description: No Description.
+    byte_offset: 540
+    fieldset: regs::St7Arc
+  - name: st8_arc
+    description: No Description.
+    byte_offset: 544
+    fieldset: regs::St8Arc
+  - name: st9_arc
+    description: No Description.
+    byte_offset: 548
+    fieldset: regs::St9Arc
+  - name: st10_arc
+    description: No Description.
+    byte_offset: 552
+    fieldset: regs::St10Arc
+  - name: st11_arc
+    description: No Description.
+    byte_offset: 556
+    fieldset: regs::St11Arc
+  - name: st12_arc
+    description: No Description.
+    byte_offset: 560
+    fieldset: regs::St12Arc
+  - name: st13_arc
+    description: No Description.
+    byte_offset: 564
+    fieldset: regs::St13Arc
+  - name: st14_arc
+    description: No Description.
+    byte_offset: 568
+    fieldset: regs::St14Arc
+  - name: st15_arc
+    description: No Description.
+    byte_offset: 572
+    fieldset: regs::St15Arc
+  - name: st16_arc
+    description: No Description.
+    byte_offset: 576
+    fieldset: regs::St16Arc
+  - name: st17_arc
+    description: No Description.
+    byte_offset: 580
+    fieldset: regs::St17Arc
+  - name: st18_arc
+    description: No Description.
+    byte_offset: 584
+    fieldset: regs::St18Arc
+  - name: st19_arc
+    description: No Description.
+    byte_offset: 588
+    fieldset: regs::St19Arc
+  - name: st20_arc
+    description: No Description.
+    byte_offset: 592
+    fieldset: regs::St20Arc
+  - name: st21_arc
+    description: No Description.
+    byte_offset: 596
+    fieldset: regs::St21Arc
+  - name: st22_arc
+    description: No Description.
+    byte_offset: 600
+    fieldset: regs::St22Arc
+  - name: st23_arc
+    description: No Description.
+    byte_offset: 604
+    fieldset: regs::St23Arc
+  - name: st24_arc
+    description: No Description.
+    byte_offset: 608
+    fieldset: regs::St24Arc
+  - name: st25_arc
+    description: No Description.
+    byte_offset: 612
+    fieldset: regs::St25Arc
+  - name: st26_arc
+    description: No Description.
+    byte_offset: 616
+    fieldset: regs::St26Arc
+  - name: st27_arc
+    description: No Description.
+    byte_offset: 620
+    fieldset: regs::St27Arc
+  - name: st28_arc
+    description: No Description.
+    byte_offset: 624
+    fieldset: regs::St28Arc
+  - name: st29_arc
+    description: No Description.
+    byte_offset: 628
+    fieldset: regs::St29Arc
+  - name: st30_arc
+    description: No Description.
+    byte_offset: 632
+    fieldset: regs::St30Arc
+  - name: st31_arc
+    description: No Description.
+    byte_offset: 636
+    fieldset: regs::St31Arc
+  - name: st32_arc
+    description: No Description.
+    byte_offset: 640
+    fieldset: regs::St32Arc
+  - name: st33_arc
+    description: No Description.
+    byte_offset: 644
+    fieldset: regs::St33Arc
+  - name: st34_arc
+    description: No Description.
+    byte_offset: 648
+    fieldset: regs::St34Arc
+  - name: st35_arc
+    description: No Description.
+    byte_offset: 652
+    fieldset: regs::St35Arc
+  - name: st36_arc
+    description: No Description.
+    byte_offset: 656
+    fieldset: regs::St36Arc
+  - name: st37_arc
+    description: No Description.
+    byte_offset: 660
+    fieldset: regs::St37Arc
+  - name: st38_arc
+    description: No Description.
+    byte_offset: 664
+    fieldset: regs::St38Arc
+  - name: st39_arc
+    description: No Description.
+    byte_offset: 668
+    fieldset: regs::St39Arc
+  - name: st40_arc
+    description: No Description.
+    byte_offset: 672
+    fieldset: regs::St40Arc
+  - name: st41_arc
+    description: No Description.
+    byte_offset: 676
+    fieldset: regs::St41Arc
+  - name: st42_arc
+    description: No Description.
+    byte_offset: 680
+    fieldset: regs::St42Arc
+  - name: st43_arc
+    description: No Description.
+    byte_offset: 684
+    fieldset: regs::St43Arc
+  - name: st44_arc
+    description: No Description.
+    byte_offset: 688
+    fieldset: regs::St44Arc
+  - name: st45_arc
+    description: No Description.
+    byte_offset: 692
+    fieldset: regs::St45Arc
+  - name: st46_arc
+    description: No Description.
+    byte_offset: 696
+    fieldset: regs::St46Arc
+  - name: st47_arc
+    description: No Description.
+    byte_offset: 700
+    fieldset: regs::St47Arc
+  - name: st48_arc
+    description: No Description.
+    byte_offset: 704
+    fieldset: regs::St48Arc
+  - name: st49_arc
+    description: No Description.
+    byte_offset: 708
+    fieldset: regs::St49Arc
+  - name: st50_arc
+    description: No Description.
+    byte_offset: 712
+    fieldset: regs::St50Arc
+  - name: st51_arc
+    description: No Description.
+    byte_offset: 716
+    fieldset: regs::St51Arc
+  - name: st52_arc
+    description: No Description.
+    byte_offset: 720
+    fieldset: regs::St52Arc
+  - name: st53_arc
+    description: No Description.
+    byte_offset: 724
+    fieldset: regs::St53Arc
+  - name: st54_arc
+    description: No Description.
+    byte_offset: 728
+    fieldset: regs::St54Arc
+  - name: st55_arc
+    description: No Description.
+    byte_offset: 732
+    fieldset: regs::St55Arc
+  - name: st56_arc
+    description: No Description.
+    byte_offset: 736
+    fieldset: regs::St56Arc
+  - name: st57_arc
+    description: No Description.
+    byte_offset: 740
+    fieldset: regs::St57Arc
+  - name: st58_arc
+    description: No Description.
+    byte_offset: 744
+    fieldset: regs::St58Arc
+  - name: st59_arc
+    description: No Description.
+    byte_offset: 748
+    fieldset: regs::St59Arc
+  - name: st60_arc
+    description: No Description.
+    byte_offset: 752
+    fieldset: regs::St60Arc
+  - name: st61_arc
+    description: No Description.
+    byte_offset: 756
+    fieldset: regs::St61Arc
+  - name: st62_arc
+    description: No Description.
+    byte_offset: 760
+    fieldset: regs::St62Arc
+  - name: st63_arc
+    description: No Description.
+    byte_offset: 764
+    fieldset: regs::St63Arc
+fieldset/regs::Cfg:
+  description: Configuration Register.
+  fields:
+  - name: scanmode
+    description: Configure scan mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Scanmode
+  - name: scanconf
+    description: Select scan configuration.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Scanconf
+  - name: dualsample
+    description: Enable dual sample mode.
+    bit_offset: 5
+    bit_size: 1
+  - name: strscanres
+    description: Enable storing of SCANRES.
+    bit_offset: 6
+    bit_size: 1
+  - name: dmawu
+    description: DMA wake-up from EM2.
+    bit_offset: 7
+    bit_size: 1
+  - name: resfidl
+    description: Result FIFO level.
+    bit_offset: 8
+    bit_size: 4
+  - name: debugrun
+    description: Debug Mode Run Enable.
+    bit_offset: 17
+    bit_size: 1
+    enum: vals::Debugrun
+fieldset/regs::Ch0Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch0EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch0EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch0EvalcfgMode
+fieldset/regs::Ch0Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch0Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch0InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch0InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch0InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch0InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch0InteractSample
+fieldset/regs::Ch0Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch10Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch10EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch10EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch10EvalcfgMode
+fieldset/regs::Ch10Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch10Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch10InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch10InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch10InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch10InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch10InteractSample
+fieldset/regs::Ch10Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch11Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch11EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch11EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch11EvalcfgMode
+fieldset/regs::Ch11Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch11Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch11InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch11InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch11InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch11InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch11InteractSample
+fieldset/regs::Ch11Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch12Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch12EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch12EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch12EvalcfgMode
+fieldset/regs::Ch12Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch12Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch12InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch12InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch12InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch12InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch12InteractSample
+fieldset/regs::Ch12Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch13Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch13EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch13EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch13EvalcfgMode
+fieldset/regs::Ch13Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch13Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch13InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch13InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch13InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch13InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch13InteractSample
+fieldset/regs::Ch13Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch14Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch14EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch14EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch14EvalcfgMode
+fieldset/regs::Ch14Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch14Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch14InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch14InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch14InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch14InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch14InteractSample
+fieldset/regs::Ch14Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch15Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch15EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch15EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch15EvalcfgMode
+fieldset/regs::Ch15Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch15Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch15InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch15InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch15InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch15InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch15InteractSample
+fieldset/regs::Ch15Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch1Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch1EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch1EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch1EvalcfgMode
+fieldset/regs::Ch1Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch1Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch1InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch1InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch1InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch1InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch1InteractSample
+fieldset/regs::Ch1Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch2Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch2EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch2EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch2EvalcfgMode
+fieldset/regs::Ch2Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch2Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch2InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch2InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch2InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch2InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch2InteractSample
+fieldset/regs::Ch2Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch3Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch3EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch3EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch3EvalcfgMode
+fieldset/regs::Ch3Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch3Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch3InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch3InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch3InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch3InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch3InteractSample
+fieldset/regs::Ch3Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch4Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch4EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch4EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch4EvalcfgMode
+fieldset/regs::Ch4Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch4Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch4InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch4InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch4InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch4InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch4InteractSample
+fieldset/regs::Ch4Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch5Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch5EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch5EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch5EvalcfgMode
+fieldset/regs::Ch5Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch5Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch5InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch5InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch5InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch5InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch5InteractSample
+fieldset/regs::Ch5Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch6Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch6EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch6EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch6EvalcfgMode
+fieldset/regs::Ch6Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch6Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch6InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch6InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch6InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch6InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch6InteractSample
+fieldset/regs::Ch6Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch7Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch7EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch7EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch7EvalcfgMode
+fieldset/regs::Ch7Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch7Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch7InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch7InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch7InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch7InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch7InteractSample
+fieldset/regs::Ch7Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch8Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch8EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch8EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch8EvalcfgMode
+fieldset/regs::Ch8Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch8Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch8InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch8InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch8InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch8InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch8InteractSample
+fieldset/regs::Ch8Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Ch9Evalcfg:
+  description: No Description.
+  fields:
+  - name: decode
+    description: Send result to decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp
+    description: Select mode for threshold comparison.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Ch9EvalcfgComp
+  - name: strsample
+    description: Enable storing of sensor sample in resul.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ch9EvalcfgStrsample
+  - name: scanresinv
+    description: Enable inversion of result.
+    bit_offset: 6
+    bit_size: 1
+  - name: mode
+    description: Configure evaluation mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch9EvalcfgMode
+fieldset/regs::Ch9Evalthres:
+  description: No Description.
+  fields:
+  - name: evalthres
+    description: Threshold.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ch9Interact:
+  description: No Description.
+  fields:
+  - name: thres
+    description: ACMP threshold or DAC data.
+    bit_offset: 0
+    bit_size: 12
+  - name: exmode
+    description: Set GPIO mode.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Ch9InteractExmode
+  - name: altex
+    description: Use alternative excite pin.
+    bit_offset: 18
+    bit_size: 1
+  - name: sampleclk
+    description: Select clock used for timing of sample d.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Ch9InteractSampleclk
+  - name: exclk
+    description: Select clock used for excitation timing.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Ch9InteractExclk
+  - name: setif
+    description: Enable interrupt generation.
+    bit_offset: 21
+    bit_size: 3
+    enum: vals::Ch9InteractSetif
+  - name: offset
+    description: OFFSET for IADC/ACMP interaction.
+    bit_offset: 24
+    bit_size: 4
+  - name: sample
+    description: Sample mode Selection.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Ch9InteractSample
+fieldset/regs::Ch9Timing:
+  description: No Description.
+  fields:
+  - name: extime
+    description: Set excitation time.
+    bit_offset: 0
+    bit_size: 6
+  - name: sampledly
+    description: Set sample delay.
+    bit_offset: 6
+    bit_size: 8
+  - name: measuredly
+    description: Set measure delay.
+    bit_offset: 14
+    bit_size: 10
+fieldset/regs::Chen:
+  description: Channel enable Register.
+  fields:
+  - name: chen
+    description: Enable scan channel.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cmd:
+  description: Command Register.
+  fields:
+  - name: start
+    description: Start scanning of sensors.
+    bit_offset: 0
+    bit_size: 1
+  - name: stop
+    description: Stop scanning of sensors.
+    bit_offset: 1
+    bit_size: 1
+  - name: decode
+    description: Start decoder.
+    bit_offset: 2
+    bit_size: 1
+  - name: clearbuf
+    description: Clear result buffer.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::Curch:
+  description: Current channel index.
+  fields:
+  - name: curch
+    description: Shows the index of the current channel.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::Decctrl:
+  description: Decoder control Register.
+  fields:
+  - name: decdis
+    description: Disable the decoder.
+    bit_offset: 0
+    bit_size: 1
+  - name: intmap
+    description: Enable decoder to channel interrupt map.
+    bit_offset: 2
+    bit_size: 1
+  - name: hystprs0
+    description: Enable decoder hysteresis on PRS0 output.
+    bit_offset: 3
+    bit_size: 1
+  - name: hystprs1
+    description: Enable decoder hysteresis on PRS1 output.
+    bit_offset: 4
+    bit_size: 1
+  - name: hystprs2
+    description: Enable decoder hysteresis on PRS2 output.
+    bit_offset: 5
+    bit_size: 1
+  - name: hystirq
+    description: Enable decoder hysteresis on interrupt r.
+    bit_offset: 6
+    bit_size: 1
+  - name: prscnt
+    description: Enable count mode on decoder PRS channel.
+    bit_offset: 7
+    bit_size: 1
+fieldset/regs::Decstate:
+  description: Current decoder state.
+  fields:
+  - name: decstate
+    description: Shows the current decoder state.
+    bit_offset: 0
+    bit_size: 5
+fieldset/regs::En:
+  description: Global Enable of LESENSE functions.
+  fields:
+  - name: en
+    description: Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: disabling
+    description: Disabling.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Evalctrl:
+  description: LESENSE evaluation control.
+  fields:
+  - name: winsize
+    description: Sliding window and step detection size.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Idleconf:
+  description: GPIO Idle phase configuration.
+  fields:
+  - name: chidle0
+    description: Channel IDLE configuration.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Chidle0
+  - name: chidle1
+    description: Channel IDLE configuration.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Chidle1
+  - name: chidle2
+    description: Channel IDLE configuration.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Chidle2
+  - name: chidle3
+    description: Channel IDLE configuration.
+    bit_offset: 6
+    bit_size: 2
+    enum: vals::Chidle3
+  - name: chidle4
+    description: Channel IDLE configuration.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Chidle4
+  - name: chidle5
+    description: Channel IDLE configuration.
+    bit_offset: 10
+    bit_size: 2
+    enum: vals::Chidle5
+  - name: chidle6
+    description: Channel IDLE configuration.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Chidle6
+  - name: chidle7
+    description: Channel IDLE configuration.
+    bit_offset: 14
+    bit_size: 2
+    enum: vals::Chidle7
+  - name: chidle8
+    description: Channel IDLE configuration.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Chidle8
+  - name: chidle9
+    description: Channel IDLE configuration.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Chidle9
+  - name: chidle10
+    description: Channel IDLE configuration.
+    bit_offset: 20
+    bit_size: 2
+    enum: vals::Chidle10
+  - name: chidle11
+    description: Channel IDLE configuration.
+    bit_offset: 22
+    bit_size: 2
+    enum: vals::Chidle11
+  - name: chidle12
+    description: Channel IDLE configuration.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Chidle12
+  - name: chidle13
+    description: Channel IDLE configuration.
+    bit_offset: 26
+    bit_size: 2
+    enum: vals::Chidle13
+  - name: chidle14
+    description: Channel IDLE configuration.
+    bit_offset: 28
+    bit_size: 2
+    enum: vals::Chidle14
+  - name: chidle15
+    description: Channel IDLE configuration.
+    bit_offset: 30
+    bit_size: 2
+    enum: vals::Chidle15
+fieldset/regs::Ien:
+  description: Interrupt Enables.
+  fields:
+  - name: ch0
+    description: Channel.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1
+    description: Channel.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2
+    description: Channel.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3
+    description: Channel.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4
+    description: Channel.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5
+    description: Channel.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6
+    description: Channel.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7
+    description: Channel.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8
+    description: Channel.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9
+    description: Channel.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10
+    description: Channel.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11
+    description: Channel.
+    bit_offset: 11
+    bit_size: 1
+  - name: ch12
+    description: Channel.
+    bit_offset: 12
+    bit_size: 1
+  - name: ch13
+    description: Channel.
+    bit_offset: 13
+    bit_size: 1
+  - name: ch14
+    description: Channel.
+    bit_offset: 14
+    bit_size: 1
+  - name: ch15
+    description: Channel.
+    bit_offset: 15
+    bit_size: 1
+  - name: scandone
+    description: Scan Complete.
+    bit_offset: 16
+    bit_size: 1
+  - name: dec
+    description: Decoder.
+    bit_offset: 17
+    bit_size: 1
+  - name: reswl
+    description: Result Watermark Level.
+    bit_offset: 18
+    bit_size: 1
+  - name: resof
+    description: Result Overflow.
+    bit_offset: 19
+    bit_size: 1
+  - name: cntof
+    description: Counter Overflow.
+    bit_offset: 20
+    bit_size: 1
+  - name: resuf
+    description: Result Underflow.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flags.
+  fields:
+  - name: ch0
+    description: Channel.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1
+    description: Channel.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2
+    description: Channel.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3
+    description: Channel.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4
+    description: Channel.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5
+    description: Channel.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6
+    description: Channel.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7
+    description: Channel.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8
+    description: Channel.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9
+    description: Channel.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10
+    description: Channel.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11
+    description: Channel.
+    bit_offset: 11
+    bit_size: 1
+  - name: ch12
+    description: Channel.
+    bit_offset: 12
+    bit_size: 1
+  - name: ch13
+    description: Channel.
+    bit_offset: 13
+    bit_size: 1
+  - name: ch14
+    description: Channel.
+    bit_offset: 14
+    bit_size: 1
+  - name: ch15
+    description: Channel.
+    bit_offset: 15
+    bit_size: 1
+  - name: scandone
+    description: Scan Done.
+    bit_offset: 16
+    bit_size: 1
+  - name: dec
+    description: Decoder.
+    bit_offset: 17
+    bit_size: 1
+  - name: reswl
+    description: Result Watermark Level.
+    bit_offset: 18
+    bit_size: 1
+  - name: resof
+    description: Result Overflow.
+    bit_offset: 19
+    bit_size: 1
+  - name: cntof
+    description: Counter Overflow.
+    bit_offset: 20
+    bit_size: 1
+  - name: resuf
+    description: Result Underflow.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: IPVERSION.
+  fields:
+  - name: ipversion
+    description: IPVERSION.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Perctrl:
+  description: Peripheral Control Register.
+  fields:
+  - name: dacch0data
+    description: DAC CH0 data selection.
+    bit_offset: 2
+    bit_size: 1
+    enum: vals::Dacch0data
+  - name: dacstartup
+    description: DAC startup configuration.
+    bit_offset: 6
+    bit_size: 1
+    enum: vals::Dacstartup
+  - name: dacconvtrig
+    description: DAC conversion trigger configuration.
+    bit_offset: 8
+    bit_size: 1
+    enum: vals::Dacconvtrig
+  - name: acmp0mode
+    description: ACMP0 mode.
+    bit_offset: 20
+    bit_size: 1
+    enum: vals::Acmp0mode
+  - name: acmp1mode
+    description: ACMP1 mode.
+    bit_offset: 22
+    bit_size: 1
+    enum: vals::Acmp1mode
+  - name: acmp0inv
+    description: Invert analog comparator 0 output.
+    bit_offset: 24
+    bit_size: 1
+  - name: acmp1inv
+    description: Invert analog comparator 1 output.
+    bit_offset: 25
+    bit_size: 1
+fieldset/regs::Prsctrl:
+  description: PRS control register.
+  fields:
+  - name: deccmpval
+    description: Decoder state compare value.
+    bit_offset: 0
+    bit_size: 5
+  - name: deccmpmask
+    description: Decoder state compare value mask.
+    bit_offset: 8
+    bit_size: 5
+  - name: deccmpen
+    description: Enable PRS output DECCMP.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Rescount:
+  description: Result FIFO Count.
+  fields:
+  - name: count
+    description: Result Fifo Count.
+    bit_offset: 0
+    bit_size: 5
+fieldset/regs::Resfifo:
+  description: Result Fifo.
+  fields:
+  - name: bufdatasrc
+    description: Result data and source.
+    bit_offset: 0
+    bit_size: 20
+fieldset/regs::Scanres:
+  description: Scan result register.
+  fields:
+  - name: scanres
+    description: Scan results.
+    bit_offset: 0
+    bit_size: 16
+  - name: stepdir
+    description: Direction of previous step detection.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::Sensorstate:
+  description: Decoder input register.
+  fields:
+  - name: sensorstate
+    description: Sensor State.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::St0Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St10Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St11Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St12Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St13Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St14Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St15Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St16Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St17Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St18Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St19Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St1Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St20Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St21Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St22Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St23Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St24Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St25Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St26Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St27Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St28Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St29Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St2Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St30Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St31Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St32Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St33Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St34Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St35Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St36Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St37Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St38Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St39Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St3Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St40Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St41Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St42Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St43Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St44Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St45Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St46Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St47Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St48Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St49Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St4Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St50Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St51Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St52Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St53Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St54Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St55Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St56Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St57Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St58Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St59Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St5Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St60Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St61Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St62Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St63Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St6Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St7Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St8Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::St9Arc:
+  description: No Description.
+  fields:
+  - name: scomp
+    description: Sensor compare value.
+    bit_offset: 0
+    bit_size: 4
+  - name: smask
+    description: Sensor mask.
+    bit_offset: 4
+    bit_size: 4
+  - name: curstate
+    description: Current State.
+    bit_offset: 8
+    bit_size: 5
+  - name: prsact
+    description: Configure transition action in normal mode.
+    bit_offset: 13
+    bit_size: 3
+  - name: nextstate
+    description: Next state index.
+    bit_offset: 16
+    bit_size: 5
+  - name: setif
+    description: Set interrupt flag.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::Status:
+  description: Status Register.
+  fields:
+  - name: resfifov
+    description: Result fifo valid.
+    bit_offset: 0
+    bit_size: 1
+  - name: resfifofull
+    description: Result fifo full.
+    bit_offset: 1
+    bit_size: 1
+  - name: scanactive
+    description: LESENSE scan active.
+    bit_offset: 3
+    bit_size: 1
+  - name: running
+    description: LESENSE periodic counter running.
+    bit_offset: 4
+    bit_size: 1
+  - name: readbusy
+    description: FIFO Read Busy.
+    bit_offset: 5
+    bit_size: 1
+  - name: flushing
+    description: FIFO Flushing.
+    bit_offset: 6
+    bit_size: 1
+fieldset/regs::Swrst:
+  description: No Description.
+  fields:
+  - name: swrst
+    description: Software reset command.
+    bit_offset: 0
+    bit_size: 1
+  - name: resetting
+    description: Software reset busy status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Syncbusy:
+  description: Synchronization Busy Register.
+  fields:
+  - name: cmd
+    description: Command.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Timctrl:
+  description: Timing Control Register.
+  fields:
+  - name: auxpresc
+    description: Prescaling factor for high frequency tim.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Auxpresc
+  - name: lfpresc
+    description: Prescaling factor for low frequency time.
+    bit_offset: 4
+    bit_size: 3
+    enum: vals::Lfpresc
+  - name: pcpresc
+    description: Period counter prescaling.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Pcpresc
+  - name: pctop
+    description: Period counter top value.
+    bit_offset: 12
+    bit_size: 8
+  - name: startdly
+    description: Start delay configuration.
+    bit_offset: 22
+    bit_size: 2
+  - name: auxstartup
+    description: AUX startup config.
+    bit_offset: 28
+    bit_size: 1
+    enum: vals::Auxstartup
+enum/vals::Acmp0mode:
+  bit_size: 1
+  variants:
+  - name: Mux
+    description: LESENSE controls POSSEL of ACMP0.
+    value: 0
+  - name: Muxthres
+    description: LESENSE controls POSSEL and reference divider of ACMP0.
+    value: 1
+enum/vals::Acmp1mode:
+  bit_size: 1
+  variants:
+  - name: Mux
+    description: LESENSE controls the POSSEL of ACMP1.
+    value: 0
+  - name: Muxthres
+    description: LESENSE POSSEL and reference divider of ACMP1.
+    value: 1
+enum/vals::Auxpresc:
+  bit_size: 2
+  variants:
+  - name: Div1
+    description: High frequency timer is clocked at LESENSEHFCLK/1.
+    value: 0
+  - name: Div2
+    description: High frequency timer is clocked at LESENSEHFCLK/2.
+    value: 1
+  - name: Div4
+    description: High frequency timer is clocked at LESENSEHFCLK/4.
+    value: 2
+  - name: Div8
+    description: High frequency timer is clocked at LESENSEHFCLK/8.
+    value: 3
+enum/vals::Auxstartup:
+  bit_size: 1
+  variants:
+  - name: Ondemand
+    description: Request oscillator at sensing time.
+    value: 1
+  - name: Predemand
+    description: Request oscillator .5 LESENSECLK cycle before sensing starts.
+    value: 0
+enum/vals::Ch0EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch0EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch0EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch0InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch0InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch0InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch0InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch0InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch10EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch10EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch10EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch10InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch10InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch10InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch10InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch10InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch11EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch11EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch11EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch11InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch11InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch11InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch11InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch11InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch12EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch12EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch12EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch12InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch12InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch12InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch12InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch12InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch13EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch13EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch13EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch13InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch13InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch13InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch13InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch13InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch14EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch14EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch14EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch14InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch14InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch14InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch14InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch14InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch15EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch15EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch15EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch15InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch15InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch15InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch15InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch15InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch1EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch1EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch1EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch1InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch1InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch1InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch1InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch1InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch2EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch2EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch2EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch2InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch2InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch2InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch2InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch2InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch3EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch3EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch3EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch3InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch3InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch3InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch3InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch3InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch4EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch4EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch4EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch4InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch4InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch4InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch4InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch4InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch5EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch5EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch5EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch5InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch5InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch5InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch5InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch5InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch6EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch6EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch6EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch6InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch6InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch6InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch6InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch6InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch7EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch7EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch7EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch7InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch7InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch7InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch7InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch7InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch8EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch8EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch8EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch8InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch8InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch8InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch8InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch8InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Ch9EvalcfgComp:
+  bit_size: 1
+  variants:
+  - name: Ge
+    description: Comparison evaluates to 1 if sensor data is greater than, or equal to CTRTHRESHOLD, or if the ACMP output is 1.
+    value: 1
+  - name: Less
+    description: Comparison evaluates to 1 if sensor data is less than CTRTHRESHOLD, or if the ACMP output is 0.
+    value: 0
+enum/vals::Ch9EvalcfgMode:
+  bit_size: 2
+  variants:
+  - name: Slidingwin
+    description: Sliding window is used to evaluate sensor result.
+    value: 1
+  - name: Stepdet
+    description: Step detection is used to evaluate sensor result.
+    value: 2
+  - name: Thres
+    description: Threshold comparison is used to evaluate sensor result.
+    value: 0
+enum/vals::Ch9EvalcfgStrsample:
+  bit_size: 2
+  variants:
+  - name: Data
+    description: The sensor sample data will be stored in the result buffer.
+    value: 1
+  - name: Datasrc
+    description: The data source, i.e. the channel, will be stored alongside the sensor sample data.
+    value: 2
+  - name: Disable
+    description: Nothing will be stored in the result buffer.
+    value: 0
+enum/vals::Ch9InteractExclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch9InteractExmode:
+  bit_size: 2
+  variants:
+  - name: Dacout
+    description: DAC output.
+    value: 3
+  - name: Disable
+    description: Disabled.
+    value: 0
+  - name: High
+    description: Push Pull, GPIO is driven high.
+    value: 1
+  - name: Low
+    description: Push Pull, GPIO is driven low.
+    value: 2
+enum/vals::Ch9InteractSample:
+  bit_size: 2
+  variants:
+  - name: Acmp
+    description: ACMP.
+    value: 1
+  - name: Acmpcount
+    description: ACMPCOUNT.
+    value: 0
+  - name: Adc
+    description: ADC.
+    value: 2
+  - name: Adcdiff
+    description: ADCDIFF.
+    value: 3
+enum/vals::Ch9InteractSampleclk:
+  bit_size: 1
+  variants:
+  - name: Auxhfrco
+    description: Prescaled high-frequency LESENSEHFCLK will be used for timing.
+    value: 1
+  - name: Lfaclk
+    description: Prescaled low-frequency LESENSECLK will be used for timing.
+    value: 0
+enum/vals::Ch9InteractSetif:
+  bit_size: 3
+  variants:
+  - name: Bothedges
+    description: Set interrupt flag on both edges of the sensor state.
+    value: 4
+  - name: Level
+    description: Set interrupt flag if the sensor triggers.
+    value: 1
+  - name: Negedge
+    description: Set interrupt flag on negative edge of the sensor state.
+    value: 3
+  - name: None
+    description: No interrupt is generated.
+    value: 0
+  - name: Posedge
+    description: Set interrupt flag on positive edge of the sensor state.
+    value: 2
+enum/vals::Chidle0:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle1:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle10:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle11:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle12:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle13:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle14:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle15:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle2:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle3:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle4:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle5:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle6:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle7:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle8:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Chidle9:
+  bit_size: 2
+  variants:
+  - name: Dac
+    description: Channel output is connected to DAC output in idle phase (CH 0,1,2 only).
+    value: 3
+  - name: Disable
+    description: Channel output is disabled in idle phase.
+    value: 0
+  - name: High
+    description: Channel output is high in idle phase.
+    value: 1
+  - name: Low
+    description: Channel output is low in idle phase.
+    value: 2
+enum/vals::Dacch0data:
+  bit_size: 1
+  variants:
+  - name: Dacdata
+    description: DAC data is defined by CH0DATA in the DAC interface.
+    value: 0
+  - name: Thres
+    description: DAC data is defined by THRES in CHx_INTERACT.
+    value: 1
+enum/vals::Dacconvtrig:
+  bit_size: 1
+  variants:
+  - name: Channelstart
+    description: DAC is enabled before every LESENSE channle measurement.
+    value: 0
+  - name: Scanstart
+    description: DAC is only enabled once per scan.
+    value: 1
+enum/vals::Dacstartup:
+  bit_size: 1
+  variants:
+  - name: Fullcycle
+    description: DAC is started a full LESENSECLK before sensor interaction starts.
+    value: 0
+  - name: Halfcycle
+    description: DAC is started half a LESENSECLK cycle before sensor interaction starts.
+    value: 1
+enum/vals::Debugrun:
+  bit_size: 1
+  variants:
+  - name: X0
+    description: LESENSE can not start new scans in debug mode.
+    value: 0
+  - name: X1
+    description: LESENSE can start new scans in debug mode.
+    value: 1
+enum/vals::Lfpresc:
+  bit_size: 3
+  variants:
+  - name: Div1
+    description: Low frequency timer is clocked with LESENSECLK/1.
+    value: 0
+  - name: Div128
+    description: Low frequency timer is clocked with LESENSECLK/128.
+    value: 7
+  - name: Div16
+    description: Low frequency timer is clocked with LESENSECLK/16.
+    value: 4
+  - name: Div2
+    description: Low frequency timer is clocked with LESENSECLK/2.
+    value: 1
+  - name: Div32
+    description: Low frequency timer is clocked with LESENSECLK/32.
+    value: 5
+  - name: Div4
+    description: Low frequency timer is clocked with LESENSECLK/4.
+    value: 2
+  - name: Div64
+    description: Low frequency timer is clocked with LESENSECLK/64.
+    value: 6
+  - name: Div8
+    description: Low frequency timer is clocked with LESENSECLK/8.
+    value: 3
+enum/vals::Pcpresc:
+  bit_size: 3
+  variants:
+  - name: Div1
+    description: The period counter clock frequency is LESENSECLK/1.
+    value: 0
+  - name: Div128
+    description: The period counter clock frequency is LESENSECLK/128.
+    value: 7
+  - name: Div16
+    description: The period counter clock frequency is LESENSECLK/16.
+    value: 4
+  - name: Div2
+    description: The period counter clock frequency is LESENSECLK/2.
+    value: 1
+  - name: Div32
+    description: The period counter clock frequency is LESENSECLK/32.
+    value: 5
+  - name: Div4
+    description: The period counter clock frequency is LESENSECLK/4.
+    value: 2
+  - name: Div64
+    description: The period counter clock frequency is LESENSECLK/64.
+    value: 6
+  - name: Div8
+    description: The period counter clock frequency is LESENSECLK/8.
+    value: 3
+enum/vals::Scanconf:
+  bit_size: 2
+  variants:
+  - name: Decdef
+    description: The decoder state defines the CONF registers to be used.
+    value: 3
+  - name: Dirmap
+    description: The channel configuration register registers used are directly mapped to the channel number.
+    value: 0
+  - name: Invmap
+    description: The channel configuration registers used are CH[X+8]_CONF for channels 0-7 and CH[X-8]_CONF for channels 8-15.
+    value: 1
+  - name: Toggle
+    description: The channel configuration registers used toggle between CH[X]_CONF and CH[X+8]_CONF when channel x triggers.
+    value: 2
+enum/vals::Scanmode:
+  bit_size: 2
+  variants:
+  - name: Oneshot
+    description: A single scan is performed when START in CMD is set.
+    value: 1
+  - name: Periodic
+    description: A new scan is started each time the period counter overflows.
+    value: 0
+  - name: Prs
+    description: Pulse on PRS channel.
+    value: 2

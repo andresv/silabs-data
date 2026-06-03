@@ -1,0 +1,666 @@
+block/Syscfg:
+  description: SYSCFG peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 4
+    access: Read
+    fieldset: regs::Ipversion
+  - name: if_
+    description: Read to get system status.
+    byte_offset: 8
+    fieldset: regs::If
+  - name: ien
+    description: Write to enable interrupts.
+    byte_offset: 12
+    fieldset: regs::Ien
+  - name: chiprevhw
+    description: Read to get the hard-wired chip revision.
+    byte_offset: 20
+    fieldset: regs::Chiprevhw
+  - name: chiprev
+    description: Read to get the chip revision programmed by feature configuration.
+    byte_offset: 24
+    fieldset: regs::Chiprev
+  - name: cfgsystic
+    description: Configure the source of the system tick for the M33.
+    byte_offset: 36
+    fieldset: regs::Cfgsystic
+  - name: ctrl
+    description: Configure to provide general RAM configuration.
+    byte_offset: 512
+    fieldset: regs::Ctrl
+  - name: dmem0retnctrl
+    description: Configure to provide general RAM retention configuration.
+    byte_offset: 520
+    fieldset: regs::Dmem0retnctrl
+  - name: rambiasconf
+    description: Configure RAM bias configure bits.
+    byte_offset: 780
+    fieldset: regs::Rambiasconf
+  - name: radioramretnctrl
+    description: Configure SEQRAM Retention controls.
+    byte_offset: 1024
+    fieldset: regs::Radioramretnctrl
+  - name: radioeccctrl
+    description: Configure to set RAM ECC control.
+    byte_offset: 1032
+    fieldset: regs::Radioeccctrl
+  - name: seqrameccaddr
+    description: Read to get status of the SEQRAM ECC error address.
+    byte_offset: 1040
+    access: Read
+    fieldset: regs::Seqrameccaddr
+  - name: frcrameccaddr
+    description: Read to get status of the FRCRAM ECC error address.
+    byte_offset: 1044
+    access: Read
+    fieldset: regs::Frcrameccaddr
+  - name: icacheramretnctrl
+    description: Configure Host ICACHERAM retention configuration.
+    byte_offset: 1048
+    fieldset: regs::Icacheramretnctrl
+  - name: dmem0portmapsel
+    description: Configure DMEM0 port remap selection.
+    byte_offset: 1052
+    fieldset: regs::Dmem0portmapsel
+  - name: rootdata0
+    description: Generic data space for user to pass to root, e.g., address of struct in mem.
+    byte_offset: 1536
+    fieldset: regs::Rootdata0
+  - name: rootdata1
+    description: Generic data space for user to pass to root, e.g., address of struct in mem.
+    byte_offset: 1540
+    fieldset: regs::Rootdata1
+  - name: rootlockstatus
+    description: This register returns the status of the SE managed locks.
+    byte_offset: 1544
+    access: Read
+    fieldset: regs::Rootlockstatus
+  - name: rootseswversion
+    description: SE Software version.
+    byte_offset: 1548
+    fieldset: regs::Rootseswversion
+fieldset/regs::Cfgsystic:
+  description: Configure the source of the system tick for the M33.
+  fields:
+  - name: systicextclken
+    description: System-Tick External Clock Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Chiprev:
+  description: Read to get the chip revision programmed by feature configuration.
+  fields:
+  - name: partnumber
+    description: Chip Part Number value.
+    bit_offset: 0
+    bit_size: 12
+  - name: minor
+    description: Chip Revision Minor value.
+    bit_offset: 12
+    bit_size: 4
+  - name: major
+    description: Chip Revision Major value.
+    bit_offset: 16
+    bit_size: 4
+fieldset/regs::Chiprevhw:
+  description: Read to get the hard-wired chip revision.
+  fields:
+  - name: partnumber
+    description: Hardwired Chip Part Number value.
+    bit_offset: 0
+    bit_size: 12
+  - name: minor
+    description: Hardwired Chip Revision Minor value.
+    bit_offset: 12
+    bit_size: 4
+  - name: major
+    description: Hardwired Chip Revision Major value.
+    bit_offset: 16
+    bit_size: 4
+fieldset/regs::Ctrl:
+  description: Configure to provide general RAM configuration.
+  fields:
+  - name: addrfaulten
+    description: Invalid Address Bus Fault Response Enabl.
+    bit_offset: 0
+    bit_size: 1
+  - name: clkdisfaulten
+    description: Disabled Clkbus Bus Fault Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: rameccerrfaulten
+    description: Two bit ECC error bus fault response ena.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Dmem0portmapsel:
+  description: Configure DMEM0 port remap selection.
+  fields:
+  - name: ldmaportsel
+    description: LDMA portmap selection.
+    bit_offset: 0
+    bit_size: 1
+  - name: srwaesportsel
+    description: SRWAES portmap selection.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahbsrwportsel
+    description: AHBSRW portmap selection.
+    bit_offset: 2
+    bit_size: 1
+  - name: srweca0portsel
+    description: SRWECA0 portmap selection.
+    bit_offset: 3
+    bit_size: 1
+  - name: srweca1portsel
+    description: SRWECA1 portmap selection.
+    bit_offset: 4
+    bit_size: 1
+  - name: ldma1portsel
+    description: LDMA port1 portmap selection.
+    bit_offset: 5
+    bit_size: 1
+  - name: srwldmaportsel
+    description: SRWLDMA port1 portmap selection.
+    bit_offset: 6
+    bit_size: 1
+  - name: usbportsel
+    description: USB portmap selection.
+    bit_offset: 7
+    bit_size: 1
+  - name: bufcportsel
+    description: BUFC portmap selection.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::Dmem0retnctrl:
+  description: Configure to provide general RAM retention configuration.
+  fields:
+  - name: ramretnctrl
+    description: DMEM0 blockset retention control.
+    bit_offset: 0
+    bit_size: 15
+    enum: vals::Dmem0retnctrlRamretnctrl
+fieldset/regs::Frcrameccaddr:
+  description: Read to get status of the FRCRAM ECC error address.
+  fields:
+  - name: frcrameccaddr
+    description: FRCRAM ECC Error Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Icacheramretnctrl:
+  description: Configure Host ICACHERAM retention configuration.
+  fields:
+  - name: ramretnctrl
+    description: ICACHERAM Retention control.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: Write to enable interrupts.
+  fields:
+  - name: sw0
+    description: Software Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: sw1
+    description: Software Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: sw2
+    description: Software Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: sw3
+    description: Software Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: fpioc
+    description: FPU Invalid Operation Interrupt Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: fpdzc
+    description: FPU Divide by zero Interrupt Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: fpufc
+    description: FPU Underflow Interrupt Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: fpofc
+    description: FPU Overflow Interrupt Enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: fpidc
+    description: FPU Input denormal Interrupt Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: fpixc
+    description: FPU Inexact Interrupt Enable.
+    bit_offset: 13
+    bit_size: 1
+  - name: host2srwbuserr
+    description: HOST2SRWBUSERR Interrupt Enable.
+    bit_offset: 15
+    bit_size: 1
+  - name: srw2hostbuserr
+    description: SRW2HOSTBUSERR Interrupt Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: srw2softmbuserr
+    description: SRW2SOFTMBUSERR Interrupt Enable.
+    bit_offset: 17
+    bit_size: 1
+  - name: softm2srwbuserr
+    description: SOFTM2SRWBUSERR Interrupt Enable.
+    bit_offset: 18
+    bit_size: 1
+  - name: softmbuserrien
+    description: Softm bus error interrupt Enable.
+    bit_offset: 20
+    bit_size: 1
+  - name: softmdtcmramerrien
+    description: Softm DTCM Error Interrupt Enable.
+    bit_offset: 21
+    bit_size: 1
+  - name: softmitcmramerrien
+    description: Softm ITCM Error Interrupt Enable.
+    bit_offset: 22
+    bit_size: 1
+  - name: seqramerr1b
+    description: SEQRAM Error 1-bit Interrupt Enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: seqramerr2b
+    description: SEQRAM Error 2-bit Interrupt Enable.
+    bit_offset: 25
+    bit_size: 1
+  - name: frcramerr1b
+    description: FRCRAM Error 1-bit Interrupt Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: frcramerr2b
+    description: FRCRAM Error 2-bit Interrupt Enable.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::If:
+  description: Read to get system status.
+  fields:
+  - name: sw0
+    description: Software Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: sw1
+    description: Software Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: sw2
+    description: Software Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: sw3
+    description: Software Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: fpioc
+    description: FPU Invalid Operation interrupt flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: fpdzc
+    description: FPU Divide by zero interrupt flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: fpufc
+    description: FPU Underflow interrupt flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: fpofc
+    description: FPU Overflow interrupt flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: fpidc
+    description: FPU Input denormal interrupt flag.
+    bit_offset: 12
+    bit_size: 1
+  - name: fpixc
+    description: FPU Inexact interrupt flag.
+    bit_offset: 13
+    bit_size: 1
+  - name: host2srwbuserr
+    description: HOST2SRWBUSERR Interrupt Flag.
+    bit_offset: 15
+    bit_size: 1
+  - name: srw2hostbuserr
+    description: SRW2HOSTBUSERR Interrupt Flag.
+    bit_offset: 16
+    bit_size: 1
+  - name: srw2softmbuserr
+    description: SRW2SOFTMBUSERR Interrupt Flag.
+    bit_offset: 17
+    bit_size: 1
+  - name: softm2srwbuserr
+    description: SOFTM2SRWBUSERR Interrupt Flag.
+    bit_offset: 18
+    bit_size: 1
+  - name: softmbuserrif
+    description: Softm bus error Interrupt Flag.
+    bit_offset: 20
+    bit_size: 1
+  - name: softmdtcmramerrif
+    description: Softm DTCM Error Interrupt Flag.
+    bit_offset: 21
+    bit_size: 1
+  - name: softmitcmramerrif
+    description: Softm ITCM Error Interrupt Flag.
+    bit_offset: 22
+    bit_size: 1
+  - name: seqramerr1b
+    description: SEQRAM Error 1-bit Interrupt Flag.
+    bit_offset: 24
+    bit_size: 1
+  - name: seqramerr2b
+    description: SEQRAM Error 2-bit Interrupt Flag.
+    bit_offset: 25
+    bit_size: 1
+  - name: frcramerr1b
+    description: FRCRAM Error 1-bit Interrupt Flag.
+    bit_offset: 28
+    bit_size: 1
+  - name: frcramerr2b
+    description: FRCRAM Error 2-bit Interrupt Flag.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: New BitField.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Radioeccctrl:
+  description: Configure to set RAM ECC control.
+  fields:
+  - name: seqrameccen
+    description: SEQRAM ECC Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: seqrameccewen
+    description: SEQRAM ECC Error Writeback Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: frcrameccen
+    description: FRCRAM ECC Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: frcrameccewen
+    description: FRCRAM ECC Error Writeback Enable.
+    bit_offset: 9
+    bit_size: 1
+fieldset/regs::Radioramretnctrl:
+  description: Configure SEQRAM Retention controls.
+  fields:
+  - name: seqramretnctrl
+    description: SEQRAM Retention Control.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Seqramretnctrl
+  - name: frcramretnctrl
+    description: FRCRAM Retention Control.
+    bit_offset: 8
+    bit_size: 1
+  - name: itcramretnctrl
+    description: ITCRAM Retention Control.
+    bit_offset: 12
+    bit_size: 10
+    enum: vals::Itcramretnctrl
+  - name: dtcramretnctrl
+    description: DTCRAM Retention Control.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Dtcramretnctrl
+  - name: ahbramretnctrl
+    description: AHBRAM Retention Control.
+    bit_offset: 28
+    bit_size: 4
+    enum: vals::Ahbramretnctrl
+fieldset/regs::Rambiasconf:
+  description: Configure RAM bias configure bits.
+  fields:
+  - name: rambiasctrl
+    description: RAM Bias Control.
+    bit_offset: 0
+    bit_size: 4
+    enum: vals::Rambiasctrl
+fieldset/regs::Rootdata0:
+  description: Generic data space for user to pass to root, e.g., address of struct in mem.
+  fields:
+  - name: data
+    description: Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Rootdata1:
+  description: Generic data space for user to pass to root, e.g., address of struct in mem.
+  fields:
+  - name: data
+    description: Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Rootlockstatus:
+  description: This register returns the status of the SE managed locks.
+  fields:
+  - name: buslock
+    description: Bus Lock.
+    bit_offset: 0
+    bit_size: 1
+  - name: reglock
+    description: Register Lock.
+    bit_offset: 1
+    bit_size: 1
+  - name: mfrlock
+    description: Manufacture Lock.
+    bit_offset: 2
+    bit_size: 1
+  - name: rootdbglock
+    description: Root Debug Lock.
+    bit_offset: 8
+    bit_size: 1
+  - name: userdbgaplock
+    description: User Debug Access Port Lock.
+    bit_offset: 16
+    bit_size: 1
+  - name: userdbglock
+    description: User Invasive Debug Lock.
+    bit_offset: 17
+    bit_size: 1
+  - name: usernidlock
+    description: User Non-invasive Debug Lock.
+    bit_offset: 18
+    bit_size: 1
+  - name: userspidlock
+    description: User Secure Invasive Debug Lock.
+    bit_offset: 19
+    bit_size: 1
+  - name: userspnidlock
+    description: User Secure Non-invasive Debug Lock.
+    bit_offset: 20
+    bit_size: 1
+  - name: radiodbglock
+    description: Radio Debug Lock.
+    bit_offset: 21
+    bit_size: 1
+  - name: radiosmdbglock
+    description: Radio Soft Modem Debug Lock.
+    bit_offset: 22
+    bit_size: 1
+  - name: efuseunlocked
+    description: E-Fuse Unlocked.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Rootseswversion:
+  description: SE Software version.
+  fields:
+  - name: swversion
+    description: SW Version.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Seqrameccaddr:
+  description: Read to get status of the SEQRAM ECC error address.
+  fields:
+  - name: seqrameccaddr
+    description: SEQRAM ECC Address.
+    bit_offset: 0
+    bit_size: 32
+enum/vals::Ahbramretnctrl:
+  bit_size: 4
+  variants:
+  - name: Alloff
+    description: power down all blocks.
+    value: 15
+  - name: Allon
+    description: no banks powered down.
+    value: 0
+  - name: Blk1to3
+    description: power down blk 1 to 3.
+    value: 14
+  - name: Blk2to3
+    description: power down blk 2 to 3.
+    value: 12
+  - name: Blk3
+    description: power down blk3.
+    value: 8
+enum/vals::Dmem0retnctrlRamretnctrl:
+  bit_size: 15
+  variants:
+  - name: Allon
+    description: None of the RAM blocks powered down.
+    value: 0
+  - name: Blk10to15
+    description: Power down RAM blocks 10 and above.
+    value: 32256
+  - name: Blk11to15
+    description: Power down RAM blocks 11 and above.
+    value: 31744
+  - name: Blk12to15
+    description: Power down RAM blocks 12 and above.
+    value: 30720
+  - name: Blk13to15
+    description: Power down RAM blocks 13 and above.
+    value: 28672
+  - name: Blk14to15
+    description: Power down RAM blocks 14 and above.
+    value: 24576
+  - name: Blk15
+    description: Power down RAM block 15.
+    value: 16384
+  - name: Blk1to15
+    description: Power down RAM blocks 1 and above.
+    value: 32767
+  - name: Blk2to15
+    description: Power down RAM blocks 2 and above.
+    value: 32766
+  - name: Blk3to15
+    description: Power down RAM blocks 3 and above.
+    value: 32764
+  - name: Blk4to15
+    description: Power down RAM blocks 4 and above.
+    value: 32760
+  - name: Blk5to15
+    description: Power down RAM blocks 5 and above.
+    value: 32752
+  - name: Blk6to15
+    description: Power down RAM blocks 6 and above.
+    value: 32736
+  - name: Blk7to15
+    description: Power down RAM blocks 7 and above.
+    value: 32704
+  - name: Blk8to15
+    description: Power down RAM blocks 8 and above.
+    value: 32640
+  - name: Blk9to15
+    description: Power down RAM blocks 9 and above.
+    value: 32512
+enum/vals::Dtcramretnctrl:
+  bit_size: 2
+  variants:
+  - name: Alloff
+    description: ALLOFF.
+    value: 3
+  - name: Allon
+    description: None of the RAMs powered down.
+    value: 0
+  - name: Blk1
+    description: BLK1.
+    value: 2
+enum/vals::Itcramretnctrl:
+  bit_size: 10
+  variants:
+  - name: Alloff
+    description: All of the RAM blocks powered down.
+    value: 1023
+  - name: Allon
+    description: None of the RAM blocks powered down.
+    value: 0
+  - name: Blk1to9
+    description: Power down RAM block 1 and above.
+    value: 1022
+  - name: Blk2to9
+    description: Power down RAM block 2 and above.
+    value: 1020
+  - name: Blk3to9
+    description: Power down RAM block 3 and above.
+    value: 1016
+  - name: Blk4to9
+    description: Power down RAM block 4 and above.
+    value: 1008
+  - name: Blk5to9
+    description: Power down RAM block 5 and above.
+    value: 992
+  - name: Blk6to9
+    description: Power down RAM block 6 and above.
+    value: 960
+  - name: Blk7to9
+    description: Power down RAM block 7 and above.
+    value: 896
+  - name: Blk8to9
+    description: Power down RAM block 8 and above.
+    value: 768
+  - name: Blk9
+    description: Power down RAM block 9.
+    value: 512
+enum/vals::Rambiasctrl:
+  bit_size: 4
+  variants:
+  - name: No
+    description: None.
+    value: 0
+  - name: Vsb100
+    description: Voltage Source Bias 100mV.
+    value: 1
+  - name: Vsb200
+    description: Voltage Source Bias 200mV.
+    value: 2
+  - name: Vsb300
+    description: Voltage Source Bias 300mV.
+    value: 4
+  - name: Vsb400
+    description: Voltage Source Bias 400mV.
+    value: 8
+enum/vals::Seqramretnctrl:
+  bit_size: 3
+  variants:
+  - name: Alloff
+    description: Power down all SEQRAM blocks.
+    value: 7
+  - name: Allon
+    description: SEQRAM not powered down.
+    value: 0
+  - name: Blk0
+    description: Power down SEQRAM block 0.
+    value: 1
+  - name: Blk1
+    description: Power down SEQRAM block 1.
+    value: 2
+  - name: Blk1to2
+    description: Power down SEQRAM block 1 to 2.
+    value: 6
+  - name: Blk2
+    description: Power down SEQRAM block 2.
+    value: 4
