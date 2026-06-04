@@ -139,8 +139,20 @@ pub fn generate(input: GenerateInput<'_>) -> Result<Generated> {
         // remaining `#![allow(...)]` inner attrs are stripped post-render.
         .with_skip_no_std(true);
 
-    let tokens = generate::render(&ir, &opts).context("generate::render")?;
-    let lib_rs = strip_crate_inner_attrs(&tokens.to_string());
+    // The full lib.rs render from the raw SVD is unused by the generator:
+    // `run_gen` consumes only `device_x`, and the PAC's register/peripheral
+    // modules are rendered from the curated `data/registers/*.yaml` IRs via
+    // `pac::write_peripherals_dir` — not from this raw-SVD render. Render it
+    // best-effort so a chiptool enum-validation quirk over the *raw* SVD
+    // (e.g. Silabs LESENSE's PRSACT: 12 overlapping-value variants in a
+    // 3-bit field) doesn't block device.x generation for the whole chip.
+    let lib_rs = match generate::render(&ir, &opts) {
+        Ok(tokens) => strip_crate_inner_attrs(&tokens.to_string()),
+        Err(e) => {
+            eprintln!("  note: skipping unused raw-SVD lib.rs render for device.x ({e:#})");
+            String::new()
+        }
+    };
 
     let dev = ir.devices.get(&dev_key).ok_or_else(|| anyhow!("no device in IR"))?;
     let device_x = generate::render_device_x(&ir, dev).context("render_device_x")?;

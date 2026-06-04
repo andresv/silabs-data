@@ -1,0 +1,420 @@
+block/Msc:
+  description: MSC peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: readctrl
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::Readctrl
+  - name: rdatactrl
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Rdatactrl
+  - name: writectrl
+    description: No Description.
+    byte_offset: 12
+    fieldset: regs::Writectrl
+  - name: writecmd
+    description: No Description.
+    byte_offset: 16
+    access: Write
+    fieldset: regs::Writecmd
+  - name: addrb
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::Addrb
+  - name: wdata
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Wdata
+  - name: status
+    description: No Description.
+    byte_offset: 28
+    access: Read
+    fieldset: regs::Status
+  - name: if_
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::Ien
+  - name: userdatasize
+    description: No Description.
+    byte_offset: 52
+    access: Read
+    fieldset: regs::Userdatasize
+  - name: cmd
+    description: No Description.
+    byte_offset: 56
+    access: Write
+    fieldset: regs::Cmd
+  - name: lock
+    description: No Description.
+    byte_offset: 60
+    access: Write
+    fieldset: regs::Lock
+  - name: misclockword
+    description: No Description.
+    byte_offset: 64
+    fieldset: regs::Misclockword
+  - name: pwrctrl
+    description: No Description.
+    byte_offset: 80
+    fieldset: regs::Pwrctrl
+  - name: pagelock0
+    description: No Description.
+    byte_offset: 288
+    fieldset: regs::Pagelock0
+  - name: pagelock1
+    description: No Description.
+    byte_offset: 292
+    fieldset: regs::Pagelock1
+  - name: pagelock2
+    description: No Description.
+    byte_offset: 296
+    fieldset: regs::Pagelock2
+  - name: pagelock3
+    description: No Description.
+    byte_offset: 300
+    fieldset: regs::Pagelock3
+  - name: pagelock4
+    description: No Description.
+    byte_offset: 304
+    fieldset: regs::Pagelock4
+  - name: pagelock5
+    description: No Description.
+    byte_offset: 308
+    fieldset: regs::Pagelock5
+  - name: pagelock6
+    description: No Description.
+    byte_offset: 312
+    fieldset: regs::Pagelock6
+  - name: pagelock7
+    description: No Description.
+    byte_offset: 316
+    fieldset: regs::Pagelock7
+fieldset/regs::Addrb:
+  description: No Description.
+  fields:
+  - name: addrb
+    description: Page Erase or Write Address Buffer.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Cmd:
+  description: No Description.
+  fields:
+  - name: pwrup
+    description: Flash Power Up Command.
+    bit_offset: 0
+    bit_size: 1
+  - name: pwroff
+    description: Flash power off/sleep command.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: erase
+    description: Erase Done Interrupt enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: write
+    description: Write Done Interrupt enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: wdataov
+    description: write data buffer overflow irq enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: pwrupf
+    description: Flash Power Up Seq done irq enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: pwroff
+    description: Flash Power Off Seq done irq enable.
+    bit_offset: 9
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: erase
+    description: Host Erase Done Interrupt Read Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: write
+    description: Host Write Done Interrupt Read Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: wdataov
+    description: Host write buffer overflow.
+    bit_offset: 2
+    bit_size: 1
+  - name: pwrupf
+    description: Flash Power Up Sequence Complete Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: pwroff
+    description: Flash Power Off Sequence Complete Flag.
+    bit_offset: 9
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Lock:
+  description: No Description.
+  fields:
+  - name: lockkey
+    description: Configuration Lock.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Misclockword:
+  description: No Description.
+  fields:
+  - name: melockbit
+    description: Mass Erase Lock.
+    bit_offset: 0
+    bit_size: 1
+  - name: udlockbit
+    description: User Data Lock.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::Pagelock0:
+  description: No Description.
+  fields:
+  - name: lockbit
+    description: page lock bit.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Pagelock1:
+  description: No Description.
+  fields:
+  - name: lockbit
+    description: page lock bit.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Pagelock2:
+  description: No Description.
+  fields:
+  - name: lockbit
+    description: page lock bit.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Pagelock3:
+  description: No Description.
+  fields:
+  - name: lockbit
+    description: page lock bit.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Pagelock4:
+  description: No Description.
+  fields:
+  - name: lockbit
+    description: page lock bit.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Pagelock5:
+  description: No Description.
+  fields:
+  - name: lockbit
+    description: page lock bit.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Pagelock6:
+  description: No Description.
+  fields:
+  - name: lockbit
+    description: page lock bit.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Pagelock7:
+  description: No Description.
+  fields:
+  - name: lockbit
+    description: page lock bit.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Pwrctrl:
+  description: No Description.
+  fields:
+  - name: pwroffonem1entry
+    description: Power down Flash macro when enter EM1.
+    bit_offset: 0
+    bit_size: 1
+  - name: pwroffonem1pentry
+    description: Power down Flash macro when enter EM1P.
+    bit_offset: 1
+    bit_size: 1
+  - name: pwroffentryagain
+    description: POWER down flash again in EM1/EM1p.
+    bit_offset: 4
+    bit_size: 1
+  - name: pwroffdly
+    description: Power down delay.
+    bit_offset: 16
+    bit_size: 8
+fieldset/regs::Rdatactrl:
+  description: No Description.
+  fields:
+  - name: afdis
+    description: Automatic Invalidate Disable.
+    bit_offset: 1
+    bit_size: 1
+  - name: doutbufen
+    description: Flash dout pipeline buffer enable.
+    bit_offset: 12
+    bit_size: 1
+fieldset/regs::Readctrl:
+  description: No Description.
+  fields:
+  - name: mode
+    description: Read Mode.
+    bit_offset: 20
+    bit_size: 2
+    enum: vals::Mode
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: busy
+    description: Erase/Write Busy.
+    bit_offset: 0
+    bit_size: 1
+  - name: locked
+    description: Access Locked.
+    bit_offset: 1
+    bit_size: 1
+  - name: invaddr
+    description: Invalid Write Address or Erase Page.
+    bit_offset: 2
+    bit_size: 1
+  - name: wdataready
+    description: WDATA Write Ready.
+    bit_offset: 3
+    bit_size: 1
+  - name: eraseaborted
+    description: Erase Operation Aborted.
+    bit_offset: 4
+    bit_size: 1
+  - name: pending
+    description: Write Command In Queue.
+    bit_offset: 5
+    bit_size: 1
+  - name: timeout
+    description: Write Command Timeout.
+    bit_offset: 6
+    bit_size: 1
+  - name: rangepartial
+    description: EraseRange with skipped locked pages.
+    bit_offset: 7
+    bit_size: 1
+  - name: reglock
+    description: Register Lock Status.
+    bit_offset: 16
+    bit_size: 1
+  - name: pwron
+    description: Flash power on status.
+    bit_offset: 24
+    bit_size: 1
+  - name: wready
+    description: Flash Write Ready.
+    bit_offset: 27
+    bit_size: 1
+  - name: pwrupckbdfailcount
+    description: Flash power up checkerboard pattern chec.
+    bit_offset: 28
+    bit_size: 4
+fieldset/regs::Userdatasize:
+  description: No Description.
+  fields:
+  - name: userdatasize
+    description: User Data Size.
+    bit_offset: 0
+    bit_size: 6
+fieldset/regs::Wdata:
+  description: No Description.
+  fields:
+  - name: dataw
+    description: Write Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Writecmd:
+  description: No Description.
+  fields:
+  - name: erasepage
+    description: Erase Page.
+    bit_offset: 1
+    bit_size: 1
+  - name: writeend
+    description: End Write Mode.
+    bit_offset: 2
+    bit_size: 1
+  - name: eraserange
+    description: Erase range of pages.
+    bit_offset: 4
+    bit_size: 1
+  - name: eraseabort
+    description: Abort erase sequence.
+    bit_offset: 5
+    bit_size: 1
+  - name: erasemain0
+    description: Mass erase region 0.
+    bit_offset: 8
+    bit_size: 1
+  - name: clearwdata
+    description: Clear WDATA state.
+    bit_offset: 12
+    bit_size: 1
+fieldset/regs::Writectrl:
+  description: No Description.
+  fields:
+  - name: wren
+    description: Enable Write/Erase Controller.
+    bit_offset: 0
+    bit_size: 1
+  - name: irqeraseabort
+    description: Abort Page Erase on Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: lpwrite
+    description: Low-Power Write.
+    bit_offset: 3
+    bit_size: 1
+  - name: rangecount
+    description: EraseRange Count.
+    bit_offset: 16
+    bit_size: 10
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Lock
+    description: LOCK.
+    value: 0
+  - name: Unlock
+    description: UNLOCK.
+    value: 7025
+enum/vals::Mode:
+  bit_size: 2
+  variants:
+  - name: Ws0
+    description: Zero wait-states inserted in fetch or read transfers.
+    value: 0
+  - name: Ws1
+    description: One wait-state inserted for each fetch or read transfer. See Flash Wait-States table for details.
+    value: 1
+  - name: Ws2
+    description: Two wait-states inserted for eatch fetch or read transfer. See Flash Wait-States table for details.
+    value: 2
+  - name: Ws3
+    description: Three wait-states inserted for eatch fetch or read transfer. See Flash Wait-States table for details.
+    value: 3

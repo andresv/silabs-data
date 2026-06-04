@@ -1,0 +1,37 @@
+# LESENSE-specific transforms.
+#
+# The SVD models the 64 decoder state-transition registers as 64 separate
+# registers ST0_ARC..ST63_ARC (contiguous at offset 0x200, stride 0x4), each
+# with its own identical fieldset and its own identical PRSACT enum. We:
+#
+#   1. Drop the PRSACT enums. PRSACT is a 3-bit field, but the SVD lists 12
+#      enumeratedValues: values 1/2/5/6 each carry TWO meanings selected by a
+#      *separate* PRSCOUNT bit (PRS-output pulses when PRSCOUNT==0; up/down
+#      counter actions when PRSCOUNT==1). chiptool can't represent an enum with
+#      more variants than the field holds, and a partial 8-value enum would
+#      silently hide the mode-dependent dual meaning. So we expose the raw
+#      3-bit field and leave the meaning to the Reference Manual — mirroring
+#      stm32-data's habit of deleting low-value/ambiguous enums
+#      (e.g. transforms/GPIO.yaml drops LCK, transforms/TIMER.yaml drops
+#      ARPE/OCPE/OPM/ECE).
+#   2. Recover the ST_ARC[64] register array the SVD failed to mark as a CMSIS
+#      <dim>, mirroring the GPIO PORT[A-D] recovery in transforms/GPIO.yaml.
+#
+# Names below are the raw pre-Sanitize UPPER_SNAKE forms (transforms run before
+# the casing pass), same convention as transforms/GPIO.yaml.
+transforms:
+  # 1. Drop the 64 per-state PRSACT enums (also clears the field references,
+  #    leaving prsact as a plain 3-bit integer).
+  - !DeleteEnums
+      from: ^vals::ST\d+_ARC_PRSACT$
+  # 2. The 64 now-identical per-state fieldsets collapse into one.
+  - !MergeFieldsets
+      from: ^regs::ST\d+_ARC$
+      to: regs::ST_ARC
+      check: NoCheck
+  # 3. Collapse ST0_ARC..ST63_ARC into a single ST_ARC[64] register array.
+  - !MakeRegisterArray
+      blocks: ^LESENSE$
+      from: ^ST(\d+)_ARC$
+      to: ST_ARC
+      check: Layout

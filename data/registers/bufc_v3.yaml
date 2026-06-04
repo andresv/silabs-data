@@ -1,0 +1,1375 @@
+block/Bufc:
+  description: BUFC peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: en
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::En
+  - name: lpmode
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Lpmode
+  - name: buf0_ctrl
+    description: No Description.
+    byte_offset: 12
+    fieldset: regs::Buf0Ctrl
+  - name: buf0_addr
+    description: No Description.
+    byte_offset: 16
+    fieldset: regs::Buf0Addr
+  - name: buf0_writeoffset
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::Buf0Writeoffset
+  - name: buf0_readoffset
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Buf0Readoffset
+  - name: buf0_readdata
+    description: No Description.
+    byte_offset: 32
+    access: Read
+    fieldset: regs::Buf0Readdata
+  - name: buf0_writedata
+    description: No Description.
+    byte_offset: 36
+    access: Write
+    fieldset: regs::Buf0Writedata
+  - name: buf0_xwrite
+    description: No Description.
+    byte_offset: 40
+    access: Write
+    fieldset: regs::Buf0Xwrite
+  - name: buf0_status
+    description: No Description.
+    byte_offset: 44
+    access: Read
+    fieldset: regs::Buf0Status
+  - name: buf0_thresholdctrl
+    description: No Description.
+    byte_offset: 48
+    fieldset: regs::Buf0Thresholdctrl
+  - name: buf0_cmd
+    description: No Description.
+    byte_offset: 52
+    access: Write
+    fieldset: regs::Buf0Cmd
+  - name: buf0_readdata32
+    description: No Description.
+    byte_offset: 60
+    access: Read
+    fieldset: regs::Buf0Readdata32
+  - name: buf0_writedata32
+    description: No Description.
+    byte_offset: 64
+    access: Write
+    fieldset: regs::Buf0Writedata32
+  - name: buf0_xwrite32
+    description: No Description.
+    byte_offset: 68
+    access: Write
+    fieldset: regs::Buf0Xwrite32
+  - name: buf1_ctrl
+    description: No Description.
+    byte_offset: 76
+    fieldset: regs::Buf1Ctrl
+  - name: buf1_addr
+    description: No Description.
+    byte_offset: 80
+    fieldset: regs::Buf1Addr
+  - name: buf1_writeoffset
+    description: No Description.
+    byte_offset: 84
+    fieldset: regs::Buf1Writeoffset
+  - name: buf1_readoffset
+    description: No Description.
+    byte_offset: 88
+    fieldset: regs::Buf1Readoffset
+  - name: buf1_readdata
+    description: No Description.
+    byte_offset: 96
+    access: Read
+    fieldset: regs::Buf1Readdata
+  - name: buf1_writedata
+    description: No Description.
+    byte_offset: 100
+    access: Write
+    fieldset: regs::Buf1Writedata
+  - name: buf1_xwrite
+    description: No Description.
+    byte_offset: 104
+    access: Write
+    fieldset: regs::Buf1Xwrite
+  - name: buf1_status
+    description: No Description.
+    byte_offset: 108
+    access: Read
+    fieldset: regs::Buf1Status
+  - name: buf1_thresholdctrl
+    description: No Description.
+    byte_offset: 112
+    fieldset: regs::Buf1Thresholdctrl
+  - name: buf1_cmd
+    description: No Description.
+    byte_offset: 116
+    access: Write
+    fieldset: regs::Buf1Cmd
+  - name: buf1_readdata32
+    description: No Description.
+    byte_offset: 124
+    access: Read
+    fieldset: regs::Buf1Readdata32
+  - name: buf1_writedata32
+    description: No Description.
+    byte_offset: 128
+    access: Write
+    fieldset: regs::Buf1Writedata32
+  - name: buf1_xwrite32
+    description: No Description.
+    byte_offset: 132
+    access: Write
+    fieldset: regs::Buf1Xwrite32
+  - name: buf2_ctrl
+    description: No Description.
+    byte_offset: 140
+    fieldset: regs::Buf2Ctrl
+  - name: buf2_addr
+    description: No Description.
+    byte_offset: 144
+    fieldset: regs::Buf2Addr
+  - name: buf2_writeoffset
+    description: No Description.
+    byte_offset: 148
+    fieldset: regs::Buf2Writeoffset
+  - name: buf2_readoffset
+    description: No Description.
+    byte_offset: 152
+    fieldset: regs::Buf2Readoffset
+  - name: buf2_readdata
+    description: No Description.
+    byte_offset: 160
+    access: Read
+    fieldset: regs::Buf2Readdata
+  - name: buf2_writedata
+    description: No Description.
+    byte_offset: 164
+    access: Write
+    fieldset: regs::Buf2Writedata
+  - name: buf2_xwrite
+    description: No Description.
+    byte_offset: 168
+    access: Write
+    fieldset: regs::Buf2Xwrite
+  - name: buf2_status
+    description: No Description.
+    byte_offset: 172
+    access: Read
+    fieldset: regs::Buf2Status
+  - name: buf2_thresholdctrl
+    description: No Description.
+    byte_offset: 176
+    fieldset: regs::Buf2Thresholdctrl
+  - name: buf2_cmd
+    description: No Description.
+    byte_offset: 180
+    access: Write
+    fieldset: regs::Buf2Cmd
+  - name: buf2_readdata32
+    description: No Description.
+    byte_offset: 188
+    access: Read
+    fieldset: regs::Buf2Readdata32
+  - name: buf2_writedata32
+    description: No Description.
+    byte_offset: 192
+    access: Write
+    fieldset: regs::Buf2Writedata32
+  - name: buf2_xwrite32
+    description: No Description.
+    byte_offset: 196
+    access: Write
+    fieldset: regs::Buf2Xwrite32
+  - name: buf3_ctrl
+    description: No Description.
+    byte_offset: 204
+    fieldset: regs::Buf3Ctrl
+  - name: buf3_addr
+    description: No Description.
+    byte_offset: 208
+    fieldset: regs::Buf3Addr
+  - name: buf3_writeoffset
+    description: No Description.
+    byte_offset: 212
+    fieldset: regs::Buf3Writeoffset
+  - name: buf3_readoffset
+    description: No Description.
+    byte_offset: 216
+    fieldset: regs::Buf3Readoffset
+  - name: buf3_readdata
+    description: No Description.
+    byte_offset: 224
+    access: Read
+    fieldset: regs::Buf3Readdata
+  - name: buf3_writedata
+    description: No Description.
+    byte_offset: 228
+    access: Write
+    fieldset: regs::Buf3Writedata
+  - name: buf3_xwrite
+    description: No Description.
+    byte_offset: 232
+    access: Write
+    fieldset: regs::Buf3Xwrite
+  - name: buf3_status
+    description: No Description.
+    byte_offset: 236
+    access: Read
+    fieldset: regs::Buf3Status
+  - name: buf3_thresholdctrl
+    description: No Description.
+    byte_offset: 240
+    fieldset: regs::Buf3Thresholdctrl
+  - name: buf3_cmd
+    description: No Description.
+    byte_offset: 244
+    access: Write
+    fieldset: regs::Buf3Cmd
+  - name: buf3_readdata32
+    description: No Description.
+    byte_offset: 252
+    access: Read
+    fieldset: regs::Buf3Readdata32
+  - name: buf3_writedata32
+    description: No Description.
+    byte_offset: 256
+    access: Write
+    fieldset: regs::Buf3Writedata32
+  - name: buf3_xwrite32
+    description: No Description.
+    byte_offset: 260
+    access: Write
+    fieldset: regs::Buf3Xwrite32
+  - name: if_
+    description: No Description.
+    byte_offset: 276
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 280
+    fieldset: regs::Ien
+  - name: seqif
+    description: No Description.
+    byte_offset: 284
+    fieldset: regs::Seqif
+  - name: seqien
+    description: No Description.
+    byte_offset: 288
+    fieldset: regs::Seqien
+  - name: sfmif
+    description: No Description.
+    byte_offset: 292
+    fieldset: regs::Sfmif
+  - name: sfmien
+    description: No Description.
+    byte_offset: 296
+    fieldset: regs::Sfmien
+fieldset/regs::Buf0Addr:
+  description: No Description.
+  fields:
+  - name: addr
+    description: Buffer Address.
+    bit_offset: 2
+    bit_size: 30
+fieldset/regs::Buf0Cmd:
+  description: No Description.
+  fields:
+  - name: clear
+    description: Buffer Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: prefetch
+    description: Prefetch.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Buf0Ctrl:
+  description: No Description.
+  fields:
+  - name: size
+    description: Buffer Size.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Buf0CtrlSize
+fieldset/regs::Buf0Readdata:
+  description: No Description.
+  fields:
+  - name: readdata
+    description: Buffer Read Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Buf0Readdata32:
+  description: No Description.
+  fields:
+  - name: readdata32
+    description: Buffer Read Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Buf0Readoffset:
+  description: No Description.
+  fields:
+  - name: readoffset
+    description: Read Offset.
+    bit_offset: 0
+    bit_size: 13
+fieldset/regs::Buf0Status:
+  description: No Description.
+  fields:
+  - name: bytes
+    description: Number of Bytes in the Buffer.
+    bit_offset: 0
+    bit_size: 13
+  - name: thresholdflag
+    description: Buffer Threshold Flag.
+    bit_offset: 20
+    bit_size: 1
+fieldset/regs::Buf0Thresholdctrl:
+  description: No Description.
+  fields:
+  - name: threshold
+    description: Buffer Threshold Value.
+    bit_offset: 0
+    bit_size: 13
+  - name: thresholdmode
+    description: Buffer Threshold Mode.
+    bit_offset: 13
+    bit_size: 1
+    enum: vals::Buf0ThresholdctrlThresholdmode
+fieldset/regs::Buf0Writedata:
+  description: No Description.
+  fields:
+  - name: writedata
+    description: Buffer Write Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Buf0Writedata32:
+  description: No Description.
+  fields:
+  - name: writedata32
+    description: Buffer Write Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Buf0Writeoffset:
+  description: No Description.
+  fields:
+  - name: writeoffset
+    description: Write Offset.
+    bit_offset: 0
+    bit_size: 13
+fieldset/regs::Buf0Xwrite:
+  description: No Description.
+  fields:
+  - name: xorwritedata
+    description: Buffer XOR Write Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Buf0Xwrite32:
+  description: No Description.
+  fields:
+  - name: xorwritedata32
+    description: Buffer XOR Write Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Buf1Addr:
+  description: No Description.
+  fields:
+  - name: addr
+    description: Buffer Address.
+    bit_offset: 2
+    bit_size: 30
+fieldset/regs::Buf1Cmd:
+  description: No Description.
+  fields:
+  - name: clear
+    description: Buffer Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: prefetch
+    description: Prefetch.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Buf1Ctrl:
+  description: No Description.
+  fields:
+  - name: size
+    description: Buffer Size.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Buf1CtrlSize
+fieldset/regs::Buf1Readdata:
+  description: No Description.
+  fields:
+  - name: readdata
+    description: Buffer Read Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Buf1Readdata32:
+  description: No Description.
+  fields:
+  - name: readdata32
+    description: Buffer Read Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Buf1Readoffset:
+  description: No Description.
+  fields:
+  - name: readoffset
+    description: Read Offset.
+    bit_offset: 0
+    bit_size: 13
+fieldset/regs::Buf1Status:
+  description: No Description.
+  fields:
+  - name: bytes
+    description: Number of Bytes in the Buffer.
+    bit_offset: 0
+    bit_size: 13
+  - name: thresholdflag
+    description: Buffer Threshold Flag.
+    bit_offset: 20
+    bit_size: 1
+fieldset/regs::Buf1Thresholdctrl:
+  description: No Description.
+  fields:
+  - name: threshold
+    description: Buffer Threshold Value.
+    bit_offset: 0
+    bit_size: 13
+  - name: thresholdmode
+    description: Buffer Threshold Mode.
+    bit_offset: 13
+    bit_size: 1
+    enum: vals::Buf1ThresholdctrlThresholdmode
+fieldset/regs::Buf1Writedata:
+  description: No Description.
+  fields:
+  - name: writedata
+    description: Buffer Write Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Buf1Writedata32:
+  description: No Description.
+  fields:
+  - name: writedata32
+    description: Buffer Write Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Buf1Writeoffset:
+  description: No Description.
+  fields:
+  - name: writeoffset
+    description: Write Offset.
+    bit_offset: 0
+    bit_size: 13
+fieldset/regs::Buf1Xwrite:
+  description: No Description.
+  fields:
+  - name: xorwritedata
+    description: Buffer XOR Write Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Buf1Xwrite32:
+  description: No Description.
+  fields:
+  - name: xorwritedata32
+    description: Buffer XOR Write Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Buf2Addr:
+  description: No Description.
+  fields:
+  - name: addr
+    description: Buffer Address.
+    bit_offset: 2
+    bit_size: 30
+fieldset/regs::Buf2Cmd:
+  description: No Description.
+  fields:
+  - name: clear
+    description: Buffer Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: prefetch
+    description: Prefetch.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Buf2Ctrl:
+  description: No Description.
+  fields:
+  - name: size
+    description: Buffer Size.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Buf2CtrlSize
+fieldset/regs::Buf2Readdata:
+  description: No Description.
+  fields:
+  - name: readdata
+    description: Buffer Read Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Buf2Readdata32:
+  description: No Description.
+  fields:
+  - name: readdata32
+    description: Buffer Read Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Buf2Readoffset:
+  description: No Description.
+  fields:
+  - name: readoffset
+    description: Read Offset.
+    bit_offset: 0
+    bit_size: 13
+fieldset/regs::Buf2Status:
+  description: No Description.
+  fields:
+  - name: bytes
+    description: Number of Bytes in the Buffer.
+    bit_offset: 0
+    bit_size: 13
+  - name: thresholdflag
+    description: Buffer Threshold Flag.
+    bit_offset: 20
+    bit_size: 1
+fieldset/regs::Buf2Thresholdctrl:
+  description: No Description.
+  fields:
+  - name: threshold
+    description: Buffer Threshold Value.
+    bit_offset: 0
+    bit_size: 13
+  - name: thresholdmode
+    description: Buffer Threshold Mode.
+    bit_offset: 13
+    bit_size: 1
+    enum: vals::Buf2ThresholdctrlThresholdmode
+fieldset/regs::Buf2Writedata:
+  description: No Description.
+  fields:
+  - name: writedata
+    description: Buffer Write Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Buf2Writedata32:
+  description: No Description.
+  fields:
+  - name: writedata32
+    description: Buffer Write Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Buf2Writeoffset:
+  description: No Description.
+  fields:
+  - name: writeoffset
+    description: Write Offset.
+    bit_offset: 0
+    bit_size: 13
+fieldset/regs::Buf2Xwrite:
+  description: No Description.
+  fields:
+  - name: xorwritedata
+    description: Buffer XOR Write Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Buf2Xwrite32:
+  description: No Description.
+  fields:
+  - name: xorwritedata32
+    description: Buffer XOR Write Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Buf3Addr:
+  description: No Description.
+  fields:
+  - name: addr
+    description: Buffer Address.
+    bit_offset: 2
+    bit_size: 30
+fieldset/regs::Buf3Cmd:
+  description: No Description.
+  fields:
+  - name: clear
+    description: Buffer Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: prefetch
+    description: Prefetch.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Buf3Ctrl:
+  description: No Description.
+  fields:
+  - name: size
+    description: Buffer Size.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Buf3CtrlSize
+fieldset/regs::Buf3Readdata:
+  description: No Description.
+  fields:
+  - name: readdata
+    description: Buffer Read Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Buf3Readdata32:
+  description: No Description.
+  fields:
+  - name: readdata32
+    description: Buffer Read Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Buf3Readoffset:
+  description: No Description.
+  fields:
+  - name: readoffset
+    description: Read Offset.
+    bit_offset: 0
+    bit_size: 13
+fieldset/regs::Buf3Status:
+  description: No Description.
+  fields:
+  - name: bytes
+    description: Number of Bytes in the Buffer.
+    bit_offset: 0
+    bit_size: 13
+  - name: thresholdflag
+    description: Buffer Threshold Flag.
+    bit_offset: 20
+    bit_size: 1
+fieldset/regs::Buf3Thresholdctrl:
+  description: No Description.
+  fields:
+  - name: threshold
+    description: Buffer Threshold Value.
+    bit_offset: 0
+    bit_size: 13
+  - name: thresholdmode
+    description: Buffer Threshold Mode.
+    bit_offset: 13
+    bit_size: 1
+    enum: vals::Buf3ThresholdctrlThresholdmode
+fieldset/regs::Buf3Writedata:
+  description: No Description.
+  fields:
+  - name: writedata
+    description: Buffer Write Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Buf3Writedata32:
+  description: No Description.
+  fields:
+  - name: writedata32
+    description: Buffer Write Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Buf3Writeoffset:
+  description: No Description.
+  fields:
+  - name: writeoffset
+    description: Write Offset.
+    bit_offset: 0
+    bit_size: 13
+fieldset/regs::Buf3Xwrite:
+  description: No Description.
+  fields:
+  - name: xorwritedata
+    description: Buffer XOR Write Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Buf3Xwrite32:
+  description: No Description.
+  fields:
+  - name: xorwritedata32
+    description: Buffer XOR Write Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::En:
+  description: No Description.
+  fields:
+  - name: en
+    description: Enable peripheral clock to this module.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: buf0of
+    description: BUF0OF Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: buf0uf
+    description: BUF0UF Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: buf0thr
+    description: BUF0THR Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: buf0corr
+    description: BUF0CORR Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: buf0nwa
+    description: BUF0NWA Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: buf1of
+    description: BUF1OF Interrupt Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: buf1uf
+    description: BUF1UF Interrupt Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: buf1thr
+    description: BUF1THR Interrupt Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: buf1corr
+    description: BUF1CORR Interrupt Enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: buf1nwa
+    description: BUF1NWA Interrupt Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: buf2of
+    description: BUF2OF Interrupt Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: buf2uf
+    description: BUF2UF Interrupt Enable.
+    bit_offset: 17
+    bit_size: 1
+  - name: buf2thr
+    description: BUF2THR Interrupt Enable.
+    bit_offset: 18
+    bit_size: 1
+  - name: buf2corr
+    description: BUF2CORR Interrupt Enable.
+    bit_offset: 19
+    bit_size: 1
+  - name: buf2nwa
+    description: BUF2NWA Interrupt Enable.
+    bit_offset: 20
+    bit_size: 1
+  - name: buf3of
+    description: BUF3OF Interrupt Enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: buf3uf
+    description: BUF3UF Interrupt Enable.
+    bit_offset: 25
+    bit_size: 1
+  - name: buf3thr
+    description: BUF3THR Interrupt Enable.
+    bit_offset: 26
+    bit_size: 1
+  - name: buf3corr
+    description: BUF3CORR Interrupt Enable.
+    bit_offset: 27
+    bit_size: 1
+  - name: buf3nwa
+    description: BUF3NWA Interrupt Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: buserror
+    description: BUSERROR Interrupt Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: buf0of
+    description: Buffer 0 Overflow.
+    bit_offset: 0
+    bit_size: 1
+  - name: buf0uf
+    description: Buffer 0 Underflow.
+    bit_offset: 1
+    bit_size: 1
+  - name: buf0thr
+    description: Buffer 0 Threshold Event.
+    bit_offset: 2
+    bit_size: 1
+  - name: buf0corr
+    description: Buffer 0 Corrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: buf0nwa
+    description: Buffer 0 Not Word-Aligned.
+    bit_offset: 4
+    bit_size: 1
+  - name: buf1of
+    description: Buffer 1 Overflow.
+    bit_offset: 8
+    bit_size: 1
+  - name: buf1uf
+    description: Buffer 1 Underflow.
+    bit_offset: 9
+    bit_size: 1
+  - name: buf1thr
+    description: Buffer 1 Threshold Event.
+    bit_offset: 10
+    bit_size: 1
+  - name: buf1corr
+    description: Buffer 1 Corrupt.
+    bit_offset: 11
+    bit_size: 1
+  - name: buf1nwa
+    description: Buffer 1 Not Word-Aligned.
+    bit_offset: 12
+    bit_size: 1
+  - name: buf2of
+    description: Buffer 2 Overflow.
+    bit_offset: 16
+    bit_size: 1
+  - name: buf2uf
+    description: Buffer 2 Underflow.
+    bit_offset: 17
+    bit_size: 1
+  - name: buf2thr
+    description: Buffer 2 Threshold Event.
+    bit_offset: 18
+    bit_size: 1
+  - name: buf2corr
+    description: Buffer 2 Corrupt.
+    bit_offset: 19
+    bit_size: 1
+  - name: buf2nwa
+    description: Buffer 2 Not Word-Aligned.
+    bit_offset: 20
+    bit_size: 1
+  - name: buf3of
+    description: Buffer 3 Overflow.
+    bit_offset: 24
+    bit_size: 1
+  - name: buf3uf
+    description: Buffer 3 Underflow.
+    bit_offset: 25
+    bit_size: 1
+  - name: buf3thr
+    description: Buffer 3 Threshold Event.
+    bit_offset: 26
+    bit_size: 1
+  - name: buf3corr
+    description: Buffer 3 Corrupt.
+    bit_offset: 27
+    bit_size: 1
+  - name: buf3nwa
+    description: Buffer 3 Not Word-Aligned.
+    bit_offset: 28
+    bit_size: 1
+  - name: buserror
+    description: Bus Error.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP Version.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Lpmode:
+  description: No Description.
+  fields:
+  - name: lpen
+    description: Low power mode enable.
+    bit_offset: 0
+    bit_size: 2
+fieldset/regs::Seqien:
+  description: No Description.
+  fields:
+  - name: buf0of
+    description: BUF0OF Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: buf0uf
+    description: BUF0UF Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: buf0thr
+    description: BUF0THR Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: buf0corr
+    description: BUF0CORR Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: buf0nwa
+    description: BUF0NWA Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: buf1of
+    description: BUF1OF Interrupt Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: buf1uf
+    description: BUF1UF Interrupt Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: buf1thr
+    description: BUF1THR Interrupt Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: buf1corr
+    description: BUF1CORR Interrupt Enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: buf1nwa
+    description: BUF1NWA Interrupt Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: buf2of
+    description: BUF2OF Interrupt Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: buf2uf
+    description: BUF2UF Interrupt Enable.
+    bit_offset: 17
+    bit_size: 1
+  - name: buf2thr
+    description: BUF2THR Interrupt Enable.
+    bit_offset: 18
+    bit_size: 1
+  - name: buf2corr
+    description: BUF2CORR Interrupt Enable.
+    bit_offset: 19
+    bit_size: 1
+  - name: buf2nwa
+    description: BUF2NWA Interrupt Enable.
+    bit_offset: 20
+    bit_size: 1
+  - name: buf3of
+    description: BUF3OF Interrupt Enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: buf3uf
+    description: BUF3UF Interrupt Enable.
+    bit_offset: 25
+    bit_size: 1
+  - name: buf3thr
+    description: BUF3THR Interrupt Enable.
+    bit_offset: 26
+    bit_size: 1
+  - name: buf3corr
+    description: BUF3CORR Interrupt Enable.
+    bit_offset: 27
+    bit_size: 1
+  - name: buf3nwa
+    description: BUF3NWA Interrupt Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: buserror
+    description: BUSERROR Interrupt Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Seqif:
+  description: No Description.
+  fields:
+  - name: buf0of
+    description: Buffer 0 Overflow.
+    bit_offset: 0
+    bit_size: 1
+  - name: buf0uf
+    description: Buffer 0 Underflow.
+    bit_offset: 1
+    bit_size: 1
+  - name: buf0thr
+    description: Buffer 0 Threshold Event.
+    bit_offset: 2
+    bit_size: 1
+  - name: buf0corr
+    description: Buffer 0 Corrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: buf0nwa
+    description: Buffer 0 Not Word-Aligned.
+    bit_offset: 4
+    bit_size: 1
+  - name: buf1of
+    description: Buffer 1 Overflow.
+    bit_offset: 8
+    bit_size: 1
+  - name: buf1uf
+    description: Buffer 1 Underflow.
+    bit_offset: 9
+    bit_size: 1
+  - name: buf1thr
+    description: Buffer 1 Threshold Event.
+    bit_offset: 10
+    bit_size: 1
+  - name: buf1corr
+    description: Buffer 1 Corrupt.
+    bit_offset: 11
+    bit_size: 1
+  - name: buf1nwa
+    description: Buffer 1 Not Word-Aligned.
+    bit_offset: 12
+    bit_size: 1
+  - name: buf2of
+    description: Buffer 2 Overflow.
+    bit_offset: 16
+    bit_size: 1
+  - name: buf2uf
+    description: Buffer 2 Underflow.
+    bit_offset: 17
+    bit_size: 1
+  - name: buf2thr
+    description: Buffer 2 Threshold Event.
+    bit_offset: 18
+    bit_size: 1
+  - name: buf2corr
+    description: Buffer 2 Corrupt.
+    bit_offset: 19
+    bit_size: 1
+  - name: buf2nwa
+    description: Buffer 2 Not Word-Aligned.
+    bit_offset: 20
+    bit_size: 1
+  - name: buf3of
+    description: Buffer 3 Overflow.
+    bit_offset: 24
+    bit_size: 1
+  - name: buf3uf
+    description: Buffer 3 Underflow.
+    bit_offset: 25
+    bit_size: 1
+  - name: buf3thr
+    description: Buffer 3 Threshold Event.
+    bit_offset: 26
+    bit_size: 1
+  - name: buf3corr
+    description: Buffer 3 Corrupt.
+    bit_offset: 27
+    bit_size: 1
+  - name: buf3nwa
+    description: Buffer 3 Not Word-Aligned.
+    bit_offset: 28
+    bit_size: 1
+  - name: buserror
+    description: Bus Error.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Sfmien:
+  description: No Description.
+  fields:
+  - name: buf0ofsfmien
+    description: BUF0OF Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: buf0ufsfmien
+    description: BUF0UF Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: buf0thrsfmien
+    description: BUF0THR Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: buf0corrsfmien
+    description: BUF0CORR Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: buf0nwasfmien
+    description: BUF0NWA Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: buf1ofsfmien
+    description: BUF1OF Interrupt Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: buf1ufsfmien
+    description: BUF1UF Interrupt Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: buf1thrsfmien
+    description: BUF1THR Interrupt Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: buf1corrsfmien
+    description: BUF1CORR Interrupt Enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: buf1nwasfmien
+    description: BUF1NWA Interrupt Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: buf2ofsfmien
+    description: BUF2OF Interrupt Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: buf2ufsfmien
+    description: BUF2UF Interrupt Enable.
+    bit_offset: 17
+    bit_size: 1
+  - name: buf2thrsfmien
+    description: BUF2THR Interrupt Enable.
+    bit_offset: 18
+    bit_size: 1
+  - name: buf2corrsfmien
+    description: BUF2CORR Interrupt Enable.
+    bit_offset: 19
+    bit_size: 1
+  - name: buf2nwasfmien
+    description: BUF2NWA Interrupt Enable.
+    bit_offset: 20
+    bit_size: 1
+  - name: buf3ofsfmien
+    description: BUF3OF Interrupt Enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: buf3ufsfmien
+    description: BUF3UF Interrupt Enable.
+    bit_offset: 25
+    bit_size: 1
+  - name: buf3thrsfmien
+    description: BUF3THR Interrupt Enable.
+    bit_offset: 26
+    bit_size: 1
+  - name: buf3corrsfmien
+    description: BUF3CORR Interrupt Enable.
+    bit_offset: 27
+    bit_size: 1
+  - name: buf3nwasfmien
+    description: BUF3NWA Interrupt Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: buserrorsfmien
+    description: BUSERROR Interrupt Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Sfmif:
+  description: No Description.
+  fields:
+  - name: buf0ofsfmif
+    description: Buffer 0 Overflow.
+    bit_offset: 0
+    bit_size: 1
+  - name: buf0ufsfmif
+    description: Buffer 0 Underflow.
+    bit_offset: 1
+    bit_size: 1
+  - name: buf0thrsfmif
+    description: Buffer 0 Threshold Event.
+    bit_offset: 2
+    bit_size: 1
+  - name: buf0corrsfmif
+    description: Buffer 0 Corrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: buf0nwasfmif
+    description: Buffer 0 Not Word-Aligned.
+    bit_offset: 4
+    bit_size: 1
+  - name: buf1ofsfmif
+    description: Buffer 1 Overflow.
+    bit_offset: 8
+    bit_size: 1
+  - name: buf1ufsfmif
+    description: Buffer 1 Underflow.
+    bit_offset: 9
+    bit_size: 1
+  - name: buf1thrsfmif
+    description: Buffer 1 Threshold Event.
+    bit_offset: 10
+    bit_size: 1
+  - name: buf1corrsfmif
+    description: Buffer 1 Corrupt.
+    bit_offset: 11
+    bit_size: 1
+  - name: buf1nwasfmif
+    description: Buffer 1 Not Word-Aligned.
+    bit_offset: 12
+    bit_size: 1
+  - name: buf2ofsfmif
+    description: Buffer 2 Overflow.
+    bit_offset: 16
+    bit_size: 1
+  - name: buf2ufsfmif
+    description: Buffer 2 Underflow.
+    bit_offset: 17
+    bit_size: 1
+  - name: buf2thrsfmif
+    description: Buffer 2 Threshold Event.
+    bit_offset: 18
+    bit_size: 1
+  - name: buf2corrsfmif
+    description: Buffer 2 Corrupt.
+    bit_offset: 19
+    bit_size: 1
+  - name: buf2nwasfmif
+    description: Buffer 2 Not Word-Aligned.
+    bit_offset: 20
+    bit_size: 1
+  - name: buf3ofsfmif
+    description: Buffer 3 Overflow.
+    bit_offset: 24
+    bit_size: 1
+  - name: buf3ufsfmif
+    description: Buffer 3 Underflow.
+    bit_offset: 25
+    bit_size: 1
+  - name: buf3thrsfmif
+    description: Buffer 3 Threshold Event.
+    bit_offset: 26
+    bit_size: 1
+  - name: buf3corrsfmif
+    description: Buffer 3 Corrupt.
+    bit_offset: 27
+    bit_size: 1
+  - name: buf3nwasfmif
+    description: Buffer 3 Not Word-Aligned.
+    bit_offset: 28
+    bit_size: 1
+  - name: buserrorsfmif
+    description: Bus Error.
+    bit_offset: 31
+    bit_size: 1
+enum/vals::Buf0CtrlSize:
+  bit_size: 3
+  variants:
+  - name: Size1024
+    description: Sets Buffer size to 1024 bytes.
+    value: 4
+  - name: Size128
+    description: Sets Buffer size to 128 bytes.
+    value: 1
+  - name: Size2048
+    description: Sets Buffer size to 2048 bytes.
+    value: 5
+  - name: Size256
+    description: Sets Buffer size to 256 bytes.
+    value: 2
+  - name: Size4096
+    description: Sets Buffer size to 4096 bytes.
+    value: 6
+  - name: Size512
+    description: Sets Buffer size to 512 bytes.
+    value: 3
+  - name: Size64
+    description: Sets Buffer size to 64 bytes.
+    value: 0
+enum/vals::Buf0ThresholdctrlThresholdmode:
+  bit_size: 1
+  variants:
+  - name: Larger
+    description: THRESHOLDIF will be set if BYTES is larger than THRESHOLD.
+    value: 0
+  - name: Lessorequal
+    description: THRESHOLDIF will be set if BYTES is less than or equal to THRESHOLD.
+    value: 1
+enum/vals::Buf1CtrlSize:
+  bit_size: 3
+  variants:
+  - name: Size1024
+    description: Sets Buffer size to 1024 bytes.
+    value: 4
+  - name: Size128
+    description: Sets Buffer size to 128 bytes.
+    value: 1
+  - name: Size2048
+    description: Sets Buffer size to 2048 bytes.
+    value: 5
+  - name: Size256
+    description: Sets Buffer size to 256 bytes.
+    value: 2
+  - name: Size4096
+    description: Sets Buffer size to 4096 bytes.
+    value: 6
+  - name: Size512
+    description: Sets Buffer size to 512 bytes.
+    value: 3
+  - name: Size64
+    description: Sets Buffer size to 64 bytes.
+    value: 0
+enum/vals::Buf1ThresholdctrlThresholdmode:
+  bit_size: 1
+  variants:
+  - name: Larger
+    description: THRESHOLDIF will be set if BYTES is larger than THRESHOLD.
+    value: 0
+  - name: Lessorequal
+    description: THRESHOLDIF will be set if BYTES is less than or equal to THRESHOLD.
+    value: 1
+enum/vals::Buf2CtrlSize:
+  bit_size: 3
+  variants:
+  - name: Size1024
+    description: Sets Buffer size to 1024 bytes.
+    value: 4
+  - name: Size128
+    description: Sets Buffer size to 128 bytes.
+    value: 1
+  - name: Size2048
+    description: Sets Buffer size to 2048 bytes.
+    value: 5
+  - name: Size256
+    description: Sets Buffer size to 256 bytes.
+    value: 2
+  - name: Size4096
+    description: Sets Buffer size to 4096 bytes.
+    value: 6
+  - name: Size512
+    description: Sets Buffer size to 512 bytes.
+    value: 3
+  - name: Size64
+    description: Sets Buffer size to 64 bytes.
+    value: 0
+enum/vals::Buf2ThresholdctrlThresholdmode:
+  bit_size: 1
+  variants:
+  - name: Larger
+    description: THRESHOLDIF will be set if BYTES is larger than THRESHOLD.
+    value: 0
+  - name: Lessorequal
+    description: THRESHOLDIF will be set if BYTES is less than or equal to THRESHOLD.
+    value: 1
+enum/vals::Buf3CtrlSize:
+  bit_size: 3
+  variants:
+  - name: Size1024
+    description: Sets Buffer size to 1024 bytes.
+    value: 4
+  - name: Size128
+    description: Sets Buffer size to 128 bytes.
+    value: 1
+  - name: Size2048
+    description: Sets Buffer size to 2048 bytes.
+    value: 5
+  - name: Size256
+    description: Sets Buffer size to 256 bytes.
+    value: 2
+  - name: Size4096
+    description: Sets Buffer size to 4096 bytes.
+    value: 6
+  - name: Size512
+    description: Sets Buffer size to 512 bytes.
+    value: 3
+  - name: Size64
+    description: Sets Buffer size to 64 bytes.
+    value: 0
+enum/vals::Buf3ThresholdctrlThresholdmode:
+  bit_size: 1
+  variants:
+  - name: Larger
+    description: THRESHOLDIF will be set if BYTES is larger than THRESHOLD.
+    value: 0
+  - name: Lessorequal
+    description: THRESHOLDIF will be set if BYTES is less than or equal to THRESHOLD.
+    value: 1

@@ -1,0 +1,118 @@
+block/Lfrco:
+  description: LFRCO peripheral.
+  items:
+  - name: ipversion
+    description: Contains the LFRCO ip version.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: status
+    description: Status register.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::Status
+  - name: cal
+    description: Calibration register.
+    byte_offset: 12
+    fieldset: regs::Cal
+  - name: if_
+    description: Interrupt flag register.
+    byte_offset: 20
+    fieldset: regs::If
+  - name: ien
+    description: Interrupt enable register.
+    byte_offset: 24
+    fieldset: regs::Ien
+  - name: syncbusy
+    description: Synchronization busy register.
+    byte_offset: 28
+    access: Read
+    fieldset: regs::Syncbusy
+  - name: lock
+    description: Configuration lock register. Locks/unlocks access to cofiguration registers.
+    byte_offset: 32
+    access: Write
+    fieldset: regs::Lock
+fieldset/regs::Cal:
+  description: Calibration register.
+  fields:
+  - name: freqtrim
+    description: Frequency Trim.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Ien:
+  description: Interrupt enable register.
+  fields:
+  - name: rdy
+    description: Ready Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: posedge
+    description: Rising Edge Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: negedge
+    description: Falling Edge Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt flag register.
+  fields:
+  - name: rdy
+    description: Ready Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: posedge
+    description: Rising Edge Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: negedge
+    description: Falling Edge Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: Contains the LFRCO ip version.
+  fields:
+  - name: ipversion
+    description: IP version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Lock:
+  description: Configuration lock register. Locks/unlocks access to cofiguration registers.
+  fields:
+  - name: lockkey
+    description: Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Status:
+  description: Status register.
+  fields:
+  - name: rdy
+    description: Ready Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: ens
+    description: Enabled Status.
+    bit_offset: 16
+    bit_size: 1
+  - name: lock
+    description: Lock Status.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Syncbusy:
+  description: Synchronization busy register.
+  fields:
+  - name: cal
+    description: CAL Busy.
+    bit_offset: 0
+    bit_size: 1
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Lock
+    description: Lock Configuration Registers.
+    value: 0
+  - name: Unlock
+    description: Unlock Configuaration Registers.
+    value: 9731

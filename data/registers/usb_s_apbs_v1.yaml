@@ -1,0 +1,122 @@
+block/UsbSApbs:
+  description: USB_S_APBS peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: en
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::En
+  - name: ctrl
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Ctrl
+  - name: if_
+    description: No Description.
+    byte_offset: 12
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Ien
+  - name: cal
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::Cal
+  - name: status
+    description: No Description.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::Status
+fieldset/regs::Cal:
+  description: No Description.
+  fields:
+  - name: fsslewt
+    description: FS slew.
+    bit_offset: 24
+    bit_size: 3
+fieldset/regs::Ctrl:
+  description: No Description.
+  fields:
+  - name: txdse0mxsel
+    description: TXD SE0 chicken bit.
+    bit_offset: 0
+    bit_size: 1
+  - name: vbssnshen
+    description: VBUSSENSE going high - enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: vbssnslen
+    description: VBUSSENSE going low - enable.
+    bit_offset: 17
+    bit_size: 1
+  - name: vbusovride
+    description: VBUS override to GPPLL.
+    bit_offset: 18
+    bit_size: 1
+  - name: fsslew
+    description: FS Slew.
+    bit_offset: 21
+    bit_size: 3
+  - name: disruptx
+    description: Disable TX pull-up resistor.
+    bit_offset: 24
+    bit_size: 1
+  - name: bypsvreg
+    description: Bypass VREG signal to USB PHY.
+    bit_offset: 25
+    bit_size: 1
+  - name: endatacap
+    description: Add 40pf cap to D+/D- in TX mode.
+    bit_offset: 26
+    bit_size: 1
+fieldset/regs::En:
+  description: No Description.
+  fields:
+  - name: en
+    description: Module enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: disabling
+    description: Disablement busy status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: vbus
+    description: VBUS_SENSE interrupt enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: dwcotg
+    description: DWC_OTG interrupt enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: vbus
+    description: VBUS_SENSE interrupt flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: dwcotg
+    description: DWC_OTG interrupt flag.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: vbusvalid
+    description: VBus valid.
+    bit_offset: 0
+    bit_size: 1

@@ -1,0 +1,670 @@
+block/Etampdet:
+  description: ETAMPDET peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: en
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::En
+  - name: cfg
+    description: No Description.
+    byte_offset: 12
+    fieldset: regs::Cfg
+  - name: cntmismatchmax
+    description: No Description.
+    byte_offset: 16
+    fieldset: regs::Cntmismatchmax
+  - name: chnlfiltwinsize
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::Chnlfiltwinsize
+  - name: cmd
+    description: No Description.
+    byte_offset: 24
+    access: Write
+    fieldset: regs::Cmd
+  - name: syncbusy
+    description: No Description.
+    byte_offset: 28
+    access: Read
+    fieldset: regs::Syncbusy
+  - name: ien
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::Ien
+  - name: if_
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::If
+  - name: status
+    description: No Description.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::Status
+  - name: em4wuen
+    description: No Description.
+    byte_offset: 44
+    fieldset: regs::Em4wuen
+  - name: chnlseedval0
+    description: No Description.
+    byte_offset: 48
+    fieldset: regs::Chnlseedval0
+  - name: chnlseedval1
+    description: No Description.
+    byte_offset: 52
+    fieldset: regs::Chnlseedval1
+  - name: clkprescval
+    description: Finial dividing factor = RIPPLECNTUPPER * CNTLOWER.
+    byte_offset: 56
+    fieldset: regs::Clkprescval
+  - name: lock
+    description: No Description.
+    byte_offset: 72
+    access: Write
+    fieldset: regs::Lock
+fieldset/regs::Cfg:
+  description: No Description.
+  fields:
+  - name: chnlcmpdlyen0
+    description: enable delay for comparison.
+    bit_offset: 0
+    bit_size: 1
+    enum: vals::Chnlcmpdlyen0
+  - name: chnltampdetfilten0
+    description: enable detect filtering.
+    bit_offset: 1
+    bit_size: 1
+  - name: chnlpaden0
+    description: enable driving pad.
+    bit_offset: 2
+    bit_size: 1
+  - name: chnlcmpdlyen1
+    description: enable delay for comparison.
+    bit_offset: 3
+    bit_size: 1
+  - name: chnltampdetfilten1
+    description: enable detect filtering.
+    bit_offset: 4
+    bit_size: 1
+  - name: chnlpaden1
+    description: enable driving pad.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Chnlfiltwinsize:
+  description: No Description.
+  fields:
+  - name: chnlfiltwinsize0
+    description: channel 0 Filter moving window size.
+    bit_offset: 0
+    bit_size: 4
+    enum: vals::Chnlfiltwinsize0
+  - name: chnlfiltwinsize1
+    description: channel 1 Filter moving window size.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::Chnlfiltwinsize1
+fieldset/regs::Chnlseedval0:
+  description: No Description.
+  fields:
+  - name: chnlseedval0
+    description: Channel 0 LFSR Seed Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Chnlseedval1:
+  description: No Description.
+  fields:
+  - name: chnlseedval1
+    description: Channel 1 LFSR Seed Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Clkprescval:
+  description: Finial dividing factor = RIPPLECNTUPPER * CNTLOWER.
+  fields:
+  - name: lowerpresc
+    description: Lower part of divider binary counter.
+    bit_offset: 0
+    bit_size: 6
+    enum: vals::Lowerpresc
+  - name: upperpresc
+    description: Upper part of divider ripple counter.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Upperpresc
+fieldset/regs::Cmd:
+  description: No Description.
+  fields:
+  - name: chnlstart0
+    description: Start channel 0 tamper detection.
+    bit_offset: 0
+    bit_size: 1
+  - name: chnlstop0
+    description: Stop channel 0 tamper detection.
+    bit_offset: 1
+    bit_size: 1
+  - name: chnlload0
+    description: Start channel 0 tamper detection.
+    bit_offset: 2
+    bit_size: 1
+  - name: chnlstart1
+    description: Start channel 1 tamper detection.
+    bit_offset: 3
+    bit_size: 1
+  - name: chnlstop1
+    description: Stop channel 1 tamper detection.
+    bit_offset: 4
+    bit_size: 1
+  - name: chnlload1
+    description: Start channel 1 tamper detection.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Cntmismatchmax:
+  description: No Description.
+  fields:
+  - name: chnlcntmismatchmax0
+    description: channel 0 filter counter threshold.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Chnlcntmismatchmax0
+  - name: chnlcntmismatchmax1
+    description: channel 1 filter counter threshold.
+    bit_offset: 3
+    bit_size: 3
+    enum: vals::Chnlcntmismatchmax1
+fieldset/regs::Em4wuen:
+  description: No Description.
+  fields:
+  - name: chnlem4wuen0
+    description: Channel0 Tampdet EM4 Wakeup Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: chnlem4wuen1
+    description: Channel1 Tampdet EM4 Wakeup Enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::En:
+  description: No Description.
+  fields:
+  - name: en
+    description: ETAMPDET Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: disabling
+    description: Disablement busy status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: tampdet0
+    description: TAMPDET0 interrupt enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: tampdet1
+    description: TAMPDET1 interrupt enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: tampdet0
+    description: Tamper0 Detect Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: tampdet1
+    description: Tamper1 Detect Flag.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Lock:
+  description: No Description.
+  fields:
+  - name: lockkey
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: chnlrunning0
+    description: Channel0 Running Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: chnlrunning1
+    description: Channel1 Running Status.
+    bit_offset: 1
+    bit_size: 1
+  - name: lockstatus
+    description: Lock Status.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Syncbusy:
+  description: No Description.
+  fields:
+  - name: chnlstart0
+    description: Synchronizer busy status.
+    bit_offset: 0
+    bit_size: 1
+  - name: chnlstop0
+    description: Synchronizer busy status.
+    bit_offset: 1
+    bit_size: 1
+  - name: chnlload0
+    description: Synchronizer busy status.
+    bit_offset: 2
+    bit_size: 1
+  - name: chnlstart1
+    description: Synchronizer busy status.
+    bit_offset: 3
+    bit_size: 1
+  - name: chnlstop1
+    description: Synchronizer busy status.
+    bit_offset: 4
+    bit_size: 1
+  - name: chnlload1
+    description: Synchronizer busy status.
+    bit_offset: 5
+    bit_size: 1
+enum/vals::Chnlcmpdlyen0:
+  bit_size: 1
+  variants:
+  - name: X0
+    description: Disables 1 clock delay to the TX value used for comparison.
+    value: 0
+  - name: X1
+    description: Enables 1 clock delay to the TX value used for comparison.
+    value: 1
+enum/vals::Chnlcntmismatchmax0:
+  bit_size: 3
+  variants:
+  - name: DetectFilterThreshold1
+    description: Detect filter raise detect flag after seeing 1 event before reset counter expire.
+    value: 0
+  - name: DetectFilterThreshold2
+    description: Detect filter raise detect flag after seeing 2 events before reset counter expire.
+    value: 1
+  - name: DetectFilterThreshold3
+    description: Detect filter raise detect flag after seeing 3 events before reset counter expire.
+    value: 2
+  - name: DetectFilterThreshold4
+    description: Detect filter raise detect flag after seeing 4 events before reset counter expire.
+    value: 3
+  - name: DetectFilterThreshold5
+    description: Detect filter raise detect flag after seeing 5 events before reset counter expire.
+    value: 4
+  - name: DetectFilterThreshold6
+    description: Detect filter raise detect flag after seeing 6 events before reset counter expire.
+    value: 5
+  - name: DetectFilterThreshold7
+    description: Detect filter raise detect flag after seeing 7 events before reset counter expire.
+    value: 6
+  - name: DetectFilterThreshold8
+    description: Detect filter raise detect flag after seeing 8 events before reset counter expire.
+    value: 7
+enum/vals::Chnlcntmismatchmax1:
+  bit_size: 3
+  variants:
+  - name: DetectFilterThreshold1
+    description: Detect filter raise detect flag after seeing 1 event before reset counter expire.
+    value: 0
+  - name: DetectFilterThreshold2
+    description: Detect filter raise detect flag after seeing 2 events before reset counter expire.
+    value: 1
+  - name: DetectFilterThreshold3
+    description: Detect filter raise detect flag after seeing 3 events before reset counter expire.
+    value: 2
+  - name: DetectFilterThreshold4
+    description: Detect filter raise detect flag after seeing 4 events before reset counter expire.
+    value: 3
+  - name: DetectFilterThreshold5
+    description: Detect filter raise detect flag after seeing 5 events before reset counter expire.
+    value: 4
+  - name: DetectFilterThreshold6
+    description: Detect filter raise detect flag after seeing 6 events before reset counter expire.
+    value: 5
+  - name: DetectFilterThreshold7
+    description: Detect filter raise detect flag after seeing 7 events before reset counter expire.
+    value: 6
+  - name: DetectFilterThreshold8
+    description: Detect filter raise detect flag after seeing 8 events before reset counter expire.
+    value: 7
+enum/vals::Chnlfiltwinsize0:
+  bit_size: 4
+  variants:
+  - name: DetectFilterMovingWinSize10
+    description: Detect filter moving window size is 10.
+    value: 9
+  - name: DetectFilterMovingWinSize11
+    description: Detect filter moving window size is 11.
+    value: 10
+  - name: DetectFilterMovingWinSize12
+    description: Detect filter moving window size is 12.
+    value: 11
+  - name: DetectFilterMovingWinSize13
+    description: Detect filter moving window size is 13.
+    value: 12
+  - name: DetectFilterMovingWinSize14
+    description: Detect filter moving window size is 14.
+    value: 13
+  - name: DetectFilterMovingWinSize15
+    description: Detect filter moving window size is 15.
+    value: 14
+  - name: DetectFilterMovingWinSize16
+    description: Detect filter moving window size is 16.
+    value: 15
+  - name: DetectFilterMovingWinSize2
+    description: Detect filter moving window size is 2.
+    value: 1
+  - name: DetectFilterMovingWinSize3
+    description: Detect filter moving window size is 3.
+    value: 2
+  - name: DetectFilterMovingWinSize4
+    description: Detect filter moving window size is 4.
+    value: 3
+  - name: DetectFilterMovingWinSize5
+    description: Detect filter moving window size is 5.
+    value: 4
+  - name: DetectFilterMovingWinSize6
+    description: Detect filter moving window size is 6.
+    value: 5
+  - name: DetectFilterMovingWinSize7
+    description: Detect filter moving window size is 7.
+    value: 6
+  - name: DetectFilterMovingWinSize8
+    description: Detect filter moving window size is 8.
+    value: 7
+  - name: DetectFilterMovingWinSize9
+    description: Detect filter moving window size is 9.
+    value: 8
+  - name: Reserved
+    description: Reserved.
+    value: 0
+enum/vals::Chnlfiltwinsize1:
+  bit_size: 4
+  variants:
+  - name: DetectFilterMovingWinSize10
+    description: Detect filter moving window size is 10.
+    value: 9
+  - name: DetectFilterMovingWinSize11
+    description: Detect filter moving window size is 11.
+    value: 10
+  - name: DetectFilterMovingWinSize12
+    description: Detect filter moving window size is 12.
+    value: 11
+  - name: DetectFilterMovingWinSize13
+    description: Detect filter moving window size is 13.
+    value: 12
+  - name: DetectFilterMovingWinSize14
+    description: Detect filter moving window size is 14.
+    value: 13
+  - name: DetectFilterMovingWinSize15
+    description: Detect filter moving window size is 15.
+    value: 14
+  - name: DetectFilterMovingWinSize16
+    description: Detect filter moving window size is 16.
+    value: 15
+  - name: DetectFilterMovingWinSize2
+    description: Detect filter moving window size is 2.
+    value: 1
+  - name: DetectFilterMovingWinSize3
+    description: Detect filter moving window size is 3.
+    value: 2
+  - name: DetectFilterMovingWinSize4
+    description: Detect filter moving window size is 4.
+    value: 3
+  - name: DetectFilterMovingWinSize5
+    description: Detect filter moving window size is 5.
+    value: 4
+  - name: DetectFilterMovingWinSize6
+    description: Detect filter moving window size is 6.
+    value: 5
+  - name: DetectFilterMovingWinSize7
+    description: Detect filter moving window size is 7.
+    value: 6
+  - name: DetectFilterMovingWinSize8
+    description: Detect filter moving window size is 8.
+    value: 7
+  - name: DetectFilterMovingWinSize9
+    description: Detect filter moving window size is 9.
+    value: 8
+  - name: Reserved
+    description: Reserved.
+    value: 0
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Unlock
+    description: Write to unlock all BURTC lockable registers.
+    value: 44776
+enum/vals::Lowerpresc:
+  bit_size: 6
+  variants:
+  - name: Bypass
+    description: Divider is bypassed.
+    value: 0
+  - name: DivideBy10
+    description: Divide by 10.
+    value: 9
+  - name: DivideBy11
+    description: Divide by 11.
+    value: 10
+  - name: DivideBy12
+    description: Divide by 12.
+    value: 11
+  - name: DivideBy13
+    description: Divide by 13.
+    value: 12
+  - name: DivideBy14
+    description: Divide by 14.
+    value: 13
+  - name: DivideBy15
+    description: Divide by 15.
+    value: 14
+  - name: DivideBy16
+    description: Divide by 16.
+    value: 15
+  - name: DivideBy17
+    description: Divide by 17.
+    value: 16
+  - name: DivideBy18
+    description: Divide by 18.
+    value: 17
+  - name: DivideBy19
+    description: Divide by 19.
+    value: 18
+  - name: DivideBy2
+    description: Divide by 2.
+    value: 1
+  - name: DivideBy20
+    description: Divide by 20.
+    value: 19
+  - name: DivideBy21
+    description: Divide by 21.
+    value: 20
+  - name: DivideBy22
+    description: Divide by 22.
+    value: 21
+  - name: DivideBy23
+    description: Divide by 23.
+    value: 22
+  - name: DivideBy24
+    description: Divide by 24.
+    value: 23
+  - name: DivideBy25
+    description: Divide by 25.
+    value: 24
+  - name: DivideBy26
+    description: Divide by 26.
+    value: 25
+  - name: DivideBy27
+    description: Divide by 27.
+    value: 26
+  - name: DivideBy28
+    description: Divide by 28.
+    value: 27
+  - name: DivideBy29
+    description: Divide by 29.
+    value: 28
+  - name: DivideBy3
+    description: Divide by 3.
+    value: 2
+  - name: DivideBy30
+    description: Divide by 30.
+    value: 29
+  - name: DivideBy31
+    description: Divide by 31.
+    value: 30
+  - name: DivideBy32
+    description: Divide by 32.
+    value: 31
+  - name: DivideBy33
+    description: Divide by 33.
+    value: 32
+  - name: DivideBy34
+    description: Divide by 34.
+    value: 33
+  - name: DivideBy35
+    description: Divide by 35.
+    value: 34
+  - name: DivideBy36
+    description: Divide by 36.
+    value: 35
+  - name: DivideBy37
+    description: Divide by 37.
+    value: 36
+  - name: DivideBy38
+    description: Divide by 38.
+    value: 37
+  - name: DivideBy39
+    description: Divide by 39.
+    value: 38
+  - name: DivideBy4
+    description: Divide by 4.
+    value: 3
+  - name: DivideBy40
+    description: Divide by 40.
+    value: 39
+  - name: DivideBy41
+    description: Divide by 41.
+    value: 40
+  - name: DivideBy42
+    description: Divide by 42.
+    value: 41
+  - name: DivideBy43
+    description: Divide by 43.
+    value: 42
+  - name: DivideBy44
+    description: Divide by 44.
+    value: 43
+  - name: DivideBy45
+    description: Divide by 45.
+    value: 44
+  - name: DivideBy46
+    description: Divide by 46.
+    value: 45
+  - name: DivideBy47
+    description: Divide by 47.
+    value: 46
+  - name: DivideBy48
+    description: Divide by 48.
+    value: 47
+  - name: DivideBy49
+    description: Divide by 49.
+    value: 48
+  - name: DivideBy5
+    description: Divide by 5.
+    value: 4
+  - name: DivideBy50
+    description: Divide by 50.
+    value: 49
+  - name: DivideBy51
+    description: Divide by 51.
+    value: 50
+  - name: DivideBy52
+    description: Divide by 52.
+    value: 51
+  - name: DivideBy53
+    description: Divide by 53.
+    value: 52
+  - name: DivideBy54
+    description: Divide by 54.
+    value: 53
+  - name: DivideBy55
+    description: Divide by 55.
+    value: 54
+  - name: DivideBy56
+    description: Divide by 56.
+    value: 55
+  - name: DivideBy57
+    description: Divide by 57.
+    value: 56
+  - name: DivideBy58
+    description: Divide by 58.
+    value: 57
+  - name: DivideBy59
+    description: Divide by 59.
+    value: 58
+  - name: DivideBy6
+    description: Divide by 6.
+    value: 5
+  - name: DivideBy60
+    description: Divide by 60.
+    value: 59
+  - name: DivideBy61
+    description: Divide by 61.
+    value: 60
+  - name: DivideBy62
+    description: Divide by 62.
+    value: 61
+  - name: DivideBy63
+    description: Divide by 63.
+    value: 62
+  - name: DivideBy64
+    description: Divide by 64.
+    value: 63
+  - name: DivideBy7
+    description: Divide by 7.
+    value: 6
+  - name: DivideBy8
+    description: Divide by 8.
+    value: 7
+  - name: DivideBy9
+    description: Divide by 9.
+    value: 8
+enum/vals::Upperpresc:
+  bit_size: 3
+  variants:
+  - name: Bypass
+    description: Ripple counter divider is bypassed.
+    value: 0
+  - name: DivideBy16
+    description: Divide by 16.
+    value: 4
+  - name: DivideBy2
+    description: Divide by 2.
+    value: 1
+  - name: DivideBy32
+    description: Divide by 32.
+    value: 5
+  - name: DivideBy4
+    description: Divide by 4.
+    value: 2
+  - name: DivideBy64
+    description: Divide by 64.
+    value: 6
+  - name: DivideBy8
+    description: Divide by 8.
+    value: 3
+  - name: Reserved
+    description: Reserved, programing to this value is equal to programing 0x0.
+    value: 7

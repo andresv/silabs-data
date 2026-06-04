@@ -1,0 +1,724 @@
+block/Vdac:
+  description: VDAC peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: en
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::En
+  - name: swrst
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Swrst
+  - name: cfg
+    description: No Description.
+    byte_offset: 12
+    fieldset: regs::Cfg
+  - name: status
+    description: No Description.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Status
+  - name: ch0cfg
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::Ch0cfg
+  - name: ch1cfg
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Ch1cfg
+  - name: cmd
+    description: No Description.
+    byte_offset: 28
+    access: Write
+    fieldset: regs::Cmd
+  - name: if_
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::Ien
+  - name: ch0f
+    description: No Description.
+    byte_offset: 40
+    access: Write
+    fieldset: regs::Ch0f
+  - name: ch1f
+    description: No Description.
+    byte_offset: 44
+    access: Write
+    fieldset: regs::Ch1f
+  - name: outctrl
+    description: No Description.
+    byte_offset: 48
+    fieldset: regs::Outctrl
+  - name: outtimercfg
+    description: No Description.
+    byte_offset: 52
+    fieldset: regs::Outtimercfg
+fieldset/regs::Cfg:
+  description: No Description.
+  fields:
+  - name: diff
+    description: Differential Mode.
+    bit_offset: 0
+    bit_size: 1
+    enum: vals::Diff
+  - name: sinemode
+    description: Sine Mode.
+    bit_offset: 1
+    bit_size: 1
+    enum: vals::Sinemode
+  - name: sinereset
+    description: Sine Wave Reset When inactive.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch0prescrst
+    description: Channel 0 Start Reset Prescaler.
+    bit_offset: 3
+    bit_size: 1
+  - name: refrsel
+    description: Reference Selection.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Refrsel
+  - name: presc
+    description: Prescaler Setting for DAC clock.
+    bit_offset: 7
+    bit_size: 7
+  - name: timerovrflowperiod
+    description: Internal Timer Overflow Period.
+    bit_offset: 16
+    bit_size: 3
+    enum: vals::Timerovrflowperiod
+  - name: refreshperiod
+    description: Refresh Timer Overflow Period.
+    bit_offset: 20
+    bit_size: 3
+    enum: vals::Refreshperiod
+  - name: biaskeepwarm
+    description: Bias Keepwarm Mode Enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: dmawu
+    description: VDAC DMA Wakeup.
+    bit_offset: 25
+    bit_size: 1
+  - name: ondemandclk
+    description: Always allow clk_dac.
+    bit_offset: 26
+    bit_size: 1
+  - name: dbghalt
+    description: Debug Halt.
+    bit_offset: 27
+    bit_size: 1
+    enum: vals::Dbghalt
+  - name: warmuptime
+    description: DAC Warmup Time.
+    bit_offset: 28
+    bit_size: 3
+fieldset/regs::Ch0cfg:
+  description: No Description.
+  fields:
+  - name: convmode
+    description: Channel 0 Conversion Mode.
+    bit_offset: 0
+    bit_size: 1
+    enum: vals::Ch0cfgConvmode
+  - name: powermode
+    description: Channel 0 Power Mode.
+    bit_offset: 2
+    bit_size: 1
+    enum: vals::Ch0cfgPowermode
+  - name: trigmode
+    description: Channel 0 Trigger Mode.
+    bit_offset: 4
+    bit_size: 3
+    enum: vals::Ch0cfgTrigmode
+  - name: refreshsource
+    description: Channel 0 Refresh Source.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch0cfgRefreshsource
+  - name: fifodvl
+    description: Channel 0 FIFO Low Watermark.
+    bit_offset: 11
+    bit_size: 2
+  - name: highcaploaden
+    description: Channel 0 High Cap Load Mode Enable.
+    bit_offset: 14
+    bit_size: 1
+  - name: keepwarm
+    description: Channel 0 Keepwarm Mode Enable.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Ch0f:
+  description: No Description.
+  fields:
+  - name: data
+    description: Channel 0 Data.
+    bit_offset: 0
+    bit_size: 12
+fieldset/regs::Ch1cfg:
+  description: No Description.
+  fields:
+  - name: convmode
+    description: Channel 1 Conversion Mode.
+    bit_offset: 0
+    bit_size: 1
+    enum: vals::Ch1cfgConvmode
+  - name: powermode
+    description: Channel 1 Power Mode.
+    bit_offset: 2
+    bit_size: 1
+    enum: vals::Ch1cfgPowermode
+  - name: trigmode
+    description: Channel 1 Trigger Mode.
+    bit_offset: 4
+    bit_size: 3
+    enum: vals::Ch1cfgTrigmode
+  - name: refreshsource
+    description: Channel 1 Refresh Source.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Ch1cfgRefreshsource
+  - name: fifodvl
+    description: Channel 1 FIFO Low Watermark.
+    bit_offset: 11
+    bit_size: 2
+  - name: highcaploaden
+    description: Channel 1 High Cap Load Mode Enable.
+    bit_offset: 14
+    bit_size: 1
+  - name: keepwarm
+    description: Channel 1 Keepwarm Mode Enable.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Ch1f:
+  description: No Description.
+  fields:
+  - name: data
+    description: Channel 1 Data.
+    bit_offset: 0
+    bit_size: 12
+fieldset/regs::Cmd:
+  description: No Description.
+  fields:
+  - name: ch0en
+    description: DAC Channel 0 Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch0dis
+    description: DAC Channel 0 Disable.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch1en
+    description: DAC Channel 1 Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch1dis
+    description: DAC Channel 1 Disable.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch0fifoflush
+    description: CH0 WFIFO Flush.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch1fifoflush
+    description: CH1 WFIFO Flush.
+    bit_offset: 9
+    bit_size: 1
+  - name: sinemodestart
+    description: Start Sine Wave Generation.
+    bit_offset: 10
+    bit_size: 1
+  - name: sinemodestop
+    description: Stop Sine Wave Generation.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::En:
+  description: No Description.
+  fields:
+  - name: en
+    description: VDAC Module Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: disabling
+    description: Disablement busy status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: ch0cd
+    description: CH0 Conversion Done Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1cd
+    description: CH1 Conversion Done Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch0of
+    description: CH0 Data Overflow Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch1of
+    description: CH1 Data Overflow Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch0uf
+    description: CH0 Data Underflow Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch1uf
+    description: CH1 Data Underflow Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: abusallocerr
+    description: ABUS Allocation Error Interrupt Flag.
+    bit_offset: 18
+    bit_size: 1
+  - name: ch0dvl
+    description: CH0 Data Valid Level Interrupt Flag.
+    bit_offset: 20
+    bit_size: 1
+  - name: ch1dvl
+    description: CH1 Data Valid Level Interrupt Flag.
+    bit_offset: 21
+    bit_size: 1
+  - name: abusinputconflict
+    description: ABUS Input Conflict Interrupt Flag.
+    bit_offset: 26
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: ch0cd
+    description: CH0 Conversion Done Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1cd
+    description: CH1 Conversion Done Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch0of
+    description: CH0 Data Overflow Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch1of
+    description: CH1 Data Overflow Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch0uf
+    description: CH0 Data Underflow Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch1uf
+    description: CH1 Data Underflow Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: abusallocerr
+    description: ABUS Port Allocation Error Flag.
+    bit_offset: 18
+    bit_size: 1
+  - name: ch0dvl
+    description: CH0 Data Valid Level Interrupt Flag.
+    bit_offset: 20
+    bit_size: 1
+  - name: ch1dvl
+    description: CH1 Data Valid Level Interrupt Flag.
+    bit_offset: 21
+    bit_size: 1
+  - name: abusinputconflict
+    description: ABUS Input Conflict Error Flag.
+    bit_offset: 26
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IPVERSION.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Outctrl:
+  description: No Description.
+  fields:
+  - name: mainoutench0
+    description: CH0 Main Output Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: mainoutench1
+    description: CH1 Main Output Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: auxoutench0
+    description: CH0 Alternative Output Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: auxoutench1
+    description: CH1 Alternative Output Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: shortch0
+    description: CH1 Main and Alternative Output Short.
+    bit_offset: 8
+    bit_size: 1
+  - name: shortch1
+    description: CH0 Main and Alternative Output Short.
+    bit_offset: 9
+    bit_size: 1
+  - name: abusportselch0
+    description: CH0 ABUS Port Select.
+    bit_offset: 12
+    bit_size: 3
+    enum: vals::Abusportselch0
+  - name: abuspinselch0
+    description: CH0 ABUS Pin Select.
+    bit_offset: 15
+    bit_size: 6
+  - name: abusportselch1
+    description: CH1 ABUS Port Select.
+    bit_offset: 22
+    bit_size: 3
+    enum: vals::Abusportselch1
+  - name: abuspinselch1
+    description: CH1 ABUS Pin Select.
+    bit_offset: 25
+    bit_size: 6
+fieldset/regs::Outtimercfg:
+  description: No Description.
+  fields:
+  - name: ch0outholdtime
+    description: CH0 Output Hold Time.
+    bit_offset: 0
+    bit_size: 10
+  - name: ch1outholdtime
+    description: CH1 Output Hold Time.
+    bit_offset: 15
+    bit_size: 10
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: ch0ens
+    description: Channel 0 Enabled Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1ens
+    description: Channel 1 Enabled Status.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch0warm
+    description: Channel 0 Warmed Status.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch1warm
+    description: Channel 1 Warmed Status.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch0fifofull
+    description: Channel 0 FIFO Full Status.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch1fifofull
+    description: Channel 1 FIFO Full Status.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch0fifocnt
+    description: Channel 0 FIFO Valid Count.
+    bit_offset: 12
+    bit_size: 3
+  - name: ch1fifocnt
+    description: Channel 1 FIFO Valid Count.
+    bit_offset: 15
+    bit_size: 3
+  - name: ch0currentstate
+    description: Channel 0 Current Status.
+    bit_offset: 19
+    bit_size: 1
+  - name: ch1currentstate
+    description: Channel 1 Current Status.
+    bit_offset: 20
+    bit_size: 1
+  - name: ch0fifoempty
+    description: Channel 0 FIFO Empty Status.
+    bit_offset: 22
+    bit_size: 1
+  - name: ch1fifoempty
+    description: Channel 1 FIFO Empty Status.
+    bit_offset: 23
+    bit_size: 1
+  - name: ch0fifoflbusy
+    description: CH0 FIFO Flush Sync Busy.
+    bit_offset: 26
+    bit_size: 1
+  - name: ch1fifoflbusy
+    description: CH1 FIFO Flush Sync Busy.
+    bit_offset: 27
+    bit_size: 1
+  - name: abusinputconflict
+    description: ABUS Input Conflict Status.
+    bit_offset: 28
+    bit_size: 1
+  - name: sineactive
+    description: Sine Wave Output Status on Channel.
+    bit_offset: 29
+    bit_size: 1
+  - name: abusallocerr
+    description: ABUS Allocation Error Status.
+    bit_offset: 30
+    bit_size: 1
+  - name: syncbusy
+    description: Sync Busy Combined.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Swrst:
+  description: No Description.
+  fields:
+  - name: swrst
+    description: Software reset command.
+    bit_offset: 0
+    bit_size: 1
+  - name: resetting
+    description: Software reset busy status.
+    bit_offset: 1
+    bit_size: 1
+enum/vals::Abusportselch0:
+  bit_size: 3
+  variants:
+  - name: None
+    description: No GPIO Selected for CH0 ABUS Output.
+    value: 0
+  - name: Porta
+    description: Port A Selected.
+    value: 1
+  - name: Portb
+    description: Port B Selected.
+    value: 2
+  - name: Portc
+    description: Port C Selected.
+    value: 3
+  - name: Portd
+    description: Port D Selected.
+    value: 4
+enum/vals::Abusportselch1:
+  bit_size: 3
+  variants:
+  - name: None
+    description: No GPIO Selected for CH1 ABUS Output.
+    value: 0
+  - name: Porta
+    description: Port A Selected.
+    value: 1
+  - name: Portb
+    description: Port B Selected.
+    value: 2
+  - name: Portc
+    description: Port C Selected.
+    value: 3
+  - name: Portd
+    description: Port D Selected.
+    value: 4
+enum/vals::Ch0cfgConvmode:
+  bit_size: 1
+  variants:
+  - name: Continuous
+    description: DAC channel 0 is set in continuous mode.
+    value: 0
+  - name: Sampleoff
+    description: DAC channel 0 is set in sample/shut off mode.
+    value: 1
+enum/vals::Ch0cfgPowermode:
+  bit_size: 1
+  variants:
+  - name: Highpower
+    description: Default is High Power Mode.
+    value: 0
+  - name: Lowpower
+    description: Set this bit for Low Power Mode.
+    value: 1
+enum/vals::Ch0cfgRefreshsource:
+  bit_size: 2
+  variants:
+  - name: Asyncprs
+    description: Channel 0 Refresh triggered by Async PRS.
+    value: 3
+  - name: None
+    description: No Refresh Source Selected for Channel 0.
+    value: 0
+  - name: Refreshtimer
+    description: Channel 0 Refresh triggered by Refresh Timer Overflow.
+    value: 1
+  - name: Syncprs
+    description: Channel 0 Refresh triggered by Sync PRS. PRS Trigger should have the same clock group as VDAC.
+    value: 2
+enum/vals::Ch0cfgTrigmode:
+  bit_size: 3
+  variants:
+  - name: Asyncprs
+    description: Channel 0 is triggered by Async PRS input.
+    value: 5
+  - name: Internaltimer
+    description: Channel 0 is triggered by Internal Timer Overflow.
+    value: 4
+  - name: Lesense
+    description: Channel 0 is triggered by LESENSE.
+    value: 3
+  - name: None
+    description: No Conversion Trigger Source Selected for Channel 0.
+    value: 0
+  - name: Sw
+    description: Channel 0 is triggered by Channel 0 FIFO (CH0F) write.
+    value: 1
+  - name: Syncprs
+    description: Channel 0 is triggered by Sync PRS input. PRS Trigger should have the same clock group as VDAC.
+    value: 2
+enum/vals::Ch1cfgConvmode:
+  bit_size: 1
+  variants:
+  - name: Continuous
+    description: DAC channel 1 is set in continuous mode.
+    value: 0
+  - name: Sampleoff
+    description: DAC channel 1 is set in sample/shut off mode.
+    value: 1
+enum/vals::Ch1cfgPowermode:
+  bit_size: 1
+  variants:
+  - name: Highpower
+    description: Default is High Power Mode.
+    value: 0
+  - name: Lowpower
+    description: Set this bit for Low Power Mode.
+    value: 1
+enum/vals::Ch1cfgRefreshsource:
+  bit_size: 2
+  variants:
+  - name: Asyncprs
+    description: CH1 Refresh Triggered by Async PRS.
+    value: 3
+  - name: None
+    description: No Refresh Source Selected.
+    value: 0
+  - name: Refreshtimer
+    description: CH1 Refresh Triggered by Refresh Timer Overflow.
+    value: 1
+  - name: Syncprs
+    description: CH1 Refresh Triggered by Sync PRS. PRS Trigger should have the same clock group as VDAC.
+    value: 2
+enum/vals::Ch1cfgTrigmode:
+  bit_size: 3
+  variants:
+  - name: Asyncprs
+    description: Channel 1 is triggered by Async PRS input.
+    value: 5
+  - name: Internaltimer
+    description: Channel 1 is triggered by Internal Timer Overflow.
+    value: 4
+  - name: Lesense
+    description: Channel 1 is triggered by LESENSE.
+    value: 3
+  - name: None
+    description: No Conversion Trigger Source Selected for Channel 1.
+    value: 0
+  - name: Sw
+    description: Channel 1 is triggered by Channel 1 FIFO (CH1F) write.
+    value: 1
+  - name: Syncprs
+    description: Channel 1 is triggered by Sync PRS input.PRS Trigger should have the same clock group as VDAC.
+    value: 2
+enum/vals::Dbghalt:
+  bit_size: 1
+  variants:
+  - name: Halt
+    description: Complete the current conversion and then halt during debug mode.
+    value: 1
+  - name: Normal
+    description: Continue operation as normal during debug mode.
+    value: 0
+enum/vals::Diff:
+  bit_size: 1
+  variants:
+  - name: Differential
+    description: Differential output.
+    value: 1
+  - name: Singleended
+    description: Single ended output.
+    value: 0
+enum/vals::Refreshperiod:
+  bit_size: 3
+  variants:
+  - name: Cycles128
+    description: All channels with enabled refresh are refreshed every 128 CLK_REFRESH cycles.
+    value: 6
+  - name: Cycles16
+    description: All channels with enabled refresh are refreshed every 16 CLK_REFRESH cycles.
+    value: 3
+  - name: Cycles2
+    description: All channels with enabled refresh are refreshed every 2 CLK_REFRESH cycles.
+    value: 0
+  - name: Cycles256
+    description: All channels with enabled refresh are refreshed every 256 CLK_REFRESH cycles.
+    value: 7
+  - name: Cycles32
+    description: All channels with enabled refresh are refreshed every 32 CLK_REFRESH cycles.
+    value: 4
+  - name: Cycles4
+    description: All channels with enabled refresh are refreshed every 4 CLK_REFRESH cycles.
+    value: 1
+  - name: Cycles64
+    description: All channels with enabled refresh are refreshed every 64 CLK_REFRESH cycles.
+    value: 5
+  - name: Cycles8
+    description: All channels with enabled refresh are refreshed every 8 CLK_REFRESH cycles.
+    value: 2
+enum/vals::Refrsel:
+  bit_size: 2
+  variants:
+  - name: Ext
+    description: External pin reference.
+    value: 3
+  - name: V125
+    description: Internal 1.25 V bandgap reference.
+    value: 0
+  - name: V25
+    description: Internal 2.5 V bandgap reference.
+    value: 1
+  - name: Vdd
+    description: AVDD reference.
+    value: 2
+enum/vals::Sinemode:
+  bit_size: 1
+  variants:
+  - name: Dissinemode
+    description: Sine mode disabled. Sine reset to 0 degrees.
+    value: 0
+  - name: Ensinemode
+    description: Sine mode enabled.
+    value: 1
+enum/vals::Timerovrflowperiod:
+  bit_size: 3
+  variants:
+  - name: Cycles16
+    description: The Timer overflows every 16 Prescaled CLK_DAC cycles.
+    value: 3
+  - name: Cycles2
+    description: The Timer overflows every 2 Prescaled CLK_DAC cycles.
+    value: 0
+  - name: Cycles32
+    description: The Timer overflows every 32 Prescaled CLK_DAC cycles.
+    value: 4
+  - name: Cycles4
+    description: The Timer overflows every 4 Prescaled CLK_DAC cycles.
+    value: 1
+  - name: Cycles64
+    description: The Timer overflows every 64 Prescaled CLK_DAC cycles.
+    value: 5
+  - name: Cycles8
+    description: The Timer overflows every 8 Prescaled CLK_DAC cycles.
+    value: 2
