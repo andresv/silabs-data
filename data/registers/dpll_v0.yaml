@@ -1,0 +1,151 @@
+block/Dpll:
+  description: DPLL peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: en
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::En
+  - name: cfg
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Cfg
+  - name: cfg1
+    description: No Description.
+    byte_offset: 12
+    fieldset: regs::Cfg1
+  - name: if_
+    description: No Description.
+    byte_offset: 16
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::Ien
+  - name: status
+    description: No Description.
+    byte_offset: 24
+    access: Read
+    fieldset: regs::Status
+  - name: lock
+    description: No Description.
+    byte_offset: 36
+    access: Write
+    fieldset: regs::Lock
+fieldset/regs::Cfg:
+  description: No Description.
+  fields:
+  - name: mode
+    description: Operating Mode Control.
+    bit_offset: 0
+    bit_size: 1
+    enum: vals::Mode
+  - name: edgesel
+    description: Reference Edge Select.
+    bit_offset: 1
+    bit_size: 1
+  - name: autorecover
+    description: Automatic Recovery Control.
+    bit_offset: 2
+    bit_size: 1
+  - name: dithen
+    description: Dither Enable Control.
+    bit_offset: 6
+    bit_size: 1
+fieldset/regs::Cfg1:
+  description: No Description.
+  fields:
+  - name: m
+    description: Factor M.
+    bit_offset: 0
+    bit_size: 12
+  - name: n
+    description: Factor N.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::En:
+  description: No Description.
+  fields:
+  - name: en
+    description: Module Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: lock
+    description: LOCK interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: lockfaillow
+    description: LOCKFAILLOW Interrupe Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: lockfailhigh
+    description: LOCKFAILHIGH Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: lock
+    description: Lock Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: lockfaillow
+    description: Lock Failure Low Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: lockfailhigh
+    description: Lock Failure High Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Lock:
+  description: No Description.
+  fields:
+  - name: lockkey
+    description: Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: rdy
+    description: Ready Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: ens
+    description: Enable Status.
+    bit_offset: 1
+    bit_size: 1
+  - name: lock
+    description: Lock Status.
+    bit_offset: 31
+    bit_size: 1
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Unlock
+    description: Unlock code.
+    value: 28930
+enum/vals::Mode:
+  bit_size: 1
+  variants:
+  - name: Fll
+    description: Frequency Lock Mode.
+    value: 0
+  - name: Pll
+    description: Phase Lock Mode.
+    value: 1

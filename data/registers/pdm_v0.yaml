@@ -1,0 +1,310 @@
+block/Pdm:
+  description: PDM peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: en
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::En
+  - name: ctrl
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Ctrl
+  - name: cmd
+    description: No Description.
+    byte_offset: 12
+    access: Write
+    fieldset: regs::Cmd
+  - name: status
+    description: No Description.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Status
+  - name: cfg0
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::Cfg0
+  - name: cfg1
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Cfg1
+  - name: rxdata
+    description: No Description.
+    byte_offset: 32
+    access: Read
+    fieldset: regs::Rxdata
+  - name: if_
+    description: No Description.
+    byte_offset: 64
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 68
+    fieldset: regs::Ien
+  - name: syncbusy
+    description: No Description.
+    byte_offset: 96
+    access: Read
+    fieldset: regs::Syncbusy
+fieldset/regs::Cfg0:
+  description: No Description.
+  fields:
+  - name: forder
+    description: Filter order.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Forder
+  - name: numch
+    description: Number of Channels.
+    bit_offset: 4
+    bit_size: 1
+    enum: vals::Numch
+  - name: dataformat
+    description: Filter output format.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Dataformat
+  - name: fifodvl
+    description: Data Valid level in FIFO.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Fifodvl
+  - name: stereomodech01
+    description: Stereo mode CH01.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::Stereomodech01
+  - name: ch0clkpol
+    description: CH0 CLK Polarity.
+    bit_offset: 24
+    bit_size: 1
+    enum: vals::Ch0clkpol
+  - name: ch1clkpol
+    description: CH1 CLK Polarity.
+    bit_offset: 25
+    bit_size: 1
+    enum: vals::Ch1clkpol
+fieldset/regs::Cfg1:
+  description: No Description.
+  fields:
+  - name: presc
+    description: Prescalar Setting for PDM sample.
+    bit_offset: 0
+    bit_size: 10
+  - name: dlymuxsel
+    description: Data delay buffer mux selection.
+    bit_offset: 24
+    bit_size: 2
+fieldset/regs::Cmd:
+  description: No Description.
+  fields:
+  - name: start
+    description: Start DCF.
+    bit_offset: 0
+    bit_size: 1
+  - name: stop
+    description: Stop DCF.
+    bit_offset: 4
+    bit_size: 1
+  - name: clear
+    description: Clear DCF.
+    bit_offset: 8
+    bit_size: 1
+  - name: fifofl
+    description: FIFO Flush.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: No Description.
+  fields:
+  - name: gain
+    description: Selects Gain factor of DCF.
+    bit_offset: 0
+    bit_size: 5
+  - name: dsr
+    description: Down sampling rate of Decimation filter.
+    bit_offset: 8
+    bit_size: 12
+fieldset/regs::En:
+  description: No Description.
+  fields:
+  - name: en
+    description: PDM enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: dv
+    description: Data Valid Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: dvl
+    description: Data Valid Level Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: of
+    description: FIFO Overflow Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: uf
+    description: FIFO Undeflow Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: dv
+    description: Data Valid Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: dvl
+    description: Data Valid Level Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: of
+    description: FIFO Overflow Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: uf
+    description: FIFO Undeflow Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP VERSION.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Rxdata:
+  description: No Description.
+  fields:
+  - name: rxdata
+    description: PDM received data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: act
+    description: PDM is active.
+    bit_offset: 0
+    bit_size: 1
+  - name: full
+    description: FIFO FULL Status.
+    bit_offset: 4
+    bit_size: 1
+  - name: empty
+    description: FIFO EMPTY Status.
+    bit_offset: 5
+    bit_size: 1
+  - name: fifocnt
+    description: FIFO CNT.
+    bit_offset: 8
+    bit_size: 3
+fieldset/regs::Syncbusy:
+  description: No Description.
+  fields:
+  - name: syncbusy
+    description: sync busy.
+    bit_offset: 0
+    bit_size: 1
+  - name: fifoflbusy
+    description: FIFO Flush Sync busy.
+    bit_offset: 3
+    bit_size: 1
+enum/vals::Ch0clkpol:
+  bit_size: 1
+  variants:
+  - name: Invert
+    description: Input data clocked on falling clock edge.
+    value: 1
+  - name: Normal
+    description: Input data clocked on rising clock edge.
+    value: 0
+enum/vals::Ch1clkpol:
+  bit_size: 1
+  variants:
+  - name: Invert
+    description: Input data clocked on falling clock edge.
+    value: 1
+  - name: Normal
+    description: Input data clocked on rising clock edge.
+    value: 0
+enum/vals::Dataformat:
+  bit_size: 3
+  variants:
+  - name: Double16
+    description: Pack two 16-bit samples into one 32-bit word.
+    value: 1
+  - name: Full32bit
+    description: 32 bit data.
+    value: 3
+  - name: Left16
+    description: Left aligned 16-bit, right bits are zeros.
+    value: 4
+  - name: Left24
+    description: Left aligned 24-bit, right bits are zeros.
+    value: 5
+  - name: Raw32bit
+    description: RAW 32 bit data from Integrator.
+    value: 6
+  - name: Right16
+    description: Right aligned 16-bit, left bits are sign extended.
+    value: 0
+  - name: Right24
+    description: Right aligned 24bit, left bits are sign extended.
+    value: 2
+enum/vals::Fifodvl:
+  bit_size: 2
+  variants:
+  - name: Four
+    description: Four words.
+    value: 3
+  - name: One
+    description: Atleast one word.
+    value: 0
+  - name: Three
+    description: Three words.
+    value: 2
+  - name: Two
+    description: Two words.
+    value: 1
+enum/vals::Forder:
+  bit_size: 2
+  variants:
+  - name: Fifth
+    description: Fifth order filter.
+    value: 3
+  - name: Fourth
+    description: Fourth order filter.
+    value: 2
+  - name: Second
+    description: Second order filter.
+    value: 0
+  - name: Third
+    description: Third order filter.
+    value: 1
+enum/vals::Numch:
+  bit_size: 1
+  variants:
+  - name: One
+    description: One channel.
+    value: 0
+  - name: Two
+    description: Two channels.
+    value: 1
+enum/vals::Stereomodech01:
+  bit_size: 1
+  variants:
+  - name: Ch01enable
+    description: CH0 and CH1 in Stereo mode.
+    value: 1
+  - name: Disable
+    description: No Stereo mode.
+    value: 0

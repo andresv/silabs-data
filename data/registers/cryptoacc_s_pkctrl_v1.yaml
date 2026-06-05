@@ -1,0 +1,210 @@
+block/CryptoaccSPkctrl:
+  description: CRYPTOACC_S_PKCTRL peripheral.
+  items:
+  - name: pointer
+    description: No Description.
+    byte_offset: 0
+    fieldset: regs::Pointer
+  - name: command
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::Command
+  - name: pkctrl
+    description: No Description.
+    byte_offset: 8
+    access: Write
+    fieldset: regs::Pkctrl
+  - name: pkstatus
+    description: No Description.
+    byte_offset: 12
+    access: Read
+    fieldset: regs::Pkstatus
+  - name: version
+    description: No Description.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Version
+  - name: timer
+    description: No Description.
+    byte_offset: 20
+    access: Read
+    fieldset: regs::Timer
+fieldset/regs::Command:
+  description: No Description.
+  fields:
+  - name: operation
+    description: Type of Operation.
+    bit_offset: 0
+    bit_size: 7
+  - name: field
+    description: Field.
+    bit_offset: 7
+    bit_size: 1
+    enum: vals::Field
+  - name: size
+    description: Size of Operands in data memory.
+    bit_offset: 8
+    bit_size: 11
+  - name: selcurve
+    description: Select Curve.
+    bit_offset: 20
+    bit_size: 3
+    enum: vals::Selcurve
+  - name: edwards
+    description: Edwards Curve Enable.
+    bit_offset: 26
+    bit_size: 1
+  - name: bufsel
+    description: Buffer Select.
+    bit_offset: 27
+    bit_size: 1
+  - name: swapbytes
+    description: Swap bytes.
+    bit_offset: 28
+    bit_size: 1
+    enum: vals::Swapbytes
+  - name: flaga
+    description: Flag A.
+    bit_offset: 29
+    bit_size: 1
+  - name: flagb
+    description: Flag B.
+    bit_offset: 30
+    bit_size: 1
+  - name: calcr2
+    description: Calculate R2.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Pkctrl:
+  description: No Description.
+  fields:
+  - name: pkstart
+    description: PK Start.
+    bit_offset: 0
+    bit_size: 1
+  - name: ifc
+    description: ClearIRQ.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Pkstatus:
+  description: No Description.
+  fields:
+  - name: failaddr
+    description: Fail Address.
+    bit_offset: 0
+    bit_size: 4
+  - name: notoncurve
+    description: Point Px not on curve.
+    bit_offset: 4
+    bit_size: 1
+  - name: atinfinity
+    description: Point Px at infinity.
+    bit_offset: 5
+    bit_size: 1
+  - name: couplenotvalid
+    description: Couple not valid.
+    bit_offset: 6
+    bit_size: 1
+  - name: paramnnotvalid
+    description: Param n not valid.
+    bit_offset: 7
+    bit_size: 1
+  - name: notimplemented
+    description: Not implemented.
+    bit_offset: 8
+    bit_size: 1
+  - name: signotvalid
+    description: Signature not valid.
+    bit_offset: 9
+    bit_size: 1
+  - name: paramabnotvalid
+    description: Param AB not valid.
+    bit_offset: 10
+    bit_size: 1
+  - name: notinvertible
+    description: Not invertible.
+    bit_offset: 11
+    bit_size: 1
+  - name: composite
+    description: Composite.
+    bit_offset: 12
+    bit_size: 1
+  - name: notquad
+    description: Not quadratic residue.
+    bit_offset: 13
+    bit_size: 1
+  - name: pkbusy
+    description: PK busy.
+    bit_offset: 16
+    bit_size: 1
+  - name: pkif
+    description: Interrupt status.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::Pointer:
+  description: No Description.
+  fields:
+  - name: opptra
+    description: OpPtrA.
+    bit_offset: 0
+    bit_size: 4
+  - name: opptrb
+    description: OpPtrB.
+    bit_offset: 8
+    bit_size: 4
+  - name: opptrc
+    description: OpPtrC.
+    bit_offset: 16
+    bit_size: 4
+  - name: opptrn
+    description: OpPtrN.
+    bit_offset: 24
+    bit_size: 4
+fieldset/regs::Timer:
+  description: No Description.
+  fields:
+  - name: timer
+    description: Timer.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Version:
+  description: No Description.
+  fields:
+  - name: sw
+    description: Software version number.
+    bit_offset: 0
+    bit_size: 8
+  - name: hw
+    description: Hardware version number.
+    bit_offset: 8
+    bit_size: 8
+enum/vals::Field:
+  bit_size: 1
+  variants:
+  - name: Gf2m
+    description: Field is GF(2^m).
+    value: 1
+  - name: Gfp
+    description: Field is GF(p).
+    value: 0
+enum/vals::Selcurve:
+  bit_size: 3
+  variants:
+  - name: None
+    description: No acceleration.
+    value: 0
+  - name: P192
+    description: P192.
+    value: 4
+  - name: P256
+    description: P256.
+    value: 1
+enum/vals::Swapbytes:
+  bit_size: 1
+  variants:
+  - name: Native
+    description: Native format (little endian).
+    value: 0
+  - name: Swapped
+    description: Byte swapped (big endian).
+    value: 1

@@ -154,6 +154,13 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     ("EFR32FG25.*:DMEM_NS:.*", "dmem", "v2_fg25", "DMEM"),
     ("EFR32FG25.*:IADC[0-9]+_NS:.*", "iadc", "v3_fg25", "IADC"),
     ("EFR32FG25.*:VDAC[0-9]+_NS:.*", "vdac", "v2_fg25", "VDAC"),
+    // --- EFR32MG22 (Series 2, config 2) ---
+    // TIMER split: on MG22 only TIMER0 is the advanced/wide timer; TIMER1..4
+    // are the basic ones. They share <version>0</version> but extract to
+    // different IRs, so pin distinct labels (timer_v0_w for TIMER0, timer_v0
+    // for the rest). Both are MG22-specific (config-2 timer, version 0).
+    ("EFR32MG22.*:TIMER0_NS:.*", "timer", "v0_w", "TIMER"),
+    ("EFR32MG22.*:TIMER[1-4]_NS:.*", "timer", "v0", "TIMER"),
 ];
 
 /// Compile the static `ENTRIES` table into runtime `Entry`s.

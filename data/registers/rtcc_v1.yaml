@@ -1,0 +1,595 @@
+block/Rtcc:
+  description: RTCC peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: en
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::En
+  - name: cfg
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Cfg
+  - name: cmd
+    description: No Description.
+    byte_offset: 12
+    access: Write
+    fieldset: regs::Cmd
+  - name: status
+    description: No Description.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Status
+  - name: if_
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Ien
+  - name: precnt
+    description: No Description.
+    byte_offset: 28
+    fieldset: regs::Precnt
+  - name: cnt
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::Cnt
+  - name: combcnt
+    description: No Description.
+    byte_offset: 36
+    access: Read
+    fieldset: regs::Combcnt
+  - name: syncbusy
+    description: No Description.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::Syncbusy
+  - name: lock
+    description: No Description.
+    byte_offset: 44
+    access: Write
+    fieldset: regs::Lock
+  - name: cc0_ctrl
+    description: No Description.
+    byte_offset: 48
+    fieldset: regs::Cc0Ctrl
+  - name: cc0_ocvalue
+    description: No Description.
+    byte_offset: 52
+    fieldset: regs::Cc0Ocvalue
+  - name: cc0_icvalue
+    description: No Description.
+    byte_offset: 56
+    access: Read
+    fieldset: regs::Cc0Icvalue
+  - name: cc1_ctrl
+    description: No Description.
+    byte_offset: 60
+    fieldset: regs::Cc1Ctrl
+  - name: cc1_ocvalue
+    description: No Description.
+    byte_offset: 64
+    fieldset: regs::Cc1Ocvalue
+  - name: cc1_icvalue
+    description: No Description.
+    byte_offset: 68
+    access: Read
+    fieldset: regs::Cc1Icvalue
+  - name: cc2_ctrl
+    description: No Description.
+    byte_offset: 72
+    fieldset: regs::Cc2Ctrl
+  - name: cc2_ocvalue
+    description: No Description.
+    byte_offset: 76
+    fieldset: regs::Cc2Ocvalue
+  - name: cc2_icvalue
+    description: No Description.
+    byte_offset: 80
+    access: Read
+    fieldset: regs::Cc2Icvalue
+fieldset/regs::Cc0Ctrl:
+  description: No Description.
+  fields:
+  - name: mode
+    description: CC Channel Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Cc0CtrlMode
+  - name: cmoa
+    description: Compare Match Output Action.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Cc0CtrlCmoa
+  - name: compbase
+    description: Capture compare channel comparison base.
+    bit_offset: 4
+    bit_size: 1
+    enum: vals::Cc0CtrlCompbase
+  - name: icedge
+    description: Input Capture Edge Select.
+    bit_offset: 5
+    bit_size: 2
+    enum: vals::Cc0CtrlIcedge
+fieldset/regs::Cc0Icvalue:
+  description: No Description.
+  fields:
+  - name: ic
+    description: Input Capture Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Cc0Ocvalue:
+  description: No Description.
+  fields:
+  - name: oc
+    description: Output Compare Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Cc1Ctrl:
+  description: No Description.
+  fields:
+  - name: mode
+    description: CC Channel Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Cc1CtrlMode
+  - name: cmoa
+    description: Compare Match Output Action.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Cc1CtrlCmoa
+  - name: compbase
+    description: Capture compare channel comparison base.
+    bit_offset: 4
+    bit_size: 1
+    enum: vals::Cc1CtrlCompbase
+  - name: icedge
+    description: Input Capture Edge Select.
+    bit_offset: 5
+    bit_size: 2
+    enum: vals::Cc1CtrlIcedge
+fieldset/regs::Cc1Icvalue:
+  description: No Description.
+  fields:
+  - name: ic
+    description: Input Capture Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Cc1Ocvalue:
+  description: No Description.
+  fields:
+  - name: oc
+    description: Output Compare Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Cc2Ctrl:
+  description: No Description.
+  fields:
+  - name: mode
+    description: CC Channel Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Cc2CtrlMode
+  - name: cmoa
+    description: Compare Match Output Action.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Cc2CtrlCmoa
+  - name: compbase
+    description: Capture compare channel comparison base.
+    bit_offset: 4
+    bit_size: 1
+    enum: vals::Cc2CtrlCompbase
+  - name: icedge
+    description: Input Capture Edge Select.
+    bit_offset: 5
+    bit_size: 2
+    enum: vals::Cc2CtrlIcedge
+fieldset/regs::Cc2Icvalue:
+  description: No Description.
+  fields:
+  - name: ic
+    description: Input Capture Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Cc2Ocvalue:
+  description: No Description.
+  fields:
+  - name: oc
+    description: Output Compare Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Cfg:
+  description: No Description.
+  fields:
+  - name: debugrun
+    description: Debug Mode Run Enable.
+    bit_offset: 0
+    bit_size: 1
+    enum: vals::Debugrun
+  - name: precntccv0top
+    description: Pre-counter CCV0 top value enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: cntccv1top
+    description: CCV1 top value enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: cnttick
+    description: Counter prescaler mode.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Cnttick
+  - name: cntpresc
+    description: Counter prescaler value.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::Cntpresc
+fieldset/regs::Cmd:
+  description: No Description.
+  fields:
+  - name: start
+    description: Start RTCC main counter.
+    bit_offset: 0
+    bit_size: 1
+  - name: stop
+    description: Stop RTCC main counter.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Cnt:
+  description: No Description.
+  fields:
+  - name: cnt
+    description: Counter Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Combcnt:
+  description: No Description.
+  fields:
+  - name: precnt
+    description: Pre-Counter Value.
+    bit_offset: 0
+    bit_size: 15
+  - name: cntlsb
+    description: Counter Value.
+    bit_offset: 15
+    bit_size: 17
+fieldset/regs::En:
+  description: No Description.
+  fields:
+  - name: en
+    description: RTCC Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: of
+    description: OF Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: cnttick
+    description: CNTTICK Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: cc0
+    description: CC Channel n Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: cc1
+    description: CC Channel n Interrupt Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: cc2
+    description: CC Channel n Interrupt Enable.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: of
+    description: Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: cnttick
+    description: Main counter tick.
+    bit_offset: 1
+    bit_size: 1
+  - name: cc0
+    description: CC Channel n Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: cc1
+    description: CC Channel n Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: cc2
+    description: CC Channel n Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP VERSION.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Lock:
+  description: No Description.
+  fields:
+  - name: lockkey
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Precnt:
+  description: No Description.
+  fields:
+  - name: precnt
+    description: Pre-Counter Value.
+    bit_offset: 0
+    bit_size: 15
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: running
+    description: RTCC running status.
+    bit_offset: 0
+    bit_size: 1
+  - name: rtcclockstatus
+    description: Lock Status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Syncbusy:
+  description: No Description.
+  fields:
+  - name: start
+    description: Sync busy for START.
+    bit_offset: 0
+    bit_size: 1
+  - name: stop
+    description: Sync busy for STOP.
+    bit_offset: 1
+    bit_size: 1
+  - name: precnt
+    description: Sync busy for PRECNT.
+    bit_offset: 2
+    bit_size: 1
+  - name: cnt
+    description: Sync busy for CNT.
+    bit_offset: 3
+    bit_size: 1
+enum/vals::Cc0CtrlCmoa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear output on compare match.
+    value: 2
+  - name: Pulse
+    description: A single clock cycle pulse is generated on output.
+    value: 0
+  - name: Set
+    description: Set output on compare match.
+    value: 3
+  - name: Toggle
+    description: Toggle output on compare match.
+    value: 1
+enum/vals::Cc0CtrlCompbase:
+  bit_size: 1
+  variants:
+  - name: Cnt
+    description: RTCC_CCx_ICVALUE/OCVALUE is compared with CNT register.
+    value: 0
+  - name: Precnt
+    description: Least significant bits of RTCC_CCx_ICVALUE/OCVALUE are compared with COMBCNT.
+    value: 1
+enum/vals::Cc0CtrlIcedge:
+  bit_size: 2
+  variants:
+  - name: Both
+    description: Both edges detected.
+    value: 2
+  - name: Falling
+    description: Falling edges detected.
+    value: 1
+  - name: None
+    description: No edge detection, signal is left as it is.
+    value: 3
+  - name: Rising
+    description: Rising edges detected.
+    value: 0
+enum/vals::Cc0CtrlMode:
+  bit_size: 2
+  variants:
+  - name: Inputcapture
+    description: Input capture.
+    value: 1
+  - name: Off
+    description: Compare/Capture channel turned off.
+    value: 0
+  - name: Outputcompare
+    description: Output compare.
+    value: 2
+enum/vals::Cc1CtrlCmoa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear output on compare match.
+    value: 2
+  - name: Pulse
+    description: A single clock cycle pulse is generated on output.
+    value: 0
+  - name: Set
+    description: Set output on compare match.
+    value: 3
+  - name: Toggle
+    description: Toggle output on compare match.
+    value: 1
+enum/vals::Cc1CtrlCompbase:
+  bit_size: 1
+  variants:
+  - name: Cnt
+    description: RTCC_CCx_ICVALUE/OCVALUE is compared with CNT register.
+    value: 0
+  - name: Precnt
+    description: Least significant bits of RTCC_CCx_ICVALUE/OCVALUE are compared with COMBCNT.
+    value: 1
+enum/vals::Cc1CtrlIcedge:
+  bit_size: 2
+  variants:
+  - name: Both
+    description: Both edges detected.
+    value: 2
+  - name: Falling
+    description: Falling edges detected.
+    value: 1
+  - name: None
+    description: No edge detection, signal is left as it is.
+    value: 3
+  - name: Rising
+    description: Rising edges detected.
+    value: 0
+enum/vals::Cc1CtrlMode:
+  bit_size: 2
+  variants:
+  - name: Inputcapture
+    description: Input capture.
+    value: 1
+  - name: Off
+    description: Compare/Capture channel turned off.
+    value: 0
+  - name: Outputcompare
+    description: Output compare.
+    value: 2
+enum/vals::Cc2CtrlCmoa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear output on compare match.
+    value: 2
+  - name: Pulse
+    description: A single clock cycle pulse is generated on output.
+    value: 0
+  - name: Set
+    description: Set output on compare match.
+    value: 3
+  - name: Toggle
+    description: Toggle output on compare match.
+    value: 1
+enum/vals::Cc2CtrlCompbase:
+  bit_size: 1
+  variants:
+  - name: Cnt
+    description: RTCC_CCx_ICVALUE/OCVALUE is compared with CNT register.
+    value: 0
+  - name: Precnt
+    description: Least significant bits of RTCC_CCx_ICVALUE/OCVALUE are compared with COMBCNT.
+    value: 1
+enum/vals::Cc2CtrlIcedge:
+  bit_size: 2
+  variants:
+  - name: Both
+    description: Both edges detected.
+    value: 2
+  - name: Falling
+    description: Falling edges detected.
+    value: 1
+  - name: None
+    description: No edge detection, signal is left as it is.
+    value: 3
+  - name: Rising
+    description: Rising edges detected.
+    value: 0
+enum/vals::Cc2CtrlMode:
+  bit_size: 2
+  variants:
+  - name: Inputcapture
+    description: Input capture.
+    value: 1
+  - name: Off
+    description: Compare/Capture channel turned off.
+    value: 0
+  - name: Outputcompare
+    description: Output compare.
+    value: 2
+enum/vals::Cntpresc:
+  bit_size: 4
+  variants:
+  - name: Div1
+    description: CLK_CNT = (RTCC LF CLK)/1.
+    value: 0
+  - name: Div1024
+    description: CLK_CNT = (RTCC LF CLK)/1024.
+    value: 10
+  - name: Div128
+    description: CLK_CNT = (RTCC LF CLK)/128.
+    value: 7
+  - name: Div16
+    description: CLK_CNT = (RTCC LF CLK)/16.
+    value: 4
+  - name: Div16384
+    description: CLK_CNT = (RTCC LF CLK)/16384.
+    value: 14
+  - name: Div2
+    description: CLK_CNT = (RTCC LF CLK)/2.
+    value: 1
+  - name: Div2048
+    description: CLK_CNT = (RTCC LF CLK)/2048.
+    value: 11
+  - name: Div256
+    description: CLK_CNT = (RTCC LF CLK)/256.
+    value: 8
+  - name: Div32
+    description: CLK_CNT = (RTCC LF CLK)/32.
+    value: 5
+  - name: Div32768
+    description: CLK_CNT = (RTCC LF CLK)/32768.
+    value: 15
+  - name: Div4
+    description: CLK_CNT = (RTCC LF CLK)/4.
+    value: 2
+  - name: Div4096
+    description: CLK_CNT = (RTCC LF CLK)/4096.
+    value: 12
+  - name: Div512
+    description: CLK_CNT = (RTCC LF CLK)/512.
+    value: 9
+  - name: Div64
+    description: CLK_CNT = (RTCC LF CLK)/64.
+    value: 6
+  - name: Div8
+    description: CLK_CNT = (RTCC LF CLK)/8.
+    value: 3
+  - name: Div8192
+    description: CLK_CNT = (RTCC LF CLK)/8192.
+    value: 13
+enum/vals::Cnttick:
+  bit_size: 1
+  variants:
+  - name: Ccv0match
+    description: CNT register ticks when PRECNT matches RTCC_CC0_OC[14:0].
+    value: 1
+  - name: Presc
+    description: CNT register ticks according to configuration in CNTPRESC.
+    value: 0
+enum/vals::Debugrun:
+  bit_size: 1
+  variants:
+  - name: X0
+    description: RTCC is frozen in debug mode.
+    value: 0
+  - name: X1
+    description: RTCC is running in debug mode.
+    value: 1
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Unlock
+    description: Write to unlock RTCC lockable registers.
+    value: 44776

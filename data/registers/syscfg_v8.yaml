@@ -1,0 +1,380 @@
+block/Syscfg:
+  description: SYSCFG peripheral.
+  items:
+  - name: if_
+    description: Read to get system status.
+    byte_offset: 0
+    fieldset: regs::If
+  - name: ien
+    description: Write to enable interrupts.
+    byte_offset: 4
+    fieldset: regs::Ien
+  - name: chiprevhw
+    description: Read to get the hard-wired chip revision.
+    byte_offset: 16
+    fieldset: regs::Chiprevhw
+  - name: chiprev
+    description: Read to get the chip revision programmed by feature configuration.
+    byte_offset: 20
+    fieldset: regs::Chiprev
+  - name: cfgsystic
+    description: Configure the source of the system tick for the M33.
+    byte_offset: 32
+    fieldset: regs::Cfgsystic
+  - name: ctrl
+    description: Configure to provide general RAM configuration.
+    byte_offset: 512
+    fieldset: regs::Ctrl
+  - name: dmem0retnctrl
+    description: Configure to provide general RAM retention configuration.
+    byte_offset: 520
+    fieldset: regs::Dmem0retnctrl
+  - name: dmem0eccaddr
+    description: Read to get status of the DMEM0 ECC error address.
+    byte_offset: 528
+    access: Read
+    fieldset: regs::Dmem0eccaddr
+  - name: dmem0eccctrl
+    description: Configure to set RAM ECC control.
+    byte_offset: 532
+    fieldset: regs::Dmem0eccctrl
+  - name: radioramretnctrl
+    description: Configure SEQRAM Retention controls.
+    byte_offset: 1024
+    fieldset: regs::Radioramretnctrl
+  - name: radioeccctrl
+    description: Configure to set RAM ECC control.
+    byte_offset: 1032
+    fieldset: regs::Radioeccctrl
+  - name: seqrameccaddr
+    description: Read to get status of the SEQRAM ECC error address.
+    byte_offset: 1040
+    access: Read
+    fieldset: regs::Seqrameccaddr
+  - name: frcrameccaddr
+    description: Read to get status of the FRCRAM ECC error address.
+    byte_offset: 1044
+    access: Read
+    fieldset: regs::Frcrameccaddr
+  - name: rootdata0
+    description: Data in this register is passed to the trusted root firmware upon reset.
+    byte_offset: 1536
+    fieldset: regs::Rootdata0
+  - name: rootdata1
+    description: Data in this register is passed to the trusted root firmware upon reset.
+    byte_offset: 1540
+    fieldset: regs::Rootdata1
+  - name: rootlockstatus
+    description: This register returns the status of the SE managed locks.
+    byte_offset: 1544
+    access: Read
+    fieldset: regs::Rootlockstatus
+fieldset/regs::Cfgsystic:
+  description: Configure the source of the system tick for the M33.
+  fields:
+  - name: systicextclken
+    description: SysTick External Clock Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Chiprev:
+  description: Read to get the chip revision programmed by feature configuration.
+  fields:
+  - name: major
+    description: Chip Revision Major value.
+    bit_offset: 0
+    bit_size: 6
+  - name: family
+    description: Chip Family value.
+    bit_offset: 6
+    bit_size: 6
+    enum: vals::Family
+  - name: minor
+    description: Chip Revision Minor value.
+    bit_offset: 12
+    bit_size: 8
+fieldset/regs::Chiprevhw:
+  description: Read to get the hard-wired chip revision.
+  fields:
+  - name: major
+    description: Hardwired Chip Major value.
+    bit_offset: 0
+    bit_size: 6
+  - name: family
+    description: Hardwired Chip Family value.
+    bit_offset: 6
+    bit_size: 6
+  - name: minor
+    description: Hardwired Chip Minor value.
+    bit_offset: 12
+    bit_size: 8
+fieldset/regs::Ctrl:
+  description: Configure to provide general RAM configuration.
+  fields:
+  - name: addrfaulten
+    description: Invalid Address Bus Fault Response Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: rameccerrfaulten
+    description: Two bit ECC Error Bus Fault Response Enable.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Dmem0eccaddr:
+  description: Read to get status of the DMEM0 ECC error address.
+  fields:
+  - name: dmem0eccaddr
+    description: DMEM0 RAM ECC Error Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Dmem0eccctrl:
+  description: Configure to set RAM ECC control.
+  fields:
+  - name: rameccen
+    description: RAM ECC Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: rameccewen
+    description: RAM ECC Error Writeback Enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Dmem0retnctrl:
+  description: Configure to provide general RAM retention configuration.
+  fields:
+  - name: ramretnctrl
+    description: DMEM0 blockset retention control.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Ramretnctrl
+fieldset/regs::Frcrameccaddr:
+  description: Read to get status of the FRCRAM ECC error address.
+  fields:
+  - name: frcrameccaddr
+    description: FRCRAM ECC Error Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ien:
+  description: Write to enable interrupts.
+  fields:
+  - name: sw0
+    description: Software interrupt 0.
+    bit_offset: 0
+    bit_size: 1
+  - name: sw1
+    description: Software interrupt 1.
+    bit_offset: 1
+    bit_size: 1
+  - name: sw2
+    description: Software interrupt 2.
+    bit_offset: 2
+    bit_size: 1
+  - name: sw3
+    description: Software interrupt 3.
+    bit_offset: 3
+    bit_size: 1
+  - name: ramerr1b
+    description: RAM 1-bit Error Interrupt Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: ramerr2b
+    description: RAM 2-bit Error Interrupt Enable.
+    bit_offset: 17
+    bit_size: 1
+  - name: seqramerr1b
+    description: SEQRAM 1-bit Error Interrupt Enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: seqramerr2b
+    description: SEQRAM 2-bit Error Interrupt Enable.
+    bit_offset: 25
+    bit_size: 1
+  - name: frcramerr1b
+    description: FRCRAM 1-bit Error Interrupt Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: frcramerr2b
+    description: FRCRAM 2-bit Error Interrupt Enable.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::If:
+  description: Read to get system status.
+  fields:
+  - name: sw0
+    description: Software Interrupt 0.
+    bit_offset: 0
+    bit_size: 1
+  - name: sw1
+    description: Software Interrupt 1.
+    bit_offset: 1
+    bit_size: 1
+  - name: sw2
+    description: Software Interrupt 2.
+    bit_offset: 2
+    bit_size: 1
+  - name: sw3
+    description: Software Interrupt 3.
+    bit_offset: 3
+    bit_size: 1
+  - name: ramerr1b
+    description: RAM 1-Bit Error Interrupt Flag.
+    bit_offset: 16
+    bit_size: 1
+  - name: ramerr2b
+    description: RAM 2-Bit Error Interrupt Flag.
+    bit_offset: 17
+    bit_size: 1
+  - name: seqramerr1b
+    description: SEQRAM 1-Bit Error Interrupt Flag.
+    bit_offset: 24
+    bit_size: 1
+  - name: seqramerr2b
+    description: SEQRAM 2-Bit Error Interrupt Flag.
+    bit_offset: 25
+    bit_size: 1
+  - name: frcramerr1b
+    description: FRCRAM 1-Bit Error Interrupt Flag.
+    bit_offset: 28
+    bit_size: 1
+  - name: frcramerr2b
+    description: FRCRAM 2-Bit Error Interrupt Flag.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::Radioeccctrl:
+  description: Configure to set RAM ECC control.
+  fields:
+  - name: seqrameccen
+    description: SEQRAM ECC Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: seqrameccewen
+    description: SEQRAM ECC Error Writeback Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: frcrameccen
+    description: FRCRAM ECC Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: frcrameccewen
+    description: FRCRAM ECC Error Writeback Enable.
+    bit_offset: 9
+    bit_size: 1
+fieldset/regs::Radioramretnctrl:
+  description: Configure SEQRAM Retention controls.
+  fields:
+  - name: seqramretnctrl
+    description: SEQRAM Retention Control.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Seqramretnctrl
+  - name: frcramretnctrl
+    description: FRCRAM Retention Control.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::Rootdata0:
+  description: Data in this register is passed to the trusted root firmware upon reset.
+  fields:
+  - name: data
+    description: Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Rootdata1:
+  description: Data in this register is passed to the trusted root firmware upon reset.
+  fields:
+  - name: data
+    description: Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Rootlockstatus:
+  description: This register returns the status of the SE managed locks.
+  fields:
+  - name: buslock
+    description: Bus Lock.
+    bit_offset: 0
+    bit_size: 1
+  - name: reglock
+    description: Register Lock.
+    bit_offset: 1
+    bit_size: 1
+  - name: mfrlock
+    description: Manufacture Lock.
+    bit_offset: 2
+    bit_size: 1
+  - name: rootmodelock
+    description: Root Mode Lock.
+    bit_offset: 4
+    bit_size: 1
+  - name: rootdbglock
+    description: Root Debug Lock.
+    bit_offset: 8
+    bit_size: 1
+  - name: userdbglock
+    description: User Invasive Debug Lock.
+    bit_offset: 16
+    bit_size: 1
+  - name: usernidlock
+    description: User Non-invasive Debug Lock.
+    bit_offset: 17
+    bit_size: 1
+  - name: userspidlock
+    description: User Secure Invasive Debug Lock.
+    bit_offset: 18
+    bit_size: 1
+  - name: userspnidlock
+    description: User Secure Non-invasive Debug Lock.
+    bit_offset: 19
+    bit_size: 1
+  - name: userdbgaplock
+    description: User Debug Access Port Lock.
+    bit_offset: 20
+    bit_size: 1
+  - name: radiodbglock
+    description: Radio Debug Lock.
+    bit_offset: 24
+    bit_size: 1
+fieldset/regs::Seqrameccaddr:
+  description: Read to get status of the SEQRAM ECC error address.
+  fields:
+  - name: seqrameccaddr
+    description: SEQRAM ECC Address.
+    bit_offset: 0
+    bit_size: 32
+enum/vals::Family:
+  bit_size: 6
+  variants:
+  - name: Bg22
+    description: Product is in BG22 family.
+    value: 53
+  - name: Fg22
+    description: Product is in FG22 family.
+    value: 55
+  - name: Mg22
+    description: Product is in MG22 family.
+    value: 52
+  - name: Pg22
+    description: Product is in PG22 family.
+    value: 24
+enum/vals::Ramretnctrl:
+  bit_size: 2
+  variants:
+  - name: Allon
+    description: None of the RAM blocks powered down.
+    value: 0
+  - name: Blk0
+    description: Power down RAM block 0.
+    value: 1
+  - name: Blk1
+    description: Power down RAM block 1.
+    value: 2
+enum/vals::Seqramretnctrl:
+  bit_size: 2
+  variants:
+  - name: Alloff
+    description: Power down all SEQRAM blocks.
+    value: 3
+  - name: Allon
+    description: SEQRAM not powered down.
+    value: 0
+  - name: Blk0
+    description: Power down SEQRAM block 0.
+    value: 1
+  - name: Blk1
+    description: Power down SEQRAM block 1.
+    value: 2

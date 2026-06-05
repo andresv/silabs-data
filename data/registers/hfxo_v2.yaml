@@ -1,0 +1,386 @@
+block/Hfxo:
+  description: HFXO peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: xtalcfg
+    description: No Description.
+    byte_offset: 16
+    fieldset: regs::Xtalcfg
+  - name: xtalctrl
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Xtalctrl
+  - name: cfg
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::Cfg
+  - name: ctrl
+    description: No Description.
+    byte_offset: 40
+    fieldset: regs::Ctrl
+  - name: cmd
+    description: No Description.
+    byte_offset: 80
+    access: Write
+    fieldset: regs::Cmd
+  - name: status
+    description: No Description.
+    byte_offset: 88
+    access: Read
+    fieldset: regs::Status
+  - name: if_
+    description: No Description.
+    byte_offset: 112
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 116
+    fieldset: regs::Ien
+  - name: lock
+    description: No Description.
+    byte_offset: 128
+    access: Write
+    fieldset: regs::Lock
+fieldset/regs::Cfg:
+  description: No Description.
+  fields:
+  - name: mode
+    description: Crystal Oscillator Mode.
+    bit_offset: 0
+    bit_size: 1
+    enum: vals::Mode
+  - name: enxidcbiasana
+    description: Enable XI Internal DC Bias.
+    bit_offset: 2
+    bit_size: 1
+  - name: sqbufschtrgana
+    description: Squaring Buffer Schmitt Trigger.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::Cmd:
+  description: No Description.
+  fields:
+  - name: corebiasopt
+    description: Core Bias Optimizaton.
+    bit_offset: 0
+    bit_size: 1
+  - name: manualoverride
+    description: Manual Override.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: No Description.
+  fields:
+  - name: forceen
+    description: Force Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: disondemand
+    description: Disable On-demand Mode.
+    bit_offset: 1
+    bit_size: 1
+  - name: keepwarm
+    description: Keep Warm.
+    bit_offset: 2
+    bit_size: 1
+  - name: forcexi2gndana
+    description: Force XI Pin to Ground.
+    bit_offset: 4
+    bit_size: 1
+  - name: forcexo2gndana
+    description: Force XO Pin to Ground.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: rdy
+    description: Ready Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: corebiasoptrdy
+    description: Core Bias Optimization Ready Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: dnserr
+    description: Did Not Start Error Interrupt.
+    bit_offset: 29
+    bit_size: 1
+  - name: corebiasopterr
+    description: Core Bias Optimization Error Interrupt.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: rdy
+    description: Ready Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: corebiasoptrdy
+    description: Core Bias Optimization Ready Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: dnserr
+    description: Did Not Start Error Interrupt.
+    bit_offset: 29
+    bit_size: 1
+  - name: corebiasopterr
+    description: Core Bias Optimization Error Interrupt.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Lock:
+  description: No Description.
+  fields:
+  - name: lockkey
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: rdy
+    description: Ready Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: corebiasoptrdy
+    description: Core Bias Optimization Ready.
+    bit_offset: 1
+    bit_size: 1
+  - name: ens
+    description: Enabled Status.
+    bit_offset: 16
+    bit_size: 1
+  - name: hwreq
+    description: Oscillator Requested by Hardware.
+    bit_offset: 17
+    bit_size: 1
+  - name: iswarm
+    description: Oscillator Is Kept Warm.
+    bit_offset: 19
+    bit_size: 1
+  - name: fsmlock
+    description: FSM Lock Status.
+    bit_offset: 30
+    bit_size: 1
+  - name: lock
+    description: Configuration Lock Status.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Xtalcfg:
+  description: No Description.
+  fields:
+  - name: corebiasstartupi
+    description: Intermediate Startup Core Bias Current.
+    bit_offset: 0
+    bit_size: 6
+  - name: corebiasstartup
+    description: Startup Core Bias Current.
+    bit_offset: 6
+    bit_size: 6
+  - name: ctunexistartup
+    description: Startup Tuning Capacitance on XI.
+    bit_offset: 12
+    bit_size: 4
+  - name: ctunexostartup
+    description: Startup Tuning Capacitance on XO.
+    bit_offset: 16
+    bit_size: 4
+  - name: timeoutsteady
+    description: Steady State Timeout.
+    bit_offset: 20
+    bit_size: 4
+    enum: vals::Timeoutsteady
+  - name: timeoutcblsb
+    description: Core Bias LSB Change Timeout.
+    bit_offset: 24
+    bit_size: 4
+    enum: vals::Timeoutcblsb
+fieldset/regs::Xtalctrl:
+  description: No Description.
+  fields:
+  - name: corebiasana
+    description: Core Bias Current.
+    bit_offset: 0
+    bit_size: 8
+  - name: ctunexiana
+    description: Tuning Capacitance on XI.
+    bit_offset: 8
+    bit_size: 8
+  - name: ctunexoana
+    description: Tuning Capacitance on XO.
+    bit_offset: 16
+    bit_size: 8
+  - name: ctunefixana
+    description: Fixed Tuning Capacitance.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ctunefixana
+  - name: coredgenana
+    description: Core Degeneration.
+    bit_offset: 26
+    bit_size: 2
+    enum: vals::Coredgenana
+  - name: skipcorebiasopt
+    description: Skip Core Bias Optimization.
+    bit_offset: 31
+    bit_size: 1
+enum/vals::Coredgenana:
+  bit_size: 2
+  variants:
+  - name: Dgen100
+    description: Apply 100 ohm core degeneration resistence.
+    value: 3
+  - name: Dgen33
+    description: Apply 33 ohm core degeneration resistence.
+    value: 1
+  - name: Dgen50
+    description: Apply 50 ohm core degeneration resistence.
+    value: 2
+  - name: None
+    description: Do not apply core degeneration resistence.
+    value: 0
+enum/vals::Ctunefixana:
+  bit_size: 2
+  variants:
+  - name: Both
+    description: Adds fixed capacitance on both XI and XO nodes.
+    value: 3
+  - name: None
+    description: Remove fixed capacitance on XI and XO nodes.
+    value: 0
+  - name: Xi
+    description: Adds fixed capacitance on XI node.
+    value: 1
+  - name: Xo
+    description: Adds fixed capacitance on XO node.
+    value: 2
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Unlock
+    description: Write this value to unlock.
+    value: 22542
+enum/vals::Mode:
+  bit_size: 1
+  variants:
+  - name: Extclk
+    description: external sinusoidal clock can be supplied on XI pin.
+    value: 1
+  - name: Xtal
+    description: crystal oscillator.
+    value: 0
+enum/vals::Timeoutcblsb:
+  bit_size: 4
+  variants:
+  - name: T104us
+    description: The core bias LSB change timeout is set to 104 us minimum. The maximum can be +40%.
+    value: 5
+  - name: T1250us
+    description: The core bias LSB change timeout is set to 1250 us minimum. The maximum can be +40%.
+    value: 13
+  - name: T125us
+    description: The core bias LSB change timeout is set to 125 us minimum. The maximum can be +40%.
+    value: 6
+  - name: T166us
+    description: The core bias LSB change timeout is set to 166 us minimum. The maximum can be +40%.
+    value: 7
+  - name: T2083us
+    description: The core bias LSB change timeout is set to 2083 us minimum. The maximum can be +40%.
+    value: 14
+  - name: T208us
+    description: The core bias LSB change timeout is set to 208 us minimum. The maximum can be +40%.
+    value: 8
+  - name: T20us
+    description: The core bias LSB change timeout is set to 20 us minimum. The maximum can be +40%.
+    value: 1
+  - name: T250us
+    description: The core bias LSB change timeout is set to 250 us minimum. The maximum can be +40%.
+    value: 9
+  - name: T333us
+    description: The core bias LSB change timeout is set to 333 us minimum. The maximum can be +40%.
+    value: 10
+  - name: T3750us
+    description: The core bias LSB change timeout is set to 3750 us minimum. The maximum can be +40%.
+    value: 15
+  - name: T416us
+    description: The core bias LSB change timeout is set to 416 us minimum. The maximum can be +40%.
+    value: 11
+  - name: T41us
+    description: The core bias LSB change timeout is set to 41 us minimum. The maximum can be +40%.
+    value: 2
+  - name: T62us
+    description: The core bias LSB change timeout is set to 62 us minimum. The maximum can be +40%.
+    value: 3
+  - name: T833us
+    description: The core bias LSB change timeout is set to 833 us minimum. The maximum can be +40%.
+    value: 12
+  - name: T83us
+    description: The core bias LSB change timeout is set to 83 us minimum. The maximum can be +40%.
+    value: 4
+  - name: T8us
+    description: The core bias LSB change timeout is set to 8 us minimum. The maximum can be +40%.
+    value: 0
+enum/vals::Timeoutsteady:
+  bit_size: 4
+  variants:
+  - name: T125us
+    description: The steady state timeout is set to 125 us minimum. The maximum can be +40%.
+    value: 3
+  - name: T1666us
+    description: The steady state timeout is set to 1666 us minimum. The maximum can be +40%.
+    value: 12
+  - name: T166us
+    description: The steady state timeout is set to 166 us minimum. The maximum can be +40%.
+    value: 4
+  - name: T16us
+    description: The steady state timeout is set to 16 us minimum. The maximum can be +40%.
+    value: 0
+  - name: T208us
+    description: The steady state timeout is set to 208 us minimum. The maximum can be +40%.
+    value: 5
+  - name: T2500us
+    description: The steady state timeout is set to 2500 us minimum. The maximum can be +40%.
+    value: 13
+  - name: T250us
+    description: The steady state timeout is set to 250 us minimum. The maximum can be +40%.
+    value: 6
+  - name: T333us
+    description: The steady state timeout is set to 333 us minimum. The maximum can be +40%.
+    value: 7
+  - name: T4166us
+    description: The steady state timeout is set to 4166 us minimum. The maximum can be +40%.
+    value: 14
+  - name: T416us
+    description: The steady state timeout is set to 416 us minimum. The maximum can be +40%.
+    value: 8
+  - name: T41us
+    description: The steady state timeout is set to 41 us minimum. The maximum can be +40%.
+    value: 1
+  - name: T500us
+    description: The steady state timeout is set to 500 us minimum. The maximum can be +40%.
+    value: 9
+  - name: T666us
+    description: The steady state timeout is set to 666 us minimum. The maximum can be +40%.
+    value: 10
+  - name: T7500us
+    description: The steady state timeout is set to 7500 us minimum. The maximum can be +40%.
+    value: 15
+  - name: T833us
+    description: The steady state timeout is set to 833 us minimum. The maximum can be +40%.
+    value: 11
+  - name: T83us
+    description: The steady state timeout is set to 83 us minimum. The maximum can be +40%.
+    value: 2

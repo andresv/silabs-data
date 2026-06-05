@@ -1,0 +1,1436 @@
+block/Timer:
+  description: TIMER peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: cfg
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::Cfg
+  - name: ctrl
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Ctrl
+  - name: cmd
+    description: No Description.
+    byte_offset: 12
+    access: Write
+    fieldset: regs::Cmd
+  - name: status
+    description: No Description.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Status
+  - name: if_
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Ien
+  - name: top
+    description: No Description.
+    byte_offset: 28
+    fieldset: regs::Top
+  - name: topb
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::Topb
+  - name: cnt
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::Cnt
+  - name: lock
+    description: No Description.
+    byte_offset: 44
+    access: Write
+    fieldset: regs::Lock
+  - name: en
+    description: No Description.
+    byte_offset: 48
+    fieldset: regs::En
+  - name: cc0_cfg
+    description: No Description.
+    byte_offset: 96
+    fieldset: regs::Cc0Cfg
+  - name: cc0_ctrl
+    description: No Description.
+    byte_offset: 100
+    fieldset: regs::Cc0Ctrl
+  - name: cc0_oc
+    description: No Description.
+    byte_offset: 104
+    fieldset: regs::Cc0Oc
+  - name: cc0_ocb
+    description: No Description.
+    byte_offset: 112
+    fieldset: regs::Cc0Ocb
+  - name: cc0_icf
+    description: No Description.
+    byte_offset: 116
+    access: Read
+    fieldset: regs::Cc0Icf
+  - name: cc0_icof
+    description: No Description.
+    byte_offset: 120
+    access: Read
+    fieldset: regs::Cc0Icof
+  - name: cc1_cfg
+    description: No Description.
+    byte_offset: 128
+    fieldset: regs::Cc1Cfg
+  - name: cc1_ctrl
+    description: No Description.
+    byte_offset: 132
+    fieldset: regs::Cc1Ctrl
+  - name: cc1_oc
+    description: No Description.
+    byte_offset: 136
+    fieldset: regs::Cc1Oc
+  - name: cc1_ocb
+    description: No Description.
+    byte_offset: 144
+    fieldset: regs::Cc1Ocb
+  - name: cc1_icf
+    description: No Description.
+    byte_offset: 148
+    access: Read
+    fieldset: regs::Cc1Icf
+  - name: cc1_icof
+    description: No Description.
+    byte_offset: 152
+    access: Read
+    fieldset: regs::Cc1Icof
+  - name: cc2_cfg
+    description: No Description.
+    byte_offset: 160
+    fieldset: regs::Cc2Cfg
+  - name: cc2_ctrl
+    description: No Description.
+    byte_offset: 164
+    fieldset: regs::Cc2Ctrl
+  - name: cc2_oc
+    description: No Description.
+    byte_offset: 168
+    fieldset: regs::Cc2Oc
+  - name: cc2_ocb
+    description: No Description.
+    byte_offset: 176
+    fieldset: regs::Cc2Ocb
+  - name: cc2_icf
+    description: No Description.
+    byte_offset: 180
+    access: Read
+    fieldset: regs::Cc2Icf
+  - name: cc2_icof
+    description: No Description.
+    byte_offset: 184
+    access: Read
+    fieldset: regs::Cc2Icof
+  - name: dtcfg
+    description: No Description.
+    byte_offset: 224
+    fieldset: regs::Dtcfg
+  - name: dttimecfg
+    description: No Description.
+    byte_offset: 228
+    fieldset: regs::Dttimecfg
+  - name: dtfcfg
+    description: No Description.
+    byte_offset: 232
+    fieldset: regs::Dtfcfg
+  - name: dtctrl
+    description: No Description.
+    byte_offset: 236
+    fieldset: regs::Dtctrl
+  - name: dtogen
+    description: No Description.
+    byte_offset: 240
+    fieldset: regs::Dtogen
+  - name: dtfault
+    description: No Description.
+    byte_offset: 244
+    access: Read
+    fieldset: regs::Dtfault
+  - name: dtfaultc
+    description: No Description.
+    byte_offset: 248
+    access: Write
+    fieldset: regs::Dtfaultc
+  - name: dtlock
+    description: No Description.
+    byte_offset: 252
+    access: Write
+    fieldset: regs::Dtlock
+fieldset/regs::Cc0Cfg:
+  description: No Description.
+  fields:
+  - name: mode
+    description: CC Channel Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Cc0CfgMode
+  - name: coist
+    description: Compare Output Initial State.
+    bit_offset: 4
+    bit_size: 1
+  - name: insel
+    description: Input Selection.
+    bit_offset: 17
+    bit_size: 2
+    enum: vals::Cc0CfgInsel
+  - name: prsconf
+    description: PRS Configuration.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Cc0CfgPrsconf
+  - name: filt
+    description: Digital Filter.
+    bit_offset: 20
+    bit_size: 1
+  - name: icfwl
+    description: Input Capture FIFO watermark level.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::Cc0Ctrl:
+  description: No Description.
+  fields:
+  - name: outinv
+    description: Output Invert.
+    bit_offset: 2
+    bit_size: 1
+  - name: cmoa
+    description: Compare Match Output Action.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Cc0CtrlCmoa
+  - name: cofoa
+    description: Counter Overflow Output Action.
+    bit_offset: 10
+    bit_size: 2
+    enum: vals::Cc0CtrlCofoa
+  - name: cufoa
+    description: Counter Underflow Output Action.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Cc0CtrlCufoa
+  - name: icedge
+    description: Input Capture Edge Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Cc0CtrlIcedge
+  - name: icevctrl
+    description: Input Capture Event Control.
+    bit_offset: 26
+    bit_size: 2
+    enum: vals::Cc0CtrlIcevctrl
+fieldset/regs::Cc0Icf:
+  description: No Description.
+  fields:
+  - name: icf
+    description: Input Capture FIFO.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cc0Icof:
+  description: No Description.
+  fields:
+  - name: icof
+    description: Input Capture FIFO Overflow.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cc0Oc:
+  description: No Description.
+  fields:
+  - name: oc
+    description: Output Compare Value.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cc0Ocb:
+  description: No Description.
+  fields:
+  - name: ocb
+    description: Output Compare Value Buffer.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cc1Cfg:
+  description: No Description.
+  fields:
+  - name: mode
+    description: CC Channel Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Cc1CfgMode
+  - name: coist
+    description: Compare Output Initial State.
+    bit_offset: 4
+    bit_size: 1
+  - name: insel
+    description: Input Selection.
+    bit_offset: 17
+    bit_size: 2
+    enum: vals::Cc1CfgInsel
+  - name: prsconf
+    description: PRS Configuration.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Cc1CfgPrsconf
+  - name: filt
+    description: Digital Filter.
+    bit_offset: 20
+    bit_size: 1
+  - name: icfwl
+    description: Input Capture FIFO watermark level.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::Cc1Ctrl:
+  description: No Description.
+  fields:
+  - name: outinv
+    description: Output Invert.
+    bit_offset: 2
+    bit_size: 1
+  - name: cmoa
+    description: Compare Match Output Action.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Cc1CtrlCmoa
+  - name: cofoa
+    description: Counter Overflow Output Action.
+    bit_offset: 10
+    bit_size: 2
+    enum: vals::Cc1CtrlCofoa
+  - name: cufoa
+    description: Counter Underflow Output Action.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Cc1CtrlCufoa
+  - name: icedge
+    description: Input Capture Edge Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Cc1CtrlIcedge
+  - name: icevctrl
+    description: Input Capture Event Control.
+    bit_offset: 26
+    bit_size: 2
+    enum: vals::Cc1CtrlIcevctrl
+fieldset/regs::Cc1Icf:
+  description: No Description.
+  fields:
+  - name: icf
+    description: Input Capture FIFO.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cc1Icof:
+  description: No Description.
+  fields:
+  - name: icof
+    description: Input Capture FIFO Overflow.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cc1Oc:
+  description: No Description.
+  fields:
+  - name: oc
+    description: Output Compare Value.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cc1Ocb:
+  description: No Description.
+  fields:
+  - name: ocb
+    description: Output Compare Value Buffer.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cc2Cfg:
+  description: No Description.
+  fields:
+  - name: mode
+    description: CC Channel Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Cc2CfgMode
+  - name: coist
+    description: Compare Output Initial State.
+    bit_offset: 4
+    bit_size: 1
+  - name: insel
+    description: Input Selection.
+    bit_offset: 17
+    bit_size: 2
+    enum: vals::Cc2CfgInsel
+  - name: prsconf
+    description: PRS Configuration.
+    bit_offset: 19
+    bit_size: 1
+    enum: vals::Cc2CfgPrsconf
+  - name: filt
+    description: Digital Filter.
+    bit_offset: 20
+    bit_size: 1
+  - name: icfwl
+    description: Input Capture FIFO watermark level.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::Cc2Ctrl:
+  description: No Description.
+  fields:
+  - name: outinv
+    description: Output Invert.
+    bit_offset: 2
+    bit_size: 1
+  - name: cmoa
+    description: Compare Match Output Action.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Cc2CtrlCmoa
+  - name: cofoa
+    description: Counter Overflow Output Action.
+    bit_offset: 10
+    bit_size: 2
+    enum: vals::Cc2CtrlCofoa
+  - name: cufoa
+    description: Counter Underflow Output Action.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Cc2CtrlCufoa
+  - name: icedge
+    description: Input Capture Edge Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Cc2CtrlIcedge
+  - name: icevctrl
+    description: Input Capture Event Control.
+    bit_offset: 26
+    bit_size: 2
+    enum: vals::Cc2CtrlIcevctrl
+fieldset/regs::Cc2Icf:
+  description: No Description.
+  fields:
+  - name: icf
+    description: Input Capture FIFO.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cc2Icof:
+  description: No Description.
+  fields:
+  - name: icof
+    description: Input Capture FIFO Overflow.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cc2Oc:
+  description: No Description.
+  fields:
+  - name: oc
+    description: Output Compare Value.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cc2Ocb:
+  description: No Description.
+  fields:
+  - name: ocb
+    description: Output Compare Value Buffer.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Cfg:
+  description: No Description.
+  fields:
+  - name: mode
+    description: Timer Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::CfgMode
+  - name: sync
+    description: Timer Start/Stop/Reload Synchronization.
+    bit_offset: 3
+    bit_size: 1
+  - name: osmen
+    description: One-shot Mode Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: qdm
+    description: Quadrature Decoder Mode Selection.
+    bit_offset: 5
+    bit_size: 1
+    enum: vals::Qdm
+  - name: debugrun
+    description: Debug Mode Run Enable.
+    bit_offset: 6
+    bit_size: 1
+    enum: vals::Debugrun
+  - name: dmaclract
+    description: DMA Request Clear on Active.
+    bit_offset: 7
+    bit_size: 1
+  - name: clksel
+    description: Clock Source Select.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Clksel
+  - name: retimeen
+    description: PWM output retimed enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: dissyncout
+    description: Disable Timer Start/Stop/Reload output.
+    bit_offset: 11
+    bit_size: 1
+  - name: retimesel
+    description: PWM output retime select.
+    bit_offset: 12
+    bit_size: 1
+  - name: ati
+    description: Always Track Inputs.
+    bit_offset: 16
+    bit_size: 1
+  - name: rsscoist
+    description: Reload-Start Sets COIST.
+    bit_offset: 17
+    bit_size: 1
+  - name: presc
+    description: Prescaler Setting.
+    bit_offset: 18
+    bit_size: 10
+    enum: vals::Presc
+fieldset/regs::Cmd:
+  description: No Description.
+  fields:
+  - name: start
+    description: Start Timer.
+    bit_offset: 0
+    bit_size: 1
+  - name: stop
+    description: Stop Timer.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Cnt:
+  description: No Description.
+  fields:
+  - name: cnt
+    description: Counter Value.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ctrl:
+  description: No Description.
+  fields:
+  - name: risea
+    description: Timer Rising Input Edge Action.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Risea
+  - name: falla
+    description: Timer Falling Input Edge Action.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Falla
+  - name: x2cnt
+    description: 2x Count Mode.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::Dtcfg:
+  description: No Description.
+  fields:
+  - name: dten
+    description: DTI Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: dtdas
+    description: DTI Automatic Start-up Functionality.
+    bit_offset: 1
+    bit_size: 1
+  - name: dtar
+    description: DTI Always Run.
+    bit_offset: 9
+    bit_size: 1
+  - name: dtfats
+    description: DTI Fault Action on Timer Stop.
+    bit_offset: 10
+    bit_size: 1
+  - name: dtprsen
+    description: DTI PRS Source Enable.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Dtctrl:
+  description: No Description.
+  fields:
+  - name: dtcinv
+    description: DTI Complementary Output Invert.
+    bit_offset: 0
+    bit_size: 1
+  - name: dtipol
+    description: DTI Inactive Polarity.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Dtfault:
+  description: No Description.
+  fields:
+  - name: dtprs0f
+    description: DTI PRS 0 Fault.
+    bit_offset: 0
+    bit_size: 1
+  - name: dtprs1f
+    description: DTI PRS 1 Fault.
+    bit_offset: 1
+    bit_size: 1
+  - name: dtdbgf
+    description: DTI Debugger Fault.
+    bit_offset: 2
+    bit_size: 1
+  - name: dtlockupf
+    description: DTI Lockup Fault.
+    bit_offset: 3
+    bit_size: 1
+  - name: dtem23f
+    description: DTI EM23 Entry Fault.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::Dtfaultc:
+  description: No Description.
+  fields:
+  - name: dtprs0fc
+    description: DTI PRS0 Fault Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: dtprs1fc
+    description: DTI PRS1 Fault Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: dtdbgfc
+    description: DTI Debugger Fault Clear.
+    bit_offset: 2
+    bit_size: 1
+  - name: dtlockupfc
+    description: DTI Lockup Fault Clear.
+    bit_offset: 3
+    bit_size: 1
+  - name: dtem23fc
+    description: DTI EM23 Fault Clear.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::Dtfcfg:
+  description: No Description.
+  fields:
+  - name: dtfa
+    description: DTI Fault Action.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Dtfa
+  - name: dtprs0fen
+    description: DTI PRS 0 Fault Enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: dtprs1fen
+    description: DTI PRS 1 Fault Enable.
+    bit_offset: 25
+    bit_size: 1
+  - name: dtdbgfen
+    description: DTI Debugger Fault Enable.
+    bit_offset: 26
+    bit_size: 1
+  - name: dtlockupfen
+    description: DTI Lockup Fault Enable.
+    bit_offset: 27
+    bit_size: 1
+  - name: dtem23fen
+    description: DTI EM23 Fault Enable.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Dtlock:
+  description: No Description.
+  fields:
+  - name: dtilockkey
+    description: DTI Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Dtilockkey
+fieldset/regs::Dtogen:
+  description: No Description.
+  fields:
+  - name: dtogcc0en
+    description: DTI CCn Output Generation Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: dtogcc1en
+    description: DTI CCn Output Generation Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: dtogcc2en
+    description: DTI CCn Output Generation Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: dtogcdti0en
+    description: DTI CDTIn Output Generation Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: dtogcdti1en
+    description: DTI CDTIn Output Generation Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: dtogcdti2en
+    description: DTI CDTIn Output Generation Enable.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Dttimecfg:
+  description: No Description.
+  fields:
+  - name: dtpresc
+    description: DTI Prescaler Setting.
+    bit_offset: 0
+    bit_size: 10
+  - name: dtriset
+    description: DTI Rise-time.
+    bit_offset: 10
+    bit_size: 6
+  - name: dtfallt
+    description: DTI Fall-time.
+    bit_offset: 16
+    bit_size: 6
+fieldset/regs::En:
+  description: No Description.
+  fields:
+  - name: en
+    description: Timer Module Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: of
+    description: Overflow Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: uf
+    description: Underflow Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: dirchg
+    description: Direction Change Detect Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: cc0
+    description: CC0 Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: cc1
+    description: CC1 Interrupt Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: cc2
+    description: CC2 Interrupt Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: icfwlfull0
+    description: ICFWLFULL0 Interrupt Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: icfwlfull1
+    description: ICFWLFULL1 Interrupt Enable.
+    bit_offset: 17
+    bit_size: 1
+  - name: icfwlfull2
+    description: ICFWLFULL2 Interrupt Enable.
+    bit_offset: 18
+    bit_size: 1
+  - name: icfof0
+    description: ICFOF0 Interrupt Enable.
+    bit_offset: 20
+    bit_size: 1
+  - name: icfof1
+    description: ICFOF1 Interrupt Enable.
+    bit_offset: 21
+    bit_size: 1
+  - name: icfof2
+    description: ICFOF2 Interrupt Enable.
+    bit_offset: 22
+    bit_size: 1
+  - name: icfuf0
+    description: ICFUF0 Interrupt Enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: icfuf1
+    description: ICFUF1 Interrupt Enable.
+    bit_offset: 25
+    bit_size: 1
+  - name: icfuf2
+    description: ICFUF2 Interrupt Enable.
+    bit_offset: 26
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: of
+    description: Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: uf
+    description: Underflow Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: dirchg
+    description: Direction Change Detect Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: cc0
+    description: Capture Compare Channel 0 Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: cc1
+    description: Capture Compare Channel 1 Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: cc2
+    description: Capture Compare Channel 2 Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: icfwlfull0
+    description: Input Capture Watermark Level Full.
+    bit_offset: 16
+    bit_size: 1
+  - name: icfwlfull1
+    description: Input Capture Watermark Level Full.
+    bit_offset: 17
+    bit_size: 1
+  - name: icfwlfull2
+    description: Input Capture Watermark Level Full.
+    bit_offset: 18
+    bit_size: 1
+  - name: icfof0
+    description: Input Capture FIFO overflow.
+    bit_offset: 20
+    bit_size: 1
+  - name: icfof1
+    description: Input Capture FIFO overflow.
+    bit_offset: 21
+    bit_size: 1
+  - name: icfof2
+    description: Input Capture FIFO overflow.
+    bit_offset: 22
+    bit_size: 1
+  - name: icfuf0
+    description: Input capture FIFO underflow.
+    bit_offset: 24
+    bit_size: 1
+  - name: icfuf1
+    description: Input capture FIFO underflow.
+    bit_offset: 25
+    bit_size: 1
+  - name: icfuf2
+    description: Input capture FIFO underflow.
+    bit_offset: 26
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Lock:
+  description: No Description.
+  fields:
+  - name: lockkey
+    description: Timer Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: running
+    description: Running.
+    bit_offset: 0
+    bit_size: 1
+  - name: dir
+    description: Direction.
+    bit_offset: 1
+    bit_size: 1
+    enum: vals::Dir
+  - name: topbv
+    description: TOP Buffer Valid.
+    bit_offset: 2
+    bit_size: 1
+  - name: timerlockstatus
+    description: Timer lock status.
+    bit_offset: 4
+    bit_size: 1
+  - name: dtilockstatus
+    description: DTI lock status.
+    bit_offset: 5
+    bit_size: 1
+  - name: syncbusy
+    description: Sync Busy.
+    bit_offset: 6
+    bit_size: 1
+  - name: ocbv0
+    description: Output Compare Buffer Valid.
+    bit_offset: 8
+    bit_size: 1
+  - name: ocbv1
+    description: Output Compare Buffer Valid.
+    bit_offset: 9
+    bit_size: 1
+  - name: ocbv2
+    description: Output Compare Buffer Valid.
+    bit_offset: 10
+    bit_size: 1
+  - name: icfempty0
+    description: Input capture fifo empty.
+    bit_offset: 16
+    bit_size: 1
+  - name: icfempty1
+    description: Input capture fifo empty.
+    bit_offset: 17
+    bit_size: 1
+  - name: icfempty2
+    description: Input capture fifo empty.
+    bit_offset: 18
+    bit_size: 1
+  - name: ccpol0
+    description: Compare/Capture Polarity.
+    bit_offset: 24
+    bit_size: 1
+    enum: vals::Ccpol0
+  - name: ccpol1
+    description: Compare/Capture Polarity.
+    bit_offset: 25
+    bit_size: 1
+    enum: vals::Ccpol1
+  - name: ccpol2
+    description: Compare/Capture Polarity.
+    bit_offset: 26
+    bit_size: 1
+    enum: vals::Ccpol2
+fieldset/regs::Top:
+  description: No Description.
+  fields:
+  - name: top
+    description: Counter Top Value.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Topb:
+  description: No Description.
+  fields:
+  - name: topb
+    description: Counter Top Buffer Register.
+    bit_offset: 0
+    bit_size: 16
+enum/vals::Cc0CfgInsel:
+  bit_size: 2
+  variants:
+  - name: Pin
+    description: TIMERnCCx pin is selected.
+    value: 0
+  - name: Prsasynclevel
+    description: Asynchronous Level PRS selected.
+    value: 2
+  - name: Prsasyncpulse
+    description: Asynchronous Pulse PRS selected.
+    value: 3
+  - name: Prssync
+    description: Synchornous PRS selected.
+    value: 1
+enum/vals::Cc0CfgMode:
+  bit_size: 2
+  variants:
+  - name: Inputcapture
+    description: Input Capture.
+    value: 1
+  - name: Off
+    description: Compare/Capture channel turned off.
+    value: 0
+  - name: Outputcompare
+    description: Output Compare.
+    value: 2
+  - name: Pwm
+    description: Pulse-Width Modulation.
+    value: 3
+enum/vals::Cc0CfgPrsconf:
+  bit_size: 1
+  variants:
+  - name: Level
+    description: The PRS channel will follow CC out.
+    value: 1
+  - name: Pulse
+    description: Each CC event will generate a one EM01GRPACLK cycle high pulse.
+    value: 0
+enum/vals::Cc0CtrlCmoa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear output on compare match.
+    value: 2
+  - name: None
+    description: No action on compare match.
+    value: 0
+  - name: Set
+    description: Set output on compare match.
+    value: 3
+  - name: Toggle
+    description: Toggle output on compare match.
+    value: 1
+enum/vals::Cc0CtrlCofoa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear output on counter overflow.
+    value: 2
+  - name: None
+    description: No action on counter overflow.
+    value: 0
+  - name: Set
+    description: Set output on counter overflow.
+    value: 3
+  - name: Toggle
+    description: Toggle output on counter overflow.
+    value: 1
+enum/vals::Cc0CtrlCufoa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear output on counter underflow.
+    value: 2
+  - name: None
+    description: No action on counter underflow.
+    value: 0
+  - name: Set
+    description: Set output on counter underflow.
+    value: 3
+  - name: Toggle
+    description: Toggle output on counter underflow.
+    value: 1
+enum/vals::Cc0CtrlIcedge:
+  bit_size: 2
+  variants:
+  - name: Both
+    description: Both edges detected.
+    value: 2
+  - name: Falling
+    description: Falling edges detected.
+    value: 1
+  - name: None
+    description: No edge detection, signal is left as it is.
+    value: 3
+  - name: Rising
+    description: Rising edges detected.
+    value: 0
+enum/vals::Cc0CtrlIcevctrl:
+  bit_size: 2
+  variants:
+  - name: Everyedge
+    description: PRS output pulse and interrupt flag set on every capture.
+    value: 0
+  - name: Everysecondedge
+    description: PRS output pulse and interrupt flag set on every second capture.
+    value: 1
+  - name: Falling
+    description: PRS output pulse and interrupt flag set on falling edge only (if ICEDGE = BOTH).
+    value: 3
+  - name: Rising
+    description: PRS output pulse and interrupt flag set on rising edge only (if ICEDGE = BOTH).
+    value: 2
+enum/vals::Cc1CfgInsel:
+  bit_size: 2
+  variants:
+  - name: Pin
+    description: TIMERnCCx pin is selected.
+    value: 0
+  - name: Prsasynclevel
+    description: Asynchronous Level PRS selected.
+    value: 2
+  - name: Prsasyncpulse
+    description: Asynchronous Pulse PRS selected.
+    value: 3
+  - name: Prssync
+    description: Synchornous PRS selected.
+    value: 1
+enum/vals::Cc1CfgMode:
+  bit_size: 2
+  variants:
+  - name: Inputcapture
+    description: Input Capture.
+    value: 1
+  - name: Off
+    description: Compare/Capture channel turned off.
+    value: 0
+  - name: Outputcompare
+    description: Output Compare.
+    value: 2
+  - name: Pwm
+    description: Pulse-Width Modulation.
+    value: 3
+enum/vals::Cc1CfgPrsconf:
+  bit_size: 1
+  variants:
+  - name: Level
+    description: The PRS channel will follow CC out.
+    value: 1
+  - name: Pulse
+    description: Each CC event will generate a one EM01GRPACLK cycle high pulse.
+    value: 0
+enum/vals::Cc1CtrlCmoa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear output on compare match.
+    value: 2
+  - name: None
+    description: No action on compare match.
+    value: 0
+  - name: Set
+    description: Set output on compare match.
+    value: 3
+  - name: Toggle
+    description: Toggle output on compare match.
+    value: 1
+enum/vals::Cc1CtrlCofoa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear output on counter overflow.
+    value: 2
+  - name: None
+    description: No action on counter overflow.
+    value: 0
+  - name: Set
+    description: Set output on counter overflow.
+    value: 3
+  - name: Toggle
+    description: Toggle output on counter overflow.
+    value: 1
+enum/vals::Cc1CtrlCufoa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear output on counter underflow.
+    value: 2
+  - name: None
+    description: No action on counter underflow.
+    value: 0
+  - name: Set
+    description: Set output on counter underflow.
+    value: 3
+  - name: Toggle
+    description: Toggle output on counter underflow.
+    value: 1
+enum/vals::Cc1CtrlIcedge:
+  bit_size: 2
+  variants:
+  - name: Both
+    description: Both edges detected.
+    value: 2
+  - name: Falling
+    description: Falling edges detected.
+    value: 1
+  - name: None
+    description: No edge detection, signal is left as it is.
+    value: 3
+  - name: Rising
+    description: Rising edges detected.
+    value: 0
+enum/vals::Cc1CtrlIcevctrl:
+  bit_size: 2
+  variants:
+  - name: Everyedge
+    description: PRS output pulse and interrupt flag set on every capture.
+    value: 0
+  - name: Everysecondedge
+    description: PRS output pulse and interrupt flag set on every second capture.
+    value: 1
+  - name: Falling
+    description: PRS output pulse and interrupt flag set on falling edge only (if ICEDGE = BOTH).
+    value: 3
+  - name: Rising
+    description: PRS output pulse and interrupt flag set on rising edge only (if ICEDGE = BOTH).
+    value: 2
+enum/vals::Cc2CfgInsel:
+  bit_size: 2
+  variants:
+  - name: Pin
+    description: TIMERnCCx pin is selected.
+    value: 0
+  - name: Prsasynclevel
+    description: Asynchronous Level PRS selected.
+    value: 2
+  - name: Prsasyncpulse
+    description: Asynchronous Pulse PRS selected.
+    value: 3
+  - name: Prssync
+    description: Synchornous PRS selected.
+    value: 1
+enum/vals::Cc2CfgMode:
+  bit_size: 2
+  variants:
+  - name: Inputcapture
+    description: Input Capture.
+    value: 1
+  - name: Off
+    description: Compare/Capture channel turned off.
+    value: 0
+  - name: Outputcompare
+    description: Output Compare.
+    value: 2
+  - name: Pwm
+    description: Pulse-Width Modulation.
+    value: 3
+enum/vals::Cc2CfgPrsconf:
+  bit_size: 1
+  variants:
+  - name: Level
+    description: The PRS channel will follow CC out.
+    value: 1
+  - name: Pulse
+    description: Each CC event will generate a one EM01GRPACLK cycle high pulse.
+    value: 0
+enum/vals::Cc2CtrlCmoa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear output on compare match.
+    value: 2
+  - name: None
+    description: No action on compare match.
+    value: 0
+  - name: Set
+    description: Set output on compare match.
+    value: 3
+  - name: Toggle
+    description: Toggle output on compare match.
+    value: 1
+enum/vals::Cc2CtrlCofoa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear output on counter overflow.
+    value: 2
+  - name: None
+    description: No action on counter overflow.
+    value: 0
+  - name: Set
+    description: Set output on counter overflow.
+    value: 3
+  - name: Toggle
+    description: Toggle output on counter overflow.
+    value: 1
+enum/vals::Cc2CtrlCufoa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear output on counter underflow.
+    value: 2
+  - name: None
+    description: No action on counter underflow.
+    value: 0
+  - name: Set
+    description: Set output on counter underflow.
+    value: 3
+  - name: Toggle
+    description: Toggle output on counter underflow.
+    value: 1
+enum/vals::Cc2CtrlIcedge:
+  bit_size: 2
+  variants:
+  - name: Both
+    description: Both edges detected.
+    value: 2
+  - name: Falling
+    description: Falling edges detected.
+    value: 1
+  - name: None
+    description: No edge detection, signal is left as it is.
+    value: 3
+  - name: Rising
+    description: Rising edges detected.
+    value: 0
+enum/vals::Cc2CtrlIcevctrl:
+  bit_size: 2
+  variants:
+  - name: Everyedge
+    description: PRS output pulse and interrupt flag set on every capture.
+    value: 0
+  - name: Everysecondedge
+    description: PRS output pulse and interrupt flag set on every second capture.
+    value: 1
+  - name: Falling
+    description: PRS output pulse and interrupt flag set on falling edge only (if ICEDGE = BOTH).
+    value: 3
+  - name: Rising
+    description: PRS output pulse and interrupt flag set on rising edge only (if ICEDGE = BOTH).
+    value: 2
+enum/vals::Ccpol0:
+  bit_size: 1
+  variants:
+  - name: Highfall
+    description: CCx polarity high level/falling edge.
+    value: 1
+  - name: Lowrise
+    description: CCx polarity low level/rising edge.
+    value: 0
+enum/vals::Ccpol1:
+  bit_size: 1
+  variants:
+  - name: Highfall
+    description: CCx polarity high level/falling edge.
+    value: 1
+  - name: Lowrise
+    description: CCx polarity low level/rising edge.
+    value: 0
+enum/vals::Ccpol2:
+  bit_size: 1
+  variants:
+  - name: Highfall
+    description: CCx polarity high level/falling edge.
+    value: 1
+  - name: Lowrise
+    description: CCx polarity low level/rising edge.
+    value: 0
+enum/vals::CfgMode:
+  bit_size: 2
+  variants:
+  - name: Down
+    description: Down-count mode.
+    value: 1
+  - name: Qdec
+    description: Quadrature decoder mode.
+    value: 3
+  - name: Up
+    description: Up-count mode.
+    value: 0
+  - name: Updown
+    description: Up/down-count mode.
+    value: 2
+enum/vals::Clksel:
+  bit_size: 2
+  variants:
+  - name: Cc1
+    description: Compare/Capture Channel 1 Input.
+    value: 1
+  - name: Prescem01grpaclk
+    description: Prescaled EM01GRPACLK.
+    value: 0
+  - name: Timerouf
+    description: Timer is clocked by underflow(down-count) or overflow(up-count) in the lower numbered neighbor Timer.
+    value: 2
+enum/vals::Debugrun:
+  bit_size: 1
+  variants:
+  - name: Halt
+    description: Timer is halted in debug mode.
+    value: 0
+  - name: Run
+    description: Timer is running in debug mode.
+    value: 1
+enum/vals::Dir:
+  bit_size: 1
+  variants:
+  - name: Down
+    description: Counting down.
+    value: 1
+  - name: Up
+    description: Counting up.
+    value: 0
+enum/vals::Dtfa:
+  bit_size: 2
+  variants:
+  - name: Clear
+    description: Clear outputs.
+    value: 2
+  - name: Inactive
+    description: Set outputs inactive.
+    value: 1
+  - name: None
+    description: No action on fault.
+    value: 0
+  - name: Tristate
+    description: Tristate outputs.
+    value: 3
+enum/vals::Dtilockkey:
+  bit_size: 16
+  variants:
+  - name: Unlock
+    description: Write to unlock TIMER DTI registers.
+    value: 52864
+enum/vals::Falla:
+  bit_size: 2
+  variants:
+  - name: None
+    description: No action.
+    value: 0
+  - name: Reloadstart
+    description: Reload and start counter.
+    value: 3
+  - name: Start
+    description: Start counter without reload.
+    value: 1
+  - name: Stop
+    description: Stop counter without reload.
+    value: 2
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Unlock
+    description: Write to unlock TIMER registers.
+    value: 52864
+enum/vals::Presc:
+  bit_size: 10
+  variants:
+  - name: Div1
+    description: No prescaling.
+    value: 0
+  - name: Div1024
+    description: Prescale by 1024.
+    value: 1023
+  - name: Div128
+    description: Prescale by 128.
+    value: 127
+  - name: Div16
+    description: Prescale by 16.
+    value: 15
+  - name: Div2
+    description: Prescale by 2.
+    value: 1
+  - name: Div256
+    description: Prescale by 256.
+    value: 255
+  - name: Div32
+    description: Prescale by 32.
+    value: 31
+  - name: Div4
+    description: Prescale by 4.
+    value: 3
+  - name: Div512
+    description: Prescale by 512.
+    value: 511
+  - name: Div64
+    description: Prescale by 64.
+    value: 63
+  - name: Div8
+    description: Prescale by 8.
+    value: 7
+enum/vals::Qdm:
+  bit_size: 1
+  variants:
+  - name: X2
+    description: X2 mode selected.
+    value: 0
+  - name: X4
+    description: X4 mode selected.
+    value: 1
+enum/vals::Risea:
+  bit_size: 2
+  variants:
+  - name: None
+    description: No action.
+    value: 0
+  - name: Reloadstart
+    description: Reload and start counter.
+    value: 3
+  - name: Start
+    description: Start counter without reload.
+    value: 1
+  - name: Stop
+    description: Stop counter without reload.
+    value: 2

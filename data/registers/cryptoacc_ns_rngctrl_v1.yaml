@@ -1,0 +1,424 @@
+block/CryptoaccNsRngctrl:
+  description: CRYPTOACC_NS_RNGCTRL peripheral.
+  items:
+  - name: rngctrl
+    description: No Description.
+    byte_offset: 0
+    fieldset: regs::Rngctrl
+  - name: fifolevel
+    description: Number of 32 bits words of random available in the FIFO. Writing to this register clears the FIFO full interrupt.
+    byte_offset: 4
+    access: Read
+    fieldset: regs::Fifolevel
+  - name: fifothresh
+    description: FIFO level at which the rings are restarted when in the FIFOFull_Off state, expressed in number of 128bit blocks.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::Fifothresh
+  - name: fifodepth
+    description: 'Maximum number of 32 bits words that can be stored in the FIFO: 2^g_fifodepth.'
+    byte_offset: 12
+    access: Read
+    fieldset: regs::Fifodepth
+  - name: key0
+    description: This set of registers bits form the 128-bit AES key used for conditioning function. The first byte (MSB of 128-bit word) is at address 0x0010, the second byte at address 0x0011...
+    byte_offset: 16
+    fieldset: regs::Key0
+  - name: key1
+    description: This set of registers bits form the 128-bit AES key used for conditioning function. The first byte (MSB of 128-bit word) is at address 0x0010, the second byte at address 0x0011...
+    byte_offset: 20
+    fieldset: regs::Key1
+  - name: key2
+    description: This set of registers bits form the 128-bit AES key used for conditioning function. The first byte (MSB of 128-bit word) is at address 0x0010, the second byte at address 0x0011...
+    byte_offset: 24
+    fieldset: regs::Key2
+  - name: key3
+    description: This set of registers bits form the 128-bit AES key used for conditioning function. The first byte (MSB of 128-bit word) is at address 0x0010, the second byte at address 0x0011...
+    byte_offset: 28
+    fieldset: regs::Key3
+  - name: testdata
+    description: This register is used to feed known data to the conditioning function or to the continuous tests. See manual.
+    byte_offset: 32
+    access: Write
+    fieldset: regs::Testdata
+  - name: rngstatus
+    description: No Description.
+    byte_offset: 48
+    fieldset: regs::Rngstatus
+  - name: initwaitval
+    description: No Description.
+    byte_offset: 52
+    fieldset: regs::Initwaitval
+  - name: swofftmrval
+    description: Number of clk cycles to wait before stopping the rings after the FIFO is full.
+    byte_offset: 64
+    fieldset: regs::Swofftmrval
+  - name: clkdiv
+    description: Sample clock divider. The frequency at which the outputs of the rings are sampled is given by Fs = Fpclk/(ClkDiv + 1).
+    byte_offset: 68
+    fieldset: regs::Clkdiv
+  - name: ais31conf0
+    description: No Description.
+    byte_offset: 72
+    fieldset: regs::Ais31conf0
+  - name: ais31conf1
+    description: No Description.
+    byte_offset: 76
+    fieldset: regs::Ais31conf1
+  - name: ais31conf2
+    description: No Description.
+    byte_offset: 80
+    fieldset: regs::Ais31conf2
+  - name: ais31status
+    description: This register is used to obtain diagnostic information about the AIS31 start-up and online tests when g_AIS31=True. Writing to this register clears all fields.
+    byte_offset: 84
+    fieldset: regs::Ais31status
+fieldset/regs::Ais31conf0:
+  description: No Description.
+  fields:
+  - name: startupthres
+    description: Start-up Threshold.
+    bit_offset: 0
+    bit_size: 15
+  - name: onlinethresh
+    description: Online Threshold.
+    bit_offset: 16
+    bit_size: 15
+fieldset/regs::Ais31conf1:
+  description: No Description.
+  fields:
+  - name: hexpectedvalue
+    description: Expected History Value.
+    bit_offset: 0
+    bit_size: 15
+  - name: onlinerepthresh
+    description: Online Repeat Threshold.
+    bit_offset: 16
+    bit_size: 15
+fieldset/regs::Ais31conf2:
+  description: No Description.
+  fields:
+  - name: hmin
+    description: Minimum Allowed History Value.
+    bit_offset: 0
+    bit_size: 15
+  - name: hmax
+    description: Maximum Allowed History Value.
+    bit_offset: 16
+    bit_size: 15
+fieldset/regs::Ais31status:
+  description: This register is used to obtain diagnostic information about the AIS31 start-up and online tests when g_AIS31=True. Writing to this register clears all fields.
+  fields:
+  - name: numprelimalarms
+    description: Number of preliminary alarms.
+    bit_offset: 0
+    bit_size: 16
+  - name: prelimnoisealarmrng
+    description: Preliminary noise alarm RNG.
+    bit_offset: 16
+    bit_size: 1
+  - name: prelimnoisealarmrep
+    description: Preliminary noise alarm Rep.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::Clkdiv:
+  description: Sample clock divider. The frequency at which the outputs of the rings are sampled is given by Fs = Fpclk/(ClkDiv + 1).
+  fields:
+  - name: value
+    description: Sample clock divider.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Fifodepth:
+  description: 'Maximum number of 32 bits words that can be stored in the FIFO: 2^g_fifodepth.'
+  fields:
+  - name: fifodepth
+    description: FIFO Depth.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Fifolevel:
+  description: Number of 32 bits words of random available in the FIFO. Writing to this register clears the FIFO full interrupt.
+  fields:
+  - name: fifolevel
+    description: FIFO Level.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Fifothresh:
+  description: FIFO level at which the rings are restarted when in the FIFOFull_Off state, expressed in number of 128bit blocks.
+  fields:
+  - name: fifothresh
+    description: FIFO threshold level.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Initwaitval:
+  description: No Description.
+  fields:
+  - name: initwaitval
+    description: Wait counter value.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Key0:
+  description: This set of registers bits form the 128-bit AES key used for conditioning function. The first byte (MSB of 128-bit word) is at address 0x0010, the second byte at address 0x0011...
+  fields:
+  - name: key
+    description: Key.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Key1:
+  description: This set of registers bits form the 128-bit AES key used for conditioning function. The first byte (MSB of 128-bit word) is at address 0x0010, the second byte at address 0x0011...
+  fields:
+  - name: key
+    description: Key.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Key2:
+  description: This set of registers bits form the 128-bit AES key used for conditioning function. The first byte (MSB of 128-bit word) is at address 0x0010, the second byte at address 0x0011...
+  fields:
+  - name: key
+    description: Key.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Key3:
+  description: This set of registers bits form the 128-bit AES key used for conditioning function. The first byte (MSB of 128-bit word) is at address 0x0010, the second byte at address 0x0011...
+  fields:
+  - name: key
+    description: Key.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Rngctrl:
+  description: No Description.
+  fields:
+  - name: enable
+    description: TRNG Module Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: testen
+    description: Test Enable.
+    bit_offset: 2
+    bit_size: 1
+    enum: vals::Testen
+  - name: condbypass
+    description: Conditioning Bypass.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Condbypass
+  - name: repcountien
+    description: IRQ enable for Repetition Count Test.
+    bit_offset: 4
+    bit_size: 1
+  - name: apt64ien
+    description: IRQ enable for APT64IF.
+    bit_offset: 5
+    bit_size: 1
+  - name: apt4096ien
+    description: IRQ enable for APT4096IF.
+    bit_offset: 6
+    bit_size: 1
+  - name: fullien
+    description: IRQ enable for FIFO full.
+    bit_offset: 7
+    bit_size: 1
+  - name: softreset
+    description: Software Reset.
+    bit_offset: 8
+    bit_size: 1
+    enum: vals::Softreset
+  - name: preien
+    description: IRQ enable for AIS31 prelim. noise alarm.
+    bit_offset: 9
+    bit_size: 1
+  - name: almien
+    description: IRQ enable for AIS31 noise alarm.
+    bit_offset: 10
+    bit_size: 1
+  - name: forcerun
+    description: Oscillator Force Run.
+    bit_offset: 11
+    bit_size: 1
+    enum: vals::Forcerun
+  - name: bypnist
+    description: NIST Start-up Test Bypass.
+    bit_offset: 12
+    bit_size: 1
+    enum: vals::Bypnist
+  - name: bypais31
+    description: AIS31 Start-up Test Bypass.
+    bit_offset: 13
+    bit_size: 1
+    enum: vals::Bypais31
+  - name: healthtestsel
+    description: Health test input select.
+    bit_offset: 14
+    bit_size: 1
+    enum: vals::Healthtestsel
+  - name: ais31testsel
+    description: AIS31 test input select.
+    bit_offset: 15
+    bit_size: 1
+    enum: vals::Ais31testsel
+  - name: nb128bitblocks
+    description: Number of 128b blocks in AES-CBCMAC.
+    bit_offset: 16
+    bit_size: 4
+  - name: fifowrstartup
+    description: Fifo Write Start Up.
+    bit_offset: 20
+    bit_size: 1
+fieldset/regs::Rngstatus:
+  description: No Description.
+  fields:
+  - name: testdatabusy
+    description: Test Data Busy.
+    bit_offset: 0
+    bit_size: 1
+    enum: vals::Testdatabusy
+  - name: state
+    description: State of the control FSM.
+    bit_offset: 1
+    bit_size: 3
+    enum: vals::State
+  - name: repcountif
+    description: Repetition Count Test interrupt status.
+    bit_offset: 4
+    bit_size: 1
+  - name: apt64if
+    description: 64-sample window Adaptive Proportion IF.
+    bit_offset: 5
+    bit_size: 1
+  - name: apt4096if
+    description: 4096-sample window Adaptive Prop. IF.
+    bit_offset: 6
+    bit_size: 1
+  - name: fullif
+    description: FIFO full interrupt status.
+    bit_offset: 7
+    bit_size: 1
+  - name: preif
+    description: AIS31 Preliminary Noise Alarm IF.
+    bit_offset: 8
+    bit_size: 1
+  - name: almif
+    description: AIS31 Noise Alarm interrupt status.
+    bit_offset: 9
+    bit_size: 1
+fieldset/regs::Swofftmrval:
+  description: Number of clk cycles to wait before stopping the rings after the FIFO is full.
+  fields:
+  - name: swofftmrval
+    description: Switch Off Timer Value.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Testdata:
+  description: This register is used to feed known data to the conditioning function or to the continuous tests. See manual.
+  fields:
+  - name: value
+    description: Test data input to conditioning tests.
+    bit_offset: 0
+    bit_size: 32
+enum/vals::Ais31testsel:
+  bit_size: 1
+  variants:
+  - name: After
+    description: After conditioning.
+    value: 1
+  - name: Before
+    description: Before conditioning.
+    value: 0
+enum/vals::Bypais31:
+  bit_size: 1
+  variants:
+  - name: Bypass
+    description: AIS31 startup test is bypassed.
+    value: 1
+  - name: Normal
+    description: AIS31 startup test is applied. No data will be written to the FIFO until the test passes.
+    value: 0
+enum/vals::Bypnist:
+  bit_size: 1
+  variants:
+  - name: Bypass
+    description: NIST-800-90B startup test is bypassed.
+    value: 1
+  - name: Normal
+    description: NIST-800-90B startup test is applied. No data will be written to the FIFO until the test passes.
+    value: 0
+enum/vals::Condbypass:
+  bit_size: 1
+  variants:
+  - name: Bypass
+    description: The conditioning function is bypassed.
+    value: 1
+  - name: Normal
+    description: The conditionig function is used.
+    value: 0
+enum/vals::Forcerun:
+  bit_size: 1
+  variants:
+  - name: Normal
+    description: Oscillators will shut down when FIFO is full.
+    value: 0
+  - name: Run
+    description: Oscillators will continue to run even after FIFO is full.
+    value: 1
+enum/vals::Healthtestsel:
+  bit_size: 1
+  variants:
+  - name: After
+    description: After conditioning.
+    value: 1
+  - name: Before
+    description: Before conditioning.
+    value: 0
+enum/vals::Softreset:
+  bit_size: 1
+  variants:
+  - name: Normal
+    description: Module not in reset.
+    value: 0
+  - name: Reset
+    description: The continuous test, the conditioning function and the FIFO are reset.
+    value: 1
+enum/vals::State:
+  bit_size: 3
+  variants:
+  - name: Error
+    description: ERROR State.
+    value: 5
+  - name: Fifofulloff
+    description: FIFOFULLOFF State.
+    value: 3
+  - name: Fifofullon
+    description: FIFOFULLON State.
+    value: 2
+  - name: Reset
+    description: RESET State.
+    value: 0
+  - name: Running
+    description: RUNNING State.
+    value: 4
+  - name: Startup
+    description: STARTUP State.
+    value: 1
+  - name: Unused6
+    description: UNUSED.
+    value: 6
+  - name: Unused7
+    description: UNUSED.
+    value: 7
+enum/vals::Testdatabusy:
+  bit_size: 1
+  variants:
+  - name: Busy
+    description: TESTDATA write is still being processed.
+    value: 1
+  - name: Idle
+    description: TESTDATA write is finished processing or no test in progress.
+    value: 0
+enum/vals::Testen:
+  bit_size: 1
+  variants:
+  - name: Noise
+    description: Non-determinsitc random number generation.
+    value: 0
+  - name: Testdata
+    description: Pseudo-random number generation.
+    value: 1

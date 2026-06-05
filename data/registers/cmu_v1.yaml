@@ -1,0 +1,931 @@
+block/Cmu:
+  description: CMU peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: status
+    description: No Description.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::Status
+  - name: lock
+    description: No Description.
+    byte_offset: 16
+    access: Write
+    fieldset: regs::Lock
+  - name: wdoglock
+    description: No Description.
+    byte_offset: 20
+    access: Write
+    fieldset: regs::Wdoglock
+  - name: if_
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::Ien
+  - name: calcmd
+    description: No Description.
+    byte_offset: 80
+    access: Write
+    fieldset: regs::Calcmd
+  - name: calctrl
+    description: No Description.
+    byte_offset: 84
+    fieldset: regs::Calctrl
+  - name: calcnt
+    description: No Description.
+    byte_offset: 88
+    access: Read
+    fieldset: regs::Calcnt
+  - name: clken0
+    description: No Description.
+    byte_offset: 100
+    fieldset: regs::Clken0
+  - name: clken1
+    description: No Description.
+    byte_offset: 104
+    fieldset: regs::Clken1
+  - name: sysclkctrl
+    description: No Description.
+    byte_offset: 112
+    fieldset: regs::Sysclkctrl
+  - name: traceclkctrl
+    description: No Description.
+    byte_offset: 128
+    fieldset: regs::Traceclkctrl
+  - name: exportclkctrl
+    description: No Description.
+    byte_offset: 144
+    fieldset: regs::Exportclkctrl
+  - name: dpllrefclkctrl
+    description: No Description.
+    byte_offset: 256
+    fieldset: regs::Dpllrefclkctrl
+  - name: em01grpaclkctrl
+    description: No Description.
+    byte_offset: 288
+    fieldset: regs::Em01grpaclkctrl
+  - name: em01grpbclkctrl
+    description: No Description.
+    byte_offset: 292
+    fieldset: regs::Em01grpbclkctrl
+  - name: em23grpaclkctrl
+    description: No Description.
+    byte_offset: 320
+    fieldset: regs::Em23grpaclkctrl
+  - name: em4grpaclkctrl
+    description: No Description.
+    byte_offset: 352
+    fieldset: regs::Em4grpaclkctrl
+  - name: iadcclkctrl
+    description: No Description.
+    byte_offset: 384
+    fieldset: regs::Iadcclkctrl
+  - name: wdog0clkctrl
+    description: No Description.
+    byte_offset: 512
+    fieldset: regs::Wdog0clkctrl
+  - name: euart0clkctrl
+    description: No Description.
+    byte_offset: 544
+    fieldset: regs::Euart0clkctrl
+  - name: rtccclkctrl
+    description: No Description.
+    byte_offset: 576
+    fieldset: regs::Rtccclkctrl
+  - name: prortcclkctrl
+    description: No Description.
+    byte_offset: 584
+    fieldset: regs::Prortcclkctrl
+  - name: cryptoaccclkctrl
+    description: No Description.
+    byte_offset: 608
+    fieldset: regs::Cryptoaccclkctrl
+  - name: radioclkctrl
+    description: No Description.
+    byte_offset: 640
+    fieldset: regs::Radioclkctrl
+fieldset/regs::Calcmd:
+  description: No Description.
+  fields:
+  - name: calstart
+    description: Calibration Start.
+    bit_offset: 0
+    bit_size: 1
+  - name: calstop
+    description: Calibration Stop.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Calcnt:
+  description: No Description.
+  fields:
+  - name: calcnt
+    description: Calibration Result Counter Value.
+    bit_offset: 0
+    bit_size: 20
+fieldset/regs::Calctrl:
+  description: No Description.
+  fields:
+  - name: caltop
+    description: Calibration Counter Top Value.
+    bit_offset: 0
+    bit_size: 20
+  - name: cont
+    description: Continuous Calibration.
+    bit_offset: 23
+    bit_size: 1
+  - name: upsel
+    description: Calibration Up-counter Select.
+    bit_offset: 24
+    bit_size: 4
+    enum: vals::Upsel
+  - name: downsel
+    description: Calibration Down-counter Select.
+    bit_offset: 28
+    bit_size: 4
+    enum: vals::Downsel
+fieldset/regs::Clken0:
+  description: No Description.
+  fields:
+  - name: ldma
+    description: Enable Bus Clock.
+    bit_offset: 0
+    bit_size: 1
+  - name: ldmaxbar
+    description: Enable Bus Clock.
+    bit_offset: 1
+    bit_size: 1
+  - name: radioaes
+    description: Enable Bus Clock.
+    bit_offset: 2
+    bit_size: 1
+  - name: gpcrc
+    description: Enable Bus Clock.
+    bit_offset: 3
+    bit_size: 1
+  - name: timer0
+    description: Enable Bus Clock.
+    bit_offset: 4
+    bit_size: 1
+  - name: timer1
+    description: Enable Bus Clock.
+    bit_offset: 5
+    bit_size: 1
+  - name: timer2
+    description: Enable Bus Clock.
+    bit_offset: 6
+    bit_size: 1
+  - name: timer3
+    description: Enable Bus Clock.
+    bit_offset: 7
+    bit_size: 1
+  - name: usart0
+    description: Enable Bus Clock.
+    bit_offset: 8
+    bit_size: 1
+  - name: usart1
+    description: Enable Bus Clock.
+    bit_offset: 9
+    bit_size: 1
+  - name: iadc0
+    description: Enable Bus Clock.
+    bit_offset: 10
+    bit_size: 1
+  - name: amuxcp0
+    description: Enable Bus Clock.
+    bit_offset: 11
+    bit_size: 1
+  - name: letimer0
+    description: Enable Bus Clock.
+    bit_offset: 12
+    bit_size: 1
+  - name: wdog0
+    description: Enable Bus Clock.
+    bit_offset: 13
+    bit_size: 1
+  - name: i2c0
+    description: Enable Bus Clock.
+    bit_offset: 14
+    bit_size: 1
+  - name: i2c1
+    description: Enable Bus Clock.
+    bit_offset: 15
+    bit_size: 1
+  - name: syscfg
+    description: Enable Bus Clock.
+    bit_offset: 16
+    bit_size: 1
+  - name: dpll0
+    description: Enable Bus Clock.
+    bit_offset: 17
+    bit_size: 1
+  - name: hfrco0
+    description: Enable Bus Clock.
+    bit_offset: 18
+    bit_size: 1
+  - name: hfxo0
+    description: Enable Bus Clock.
+    bit_offset: 19
+    bit_size: 1
+  - name: fsrco
+    description: Enable Bus Clock.
+    bit_offset: 20
+    bit_size: 1
+  - name: lfrco
+    description: Enable Bus Clock.
+    bit_offset: 21
+    bit_size: 1
+  - name: lfxo
+    description: Enable Bus Clock.
+    bit_offset: 22
+    bit_size: 1
+  - name: ulfrco
+    description: Enable Bus Clock.
+    bit_offset: 23
+    bit_size: 1
+  - name: euart0
+    description: Enable Bus Clock.
+    bit_offset: 24
+    bit_size: 1
+  - name: pdm
+    description: Enable Bus Clock.
+    bit_offset: 25
+    bit_size: 1
+  - name: gpio
+    description: Enable Bus Clock.
+    bit_offset: 26
+    bit_size: 1
+  - name: prs
+    description: Enable Bus Clock.
+    bit_offset: 27
+    bit_size: 1
+  - name: buram
+    description: Enable Bus Clock.
+    bit_offset: 28
+    bit_size: 1
+  - name: burtc
+    description: Enable Bus Clock.
+    bit_offset: 29
+    bit_size: 1
+  - name: rtcc
+    description: Enable Bus Clock.
+    bit_offset: 30
+    bit_size: 1
+  - name: dcdc
+    description: Enable Bus Clock.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Clken1:
+  description: No Description.
+  fields:
+  - name: agc
+    description: Enable Bus Clock.
+    bit_offset: 0
+    bit_size: 1
+  - name: modem
+    description: Enable Bus Clock.
+    bit_offset: 1
+    bit_size: 1
+  - name: rfcrc
+    description: Enable Bus Clock.
+    bit_offset: 2
+    bit_size: 1
+  - name: frc
+    description: Enable Bus Clock.
+    bit_offset: 3
+    bit_size: 1
+  - name: protimer
+    description: Enable Bus Clock.
+    bit_offset: 4
+    bit_size: 1
+  - name: rac
+    description: Enable Bus Clock.
+    bit_offset: 5
+    bit_size: 1
+  - name: synth
+    description: Enable Bus Clock.
+    bit_offset: 6
+    bit_size: 1
+  - name: rdscratchpad
+    description: Enable Bus Clock.
+    bit_offset: 7
+    bit_size: 1
+  - name: rdmailbox0
+    description: Enable Bus Clock.
+    bit_offset: 8
+    bit_size: 1
+  - name: rdmailbox1
+    description: Enable Bus Clock.
+    bit_offset: 9
+    bit_size: 1
+  - name: prortc
+    description: Enable Bus Clock.
+    bit_offset: 10
+    bit_size: 1
+  - name: bufc
+    description: Enable Bus Clock.
+    bit_offset: 11
+    bit_size: 1
+  - name: ifadcdebug
+    description: Enable Bus Clock.
+    bit_offset: 12
+    bit_size: 1
+  - name: cryptoacc
+    description: Enable Bus Clock.
+    bit_offset: 13
+    bit_size: 1
+  - name: rfsense
+    description: Enable Bus Clock.
+    bit_offset: 14
+    bit_size: 1
+  - name: smu
+    description: Enable Bus Clock.
+    bit_offset: 15
+    bit_size: 1
+  - name: icache0
+    description: Enable Bus Clock.
+    bit_offset: 16
+    bit_size: 1
+  - name: msc
+    description: Enable Bus Clock.
+    bit_offset: 17
+    bit_size: 1
+  - name: timer4
+    description: Enable Bus Clock.
+    bit_offset: 18
+    bit_size: 1
+fieldset/regs::Cryptoaccclkctrl:
+  description: No Description.
+  fields:
+  - name: pken
+    description: PK Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: aesen
+    description: AES Enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Dpllrefclkctrl:
+  description: No Description.
+  fields:
+  - name: clksel
+    description: Clock Select.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::DpllrefclkctrlClksel
+fieldset/regs::Em01grpaclkctrl:
+  description: No Description.
+  fields:
+  - name: clksel
+    description: Clock Select.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Em01grpaclkctrlClksel
+fieldset/regs::Em01grpbclkctrl:
+  description: No Description.
+  fields:
+  - name: clksel
+    description: Clock Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Em01grpbclkctrlClksel
+fieldset/regs::Em23grpaclkctrl:
+  description: No Description.
+  fields:
+  - name: clksel
+    description: Clock Select.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Em23grpaclkctrlClksel
+fieldset/regs::Em4grpaclkctrl:
+  description: No Description.
+  fields:
+  - name: clksel
+    description: Clock Select.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Em4grpaclkctrlClksel
+fieldset/regs::Euart0clkctrl:
+  description: No Description.
+  fields:
+  - name: clksel
+    description: Clock Select.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Euart0clkctrlClksel
+fieldset/regs::Exportclkctrl:
+  description: No Description.
+  fields:
+  - name: clkoutsel0
+    description: Clock Output Select 0.
+    bit_offset: 0
+    bit_size: 4
+    enum: vals::Clkoutsel0
+  - name: clkoutsel1
+    description: Clock Output Select 1.
+    bit_offset: 8
+    bit_size: 4
+    enum: vals::Clkoutsel1
+  - name: clkoutsel2
+    description: Clock Output Select 2.
+    bit_offset: 16
+    bit_size: 4
+    enum: vals::Clkoutsel2
+  - name: presc
+    description: EXPORTCLK Prescaler.
+    bit_offset: 24
+    bit_size: 5
+fieldset/regs::Iadcclkctrl:
+  description: No Description.
+  fields:
+  - name: clksel
+    description: Clock Select.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::IadcclkctrlClksel
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: calrdy
+    description: Calibration Ready Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: calof
+    description: Calibration Overflow Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: calrdy
+    description: Calibration Ready Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: calof
+    description: Calibration Overflow Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Lock:
+  description: No Description.
+  fields:
+  - name: lockkey
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::LockLockkey
+fieldset/regs::Prortcclkctrl:
+  description: No Description.
+  fields:
+  - name: clksel
+    description: Clock Select.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::PrortcclkctrlClksel
+fieldset/regs::Radioclkctrl:
+  description: No Description.
+  fields:
+  - name: en
+    description: Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: dbgclk
+    description: Enable Clock for Debugger.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Rtccclkctrl:
+  description: No Description.
+  fields:
+  - name: clksel
+    description: Clock Select.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::RtccclkctrlClksel
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: calrdy
+    description: Calibration Ready.
+    bit_offset: 0
+    bit_size: 1
+  - name: wdoglock
+    description: Configuration Lock Status for WDOG.
+    bit_offset: 30
+    bit_size: 1
+  - name: lock
+    description: Configuration Lock Status.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Sysclkctrl:
+  description: No Description.
+  fields:
+  - name: clksel
+    description: Clock Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::SysclkctrlClksel
+  - name: pclkpresc
+    description: PCLK Prescaler.
+    bit_offset: 10
+    bit_size: 1
+    enum: vals::Pclkpresc
+  - name: hclkpresc
+    description: HCLK Prescaler.
+    bit_offset: 12
+    bit_size: 4
+    enum: vals::Hclkpresc
+  - name: rhclkpresc
+    description: Radio HCLK Prescaler.
+    bit_offset: 16
+    bit_size: 1
+    enum: vals::Rhclkpresc
+fieldset/regs::Traceclkctrl:
+  description: No Description.
+  fields:
+  - name: presc
+    description: TRACECLK Prescaler.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Presc
+fieldset/regs::Wdog0clkctrl:
+  description: No Description.
+  fields:
+  - name: clksel
+    description: Clock Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Wdog0clkctrlClksel
+fieldset/regs::Wdoglock:
+  description: No Description.
+  fields:
+  - name: lockkey
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::WdoglockLockkey
+enum/vals::Clkoutsel0:
+  bit_size: 4
+  variants:
+  - name: Disabled
+    description: CLKOUT0 is not clocked.
+    value: 0
+  - name: Fsrco
+    description: FSRCO is clocking CLKOUT0.
+    value: 8
+  - name: Hclk
+    description: HCLK is clocking CLKOUT0.
+    value: 1
+  - name: Hfexpclk
+    description: EXPORTCLK is clocking CLKOUT0.
+    value: 2
+  - name: Hfrcodpll
+    description: HFRCODPLL is clocking CLKOUT0.
+    value: 6
+  - name: Hfxo
+    description: HFXO is clocking CLKOUT0.
+    value: 7
+  - name: Lfrco
+    description: LFRCO is clocking CLKOUT0.
+    value: 4
+  - name: Lfxo
+    description: LFXO is clocking CLKOUT0.
+    value: 5
+  - name: Ulfrco
+    description: ULFRCO is clocking CLKOUT0.
+    value: 3
+enum/vals::Clkoutsel1:
+  bit_size: 4
+  variants:
+  - name: Disabled
+    description: CLKOUT1 is not clocked.
+    value: 0
+  - name: Fsrco
+    description: FSRCO is clocking CLKOUT1.
+    value: 8
+  - name: Hclk
+    description: HCLK is clocking CLKOUT1.
+    value: 1
+  - name: Hfexpclk
+    description: EXPORTCLK is clocking CLKOUT1.
+    value: 2
+  - name: Hfrcodpll
+    description: HFRCODPLL is clocking CLKOUT1.
+    value: 6
+  - name: Hfxo
+    description: HFXO is clocking CLKOUT1.
+    value: 7
+  - name: Lfrco
+    description: LFRCO is clocking CLKOUT1.
+    value: 4
+  - name: Lfxo
+    description: LFXO is clocking CLKOUT1.
+    value: 5
+  - name: Ulfrco
+    description: ULFRCO is clocking CLKOUT1.
+    value: 3
+enum/vals::Clkoutsel2:
+  bit_size: 4
+  variants:
+  - name: Disabled
+    description: CLKOUT2 is not clocked.
+    value: 0
+  - name: Fsrco
+    description: FSRCO is clocking CLKOUT2.
+    value: 8
+  - name: Hclk
+    description: HCLK is clocking CLKOUT2.
+    value: 1
+  - name: Hfexpclk
+    description: EXPORTCLK is clocking CLKOUT2.
+    value: 2
+  - name: Hfrcodpll
+    description: HFRCODPLL is clocking CLKOUT2.
+    value: 6
+  - name: Hfxo
+    description: HFXO is clocking CLKOUT2.
+    value: 7
+  - name: Lfrco
+    description: LFRCO is clocking CLKOUT2.
+    value: 4
+  - name: Lfxo
+    description: LFXO is clocking CLKOUT2.
+    value: 5
+  - name: Ulfrco
+    description: ULFRCO is clocking CLKOUT2.
+    value: 3
+enum/vals::Downsel:
+  bit_size: 4
+  variants:
+  - name: Disabled
+    description: Down-counter is not clocked.
+    value: 0
+  - name: Fsrco
+    description: FSRCO is clocking down-counter.
+    value: 9
+  - name: Hclk
+    description: HCLK is clocking down-counter.
+    value: 1
+  - name: Hfrcodpll
+    description: HFRCODPLL is clocking down-counter.
+    value: 5
+  - name: Hfxo
+    description: HFXO is clocking down-counter.
+    value: 3
+  - name: Lfrco
+    description: LFRCO is clocking down-counter.
+    value: 10
+  - name: Lfxo
+    description: LFXO is clocking down-counter.
+    value: 4
+  - name: Prs
+    description: PRS CMU_CALDN consumer is clocking down-counter.
+    value: 2
+  - name: Ulfrco
+    description: ULFRCO is clocking down-counter.
+    value: 11
+enum/vals::DpllrefclkctrlClksel:
+  bit_size: 2
+  variants:
+  - name: Clkin0
+    description: CLKIN0 is clocking DPLLREFCLK.
+    value: 3
+  - name: Disabled
+    description: DPLLREFCLK is not clocked.
+    value: 0
+  - name: Hfxo
+    description: HFXO is clocking DPLLREFCLK.
+    value: 1
+  - name: Lfxo
+    description: LFXO is clocking DPLLREFCLK.
+    value: 2
+enum/vals::Em01grpaclkctrlClksel:
+  bit_size: 2
+  variants:
+  - name: Fsrco
+    description: FSRCO is clocking EM01GRPACLK.
+    value: 3
+  - name: Hfrcodpll
+    description: HFRCODPLL is clocking EM01GRPACLK.
+    value: 1
+  - name: Hfxo
+    description: HFXO is clocking EM01GRPACLK.
+    value: 2
+enum/vals::Em01grpbclkctrlClksel:
+  bit_size: 3
+  variants:
+  - name: Clkin0
+    description: CLKIN0 is clocking EM01GRPBCLK.
+    value: 4
+  - name: Fsrco
+    description: FSRCO is clocking EM01GRPBCLK.
+    value: 3
+  - name: Hfrcodpll
+    description: HFRCODPLL is clocking EM01GRPBCLK.
+    value: 1
+  - name: Hfrcodpllrt
+    description: HFRCODPLL (re-timed) is clocking EM01GRPBCLK.
+    value: 5
+  - name: Hfxo
+    description: HFXO is clocking EM01GRPBCLK.
+    value: 2
+  - name: Hfxort
+    description: HFXO (re-timed) is clocking EM01GRPBCLK.
+    value: 6
+enum/vals::Em23grpaclkctrlClksel:
+  bit_size: 2
+  variants:
+  - name: Lfrco
+    description: LFRCO is clocking EM23GRPACLK.
+    value: 1
+  - name: Lfxo
+    description: LFXO is clocking EM23GRPACLK.
+    value: 2
+  - name: Ulfrco
+    description: ULFRCO is clocking EM23GRPACLK.
+    value: 3
+enum/vals::Em4grpaclkctrlClksel:
+  bit_size: 2
+  variants:
+  - name: Lfrco
+    description: LFRCO is clocking EM4GRPACLK.
+    value: 1
+  - name: Lfxo
+    description: LFXO is clocking EM4GRPACLK.
+    value: 2
+  - name: Ulfrco
+    description: ULFRCO is clocking EM4GRPACLK.
+    value: 3
+enum/vals::Euart0clkctrlClksel:
+  bit_size: 2
+  variants:
+  - name: Disabled
+    description: UART is not clocked.
+    value: 0
+  - name: Em01grpaclk
+    description: EM01GRPACLK is clocking UART.
+    value: 1
+  - name: Em23grpaclk
+    description: EM23GRPACLK is clocking UART.
+    value: 2
+enum/vals::Hclkpresc:
+  bit_size: 4
+  variants:
+  - name: Div1
+    description: HCLK is SYSCLK divided by 1.
+    value: 0
+  - name: Div16
+    description: HCLK is SYSCLK divided by 16.
+    value: 15
+  - name: Div2
+    description: HCLK is SYSCLK divided by 2.
+    value: 1
+  - name: Div4
+    description: HCLK is SYSCLK divided by 4.
+    value: 3
+  - name: Div8
+    description: HCLK is SYSCLK divided by 8.
+    value: 7
+enum/vals::IadcclkctrlClksel:
+  bit_size: 2
+  variants:
+  - name: Em01grpaclk
+    description: EM01GRPACLK is clocking IADCCLK.
+    value: 1
+  - name: Fsrco
+    description: FSRCO is clocking IADCCLK.
+    value: 2
+enum/vals::LockLockkey:
+  bit_size: 16
+  variants:
+  - name: Unlock
+    description: Write this value to unlock.
+    value: 37879
+enum/vals::Pclkpresc:
+  bit_size: 1
+  variants:
+  - name: Div1
+    description: PCLK is HCLK divided by 1.
+    value: 0
+  - name: Div2
+    description: PCLK is HCLK divided by 2.
+    value: 1
+enum/vals::Presc:
+  bit_size: 2
+  variants:
+  - name: Div1
+    description: TRACECLK is SYSCLK divided by 1.
+    value: 0
+  - name: Div2
+    description: TRACECLK is SYSCLK divided by 2.
+    value: 1
+  - name: Div4
+    description: TRACECLK is SYSCLK divided by 4.
+    value: 3
+enum/vals::PrortcclkctrlClksel:
+  bit_size: 2
+  variants:
+  - name: Lfrco
+    description: LFRCO is clocking PRORTCCLK.
+    value: 1
+  - name: Lfxo
+    description: LFXO is clocking PRORTCCLK.
+    value: 2
+  - name: Ulfrco
+    description: ULFRCO is clocking PRORTCCLK.
+    value: 3
+enum/vals::Rhclkpresc:
+  bit_size: 1
+  variants:
+  - name: Div1
+    description: Radio HCLK is SYSCLK divided by 1.
+    value: 0
+  - name: Div2
+    description: Radio HCLK is SYSCLK divided by 2.
+    value: 1
+enum/vals::RtccclkctrlClksel:
+  bit_size: 2
+  variants:
+  - name: Lfrco
+    description: LFRCO is clocking RTCCCLK.
+    value: 1
+  - name: Lfxo
+    description: LFXO is clocking RTCCCLK.
+    value: 2
+  - name: Ulfrco
+    description: ULFRCO is clocking RTCCCLK.
+    value: 3
+enum/vals::SysclkctrlClksel:
+  bit_size: 3
+  variants:
+  - name: Clkin0
+    description: CLKIN0 is clocking SYSCLK.
+    value: 4
+  - name: Fsrco
+    description: FSRCO is clocking SYSCLK.
+    value: 1
+  - name: Hfrcodpll
+    description: HFRCODPLL is clocking SYSCLK.
+    value: 2
+  - name: Hfxo
+    description: HFXO is clocking SYSCLK.
+    value: 3
+enum/vals::Upsel:
+  bit_size: 4
+  variants:
+  - name: Disabled
+    description: Up-counter is not clocked.
+    value: 0
+  - name: Fsrco
+    description: FSRCO is clocking up-counter.
+    value: 8
+  - name: Hfrcodpll
+    description: HFRCODPLL is clocking up-counter.
+    value: 4
+  - name: Hfxo
+    description: HFXO is clocking up-counter.
+    value: 2
+  - name: Lfrco
+    description: LFRCO is clocking up-counter.
+    value: 9
+  - name: Lfxo
+    description: LFXO is clocking up-counter.
+    value: 3
+  - name: Prs
+    description: PRS CMU_CALUP consumer is clocking up-counter.
+    value: 1
+  - name: Ulfrco
+    description: ULFRCO is clocking up-counter.
+    value: 10
+enum/vals::Wdog0clkctrlClksel:
+  bit_size: 3
+  variants:
+  - name: Hclkdiv1024
+    description: HCLKDIV1024 is clocking WDOG0CLK.
+    value: 4
+  - name: Lfrco
+    description: LFRCO is clocking WDOG0CLK.
+    value: 1
+  - name: Lfxo
+    description: LFXO is clocking WDOG0CLK.
+    value: 2
+  - name: Ulfrco
+    description: ULFRCO is clocking WDOG0CLK.
+    value: 3
+enum/vals::WdoglockLockkey:
+  bit_size: 16
+  variants:
+  - name: Unlock
+    description: Write this value to unlock.
+    value: 37879

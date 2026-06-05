@@ -1,0 +1,258 @@
+block/Burtc:
+  description: BURTC peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: en
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::En
+  - name: cfg
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Cfg
+  - name: cmd
+    description: No Description.
+    byte_offset: 12
+    access: Write
+    fieldset: regs::Cmd
+  - name: status
+    description: No Description.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Status
+  - name: if_
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Ien
+  - name: precnt
+    description: No Description.
+    byte_offset: 28
+    fieldset: regs::Precnt
+  - name: cnt
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::Cnt
+  - name: em4wuen
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::Em4wuen
+  - name: syncbusy
+    description: No Description.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::Syncbusy
+  - name: lock
+    description: No Description.
+    byte_offset: 44
+    access: Write
+    fieldset: regs::Lock
+  - name: comp
+    description: No Description.
+    byte_offset: 48
+    fieldset: regs::Comp
+fieldset/regs::Cfg:
+  description: No Description.
+  fields:
+  - name: debugrun
+    description: Debug Mode Run Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: comptop
+    description: Compare Channel is Top Value.
+    bit_offset: 1
+    bit_size: 1
+  - name: cntpresc
+    description: Counter prescaler value.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::Cntpresc
+fieldset/regs::Cmd:
+  description: No Description.
+  fields:
+  - name: start
+    description: Start BURTC counter.
+    bit_offset: 0
+    bit_size: 1
+  - name: stop
+    description: Stop BURTC counter.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Cnt:
+  description: No Description.
+  fields:
+  - name: cnt
+    description: Counter Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Comp:
+  description: No Description.
+  fields:
+  - name: comp
+    description: Compare Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Em4wuen:
+  description: No Description.
+  fields:
+  - name: ofem4wuen
+    description: Overflow EM4 Wakeup Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: compem4wuen
+    description: Compare Match EM4 Wakeup Enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::En:
+  description: No Description.
+  fields:
+  - name: en
+    description: BURTC Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: of
+    description: Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp
+    description: Compare Match Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: of
+    description: Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp
+    description: Compare Match Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP Version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Lock:
+  description: No Description.
+  fields:
+  - name: lockkey
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Precnt:
+  description: No Description.
+  fields:
+  - name: precnt
+    description: Pre-Counter Value.
+    bit_offset: 0
+    bit_size: 15
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: running
+    description: BURTC running status.
+    bit_offset: 0
+    bit_size: 1
+  - name: lock
+    description: Configuration Lock Status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Syncbusy:
+  description: No Description.
+  fields:
+  - name: start
+    description: Sync busy for START.
+    bit_offset: 0
+    bit_size: 1
+  - name: stop
+    description: Sync busy for STOP.
+    bit_offset: 1
+    bit_size: 1
+  - name: precnt
+    description: Sync busy for PRECNT.
+    bit_offset: 2
+    bit_size: 1
+  - name: cnt
+    description: Sync busy for CNT.
+    bit_offset: 3
+    bit_size: 1
+  - name: comp
+    description: Sync busy for COMP.
+    bit_offset: 4
+    bit_size: 1
+  - name: en
+    description: Sync busy for EN.
+    bit_offset: 5
+    bit_size: 1
+enum/vals::Cntpresc:
+  bit_size: 4
+  variants:
+  - name: Div1
+    description: CLK_CNT = (BURTC LF CLK)/1.
+    value: 0
+  - name: Div1024
+    description: CLK_CNT = (BURTC LF CLK)/1024.
+    value: 10
+  - name: Div128
+    description: CLK_CNT = (BURTC LF CLK)/128.
+    value: 7
+  - name: Div16
+    description: CLK_CNT = (BURTC LF CLK)/16.
+    value: 4
+  - name: Div16384
+    description: CLK_CNT = (BURTC LF CLK)/16384.
+    value: 14
+  - name: Div2
+    description: CLK_CNT = (BURTC LF CLK)/2.
+    value: 1
+  - name: Div2048
+    description: CLK_CNT = (BURTC LF CLK)/2048.
+    value: 11
+  - name: Div256
+    description: CLK_CNT = (BURTC LF CLK)/256.
+    value: 8
+  - name: Div32
+    description: CLK_CNT = (BURTC LF CLK)/32.
+    value: 5
+  - name: Div32768
+    description: CLK_CNT = (BURTC LF CLK)/32768.
+    value: 15
+  - name: Div4
+    description: CLK_CNT = (BURTC LF CLK)/4.
+    value: 2
+  - name: Div4096
+    description: CLK_CNT = (BURTC LF CLK)/4096.
+    value: 12
+  - name: Div512
+    description: CLK_CNT = (BURTC LF CLK)/512.
+    value: 9
+  - name: Div64
+    description: CLK_CNT = (BURTC LF CLK)/64.
+    value: 6
+  - name: Div8
+    description: CLK_CNT = (BURTC LF CLK)/8.
+    value: 3
+  - name: Div8192
+    description: CLK_CNT = (BURTC LF CLK)/8192.
+    value: 13
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Unlock
+    description: Write to unlock all BURTC lockable registers.
+    value: 44776

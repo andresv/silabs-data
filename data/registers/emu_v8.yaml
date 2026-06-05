@@ -1,0 +1,555 @@
+block/Emu:
+  description: EMU peripheral.
+  items:
+  - name: decbod
+    description: No Description.
+    byte_offset: 16
+    fieldset: regs::Decbod
+  - name: bod3sense
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::Bod3sense
+  - name: vregvddcmpctrl
+    description: No Description.
+    byte_offset: 60
+    fieldset: regs::Vregvddcmpctrl
+  - name: pd1paretctrl
+    description: No Description.
+    byte_offset: 64
+    fieldset: regs::Pd1paretctrl
+  - name: lock
+    description: No Description.
+    byte_offset: 96
+    access: Write
+    fieldset: regs::Lock
+  - name: if_
+    description: No Description.
+    byte_offset: 100
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 104
+    fieldset: regs::Ien
+  - name: em4ctrl
+    description: No Description.
+    byte_offset: 108
+    fieldset: regs::Em4ctrl
+  - name: cmd
+    description: No Description.
+    byte_offset: 112
+    access: Write
+    fieldset: regs::Cmd
+  - name: ctrl
+    description: No Description.
+    byte_offset: 116
+    fieldset: regs::Ctrl
+  - name: templimits
+    description: No Description.
+    byte_offset: 120
+    fieldset: regs::Templimits
+  - name: status
+    description: No Description.
+    byte_offset: 132
+    access: Read
+    fieldset: regs::Status
+  - name: temp
+    description: No Description.
+    byte_offset: 136
+    access: Read
+    fieldset: regs::Temp
+  - name: rstctrl
+    description: No Description.
+    byte_offset: 144
+    fieldset: regs::Rstctrl
+  - name: rstcause
+    description: No Description.
+    byte_offset: 148
+    access: Read
+    fieldset: regs::Rstcause
+  - name: dgif
+    description: No Description.
+    byte_offset: 160
+    fieldset: regs::Dgif
+  - name: dgien
+    description: No Description.
+    byte_offset: 164
+    fieldset: regs::Dgien
+  - name: efpif
+    description: No Description.
+    byte_offset: 256
+    fieldset: regs::Efpif
+  - name: efpien
+    description: No Description.
+    byte_offset: 260
+    fieldset: regs::Efpien
+fieldset/regs::Bod3sense:
+  description: No Description.
+  fields:
+  - name: avddboden
+    description: AVDD BOD enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: vddio0boden
+    description: VDDIO0 BOD enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: vddio1boden
+    description: VDDIO1 BOD enable.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Cmd:
+  description: No Description.
+  fields:
+  - name: em4unlatch
+    description: EM4 unlatch.
+    bit_offset: 1
+    bit_size: 1
+  - name: tempavgreq
+    description: Temperature Average Request.
+    bit_offset: 4
+    bit_size: 1
+  - name: em01vscale1
+    description: Scale voltage to Vscale1.
+    bit_offset: 10
+    bit_size: 1
+  - name: em01vscale2
+    description: Scale voltage to Vscale2.
+    bit_offset: 11
+    bit_size: 1
+  - name: rstcauseclr
+    description: Reset Cause Clear.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: No Description.
+  fields:
+  - name: em2dbgen
+    description: Enable debugging in EM2.
+    bit_offset: 0
+    bit_size: 1
+  - name: tempavgnum
+    description: Averaged Temperature samples num.
+    bit_offset: 3
+    bit_size: 1
+    enum: vals::Tempavgnum
+  - name: em23vscale
+    description: EM2/EM3 Vscale.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Em23vscale
+  - name: flashpwrupondemand
+    description: Enable flash on demand wakeup.
+    bit_offset: 16
+    bit_size: 1
+  - name: efpdirectmodeen
+    description: EFP Direct Mode Enable.
+    bit_offset: 29
+    bit_size: 1
+  - name: efpdrvdecouple
+    description: EFP drives DECOUPLE.
+    bit_offset: 30
+    bit_size: 1
+  - name: efpdrvdvdd
+    description: EFP drives DVDD.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Decbod:
+  description: No Description.
+  fields:
+  - name: decboden
+    description: DECBOD enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: decbodmask
+    description: DECBOD Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: decovmboden
+    description: Over Voltage Monitor enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: decovmbodmask
+    description: Over Voltage Monitor Mask.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Dgien:
+  description: No Description.
+  fields:
+  - name: em23wakeupdgien
+    description: EM23 Wake up Interrupt enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: tempdgien
+    description: Temperature Interrupt enable.
+    bit_offset: 29
+    bit_size: 1
+  - name: templowdgien
+    description: Temperature low Interrupt enable.
+    bit_offset: 30
+    bit_size: 1
+  - name: temphighdgien
+    description: Temperature high Interrupt enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Dgif:
+  description: No Description.
+  fields:
+  - name: em23wakeupdgif
+    description: EM23 Wake up Interrupt flag.
+    bit_offset: 24
+    bit_size: 1
+  - name: tempdgif
+    description: Temperature Interrupt flag.
+    bit_offset: 29
+    bit_size: 1
+  - name: templowdgif
+    description: Temperature low Interrupt flag.
+    bit_offset: 30
+    bit_size: 1
+  - name: temphighdgif
+    description: Temperature high Interrupt flag.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Efpien:
+  description: No Description.
+  fields:
+  - name: efpien
+    description: EFP Interrupt enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Efpif:
+  description: No Description.
+  fields:
+  - name: efpif
+    description: EFP Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Em4ctrl:
+  description: No Description.
+  fields:
+  - name: em4entry
+    description: EM4 entry request.
+    bit_offset: 0
+    bit_size: 2
+  - name: em4ioretmode
+    description: EM4 IO retention mode.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Em4ioretmode
+  - name: bod3senseem4wu
+    description: Set BOD3SENSE as EM4 wakeup.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: avddbod
+    description: AVDD BOD Interrupt enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: iovdd0bod
+    description: VDDIO0 BOD Interrupt enable.
+    bit_offset: 17
+    bit_size: 1
+  - name: em23wakeup
+    description: EM23 Wake up Interrupt enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: vscaledone
+    description: Vscale done Interrupt enable.
+    bit_offset: 25
+    bit_size: 1
+  - name: tempavg
+    description: Temperature Interrupt enable.
+    bit_offset: 27
+    bit_size: 1
+  - name: temp
+    description: Temperature Interrupt enable.
+    bit_offset: 29
+    bit_size: 1
+  - name: templow
+    description: Temperature low Interrupt enable.
+    bit_offset: 30
+    bit_size: 1
+  - name: temphigh
+    description: Temperature high Interrupt enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: avddbod
+    description: AVDD BOD Interrupt flag.
+    bit_offset: 16
+    bit_size: 1
+  - name: iovdd0bod
+    description: VDDIO0 BOD Interrupt flag.
+    bit_offset: 17
+    bit_size: 1
+  - name: em23wakeup
+    description: EM23 Wake up Interrupt flag.
+    bit_offset: 24
+    bit_size: 1
+  - name: vscaledone
+    description: Vscale done Interrupt flag.
+    bit_offset: 25
+    bit_size: 1
+  - name: tempavg
+    description: Temperature Average Interrupt flag.
+    bit_offset: 27
+    bit_size: 1
+  - name: temp
+    description: Temperature Interrupt flag.
+    bit_offset: 29
+    bit_size: 1
+  - name: templow
+    description: Temperature low Interrupt flag.
+    bit_offset: 30
+    bit_size: 1
+  - name: temphigh
+    description: Temperature high Interrupt flag.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Lock:
+  description: No Description.
+  fields:
+  - name: lockkey
+    description: Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Pd1paretctrl:
+  description: No Description.
+  fields:
+  - name: pd1paretdis
+    description: Disable PD1 Partial Retention.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Pd1paretdis
+fieldset/regs::Rstcause:
+  description: No Description.
+  fields:
+  - name: por
+    description: Power On Reset.
+    bit_offset: 0
+    bit_size: 1
+  - name: pin
+    description: Pin Reset.
+    bit_offset: 1
+    bit_size: 1
+  - name: em4
+    description: EM4 Wakeup Reset.
+    bit_offset: 2
+    bit_size: 1
+  - name: wdog0
+    description: Watchdog 0 Reset.
+    bit_offset: 3
+    bit_size: 1
+  - name: lockup
+    description: M33 Core Lockup Reset.
+    bit_offset: 5
+    bit_size: 1
+  - name: sysreq
+    description: M33 Core Sys Reset.
+    bit_offset: 6
+    bit_size: 1
+  - name: dvddbod
+    description: HVBOD Reset.
+    bit_offset: 7
+    bit_size: 1
+  - name: dvddlebod
+    description: LEBOD Reset.
+    bit_offset: 8
+    bit_size: 1
+  - name: decbod
+    description: LVBOD Reset.
+    bit_offset: 9
+    bit_size: 1
+  - name: avddbod
+    description: LEBOD1 Reset.
+    bit_offset: 10
+    bit_size: 1
+  - name: iovdd0bod
+    description: LEBOD2 Reset.
+    bit_offset: 11
+    bit_size: 1
+  - name: dci
+    description: DCI reset.
+    bit_offset: 16
+    bit_size: 1
+  - name: vregin
+    description: DCDC VREGIN comparator.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Rstctrl:
+  description: No Description.
+  fields:
+  - name: wdog0rmode
+    description: Enable WDOG0 reset.
+    bit_offset: 0
+    bit_size: 1
+  - name: sysrmode
+    description: Enable M33 System reset.
+    bit_offset: 2
+    bit_size: 1
+  - name: lockuprmode
+    description: Enable M33 Lockup reset.
+    bit_offset: 3
+    bit_size: 1
+  - name: avddbodrmode
+    description: Enable AVDD BOD reset.
+    bit_offset: 6
+    bit_size: 1
+  - name: iovdd0bodrmode
+    description: Enable VDDIO0 BOD reset.
+    bit_offset: 7
+    bit_size: 1
+  - name: decbodrmode
+    description: Enable DECBOD reset.
+    bit_offset: 10
+    bit_size: 1
+  - name: dcirmode
+    description: DCI System reset.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: lock
+    description: Lock status.
+    bit_offset: 0
+    bit_size: 1
+  - name: firsttempdone
+    description: First Temp done.
+    bit_offset: 1
+    bit_size: 1
+  - name: tempactive
+    description: Temp active.
+    bit_offset: 2
+    bit_size: 1
+  - name: tempavgactive
+    description: Temp Average active.
+    bit_offset: 3
+    bit_size: 1
+  - name: vscalebusy
+    description: Vscale busy.
+    bit_offset: 4
+    bit_size: 1
+  - name: vscalefailed
+    description: Vscale failed.
+    bit_offset: 5
+    bit_size: 1
+  - name: vscale
+    description: Vscale status.
+    bit_offset: 6
+    bit_size: 2
+    enum: vals::Vscale
+  - name: racactive
+    description: RAC active.
+    bit_offset: 10
+    bit_size: 1
+  - name: em4ioret
+    description: EM4 IO retention status.
+    bit_offset: 12
+    bit_size: 1
+  - name: em2entered
+    description: EM2 entered.
+    bit_offset: 14
+    bit_size: 1
+fieldset/regs::Temp:
+  description: No Description.
+  fields:
+  - name: templsb
+    description: Temperature measured decimal part.
+    bit_offset: 0
+    bit_size: 2
+  - name: temp
+    description: Temperature measured.
+    bit_offset: 2
+    bit_size: 9
+  - name: tempavg
+    description: Averaged Temperature.
+    bit_offset: 16
+    bit_size: 11
+fieldset/regs::Templimits:
+  description: No Description.
+  fields:
+  - name: templow
+    description: Temp Low limit.
+    bit_offset: 0
+    bit_size: 9
+  - name: temphigh
+    description: Temp High limit.
+    bit_offset: 16
+    bit_size: 9
+fieldset/regs::Vregvddcmpctrl:
+  description: No Description.
+  fields:
+  - name: vregincmpen
+    description: VREGVDD comparator enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: thressel
+    description: VREGVDD comparator threshold programming.
+    bit_offset: 1
+    bit_size: 2
+enum/vals::Em23vscale:
+  bit_size: 2
+  variants:
+  - name: Vscale0
+    description: VSCALE0. 0.9v.
+    value: 0
+  - name: Vscale1
+    description: VSCALE1. 1.0v.
+    value: 1
+  - name: Vscale2
+    description: VSCALE2. 1.1v.
+    value: 2
+enum/vals::Em4ioretmode:
+  bit_size: 2
+  variants:
+  - name: Disable
+    description: 'No Retention: Pads enter reset state when entering EM4.'
+    value: 0
+  - name: Em4exit
+    description: 'Retention through EM4: Pads enter reset state when exiting EM4.'
+    value: 1
+  - name: Swunlatch
+    description: 'Retention through EM4 and Wakeup: software writes UNLATCH register to remove retention.'
+    value: 2
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Unlock
+    description: Unlock EMU register.
+    value: 44520
+enum/vals::Pd1paretdis:
+  bit_size: 16
+  variants:
+  - name: Noretain
+    description: Do not retain associcated registers when in EM2/3.
+    value: 1
+  - name: Retain
+    description: Retain associated registers when in EM2/3.
+    value: 0
+enum/vals::Tempavgnum:
+  bit_size: 1
+  variants:
+  - name: N16
+    description: 16 measurements.
+    value: 0
+  - name: N64
+    description: 64 measurements.
+    value: 1
+enum/vals::Vscale:
+  bit_size: 2
+  variants:
+  - name: Vscale0
+    description: Voltage scaling set to 0.9v.
+    value: 0
+  - name: Vscale1
+    description: Voltage scaling set to 1.0v.
+    value: 1
+  - name: Vscale2
+    description: Voltage scaling set to 1.1v.
+    value: 2

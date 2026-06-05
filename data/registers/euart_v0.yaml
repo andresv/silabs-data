@@ -1,0 +1,755 @@
+block/Euart:
+  description: EUART peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: en
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::En
+  - name: cfg0
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Cfg0
+  - name: cfg1
+    description: No Description.
+    byte_offset: 12
+    fieldset: regs::Cfg1
+  - name: framecfg
+    description: No Description.
+    byte_offset: 16
+    fieldset: regs::Framecfg
+  - name: irhfcfg
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::Irhfcfg
+  - name: irlfcfg
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Irlfcfg
+  - name: timingcfg
+    description: No Description.
+    byte_offset: 28
+    fieldset: regs::Timingcfg
+  - name: startframecfg
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::Startframecfg
+  - name: sigframecfg
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::Sigframecfg
+  - name: clkdiv
+    description: No Description.
+    byte_offset: 40
+    fieldset: regs::Clkdiv
+  - name: trigctrl
+    description: No Description.
+    byte_offset: 44
+    fieldset: regs::Trigctrl
+  - name: cmd
+    description: No Description.
+    byte_offset: 48
+    access: Write
+    fieldset: regs::Cmd
+  - name: rxdata
+    description: No Description.
+    byte_offset: 52
+    access: Read
+    fieldset: regs::Rxdata
+  - name: rxdatap
+    description: No Description.
+    byte_offset: 56
+    access: Read
+    fieldset: regs::Rxdatap
+  - name: txdata
+    description: No Description.
+    byte_offset: 60
+    access: Write
+    fieldset: regs::Txdata
+  - name: status
+    description: No Description.
+    byte_offset: 64
+    access: Read
+    fieldset: regs::Status
+  - name: if_
+    description: No Description.
+    byte_offset: 68
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 72
+    fieldset: regs::Ien
+  - name: syncbusy
+    description: No Description.
+    byte_offset: 76
+    access: Read
+    fieldset: regs::Syncbusy
+fieldset/regs::Cfg0:
+  description: No Description.
+  fields:
+  - name: loopbk
+    description: Loopback Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: ccen
+    description: Collision Check Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: mpm
+    description: Multi-Processor Mode.
+    bit_offset: 3
+    bit_size: 1
+  - name: mpab
+    description: Multi-Processor Address-Bit.
+    bit_offset: 4
+    bit_size: 1
+  - name: ovs
+    description: Oversampling.
+    bit_offset: 5
+    bit_size: 3
+    enum: vals::Ovs
+  - name: msbf
+    description: Most Significant Bit First.
+    bit_offset: 10
+    bit_size: 1
+  - name: rxinv
+    description: Receiver Input Invert.
+    bit_offset: 13
+    bit_size: 1
+  - name: txinv
+    description: Transmitter output Invert.
+    bit_offset: 14
+    bit_size: 1
+  - name: autotri
+    description: Automatic TX Tristate.
+    bit_offset: 17
+    bit_size: 1
+  - name: skipperrf
+    description: Skip Parity Error Frames.
+    bit_offset: 20
+    bit_size: 1
+  - name: errsdma
+    description: Halt DMA Read On Error.
+    bit_offset: 22
+    bit_size: 1
+  - name: errsrx
+    description: Disable RX On Error.
+    bit_offset: 23
+    bit_size: 1
+  - name: errstx
+    description: Disable TX On Error.
+    bit_offset: 24
+    bit_size: 1
+  - name: mvdis
+    description: Majority Vote Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: autobauden
+    description: AUTOBAUD detection enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Cfg1:
+  description: No Description.
+  fields:
+  - name: dbghalt
+    description: Debug halt.
+    bit_offset: 0
+    bit_size: 1
+  - name: ctsinv
+    description: Clear-to-send Invert Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: ctsen
+    description: Clear-to-send Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: rtsinv
+    description: Request-to-send Invert Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: txdmawu
+    description: Transmitter DMA Wakeup.
+    bit_offset: 9
+    bit_size: 1
+  - name: rxdmawu
+    description: Receiver DMA Wakeup.
+    bit_offset: 10
+    bit_size: 1
+  - name: sfubrx
+    description: Start Frame Unblock Receiver.
+    bit_offset: 11
+    bit_size: 1
+  - name: rxprsen
+    description: PRS RX Enable.
+    bit_offset: 15
+    bit_size: 1
+  - name: txfiw
+    description: TX FIFO Interrupt Watermark.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Txfiw
+  - name: rxfiw
+    description: RX FIFO Interrupt Watermark.
+    bit_offset: 19
+    bit_size: 2
+    enum: vals::Rxfiw
+  - name: rtsrxfw
+    description: Request-to-send RX FIFO Watermark.
+    bit_offset: 22
+    bit_size: 2
+    enum: vals::Rtsrxfw
+fieldset/regs::Clkdiv:
+  description: No Description.
+  fields:
+  - name: div
+    description: Fractional Clock Divider.
+    bit_offset: 3
+    bit_size: 20
+fieldset/regs::Cmd:
+  description: No Description.
+  fields:
+  - name: rxen
+    description: Receiver Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: rxdis
+    description: Receiver Disable.
+    bit_offset: 1
+    bit_size: 1
+  - name: txen
+    description: Transmitter Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: txdis
+    description: Transmitter Disable.
+    bit_offset: 3
+    bit_size: 1
+  - name: rxblocken
+    description: Receiver Block Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: rxblockdis
+    description: Receiver Block Disable.
+    bit_offset: 5
+    bit_size: 1
+  - name: txtrien
+    description: Transmitter Tristate Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: txtridis
+    description: Transmitter Tristate Disable.
+    bit_offset: 7
+    bit_size: 1
+  - name: cleartx
+    description: Clear TX FIFO.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::En:
+  description: No Description.
+  fields:
+  - name: en
+    description: Module enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Framecfg:
+  description: No Description.
+  fields:
+  - name: databits
+    description: Data-Bit Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Databits
+  - name: parity
+    description: Parity-Bit Mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Parity
+  - name: stopbits
+    description: Stop-Bit Mode.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Stopbits
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: txc
+    description: TX Complete IEN.
+    bit_offset: 0
+    bit_size: 1
+  - name: txfl
+    description: TX FIFO Level IEN.
+    bit_offset: 1
+    bit_size: 1
+  - name: rxfl
+    description: RX FIFO Level IEN.
+    bit_offset: 2
+    bit_size: 1
+  - name: rxfull
+    description: RX FIFO Full IEN.
+    bit_offset: 3
+    bit_size: 1
+  - name: rxof
+    description: RX FIFO Overflow IEN.
+    bit_offset: 4
+    bit_size: 1
+  - name: rxuf
+    description: RX FIFO Underflow IEN.
+    bit_offset: 5
+    bit_size: 1
+  - name: txof
+    description: TX FIFO Overflow IEN.
+    bit_offset: 6
+    bit_size: 1
+  - name: perr
+    description: Parity Error IEN.
+    bit_offset: 8
+    bit_size: 1
+  - name: ferr
+    description: Framing Error IEN.
+    bit_offset: 9
+    bit_size: 1
+  - name: mpaf
+    description: Multi-Processor Addr Frame IEN.
+    bit_offset: 10
+    bit_size: 1
+  - name: ccf
+    description: Collision Check Fail IEN.
+    bit_offset: 12
+    bit_size: 1
+  - name: txidle
+    description: TX IDLE IEN.
+    bit_offset: 13
+    bit_size: 1
+  - name: startf
+    description: Start Frame IEN.
+    bit_offset: 18
+    bit_size: 1
+  - name: sigf
+    description: Signal Frame IEN.
+    bit_offset: 19
+    bit_size: 1
+  - name: autobauddone
+    description: Auto Baud Complete IEN.
+    bit_offset: 24
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: txc
+    description: TX Complete Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: txfl
+    description: TX FIFO Level Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: rxfl
+    description: RX FIFO Level Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: rxfull
+    description: RX FIFO Full Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: rxof
+    description: RX FIFO Overflow Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: rxuf
+    description: RX FIFO Underflow Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: txof
+    description: TX FIFO Overflow Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: perr
+    description: Parity Error Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: ferr
+    description: Framing Error Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: mpaf
+    description: Multi-Processor Address Frame Interrupt.
+    bit_offset: 10
+    bit_size: 1
+  - name: ccf
+    description: Collision Check Fail Interrupt Flag.
+    bit_offset: 12
+    bit_size: 1
+  - name: txidle
+    description: TX Idle Interrupt Flag.
+    bit_offset: 13
+    bit_size: 1
+  - name: startf
+    description: Start Frame Interrupt Flag.
+    bit_offset: 18
+    bit_size: 1
+  - name: sigf
+    description: Signal Frame Interrupt Flag.
+    bit_offset: 19
+    bit_size: 1
+  - name: autobauddone
+    description: Auto Baud Complete Interrupt Flag.
+    bit_offset: 24
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Irhfcfg:
+  description: No Description.
+  fields:
+  - name: irhfen
+    description: Enable IrDA Module.
+    bit_offset: 0
+    bit_size: 1
+  - name: irhfpw
+    description: IrDA TX Pulse Width.
+    bit_offset: 1
+    bit_size: 2
+    enum: vals::Irhfpw
+  - name: irhffilt
+    description: IrDA RX Filter.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::Irlfcfg:
+  description: No Description.
+  fields:
+  - name: irlfen
+    description: Pulse Generator/Extender Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Rxdata:
+  description: No Description.
+  fields:
+  - name: rxdata
+    description: RX Data.
+    bit_offset: 0
+    bit_size: 9
+  - name: perr
+    description: Parity Error.
+    bit_offset: 9
+    bit_size: 1
+  - name: ferr
+    description: Framing Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Rxdatap:
+  description: No Description.
+  fields:
+  - name: rxdatap
+    description: RX Data Peek.
+    bit_offset: 0
+    bit_size: 9
+  - name: perrp
+    description: Parity Error Peek.
+    bit_offset: 9
+    bit_size: 1
+  - name: ferrp
+    description: Framing Error Peek.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Sigframecfg:
+  description: No Description.
+  fields:
+  - name: sigframe
+    description: Signal Frame Value.
+    bit_offset: 0
+    bit_size: 9
+fieldset/regs::Startframecfg:
+  description: No Description.
+  fields:
+  - name: startframe
+    description: Start Frame.
+    bit_offset: 0
+    bit_size: 9
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: rxens
+    description: Receiver Enable Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: txens
+    description: Transmitter Enable Status.
+    bit_offset: 1
+    bit_size: 1
+  - name: rxblock
+    description: Block Incoming Data.
+    bit_offset: 3
+    bit_size: 1
+  - name: txtri
+    description: Transmitter Tristated.
+    bit_offset: 4
+    bit_size: 1
+  - name: txc
+    description: TX Complete.
+    bit_offset: 5
+    bit_size: 1
+  - name: txfl
+    description: TX FIFO Level.
+    bit_offset: 6
+    bit_size: 1
+  - name: rxfl
+    description: RX FIFO Level.
+    bit_offset: 7
+    bit_size: 1
+  - name: rxfull
+    description: RX FIFO Full.
+    bit_offset: 8
+    bit_size: 1
+  - name: rxidle
+    description: RX Idle.
+    bit_offset: 12
+    bit_size: 1
+  - name: txidle
+    description: TX Idle.
+    bit_offset: 13
+    bit_size: 1
+  - name: txfcnt
+    description: Valid entries in TX FIFO.
+    bit_offset: 16
+    bit_size: 3
+  - name: cleartxbusy
+    description: TX FIFO Clear Busy.
+    bit_offset: 19
+    bit_size: 1
+  - name: autobauddone
+    description: Auto Baud Rate Detection Completed.
+    bit_offset: 24
+    bit_size: 1
+fieldset/regs::Syncbusy:
+  description: No Description.
+  fields:
+  - name: div
+    description: SYNCBUSY for DIV in CLKDIV.
+    bit_offset: 0
+    bit_size: 1
+  - name: rxten
+    description: SYNCBUSY for RXTEN in TRIGCTRL.
+    bit_offset: 1
+    bit_size: 1
+  - name: txten
+    description: SYNCBUSY for TXTEN in TRIGCTRL.
+    bit_offset: 2
+    bit_size: 1
+  - name: rxen
+    description: SYNCBUSY for RXEN in CMD.
+    bit_offset: 3
+    bit_size: 1
+  - name: rxdis
+    description: SYNCBUSY for RXDIS in CMD.
+    bit_offset: 4
+    bit_size: 1
+  - name: txen
+    description: SYNCBUSY for TXEN in CMD.
+    bit_offset: 5
+    bit_size: 1
+  - name: txdis
+    description: SYNCBUSY for TXDIS in CMD.
+    bit_offset: 6
+    bit_size: 1
+  - name: rxblocken
+    description: SYNCBUSY for RXBLOCKEN in CMD.
+    bit_offset: 7
+    bit_size: 1
+  - name: rxblockdis
+    description: SYNCBUSY for RXBLOCKDIS in CMD.
+    bit_offset: 8
+    bit_size: 1
+  - name: txtrien
+    description: SYNCBUSY for TXTRIEN in CMD.
+    bit_offset: 9
+    bit_size: 1
+  - name: txtridis
+    description: SYNCBUSY in TXTRIDIS in CMD.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Timingcfg:
+  description: No Description.
+  fields:
+  - name: txdelay
+    description: TX Delay Transmission.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Txdelay
+fieldset/regs::Trigctrl:
+  description: No Description.
+  fields:
+  - name: rxten
+    description: Receive Trigger Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: txten
+    description: Transmit Trigger Enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Txdata:
+  description: No Description.
+  fields:
+  - name: txdata
+    description: TX Data.
+    bit_offset: 0
+    bit_size: 9
+  - name: ubrxat
+    description: Unblock RX After Transmission.
+    bit_offset: 9
+    bit_size: 1
+  - name: txtriat
+    description: Set TXTRI After Transmisssion.
+    bit_offset: 10
+    bit_size: 1
+  - name: txbreak
+    description: Transit Data as Break.
+    bit_offset: 11
+    bit_size: 1
+  - name: txdisat
+    description: Clear TXEN After Transmission.
+    bit_offset: 12
+    bit_size: 1
+  - name: rxenat
+    description: Enable RXEN After Transmission.
+    bit_offset: 13
+    bit_size: 1
+enum/vals::Databits:
+  bit_size: 2
+  variants:
+  - name: Eight
+    description: Each frame contains 8 data bits.
+    value: 2
+  - name: Nine
+    description: Each frame contains 9 data bits.
+    value: 3
+  - name: Seven
+    description: Each frame contains 7 data bits.
+    value: 1
+enum/vals::Irhfpw:
+  bit_size: 2
+  variants:
+  - name: Four
+    description: IrDA pulse width is 4/16 for OVS=0 and 4/8 for OVS=1.
+    value: 3
+  - name: One
+    description: IrDA pulse width is 1/16 for OVS=0 and 1/8 for OVS=1.
+    value: 0
+  - name: Three
+    description: IrDA pulse width is 3/16 for OVS=0 and 3/8 for OVS=1.
+    value: 2
+  - name: Two
+    description: IrDA pulse width is 2/16 for OVS=0 and 2/8 for OVS=1.
+    value: 1
+enum/vals::Ovs:
+  bit_size: 3
+  variants:
+  - name: Disable
+    description: Disable oversampling (for LF operation).
+    value: 4
+  - name: X16
+    description: 16X oversampling.
+    value: 0
+  - name: X4
+    description: 4X oversampling.
+    value: 3
+  - name: X6
+    description: 6X oversampling.
+    value: 2
+  - name: X8
+    description: 8X oversampling.
+    value: 1
+enum/vals::Parity:
+  bit_size: 2
+  variants:
+  - name: Even
+    description: Even parity are used. Parity bits are automatically generated and checked by hardware.
+    value: 2
+  - name: None
+    description: Parity bits are not used.
+    value: 0
+  - name: Odd
+    description: Odd parity is used. Parity bits are automatically generated and checked by hardware.
+    value: 3
+enum/vals::Rtsrxfw:
+  bit_size: 2
+  variants:
+  - name: Fourframes
+    description: RTS is set if there is space for four more frames in the RX FIFO.
+    value: 3
+  - name: Oneframe
+    description: RTS is set if there is space for at least one more frame in the RX FIFO.
+    value: 0
+  - name: Threeframes
+    description: RTS is set if there is space for at least three more frames in the RX FIFO.
+    value: 2
+  - name: Twoframes
+    description: RTS is set if there is space for at least two more frames in the RX FIFO.
+    value: 1
+enum/vals::Rxfiw:
+  bit_size: 2
+  variants:
+  - name: Fourframes
+    description: RXFL status flag and IF are set when the RX FIFO has four frames in it.
+    value: 3
+  - name: Oneframe
+    description: RXFL status flag and IF are set when the RX FIFO has at least one frame in it.
+    value: 0
+  - name: Threeframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least three frames in it.
+    value: 2
+  - name: Twoframes
+    description: RXFL status flag and IF are set when the RX FIFO has at least two frames in it.
+    value: 1
+enum/vals::Stopbits:
+  bit_size: 2
+  variants:
+  - name: Half
+    description: The transmitter generates a half stop bit. Stop-bits are not verified by receiver.
+    value: 0
+  - name: One
+    description: One stop bit is generated and verified.
+    value: 1
+  - name: Oneandahalf
+    description: The transmitter generates one and a half stop bit. The receiver verifies the first stop bit.
+    value: 2
+  - name: Two
+    description: The transmitter generates two stop bits. The receiver checks the first stop-bit only.
+    value: 3
+enum/vals::Txdelay:
+  bit_size: 2
+  variants:
+  - name: Double
+    description: Transmission of new frames is delayed by a two bit periods.
+    value: 2
+  - name: None
+    description: Frames are transmitted immediately.
+    value: 0
+  - name: Single
+    description: Transmission of new frames is delayed by a single bit period.
+    value: 1
+  - name: Tripple
+    description: Transmission of new frames is delayed by a three bit periods.
+    value: 3
+enum/vals::Txfiw:
+  bit_size: 2
+  variants:
+  - name: Fourframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least four more frames.
+    value: 3
+  - name: Oneframe
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least one more frame.
+    value: 0
+  - name: Threeframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least three more frames.
+    value: 2
+  - name: Twoframes
+    description: TXFL status flag and IF are set when the TX FIFO has space for at least two more frames.
+    value: 1
