@@ -25,6 +25,7 @@ use silabs_data_gen::chips::{ChipFile, Interrupt, PeripheralInstance};
 use silabs_data_gen::pdsc::MemoryRegion;
 
 use crate::pac::module_name;
+use crate::peripheral::is_secure_alias;
 
 /// Convert a perimap-routed block name (e.g. `GPIO`, `EUSART`, `I2C`) into the
 /// PascalCase identifier `chiptool::transform::sanitize::Sanitize::default()`
@@ -345,7 +346,7 @@ fn emit_typed_peripheral_consts(s: &mut String, peripherals: &[PeripheralInstanc
     use std::collections::BTreeMap;
     let mut by_base: BTreeMap<String, &PeripheralInstance> = BTreeMap::new();
     for p in peripherals {
-        if p.name.ends_with("_S") && !p.name.ends_with("_NS") {
+        if is_secure_alias(&p.name) {
             continue;
         }
         let base_name = p
@@ -439,7 +440,7 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
     // Peripherals: dedup NS/S, strip the `_NS` suffix.
     let mut by_base: BTreeMap<String, &PeripheralInstance> = BTreeMap::new();
     for p in &chip.peripherals {
-        if p.name.ends_with("_S") && !p.name.ends_with("_NS") {
+        if is_secure_alias(&p.name) {
             continue;
         }
         let base_name = p
