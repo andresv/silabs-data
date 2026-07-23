@@ -16,7 +16,7 @@
 //!             └── mod.rs        # peripheral instances + interrupts + memory map
 //! ```
 
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
 use anyhow::{Context, Result};
@@ -241,6 +241,31 @@ pub fn build_chip_pac_rs(chip: &ChipFile) -> String {
             ));
         }
         s.push_str("\n");
+
+        // Version-neutral aliases (`pub use cmu_v3 as cmu;`), emitted when the
+        // chip's non-secure peripherals agree on one version of a kind.
+        let mut ns_versions: BTreeMap<&String, BTreeSet<&String>> = BTreeMap::new();
+        for p in &chip.peripherals {
+            if is_secure_alias(&p.name) {
+                continue;
+            }
+            ns_versions.entry(&p.kind).or_default().insert(&p.register_version);
+        }
+        let aliased: Vec<_> = ns_versions
+            .iter()
+            .filter_map(|(kind, versions)| match versions.first() {
+                Some(version) if versions.len() == 1 => Some((kind, version)),
+                _ => None,
+            })
+            .collect();
+        if !aliased.is_empty() {
+            s.push_str("// Version-neutral aliases for single-version kinds.\n");
+            for (kind, version) in aliased {
+                let mod_name = module_name(kind, version);
+                s.push_str(&format!("pub use {mod_name} as {kind};\n"));
+            }
+            s.push('\n');
+        }
     }
 
     s.push_str("/// Memory map (flash/RAM regions, from the CMSIS pdsc).\n");
@@ -638,6 +663,70 @@ mod tests {
             "missing dcdc_v1 #[path] mod decl:\n{s}"
         );
         assert_eq!(s.matches("pub mod acmp_v2;").count(), 1);
+    }
+
+    #[test]
+    fn pac_rs_emits_version_neutral_kind_aliases() {
+        let mut chip = fake_chip();
+        // Two versions of the same kind on one die - no alias must be emitted.
+        chip.peripherals.push(PeripheralInstance {
+            name: "EUSART0_NS".into(),
+            base_address: 0x4000_0000,
+            version: Some("2".into()),
+            kind: "eusart".into(),
+            register_version: "v2".into(),
+            block: "EUSART".into(),
+        });
+        chip.peripherals.push(PeripheralInstance {
+            name: "EUSART1_NS".into(),
+            base_address: 0x4000_1000,
+            version: Some("2".into()),
+            kind: "eusart".into(),
+            register_version: "v2_lf".into(),
+            block: "EUSART".into(),
+        });
+        // A secure alias routed to a different version must not suppress the
+        // alias - constants are only emitted for the non-secure instance.
+        chip.peripherals.push(PeripheralInstance {
+            name: "DMEM_NS".into(),
+            base_address: 0x4000_2000,
+            version: Some("2".into()),
+            kind: "dmem".into(),
+            register_version: "v2_fg25".into(),
+            block: "DMEM".into(),
+        });
+        chip.peripherals.push(PeripheralInstance {
+            name: "DMEM_S".into(),
+            base_address: 0x5000_2000,
+            version: Some("2".into()),
+            kind: "dmem".into(),
+            register_version: "v2".into(),
+            block: "DMEM".into(),
+        });
+        // Secure `_S_` infix instance - neither aliased nor const-emitted.
+        chip.peripherals.push(PeripheralInstance {
+            name: "SEMAILBOX_S_HOST".into(),
+            base_address: 0x4C00_0000,
+            version: Some("1".into()),
+            kind: "semailbox_s_host".into(),
+            register_version: "v1".into(),
+            block: "SEMAILBOX_S_HOST".into(),
+        });
+        let s = build_chip_pac_rs(&chip);
+        assert!(s.contains("pub use acmp_v2 as acmp;"), "missing acmp alias:\n{s}");
+        assert!(s.contains("pub use dcdc_v1 as dcdc;"), "missing dcdc alias:\n{s}");
+        assert!(
+            s.contains("pub use dmem_v2_fg25 as dmem;"),
+            "alias must follow the non-secure instance's version:\n{s}"
+        );
+        assert!(
+            !s.contains(" as eusart;"),
+            "eusart has two versions, must not be aliased:\n{s}"
+        );
+        assert!(
+            !s.contains(" as semailbox_s_host;") && !s.contains("pub const SEMAILBOX_S_HOST"),
+            "secure infix instances must be skipped:\n{s}"
+        );
     }
 
     #[test]
