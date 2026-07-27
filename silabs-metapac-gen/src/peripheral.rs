@@ -86,8 +86,10 @@ pub fn strip_secure_peripherals(xml: &str) -> Result<String> {
     Ok(String::from_utf8(inner)?)
 }
 
-fn is_secure_alias(name: &str) -> bool {
-    name.ends_with("_S") && !name.ends_with("_NS")
+/// Secure-state alias of a peripheral: a plain `_S` suffix (`ACMP0_S`) or an
+/// `_S_` infix port (`SEMAILBOX_S_HOST`).
+pub(crate) fn is_secure_alias(name: &str) -> bool {
+    (name.ends_with("_S") && !name.ends_with("_NS")) || name.contains("_S_")
 }
 
 #[cfg(test)]
