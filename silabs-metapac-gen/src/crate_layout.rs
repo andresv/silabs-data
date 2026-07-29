@@ -19,13 +19,13 @@
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, bail};
 use convert_case::{Boundary, Case, Casing};
 use silabs_data_gen::chips::{ChipFile, Interrupt, PeripheralInstance};
 use silabs_data_gen::pdsc::MemoryRegion;
 
 use crate::pac::module_name;
-use crate::peripheral::is_secure_alias;
+use crate::peripheral::{nonsecure_to_secure_name, secure_to_nonsecure_name};
 
 /// Convert a perimap-routed block name (e.g. `GPIO`, `EUSART`, `I2C`) into the
 /// PascalCase identifier `chiptool::transform::sanitize::Sanitize::default()`
@@ -37,6 +37,89 @@ use crate::peripheral::is_secure_alias;
 /// under `Case::Pascal` and miss the struct named `I2c` in the YAML.
 fn block_struct_ident(block: &str) -> String {
     block.remove_boundaries(&Boundary::digits()).to_case(Case::Pascal)
+}
+
+/// Secure aliases whose non-secure peer is present in the same chip. Only
+/// these confirmed pairs may share the non-secure peer's register definition.
+fn paired_secure_alias_names(peripherals: &[PeripheralInstance]) -> BTreeSet<&str> {
+    let names: BTreeSet<&str> = peripherals.iter().map(|p| p.name.as_str()).collect();
+    peripherals
+        .iter()
+        .filter_map(|p| {
+            secure_to_nonsecure_name(&p.name)
+                .filter(|peer| names.contains(peer.as_str()))
+                .map(|_| p.name.as_str())
+        })
+        .collect()
+}
+
+struct PeripheralGroup<'a> {
+    canonical_name: String,
+    nonsecure: &'a PeripheralInstance,
+    secure: Option<&'a PeripheralInstance>,
+}
+
+/// Collapse each confirmed NS/S pair to one register-layout owner while
+/// retaining the original secure instance (and address) alongside it.
+fn peripheral_groups(peripherals: &[PeripheralInstance]) -> BTreeMap<String, PeripheralGroup<'_>> {
+    let by_name: BTreeMap<&str, &PeripheralInstance> = peripherals.iter().map(|p| (p.name.as_str(), p)).collect();
+    let paired_secure = paired_secure_alias_names(peripherals);
+    let mut groups = BTreeMap::new();
+
+    for p in peripherals {
+        if paired_secure.contains(p.name.as_str()) {
+            continue;
+        }
+
+        let secure = nonsecure_to_secure_name(&p.name)
+            .and_then(|name| by_name.get(name.as_str()).copied())
+            .filter(|candidate| paired_secure.contains(candidate.name.as_str()));
+        // Preserve the existing public name for suffix aliases (`GPIO_NS` →
+        // `GPIO`). Infix aliases were already public as `SEMAILBOX_NS_HOST`.
+        let canonical_name = p
+            .name
+            .strip_suffix("_NS")
+            .map(str::to_owned)
+            .unwrap_or_else(|| p.name.clone());
+        let old = groups.insert(
+            canonical_name.clone(),
+            PeripheralGroup {
+                canonical_name,
+                nonsecure: p,
+                secure,
+            },
+        );
+        assert!(old.is_none(), "duplicate canonical peripheral name in chip data");
+    }
+    groups
+}
+
+/// Validate the documented Series 2 address relationship. Exact addresses
+/// still come from the SVD; the XOR is checked only as an invariant so a
+/// changed vendor map fails generation instead of silently producing a
+/// misleading API.
+pub fn validate_trustzone_aliases(chip: &ChipFile) -> Result<()> {
+    let groups = peripheral_groups(&chip.peripherals);
+    for group in groups.values() {
+        let Some(secure) = group.secure else {
+            continue;
+        };
+        let nonsecure = group.nonsecure;
+
+        if chip.chip.series.as_ref().is_some_and(|s| s.series == 2)
+            && nonsecure.base_address ^ secure.base_address != 0x1000_0000
+        {
+            bail!(
+                "{}: TrustZone aliases {}=0x{:08X} and {}=0x{:08X} do not differ by 0x1000_0000",
+                chip.chip.name,
+                nonsecure.name,
+                nonsecure.base_address,
+                secure.name,
+                secure.base_address,
+            );
+        }
+    }
+    Ok(())
 }
 
 /// Lower-cased Cargo feature name for a given chip name (`EFR32MG26B211F2048IM68`).
@@ -228,8 +311,12 @@ pub fn build_chip_pac_rs(chip: &ChipFile) -> String {
     // Module names keep `<kind>_<version>` to support chips with multiple
     // versions of the same kind on the same die (e.g. EFR32MG26 with
     // `eusart_v2` + `eusart_v2_lf`).
+    let paired_secure = paired_secure_alias_names(&chip.peripherals);
     let mut kinds: BTreeSet<(String, String)> = BTreeSet::new();
     for p in &chip.peripherals {
+        if paired_secure.contains(p.name.as_str()) {
+            continue;
+        }
         kinds.insert((p.kind.clone(), p.register_version.clone()));
     }
     if !kinds.is_empty() {
@@ -246,7 +333,7 @@ pub fn build_chip_pac_rs(chip: &ChipFile) -> String {
         // chip's non-secure peripherals agree on one version of a kind.
         let mut ns_versions: BTreeMap<&String, BTreeSet<&String>> = BTreeMap::new();
         for p in &chip.peripherals {
-            if is_secure_alias(&p.name) {
+            if paired_secure.contains(p.name.as_str()) {
                 continue;
             }
             ns_versions.entry(&p.kind).or_default().insert(&p.register_version);
@@ -277,11 +364,9 @@ pub fn build_chip_pac_rs(chip: &ChipFile) -> String {
 
     s.push_str("/// Typed peripheral instance constants.\n");
     s.push_str("///\n");
-    s.push_str("/// Each peripheral is exposed once at its **non-secure** address (the alias\n");
-    s.push_str("/// reachable from non-secure CPU state on TrustZone-enabled images). The\n");
-    s.push_str("/// secure alias for any peripheral on Series 2 is `addr ^ 0x0100_0000`.\n");
-    s.push_str("/// Secure-state code can XOR the bit explicitly when crossing the\n");
-    s.push_str("/// security boundary.\n");
+    s.push_str("/// The canonical unsuffixed name uses the non-secure address for a paired\n");
+    s.push_str("/// TrustZone peripheral, and an explicit `_S` constant uses the secure SVD\n");
+    s.push_str("/// address. Infix vendor names such as `_NS_HOST` remain unchanged.\n");
     emit_typed_peripheral_consts(&mut s, &chip.peripherals);
 
     emit_gpio_port_constants(&mut s, &chip.peripherals);
@@ -364,32 +449,27 @@ fn emit_memory_consts(s: &mut String, m: &MemoryRegion) {
     s.push_str(&format!("    pub const {id}_SIZE: usize = 0x{:08X};\n", m.size));
 }
 
-/// Emit typed peripheral instance consts, one per NS peripheral. Each carries
-/// its perimap-routed `(kind, register_version, block)` triple in the chip
-/// JSON; we reference the resulting `crate::<kind>_<version>::<Block>` type.
+/// Emit typed peripheral instance consts. A confirmed NS/S pair shares the
+/// non-secure peer's register-block type but retains both exact SVD addresses.
+/// For suffix pairs, the existing unsuffixed non-secure constant is retained
+/// alongside the explicit `_S` constant; a redundant `_NS` constant is not
+/// emitted.
 fn emit_typed_peripheral_consts(s: &mut String, peripherals: &[PeripheralInstance]) {
-    use std::collections::BTreeMap;
-    let mut by_base: BTreeMap<String, &PeripheralInstance> = BTreeMap::new();
-    for p in peripherals {
-        if is_secure_alias(&p.name) {
-            continue;
-        }
-        let base_name = p
-            .name
-            .strip_suffix("_NS")
-            .map(str::to_owned)
-            .unwrap_or_else(|| p.name.clone());
-        by_base.entry(base_name).or_insert(p);
-    }
-
-    for (name, p) in by_base {
-        let mod_name = module_name(&p.kind, &p.register_version);
-        let struct_name = block_struct_ident(&p.block);
+    fn emit_const(s: &mut String, name: &str, type_owner: &PeripheralInstance, address: u64) {
+        let mod_name = module_name(&type_owner.kind, &type_owner.register_version);
+        let struct_name = block_struct_ident(&type_owner.block);
         s.push_str(&format!(
             "pub const {name}: crate::{mod_name}::{struct_name} = unsafe {{ \
-             crate::{mod_name}::{struct_name}::from_ptr(0x{:08X} as *mut ()) }};\n",
-            p.base_address
+             crate::{mod_name}::{struct_name}::from_ptr(0x{address:08X} as *mut ()) }};\n",
         ));
+    }
+
+    for group in peripheral_groups(peripherals).into_values() {
+        let p = group.nonsecure;
+        emit_const(s, &group.canonical_name, p, p.base_address);
+        if let Some(secure) = group.secure {
+            emit_const(s, &secure.name, p, secure.base_address);
+        }
     }
     s.push('\n');
 }
@@ -449,11 +529,9 @@ fn series_literal_for_chip(chip: &ChipFile) -> String {
 /// `Metadata`, `MemoryRegion`, `Peripheral`, `Interrupt` resolve against
 /// the surrounding module without an explicit `use`.
 ///
-/// Dedup: only the non-secure alias of each peripheral is emitted (same
-/// rule [`emit_typed_peripheral_consts`] applies for the typed consts).
+/// Dedup: one metadata row owns each register layout. For a paired TrustZone
+/// peripheral it carries both the non-secure and secure SVD base addresses.
 pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
-    use std::collections::BTreeMap;
-
     let mut s = String::new();
     s.push_str("// Per-chip iterable metadata. Generated for ");
     s.push_str(&chip.chip.name);
@@ -462,19 +540,7 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
     s.push_str("// type names resolve to the surrounding module — see\n");
     s.push_str("// silabs-metapac-gen/res/metadata.rs.\n\n");
 
-    // Peripherals: dedup NS/S, strip the `_NS` suffix.
-    let mut by_base: BTreeMap<String, &PeripheralInstance> = BTreeMap::new();
-    for p in &chip.peripherals {
-        if is_secure_alias(&p.name) {
-            continue;
-        }
-        let base_name = p
-            .name
-            .strip_suffix("_NS")
-            .map(str::to_owned)
-            .unwrap_or_else(|| p.name.clone());
-        by_base.entry(base_name).or_insert(p);
-    }
+    let peripheral_groups = peripheral_groups(&chip.peripherals);
 
     // Interrupts: dedup by name, preserve value ordering.
     let mut seen_irq: BTreeSet<String> = BTreeSet::new();
@@ -503,10 +569,15 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
     s.push_str("    ],\n");
 
     s.push_str("    peripherals: &[\n");
-    for (name, p) in &by_base {
+    for group in peripheral_groups.values() {
+        let p = group.nonsecure;
+        let secure_address = group
+            .secure
+            .map(|secure| format!("Some(0x{:08X})", secure.base_address))
+            .unwrap_or_else(|| "None".to_owned());
         s.push_str(&format!(
-            "        Peripheral {{ name: {:?}, address: 0x{:08X}, kind: {:?}, version: {:?}, block: {:?} }},\n",
-            name, p.base_address, p.kind, p.register_version, p.block,
+            "        Peripheral {{ name: {:?}, address: 0x{:08X}, secure_address: {}, kind: {:?}, version: {:?}, block: {:?} }},\n",
+            group.canonical_name, p.base_address, secure_address, p.kind, p.register_version, p.block,
         ));
     }
     s.push_str("    ],\n");
@@ -525,8 +596,12 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
     // `pub static REGISTERS: IR`. The
     // chip declares only the kinds it uses; `#[path]` is relative to this
     // file, so `../../registers/...` reaches `src/registers/`.
+    let paired_secure = paired_secure_alias_names(&chip.peripherals);
     let mut kinds: BTreeSet<(String, String)> = BTreeSet::new();
     for p in &chip.peripherals {
+        if paired_secure.contains(p.name.as_str()) {
+            continue;
+        }
         kinds.insert((p.kind.clone(), p.register_version.clone()));
     }
     if !kinds.is_empty() {
@@ -579,7 +654,7 @@ mod tests {
             peripherals: vec![
                 PeripheralInstance {
                     name: "ACMP0_NS".into(),
-                    base_address: 0x4000_E000,
+                    base_address: 0x5000_E000,
                     version: Some("2".into()),
                     kind: "acmp".into(),
                     register_version: "v2".into(),
@@ -587,7 +662,7 @@ mod tests {
                 },
                 PeripheralInstance {
                     name: "ACMP0_S".into(),
-                    base_address: 0x5000_E000,
+                    base_address: 0x4000_E000,
                     version: Some("2".into()),
                     kind: "acmp".into(),
                     register_version: "v2".into(),
@@ -630,11 +705,17 @@ mod tests {
         // `Sanitize::default()`'s output in the rendered register YAML.
         assert!(
             s.contains(
-                "pub const ACMP0: crate::acmp_v2::Acmp = unsafe { crate::acmp_v2::Acmp::from_ptr(0x4000E000 as *mut ()) };"
+                "pub const ACMP0: crate::acmp_v2::Acmp = unsafe { crate::acmp_v2::Acmp::from_ptr(0x5000E000 as *mut ()) };"
             ),
             "missing typed ACMP0 const:\n{s}"
         );
-        assert!(!s.contains("ACMP0_S"), "_S consts must not be emitted; got:\n{s}");
+        assert!(!s.contains("pub const ACMP0_NS:"), "redundant ACMP0_NS const:\n{s}");
+        assert!(
+            s.contains(
+                "pub const ACMP0_S: crate::acmp_v2::Acmp = unsafe { crate::acmp_v2::Acmp::from_ptr(0x4000E000 as *mut ()) };"
+            ),
+            "missing secure ACMP0_S const:\n{s}"
+        );
         assert!(
             s.contains("pub const DCDC: crate::dcdc_v1::Dcdc"),
             "missing typed DCDC const:\n{s}"
@@ -642,10 +723,7 @@ mod tests {
         // Interrupts are emitted only as the `pub enum Interrupt` variants —
         // no separate `pub const ACMP0: u8 = 41;` const module, matching
         // stm32-metapac's pac.rs shape.
-        assert!(
-            s.contains("ACMP0 = 41,"),
-            "missing ACMP0 enum variant:\n{s}"
-        );
+        assert!(s.contains("ACMP0 = 41,"), "missing ACMP0 enum variant:\n{s}");
         assert!(s.contains("TIMER0 = 25,"));
         assert!(!s.contains("pub const ACMP0: u8"));
         assert!(!s.contains("pub mod interrupts"));
@@ -671,7 +749,7 @@ mod tests {
         // Two versions of the same kind on one die - no alias must be emitted.
         chip.peripherals.push(PeripheralInstance {
             name: "EUSART0_NS".into(),
-            base_address: 0x4000_0000,
+            base_address: 0x5000_0000,
             version: Some("2".into()),
             kind: "eusart".into(),
             register_version: "v2".into(),
@@ -679,17 +757,18 @@ mod tests {
         });
         chip.peripherals.push(PeripheralInstance {
             name: "EUSART1_NS".into(),
-            base_address: 0x4000_1000,
+            base_address: 0x5000_1000,
             version: Some("2".into()),
             kind: "eusart".into(),
             register_version: "v2_lf".into(),
             block: "EUSART".into(),
         });
         // A secure alias routed to a different version must not suppress the
-        // alias - constants are only emitted for the non-secure instance.
+        // version-neutral alias. Its instance constant uses the non-secure
+        // peer's register type while retaining the secure SVD address.
         chip.peripherals.push(PeripheralInstance {
             name: "DMEM_NS".into(),
-            base_address: 0x4000_2000,
+            base_address: 0x5000_2000,
             version: Some("2".into()),
             kind: "dmem".into(),
             register_version: "v2_fg25".into(),
@@ -697,13 +776,21 @@ mod tests {
         });
         chip.peripherals.push(PeripheralInstance {
             name: "DMEM_S".into(),
-            base_address: 0x5000_2000,
+            base_address: 0x4000_2000,
             version: Some("2".into()),
             kind: "dmem".into(),
             register_version: "v2".into(),
             block: "DMEM".into(),
         });
-        // Secure `_S_` infix instance - neither aliased nor const-emitted.
+        chip.peripherals.push(PeripheralInstance {
+            name: "SEMAILBOX_NS_HOST".into(),
+            base_address: 0x5C00_0000,
+            version: Some("1".into()),
+            kind: "semailbox_ns_host".into(),
+            register_version: "v1".into(),
+            block: "SEMAILBOX_NS_HOST".into(),
+        });
+        // Secure `_S_` infix instance shares its NS peer's register type.
         chip.peripherals.push(PeripheralInstance {
             name: "SEMAILBOX_S_HOST".into(),
             base_address: 0x4C00_0000,
@@ -724,8 +811,14 @@ mod tests {
             "eusart has two versions, must not be aliased:\n{s}"
         );
         assert!(
-            !s.contains(" as semailbox_s_host;") && !s.contains("pub const SEMAILBOX_S_HOST"),
-            "secure infix instances must be skipped:\n{s}"
+            !s.contains(" as semailbox_s_host;") && !s.contains("pub mod semailbox_s_host_v1;"),
+            "secure infix register module must be deduplicated:\n{s}"
+        );
+        assert!(
+            s.contains(
+                "pub const SEMAILBOX_S_HOST: crate::semailbox_ns_host_v1::SemailboxNsHost = unsafe { crate::semailbox_ns_host_v1::SemailboxNsHost::from_ptr(0x4C000000 as *mut ()) };"
+            ),
+            "secure infix instance must retain its address with the NS type:\n{s}"
         );
     }
 
@@ -745,6 +838,10 @@ mod tests {
         assert!(
             s.contains("#[path = \"../../registers/dcdc_v1.rs\"]\npub mod dcdc_v1;"),
             "missing dcdc_v1 register mod decl:\n{s}"
+        );
+        assert!(
+            s.contains("Peripheral { name: \"ACMP0\", address: 0x5000E000, secure_address: Some(0x4000E000)"),
+            "metadata must retain both TrustZone addresses:\n{s}"
         );
     }
 
@@ -810,5 +907,20 @@ mod tests {
             s.contains("series: Series::Series2(6),"),
             "missing series field in metadata.rs:\n{s}"
         );
+    }
+
+    #[test]
+    fn validates_series2_trustzone_address_bit() {
+        let chip = fake_chip();
+        validate_trustzone_aliases(&chip).unwrap();
+
+        let mut bad = fake_chip();
+        bad.peripherals
+            .iter_mut()
+            .find(|p| p.name == "ACMP0_S")
+            .unwrap()
+            .base_address = 0x5100_E000;
+        let err = validate_trustzone_aliases(&bad).unwrap_err().to_string();
+        assert!(err.contains("0x1000_0000"), "unexpected validation error: {err}");
     }
 }

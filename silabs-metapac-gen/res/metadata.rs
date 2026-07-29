@@ -159,9 +159,9 @@ pub struct Metadata {
     /// See [`Series`].
     pub series: Series,
     pub memory: &'static [MemoryRegion],
-    /// Peripheral instances, deduplicated to the non-secure alias
-    /// (the `_S` TrustZone alias is dropped — secure-state code can
-    /// XOR `0x0100_0000` onto the base if needed).
+    /// Peripheral instances, with paired TrustZone aliases sharing one
+    /// register-layout entry. Both exact SVD addresses remain available on
+    /// [`Peripheral`].
     pub peripherals: &'static [Peripheral],
     /// Cortex-M interrupt table from the CMSIS device header
     /// (radio IRQs included — the SVD `<interrupt>` blocks are
@@ -183,12 +183,15 @@ pub struct MemoryRegion {
 
 #[derive(Debug, Eq, PartialEq, Clone)]
 pub struct Peripheral {
-    /// Canonical instance name, with `_NS`/`_S` suffix stripped
-    /// (e.g. `TIMER0`, `EUSART1`, `GPIO`). Matches the typed const
-    /// emitted at the chip module root.
+    /// Canonical instance name. A trailing `_NS` is stripped (e.g. `GPIO_NS`
+    /// becomes `GPIO`); infix names such as `SEMAILBOX_NS_HOST` are retained.
+    /// Matches the canonical typed const emitted at the chip module root.
     pub name: &'static str,
     /// Non-secure base address.
     pub address: u64,
+    /// Secure alias base address from the SVD, when this peripheral has a
+    /// paired TrustZone `_S`/`_S_` instance.
+    pub secure_address: Option<u64>,
     /// Routed peripheral kind (`timer`, `gpio`, `eusart`, …).
     pub kind: &'static str,
     /// Routed register-YAML version label (`v1_w`, `v7`, `v2_lf`, …).

@@ -5,7 +5,7 @@
 //! pair: the typed peripheral struct (e.g. `pub struct Timer { ptr }`),
 //! its accessor methods, and the `regs`/`vals` submodules.
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
 use anyhow::{Context, Result};
@@ -30,6 +30,7 @@ pub fn module_name_from_key(key: &IpKey) -> String {
 /// Each file is rustfmt'd in place before returning.
 pub fn write_peripherals_dir(irs: &BTreeMap<IpKey, IR>, out_dir: &Path) -> Result<()> {
     std::fs::create_dir_all(out_dir).with_context(|| format!("create {}", out_dir.display()))?;
+    remove_stale_rs_files(irs, out_dir)?;
 
     let opts = Options::default()
         .with_common_module(CommonModule::External("crate::common".parse().expect("static path")))
@@ -43,6 +44,30 @@ pub fn write_peripherals_dir(irs: &BTreeMap<IpKey, IR>, out_dir: &Path) -> Resul
         let path = out_dir.join(format!("{mod_name}.rs"));
         std::fs::write(&path, &body).with_context(|| format!("write {}", path.display()))?;
         rustfmt_in_place(&path).with_context(|| format!("rustfmt {}", path.display()))?;
+    }
+    Ok(())
+}
+
+/// Remove generated Rust modules that are no longer part of the current IR
+/// set. Without this, narrowing alias/module selection leaves stale files in a
+/// reused output directory and makes deployment depend on its prior contents.
+pub(crate) fn remove_stale_rs_files(irs: &BTreeMap<IpKey, IR>, out_dir: &Path) -> Result<()> {
+    let expected: BTreeSet<String> = irs
+        .keys()
+        .map(|key| format!("{}.rs", module_name_from_key(key)))
+        .collect();
+    for entry in std::fs::read_dir(out_dir).with_context(|| format!("read {}", out_dir.display()))? {
+        let entry = entry?;
+        let path = entry.path();
+        let Some(file_name) = path.file_name().and_then(|name| name.to_str()) else {
+            continue;
+        };
+        if path.is_file()
+            && path.extension().and_then(|ext| ext.to_str()) == Some("rs")
+            && !expected.contains(file_name)
+        {
+            std::fs::remove_file(&path).with_context(|| format!("remove stale generated file {}", path.display()))?;
+        }
     }
     Ok(())
 }

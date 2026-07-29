@@ -47,6 +47,7 @@ pub fn write_metadata_module(out_dir: &Path) -> Result<()> {
 /// ```
 pub fn write_registers_dir(irs: &BTreeMap<IpKey, IR>, out_dir: &Path) -> Result<()> {
     std::fs::create_dir_all(out_dir).with_context(|| format!("create {}", out_dir.display()))?;
+    crate::pac::remove_stale_rs_files(irs, out_dir)?;
 
     for (key, ir) in irs {
         let body = render_ir(ir);

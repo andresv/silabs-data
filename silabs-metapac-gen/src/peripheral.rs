@@ -1,3 +1,4 @@
+use std::collections::BTreeSet;
 use std::io::Cursor;
 
 use anyhow::Result;
@@ -5,18 +6,19 @@ use quick_xml::events::Event;
 use quick_xml::reader::Reader;
 use quick_xml::writer::Writer;
 
-/// Strip `_S` TrustZone-alias peripherals from an SVD XML.
+/// Strip paired `_S` TrustZone-alias register definitions from an SVD XML.
 ///
 /// Series 2 Silabs SVDs duplicate every peripheral as `<base>_NS` (non-secure)
 /// and `<base>_S` (secure) with identical register layouts. Silabs's mapping is
 /// the *opposite* of the typical ARMv8-M convention: NS lives at `0x5xxx_xxxx`
-/// and S at `0x4xxx_xxxx` for most peripherals on EFR32MG26. For codegen we drop
-/// the `_S` peripherals here so chiptool sees one register-block definition per
-/// IP; the metapac chip emitter then re-attaches the secure-alias address by
-/// reading the original SVD's `_S` `<baseAddress>` (NOT by offset arithmetic).
+/// and S at `0x4xxx_xxxx` for most peripherals. For register codegen we drop
+/// the `_S` definition only when its `_NS` peer exists, so chiptool sees one
+/// register-block definition per IP. The per-chip instance inventory is built
+/// separately from the original SVD and retains both exact base addresses.
 ///
 /// Returns the rewritten XML.
 pub fn strip_secure_peripherals(xml: &str) -> Result<String> {
+    let peripheral_names = collect_peripheral_names(xml)?;
     let mut reader = Reader::from_str(xml);
     reader.config_mut().trim_text(false);
     let mut buf = Vec::new();
@@ -67,9 +69,11 @@ pub fn strip_secure_peripherals(xml: &str) -> Result<String> {
                     }
                     cap_buf.clear();
                 }
-                // Decide. Treat any peripheral whose canonical name ends in `_S`
-                // (and is not a `_NS` alias) as the secure-alias duplicate.
-                if is_secure_alias(&name) {
+                // Drop only a confirmed alias pair. A future peripheral with an
+                // `_S`-shaped name but no `_NS` peer remains intact.
+                let paired_secure_alias =
+                    secure_to_nonsecure_name(&name).is_some_and(|peer| peripheral_names.contains(&peer));
+                if paired_secure_alias {
                     // Drop the entire block.
                 } else {
                     for e in block_events {
@@ -86,10 +90,73 @@ pub fn strip_secure_peripherals(xml: &str) -> Result<String> {
     Ok(String::from_utf8(inner)?)
 }
 
-/// Secure-state alias of a peripheral: a plain `_S` suffix (`ACMP0_S`) or an
-/// `_S_` infix port (`SEMAILBOX_S_HOST`).
-pub(crate) fn is_secure_alias(name: &str) -> bool {
-    (name.ends_with("_S") && !name.ends_with("_NS")) || name.contains("_S_")
+/// Return the corresponding non-secure alias name for an `_S`/`_S_` name.
+pub fn secure_to_nonsecure_name(name: &str) -> Option<String> {
+    if let Some(base) = name.strip_suffix("_S") {
+        return Some(format!("{base}_NS"));
+    }
+    name.find("_S_").map(|at| {
+        let mut peer = name.to_owned();
+        peer.replace_range(at..at + 3, "_NS_");
+        peer
+    })
+}
+
+/// Return the corresponding secure alias name for an `_NS`/`_NS_` name.
+pub(crate) fn nonsecure_to_secure_name(name: &str) -> Option<String> {
+    if let Some(base) = name.strip_suffix("_NS") {
+        return Some(format!("{base}_S"));
+    }
+    name.find("_NS_").map(|at| {
+        let mut peer = name.to_owned();
+        peer.replace_range(at..at + 4, "_S_");
+        peer
+    })
+}
+
+fn collect_peripheral_names(xml: &str) -> Result<BTreeSet<String>> {
+    let mut reader = Reader::from_str(xml);
+    reader.config_mut().trim_text(false);
+    let mut buf = Vec::new();
+    let mut names = BTreeSet::new();
+    loop {
+        match reader.read_event_into(&mut buf)? {
+            Event::Start(e) if e.name().as_ref() == b"peripheral" => {
+                let mut elem_depth = 0;
+                let mut in_name_top = false;
+                let mut name = String::new();
+                let mut inner_buf = Vec::new();
+                loop {
+                    match reader.read_event_into(&mut inner_buf)? {
+                        Event::Start(e) => {
+                            elem_depth += 1;
+                            if e.name().as_ref() == b"name" && elem_depth == 1 {
+                                in_name_top = true;
+                            }
+                        }
+                        Event::End(e) => {
+                            if e.name().as_ref() == b"peripheral" && elem_depth == 0 {
+                                break;
+                            }
+                            elem_depth -= 1;
+                        }
+                        Event::Text(t) if in_name_top => {
+                            name = t.decode()?.to_string();
+                            in_name_top = false;
+                        }
+                        Event::Eof => break,
+                        _ => {}
+                    }
+                    inner_buf.clear();
+                }
+                names.insert(name);
+            }
+            Event::Eof => break,
+            _ => {}
+        }
+        buf.clear();
+    }
+    Ok(names)
 }
 
 #[cfg(test)]
@@ -106,6 +173,30 @@ mod tests {
             "S must be removed (got: {})",
             stripped
         );
+    }
+
+    #[test]
+    fn alias_name_conversion_handles_suffix_and_infix_forms() {
+        assert_eq!(secure_to_nonsecure_name("GPIO_S").as_deref(), Some("GPIO_NS"));
+        assert_eq!(nonsecure_to_secure_name("GPIO_NS").as_deref(), Some("GPIO_S"));
+        assert_eq!(
+            secure_to_nonsecure_name("SEMAILBOX_S_HOST").as_deref(),
+            Some("SEMAILBOX_NS_HOST")
+        );
+        assert_eq!(
+            nonsecure_to_secure_name("SEMAILBOX_NS_HOST").as_deref(),
+            Some("SEMAILBOX_S_HOST")
+        );
+        assert_eq!(secure_to_nonsecure_name("GPIO"), None);
+    }
+
+    #[test]
+    fn keeps_secure_shaped_name_without_nonsecure_peer() {
+        let xml = r#"<device><peripherals><peripheral>
+            <name>ONLY_S_PORT</name><baseAddress>0x40000000</baseAddress>
+        </peripheral></peripherals></device>"#;
+        let stripped = strip_secure_peripherals(xml).unwrap();
+        assert!(stripped.contains("ONLY_S_PORT"));
     }
 
     /// Strip-test against an MG26-shaped fixture with multiple NS/S pairs.
@@ -140,49 +231,6 @@ mod tests {
 
     /// Pull only top-level `<peripheral><name>...</name></peripheral>` names.
     fn peripheral_names(xml: &str) -> Vec<String> {
-        use quick_xml::events::Event;
-        use quick_xml::reader::Reader;
-        let mut reader = Reader::from_str(xml);
-        reader.config_mut().trim_text(false);
-        let mut buf = Vec::new();
-        let mut names = Vec::new();
-        loop {
-            match reader.read_event_into(&mut buf).unwrap() {
-                Event::Start(e) if e.name().as_ref() == b"peripheral" => {
-                    let mut elem_depth = 0;
-                    let mut in_name_top = false;
-                    let mut current_name = String::new();
-                    let mut cap_buf = Vec::new();
-                    loop {
-                        let cev = reader.read_event_into(&mut cap_buf).unwrap();
-                        match &cev {
-                            Event::Start(s) => {
-                                elem_depth += 1;
-                                if s.name().as_ref() == b"name" && elem_depth == 1 {
-                                    in_name_top = true;
-                                }
-                            }
-                            Event::End(e) => {
-                                if e.name().as_ref() == b"peripheral" && elem_depth == 0 {
-                                    break;
-                                }
-                                elem_depth -= 1;
-                            }
-                            Event::Text(t) if in_name_top => {
-                                current_name = t.decode().unwrap().to_string();
-                                in_name_top = false;
-                            }
-                            _ => {}
-                        }
-                        cap_buf.clear();
-                    }
-                    names.push(current_name);
-                }
-                Event::Eof => break,
-                _ => {}
-            }
-            buf.clear();
-        }
-        names
+        collect_peripheral_names(xml).unwrap().into_iter().collect()
     }
 }

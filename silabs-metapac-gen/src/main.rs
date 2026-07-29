@@ -158,6 +158,10 @@ fn run_gen(
     let chips_dir = data_dir.join("chips");
     let chips = load_chips(&chips_dir)?;
     eprintln!("Found {} chips in {}", chips.len(), chips_dir.display());
+    for chip in &chips {
+        crate_layout::validate_trustzone_aliases(chip)
+            .with_context(|| format!("validate TrustZone aliases for {}", chip.chip.name))?;
+    }
 
     let extract_dirs = if !packs.is_empty() {
         pack_extract_dirs(packs)?
@@ -192,8 +196,9 @@ fn run_gen(
     let mut module_users: BTreeMap<IpKey, BTreeSet<String>> = BTreeMap::new();
     for chip in &chips {
         let feat = crate_layout::feature_name(&chip.chip.name);
+        let names: BTreeSet<&str> = chip.peripherals.iter().map(|p| p.name.as_str()).collect();
         for p in &chip.peripherals {
-            if p.name.ends_with("_S") && !p.name.ends_with("_NS") {
+            if peripheral::secure_to_nonsecure_name(&p.name).is_some_and(|peer| names.contains(peer.as_str())) {
                 continue;
             }
             let key: IpKey = (p.kind.clone(), p.register_version.clone());
