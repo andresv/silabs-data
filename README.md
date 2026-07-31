@@ -36,7 +36,7 @@ One feature per OPN gates the chip's content; pick exactly one. Enable the `rt` 
 
 - Run `./deploy.sh [<dest>]`
 
-  > Runs `./d gen-all`, renders the support-matrix README via the `summary` binary, and rsyncs `build/silabs-metapac/` into `<dest>/silabs-metapac/`. Dest defaults to `../silabs-data-generated`; the dest's `Cargo.lock` is preserved and `target/` is excluded. Review and commit the dest separately.
+  > Runs `./d gen-all`, renders the support-matrix README via the `summary` binary, and rsyncs `build/silabs-metapac/` into `<dest>/silabs-metapac/`. Dest defaults to `../silabs-data-generated`; the library crate's `Cargo.lock` is omitted and `target/` is excluded. Review and commit the dest separately.
 
 ### How to bootstrap `data/registers/` from scratch
 

@@ -7,8 +7,8 @@
 #   2. Run the `summary` binary to render the per-peripheral support table.
 #   3. Concatenate it under a fixed header and write the result as
 #      <dest>/README.md.
-#   4. rsync build/silabs-metapac/ into <dest>/silabs-metapac/, preserving
-#      the dest's Cargo.lock and excluding /target.
+#   4. Remove any developer-local Cargo.lock, then rsync
+#      build/silabs-metapac/ into <dest>/silabs-metapac/, excluding /target.
 #
 # Usage:
 #   ./deploy.sh                       # dest = ../silabs-data-generated
@@ -55,11 +55,14 @@ cat "$SUMMARY_TMP" >> "$README_TMP"
 mv "$README_TMP" "$DEST/README.md"
 trap 'rm -f "$SUMMARY_TMP"' EXIT
 
-# Preserve dest's Cargo.lock (developer-local state) and never touch
-# build artefacts. --delete removes files that no longer exist in the
-# regenerated tree (e.g. dropped chips).
+# This is a library crate, so Cargo.lock is not part of the generated output.
+# A local cargo invocation may have created one in build/; remove it before
+# syncing so --delete also removes a stale lock from the release repository.
+rm -f build/silabs-metapac/Cargo.lock
+
+# Never copy build artefacts. --delete removes files that no longer exist in
+# the regenerated tree (e.g. dropped chips).
 rsync -a --delete \
-    --exclude='Cargo.lock' \
     --exclude='/target' \
     build/silabs-metapac/ \
     "$DEST/silabs-metapac/"

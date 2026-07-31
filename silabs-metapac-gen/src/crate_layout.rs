@@ -17,6 +17,7 @@
 //! ```
 
 use std::collections::{BTreeMap, BTreeSet};
+use std::fmt::Write as _;
 use std::path::Path;
 
 use anyhow::{Context, Result, bail};
@@ -200,50 +201,17 @@ fn main() {
     Ok(())
 }
 
-/// Write Cargo.toml with one boolean feature per chip OPN.
-pub fn write_cargo_toml(chip_features: &[String], out: &Path) -> Result<()> {
-    let mut s = String::new();
-    s.push_str(
-        r#"# Standalone crate — keep it out of any enclosing workspace.
-[workspace]
-
-[package]
-name = "silabs-metapac"
-version = "0.0.1"
-edition = "2024"
-license = "MIT OR Apache-2.0"
-description = "Generated Silicon Labs PAC. Do not edit by hand — regenerate via silabs-metapac-gen."
-
-[dependencies]
-cortex-m = "0.7"
-# `device` feature is required for the `cortex_m_rt::interrupt` proc-macro
-# attribute referenced by the chiptool-emitted Interrupt enum.
-cortex-m-rt = { version = "0.7", features = ["device"], optional = true }
-defmt = { version = "0.3", optional = true }
-
-[features]
-default = ["pac"]
-
-# Build the actual PAC. Set by default.
-# If you just want the metadata, unset it with `default-features = false`.
-pac = []
-
-# Build the chip metadata.
-# If set, a `silabs_metapac::metadata::METADATA` static will be exported,
-# containing all the metadata for the currently selected chip.
-metadata = []
-
-# Implement the `defmt::Format` trait for many types.
-defmt = ["dep:defmt"]
-
-rt = ["cortex-m-rt"]
-
-# Chip-selection features
-"#,
-    );
-    for f in chip_features {
-        s.push_str(&format!("{f} = []\n"));
+fn render_cargo_toml(chip_features: &[String]) -> String {
+    let mut s = include_str!("../res/Cargo.toml").to_owned();
+    for feature in chip_features {
+        writeln!(&mut s, "{feature} = []").expect("writing to a String cannot fail");
     }
+    s
+}
+
+/// Write the publish-ready Cargo.toml with one boolean feature per chip OPN.
+pub fn write_cargo_toml(chip_features: &[String], out: &Path) -> Result<()> {
+    let s = render_cargo_toml(chip_features);
     std::fs::write(out, s).with_context(|| format!("write Cargo.toml at {}", out.display()))?;
     Ok(())
 }
@@ -868,6 +836,18 @@ mod tests {
     #[test]
     fn feature_name_lowercases() {
         assert_eq!(feature_name("EFR32MG26B211F2048IM68"), "efr32mg26b211f2048im68");
+    }
+
+    #[test]
+    fn cargo_toml_uses_publish_template_and_appends_chip_features() {
+        let s = render_cargo_toml(&["efr32mg24b210f1536im48".into(), "efr32mg26b211f2048im68".into()]);
+
+        assert!(s.contains("version = \"0.5.0\""));
+        assert!(s.contains("repository = \"https://github.com/andresv/silabs-data-generated\""));
+        assert!(s.contains("[package.metadata.docs.rs]"));
+        assert!(s.contains("\"build.rs\","));
+        assert!(!s.contains("[workspace]"));
+        assert!(s.ends_with("efr32mg24b210f1536im48 = []\nefr32mg26b211f2048im68 = []\n"));
     }
 
     #[test]
