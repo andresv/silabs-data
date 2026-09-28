@@ -1,0 +1,1531 @@
+block/Prs:
+  description: PRS peripheral.
+  items:
+  - name: swpulse
+    description: Software Pulse Register.
+    byte_offset: 0
+    access: Write
+    fieldset: regs::Swpulse
+  - name: swlevel
+    description: Software Level Register.
+    byte_offset: 4
+    fieldset: regs::Swlevel
+  - name: route
+    description: I/O Routing Register.
+    byte_offset: 8
+    fieldset: regs::Route
+  - name: ch0_ctrl
+    description: Channel Control Register.
+    byte_offset: 16
+    fieldset: regs::Ch0Ctrl
+  - name: ch1_ctrl
+    description: Channel Control Register.
+    byte_offset: 20
+    fieldset: regs::Ch1Ctrl
+  - name: ch2_ctrl
+    description: Channel Control Register.
+    byte_offset: 24
+    fieldset: regs::Ch2Ctrl
+  - name: ch3_ctrl
+    description: Channel Control Register.
+    byte_offset: 28
+    fieldset: regs::Ch3Ctrl
+  - name: ch4_ctrl
+    description: Channel Control Register.
+    byte_offset: 32
+    fieldset: regs::Ch4Ctrl
+  - name: ch5_ctrl
+    description: Channel Control Register.
+    byte_offset: 36
+    fieldset: regs::Ch5Ctrl
+  - name: ch6_ctrl
+    description: Channel Control Register.
+    byte_offset: 40
+    fieldset: regs::Ch6Ctrl
+  - name: ch7_ctrl
+    description: Channel Control Register.
+    byte_offset: 44
+    fieldset: regs::Ch7Ctrl
+  - name: ch8_ctrl
+    description: Channel Control Register.
+    byte_offset: 48
+    fieldset: regs::Ch8Ctrl
+  - name: ch9_ctrl
+    description: Channel Control Register.
+    byte_offset: 52
+    fieldset: regs::Ch9Ctrl
+  - name: ch10_ctrl
+    description: Channel Control Register.
+    byte_offset: 56
+    fieldset: regs::Ch10Ctrl
+  - name: ch11_ctrl
+    description: Channel Control Register.
+    byte_offset: 60
+    fieldset: regs::Ch11Ctrl
+fieldset/regs::Ch0Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch0CtrlSourcesel
+  - name: edsel
+    description: Edge Detect Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ch0CtrlEdsel
+  - name: async_
+    description: Asynchronous reflex.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Ch10Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch10CtrlSourcesel
+  - name: edsel
+    description: Edge Detect Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ch10CtrlEdsel
+  - name: async_
+    description: Asynchronous reflex.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Ch11Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch11CtrlSourcesel
+  - name: edsel
+    description: Edge Detect Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ch11CtrlEdsel
+  - name: async_
+    description: Asynchronous reflex.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Ch1Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch1CtrlSourcesel
+  - name: edsel
+    description: Edge Detect Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ch1CtrlEdsel
+  - name: async_
+    description: Asynchronous reflex.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Ch2Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch2CtrlSourcesel
+  - name: edsel
+    description: Edge Detect Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ch2CtrlEdsel
+  - name: async_
+    description: Asynchronous reflex.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Ch3Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch3CtrlSourcesel
+  - name: edsel
+    description: Edge Detect Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ch3CtrlEdsel
+  - name: async_
+    description: Asynchronous reflex.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Ch4Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch4CtrlSourcesel
+  - name: edsel
+    description: Edge Detect Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ch4CtrlEdsel
+  - name: async_
+    description: Asynchronous reflex.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Ch5Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch5CtrlSourcesel
+  - name: edsel
+    description: Edge Detect Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ch5CtrlEdsel
+  - name: async_
+    description: Asynchronous reflex.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Ch6Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch6CtrlSourcesel
+  - name: edsel
+    description: Edge Detect Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ch6CtrlEdsel
+  - name: async_
+    description: Asynchronous reflex.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Ch7Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch7CtrlSourcesel
+  - name: edsel
+    description: Edge Detect Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ch7CtrlEdsel
+  - name: async_
+    description: Asynchronous reflex.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Ch8Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch8CtrlSourcesel
+  - name: edsel
+    description: Edge Detect Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ch8CtrlEdsel
+  - name: async_
+    description: Asynchronous reflex.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Ch9Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 3
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch9CtrlSourcesel
+  - name: edsel
+    description: Edge Detect Select.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Ch9CtrlEdsel
+  - name: async_
+    description: Asynchronous reflex.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Route:
+  description: I/O Routing Register.
+  fields:
+  - name: ch0pen
+    description: CH0 Pin Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1pen
+    description: CH1 Pin Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2pen
+    description: CH2 Pin Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3pen
+    description: CH3 Pin Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: location
+    description: I/O Location.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Location
+fieldset/regs::Swlevel:
+  description: Software Level Register.
+  fields:
+  - name: ch0level
+    description: Channel 0 Software Level.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1level
+    description: Channel 1 Software Level.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2level
+    description: Channel 2 Software Level.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3level
+    description: Channel 3 Software Level.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4level
+    description: Channel 4 Software Level.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5level
+    description: Channel 5 Software Level.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6level
+    description: Channel 6 Software Level.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7level
+    description: Channel 7 Software Level.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8level
+    description: Channel 8 Software Level.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9level
+    description: Channel 9 Software Level.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10level
+    description: Channel 10 Software Level.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11level
+    description: Channel 11 Software Level.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Swpulse:
+  description: Software Pulse Register.
+  fields:
+  - name: ch0pulse
+    description: Channel 0 Pulse Generation.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1pulse
+    description: Channel 1 Pulse Generation.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2pulse
+    description: Channel 2 Pulse Generation.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3pulse
+    description: Channel 3 Pulse Generation.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4pulse
+    description: Channel 4 Pulse Generation.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5pulse
+    description: Channel 5 Pulse Generation.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6pulse
+    description: Channel 6 Pulse Generation.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7pulse
+    description: Channel 7 Pulse Generation.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8pulse
+    description: Channel 8 Pulse Generation.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9pulse
+    description: Channel 9 Pulse Generation.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10pulse
+    description: Channel 10 Pulse Generation.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11pulse
+    description: Channel 11 Pulse Generation.
+    bit_offset: 11
+    bit_size: 1
+enum/vals::Ch0CtrlEdsel:
+  bit_size: 2
+  variants:
+  - name: Bothedges
+    description: A one HFPERCLK clock cycle pulse is generated for every edge of the incoming signal.
+    value: 3
+  - name: Negedge
+    description: A one HFPERCLK clock cycle pulse is generated for every negative edge of the incoming signal.
+    value: 2
+  - name: Off
+    description: Signal is left as it is.
+    value: 0
+  - name: Posedge
+    description: A one HFPERCLK cycle pulse is generated for every positive edge of the incoming signal.
+    value: 1
+enum/vals::Ch0CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Acmp0
+    description: Analog Comparator 0.
+    value: 2
+  - name: Acmp1
+    description: Analog Comparator 1.
+    value: 3
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Burtc
+    description: Backup RTC.
+    value: 55
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 6
+  - name: Gpioh
+    description: General purpose Input/Output.
+    value: 49
+  - name: Gpiol
+    description: General purpose Input/Output.
+    value: 48
+  - name: Lesensed
+    description: Low Energy Sensor Interface.
+    value: 59
+  - name: Lesenseh
+    description: Low Energy Sensor Interface.
+    value: 58
+  - name: Lesensel
+    description: Low Energy Sensor Interface.
+    value: 57
+  - name: Letimer0
+    description: Low Energy Timer 0.
+    value: 52
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Rtc
+    description: Real-Time Counter.
+    value: 40
+  - name: Timer0
+    description: Timer 0.
+    value: 28
+  - name: Timer1
+    description: Timer 1.
+    value: 29
+  - name: Timer2
+    description: Timer 2.
+    value: 30
+  - name: Timer3
+    description: Timer 3.
+    value: 31
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 41
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 42
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 16
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 17
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 18
+  - name: Usb
+    description: Universal Serial Bus Interface.
+    value: 36
+  - name: Vcmp
+    description: Voltage Comparator.
+    value: 1
+enum/vals::Ch10CtrlEdsel:
+  bit_size: 2
+  variants:
+  - name: Bothedges
+    description: A one HFPERCLK clock cycle pulse is generated for every edge of the incoming signal.
+    value: 3
+  - name: Negedge
+    description: A one HFPERCLK clock cycle pulse is generated for every negative edge of the incoming signal.
+    value: 2
+  - name: Off
+    description: Signal is left as it is.
+    value: 0
+  - name: Posedge
+    description: A one HFPERCLK cycle pulse is generated for every positive edge of the incoming signal.
+    value: 1
+enum/vals::Ch10CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Acmp0
+    description: Analog Comparator 0.
+    value: 2
+  - name: Acmp1
+    description: Analog Comparator 1.
+    value: 3
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Burtc
+    description: Backup RTC.
+    value: 55
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 6
+  - name: Gpioh
+    description: General purpose Input/Output.
+    value: 49
+  - name: Gpiol
+    description: General purpose Input/Output.
+    value: 48
+  - name: Lesensed
+    description: Low Energy Sensor Interface.
+    value: 59
+  - name: Lesenseh
+    description: Low Energy Sensor Interface.
+    value: 58
+  - name: Lesensel
+    description: Low Energy Sensor Interface.
+    value: 57
+  - name: Letimer0
+    description: Low Energy Timer 0.
+    value: 52
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Rtc
+    description: Real-Time Counter.
+    value: 40
+  - name: Timer0
+    description: Timer 0.
+    value: 28
+  - name: Timer1
+    description: Timer 1.
+    value: 29
+  - name: Timer2
+    description: Timer 2.
+    value: 30
+  - name: Timer3
+    description: Timer 3.
+    value: 31
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 41
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 42
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 16
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 17
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 18
+  - name: Usb
+    description: Universal Serial Bus Interface.
+    value: 36
+  - name: Vcmp
+    description: Voltage Comparator.
+    value: 1
+enum/vals::Ch11CtrlEdsel:
+  bit_size: 2
+  variants:
+  - name: Bothedges
+    description: A one HFPERCLK clock cycle pulse is generated for every edge of the incoming signal.
+    value: 3
+  - name: Negedge
+    description: A one HFPERCLK clock cycle pulse is generated for every negative edge of the incoming signal.
+    value: 2
+  - name: Off
+    description: Signal is left as it is.
+    value: 0
+  - name: Posedge
+    description: A one HFPERCLK cycle pulse is generated for every positive edge of the incoming signal.
+    value: 1
+enum/vals::Ch11CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Acmp0
+    description: Analog Comparator 0.
+    value: 2
+  - name: Acmp1
+    description: Analog Comparator 1.
+    value: 3
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Burtc
+    description: Backup RTC.
+    value: 55
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 6
+  - name: Gpioh
+    description: General purpose Input/Output.
+    value: 49
+  - name: Gpiol
+    description: General purpose Input/Output.
+    value: 48
+  - name: Lesensed
+    description: Low Energy Sensor Interface.
+    value: 59
+  - name: Lesenseh
+    description: Low Energy Sensor Interface.
+    value: 58
+  - name: Lesensel
+    description: Low Energy Sensor Interface.
+    value: 57
+  - name: Letimer0
+    description: Low Energy Timer 0.
+    value: 52
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Rtc
+    description: Real-Time Counter.
+    value: 40
+  - name: Timer0
+    description: Timer 0.
+    value: 28
+  - name: Timer1
+    description: Timer 1.
+    value: 29
+  - name: Timer2
+    description: Timer 2.
+    value: 30
+  - name: Timer3
+    description: Timer 3.
+    value: 31
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 41
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 42
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 16
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 17
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 18
+  - name: Usb
+    description: Universal Serial Bus Interface.
+    value: 36
+  - name: Vcmp
+    description: Voltage Comparator.
+    value: 1
+enum/vals::Ch1CtrlEdsel:
+  bit_size: 2
+  variants:
+  - name: Bothedges
+    description: A one HFPERCLK clock cycle pulse is generated for every edge of the incoming signal.
+    value: 3
+  - name: Negedge
+    description: A one HFPERCLK clock cycle pulse is generated for every negative edge of the incoming signal.
+    value: 2
+  - name: Off
+    description: Signal is left as it is.
+    value: 0
+  - name: Posedge
+    description: A one HFPERCLK cycle pulse is generated for every positive edge of the incoming signal.
+    value: 1
+enum/vals::Ch1CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Acmp0
+    description: Analog Comparator 0.
+    value: 2
+  - name: Acmp1
+    description: Analog Comparator 1.
+    value: 3
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Burtc
+    description: Backup RTC.
+    value: 55
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 6
+  - name: Gpioh
+    description: General purpose Input/Output.
+    value: 49
+  - name: Gpiol
+    description: General purpose Input/Output.
+    value: 48
+  - name: Lesensed
+    description: Low Energy Sensor Interface.
+    value: 59
+  - name: Lesenseh
+    description: Low Energy Sensor Interface.
+    value: 58
+  - name: Lesensel
+    description: Low Energy Sensor Interface.
+    value: 57
+  - name: Letimer0
+    description: Low Energy Timer 0.
+    value: 52
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Rtc
+    description: Real-Time Counter.
+    value: 40
+  - name: Timer0
+    description: Timer 0.
+    value: 28
+  - name: Timer1
+    description: Timer 1.
+    value: 29
+  - name: Timer2
+    description: Timer 2.
+    value: 30
+  - name: Timer3
+    description: Timer 3.
+    value: 31
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 41
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 42
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 16
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 17
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 18
+  - name: Usb
+    description: Universal Serial Bus Interface.
+    value: 36
+  - name: Vcmp
+    description: Voltage Comparator.
+    value: 1
+enum/vals::Ch2CtrlEdsel:
+  bit_size: 2
+  variants:
+  - name: Bothedges
+    description: A one HFPERCLK clock cycle pulse is generated for every edge of the incoming signal.
+    value: 3
+  - name: Negedge
+    description: A one HFPERCLK clock cycle pulse is generated for every negative edge of the incoming signal.
+    value: 2
+  - name: Off
+    description: Signal is left as it is.
+    value: 0
+  - name: Posedge
+    description: A one HFPERCLK cycle pulse is generated for every positive edge of the incoming signal.
+    value: 1
+enum/vals::Ch2CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Acmp0
+    description: Analog Comparator 0.
+    value: 2
+  - name: Acmp1
+    description: Analog Comparator 1.
+    value: 3
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Burtc
+    description: Backup RTC.
+    value: 55
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 6
+  - name: Gpioh
+    description: General purpose Input/Output.
+    value: 49
+  - name: Gpiol
+    description: General purpose Input/Output.
+    value: 48
+  - name: Lesensed
+    description: Low Energy Sensor Interface.
+    value: 59
+  - name: Lesenseh
+    description: Low Energy Sensor Interface.
+    value: 58
+  - name: Lesensel
+    description: Low Energy Sensor Interface.
+    value: 57
+  - name: Letimer0
+    description: Low Energy Timer 0.
+    value: 52
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Rtc
+    description: Real-Time Counter.
+    value: 40
+  - name: Timer0
+    description: Timer 0.
+    value: 28
+  - name: Timer1
+    description: Timer 1.
+    value: 29
+  - name: Timer2
+    description: Timer 2.
+    value: 30
+  - name: Timer3
+    description: Timer 3.
+    value: 31
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 41
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 42
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 16
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 17
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 18
+  - name: Usb
+    description: Universal Serial Bus Interface.
+    value: 36
+  - name: Vcmp
+    description: Voltage Comparator.
+    value: 1
+enum/vals::Ch3CtrlEdsel:
+  bit_size: 2
+  variants:
+  - name: Bothedges
+    description: A one HFPERCLK clock cycle pulse is generated for every edge of the incoming signal.
+    value: 3
+  - name: Negedge
+    description: A one HFPERCLK clock cycle pulse is generated for every negative edge of the incoming signal.
+    value: 2
+  - name: Off
+    description: Signal is left as it is.
+    value: 0
+  - name: Posedge
+    description: A one HFPERCLK cycle pulse is generated for every positive edge of the incoming signal.
+    value: 1
+enum/vals::Ch3CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Acmp0
+    description: Analog Comparator 0.
+    value: 2
+  - name: Acmp1
+    description: Analog Comparator 1.
+    value: 3
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Burtc
+    description: Backup RTC.
+    value: 55
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 6
+  - name: Gpioh
+    description: General purpose Input/Output.
+    value: 49
+  - name: Gpiol
+    description: General purpose Input/Output.
+    value: 48
+  - name: Lesensed
+    description: Low Energy Sensor Interface.
+    value: 59
+  - name: Lesenseh
+    description: Low Energy Sensor Interface.
+    value: 58
+  - name: Lesensel
+    description: Low Energy Sensor Interface.
+    value: 57
+  - name: Letimer0
+    description: Low Energy Timer 0.
+    value: 52
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Rtc
+    description: Real-Time Counter.
+    value: 40
+  - name: Timer0
+    description: Timer 0.
+    value: 28
+  - name: Timer1
+    description: Timer 1.
+    value: 29
+  - name: Timer2
+    description: Timer 2.
+    value: 30
+  - name: Timer3
+    description: Timer 3.
+    value: 31
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 41
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 42
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 16
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 17
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 18
+  - name: Usb
+    description: Universal Serial Bus Interface.
+    value: 36
+  - name: Vcmp
+    description: Voltage Comparator.
+    value: 1
+enum/vals::Ch4CtrlEdsel:
+  bit_size: 2
+  variants:
+  - name: Bothedges
+    description: A one HFPERCLK clock cycle pulse is generated for every edge of the incoming signal.
+    value: 3
+  - name: Negedge
+    description: A one HFPERCLK clock cycle pulse is generated for every negative edge of the incoming signal.
+    value: 2
+  - name: Off
+    description: Signal is left as it is.
+    value: 0
+  - name: Posedge
+    description: A one HFPERCLK cycle pulse is generated for every positive edge of the incoming signal.
+    value: 1
+enum/vals::Ch4CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Acmp0
+    description: Analog Comparator 0.
+    value: 2
+  - name: Acmp1
+    description: Analog Comparator 1.
+    value: 3
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Burtc
+    description: Backup RTC.
+    value: 55
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 6
+  - name: Gpioh
+    description: General purpose Input/Output.
+    value: 49
+  - name: Gpiol
+    description: General purpose Input/Output.
+    value: 48
+  - name: Lesensed
+    description: Low Energy Sensor Interface.
+    value: 59
+  - name: Lesenseh
+    description: Low Energy Sensor Interface.
+    value: 58
+  - name: Lesensel
+    description: Low Energy Sensor Interface.
+    value: 57
+  - name: Letimer0
+    description: Low Energy Timer 0.
+    value: 52
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Rtc
+    description: Real-Time Counter.
+    value: 40
+  - name: Timer0
+    description: Timer 0.
+    value: 28
+  - name: Timer1
+    description: Timer 1.
+    value: 29
+  - name: Timer2
+    description: Timer 2.
+    value: 30
+  - name: Timer3
+    description: Timer 3.
+    value: 31
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 41
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 42
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 16
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 17
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 18
+  - name: Usb
+    description: Universal Serial Bus Interface.
+    value: 36
+  - name: Vcmp
+    description: Voltage Comparator.
+    value: 1
+enum/vals::Ch5CtrlEdsel:
+  bit_size: 2
+  variants:
+  - name: Bothedges
+    description: A one HFPERCLK clock cycle pulse is generated for every edge of the incoming signal.
+    value: 3
+  - name: Negedge
+    description: A one HFPERCLK clock cycle pulse is generated for every negative edge of the incoming signal.
+    value: 2
+  - name: Off
+    description: Signal is left as it is.
+    value: 0
+  - name: Posedge
+    description: A one HFPERCLK cycle pulse is generated for every positive edge of the incoming signal.
+    value: 1
+enum/vals::Ch5CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Acmp0
+    description: Analog Comparator 0.
+    value: 2
+  - name: Acmp1
+    description: Analog Comparator 1.
+    value: 3
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Burtc
+    description: Backup RTC.
+    value: 55
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 6
+  - name: Gpioh
+    description: General purpose Input/Output.
+    value: 49
+  - name: Gpiol
+    description: General purpose Input/Output.
+    value: 48
+  - name: Lesensed
+    description: Low Energy Sensor Interface.
+    value: 59
+  - name: Lesenseh
+    description: Low Energy Sensor Interface.
+    value: 58
+  - name: Lesensel
+    description: Low Energy Sensor Interface.
+    value: 57
+  - name: Letimer0
+    description: Low Energy Timer 0.
+    value: 52
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Rtc
+    description: Real-Time Counter.
+    value: 40
+  - name: Timer0
+    description: Timer 0.
+    value: 28
+  - name: Timer1
+    description: Timer 1.
+    value: 29
+  - name: Timer2
+    description: Timer 2.
+    value: 30
+  - name: Timer3
+    description: Timer 3.
+    value: 31
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 41
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 42
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 16
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 17
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 18
+  - name: Usb
+    description: Universal Serial Bus Interface.
+    value: 36
+  - name: Vcmp
+    description: Voltage Comparator.
+    value: 1
+enum/vals::Ch6CtrlEdsel:
+  bit_size: 2
+  variants:
+  - name: Bothedges
+    description: A one HFPERCLK clock cycle pulse is generated for every edge of the incoming signal.
+    value: 3
+  - name: Negedge
+    description: A one HFPERCLK clock cycle pulse is generated for every negative edge of the incoming signal.
+    value: 2
+  - name: Off
+    description: Signal is left as it is.
+    value: 0
+  - name: Posedge
+    description: A one HFPERCLK cycle pulse is generated for every positive edge of the incoming signal.
+    value: 1
+enum/vals::Ch6CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Acmp0
+    description: Analog Comparator 0.
+    value: 2
+  - name: Acmp1
+    description: Analog Comparator 1.
+    value: 3
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Burtc
+    description: Backup RTC.
+    value: 55
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 6
+  - name: Gpioh
+    description: General purpose Input/Output.
+    value: 49
+  - name: Gpiol
+    description: General purpose Input/Output.
+    value: 48
+  - name: Lesensed
+    description: Low Energy Sensor Interface.
+    value: 59
+  - name: Lesenseh
+    description: Low Energy Sensor Interface.
+    value: 58
+  - name: Lesensel
+    description: Low Energy Sensor Interface.
+    value: 57
+  - name: Letimer0
+    description: Low Energy Timer 0.
+    value: 52
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Rtc
+    description: Real-Time Counter.
+    value: 40
+  - name: Timer0
+    description: Timer 0.
+    value: 28
+  - name: Timer1
+    description: Timer 1.
+    value: 29
+  - name: Timer2
+    description: Timer 2.
+    value: 30
+  - name: Timer3
+    description: Timer 3.
+    value: 31
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 41
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 42
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 16
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 17
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 18
+  - name: Usb
+    description: Universal Serial Bus Interface.
+    value: 36
+  - name: Vcmp
+    description: Voltage Comparator.
+    value: 1
+enum/vals::Ch7CtrlEdsel:
+  bit_size: 2
+  variants:
+  - name: Bothedges
+    description: A one HFPERCLK clock cycle pulse is generated for every edge of the incoming signal.
+    value: 3
+  - name: Negedge
+    description: A one HFPERCLK clock cycle pulse is generated for every negative edge of the incoming signal.
+    value: 2
+  - name: Off
+    description: Signal is left as it is.
+    value: 0
+  - name: Posedge
+    description: A one HFPERCLK cycle pulse is generated for every positive edge of the incoming signal.
+    value: 1
+enum/vals::Ch7CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Acmp0
+    description: Analog Comparator 0.
+    value: 2
+  - name: Acmp1
+    description: Analog Comparator 1.
+    value: 3
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Burtc
+    description: Backup RTC.
+    value: 55
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 6
+  - name: Gpioh
+    description: General purpose Input/Output.
+    value: 49
+  - name: Gpiol
+    description: General purpose Input/Output.
+    value: 48
+  - name: Lesensed
+    description: Low Energy Sensor Interface.
+    value: 59
+  - name: Lesenseh
+    description: Low Energy Sensor Interface.
+    value: 58
+  - name: Lesensel
+    description: Low Energy Sensor Interface.
+    value: 57
+  - name: Letimer0
+    description: Low Energy Timer 0.
+    value: 52
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Rtc
+    description: Real-Time Counter.
+    value: 40
+  - name: Timer0
+    description: Timer 0.
+    value: 28
+  - name: Timer1
+    description: Timer 1.
+    value: 29
+  - name: Timer2
+    description: Timer 2.
+    value: 30
+  - name: Timer3
+    description: Timer 3.
+    value: 31
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 41
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 42
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 16
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 17
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 18
+  - name: Usb
+    description: Universal Serial Bus Interface.
+    value: 36
+  - name: Vcmp
+    description: Voltage Comparator.
+    value: 1
+enum/vals::Ch8CtrlEdsel:
+  bit_size: 2
+  variants:
+  - name: Bothedges
+    description: A one HFPERCLK clock cycle pulse is generated for every edge of the incoming signal.
+    value: 3
+  - name: Negedge
+    description: A one HFPERCLK clock cycle pulse is generated for every negative edge of the incoming signal.
+    value: 2
+  - name: Off
+    description: Signal is left as it is.
+    value: 0
+  - name: Posedge
+    description: A one HFPERCLK cycle pulse is generated for every positive edge of the incoming signal.
+    value: 1
+enum/vals::Ch8CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Acmp0
+    description: Analog Comparator 0.
+    value: 2
+  - name: Acmp1
+    description: Analog Comparator 1.
+    value: 3
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Burtc
+    description: Backup RTC.
+    value: 55
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 6
+  - name: Gpioh
+    description: General purpose Input/Output.
+    value: 49
+  - name: Gpiol
+    description: General purpose Input/Output.
+    value: 48
+  - name: Lesensed
+    description: Low Energy Sensor Interface.
+    value: 59
+  - name: Lesenseh
+    description: Low Energy Sensor Interface.
+    value: 58
+  - name: Lesensel
+    description: Low Energy Sensor Interface.
+    value: 57
+  - name: Letimer0
+    description: Low Energy Timer 0.
+    value: 52
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Rtc
+    description: Real-Time Counter.
+    value: 40
+  - name: Timer0
+    description: Timer 0.
+    value: 28
+  - name: Timer1
+    description: Timer 1.
+    value: 29
+  - name: Timer2
+    description: Timer 2.
+    value: 30
+  - name: Timer3
+    description: Timer 3.
+    value: 31
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 41
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 42
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 16
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 17
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 18
+  - name: Usb
+    description: Universal Serial Bus Interface.
+    value: 36
+  - name: Vcmp
+    description: Voltage Comparator.
+    value: 1
+enum/vals::Ch9CtrlEdsel:
+  bit_size: 2
+  variants:
+  - name: Bothedges
+    description: A one HFPERCLK clock cycle pulse is generated for every edge of the incoming signal.
+    value: 3
+  - name: Negedge
+    description: A one HFPERCLK clock cycle pulse is generated for every negative edge of the incoming signal.
+    value: 2
+  - name: Off
+    description: Signal is left as it is.
+    value: 0
+  - name: Posedge
+    description: A one HFPERCLK cycle pulse is generated for every positive edge of the incoming signal.
+    value: 1
+enum/vals::Ch9CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Acmp0
+    description: Analog Comparator 0.
+    value: 2
+  - name: Acmp1
+    description: Analog Comparator 1.
+    value: 3
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Burtc
+    description: Backup RTC.
+    value: 55
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 6
+  - name: Gpioh
+    description: General purpose Input/Output.
+    value: 49
+  - name: Gpiol
+    description: General purpose Input/Output.
+    value: 48
+  - name: Lesensed
+    description: Low Energy Sensor Interface.
+    value: 59
+  - name: Lesenseh
+    description: Low Energy Sensor Interface.
+    value: 58
+  - name: Lesensel
+    description: Low Energy Sensor Interface.
+    value: 57
+  - name: Letimer0
+    description: Low Energy Timer 0.
+    value: 52
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Rtc
+    description: Real-Time Counter.
+    value: 40
+  - name: Timer0
+    description: Timer 0.
+    value: 28
+  - name: Timer1
+    description: Timer 1.
+    value: 29
+  - name: Timer2
+    description: Timer 2.
+    value: 30
+  - name: Timer3
+    description: Timer 3.
+    value: 31
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 41
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 42
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 16
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 17
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 18
+  - name: Usb
+    description: Universal Serial Bus Interface.
+    value: 36
+  - name: Vcmp
+    description: Voltage Comparator.
+    value: 1
+enum/vals::Location:
+  bit_size: 3
+  variants:
+  - name: Loc0
+    description: Location 0.
+    value: 0
+  - name: Loc1
+    description: Location 1.
+    value: 1

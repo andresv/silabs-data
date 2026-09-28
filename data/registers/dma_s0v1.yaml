@@ -1,0 +1,2187 @@
+block/Dma:
+  description: DMA peripheral.
+  items:
+  - name: status
+    description: DMA Status Registers.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Status
+  - name: config
+    description: DMA Configuration Register.
+    byte_offset: 4
+    access: Write
+    fieldset: regs::Config
+  - name: ctrlbase
+    description: Channel Control Data Base Pointer Register.
+    byte_offset: 8
+    fieldset: regs::Ctrlbase
+  - name: altctrlbase
+    description: Channel Alternate Control Data Base Pointer Register.
+    byte_offset: 12
+    access: Read
+    fieldset: regs::Altctrlbase
+  - name: chwaitstatus
+    description: Channel Wait on Request Status Register.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Chwaitstatus
+  - name: chswreq
+    description: Channel Software Request Register.
+    byte_offset: 20
+    access: Write
+    fieldset: regs::Chswreq
+  - name: chusebursts
+    description: Channel Useburst Set Register.
+    byte_offset: 24
+    fieldset: regs::Chusebursts
+  - name: chuseburstc
+    description: Channel Useburst Clear Register.
+    byte_offset: 28
+    access: Write
+    fieldset: regs::Chuseburstc
+  - name: chreqmasks
+    description: Channel Request Mask Set Register.
+    byte_offset: 32
+    access: Write
+    fieldset: regs::Chreqmasks
+  - name: chreqmaskc
+    description: Channel Request Mask Clear Register.
+    byte_offset: 36
+    access: Write
+    fieldset: regs::Chreqmaskc
+  - name: chens
+    description: Channel Enable Set Register.
+    byte_offset: 40
+    access: Write
+    fieldset: regs::Chens
+  - name: chenc
+    description: Channel Enable Clear Register.
+    byte_offset: 44
+    access: Write
+    fieldset: regs::Chenc
+  - name: chalts
+    description: Channel Alternate Set Register.
+    byte_offset: 48
+    access: Write
+    fieldset: regs::Chalts
+  - name: chaltc
+    description: Channel Alternate Clear Register.
+    byte_offset: 52
+    access: Write
+    fieldset: regs::Chaltc
+  - name: chpris
+    description: Channel Priority Set Register.
+    byte_offset: 56
+    access: Write
+    fieldset: regs::Chpris
+  - name: chpric
+    description: Channel Priority Clear Register.
+    byte_offset: 60
+    access: Write
+    fieldset: regs::Chpric
+  - name: errorc
+    description: Bus Error Clear Register.
+    byte_offset: 76
+    fieldset: regs::Errorc
+  - name: chreqstatus
+    description: Channel Request Status.
+    byte_offset: 3600
+    access: Read
+    fieldset: regs::Chreqstatus
+  - name: chsreqstatus
+    description: Channel Single Request Status.
+    byte_offset: 3608
+    access: Read
+    fieldset: regs::Chsreqstatus
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 4096
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 4100
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 4104
+    access: Write
+    fieldset: regs::Ifc
+  - name: ien
+    description: Interrupt Enable register.
+    byte_offset: 4108
+    fieldset: regs::Ien
+  - name: ctrl
+    description: DMA Control Register.
+    byte_offset: 4112
+    fieldset: regs::Ctrl
+  - name: rds
+    description: DMA Retain Descriptor State.
+    byte_offset: 4116
+    fieldset: regs::Rds
+  - name: loop0
+    description: Channel 0 Loop Register.
+    byte_offset: 4128
+    fieldset: regs::Loop0
+  - name: loop1
+    description: Channel 1 Loop Register.
+    byte_offset: 4132
+    fieldset: regs::Loop1
+  - name: rect0
+    description: Channel 0 Rectangle Register.
+    byte_offset: 4192
+    fieldset: regs::Rect0
+  - name: ch0_ctrl
+    description: Channel Control Register.
+    byte_offset: 4352
+    fieldset: regs::Ch0Ctrl
+  - name: ch1_ctrl
+    description: Channel Control Register.
+    byte_offset: 4356
+    fieldset: regs::Ch1Ctrl
+  - name: ch2_ctrl
+    description: Channel Control Register.
+    byte_offset: 4360
+    fieldset: regs::Ch2Ctrl
+  - name: ch3_ctrl
+    description: Channel Control Register.
+    byte_offset: 4364
+    fieldset: regs::Ch3Ctrl
+  - name: ch4_ctrl
+    description: Channel Control Register.
+    byte_offset: 4368
+    fieldset: regs::Ch4Ctrl
+  - name: ch5_ctrl
+    description: Channel Control Register.
+    byte_offset: 4372
+    fieldset: regs::Ch5Ctrl
+  - name: ch6_ctrl
+    description: Channel Control Register.
+    byte_offset: 4376
+    fieldset: regs::Ch6Ctrl
+  - name: ch7_ctrl
+    description: Channel Control Register.
+    byte_offset: 4380
+    fieldset: regs::Ch7Ctrl
+  - name: ch8_ctrl
+    description: Channel Control Register.
+    byte_offset: 4384
+    fieldset: regs::Ch8Ctrl
+  - name: ch9_ctrl
+    description: Channel Control Register.
+    byte_offset: 4388
+    fieldset: regs::Ch9Ctrl
+  - name: ch10_ctrl
+    description: Channel Control Register.
+    byte_offset: 4392
+    fieldset: regs::Ch10Ctrl
+  - name: ch11_ctrl
+    description: Channel Control Register.
+    byte_offset: 4396
+    fieldset: regs::Ch11Ctrl
+fieldset/regs::Altctrlbase:
+  description: Channel Alternate Control Data Base Pointer Register.
+  fields:
+  - name: altctrlbase
+    description: Channel Alternate Control Data Base Pointer.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ch0Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch0CtrlSourcesel
+fieldset/regs::Ch10Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch10CtrlSourcesel
+fieldset/regs::Ch11Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch11CtrlSourcesel
+fieldset/regs::Ch1Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch1CtrlSourcesel
+fieldset/regs::Ch2Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch2CtrlSourcesel
+fieldset/regs::Ch3Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch3CtrlSourcesel
+fieldset/regs::Ch4Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch4CtrlSourcesel
+fieldset/regs::Ch5Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch5CtrlSourcesel
+fieldset/regs::Ch6Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch6CtrlSourcesel
+fieldset/regs::Ch7Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch7CtrlSourcesel
+fieldset/regs::Ch8Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch8CtrlSourcesel
+fieldset/regs::Ch9Ctrl:
+  description: Channel Control Register.
+  fields:
+  - name: sigsel
+    description: Signal Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: sourcesel
+    description: Source Select.
+    bit_offset: 16
+    bit_size: 6
+    enum: vals::Ch9CtrlSourcesel
+fieldset/regs::Chaltc:
+  description: Channel Alternate Clear Register.
+  fields:
+  - name: ch0altc
+    description: Channel 0 Alternate Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1altc
+    description: Channel 1 Alternate Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2altc
+    description: Channel 2 Alternate Clear.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3altc
+    description: Channel 3 Alternate Clear.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4altc
+    description: Channel 4 Alternate Clear.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5altc
+    description: Channel 5 Alternate Clear.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6altc
+    description: Channel 6 Alternate Clear.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7altc
+    description: Channel 7 Alternate Clear.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8altc
+    description: Channel 8 Alternate Clear.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9altc
+    description: Channel 9 Alternate Clear.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10altc
+    description: Channel 10 Alternate Clear.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11altc
+    description: Channel 11 Alternate Clear.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chalts:
+  description: Channel Alternate Set Register.
+  fields:
+  - name: ch0alts
+    description: Channel 0 Alternate Structure Set.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1alts
+    description: Channel 1 Alternate Structure Set.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2alts
+    description: Channel 2 Alternate Structure Set.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3alts
+    description: Channel 3 Alternate Structure Set.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4alts
+    description: Channel 4 Alternate Structure Set.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5alts
+    description: Channel 5 Alternate Structure Set.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6alts
+    description: Channel 6 Alternate Structure Set.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7alts
+    description: Channel 7 Alternate Structure Set.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8alts
+    description: Channel 8 Alternate Structure Set.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9alts
+    description: Channel 9 Alternate Structure Set.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10alts
+    description: Channel 10 Alternate Structure Set.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11alts
+    description: Channel 11 Alternate Structure Set.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chenc:
+  description: Channel Enable Clear Register.
+  fields:
+  - name: ch0enc
+    description: Channel 0 Enable Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1enc
+    description: Channel 1 Enable Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2enc
+    description: Channel 2 Enable Clear.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3enc
+    description: Channel 3 Enable Clear.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4enc
+    description: Channel 4 Enable Clear.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5enc
+    description: Channel 5 Enable Clear.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6enc
+    description: Channel 6 Enable Clear.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7enc
+    description: Channel 7 Enable Clear.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8enc
+    description: Channel 8 Enable Clear.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9enc
+    description: Channel 9 Enable Clear.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10enc
+    description: Channel 10 Enable Clear.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11enc
+    description: Channel 11 Enable Clear.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chens:
+  description: Channel Enable Set Register.
+  fields:
+  - name: ch0ens
+    description: Channel 0 Enable Set.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1ens
+    description: Channel 1 Enable Set.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2ens
+    description: Channel 2 Enable Set.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3ens
+    description: Channel 3 Enable Set.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4ens
+    description: Channel 4 Enable Set.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5ens
+    description: Channel 5 Enable Set.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6ens
+    description: Channel 6 Enable Set.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7ens
+    description: Channel 7 Enable Set.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8ens
+    description: Channel 8 Enable Set.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9ens
+    description: Channel 9 Enable Set.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10ens
+    description: Channel 10 Enable Set.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11ens
+    description: Channel 11 Enable Set.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chpric:
+  description: Channel Priority Clear Register.
+  fields:
+  - name: ch0pric
+    description: Channel 0 High Priority Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1pric
+    description: Channel 1 High Priority Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2pric
+    description: Channel 2 High Priority Clear.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3pric
+    description: Channel 3 High Priority Clear.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4pric
+    description: Channel 4 High Priority Clear.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5pric
+    description: Channel 5 High Priority Clear.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6pric
+    description: Channel 6 High Priority Clear.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7pric
+    description: Channel 7 High Priority Clear.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8pric
+    description: Channel 8 High Priority Clear.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9pric
+    description: Channel 9 High Priority Clear.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10pric
+    description: Channel 10 High Priority Clear.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11pric
+    description: Channel 11 High Priority Clear.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chpris:
+  description: Channel Priority Set Register.
+  fields:
+  - name: ch0pris
+    description: Channel 0 High Priority Set.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1pris
+    description: Channel 1 High Priority Set.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2pris
+    description: Channel 2 High Priority Set.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3pris
+    description: Channel 3 High Priority Set.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4pris
+    description: Channel 4 High Priority Set.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5pris
+    description: Channel 5 High Priority Set.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6pris
+    description: Channel 6 High Priority Set.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7pris
+    description: Channel 7 High Priority Set.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8pris
+    description: Channel 8 High Priority Set.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9pris
+    description: Channel 9 High Priority Set.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10pris
+    description: Channel 10 High Priority Set.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11pris
+    description: Channel 11 High Priority Set.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chreqmaskc:
+  description: Channel Request Mask Clear Register.
+  fields:
+  - name: ch0reqmaskc
+    description: Channel 0 Request Mask Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1reqmaskc
+    description: Channel 1 Request Mask Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2reqmaskc
+    description: Channel 2 Request Mask Clear.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3reqmaskc
+    description: Channel 3 Request Mask Clear.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4reqmaskc
+    description: Channel 4 Request Mask Clear.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5reqmaskc
+    description: Channel 5 Request Mask Clear.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6reqmaskc
+    description: Channel 6 Request Mask Clear.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7reqmaskc
+    description: Channel 7 Request Mask Clear.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8reqmaskc
+    description: Channel 8 Request Mask Clear.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9reqmaskc
+    description: Channel 9 Request Mask Clear.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10reqmaskc
+    description: Channel 10 Request Mask Clear.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11reqmaskc
+    description: Channel 11 Request Mask Clear.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chreqmasks:
+  description: Channel Request Mask Set Register.
+  fields:
+  - name: ch0reqmasks
+    description: Channel 0 Request Mask Set.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1reqmasks
+    description: Channel 1 Request Mask Set.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2reqmasks
+    description: Channel 2 Request Mask Set.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3reqmasks
+    description: Channel 3 Request Mask Set.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4reqmasks
+    description: Channel 4 Request Mask Set.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5reqmasks
+    description: Channel 5 Request Mask Set.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6reqmasks
+    description: Channel 6 Request Mask Set.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7reqmasks
+    description: Channel 7 Request Mask Set.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8reqmasks
+    description: Channel 8 Request Mask Set.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9reqmasks
+    description: Channel 9 Request Mask Set.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10reqmasks
+    description: Channel 10 Request Mask Set.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11reqmasks
+    description: Channel 11 Request Mask Set.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chreqstatus:
+  description: Channel Request Status.
+  fields:
+  - name: ch0reqstatus
+    description: Channel 0 Request Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1reqstatus
+    description: Channel 1 Request Status.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2reqstatus
+    description: Channel 2 Request Status.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3reqstatus
+    description: Channel 3 Request Status.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4reqstatus
+    description: Channel 4 Request Status.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5reqstatus
+    description: Channel 5 Request Status.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6reqstatus
+    description: Channel 6 Request Status.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7reqstatus
+    description: Channel 7 Request Status.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8reqstatus
+    description: Channel 8 Request Status.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9reqstatus
+    description: Channel 9 Request Status.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10reqstatus
+    description: Channel 10 Request Status.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11reqstatus
+    description: Channel 11 Request Status.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chsreqstatus:
+  description: Channel Single Request Status.
+  fields:
+  - name: ch0sreqstatus
+    description: Channel 0 Single Request Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1sreqstatus
+    description: Channel 1 Single Request Status.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2sreqstatus
+    description: Channel 2 Single Request Status.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3sreqstatus
+    description: Channel 3 Single Request Status.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4sreqstatus
+    description: Channel 4 Single Request Status.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5sreqstatus
+    description: Channel 5 Single Request Status.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6sreqstatus
+    description: Channel 6 Single Request Status.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7sreqstatus
+    description: Channel 7 Single Request Status.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8sreqstatus
+    description: Channel 8 Single Request Status.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9sreqstatus
+    description: Channel 9 Single Request Status.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10sreqstatus
+    description: Channel 10 Single Request Status.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11sreqstatus
+    description: Channel 11 Single Request Status.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chswreq:
+  description: Channel Software Request Register.
+  fields:
+  - name: ch0swreq
+    description: Channel 0 Software Request.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1swreq
+    description: Channel 1 Software Request.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2swreq
+    description: Channel 2 Software Request.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3swreq
+    description: Channel 3 Software Request.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4swreq
+    description: Channel 4 Software Request.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5swreq
+    description: Channel 5 Software Request.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6swreq
+    description: Channel 6 Software Request.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7swreq
+    description: Channel 7 Software Request.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8swreq
+    description: Channel 8 Software Request.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9swreq
+    description: Channel 9 Software Request.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10swreq
+    description: Channel 10 Software Request.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11swreq
+    description: Channel 11 Software Request.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chuseburstc:
+  description: Channel Useburst Clear Register.
+  fields:
+  - name: ch0useburstc
+    description: Channel 0 Useburst Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1useburstc
+    description: Channel 1 Useburst Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2useburstc
+    description: Channel 2 Useburst Clear.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3useburstc
+    description: Channel 3 Useburst Clear.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4useburstc
+    description: Channel 4 Useburst Clear.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5useburstc
+    description: Channel 5 Useburst Clear.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6useburstc
+    description: Channel 6 Useburst Clear.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7useburstc
+    description: Channel 7 Useburst Clear.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch08useburstc
+    description: Channel 8 Useburst Clear.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9useburstc
+    description: Channel 9 Useburst Clear.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10useburstc
+    description: Channel 10 Useburst Clear.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11useburstc
+    description: Channel 11 Useburst Clear.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chusebursts:
+  description: Channel Useburst Set Register.
+  fields:
+  - name: ch0usebursts
+    description: Channel 0 Useburst Set.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1usebursts
+    description: Channel 1 Useburst Set.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2usebursts
+    description: Channel 2 Useburst Set.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3usebursts
+    description: Channel 3 Useburst Set.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4usebursts
+    description: Channel 4 Useburst Set.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5usebursts
+    description: Channel 5 Useburst Set.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6usebursts
+    description: Channel 6 Useburst Set.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7usebursts
+    description: Channel 7 Useburst Set.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8usebursts
+    description: Channel 8 Useburst Set.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9usebursts
+    description: Channel 9 Useburst Set.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10usebursts
+    description: Channel 10 Useburst Set.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11usebursts
+    description: Channel 11 Useburst Set.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Chwaitstatus:
+  description: Channel Wait on Request Status Register.
+  fields:
+  - name: ch0waitstatus
+    description: Channel 0 Wait on Request Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1waitstatus
+    description: Channel 1 Wait on Request Status.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2waitstatus
+    description: Channel 2 Wait on Request Status.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3waitstatus
+    description: Channel 3 Wait on Request Status.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4waitstatus
+    description: Channel 4 Wait on Request Status.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5waitstatus
+    description: Channel 5 Wait on Request Status.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6waitstatus
+    description: Channel 6 Wait on Request Status.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7waitstatus
+    description: Channel 7 Wait on Request Status.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8waitstatus
+    description: Channel 8 Wait on Request Status.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9waitstatus
+    description: Channel 9 Wait on Request Status.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10waitstatus
+    description: Channel 10 Wait on Request Status.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11waitstatus
+    description: Channel 11 Wait on Request Status.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Config:
+  description: DMA Configuration Register.
+  fields:
+  - name: en
+    description: Enable DMA.
+    bit_offset: 0
+    bit_size: 1
+  - name: chprot
+    description: Channel Protection Control.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: DMA Control Register.
+  fields:
+  - name: descrect
+    description: Descriptor Specifies Rectangle.
+    bit_offset: 0
+    bit_size: 1
+  - name: prdu
+    description: Prevent Rect Descriptor Update.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ctrlbase:
+  description: Channel Control Data Base Pointer Register.
+  fields:
+  - name: ctrlbase
+    description: Channel Control Data Base Pointer.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Errorc:
+  description: Bus Error Clear Register.
+  fields:
+  - name: errorc
+    description: Bus Error Clear.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: Interrupt Enable register.
+  fields:
+  - name: ch0done
+    description: DMA Channel 0 Complete Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1done
+    description: DMA Channel 1 Complete Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2done
+    description: DMA Channel 2 Complete Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3done
+    description: DMA Channel 3 Complete Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4done
+    description: DMA Channel 4 Complete Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5done
+    description: DMA Channel 5 Complete Interrupt Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6done
+    description: DMA Channel 6 Complete Interrupt Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7done
+    description: DMA Channel 7 Complete Interrupt Enable.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8done
+    description: DMA Channel 8 Complete Interrupt Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9done
+    description: DMA Channel 9 Complete Interrupt Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10done
+    description: DMA Channel 10 Complete Interrupt Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11done
+    description: DMA Channel 11 Complete Interrupt Enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: err
+    description: DMA Error Interrupt Flag Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: ch0done
+    description: DMA Channel 0 Complete Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1done
+    description: DMA Channel 1 Complete Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2done
+    description: DMA Channel 2 Complete Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3done
+    description: DMA Channel 3 Complete Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4done
+    description: DMA Channel 4 Complete Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5done
+    description: DMA Channel 5 Complete Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6done
+    description: DMA Channel 6 Complete Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7done
+    description: DMA Channel 7 Complete Interrupt Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8done
+    description: DMA Channel 8 Complete Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9done
+    description: DMA Channel 9 Complete Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10done
+    description: DMA Channel 10 Complete Interrupt Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11done
+    description: DMA Channel 11 Complete Interrupt Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: err
+    description: DMA Error Interrupt Flag.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: ch0done
+    description: DMA Channel 0 Complete Interrupt Flag Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1done
+    description: DMA Channel 1 Complete Interrupt Flag Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2done
+    description: DMA Channel 2 Complete Interrupt Flag Clear.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3done
+    description: DMA Channel 3 Complete Interrupt Flag Clear.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4done
+    description: DMA Channel 4 Complete Interrupt Flag Clear.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5done
+    description: DMA Channel 5 Complete Interrupt Flag Clear.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6done
+    description: DMA Channel 6 Complete Interrupt Flag Clear.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7done
+    description: DMA Channel 7 Complete Interrupt Flag Clear.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8done
+    description: DMA Channel 8 Complete Interrupt Flag Clear.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9done
+    description: DMA Channel 9 Complete Interrupt Flag Clear.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10done
+    description: DMA Channel 10 Complete Interrupt Flag Clear.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11done
+    description: DMA Channel 11 Complete Interrupt Flag Clear.
+    bit_offset: 11
+    bit_size: 1
+  - name: err
+    description: DMA Error Interrupt Flag Clear.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: ch0done
+    description: DMA Channel 0 Complete Interrupt Flag Set.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1done
+    description: DMA Channel 1 Complete Interrupt Flag Set.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch2done
+    description: DMA Channel 2 Complete Interrupt Flag Set.
+    bit_offset: 2
+    bit_size: 1
+  - name: ch3done
+    description: DMA Channel 3 Complete Interrupt Flag Set.
+    bit_offset: 3
+    bit_size: 1
+  - name: ch4done
+    description: DMA Channel 4 Complete Interrupt Flag Set.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch5done
+    description: DMA Channel 5 Complete Interrupt Flag Set.
+    bit_offset: 5
+    bit_size: 1
+  - name: ch6done
+    description: DMA Channel 6 Complete Interrupt Flag Set.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch7done
+    description: DMA Channel 7 Complete Interrupt Flag Set.
+    bit_offset: 7
+    bit_size: 1
+  - name: ch8done
+    description: DMA Channel 8 Complete Interrupt Flag Set.
+    bit_offset: 8
+    bit_size: 1
+  - name: ch9done
+    description: DMA Channel 9 Complete Interrupt Flag Set.
+    bit_offset: 9
+    bit_size: 1
+  - name: ch10done
+    description: DMA Channel 10 Complete Interrupt Flag Set.
+    bit_offset: 10
+    bit_size: 1
+  - name: ch11done
+    description: DMA Channel 11 Complete Interrupt Flag Set.
+    bit_offset: 11
+    bit_size: 1
+  - name: err
+    description: DMA Error Interrupt Flag Set.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Loop0:
+  description: Channel 0 Loop Register.
+  fields:
+  - name: width
+    description: Loop Width.
+    bit_offset: 0
+    bit_size: 10
+  - name: en
+    description: DMA Channel 0 Loop Enable.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Loop1:
+  description: Channel 1 Loop Register.
+  fields:
+  - name: width
+    description: DMA Channel 1 Loop Width.
+    bit_offset: 0
+    bit_size: 10
+  - name: en
+    description: DMA Channel 1 Loop Enable.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Rds:
+  description: DMA Retain Descriptor State.
+  fields:
+  - name: rdsch0
+    description: Retain Descriptor State.
+    bit_offset: 0
+    bit_size: 1
+  - name: rdsch1
+    description: Retain Descriptor State.
+    bit_offset: 1
+    bit_size: 1
+  - name: rdsch2
+    description: Retain Descriptor State.
+    bit_offset: 2
+    bit_size: 1
+  - name: rdsch3
+    description: Retain Descriptor State.
+    bit_offset: 3
+    bit_size: 1
+  - name: rdsch4
+    description: Retain Descriptor State.
+    bit_offset: 4
+    bit_size: 1
+  - name: rdsch5
+    description: Retain Descriptor State.
+    bit_offset: 5
+    bit_size: 1
+  - name: rdsch6
+    description: Retain Descriptor State.
+    bit_offset: 6
+    bit_size: 1
+  - name: rdsch7
+    description: Retain Descriptor State.
+    bit_offset: 7
+    bit_size: 1
+  - name: rdsch8
+    description: Retain Descriptor State.
+    bit_offset: 8
+    bit_size: 1
+  - name: rdsch9
+    description: Retain Descriptor State.
+    bit_offset: 9
+    bit_size: 1
+  - name: rdsch10
+    description: Retain Descriptor State.
+    bit_offset: 10
+    bit_size: 1
+  - name: rdsch11
+    description: Retain Descriptor State.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Rect0:
+  description: Channel 0 Rectangle Register.
+  fields:
+  - name: height
+    description: DMA Channel 0 Rectangle Height.
+    bit_offset: 0
+    bit_size: 10
+  - name: srcstride
+    description: DMA Channel 0 Source Stride.
+    bit_offset: 10
+    bit_size: 11
+  - name: dststride
+    description: DMA Channel 0 Destination Stride.
+    bit_offset: 21
+    bit_size: 11
+fieldset/regs::Status:
+  description: DMA Status Registers.
+  fields:
+  - name: en
+    description: DMA Enable Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: state
+    description: Control Current State.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::State
+  - name: chnum
+    description: Channel Number.
+    bit_offset: 16
+    bit_size: 5
+enum/vals::Ch0CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Aes
+    description: Advanced Encryption Standard Accelerator.
+    value: 49
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 10
+  - name: Ebi
+    description: External Bus Interface.
+    value: 51
+  - name: I2c0
+    description: I2C 0.
+    value: 20
+  - name: I2c1
+    description: I2C 1.
+    value: 21
+  - name: Lesense
+    description: Low Energy Sensor Interface.
+    value: 50
+  - name: Leuart0
+    description: Low Energy UART 0.
+    value: 16
+  - name: Leuart1
+    description: Low Energy UART 1.
+    value: 17
+  - name: Msc
+    value: 48
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Timer0
+    description: Timer 0.
+    value: 24
+  - name: Timer1
+    description: Timer 1.
+    value: 25
+  - name: Timer2
+    description: Timer 2.
+    value: 26
+  - name: Timer3
+    description: Timer 3.
+    value: 27
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 44
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 45
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 12
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 13
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 14
+enum/vals::Ch10CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Aes
+    description: Advanced Encryption Standard Accelerator.
+    value: 49
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 10
+  - name: Ebi
+    description: External Bus Interface.
+    value: 51
+  - name: I2c0
+    description: I2C 0.
+    value: 20
+  - name: I2c1
+    description: I2C 1.
+    value: 21
+  - name: Lesense
+    description: Low Energy Sensor Interface.
+    value: 50
+  - name: Leuart0
+    description: Low Energy UART 0.
+    value: 16
+  - name: Leuart1
+    description: Low Energy UART 1.
+    value: 17
+  - name: Msc
+    value: 48
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Timer0
+    description: Timer 0.
+    value: 24
+  - name: Timer1
+    description: Timer 1.
+    value: 25
+  - name: Timer2
+    description: Timer 2.
+    value: 26
+  - name: Timer3
+    description: Timer 3.
+    value: 27
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 44
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 45
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 12
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 13
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 14
+enum/vals::Ch11CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Aes
+    description: Advanced Encryption Standard Accelerator.
+    value: 49
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 10
+  - name: Ebi
+    description: External Bus Interface.
+    value: 51
+  - name: I2c0
+    description: I2C 0.
+    value: 20
+  - name: I2c1
+    description: I2C 1.
+    value: 21
+  - name: Lesense
+    description: Low Energy Sensor Interface.
+    value: 50
+  - name: Leuart0
+    description: Low Energy UART 0.
+    value: 16
+  - name: Leuart1
+    description: Low Energy UART 1.
+    value: 17
+  - name: Msc
+    value: 48
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Timer0
+    description: Timer 0.
+    value: 24
+  - name: Timer1
+    description: Timer 1.
+    value: 25
+  - name: Timer2
+    description: Timer 2.
+    value: 26
+  - name: Timer3
+    description: Timer 3.
+    value: 27
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 44
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 45
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 12
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 13
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 14
+enum/vals::Ch1CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Aes
+    description: Advanced Encryption Standard Accelerator.
+    value: 49
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 10
+  - name: Ebi
+    description: External Bus Interface.
+    value: 51
+  - name: I2c0
+    description: I2C 0.
+    value: 20
+  - name: I2c1
+    description: I2C 1.
+    value: 21
+  - name: Lesense
+    description: Low Energy Sensor Interface.
+    value: 50
+  - name: Leuart0
+    description: Low Energy UART 0.
+    value: 16
+  - name: Leuart1
+    description: Low Energy UART 1.
+    value: 17
+  - name: Msc
+    value: 48
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Timer0
+    description: Timer 0.
+    value: 24
+  - name: Timer1
+    description: Timer 1.
+    value: 25
+  - name: Timer2
+    description: Timer 2.
+    value: 26
+  - name: Timer3
+    description: Timer 3.
+    value: 27
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 44
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 45
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 12
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 13
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 14
+enum/vals::Ch2CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Aes
+    description: Advanced Encryption Standard Accelerator.
+    value: 49
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 10
+  - name: Ebi
+    description: External Bus Interface.
+    value: 51
+  - name: I2c0
+    description: I2C 0.
+    value: 20
+  - name: I2c1
+    description: I2C 1.
+    value: 21
+  - name: Lesense
+    description: Low Energy Sensor Interface.
+    value: 50
+  - name: Leuart0
+    description: Low Energy UART 0.
+    value: 16
+  - name: Leuart1
+    description: Low Energy UART 1.
+    value: 17
+  - name: Msc
+    value: 48
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Timer0
+    description: Timer 0.
+    value: 24
+  - name: Timer1
+    description: Timer 1.
+    value: 25
+  - name: Timer2
+    description: Timer 2.
+    value: 26
+  - name: Timer3
+    description: Timer 3.
+    value: 27
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 44
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 45
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 12
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 13
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 14
+enum/vals::Ch3CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Aes
+    description: Advanced Encryption Standard Accelerator.
+    value: 49
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 10
+  - name: Ebi
+    description: External Bus Interface.
+    value: 51
+  - name: I2c0
+    description: I2C 0.
+    value: 20
+  - name: I2c1
+    description: I2C 1.
+    value: 21
+  - name: Lesense
+    description: Low Energy Sensor Interface.
+    value: 50
+  - name: Leuart0
+    description: Low Energy UART 0.
+    value: 16
+  - name: Leuart1
+    description: Low Energy UART 1.
+    value: 17
+  - name: Msc
+    value: 48
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Timer0
+    description: Timer 0.
+    value: 24
+  - name: Timer1
+    description: Timer 1.
+    value: 25
+  - name: Timer2
+    description: Timer 2.
+    value: 26
+  - name: Timer3
+    description: Timer 3.
+    value: 27
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 44
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 45
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 12
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 13
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 14
+enum/vals::Ch4CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Aes
+    description: Advanced Encryption Standard Accelerator.
+    value: 49
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 10
+  - name: Ebi
+    description: External Bus Interface.
+    value: 51
+  - name: I2c0
+    description: I2C 0.
+    value: 20
+  - name: I2c1
+    description: I2C 1.
+    value: 21
+  - name: Lesense
+    description: Low Energy Sensor Interface.
+    value: 50
+  - name: Leuart0
+    description: Low Energy UART 0.
+    value: 16
+  - name: Leuart1
+    description: Low Energy UART 1.
+    value: 17
+  - name: Msc
+    value: 48
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Timer0
+    description: Timer 0.
+    value: 24
+  - name: Timer1
+    description: Timer 1.
+    value: 25
+  - name: Timer2
+    description: Timer 2.
+    value: 26
+  - name: Timer3
+    description: Timer 3.
+    value: 27
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 44
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 45
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 12
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 13
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 14
+enum/vals::Ch5CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Aes
+    description: Advanced Encryption Standard Accelerator.
+    value: 49
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 10
+  - name: Ebi
+    description: External Bus Interface.
+    value: 51
+  - name: I2c0
+    description: I2C 0.
+    value: 20
+  - name: I2c1
+    description: I2C 1.
+    value: 21
+  - name: Lesense
+    description: Low Energy Sensor Interface.
+    value: 50
+  - name: Leuart0
+    description: Low Energy UART 0.
+    value: 16
+  - name: Leuart1
+    description: Low Energy UART 1.
+    value: 17
+  - name: Msc
+    value: 48
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Timer0
+    description: Timer 0.
+    value: 24
+  - name: Timer1
+    description: Timer 1.
+    value: 25
+  - name: Timer2
+    description: Timer 2.
+    value: 26
+  - name: Timer3
+    description: Timer 3.
+    value: 27
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 44
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 45
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 12
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 13
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 14
+enum/vals::Ch6CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Aes
+    description: Advanced Encryption Standard Accelerator.
+    value: 49
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 10
+  - name: Ebi
+    description: External Bus Interface.
+    value: 51
+  - name: I2c0
+    description: I2C 0.
+    value: 20
+  - name: I2c1
+    description: I2C 1.
+    value: 21
+  - name: Lesense
+    description: Low Energy Sensor Interface.
+    value: 50
+  - name: Leuart0
+    description: Low Energy UART 0.
+    value: 16
+  - name: Leuart1
+    description: Low Energy UART 1.
+    value: 17
+  - name: Msc
+    value: 48
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Timer0
+    description: Timer 0.
+    value: 24
+  - name: Timer1
+    description: Timer 1.
+    value: 25
+  - name: Timer2
+    description: Timer 2.
+    value: 26
+  - name: Timer3
+    description: Timer 3.
+    value: 27
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 44
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 45
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 12
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 13
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 14
+enum/vals::Ch7CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Aes
+    description: Advanced Encryption Standard Accelerator.
+    value: 49
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 10
+  - name: Ebi
+    description: External Bus Interface.
+    value: 51
+  - name: I2c0
+    description: I2C 0.
+    value: 20
+  - name: I2c1
+    description: I2C 1.
+    value: 21
+  - name: Lesense
+    description: Low Energy Sensor Interface.
+    value: 50
+  - name: Leuart0
+    description: Low Energy UART 0.
+    value: 16
+  - name: Leuart1
+    description: Low Energy UART 1.
+    value: 17
+  - name: Msc
+    value: 48
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Timer0
+    description: Timer 0.
+    value: 24
+  - name: Timer1
+    description: Timer 1.
+    value: 25
+  - name: Timer2
+    description: Timer 2.
+    value: 26
+  - name: Timer3
+    description: Timer 3.
+    value: 27
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 44
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 45
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 12
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 13
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 14
+enum/vals::Ch8CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Aes
+    description: Advanced Encryption Standard Accelerator.
+    value: 49
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 10
+  - name: Ebi
+    description: External Bus Interface.
+    value: 51
+  - name: I2c0
+    description: I2C 0.
+    value: 20
+  - name: I2c1
+    description: I2C 1.
+    value: 21
+  - name: Lesense
+    description: Low Energy Sensor Interface.
+    value: 50
+  - name: Leuart0
+    description: Low Energy UART 0.
+    value: 16
+  - name: Leuart1
+    description: Low Energy UART 1.
+    value: 17
+  - name: Msc
+    value: 48
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Timer0
+    description: Timer 0.
+    value: 24
+  - name: Timer1
+    description: Timer 1.
+    value: 25
+  - name: Timer2
+    description: Timer 2.
+    value: 26
+  - name: Timer3
+    description: Timer 3.
+    value: 27
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 44
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 45
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 12
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 13
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 14
+enum/vals::Ch9CtrlSourcesel:
+  bit_size: 6
+  variants:
+  - name: Adc0
+    description: Analog to Digital Converter 0.
+    value: 8
+  - name: Aes
+    description: Advanced Encryption Standard Accelerator.
+    value: 49
+  - name: Dac0
+    description: Digital to Analog Converter 0.
+    value: 10
+  - name: Ebi
+    description: External Bus Interface.
+    value: 51
+  - name: I2c0
+    description: I2C 0.
+    value: 20
+  - name: I2c1
+    description: I2C 1.
+    value: 21
+  - name: Lesense
+    description: Low Energy Sensor Interface.
+    value: 50
+  - name: Leuart0
+    description: Low Energy UART 0.
+    value: 16
+  - name: Leuart1
+    description: Low Energy UART 1.
+    value: 17
+  - name: Msc
+    value: 48
+  - name: None
+    description: No source selected.
+    value: 0
+  - name: Timer0
+    description: Timer 0.
+    value: 24
+  - name: Timer1
+    description: Timer 1.
+    value: 25
+  - name: Timer2
+    description: Timer 2.
+    value: 26
+  - name: Timer3
+    description: Timer 3.
+    value: 27
+  - name: Uart0
+    description: Universal Asynchronous Receiver/Transmitter 0.
+    value: 44
+  - name: Uart1
+    description: Universal Asynchronous Receiver/Transmitter 1.
+    value: 45
+  - name: Usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0.
+    value: 12
+  - name: Usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1.
+    value: 13
+  - name: Usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2.
+    value: 14
+enum/vals::State:
+  bit_size: 4
+  variants:
+  - name: Done
+    description: Done.
+    value: 9
+  - name: Idle
+    description: Idle.
+    value: 0
+  - name: Perscattrans
+    description: Peripheral scatter-gather transition.
+    value: 10
+  - name: Rdchctrldata
+    description: Reading channel controller data.
+    value: 1
+  - name: Rddstendptr
+    description: Reading destination data end pointer.
+    value: 3
+  - name: Rdsrcdata
+    description: Reading source data.
+    value: 4
+  - name: Rdsrcendptr
+    description: Reading source data end pointer.
+    value: 2
+  - name: Stalled
+    description: Stalled.
+    value: 8
+  - name: Waitreqclr
+    description: Waiting for DMA request to clear.
+    value: 6
+  - name: Wrchctrldata
+    description: Writing channel controller data.
+    value: 7
+  - name: Wrdstdata
+    description: Writing destination data.
+    value: 5
