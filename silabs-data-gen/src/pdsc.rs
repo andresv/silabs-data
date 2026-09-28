@@ -28,6 +28,10 @@ pub struct Chip {
     /// treat `None` as "regenerate the chip JSON".
     #[serde(default)]
     pub series: Option<crate::header::Series>,
+    /// NVIC priority bits (`__NVIC_PRIO_BITS`) from the per-chip CMSIS
+    /// device header. Filled in by `silabs-data-gen`, like `series`.
+    #[serde(default)]
+    pub nvic_prio_bits: Option<u8>,
     pub memory: Vec<MemoryRegion>,
     pub flash_algo: Option<String>,
     pub svd: String,
@@ -298,6 +302,7 @@ impl DeviceBuilder {
             // parsing, from the per-chip CMSIS device header — pdsc
             // doesn't carry the numeric series/config identifiers.
             series: None,
+            nvic_prio_bits: None,
             memory,
             flash_algo,
             svd,

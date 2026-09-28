@@ -102,6 +102,7 @@ mod tests {
             mpu: true,
             trustzone: true,
             series: Some(crate::header::Series { series: 2, config: 6 }),
+            nvic_prio_bits: Some(4),
             memory: vec![],
             flash_algo: None,
             svd: "fake.svd".to_string(),

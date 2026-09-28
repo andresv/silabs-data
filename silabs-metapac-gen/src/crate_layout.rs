@@ -342,12 +342,16 @@ pub fn build_chip_pac_rs(chip: &ChipFile) -> String {
     // Interrupts are emitted as the `pub enum Interrupt { … }` inside
     // `emit_cortex_m_rt_glue` — same shape as stm32-metapac. Numeric
     // values are reachable via `Interrupt::FOO as u16`.
-    emit_cortex_m_rt_glue(&mut s, &chip.interrupts);
+    let nvic_prio_bits = chip
+        .chip
+        .nvic_prio_bits
+        .expect("chip.nvic_prio_bits missing — re-run silabs-data-gen to populate it");
+    emit_cortex_m_rt_glue(&mut s, &chip.interrupts, nvic_prio_bits);
 
     s
 }
 
-fn emit_cortex_m_rt_glue(s: &mut String, interrupts: &[Interrupt]) {
+fn emit_cortex_m_rt_glue(s: &mut String, interrupts: &[Interrupt], nvic_prio_bits: u8) {
     let mut by_value: std::collections::BTreeMap<u32, &Interrupt> = std::collections::BTreeMap::new();
     let mut seen: BTreeSet<&str> = BTreeSet::new();
     for i in interrupts {
@@ -403,7 +407,7 @@ fn emit_cortex_m_rt_glue(s: &mut String, interrupts: &[Interrupt]) {
 
     s.push_str("/// Number available in the NVIC for configuring priority.\n");
     s.push_str("#[cfg(feature = \"rt\")]\n");
-    s.push_str("pub const NVIC_PRIO_BITS: u8 = 4;\n\n");
+    s.push_str(&format!("pub const NVIC_PRIO_BITS: u8 = {nvic_prio_bits};\n\n"));
 
     s.push_str("#[cfg(feature = \"rt\")]\n");
     s.push_str("pub use cortex_m_rt::interrupt;\n");
@@ -601,6 +605,7 @@ mod tests {
                 mpu: false,
                 trustzone: false,
                 series: Some(silabs_data_gen::header::Series { series: 2, config: 6 }),
+                nvic_prio_bits: Some(4),
                 memory: vec![
                     MemoryRegion {
                         id: "IROM1".into(),
@@ -831,6 +836,14 @@ mod tests {
 
         let s = build_chip_pac_rs(&fake_chip());
         assert!(!s.contains("gpio_port"));
+    }
+
+    #[test]
+    fn pac_rs_emits_nvic_prio_bits_from_chip() {
+        let mut c = fake_chip();
+        c.chip.nvic_prio_bits = Some(3);
+        let s = build_chip_pac_rs(&c);
+        assert!(s.contains("pub const NVIC_PRIO_BITS: u8 = 3;"), "{s}");
     }
 
     #[test]
