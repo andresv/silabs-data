@@ -15,7 +15,9 @@
 //!
 //! First match wins. Order entries from most-specific to least-specific.
 
-use anyhow::{Context, Result};
+use std::sync::OnceLock;
+
+use anyhow::{Context, Result, bail};
 use regex::Regex;
 
 /// One perimap entry: a key regex over `<chip>:<peripheral>:<svd_version>`
@@ -161,7 +163,39 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     // for the rest). Both are MG22-specific (config-2 timer, version 0).
     ("EFR32MG22.*:TIMER0_NS:.*", "timer", "v0_w", "TIMER"),
     ("EFR32MG22.*:TIMER[1-4]_NS:.*", "timer", "v0", "TIMER"),
+    // --- EFM32GG (Series 0 Giant Gecko) ---
+    // UART0/1 are the asynchronous subset of the USART IP and share its
+    // register layout exactly (verified by extraction: only one enum-variant
+    // description differs). Route them to the shared usart block. Series 0
+    // SVDs carry no <version>, so the key's version part is empty.
+    ("EFM32GG[0-9]{3}F.*:UART[0-9]+:", "usart", "s0v1", "USART"),
 ];
+
+/// Version labels for chips whose SVDs carry no `<peripheral><version>`
+/// tag (every EFM32/EFR32 Series 0 and Series 1 pack). Key: chip-name
+/// regex (anchored). Value: the label every unversioned peripheral on a
+/// matching chip gets, unless an `ENTRIES` row matches first.
+///
+/// Label scheme: `s<series>v<N>`, numbered per series in release order.
+/// Series 2 labels are `v<svd_version>` and never start with `s`, so the
+/// two schemes cannot collide. When a new family shares most blocks with
+/// an onboarded one, give it the same label here and split the blocks
+/// that differ with `ENTRIES` rows (e.g. `gpio` → `s0v2`).
+pub static UNVERSIONED: &[(&str, &str)] = &[
+    // EFM32GG (Series 0). `[0-9]{3}F` excludes Series 1 EFM32GG11B/GG12B.
+    ("EFM32GG[0-9]{3}F.*", "s0v1"),
+];
+
+fn unversioned_label(chip: &str) -> Option<&'static str> {
+    static COMPILED: OnceLock<Vec<(Regex, &'static str)>> = OnceLock::new();
+    let compiled = COMPILED.get_or_init(|| {
+        UNVERSIONED
+            .iter()
+            .map(|(key, label)| (Regex::new(&format!("^{key}$")).expect("UNVERSIONED regex compiles"), *label))
+            .collect()
+    });
+    compiled.iter().find(|(re, _)| re.is_match(chip)).map(|(_, label)| *label)
+}
 
 /// Compile the static `ENTRIES` table into runtime `Entry`s.
 pub fn compile() -> Result<Vec<Entry>> {
@@ -207,18 +241,32 @@ fn default_route(peripheral: &str, svd_version: Option<&str>) -> Route {
 
 /// Route a peripheral instance to its `(kind, version, block)`. The
 /// `compiled` argument should come from [`compile`].
-pub fn route(compiled: &[Entry], chip: &str, peripheral: &str, svd_version: Option<&str>) -> Route {
+///
+/// Fails when the SVD has no `<version>` for the peripheral and neither
+/// `ENTRIES` nor `UNVERSIONED` covers the chip, so no peripheral is ever
+/// published under a guessed version.
+pub fn route(compiled: &[Entry], chip: &str, peripheral: &str, svd_version: Option<&str>) -> Result<Route> {
     let key = format!("{chip}:{peripheral}:{}", svd_version.unwrap_or(""));
     for e in compiled {
         if e.key.is_match(&key) {
-            return Route {
+            return Ok(Route {
                 kind: e.kind.to_owned(),
                 version: e.version.to_owned(),
                 block: e.block.to_owned(),
-            };
+            });
         }
     }
-    default_route(peripheral, svd_version)
+    let mut r = default_route(peripheral, svd_version);
+    if svd_version.is_none_or(str::is_empty) {
+        let Some(label) = unversioned_label(chip) else {
+            bail!(
+                "{chip}:{peripheral} has no SVD <version> and no perimap route — \
+                 add the chip family to perimap::UNVERSIONED or add an ENTRIES row"
+            );
+        };
+        r.version = label.to_owned();
+    }
+    Ok(r)
 }
 
 /// Sanitise an SVD version string to a Rust-identifier-friendly suffix.
@@ -264,9 +312,39 @@ mod tests {
     #[test]
     fn empty_perimap_uses_default_for_known_silabs_names() {
         let compiled = compile().unwrap();
-        let r = route(&compiled, "EFR32MG26B211F2048IM68", "GPIO_NS", Some("7"));
+        let r = route(&compiled, "EFR32MG26B211F2048IM68", "GPIO_NS", Some("7")).unwrap();
         assert_eq!(r.kind, "gpio");
         assert_eq!(r.version, "v7");
         assert_eq!(r.block, "GPIO");
+    }
+
+    #[test]
+    fn unversioned_efm32gg_gets_family_label() {
+        let compiled = compile().unwrap();
+        let r = route(&compiled, "EFM32GG390F1024", "TIMER0", None).unwrap();
+        assert_eq!((r.kind.as_str(), r.version.as_str(), r.block.as_str()), ("timer", "s0v1", "TIMER"));
+    }
+
+    #[test]
+    fn efm32gg_uart_routes_to_usart() {
+        let compiled = compile().unwrap();
+        let r = route(&compiled, "EFM32GG390F1024", "UART1", None).unwrap();
+        assert_eq!((r.kind.as_str(), r.version.as_str(), r.block.as_str()), ("usart", "s0v1", "USART"));
+    }
+
+    #[test]
+    fn unversioned_without_family_label_is_an_error() {
+        let compiled = compile().unwrap();
+        // EFM32GG11B is Series 1 and not onboarded yet. `[0-9]{3}F` in the
+        // GG pattern must not match it.
+        let err = route(&compiled, "EFM32GG11B820F2048GL192", "GPIO", None).unwrap_err();
+        assert!(err.to_string().contains("UNVERSIONED"), "{err}");
+    }
+
+    #[test]
+    fn unversioned_patterns_compile() {
+        for (key, _) in UNVERSIONED {
+            Regex::new(&format!("^{key}$")).unwrap_or_else(|e| panic!("UNVERSIONED `{key}`: {e}"));
+        }
     }
 }

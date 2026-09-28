@@ -113,7 +113,7 @@ fn main() -> anyhow::Result<()> {
                 );
 
                 let chip_name = chip.name.clone();
-                let chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_irqs, &perimap_entries);
+                let chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_irqs, &perimap_entries)?;
 
                 let out = chips_dir.join(format!("{chip_name}.json"));
                 std::fs::write(&out, serde_json::to_string_pretty(&chip_file)?)?;
