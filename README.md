@@ -56,6 +56,8 @@ Silicon Labs CMSIS DFP packs:
 
 No `header_map.yaml` analogue is required, and no CubeDB-style separate XML database either — pdsc is sufficient.
 
+Series 0 and Series 1 packs (EFM32 Gecko, EFM32/EFR32 xG1x) stopped at version 4.4.0. Their SVDs carry no `<peripheral><version>` tag. Their headers define `_SILICON_LABS_32B_SERIES 0` without a config macro (Series 0), and `__NVIC_PRIO_BITS` is 2 or 3 instead of 4.
+
 ## Per-register YAML curation policy
 
 For register blocks, YAMLs are initially extracted from SVDs, **manually cleaned up and committed. From this point on, they're manually maintained.** We don't maintain "patches". Fixing mistakes and typos in SVDs is done by editing `data/registers/<kind>_v<version>.yaml` directly — not by patching the SVD or by re-running `./d seed`.
@@ -105,7 +107,7 @@ The `seed` subcommand sits outside this normal pipeline. It exists only to (re-)
 (Adapted from stm32-data's recipe.)
 
 - First, make sure you can regenerate the YAMLs following the steps above. You should be able to run `./d seed` against the current chip set and end up with no diff to the committed `data/registers/`.
-- Run `./d seed --kind <KIND>`. This outputs one extracted YAML per chip instance into `tmp/<KIND>/` (gitignored).
+- Run `./d seed --chips '<chip regex>' --candidates-dir tmp/candidates`. When chips disagree on a `(kind, version)`, this writes every distinct extraction to `tmp/candidates/<kind>_<version>/<hash>.yaml` (gitignored), with `index.txt` listing which chip peripherals produced each one.
 - Diff the extracted YAMLs against each other. The differences can be one of:
   1. Legitimate differences between families or instances (added registers/fields → new `(kind, version)`).
   2. SVD inconsistencies — same register, different names across chips.
@@ -151,11 +153,15 @@ First match wins. Entries are explicit so future SVD drift doesn't silently chan
 
 `perimap` is also where we split structurally-different peripherals that the SVD `<version>` field accidentally merges, and where we strip the vendor `_NS` suffix from block names. SVD `<version>` is the *default* — perimap overrides it when reality disagrees.
 
+### Unversioned SVDs
+
+Chips whose SVDs have no peripheral versions get their label from `perimap::UNVERSIONED` (chip regex → label). Labels follow `s<series>v<N>`, numbered per series in release order (EFM32GG is `s0v1`). `ENTRIES` rows still win, so a block that differs from the family default is split with an `ENTRIES` row. An unversioned peripheral with no route is a hard error.
+
 ## Adding a new chip family
 
 1. Add the pack URL + version to `silabs-data-source/families.toml`.
 2. `./d download-all` to fetch and sha256-pin it.
-3. `./d seed --family <NAME>` to extract every peripheral.
+3. `./d seed --chips '<chip regex>' --candidates-dir tmp/candidates` to extract every peripheral of the new family. `--chips` limits seeding to the new family, so curated YAMLs of other families are never rewritten. `--candidates-dir` writes every divergent IR to `tmp/candidates/<kind>_<version>/` instead of stopping at the first conflict.
 4. For each `(kind, version)` not yet in `data/registers/`, follow the "Adding support for a new peripheral" recipe.
 5. Add the required `perimap` entries.
 6. Regenerate, verify one chip per sub-family compiles.
