@@ -1,0 +1,6668 @@
+block/Usb:
+  description: USB peripheral.
+  items:
+  - name: ctrl
+    description: System Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: status
+    description: System Status Register.
+    byte_offset: 4
+    access: Read
+    fieldset: regs::Status
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 12
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 16
+    access: Write
+    fieldset: regs::Ifc
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 20
+    fieldset: regs::Ien
+  - name: route
+    description: I/O Routing Register.
+    byte_offset: 24
+    fieldset: regs::Route
+  - name: gotgctl
+    description: OTG Control and Status Register.
+    byte_offset: 245760
+    fieldset: regs::Gotgctl
+  - name: gotgint
+    description: OTG Interrupt Register.
+    byte_offset: 245764
+    fieldset: regs::Gotgint
+  - name: gahbcfg
+    description: AHB Configuration Register.
+    byte_offset: 245768
+    fieldset: regs::Gahbcfg
+  - name: gusbcfg
+    description: USB Configuration Register.
+    byte_offset: 245772
+    fieldset: regs::Gusbcfg
+  - name: grstctl
+    description: Reset Register.
+    byte_offset: 245776
+    fieldset: regs::Grstctl
+  - name: gintsts
+    description: Interrupt Register.
+    byte_offset: 245780
+    fieldset: regs::Gintsts
+  - name: gintmsk
+    description: Interrupt Mask Register.
+    byte_offset: 245784
+    fieldset: regs::Gintmsk
+  - name: grxstsr
+    description: Receive Status Debug Read Register.
+    byte_offset: 245788
+    access: Read
+    fieldset: regs::Grxstsr
+  - name: grxstsp
+    description: Receive Status Read and Pop Register.
+    byte_offset: 245792
+    access: Read
+    fieldset: regs::Grxstsp
+  - name: grxfsiz
+    description: Receive FIFO Size Register.
+    byte_offset: 245796
+    fieldset: regs::Grxfsiz
+  - name: gnptxfsiz
+    description: Non-periodic Transmit FIFO Size Register.
+    byte_offset: 245800
+    fieldset: regs::Gnptxfsiz
+  - name: gnptxsts
+    description: Non-periodic Transmit FIFO/Queue Status Register.
+    byte_offset: 245804
+    access: Read
+    fieldset: regs::Gnptxsts
+  - name: gdfifocfg
+    description: Global DFIFO Configuration Register.
+    byte_offset: 245852
+    fieldset: regs::Gdfifocfg
+  - name: hptxfsiz
+    description: Host Periodic Transmit FIFO Size Register.
+    byte_offset: 246016
+    fieldset: regs::Hptxfsiz
+  - name: dieptxf1
+    description: Device IN Endpoint Transmit FIFO 1 Size Register.
+    byte_offset: 246020
+    fieldset: regs::Dieptxf1
+  - name: dieptxf2
+    description: Device IN Endpoint Transmit FIFO 2 Size Register.
+    byte_offset: 246024
+    fieldset: regs::Dieptxf2
+  - name: dieptxf3
+    description: Device IN Endpoint Transmit FIFO 3 Size Register.
+    byte_offset: 246028
+    fieldset: regs::Dieptxf3
+  - name: dieptxf4
+    description: Device IN Endpoint Transmit FIFO 4 Size Register.
+    byte_offset: 246032
+    fieldset: regs::Dieptxf4
+  - name: dieptxf5
+    description: Device IN Endpoint Transmit FIFO 5 Size Register.
+    byte_offset: 246036
+    fieldset: regs::Dieptxf5
+  - name: dieptxf6
+    description: Device IN Endpoint Transmit FIFO 6 Size Register.
+    byte_offset: 246040
+    fieldset: regs::Dieptxf6
+  - name: hcfg
+    description: Host Configuration Register.
+    byte_offset: 246784
+    fieldset: regs::Hcfg
+  - name: hfir
+    description: Host Frame Interval Register.
+    byte_offset: 246788
+    fieldset: regs::Hfir
+  - name: hfnum
+    description: Host Frame Number/Frame Time Remaining Register.
+    byte_offset: 246792
+    access: Read
+    fieldset: regs::Hfnum
+  - name: hptxsts
+    description: Host Periodic Transmit FIFO/Queue Status Register.
+    byte_offset: 246800
+    access: Read
+    fieldset: regs::Hptxsts
+  - name: haint
+    description: Host All Channels Interrupt Register.
+    byte_offset: 246804
+    access: Read
+    fieldset: regs::Haint
+  - name: haintmsk
+    description: Host All Channels Interrupt Mask Register.
+    byte_offset: 246808
+    fieldset: regs::Haintmsk
+  - name: hprt
+    description: Host Port Control and Status Register.
+    byte_offset: 246848
+    fieldset: regs::Hprt
+  - name: hc0_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247040
+    fieldset: regs::Hc0Char
+  - name: hc0_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247048
+    fieldset: regs::Hc0Int
+  - name: hc0_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247052
+    fieldset: regs::Hc0Intmsk
+  - name: hc0_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247056
+    fieldset: regs::Hc0Tsiz
+  - name: hc0_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247060
+    fieldset: regs::Hc0Dmaaddr
+  - name: hc1_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247072
+    fieldset: regs::Hc1Char
+  - name: hc1_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247080
+    fieldset: regs::Hc1Int
+  - name: hc1_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247084
+    fieldset: regs::Hc1Intmsk
+  - name: hc1_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247088
+    fieldset: regs::Hc1Tsiz
+  - name: hc1_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247092
+    fieldset: regs::Hc1Dmaaddr
+  - name: hc2_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247104
+    fieldset: regs::Hc2Char
+  - name: hc2_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247112
+    fieldset: regs::Hc2Int
+  - name: hc2_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247116
+    fieldset: regs::Hc2Intmsk
+  - name: hc2_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247120
+    fieldset: regs::Hc2Tsiz
+  - name: hc2_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247124
+    fieldset: regs::Hc2Dmaaddr
+  - name: hc3_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247136
+    fieldset: regs::Hc3Char
+  - name: hc3_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247144
+    fieldset: regs::Hc3Int
+  - name: hc3_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247148
+    fieldset: regs::Hc3Intmsk
+  - name: hc3_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247152
+    fieldset: regs::Hc3Tsiz
+  - name: hc3_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247156
+    fieldset: regs::Hc3Dmaaddr
+  - name: hc4_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247168
+    fieldset: regs::Hc4Char
+  - name: hc4_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247176
+    fieldset: regs::Hc4Int
+  - name: hc4_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247180
+    fieldset: regs::Hc4Intmsk
+  - name: hc4_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247184
+    fieldset: regs::Hc4Tsiz
+  - name: hc4_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247188
+    fieldset: regs::Hc4Dmaaddr
+  - name: hc5_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247200
+    fieldset: regs::Hc5Char
+  - name: hc5_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247208
+    fieldset: regs::Hc5Int
+  - name: hc5_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247212
+    fieldset: regs::Hc5Intmsk
+  - name: hc5_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247216
+    fieldset: regs::Hc5Tsiz
+  - name: hc5_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247220
+    fieldset: regs::Hc5Dmaaddr
+  - name: hc6_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247232
+    fieldset: regs::Hc6Char
+  - name: hc6_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247240
+    fieldset: regs::Hc6Int
+  - name: hc6_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247244
+    fieldset: regs::Hc6Intmsk
+  - name: hc6_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247248
+    fieldset: regs::Hc6Tsiz
+  - name: hc6_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247252
+    fieldset: regs::Hc6Dmaaddr
+  - name: hc7_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247264
+    fieldset: regs::Hc7Char
+  - name: hc7_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247272
+    fieldset: regs::Hc7Int
+  - name: hc7_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247276
+    fieldset: regs::Hc7Intmsk
+  - name: hc7_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247280
+    fieldset: regs::Hc7Tsiz
+  - name: hc7_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247284
+    fieldset: regs::Hc7Dmaaddr
+  - name: hc8_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247296
+    fieldset: regs::Hc8Char
+  - name: hc8_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247304
+    fieldset: regs::Hc8Int
+  - name: hc8_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247308
+    fieldset: regs::Hc8Intmsk
+  - name: hc8_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247312
+    fieldset: regs::Hc8Tsiz
+  - name: hc8_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247316
+    fieldset: regs::Hc8Dmaaddr
+  - name: hc9_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247328
+    fieldset: regs::Hc9Char
+  - name: hc9_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247336
+    fieldset: regs::Hc9Int
+  - name: hc9_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247340
+    fieldset: regs::Hc9Intmsk
+  - name: hc9_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247344
+    fieldset: regs::Hc9Tsiz
+  - name: hc9_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247348
+    fieldset: regs::Hc9Dmaaddr
+  - name: hc10_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247360
+    fieldset: regs::Hc10Char
+  - name: hc10_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247368
+    fieldset: regs::Hc10Int
+  - name: hc10_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247372
+    fieldset: regs::Hc10Intmsk
+  - name: hc10_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247376
+    fieldset: regs::Hc10Tsiz
+  - name: hc10_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247380
+    fieldset: regs::Hc10Dmaaddr
+  - name: hc11_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247392
+    fieldset: regs::Hc11Char
+  - name: hc11_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247400
+    fieldset: regs::Hc11Int
+  - name: hc11_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247404
+    fieldset: regs::Hc11Intmsk
+  - name: hc11_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247408
+    fieldset: regs::Hc11Tsiz
+  - name: hc11_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247412
+    fieldset: regs::Hc11Dmaaddr
+  - name: hc12_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247424
+    fieldset: regs::Hc12Char
+  - name: hc12_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247432
+    fieldset: regs::Hc12Int
+  - name: hc12_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247436
+    fieldset: regs::Hc12Intmsk
+  - name: hc12_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247440
+    fieldset: regs::Hc12Tsiz
+  - name: hc12_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247444
+    fieldset: regs::Hc12Dmaaddr
+  - name: hc13_char
+    description: Host Channel x Characteristics Register.
+    byte_offset: 247456
+    fieldset: regs::Hc13Char
+  - name: hc13_int
+    description: Host Channel x Interrupt Register.
+    byte_offset: 247464
+    fieldset: regs::Hc13Int
+  - name: hc13_intmsk
+    description: Host Channel x Interrupt Mask Register.
+    byte_offset: 247468
+    fieldset: regs::Hc13Intmsk
+  - name: hc13_tsiz
+    description: Host Channel x Transfer Size Register.
+    byte_offset: 247472
+    fieldset: regs::Hc13Tsiz
+  - name: hc13_dmaaddr
+    description: Host Channel x DMA Address Register.
+    byte_offset: 247476
+    fieldset: regs::Hc13Dmaaddr
+  - name: dcfg
+    description: Device Configuration Register.
+    byte_offset: 247808
+    fieldset: regs::Dcfg
+  - name: dctl
+    description: Device Control Register.
+    byte_offset: 247812
+    fieldset: regs::Dctl
+  - name: dsts
+    description: Device Status Register.
+    byte_offset: 247816
+    access: Read
+    fieldset: regs::Dsts
+  - name: diepmsk
+    description: Device IN Endpoint Common Interrupt Mask Register.
+    byte_offset: 247824
+    fieldset: regs::Diepmsk
+  - name: doepmsk
+    description: Device OUT Endpoint Common Interrupt Mask Register.
+    byte_offset: 247828
+    fieldset: regs::Doepmsk
+  - name: daint
+    description: Device All Endpoints Interrupt Register.
+    byte_offset: 247832
+    access: Read
+    fieldset: regs::Daint
+  - name: daintmsk
+    description: Device All Endpoints Interrupt Mask Register.
+    byte_offset: 247836
+    fieldset: regs::Daintmsk
+  - name: dvbusdis
+    description: Device VBUS Discharge Time Register.
+    byte_offset: 247848
+    fieldset: regs::Dvbusdis
+  - name: dvbuspulse
+    description: Device VBUS Pulsing Time Register.
+    byte_offset: 247852
+    fieldset: regs::Dvbuspulse
+  - name: diepempmsk
+    description: Device IN Endpoint FIFO Empty Interrupt Mask Register.
+    byte_offset: 247860
+    fieldset: regs::Diepempmsk
+  - name: diep0ctl
+    description: Device IN Endpoint 0 Control Register.
+    byte_offset: 248064
+    fieldset: regs::Diep0ctl
+  - name: diep0int
+    description: Device IN Endpoint 0 Interrupt Register.
+    byte_offset: 248072
+    fieldset: regs::Diep0int
+  - name: diep0tsiz
+    description: Device IN Endpoint 0 Transfer Size Register.
+    byte_offset: 248080
+    fieldset: regs::Diep0tsiz
+  - name: diep0dmaaddr
+    description: Device IN Endpoint 0 DMA Address Register.
+    byte_offset: 248084
+    fieldset: regs::Diep0dmaaddr
+  - name: diep0txfsts
+    description: Device IN Endpoint 0 Transmit FIFO Status Register.
+    byte_offset: 248088
+    access: Read
+    fieldset: regs::Diep0txfsts
+  - name: diep0_ctl
+    description: Device IN Endpoint x+1 Control Register.
+    byte_offset: 248096
+    fieldset: regs::Diep0Ctl
+  - name: diep0_int
+    description: Device IN Endpoint x+1 Interrupt Register.
+    byte_offset: 248104
+    fieldset: regs::Diep0Int
+  - name: diep0_tsiz
+    description: Device IN Endpoint x+1 Transfer Size Register.
+    byte_offset: 248112
+    fieldset: regs::Diep0Tsiz
+  - name: diep0_dmaaddr
+    description: Device IN Endpoint x+1 DMA Address Register.
+    byte_offset: 248116
+    fieldset: regs::Diep0Dmaaddr
+  - name: diep0_txfsts
+    description: Device IN Endpoint x+1 Transmit FIFO Status Register.
+    byte_offset: 248120
+    access: Read
+    fieldset: regs::Diep0Txfsts
+  - name: diep1_ctl
+    description: Device IN Endpoint x+1 Control Register.
+    byte_offset: 248128
+    fieldset: regs::Diep1Ctl
+  - name: diep1_int
+    description: Device IN Endpoint x+1 Interrupt Register.
+    byte_offset: 248136
+    fieldset: regs::Diep1Int
+  - name: diep1_tsiz
+    description: Device IN Endpoint x+1 Transfer Size Register.
+    byte_offset: 248144
+    fieldset: regs::Diep1Tsiz
+  - name: diep1_dmaaddr
+    description: Device IN Endpoint x+1 DMA Address Register.
+    byte_offset: 248148
+    fieldset: regs::Diep1Dmaaddr
+  - name: diep1_txfsts
+    description: Device IN Endpoint x+1 Transmit FIFO Status Register.
+    byte_offset: 248152
+    access: Read
+    fieldset: regs::Diep1Txfsts
+  - name: diep2_ctl
+    description: Device IN Endpoint x+1 Control Register.
+    byte_offset: 248160
+    fieldset: regs::Diep2Ctl
+  - name: diep2_int
+    description: Device IN Endpoint x+1 Interrupt Register.
+    byte_offset: 248168
+    fieldset: regs::Diep2Int
+  - name: diep2_tsiz
+    description: Device IN Endpoint x+1 Transfer Size Register.
+    byte_offset: 248176
+    fieldset: regs::Diep2Tsiz
+  - name: diep2_dmaaddr
+    description: Device IN Endpoint x+1 DMA Address Register.
+    byte_offset: 248180
+    fieldset: regs::Diep2Dmaaddr
+  - name: diep2_txfsts
+    description: Device IN Endpoint x+1 Transmit FIFO Status Register.
+    byte_offset: 248184
+    access: Read
+    fieldset: regs::Diep2Txfsts
+  - name: diep3_ctl
+    description: Device IN Endpoint x+1 Control Register.
+    byte_offset: 248192
+    fieldset: regs::Diep3Ctl
+  - name: diep3_int
+    description: Device IN Endpoint x+1 Interrupt Register.
+    byte_offset: 248200
+    fieldset: regs::Diep3Int
+  - name: diep3_tsiz
+    description: Device IN Endpoint x+1 Transfer Size Register.
+    byte_offset: 248208
+    fieldset: regs::Diep3Tsiz
+  - name: diep3_dmaaddr
+    description: Device IN Endpoint x+1 DMA Address Register.
+    byte_offset: 248212
+    fieldset: regs::Diep3Dmaaddr
+  - name: diep3_txfsts
+    description: Device IN Endpoint x+1 Transmit FIFO Status Register.
+    byte_offset: 248216
+    access: Read
+    fieldset: regs::Diep3Txfsts
+  - name: diep4_ctl
+    description: Device IN Endpoint x+1 Control Register.
+    byte_offset: 248224
+    fieldset: regs::Diep4Ctl
+  - name: diep4_int
+    description: Device IN Endpoint x+1 Interrupt Register.
+    byte_offset: 248232
+    fieldset: regs::Diep4Int
+  - name: diep4_tsiz
+    description: Device IN Endpoint x+1 Transfer Size Register.
+    byte_offset: 248240
+    fieldset: regs::Diep4Tsiz
+  - name: diep4_dmaaddr
+    description: Device IN Endpoint x+1 DMA Address Register.
+    byte_offset: 248244
+    fieldset: regs::Diep4Dmaaddr
+  - name: diep4_txfsts
+    description: Device IN Endpoint x+1 Transmit FIFO Status Register.
+    byte_offset: 248248
+    access: Read
+    fieldset: regs::Diep4Txfsts
+  - name: diep5_ctl
+    description: Device IN Endpoint x+1 Control Register.
+    byte_offset: 248256
+    fieldset: regs::Diep5Ctl
+  - name: diep5_int
+    description: Device IN Endpoint x+1 Interrupt Register.
+    byte_offset: 248264
+    fieldset: regs::Diep5Int
+  - name: diep5_tsiz
+    description: Device IN Endpoint x+1 Transfer Size Register.
+    byte_offset: 248272
+    fieldset: regs::Diep5Tsiz
+  - name: diep5_dmaaddr
+    description: Device IN Endpoint x+1 DMA Address Register.
+    byte_offset: 248276
+    fieldset: regs::Diep5Dmaaddr
+  - name: diep5_txfsts
+    description: Device IN Endpoint x+1 Transmit FIFO Status Register.
+    byte_offset: 248280
+    access: Read
+    fieldset: regs::Diep5Txfsts
+  - name: doep0ctl
+    description: Device OUT Endpoint 0 Control Register.
+    byte_offset: 248576
+    fieldset: regs::Doep0ctl
+  - name: doep0int
+    description: Device OUT Endpoint 0 Interrupt Register.
+    byte_offset: 248584
+    fieldset: regs::Doep0int
+  - name: doep0tsiz
+    description: Device OUT Endpoint 0 Transfer Size Register.
+    byte_offset: 248592
+    fieldset: regs::Doep0tsiz
+  - name: doep0dmaaddr
+    description: Device OUT Endpoint 0 DMA Address Register.
+    byte_offset: 248596
+    fieldset: regs::Doep0dmaaddr
+  - name: doep0_ctl
+    description: Device OUT Endpoint x+1 Control Register.
+    byte_offset: 248608
+    fieldset: regs::Doep0Ctl
+  - name: doep0_int
+    description: Device OUT Endpoint x+1 Interrupt Register.
+    byte_offset: 248616
+    fieldset: regs::Doep0Int
+  - name: doep0_tsiz
+    description: Device OUT Endpoint x+1 Transfer Size Register.
+    byte_offset: 248624
+    fieldset: regs::Doep0Tsiz
+  - name: doep0_dmaaddr
+    description: Device OUT Endpoint x+1 DMA Address Register.
+    byte_offset: 248628
+    fieldset: regs::Doep0Dmaaddr
+  - name: doep1_ctl
+    description: Device OUT Endpoint x+1 Control Register.
+    byte_offset: 248640
+    fieldset: regs::Doep1Ctl
+  - name: doep1_int
+    description: Device OUT Endpoint x+1 Interrupt Register.
+    byte_offset: 248648
+    fieldset: regs::Doep1Int
+  - name: doep1_tsiz
+    description: Device OUT Endpoint x+1 Transfer Size Register.
+    byte_offset: 248656
+    fieldset: regs::Doep1Tsiz
+  - name: doep1_dmaaddr
+    description: Device OUT Endpoint x+1 DMA Address Register.
+    byte_offset: 248660
+    fieldset: regs::Doep1Dmaaddr
+  - name: doep2_ctl
+    description: Device OUT Endpoint x+1 Control Register.
+    byte_offset: 248672
+    fieldset: regs::Doep2Ctl
+  - name: doep2_int
+    description: Device OUT Endpoint x+1 Interrupt Register.
+    byte_offset: 248680
+    fieldset: regs::Doep2Int
+  - name: doep2_tsiz
+    description: Device OUT Endpoint x+1 Transfer Size Register.
+    byte_offset: 248688
+    fieldset: regs::Doep2Tsiz
+  - name: doep2_dmaaddr
+    description: Device OUT Endpoint x+1 DMA Address Register.
+    byte_offset: 248692
+    fieldset: regs::Doep2Dmaaddr
+  - name: doep3_ctl
+    description: Device OUT Endpoint x+1 Control Register.
+    byte_offset: 248704
+    fieldset: regs::Doep3Ctl
+  - name: doep3_int
+    description: Device OUT Endpoint x+1 Interrupt Register.
+    byte_offset: 248712
+    fieldset: regs::Doep3Int
+  - name: doep3_tsiz
+    description: Device OUT Endpoint x+1 Transfer Size Register.
+    byte_offset: 248720
+    fieldset: regs::Doep3Tsiz
+  - name: doep3_dmaaddr
+    description: Device OUT Endpoint x+1 DMA Address Register.
+    byte_offset: 248724
+    fieldset: regs::Doep3Dmaaddr
+  - name: doep4_ctl
+    description: Device OUT Endpoint x+1 Control Register.
+    byte_offset: 248736
+    fieldset: regs::Doep4Ctl
+  - name: doep4_int
+    description: Device OUT Endpoint x+1 Interrupt Register.
+    byte_offset: 248744
+    fieldset: regs::Doep4Int
+  - name: doep4_tsiz
+    description: Device OUT Endpoint x+1 Transfer Size Register.
+    byte_offset: 248752
+    fieldset: regs::Doep4Tsiz
+  - name: doep4_dmaaddr
+    description: Device OUT Endpoint x+1 DMA Address Register.
+    byte_offset: 248756
+    fieldset: regs::Doep4Dmaaddr
+  - name: doep5_ctl
+    description: Device OUT Endpoint x+1 Control Register.
+    byte_offset: 248768
+    fieldset: regs::Doep5Ctl
+  - name: doep5_int
+    description: Device OUT Endpoint x+1 Interrupt Register.
+    byte_offset: 248776
+    fieldset: regs::Doep5Int
+  - name: doep5_tsiz
+    description: Device OUT Endpoint x+1 Transfer Size Register.
+    byte_offset: 248784
+    fieldset: regs::Doep5Tsiz
+  - name: doep5_dmaaddr
+    description: Device OUT Endpoint x+1 DMA Address Register.
+    byte_offset: 248788
+    fieldset: regs::Doep5Dmaaddr
+  - name: pcgcctl
+    description: Power and Clock Gating Control Register.
+    byte_offset: 249344
+    fieldset: regs::Pcgcctl
+fieldset/regs::Ctrl:
+  description: System Control Register.
+  fields:
+  - name: vbusenap
+    description: VBUSEN Active Polarity.
+    bit_offset: 0
+    bit_size: 1
+  - name: dmpuap
+    description: DMPU Active Polarity.
+    bit_offset: 1
+    bit_size: 1
+  - name: vregdis
+    description: Voltage Regulator Disable.
+    bit_offset: 16
+    bit_size: 1
+  - name: vregosen
+    description: VREGO Sense Enable.
+    bit_offset: 17
+    bit_size: 1
+  - name: biasprogem01
+    description: Regulator Bias Programming Value in EM0/1.
+    bit_offset: 20
+    bit_size: 2
+  - name: biasprogem23
+    description: Regulator Bias Programming Value in EM2/3.
+    bit_offset: 24
+    bit_size: 2
+fieldset/regs::Daint:
+  description: Device All Endpoints Interrupt Register.
+  fields:
+  - name: inepint0
+    description: IN Endpoint 0 Interrupt Bit.
+    bit_offset: 0
+    bit_size: 1
+  - name: inepint1
+    description: IN Endpoint 1 Interrupt Bit.
+    bit_offset: 1
+    bit_size: 1
+  - name: inepint2
+    description: IN Endpoint 2 Interrupt Bit.
+    bit_offset: 2
+    bit_size: 1
+  - name: inepint3
+    description: IN Endpoint 3 Interrupt Bit.
+    bit_offset: 3
+    bit_size: 1
+  - name: inepint4
+    description: IN Endpoint 4 Interrupt Bit.
+    bit_offset: 4
+    bit_size: 1
+  - name: inepint5
+    description: IN Endpoint 5 Interrupt Bit.
+    bit_offset: 5
+    bit_size: 1
+  - name: inepint6
+    description: IN Endpoint 6 Interrupt Bit.
+    bit_offset: 6
+    bit_size: 1
+  - name: outepint0
+    description: OUT Endpoint 0 Interrupt Bit.
+    bit_offset: 16
+    bit_size: 1
+  - name: outepint1
+    description: OUT Endpoint 1 Interrupt Bit.
+    bit_offset: 17
+    bit_size: 1
+  - name: outepint2
+    description: OUT Endpoint 2 Interrupt Bit.
+    bit_offset: 18
+    bit_size: 1
+  - name: outepint3
+    description: OUT Endpoint 3 Interrupt Bit.
+    bit_offset: 19
+    bit_size: 1
+  - name: outepint4
+    description: OUT Endpoint 4 Interrupt Bit.
+    bit_offset: 20
+    bit_size: 1
+  - name: outepint5
+    description: OUT Endpoint 5 Interrupt Bit.
+    bit_offset: 21
+    bit_size: 1
+  - name: outepint6
+    description: OUT Endpoint 6 Interrupt Bit.
+    bit_offset: 22
+    bit_size: 1
+fieldset/regs::Daintmsk:
+  description: Device All Endpoints Interrupt Mask Register.
+  fields:
+  - name: inepmsk0
+    description: IN Endpoint 0 Interrupt mask Bit.
+    bit_offset: 0
+    bit_size: 1
+  - name: inepmsk1
+    description: IN Endpoint 1 Interrupt mask Bit.
+    bit_offset: 1
+    bit_size: 1
+  - name: inepmsk2
+    description: IN Endpoint 2 Interrupt mask Bit.
+    bit_offset: 2
+    bit_size: 1
+  - name: inepmsk3
+    description: IN Endpoint 3 Interrupt mask Bit.
+    bit_offset: 3
+    bit_size: 1
+  - name: inepmsk4
+    description: IN Endpoint 4 Interrupt mask Bit.
+    bit_offset: 4
+    bit_size: 1
+  - name: inepmsk5
+    description: IN Endpoint 5 Interrupt mask Bit.
+    bit_offset: 5
+    bit_size: 1
+  - name: inepmsk6
+    description: IN Endpoint 6 Interrupt mask Bit.
+    bit_offset: 6
+    bit_size: 1
+  - name: outepmsk0
+    description: OUT Endpoint 0 Interrupt mask Bit.
+    bit_offset: 16
+    bit_size: 1
+  - name: outepmsk1
+    description: OUT Endpoint 1 Interrupt mask Bit.
+    bit_offset: 17
+    bit_size: 1
+  - name: outepmsk2
+    description: OUT Endpoint 2 Interrupt mask Bit.
+    bit_offset: 18
+    bit_size: 1
+  - name: outepmsk3
+    description: OUT Endpoint 3 Interrupt mask Bit.
+    bit_offset: 19
+    bit_size: 1
+  - name: outepmsk4
+    description: OUT Endpoint 4 Interrupt mask Bit.
+    bit_offset: 20
+    bit_size: 1
+  - name: outepmsk5
+    description: OUT Endpoint 5 Interrupt mask Bit.
+    bit_offset: 21
+    bit_size: 1
+  - name: outepmsk6
+    description: OUT Endpoint 6 Interrupt mask Bit.
+    bit_offset: 22
+    bit_size: 1
+fieldset/regs::Dcfg:
+  description: Device Configuration Register.
+  fields:
+  - name: devspd
+    description: Device Speed.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Devspd
+  - name: nzstsouthshk
+    description: Non-Zero-Length Status OUT Handshake.
+    bit_offset: 2
+    bit_size: 1
+  - name: ena32khzsusp
+    description: Enable 32 KHz Suspend mode.
+    bit_offset: 3
+    bit_size: 1
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 4
+    bit_size: 7
+  - name: perfrint
+    description: Periodic Frame Interval.
+    bit_offset: 11
+    bit_size: 2
+    enum: vals::Perfrint
+  - name: resvalid
+    description: Resume Validation Period.
+    bit_offset: 26
+    bit_size: 6
+fieldset/regs::Dctl:
+  description: Device Control Register.
+  fields:
+  - name: rmtwkupsig
+    description: Remote Wakeup Signaling.
+    bit_offset: 0
+    bit_size: 1
+  - name: sftdiscon
+    description: Soft Disconnect.
+    bit_offset: 1
+    bit_size: 1
+  - name: gnpinnaksts
+    description: Global Non-periodic IN NAK Status.
+    bit_offset: 2
+    bit_size: 1
+  - name: goutnaksts
+    description: Global OUT NAK Status.
+    bit_offset: 3
+    bit_size: 1
+  - name: tstctl
+    description: Test Control.
+    bit_offset: 4
+    bit_size: 3
+    enum: vals::Tstctl
+  - name: sgnpinnak
+    description: Set Global Non-periodic IN NAK.
+    bit_offset: 7
+    bit_size: 1
+  - name: cgnpinnak
+    description: Clear Global Non-periodic IN NAK.
+    bit_offset: 8
+    bit_size: 1
+  - name: sgoutnak
+    description: Set Global OUT NAK.
+    bit_offset: 9
+    bit_size: 1
+  - name: cgoutnak
+    description: Clear Global OUT NAK.
+    bit_offset: 10
+    bit_size: 1
+  - name: pwronprgdone
+    description: Power-On Programming Done.
+    bit_offset: 11
+    bit_size: 1
+  - name: ignrfrmnum
+    description: Ignore Frame number For Isochronous End points.
+    bit_offset: 15
+    bit_size: 1
+  - name: nakonbble
+    description: NAK on Babble Error.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Diep0Ctl:
+  description: Device IN Endpoint x+1 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: dpideof
+    description: Endpoint Data PID / Even or Odd Frame.
+    bit_offset: 16
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Diep0CtlEptype
+  - name: stall
+    description: Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: txfnum
+    description: TxFIFO Number.
+    bit_offset: 22
+    bit_size: 4
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: setd0pidef
+    description: Set DATA0 PID / Even Frame.
+    bit_offset: 28
+    bit_size: 1
+  - name: setd1pidof
+    description: Set DATA1 PID / Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Diep0Dmaaddr:
+  description: Device IN Endpoint x+1 DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Diep0Int:
+  description: Device IN Endpoint x+1 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: timeout
+    description: Timeout Condition.
+    bit_offset: 3
+    bit_size: 1
+  - name: intkntxfemp
+    description: IN Token Received When TxFIFO is Empty.
+    bit_offset: 4
+    bit_size: 1
+  - name: inepnakeff
+    description: IN Endpoint NAK Effective.
+    bit_offset: 6
+    bit_size: 1
+  - name: txfemp
+    description: Transmit FIFO Empty.
+    bit_offset: 7
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: NAK Interrupt.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Diep0Tsiz:
+  description: Device IN Endpoint x+1 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: mc
+    description: Multi Count.
+    bit_offset: 29
+    bit_size: 2
+fieldset/regs::Diep0Txfsts:
+  description: Device IN Endpoint x+1 Transmit FIFO Status Register.
+  fields:
+  - name: spcavail
+    description: TxFIFO Space Available.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Diep0ctl:
+  description: Device IN Endpoint 0 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Diep0ctlMps
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+  - name: stall
+    description: Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: txfnum
+    description: TxFIFO Number.
+    bit_offset: 22
+    bit_size: 4
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Diep0dmaaddr:
+  description: Device IN Endpoint 0 DMA Address Register.
+  fields:
+  - name: diep0dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Diep0int:
+  description: Device IN Endpoint 0 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: timeout
+    description: Timeout Condition.
+    bit_offset: 3
+    bit_size: 1
+  - name: intkntxfemp
+    description: IN Token Received When TxFIFO is Empty.
+    bit_offset: 4
+    bit_size: 1
+  - name: inepnakeff
+    description: IN Endpoint NAK Effective.
+    bit_offset: 6
+    bit_size: 1
+  - name: txfemp
+    description: Transmit FIFO Empty.
+    bit_offset: 7
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: NAK Interrupt.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Diep0tsiz:
+  description: Device IN Endpoint 0 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 7
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 2
+fieldset/regs::Diep0txfsts:
+  description: Device IN Endpoint 0 Transmit FIFO Status Register.
+  fields:
+  - name: spcavail
+    description: TxFIFO Space Available.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Diep1Ctl:
+  description: Device IN Endpoint x+1 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: dpideof
+    description: Endpoint Data PID / Even or Odd Frame.
+    bit_offset: 16
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Diep1CtlEptype
+  - name: stall
+    description: Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: txfnum
+    description: TxFIFO Number.
+    bit_offset: 22
+    bit_size: 4
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: setd0pidef
+    description: Set DATA0 PID / Even Frame.
+    bit_offset: 28
+    bit_size: 1
+  - name: setd1pidof
+    description: Set DATA1 PID / Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Diep1Dmaaddr:
+  description: Device IN Endpoint x+1 DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Diep1Int:
+  description: Device IN Endpoint x+1 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: timeout
+    description: Timeout Condition.
+    bit_offset: 3
+    bit_size: 1
+  - name: intkntxfemp
+    description: IN Token Received When TxFIFO is Empty.
+    bit_offset: 4
+    bit_size: 1
+  - name: inepnakeff
+    description: IN Endpoint NAK Effective.
+    bit_offset: 6
+    bit_size: 1
+  - name: txfemp
+    description: Transmit FIFO Empty.
+    bit_offset: 7
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: NAK Interrupt.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Diep1Tsiz:
+  description: Device IN Endpoint x+1 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: mc
+    description: Multi Count.
+    bit_offset: 29
+    bit_size: 2
+fieldset/regs::Diep1Txfsts:
+  description: Device IN Endpoint x+1 Transmit FIFO Status Register.
+  fields:
+  - name: spcavail
+    description: TxFIFO Space Available.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Diep2Ctl:
+  description: Device IN Endpoint x+1 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: dpideof
+    description: Endpoint Data PID / Even or Odd Frame.
+    bit_offset: 16
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Diep2CtlEptype
+  - name: stall
+    description: Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: txfnum
+    description: TxFIFO Number.
+    bit_offset: 22
+    bit_size: 4
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: setd0pidef
+    description: Set DATA0 PID / Even Frame.
+    bit_offset: 28
+    bit_size: 1
+  - name: setd1pidof
+    description: Set DATA1 PID / Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Diep2Dmaaddr:
+  description: Device IN Endpoint x+1 DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Diep2Int:
+  description: Device IN Endpoint x+1 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: timeout
+    description: Timeout Condition.
+    bit_offset: 3
+    bit_size: 1
+  - name: intkntxfemp
+    description: IN Token Received When TxFIFO is Empty.
+    bit_offset: 4
+    bit_size: 1
+  - name: inepnakeff
+    description: IN Endpoint NAK Effective.
+    bit_offset: 6
+    bit_size: 1
+  - name: txfemp
+    description: Transmit FIFO Empty.
+    bit_offset: 7
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: NAK Interrupt.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Diep2Tsiz:
+  description: Device IN Endpoint x+1 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: mc
+    description: Multi Count.
+    bit_offset: 29
+    bit_size: 2
+fieldset/regs::Diep2Txfsts:
+  description: Device IN Endpoint x+1 Transmit FIFO Status Register.
+  fields:
+  - name: spcavail
+    description: TxFIFO Space Available.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Diep3Ctl:
+  description: Device IN Endpoint x+1 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: dpideof
+    description: Endpoint Data PID / Even or Odd Frame.
+    bit_offset: 16
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Diep3CtlEptype
+  - name: stall
+    description: Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: txfnum
+    description: TxFIFO Number.
+    bit_offset: 22
+    bit_size: 4
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: setd0pidef
+    description: Set DATA0 PID / Even Frame.
+    bit_offset: 28
+    bit_size: 1
+  - name: setd1pidof
+    description: Set DATA1 PID / Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Diep3Dmaaddr:
+  description: Device IN Endpoint x+1 DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Diep3Int:
+  description: Device IN Endpoint x+1 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: timeout
+    description: Timeout Condition.
+    bit_offset: 3
+    bit_size: 1
+  - name: intkntxfemp
+    description: IN Token Received When TxFIFO is Empty.
+    bit_offset: 4
+    bit_size: 1
+  - name: inepnakeff
+    description: IN Endpoint NAK Effective.
+    bit_offset: 6
+    bit_size: 1
+  - name: txfemp
+    description: Transmit FIFO Empty.
+    bit_offset: 7
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: NAK Interrupt.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Diep3Tsiz:
+  description: Device IN Endpoint x+1 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: mc
+    description: Multi Count.
+    bit_offset: 29
+    bit_size: 2
+fieldset/regs::Diep3Txfsts:
+  description: Device IN Endpoint x+1 Transmit FIFO Status Register.
+  fields:
+  - name: spcavail
+    description: TxFIFO Space Available.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Diep4Ctl:
+  description: Device IN Endpoint x+1 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: dpideof
+    description: Endpoint Data PID / Even or Odd Frame.
+    bit_offset: 16
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Diep4CtlEptype
+  - name: stall
+    description: Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: txfnum
+    description: TxFIFO Number.
+    bit_offset: 22
+    bit_size: 4
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: setd0pidef
+    description: Set DATA0 PID / Even Frame.
+    bit_offset: 28
+    bit_size: 1
+  - name: setd1pidof
+    description: Set DATA1 PID / Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Diep4Dmaaddr:
+  description: Device IN Endpoint x+1 DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Diep4Int:
+  description: Device IN Endpoint x+1 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: timeout
+    description: Timeout Condition.
+    bit_offset: 3
+    bit_size: 1
+  - name: intkntxfemp
+    description: IN Token Received When TxFIFO is Empty.
+    bit_offset: 4
+    bit_size: 1
+  - name: inepnakeff
+    description: IN Endpoint NAK Effective.
+    bit_offset: 6
+    bit_size: 1
+  - name: txfemp
+    description: Transmit FIFO Empty.
+    bit_offset: 7
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: NAK Interrupt.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Diep4Tsiz:
+  description: Device IN Endpoint x+1 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: mc
+    description: Multi Count.
+    bit_offset: 29
+    bit_size: 2
+fieldset/regs::Diep4Txfsts:
+  description: Device IN Endpoint x+1 Transmit FIFO Status Register.
+  fields:
+  - name: spcavail
+    description: TxFIFO Space Available.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Diep5Ctl:
+  description: Device IN Endpoint x+1 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: dpideof
+    description: Endpoint Data PID / Even or Odd Frame.
+    bit_offset: 16
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Diep5CtlEptype
+  - name: stall
+    description: Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: txfnum
+    description: TxFIFO Number.
+    bit_offset: 22
+    bit_size: 4
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: setd0pidef
+    description: Set DATA0 PID / Even Frame.
+    bit_offset: 28
+    bit_size: 1
+  - name: setd1pidof
+    description: Set DATA1 PID / Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Diep5Dmaaddr:
+  description: Device IN Endpoint x+1 DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Diep5Int:
+  description: Device IN Endpoint x+1 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: timeout
+    description: Timeout Condition.
+    bit_offset: 3
+    bit_size: 1
+  - name: intkntxfemp
+    description: IN Token Received When TxFIFO is Empty.
+    bit_offset: 4
+    bit_size: 1
+  - name: inepnakeff
+    description: IN Endpoint NAK Effective.
+    bit_offset: 6
+    bit_size: 1
+  - name: txfemp
+    description: Transmit FIFO Empty.
+    bit_offset: 7
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: NAK Interrupt.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Diep5Tsiz:
+  description: Device IN Endpoint x+1 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: mc
+    description: Multi Count.
+    bit_offset: 29
+    bit_size: 2
+fieldset/regs::Diep5Txfsts:
+  description: Device IN Endpoint x+1 Transmit FIFO Status Register.
+  fields:
+  - name: spcavail
+    description: TxFIFO Space Available.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Diepempmsk:
+  description: Device IN Endpoint FIFO Empty Interrupt Mask Register.
+  fields:
+  - name: diepempmsk
+    description: IN EP Tx FIFO Empty Interrupt Mask Bits.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Diepmsk:
+  description: Device IN Endpoint Common Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Interrupt Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbldmsk
+    description: Endpoint Disabled Interrupt Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: timeoutmsk
+    description: Timeout Condition Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: intkntxfempmsk
+    description: IN Token Received When TxFIFO Empty Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: inepnakeffmsk
+    description: IN Endpoint NAK Effective Mask.
+    bit_offset: 6
+    bit_size: 1
+  - name: txfifoundrnmsk
+    description: Fifo Underrun Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: nakmsk
+    description: NAK interrupt Mask.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Dieptxf1:
+  description: Device IN Endpoint Transmit FIFO 1 Size Register.
+  fields:
+  - name: inepntxfstaddr
+    description: IN Endpoint FIFO 1 Transmit RAM Start Address.
+    bit_offset: 0
+    bit_size: 11
+  - name: inepntxfdep
+    description: IN Endpoint TxFIFO Depth.
+    bit_offset: 16
+    bit_size: 10
+fieldset/regs::Dieptxf2:
+  description: Device IN Endpoint Transmit FIFO 2 Size Register.
+  fields:
+  - name: inepntxfstaddr
+    description: IN Endpoint FIFO 2 Transmit RAM Start Address.
+    bit_offset: 0
+    bit_size: 11
+  - name: inepntxfdep
+    description: IN Endpoint TxFIFO Depth.
+    bit_offset: 16
+    bit_size: 10
+fieldset/regs::Dieptxf3:
+  description: Device IN Endpoint Transmit FIFO 3 Size Register.
+  fields:
+  - name: inepntxfstaddr
+    description: IN Endpoint FIFO 3 Transmit RAM Start Address.
+    bit_offset: 0
+    bit_size: 12
+  - name: inepntxfdep
+    description: IN Endpoint TxFIFO Depth.
+    bit_offset: 16
+    bit_size: 10
+fieldset/regs::Dieptxf4:
+  description: Device IN Endpoint Transmit FIFO 4 Size Register.
+  fields:
+  - name: inepntxfstaddr
+    description: IN Endpoint FIFO 4 Transmit RAM Start Address.
+    bit_offset: 0
+    bit_size: 12
+  - name: inepntxfdep
+    description: IN Endpoint TxFIFO Depth.
+    bit_offset: 16
+    bit_size: 10
+fieldset/regs::Dieptxf5:
+  description: Device IN Endpoint Transmit FIFO 5 Size Register.
+  fields:
+  - name: inepntxfstaddr
+    description: IN Endpoint FIFO 5 Transmit RAM Start Address.
+    bit_offset: 0
+    bit_size: 12
+  - name: inepntxfdep
+    description: IN Endpoint TxFIFO Depth.
+    bit_offset: 16
+    bit_size: 10
+fieldset/regs::Dieptxf6:
+  description: Device IN Endpoint Transmit FIFO 6 Size Register.
+  fields:
+  - name: inepntxfstaddr
+    description: IN Endpoint FIFO 6 Transmit RAM Start Address.
+    bit_offset: 0
+    bit_size: 12
+  - name: inepntxfdep
+    description: IN Endpoint TxFIFO Depth.
+    bit_offset: 16
+    bit_size: 10
+fieldset/regs::Doep0Ctl:
+  description: Device OUT Endpoint x+1 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: dpideof
+    description: Endpoint Data PID / Even-odd Frame.
+    bit_offset: 16
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Doep0CtlEptype
+  - name: snp
+    description: Snoop Mode.
+    bit_offset: 20
+    bit_size: 1
+  - name: stall
+    description: STALL Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: setd0pidef
+    description: Set DATA0 PID / Even Frame.
+    bit_offset: 28
+    bit_size: 1
+  - name: setd1pidof
+    description: Set DATA1 PID / Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Doep0Dmaaddr:
+  description: Device OUT Endpoint x+1 DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Doep0Int:
+  description: Device OUT Endpoint x+1 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: setup
+    description: Setup Phase Done.
+    bit_offset: 3
+    bit_size: 1
+  - name: outtknepdis
+    description: OUT Token Received When Endpoint Disabled.
+    bit_offset: 4
+    bit_size: 1
+  - name: back2backsetup
+    description: Back-to-Back SETUP Packets Received.
+    bit_offset: 6
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: Babble Error.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Doep0Tsiz:
+  description: Device OUT Endpoint x+1 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: rxdpidsupcnt
+    description: Receive Data PID / SETUP Packet Count.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Doep0TsizRxdpidsupcnt
+fieldset/regs::Doep0ctl:
+  description: Device OUT Endpoint 0 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Doep0ctlMps
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+  - name: snp
+    description: Snoop Mode.
+    bit_offset: 20
+    bit_size: 1
+  - name: stall
+    description: Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Doep0dmaaddr:
+  description: Device OUT Endpoint 0 DMA Address Register.
+  fields:
+  - name: doep0dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Doep0int:
+  description: Device OUT Endpoint 0 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: setup
+    description: Setup Phase Done.
+    bit_offset: 3
+    bit_size: 1
+  - name: outtknepdis
+    description: OUT Token Received When Endpoint Disabled.
+    bit_offset: 4
+    bit_size: 1
+  - name: back2backsetup
+    description: Back-to-Back SETUP Packets Received.
+    bit_offset: 6
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: NAK Interrupt.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Doep0tsiz:
+  description: Device OUT Endpoint 0 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 7
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 1
+  - name: supcnt
+    description: SETUP Packet Count.
+    bit_offset: 29
+    bit_size: 2
+fieldset/regs::Doep1Ctl:
+  description: Device OUT Endpoint x+1 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: dpideof
+    description: Endpoint Data PID / Even-odd Frame.
+    bit_offset: 16
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Doep1CtlEptype
+  - name: snp
+    description: Snoop Mode.
+    bit_offset: 20
+    bit_size: 1
+  - name: stall
+    description: STALL Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: setd0pidef
+    description: Set DATA0 PID / Even Frame.
+    bit_offset: 28
+    bit_size: 1
+  - name: setd1pidof
+    description: Set DATA1 PID / Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Doep1Dmaaddr:
+  description: Device OUT Endpoint x+1 DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Doep1Int:
+  description: Device OUT Endpoint x+1 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: setup
+    description: Setup Phase Done.
+    bit_offset: 3
+    bit_size: 1
+  - name: outtknepdis
+    description: OUT Token Received When Endpoint Disabled.
+    bit_offset: 4
+    bit_size: 1
+  - name: back2backsetup
+    description: Back-to-Back SETUP Packets Received.
+    bit_offset: 6
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: Babble Error.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Doep1Tsiz:
+  description: Device OUT Endpoint x+1 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: rxdpidsupcnt
+    description: Receive Data PID / SETUP Packet Count.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Doep1TsizRxdpidsupcnt
+fieldset/regs::Doep2Ctl:
+  description: Device OUT Endpoint x+1 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: dpideof
+    description: Endpoint Data PID / Even-odd Frame.
+    bit_offset: 16
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Doep2CtlEptype
+  - name: snp
+    description: Snoop Mode.
+    bit_offset: 20
+    bit_size: 1
+  - name: stall
+    description: STALL Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: setd0pidef
+    description: Set DATA0 PID / Even Frame.
+    bit_offset: 28
+    bit_size: 1
+  - name: setd1pidof
+    description: Set DATA1 PID / Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Doep2Dmaaddr:
+  description: Device OUT Endpoint x+1 DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Doep2Int:
+  description: Device OUT Endpoint x+1 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: setup
+    description: Setup Phase Done.
+    bit_offset: 3
+    bit_size: 1
+  - name: outtknepdis
+    description: OUT Token Received When Endpoint Disabled.
+    bit_offset: 4
+    bit_size: 1
+  - name: back2backsetup
+    description: Back-to-Back SETUP Packets Received.
+    bit_offset: 6
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: Babble Error.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Doep2Tsiz:
+  description: Device OUT Endpoint x+1 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: rxdpidsupcnt
+    description: Receive Data PID / SETUP Packet Count.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Doep2TsizRxdpidsupcnt
+fieldset/regs::Doep3Ctl:
+  description: Device OUT Endpoint x+1 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: dpideof
+    description: Endpoint Data PID / Even-odd Frame.
+    bit_offset: 16
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Doep3CtlEptype
+  - name: snp
+    description: Snoop Mode.
+    bit_offset: 20
+    bit_size: 1
+  - name: stall
+    description: STALL Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: setd0pidef
+    description: Set DATA0 PID / Even Frame.
+    bit_offset: 28
+    bit_size: 1
+  - name: setd1pidof
+    description: Set DATA1 PID / Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Doep3Dmaaddr:
+  description: Device OUT Endpoint x+1 DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Doep3Int:
+  description: Device OUT Endpoint x+1 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: setup
+    description: Setup Phase Done.
+    bit_offset: 3
+    bit_size: 1
+  - name: outtknepdis
+    description: OUT Token Received When Endpoint Disabled.
+    bit_offset: 4
+    bit_size: 1
+  - name: back2backsetup
+    description: Back-to-Back SETUP Packets Received.
+    bit_offset: 6
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: Babble Error.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Doep3Tsiz:
+  description: Device OUT Endpoint x+1 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: rxdpidsupcnt
+    description: Receive Data PID / SETUP Packet Count.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Doep3TsizRxdpidsupcnt
+fieldset/regs::Doep4Ctl:
+  description: Device OUT Endpoint x+1 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: dpideof
+    description: Endpoint Data PID / Even-odd Frame.
+    bit_offset: 16
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Doep4CtlEptype
+  - name: snp
+    description: Snoop Mode.
+    bit_offset: 20
+    bit_size: 1
+  - name: stall
+    description: STALL Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: setd0pidef
+    description: Set DATA0 PID / Even Frame.
+    bit_offset: 28
+    bit_size: 1
+  - name: setd1pidof
+    description: Set DATA1 PID / Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Doep4Dmaaddr:
+  description: Device OUT Endpoint x+1 DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Doep4Int:
+  description: Device OUT Endpoint x+1 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: setup
+    description: Setup Phase Done.
+    bit_offset: 3
+    bit_size: 1
+  - name: outtknepdis
+    description: OUT Token Received When Endpoint Disabled.
+    bit_offset: 4
+    bit_size: 1
+  - name: back2backsetup
+    description: Back-to-Back SETUP Packets Received.
+    bit_offset: 6
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: Babble Error.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Doep4Tsiz:
+  description: Device OUT Endpoint x+1 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: rxdpidsupcnt
+    description: Receive Data PID / SETUP Packet Count.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Doep4TsizRxdpidsupcnt
+fieldset/regs::Doep5Ctl:
+  description: Device OUT Endpoint x+1 Control Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: usbactep
+    description: USB Active Endpoint.
+    bit_offset: 15
+    bit_size: 1
+  - name: dpideof
+    description: Endpoint Data PID / Even-odd Frame.
+    bit_offset: 16
+    bit_size: 1
+  - name: naksts
+    description: NAK Status.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Doep5CtlEptype
+  - name: snp
+    description: Snoop Mode.
+    bit_offset: 20
+    bit_size: 1
+  - name: stall
+    description: STALL Handshake.
+    bit_offset: 21
+    bit_size: 1
+  - name: cnak
+    description: Clear NAK.
+    bit_offset: 26
+    bit_size: 1
+  - name: snak
+    description: Set NAK.
+    bit_offset: 27
+    bit_size: 1
+  - name: setd0pidef
+    description: Set DATA0 PID / Even Frame.
+    bit_offset: 28
+    bit_size: 1
+  - name: setd1pidof
+    description: Set DATA1 PID / Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: epdis
+    description: Endpoint Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: epena
+    description: Endpoint Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Doep5Dmaaddr:
+  description: Device OUT Endpoint x+1 DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Doep5Int:
+  description: Device OUT Endpoint x+1 Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed Interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbld
+    description: Endpoint Disabled Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: setup
+    description: Setup Phase Done.
+    bit_offset: 3
+    bit_size: 1
+  - name: outtknepdis
+    description: OUT Token Received When Endpoint Disabled.
+    bit_offset: 4
+    bit_size: 1
+  - name: back2backsetup
+    description: Back-to-Back SETUP Packets Received.
+    bit_offset: 6
+    bit_size: 1
+  - name: pktdrpsts
+    description: Packet Drop Status.
+    bit_offset: 11
+    bit_size: 1
+  - name: bbleerr
+    description: Babble Error.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakintrpt
+    description: NAK Interrupt.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Doep5Tsiz:
+  description: Device OUT Endpoint x+1 Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: rxdpidsupcnt
+    description: Receive Data PID / SETUP Packet Count.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Doep5TsizRxdpidsupcnt
+fieldset/regs::Doepmsk:
+  description: Device OUT Endpoint Common Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Interrupt Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: epdisbldmsk
+    description: Endpoint Disabled Interrupt Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: setupmsk
+    description: SETUP Phase Done Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: outtknepdismsk
+    description: OUT Token Received when Endpoint Disabled Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: back2backsetup
+    description: Back-to-Back SETUP Packets Received Mask.
+    bit_offset: 6
+    bit_size: 1
+  - name: outpkterrmsk
+    description: OUT Packet Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: bbleerrmsk
+    description: Babble Error interrupt Mask.
+    bit_offset: 12
+    bit_size: 1
+  - name: nakmsk
+    description: NAK interrupt Mask.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Dsts:
+  description: Device Status Register.
+  fields:
+  - name: suspsts
+    description: Suspend Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: enumspd
+    description: Enumerated Speed.
+    bit_offset: 1
+    bit_size: 2
+    enum: vals::Enumspd
+  - name: errticerr
+    description: Erratic Error.
+    bit_offset: 3
+    bit_size: 1
+  - name: soffn
+    description: Frame Number of the Received SOF.
+    bit_offset: 8
+    bit_size: 14
+fieldset/regs::Dvbusdis:
+  description: Device VBUS Discharge Time Register.
+  fields:
+  - name: dvbusdis
+    description: Device VBUS Discharge Time.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Dvbuspulse:
+  description: Device VBUS Pulsing Time Register.
+  fields:
+  - name: dvbuspulse
+    description: Device VBUS Pulsing Time.
+    bit_offset: 0
+    bit_size: 12
+fieldset/regs::Gahbcfg:
+  description: AHB Configuration Register.
+  fields:
+  - name: glblintrmsk
+    description: Global Interrupt Mask host and device.
+    bit_offset: 0
+    bit_size: 1
+  - name: hbstlen
+    description: Burst Length/Type host and device.
+    bit_offset: 1
+    bit_size: 4
+    enum: vals::Hbstlen
+  - name: dmaen
+    description: DMA Enable host and device.
+    bit_offset: 5
+    bit_size: 1
+  - name: nptxfemplvl
+    description: Non-Periodic TxFIFO Empty Level host and device.
+    bit_offset: 7
+    bit_size: 1
+  - name: ptxfemplvl
+    description: Periodic TxFIFO Empty Level host only.
+    bit_offset: 8
+    bit_size: 1
+  - name: remmemsupp
+    description: Remote Memory Support.
+    bit_offset: 21
+    bit_size: 1
+  - name: notialldmawrit
+    description: Notify All DMA Writes.
+    bit_offset: 22
+    bit_size: 1
+fieldset/regs::Gdfifocfg:
+  description: Global DFIFO Configuration Register.
+  fields:
+  - name: gdfifocfg
+    description: DFIFO Config.
+    bit_offset: 0
+    bit_size: 16
+  - name: epinfobaseaddr
+    description: Endpoint Info Base Address.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::Gintmsk:
+  description: Interrupt Mask Register.
+  fields:
+  - name: modemismsk
+    description: Mode Mismatch Interrupt Mask host and device.
+    bit_offset: 1
+    bit_size: 1
+  - name: otgintmsk
+    description: OTG Interrupt Mask host and device.
+    bit_offset: 2
+    bit_size: 1
+  - name: sofmsk
+    description: Start of Frame Mask host and device.
+    bit_offset: 3
+    bit_size: 1
+  - name: rxflvlmsk
+    description: Receive FIFO Non-Empty Mask host and device.
+    bit_offset: 4
+    bit_size: 1
+  - name: nptxfempmsk
+    description: Non-Periodic TxFIFO Empty Mask host only.
+    bit_offset: 5
+    bit_size: 1
+  - name: ginnakeffmsk
+    description: Global Non-periodic IN NAK Effective Mask device only.
+    bit_offset: 6
+    bit_size: 1
+  - name: goutnakeffmsk
+    description: Global OUT NAK Effective Mask device only.
+    bit_offset: 7
+    bit_size: 1
+  - name: erlysuspmsk
+    description: Early Suspend Mask device only.
+    bit_offset: 10
+    bit_size: 1
+  - name: usbsuspmsk
+    description: USB Suspend Mask device only.
+    bit_offset: 11
+    bit_size: 1
+  - name: usbrstmsk
+    description: USB Reset Mask device only.
+    bit_offset: 12
+    bit_size: 1
+  - name: enumdonemsk
+    description: Enumeration Done Mask device only.
+    bit_offset: 13
+    bit_size: 1
+  - name: isooutdropmsk
+    description: Isochronous OUT Packet Dropped Interrupt Mask device only.
+    bit_offset: 14
+    bit_size: 1
+  - name: eopfmsk
+    description: End of Periodic Frame Interrupt Mask device only.
+    bit_offset: 15
+    bit_size: 1
+  - name: iepintmsk
+    description: IN Endpoints Interrupt Mask device only.
+    bit_offset: 18
+    bit_size: 1
+  - name: oepintmsk
+    description: OUT Endpoints Interrupt Mask device only.
+    bit_offset: 19
+    bit_size: 1
+  - name: incompisoinmsk
+    description: Incomplete Isochronous IN Transfer Mask device only.
+    bit_offset: 20
+    bit_size: 1
+  - name: incomplpmsk
+    description: Incomplete Periodic Transfer Mask host and device.
+    bit_offset: 21
+    bit_size: 1
+  - name: fetsuspmsk
+    description: Data Fetch Suspended Mask device only.
+    bit_offset: 22
+    bit_size: 1
+  - name: resetdetmsk
+    description: Reset detected Interrupt Mask device only.
+    bit_offset: 23
+    bit_size: 1
+  - name: prtintmsk
+    description: Host Port Interrupt Mask host only.
+    bit_offset: 24
+    bit_size: 1
+  - name: hchintmsk
+    description: Host Channels Interrupt Mask host only.
+    bit_offset: 25
+    bit_size: 1
+  - name: ptxfempmsk
+    description: Periodic TxFIFO Empty Mask host only.
+    bit_offset: 26
+    bit_size: 1
+  - name: conidstschngmsk
+    description: Connector ID Status Change Mask host and device.
+    bit_offset: 28
+    bit_size: 1
+  - name: disconnintmsk
+    description: Disconnect Detected Interrupt Mask host and device.
+    bit_offset: 29
+    bit_size: 1
+  - name: sessreqintmsk
+    description: Session Request/New Session Detected Interrupt Mask host and device.
+    bit_offset: 30
+    bit_size: 1
+  - name: wkupintmsk
+    description: Resume/Remote Wakeup Detected Interrupt Mask host and device.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Gintsts:
+  description: Interrupt Register.
+  fields:
+  - name: curmod
+    description: Current Mode of Operation host and device.
+    bit_offset: 0
+    bit_size: 1
+  - name: modemis
+    description: Mode Mismatch Interrupt host and device.
+    bit_offset: 1
+    bit_size: 1
+  - name: otgint
+    description: OTG Interrupt host and device.
+    bit_offset: 2
+    bit_size: 1
+  - name: sof
+    description: Start of Frame host and device.
+    bit_offset: 3
+    bit_size: 1
+  - name: rxflvl
+    description: RxFIFO Non-Empty host and device.
+    bit_offset: 4
+    bit_size: 1
+  - name: nptxfemp
+    description: Non-Periodic TxFIFO Empty host only.
+    bit_offset: 5
+    bit_size: 1
+  - name: ginnakeff
+    description: Global IN Non-periodic NAK Effective device only.
+    bit_offset: 6
+    bit_size: 1
+  - name: goutnakeff
+    description: Global OUT NAK Effective device only.
+    bit_offset: 7
+    bit_size: 1
+  - name: erlysusp
+    description: Early Suspend device only.
+    bit_offset: 10
+    bit_size: 1
+  - name: usbsusp
+    description: USB Suspend device only.
+    bit_offset: 11
+    bit_size: 1
+  - name: usbrst
+    description: USB Reset device only.
+    bit_offset: 12
+    bit_size: 1
+  - name: enumdone
+    description: Enumeration Done device only.
+    bit_offset: 13
+    bit_size: 1
+  - name: isooutdrop
+    description: Isochronous OUT Packet Dropped Interrupt device only.
+    bit_offset: 14
+    bit_size: 1
+  - name: eopf
+    description: End of Periodic Frame Interrupt.
+    bit_offset: 15
+    bit_size: 1
+  - name: iepint
+    description: IN Endpoints Interrupt device only.
+    bit_offset: 18
+    bit_size: 1
+  - name: oepint
+    description: OUT Endpoints Interrupt device only.
+    bit_offset: 19
+    bit_size: 1
+  - name: incompisoin
+    description: Incomplete Isochronous IN Transfer device only.
+    bit_offset: 20
+    bit_size: 1
+  - name: incomplp
+    description: Incomplete Periodic Transfer host and device.
+    bit_offset: 21
+    bit_size: 1
+  - name: fetsusp
+    description: Data Fetch Suspended device only.
+    bit_offset: 22
+    bit_size: 1
+  - name: resetdet
+    description: Reset detected Interrupt device only.
+    bit_offset: 23
+    bit_size: 1
+  - name: prtint
+    description: Host Port Interrupt host only.
+    bit_offset: 24
+    bit_size: 1
+  - name: hchint
+    description: Host Channels Interrupt host only.
+    bit_offset: 25
+    bit_size: 1
+  - name: ptxfemp
+    description: Periodic TxFIFO Empty host only.
+    bit_offset: 26
+    bit_size: 1
+  - name: conidstschng
+    description: Connector ID Status Change host and device.
+    bit_offset: 28
+    bit_size: 1
+  - name: disconnint
+    description: Disconnect Detected Interrupt host only.
+    bit_offset: 29
+    bit_size: 1
+  - name: sessreqint
+    description: Session Request/New Session Detected Interrupt host and device.
+    bit_offset: 30
+    bit_size: 1
+  - name: wkupint
+    description: Resume/Remote Wakeup Detected Interrupt host and device.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Gnptxfsiz:
+  description: Non-periodic Transmit FIFO Size Register.
+  fields:
+  - name: nptxfstaddr
+    description: Non-periodic Transmit RAM Start Address host only.
+    bit_offset: 0
+    bit_size: 10
+  - name: nptxfineptxf0dep
+    description: Non-periodic TxFIFO Depth host only / IN Endpoint TxFIFO 0 Depth device only.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::Gnptxsts:
+  description: Non-periodic Transmit FIFO/Queue Status Register.
+  fields:
+  - name: nptxfspcavail
+    description: Non-periodic TxFIFO Space Available.
+    bit_offset: 0
+    bit_size: 16
+  - name: nptxqspcavail
+    description: Non-periodic Transmit Request Queue Space Available.
+    bit_offset: 16
+    bit_size: 8
+  - name: nptxqtop
+    description: Top of the Non-periodic Transmit Request Queue.
+    bit_offset: 24
+    bit_size: 7
+fieldset/regs::Gotgctl:
+  description: OTG Control and Status Register.
+  fields:
+  - name: sesreqscs
+    description: Session Request Success device only.
+    bit_offset: 0
+    bit_size: 1
+  - name: sesreq
+    description: Session Request device only.
+    bit_offset: 1
+    bit_size: 1
+  - name: vbvalidoven
+    description: VBUS-Valid Override Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: vbvalidovval
+    description: VBUS Valid Override Value.
+    bit_offset: 3
+    bit_size: 1
+  - name: bvalidoven
+    description: BValid Override Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: bvalidovval
+    description: Bvalid Override Value.
+    bit_offset: 5
+    bit_size: 1
+  - name: avalidoven
+    description: AValid Override Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: avalidovval
+    description: Avalid Override Value.
+    bit_offset: 7
+    bit_size: 1
+  - name: hstnegscs
+    description: Host Negotiation Success device only.
+    bit_offset: 8
+    bit_size: 1
+  - name: hnpreq
+    description: HNP Request device only.
+    bit_offset: 9
+    bit_size: 1
+  - name: hstsethnpen
+    description: Host Set HNP Enable host only.
+    bit_offset: 10
+    bit_size: 1
+  - name: devhnpen
+    description: Device HNP Enabled device only.
+    bit_offset: 11
+    bit_size: 1
+  - name: conidsts
+    description: Connector ID Status host and device.
+    bit_offset: 16
+    bit_size: 1
+  - name: dbnctime
+    description: Long/Short Debounce Time host only.
+    bit_offset: 17
+    bit_size: 1
+  - name: asesvld
+    description: A-Session Valid host only.
+    bit_offset: 18
+    bit_size: 1
+  - name: bsesvld
+    description: B-Session Valid device only.
+    bit_offset: 19
+    bit_size: 1
+  - name: otgver
+    description: OTG Version.
+    bit_offset: 20
+    bit_size: 1
+fieldset/regs::Gotgint:
+  description: OTG Interrupt Register.
+  fields:
+  - name: sesenddet
+    description: Session End Detected host and device.
+    bit_offset: 2
+    bit_size: 1
+  - name: sesreqsucstschng
+    description: Session Request Success Status Change host and device.
+    bit_offset: 8
+    bit_size: 1
+  - name: hstnegsucstschng
+    description: Host Negotiation Success Status Change host and device.
+    bit_offset: 9
+    bit_size: 1
+  - name: hstnegdet
+    description: Host Negotiation Detected host and device.
+    bit_offset: 17
+    bit_size: 1
+  - name: adevtoutchg
+    description: A-Device Timeout Change host and device.
+    bit_offset: 18
+    bit_size: 1
+  - name: dbncedone
+    description: Debounce Done host only.
+    bit_offset: 19
+    bit_size: 1
+fieldset/regs::Grstctl:
+  description: Reset Register.
+  fields:
+  - name: csftrst
+    description: Core Soft Reset host and device.
+    bit_offset: 0
+    bit_size: 1
+  - name: frmcntrrst
+    description: Host Frame Counter Reset host only.
+    bit_offset: 2
+    bit_size: 1
+  - name: rxfflsh
+    description: RxFIFO Flush host and device.
+    bit_offset: 4
+    bit_size: 1
+  - name: txfflsh
+    description: TxFIFO Flush host and device.
+    bit_offset: 5
+    bit_size: 1
+  - name: txfnum
+    description: TxFIFO Number host and device.
+    bit_offset: 6
+    bit_size: 5
+    enum: vals::Txfnum
+  - name: dmareq
+    description: DMA Request Signal host and device.
+    bit_offset: 30
+    bit_size: 1
+  - name: ahbidle
+    description: AHB Master Idle host and device.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Grxfsiz:
+  description: Receive FIFO Size Register.
+  fields:
+  - name: rxfdep
+    description: RxFIFO Depth.
+    bit_offset: 0
+    bit_size: 10
+fieldset/regs::Grxstsp:
+  description: Receive Status Read and Pop Register.
+  fields:
+  - name: chepnum
+    description: Channel Number host only / Endpoint Number device only.
+    bit_offset: 0
+    bit_size: 4
+  - name: bcnt
+    description: Byte Count (host or device).
+    bit_offset: 4
+    bit_size: 11
+  - name: dpid
+    description: Data PID (host or device).
+    bit_offset: 15
+    bit_size: 2
+    enum: vals::GrxstspDpid
+  - name: pktsts
+    description: Packet Status (host or device).
+    bit_offset: 17
+    bit_size: 4
+    enum: vals::GrxstspPktsts
+  - name: fn_
+    description: Frame Number device only.
+    bit_offset: 21
+    bit_size: 4
+fieldset/regs::Grxstsr:
+  description: Receive Status Debug Read Register.
+  fields:
+  - name: chepnum
+    description: Channel Number host only / Endpoint Number device only.
+    bit_offset: 0
+    bit_size: 4
+  - name: bcnt
+    description: Byte Count (host or device).
+    bit_offset: 4
+    bit_size: 11
+  - name: dpid
+    description: Data PID (host or device).
+    bit_offset: 15
+    bit_size: 2
+    enum: vals::GrxstsrDpid
+  - name: pktsts
+    description: Packet Status (host or device).
+    bit_offset: 17
+    bit_size: 4
+    enum: vals::GrxstsrPktsts
+  - name: fn_
+    description: Frame Number device only.
+    bit_offset: 21
+    bit_size: 4
+fieldset/regs::Gusbcfg:
+  description: USB Configuration Register.
+  fields:
+  - name: toutcal
+    description: Timeout Calibration host and device.
+    bit_offset: 0
+    bit_size: 3
+  - name: fsintf
+    description: Full-Speed Serial Interface Select host and device.
+    bit_offset: 5
+    bit_size: 1
+  - name: srpcap
+    description: SRP-Capable host and device.
+    bit_offset: 8
+    bit_size: 1
+  - name: hnpcap
+    description: HNP-Capable host and device.
+    bit_offset: 9
+    bit_size: 1
+  - name: usbtrdtim
+    description: USB Turnaround Time device only.
+    bit_offset: 10
+    bit_size: 4
+  - name: termseldlpulse
+    description: TermSel DLine Pulsing Selection device only.
+    bit_offset: 22
+    bit_size: 1
+  - name: txenddelay
+    description: Tx End Delay device only.
+    bit_offset: 28
+    bit_size: 1
+  - name: forcehstmode
+    description: Force Host Mode host and device.
+    bit_offset: 29
+    bit_size: 1
+  - name: forcedevmode
+    description: Force Device Mode host and device.
+    bit_offset: 30
+    bit_size: 1
+  - name: corrupttxpkt
+    description: Corrupt Tx packet host and device.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Haint:
+  description: Host All Channels Interrupt Register.
+  fields:
+  - name: haint
+    description: Channel Interrupt for channel 0 - 13.
+    bit_offset: 0
+    bit_size: 14
+fieldset/regs::Haintmsk:
+  description: Host All Channels Interrupt Mask Register.
+  fields:
+  - name: haintmsk
+    description: Channel Interrupt Mask for channel 0 - 13.
+    bit_offset: 0
+    bit_size: 14
+fieldset/regs::Hc0Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc0CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc0Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc0Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc0Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc0Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc0TsizPid
+fieldset/regs::Hc10Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc10CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc10Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc10Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc10Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc10Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc10TsizPid
+fieldset/regs::Hc11Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc11CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc11Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc11Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc11Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc11Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc11TsizPid
+fieldset/regs::Hc12Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc12CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc12Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc12Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc12Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc12Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc12TsizPid
+fieldset/regs::Hc13Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc13CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc13Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc13Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc13Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc13Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc13TsizPid
+fieldset/regs::Hc1Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc1CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc1Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc1Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc1Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc1Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc1TsizPid
+fieldset/regs::Hc2Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc2CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc2Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc2Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc2Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc2Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc2TsizPid
+fieldset/regs::Hc3Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc3CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc3Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc3Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc3Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc3Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc3TsizPid
+fieldset/regs::Hc4Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc4CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc4Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc4Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc4Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc4Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc4TsizPid
+fieldset/regs::Hc5Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc5CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc5Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc5Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc5Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc5Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc5TsizPid
+fieldset/regs::Hc6Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc6CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc6Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc6Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc6Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc6Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc6TsizPid
+fieldset/regs::Hc7Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc7CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc7Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc7Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc7Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc7Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc7TsizPid
+fieldset/regs::Hc8Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc8CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc8Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc8Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc8Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc8Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc8TsizPid
+fieldset/regs::Hc9Char:
+  description: Host Channel x Characteristics Register.
+  fields:
+  - name: mps
+    description: Maximum Packet Size.
+    bit_offset: 0
+    bit_size: 11
+  - name: epnum
+    description: Endpoint Number.
+    bit_offset: 11
+    bit_size: 4
+  - name: epdir
+    description: Endpoint Direction.
+    bit_offset: 15
+    bit_size: 1
+  - name: lspddev
+    description: Low-Speed Device.
+    bit_offset: 17
+    bit_size: 1
+  - name: eptype
+    description: Endpoint Type.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Hc9CharEptype
+  - name: mc
+    description: Multi Count.
+    bit_offset: 20
+    bit_size: 2
+  - name: devaddr
+    description: Device Address.
+    bit_offset: 22
+    bit_size: 7
+  - name: oddfrm
+    description: Odd Frame.
+    bit_offset: 29
+    bit_size: 1
+  - name: chdis
+    description: Channel Disable.
+    bit_offset: 30
+    bit_size: 1
+  - name: chena
+    description: Channel Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hc9Dmaaddr:
+  description: Host Channel x DMA Address Register.
+  fields:
+  - name: dmaaddr
+    description: DMA Address.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Hc9Int:
+  description: Host Channel x Interrupt Register.
+  fields:
+  - name: xfercompl
+    description: Transfer Completed.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltd
+    description: Channel Halted.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberr
+    description: AHB Error.
+    bit_offset: 2
+    bit_size: 1
+  - name: stall
+    description: STALL Response Received Interrupt.
+    bit_offset: 3
+    bit_size: 1
+  - name: nak
+    description: NAK Response Received Interrupt.
+    bit_offset: 4
+    bit_size: 1
+  - name: ack
+    description: ACK Response Received/Transmitted Interrupt.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterr
+    description: Transaction Error.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerr
+    description: Babble Error.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrun
+    description: Frame Overrun.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerr
+    description: Data Toggle Error.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc9Intmsk:
+  description: Host Channel x Interrupt Mask Register.
+  fields:
+  - name: xfercomplmsk
+    description: Transfer Completed Mask.
+    bit_offset: 0
+    bit_size: 1
+  - name: chhltdmsk
+    description: Channel Halted Mask.
+    bit_offset: 1
+    bit_size: 1
+  - name: ahberrmsk
+    description: AHB Error Mask.
+    bit_offset: 2
+    bit_size: 1
+  - name: stallmsk
+    description: STALL Response Received Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: nakmsk
+    description: NAK Response Received Interrupt Mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: ackmsk
+    description: ACK Response Received/Transmitted Interrupt Mask.
+    bit_offset: 5
+    bit_size: 1
+  - name: xacterrmsk
+    description: Transaction Error Mask.
+    bit_offset: 7
+    bit_size: 1
+  - name: bblerrmsk
+    description: Babble Error Mask.
+    bit_offset: 8
+    bit_size: 1
+  - name: frmovrunmsk
+    description: Frame Overrun Mask.
+    bit_offset: 9
+    bit_size: 1
+  - name: datatglerrmsk
+    description: Data Toggle Error Mask.
+    bit_offset: 10
+    bit_size: 1
+fieldset/regs::Hc9Tsiz:
+  description: Host Channel x Transfer Size Register.
+  fields:
+  - name: xfersize
+    description: Transfer Size.
+    bit_offset: 0
+    bit_size: 19
+  - name: pktcnt
+    description: Packet Count.
+    bit_offset: 19
+    bit_size: 10
+  - name: pid
+    description: Packet ID.
+    bit_offset: 29
+    bit_size: 2
+    enum: vals::Hc9TsizPid
+fieldset/regs::Hcfg:
+  description: Host Configuration Register.
+  fields:
+  - name: fslspclksel
+    description: FS/LS PHY Clock Select.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Fslspclksel
+  - name: fslssupp
+    description: FS- and LS-Only Support.
+    bit_offset: 2
+    bit_size: 1
+  - name: ena32khzs
+    description: Enable 32 KHz Suspend mode.
+    bit_offset: 7
+    bit_size: 1
+  - name: resvalid
+    description: Resume Validation Period.
+    bit_offset: 8
+    bit_size: 8
+  - name: modechtimen
+    description: Mode Change Time.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Hfir:
+  description: Host Frame Interval Register.
+  fields:
+  - name: frint
+    description: Frame Interval.
+    bit_offset: 0
+    bit_size: 16
+  - name: hfirrldctrl
+    description: Reload Control.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Hfnum:
+  description: Host Frame Number/Frame Time Remaining Register.
+  fields:
+  - name: frnum
+    description: Frame Number.
+    bit_offset: 0
+    bit_size: 16
+  - name: frrem
+    description: Frame Time Remaining.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::Hprt:
+  description: Host Port Control and Status Register.
+  fields:
+  - name: prtconnsts
+    description: Port Connect Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: prtconndet
+    description: Port Connect Detected.
+    bit_offset: 1
+    bit_size: 1
+  - name: prtena
+    description: Port Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: prtenchng
+    description: Port Enable/Disable Change.
+    bit_offset: 3
+    bit_size: 1
+  - name: prtovrcurract
+    description: Port Overcurrent Active.
+    bit_offset: 4
+    bit_size: 1
+  - name: prtovrcurrchng
+    description: Port Overcurrent Change.
+    bit_offset: 5
+    bit_size: 1
+  - name: prtres
+    description: Port Resume.
+    bit_offset: 6
+    bit_size: 1
+  - name: prtsusp
+    description: Port Suspend.
+    bit_offset: 7
+    bit_size: 1
+  - name: prtrst
+    description: Port Reset.
+    bit_offset: 8
+    bit_size: 1
+  - name: prtlnsts
+    description: Port Line Status.
+    bit_offset: 10
+    bit_size: 2
+  - name: prtpwr
+    description: Port Power.
+    bit_offset: 12
+    bit_size: 1
+  - name: prttstctl
+    description: Port Test Control.
+    bit_offset: 13
+    bit_size: 4
+    enum: vals::Prttstctl
+  - name: prtspd
+    description: Port Speed.
+    bit_offset: 17
+    bit_size: 2
+    enum: vals::Prtspd
+fieldset/regs::Hptxfsiz:
+  description: Host Periodic Transmit FIFO Size Register.
+  fields:
+  - name: ptxfstaddr
+    description: Host Periodic TxFIFO Start Address.
+    bit_offset: 0
+    bit_size: 11
+  - name: ptxfsize
+    description: Host Periodic TxFIFO Depth.
+    bit_offset: 16
+    bit_size: 10
+fieldset/regs::Hptxsts:
+  description: Host Periodic Transmit FIFO/Queue Status Register.
+  fields:
+  - name: ptxfspcavail
+    description: Periodic Transmit Data FIFO Space Available.
+    bit_offset: 0
+    bit_size: 16
+  - name: ptxqspcavail
+    description: Periodic Transmit Request Queue Space Available.
+    bit_offset: 16
+    bit_size: 8
+  - name: ptxqtop
+    description: Top of the Periodic Transmit Request Queue.
+    bit_offset: 24
+    bit_size: 8
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: vregosh
+    description: VREGO Sense High Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: vregosl
+    description: VREGO Sense Low Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: vregosh
+    description: VREGO Sense High Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: vregosl
+    description: VREGO Sense Low Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: vregosh
+    description: Clear VREGO Sense High Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: vregosl
+    description: Clear VREGO Sense Low Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: vregosh
+    description: Set VREGO Sense High Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: vregosl
+    description: Set VREGO Sense Low Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Pcgcctl:
+  description: Power and Clock Gating Control Register.
+  fields:
+  - name: stoppclk
+    description: Stop PHY clock.
+    bit_offset: 0
+    bit_size: 1
+  - name: gatehclk
+    description: Gate HCLK.
+    bit_offset: 1
+    bit_size: 1
+  - name: pwrclmp
+    description: Power Clamp.
+    bit_offset: 2
+    bit_size: 1
+  - name: rstpdwnmodule
+    description: Reset Power-Down Modules.
+    bit_offset: 3
+    bit_size: 1
+  - name: physleep
+    description: PHY In Sleep.
+    bit_offset: 6
+    bit_size: 1
+  - name: resetaftersusp
+    description: Reset after suspend.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::Route:
+  description: I/O Routing Register.
+  fields:
+  - name: phypen
+    description: USB PHY Pin Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: vbusenpen
+    description: VBUSEN Pin Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: dmpupen
+    description: DMPU Pin Enable.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Status:
+  description: System Status Register.
+  fields:
+  - name: vregos
+    description: VREGO Sense Output.
+    bit_offset: 0
+    bit_size: 1
+enum/vals::Devspd:
+  bit_size: 2
+  variants:
+  - name: Fs
+    description: Full speed (PHY clock is 48 MHz).
+    value: 3
+  - name: Ls
+    description: Low speed (PHY clock is 6 MHz). If you select 6 MHz LS mode, you must do a soft reset.
+    value: 2
+enum/vals::Diep0CtlEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk Endpoint.
+    value: 2
+  - name: Control
+    description: Control Endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt Endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous Endpoint.
+    value: 1
+enum/vals::Diep0ctlMps:
+  bit_size: 2
+  variants:
+  - name: _16b
+    description: 16 bytes.
+    value: 2
+  - name: _32b
+    description: 32 bytes.
+    value: 1
+  - name: _64b
+    description: 64 bytes.
+    value: 0
+  - name: _8b
+    description: 8 bytes.
+    value: 3
+enum/vals::Diep1CtlEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk Endpoint.
+    value: 2
+  - name: Control
+    description: Control Endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt Endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous Endpoint.
+    value: 1
+enum/vals::Diep2CtlEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk Endpoint.
+    value: 2
+  - name: Control
+    description: Control Endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt Endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous Endpoint.
+    value: 1
+enum/vals::Diep3CtlEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk Endpoint.
+    value: 2
+  - name: Control
+    description: Control Endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt Endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous Endpoint.
+    value: 1
+enum/vals::Diep4CtlEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk Endpoint.
+    value: 2
+  - name: Control
+    description: Control Endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt Endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous Endpoint.
+    value: 1
+enum/vals::Diep5CtlEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk Endpoint.
+    value: 2
+  - name: Control
+    description: Control Endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt Endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous Endpoint.
+    value: 1
+enum/vals::Doep0CtlEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk Endpoint.
+    value: 2
+  - name: Control
+    description: Control Endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt Endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous Endpoint.
+    value: 1
+enum/vals::Doep0TsizRxdpidsupcnt:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID / 2 Packets.
+    value: 2
+  - name: Data2
+    description: DATA2 PID / 1 Packet.
+    value: 1
+  - name: Mdata
+    description: MDATA PID / 3 Packets.
+    value: 3
+enum/vals::Doep0ctlMps:
+  bit_size: 2
+  variants:
+  - name: _16b
+    description: 16 bytes.
+    value: 2
+  - name: _32b
+    description: 32 bytes.
+    value: 1
+  - name: _64b
+    description: 64 bytes.
+    value: 0
+  - name: _8b
+    description: 8 bytes.
+    value: 3
+enum/vals::Doep1CtlEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk Endpoint.
+    value: 2
+  - name: Control
+    description: Control Endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt Endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous Endpoint.
+    value: 1
+enum/vals::Doep1TsizRxdpidsupcnt:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID / 2 Packets.
+    value: 2
+  - name: Data2
+    description: DATA2 PID / 1 Packet.
+    value: 1
+  - name: Mdata
+    description: MDATA PID / 3 Packets.
+    value: 3
+enum/vals::Doep2CtlEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk Endpoint.
+    value: 2
+  - name: Control
+    description: Control Endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt Endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous Endpoint.
+    value: 1
+enum/vals::Doep2TsizRxdpidsupcnt:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID / 2 Packets.
+    value: 2
+  - name: Data2
+    description: DATA2 PID / 1 Packet.
+    value: 1
+  - name: Mdata
+    description: MDATA PID / 3 Packets.
+    value: 3
+enum/vals::Doep3CtlEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk Endpoint.
+    value: 2
+  - name: Control
+    description: Control Endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt Endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous Endpoint.
+    value: 1
+enum/vals::Doep3TsizRxdpidsupcnt:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID / 2 Packets.
+    value: 2
+  - name: Data2
+    description: DATA2 PID / 1 Packet.
+    value: 1
+  - name: Mdata
+    description: MDATA PID / 3 Packets.
+    value: 3
+enum/vals::Doep4CtlEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk Endpoint.
+    value: 2
+  - name: Control
+    description: Control Endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt Endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous Endpoint.
+    value: 1
+enum/vals::Doep4TsizRxdpidsupcnt:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID / 2 Packets.
+    value: 2
+  - name: Data2
+    description: DATA2 PID / 1 Packet.
+    value: 1
+  - name: Mdata
+    description: MDATA PID / 3 Packets.
+    value: 3
+enum/vals::Doep5CtlEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk Endpoint.
+    value: 2
+  - name: Control
+    description: Control Endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt Endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous Endpoint.
+    value: 1
+enum/vals::Doep5TsizRxdpidsupcnt:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID / 2 Packets.
+    value: 2
+  - name: Data2
+    description: DATA2 PID / 1 Packet.
+    value: 1
+  - name: Mdata
+    description: MDATA PID / 3 Packets.
+    value: 3
+enum/vals::Enumspd:
+  bit_size: 2
+  variants:
+  - name: Fs
+    description: Full speed (PHY clock is running at 48 MHz).
+    value: 3
+  - name: Ls
+    description: Low speed (PHY clock is running at 6 MHz).
+    value: 2
+enum/vals::Fslspclksel:
+  bit_size: 2
+  variants:
+  - name: Div1
+    description: Internal PHY clock is running at 48 MHz (undivided).
+    value: 1
+  - name: Div8
+    description: Internal PHY clock is running at 6 MHz (48 MHz divided by 8).
+    value: 2
+enum/vals::GrxstspDpid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 1
+  - name: Data2
+    description: DATA2 PID.
+    value: 2
+  - name: Mdata
+    description: MDATA PID.
+    value: 3
+enum/vals::GrxstspPktsts:
+  bit_size: 4
+  variants:
+  - name: Chlt
+    description: 'Host mode: Channel halted (triggers an interrupt).'
+    value: 7
+  - name: Goutnak
+    description: 'Device mode: Global OUT NAK (triggers an interrupt).'
+    value: 1
+  - name: Pktrcv
+    description: 'Host mode: IN data packet received. Device mode: OUT data packet received.'
+    value: 2
+  - name: Setupcompl
+    description: 'Device mode: SETUP transaction completed (triggers an interrupt).'
+    value: 4
+  - name: Setuprcv
+    description: 'Device mode: SETUP data packet received.'
+    value: 6
+  - name: Tglerr
+    description: 'Host mode: Data toggle error (triggers an interrupt).'
+    value: 5
+  - name: Xfercompl
+    description: 'Host mode: IN transfer completed (triggers an interrupt). Device mode: OUT transfer completed (triggers an interrupt).'
+    value: 3
+enum/vals::GrxstsrDpid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 1
+  - name: Data2
+    description: DATA2 PID.
+    value: 2
+  - name: Mdata
+    description: MDATA PID.
+    value: 3
+enum/vals::GrxstsrPktsts:
+  bit_size: 4
+  variants:
+  - name: Chlt
+    description: 'Host mode: Channel halted (triggers an interrupt).'
+    value: 7
+  - name: Goutnak
+    description: 'Device mode: Global OUT NAK (triggers an interrupt).'
+    value: 1
+  - name: Pktrcv
+    description: 'Host mode: IN data packet received. Device mode: OUT data packet received.'
+    value: 2
+  - name: Setupcompl
+    description: 'Device mode: SETUP transaction completed (triggers an interrupt).'
+    value: 4
+  - name: Setuprcv
+    description: 'Device mode: SETUP data packet received.'
+    value: 6
+  - name: Tglerr
+    description: 'Host mode: Data toggle error (triggers an interrupt).'
+    value: 5
+  - name: Xfercompl
+    description: 'Host mode: IN transfer completed (triggers an interrupt). Device mode: OUT transfer completed (triggers an interrupt).'
+    value: 3
+enum/vals::Hbstlen:
+  bit_size: 4
+  variants:
+  - name: Incr
+    description: Incrementing burst of unspecified length.
+    value: 1
+  - name: Incr16
+    description: 16-beat incrementing burst.
+    value: 7
+  - name: Incr4
+    description: 4-beat incrementing burst.
+    value: 3
+  - name: Incr8
+    description: 8-beat incrementing burst.
+    value: 5
+  - name: Single
+    description: Single transfer.
+    value: 0
+enum/vals::Hc0CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc0TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc10CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc10TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc11CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc11TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc12CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc12TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc13CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc13TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc1CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc1TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc2CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc2TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc3CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc3TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc4CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc4TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc5CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc5TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc6CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc6TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc7CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc7TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc8CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc8TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Hc9CharEptype:
+  bit_size: 2
+  variants:
+  - name: Bulk
+    description: Bulk endpoint.
+    value: 2
+  - name: Control
+    description: Control endpoint.
+    value: 0
+  - name: Int
+    description: Interrupt endpoint.
+    value: 3
+  - name: Iso
+    description: Isochronous endpoint.
+    value: 1
+enum/vals::Hc9TsizPid:
+  bit_size: 2
+  variants:
+  - name: Data0
+    description: DATA0 PID.
+    value: 0
+  - name: Data1
+    description: DATA1 PID.
+    value: 2
+  - name: Data2
+    description: DATA2 PID.
+    value: 1
+  - name: Mdata
+    description: MDATA (non-control) / SETUP (control) PID.
+    value: 3
+enum/vals::Perfrint:
+  bit_size: 2
+  variants:
+  - name: _80pcnt
+    description: 80% of the frame interval.
+    value: 0
+  - name: _85pcnt
+    description: 85% of the frame interval.
+    value: 1
+  - name: _90pcnt
+    description: 90% of the frame interval.
+    value: 2
+  - name: _95pcnt
+    description: 95% of the frame interval.
+    value: 3
+enum/vals::Prtspd:
+  bit_size: 2
+  variants:
+  - name: Fs
+    description: Full speed.
+    value: 1
+  - name: Hs
+    description: High speed.
+    value: 0
+  - name: Ls
+    description: Low speed.
+    value: 2
+enum/vals::Prttstctl:
+  bit_size: 4
+  variants:
+  - name: Disable
+    description: Test mode disabled.
+    value: 0
+  - name: Force
+    description: Test_Force_Enable.
+    value: 5
+  - name: J
+    description: Test_J mode.
+    value: 1
+  - name: K
+    description: Test_K mode.
+    value: 2
+  - name: Packet
+    description: Test_Packet mode.
+    value: 4
+  - name: Se0nak
+    description: Test_SE0_NAK mode.
+    value: 3
+enum/vals::Tstctl:
+  bit_size: 3
+  variants:
+  - name: Disable
+    description: Test mode disabled.
+    value: 0
+  - name: Force
+    description: Test_Force_Enable.
+    value: 5
+  - name: J
+    description: Test_J mode.
+    value: 1
+  - name: K
+    description: Test_K mode.
+    value: 2
+  - name: Packet
+    description: Test_Packet mode.
+    value: 4
+  - name: Se0nak
+    description: Test_SE0_NAK mode.
+    value: 3
+enum/vals::Txfnum:
+  bit_size: 5
+  variants:
+  - name: F0
+    description: 'Host mode: Non-periodic TxFIFO flush. Device: Tx FIFO 0 flush.'
+    value: 0
+  - name: F1
+    description: 'Host mode: Periodic TxFIFO flush. Device: TXFIFO 1 flush.'
+    value: 1
+  - name: F2
+    description: 'Device mode: TXFIFO 2 flush.'
+    value: 2
+  - name: F3
+    description: 'Device mode: TXFIFO 3 flush.'
+    value: 3
+  - name: F4
+    description: 'Device mode: TXFIFO 4 flush.'
+    value: 4
+  - name: F5
+    description: 'Device mode: TXFIFO 5 flush.'
+    value: 5
+  - name: F6
+    description: 'Device mode: TXFIFO 6 flush.'
+    value: 6
+  - name: Fall
+    description: Flush all the transmit FIFOs in device or host mode.
+    value: 16

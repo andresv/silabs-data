@@ -1,0 +1,696 @@
+block/Adc:
+  description: ADC peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: cmd
+    description: Command Register.
+    byte_offset: 4
+    access: Write
+    fieldset: regs::Cmd
+  - name: status
+    description: Status Register.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::Status
+  - name: singlectrl
+    description: Single Sample Control Register.
+    byte_offset: 12
+    fieldset: regs::Singlectrl
+  - name: scanctrl
+    description: Scan Control Register.
+    byte_offset: 16
+    fieldset: regs::Scanctrl
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 20
+    fieldset: regs::Ien
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 24
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 28
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 32
+    access: Write
+    fieldset: regs::Ifc
+  - name: singledata
+    description: Single Conversion Result Data.
+    byte_offset: 36
+    access: Read
+    fieldset: regs::Singledata
+  - name: scandata
+    description: Scan Conversion Result Data.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::Scandata
+  - name: singledatap
+    description: Single Conversion Result Data Peek Register.
+    byte_offset: 44
+    access: Read
+    fieldset: regs::Singledatap
+  - name: scandatap
+    description: Scan Sequence Result Data Peek Register.
+    byte_offset: 48
+    access: Read
+    fieldset: regs::Scandatap
+  - name: cal
+    description: Calibration Register.
+    byte_offset: 52
+    fieldset: regs::Cal
+  - name: biasprog
+    description: Bias Programming Register.
+    byte_offset: 60
+    fieldset: regs::Biasprog
+fieldset/regs::Biasprog:
+  description: Bias Programming Register.
+  fields:
+  - name: biasprog
+    description: Bias Programming Value.
+    bit_offset: 0
+    bit_size: 4
+  - name: halfbias
+    description: Half Bias Current.
+    bit_offset: 6
+    bit_size: 1
+  - name: compbias
+    description: Comparator Bias Value.
+    bit_offset: 8
+    bit_size: 4
+fieldset/regs::Cal:
+  description: Calibration Register.
+  fields:
+  - name: singleoffset
+    description: Single Mode Offset Calibration Value.
+    bit_offset: 0
+    bit_size: 7
+  - name: singlegain
+    description: Single Mode Gain Calibration Value.
+    bit_offset: 8
+    bit_size: 7
+  - name: scanoffset
+    description: Scan Mode Offset Calibration Value.
+    bit_offset: 16
+    bit_size: 7
+  - name: scangain
+    description: Scan Mode Gain Calibration Value.
+    bit_offset: 24
+    bit_size: 7
+fieldset/regs::Cmd:
+  description: Command Register.
+  fields:
+  - name: singlestart
+    description: Single Conversion Start.
+    bit_offset: 0
+    bit_size: 1
+  - name: singlestop
+    description: Single Conversion Stop.
+    bit_offset: 1
+    bit_size: 1
+  - name: scanstart
+    description: Scan Sequence Start.
+    bit_offset: 2
+    bit_size: 1
+  - name: scanstop
+    description: Scan Sequence Stop.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: warmupmode
+    description: Warm-up Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Warmupmode
+  - name: tailgate
+    description: Conversion Tailgating.
+    bit_offset: 3
+    bit_size: 1
+  - name: lpfmode
+    description: Low Pass Filter Mode.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Lpfmode
+  - name: presc
+    description: Prescaler Setting.
+    bit_offset: 8
+    bit_size: 7
+    enum: vals::Presc
+  - name: timebase
+    description: Time Base.
+    bit_offset: 16
+    bit_size: 5
+  - name: ovsrsel
+    description: Oversample Rate Select.
+    bit_offset: 24
+    bit_size: 4
+    enum: vals::Ovsrsel
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: single
+    description: Single Conversion Complete Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: scan
+    description: Scan Conversion Complete Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: singleof
+    description: Single Result Overflow Interrupt Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: scanof
+    description: Scan Result Overflow Interrupt Enable.
+    bit_offset: 9
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: single
+    description: Single Conversion Complete Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: scan
+    description: Scan Conversion Complete Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: singleof
+    description: Single Result Overflow Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: scanof
+    description: Scan Result Overflow Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: single
+    description: Single Conversion Complete Interrupt Flag Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: scan
+    description: Scan Conversion Complete Interrupt Flag Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: singleof
+    description: Single Result Overflow Interrupt Flag Clear.
+    bit_offset: 8
+    bit_size: 1
+  - name: scanof
+    description: Scan Result Overflow Interrupt Flag Clear.
+    bit_offset: 9
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: single
+    description: Single Conversion Complete Interrupt Flag Set.
+    bit_offset: 0
+    bit_size: 1
+  - name: scan
+    description: Scan Conversion Complete Interrupt Flag Set.
+    bit_offset: 1
+    bit_size: 1
+  - name: singleof
+    description: Single Result Overflow Interrupt Flag Set.
+    bit_offset: 8
+    bit_size: 1
+  - name: scanof
+    description: Scan Result Overflow Interrupt Flag Set.
+    bit_offset: 9
+    bit_size: 1
+fieldset/regs::Scanctrl:
+  description: Scan Control Register.
+  fields:
+  - name: rep
+    description: Scan Sequence Repetitive Mode.
+    bit_offset: 0
+    bit_size: 1
+  - name: diff
+    description: Scan Sequence Differential Mode.
+    bit_offset: 1
+    bit_size: 1
+  - name: adj
+    description: Scan Sequence Result Adjustment.
+    bit_offset: 2
+    bit_size: 1
+  - name: res
+    description: Scan Sequence Resolution Select.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::ScanctrlRes
+  - name: inputmask
+    description: Scan Sequence Input Mask.
+    bit_offset: 8
+    bit_size: 8
+  - name: ref_
+    description: Scan Sequence Reference Selection.
+    bit_offset: 16
+    bit_size: 3
+    enum: vals::ScanctrlRef
+  - name: at
+    description: Scan Sample Acquisition Time.
+    bit_offset: 20
+    bit_size: 4
+    enum: vals::ScanctrlAt
+  - name: prsen
+    description: Scan Sequence PRS Trigger Enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: prssel
+    description: Scan Sequence PRS Trigger Select.
+    bit_offset: 28
+    bit_size: 4
+    enum: vals::ScanctrlPrssel
+fieldset/regs::Scandata:
+  description: Scan Conversion Result Data.
+  fields:
+  - name: data
+    description: Scan Conversion Result Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Scandatap:
+  description: Scan Sequence Result Data Peek Register.
+  fields:
+  - name: datap
+    description: Scan Conversion Result Data Peek.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Singlectrl:
+  description: Single Sample Control Register.
+  fields:
+  - name: rep
+    description: Single Sample Repetitive Mode.
+    bit_offset: 0
+    bit_size: 1
+  - name: diff
+    description: Single Sample Differential Mode.
+    bit_offset: 1
+    bit_size: 1
+  - name: adj
+    description: Single Sample Result Adjustment.
+    bit_offset: 2
+    bit_size: 1
+  - name: res
+    description: Single Sample Resolution Select.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::SinglectrlRes
+  - name: inputsel
+    description: Single Sample Input Selection.
+    bit_offset: 8
+    bit_size: 4
+  - name: ref_
+    description: Single Sample Reference Selection.
+    bit_offset: 16
+    bit_size: 3
+    enum: vals::SinglectrlRef
+  - name: at
+    description: Single Sample Acquisition Time.
+    bit_offset: 20
+    bit_size: 4
+    enum: vals::SinglectrlAt
+  - name: prsen
+    description: Single Sample PRS Trigger Enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: prssel
+    description: Single Sample PRS Trigger Select.
+    bit_offset: 28
+    bit_size: 4
+    enum: vals::SinglectrlPrssel
+fieldset/regs::Singledata:
+  description: Single Conversion Result Data.
+  fields:
+  - name: data
+    description: Single Conversion Result Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Singledatap:
+  description: Single Conversion Result Data Peek Register.
+  fields:
+  - name: datap
+    description: Single Conversion Result Data Peek.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Status:
+  description: Status Register.
+  fields:
+  - name: singleact
+    description: Single Conversion Active.
+    bit_offset: 0
+    bit_size: 1
+  - name: scanact
+    description: Scan Conversion Active.
+    bit_offset: 1
+    bit_size: 1
+  - name: singlerefwarm
+    description: Single Reference Warmed Up.
+    bit_offset: 8
+    bit_size: 1
+  - name: scanrefwarm
+    description: Scan Reference Warmed Up.
+    bit_offset: 9
+    bit_size: 1
+  - name: warm
+    description: ADC Warmed Up.
+    bit_offset: 12
+    bit_size: 1
+  - name: singledv
+    description: Single Sample Data Valid.
+    bit_offset: 16
+    bit_size: 1
+  - name: scandv
+    description: Scan Data Valid.
+    bit_offset: 17
+    bit_size: 1
+  - name: scandatasrc
+    description: Scan Data Source.
+    bit_offset: 24
+    bit_size: 3
+    enum: vals::Scandatasrc
+enum/vals::Lpfmode:
+  bit_size: 2
+  variants:
+  - name: Bypass
+    description: No filter or decoupling capacitor.
+    value: 0
+  - name: Decap
+    description: On chip decoupling capacitor selected.
+    value: 1
+  - name: Rcfilt
+    description: On chip RC filter selected.
+    value: 2
+enum/vals::Ovsrsel:
+  bit_size: 4
+  variants:
+  - name: X1024
+    description: 1024 samples for each conversion result.
+    value: 9
+  - name: X128
+    description: 128 samples for each conversion result.
+    value: 6
+  - name: X16
+    description: 16 samples for each conversion result.
+    value: 3
+  - name: X2
+    description: 2 samples for each conversion result.
+    value: 0
+  - name: X2048
+    description: 2048 samples for each conversion result.
+    value: 10
+  - name: X256
+    description: 256 samples for each conversion result.
+    value: 7
+  - name: X32
+    description: 32 samples for each conversion result.
+    value: 4
+  - name: X4
+    description: 4 samples for each conversion result.
+    value: 1
+  - name: X4096
+    description: 4096 samples for each conversion result.
+    value: 11
+  - name: X512
+    description: 512 samples for each conversion result.
+    value: 8
+  - name: X64
+    description: 64 samples for each conversion result.
+    value: 5
+  - name: X8
+    description: 8 samples for each conversion result.
+    value: 2
+enum/vals::Presc:
+  bit_size: 7
+  variants:
+  - name: Nodivision
+    value: 0
+enum/vals::ScanctrlAt:
+  bit_size: 4
+  variants:
+  - name: _128cycles
+    description: 128 ADC_CLK cycles acquisition time for scan samples.
+    value: 7
+  - name: _16cycles
+    description: 16 ADC_CLK cycles acquisition time for scan samples.
+    value: 4
+  - name: _1cycle
+    description: 1 ADC_CLK cycle acquisition time for scan samples.
+    value: 0
+  - name: _256cycles
+    description: 256 ADC_CLK cycles acquisition time for scan samples.
+    value: 8
+  - name: _2cycles
+    description: 2 ADC_CLK cycles acquisition time for scan samples.
+    value: 1
+  - name: _32cycles
+    description: 32 ADC_CLK cycles acquisition time for scan samples.
+    value: 5
+  - name: _4cycles
+    description: 4 ADC_CLK cycles acquisition time for scan samples.
+    value: 2
+  - name: _64cycles
+    description: 64 ADC_CLK cycles acquisition time for scan samples.
+    value: 6
+  - name: _8cycles
+    description: 8 ADC_CLK cycles acquisition time for scan samples.
+    value: 3
+enum/vals::ScanctrlPrssel:
+  bit_size: 4
+  variants:
+  - name: Prsch0
+    description: PRS ch 0 triggers scan sequence.
+    value: 0
+  - name: Prsch1
+    description: PRS ch 1 triggers scan sequence.
+    value: 1
+  - name: Prsch10
+    description: PRS ch 10 triggers scan sequence.
+    value: 10
+  - name: Prsch11
+    description: PRS ch 11 triggers scan sequence.
+    value: 11
+  - name: Prsch2
+    description: PRS ch 2 triggers scan sequence.
+    value: 2
+  - name: Prsch3
+    description: PRS ch 3 triggers scan sequence.
+    value: 3
+  - name: Prsch4
+    description: PRS ch 4 triggers scan sequence.
+    value: 4
+  - name: Prsch5
+    description: PRS ch 5 triggers scan sequence.
+    value: 5
+  - name: Prsch6
+    description: PRS ch 6 triggers scan sequence.
+    value: 6
+  - name: Prsch7
+    description: PRS ch 7 triggers scan sequence.
+    value: 7
+  - name: Prsch8
+    description: PRS ch 8 triggers scan sequence.
+    value: 8
+  - name: Prsch9
+    description: PRS ch 9 triggers scan sequence.
+    value: 9
+enum/vals::ScanctrlRef:
+  bit_size: 3
+  variants:
+  - name: Extsingle
+    description: Single ended external reference from ADCn_CH6.
+    value: 4
+  - name: Vdd
+    description: VDD.
+    value: 2
+  - name: _1v25
+    description: Internal 1.25 V reference.
+    value: 0
+  - name: _2v5
+    description: Internal 2.5 V reference.
+    value: 1
+  - name: _2xextdiff
+    description: Differential external reference, 2x(ADCn_CH6 - ADCn_CH7).
+    value: 5
+  - name: _2xvdd
+    description: Unbuffered 2xVDD.
+    value: 6
+  - name: _5vdiff
+    description: Internal differential 5 V reference.
+    value: 3
+enum/vals::ScanctrlRes:
+  bit_size: 2
+  variants:
+  - name: Ovs
+    description: Oversampling enabled. Oversampling rate is set in OVSRSEL.
+    value: 3
+  - name: _12bit
+    description: 12-bit resolution.
+    value: 0
+  - name: _6bit
+    description: 6-bit resolution.
+    value: 2
+  - name: _8bit
+    description: 8-bit resolution.
+    value: 1
+enum/vals::Scandatasrc:
+  bit_size: 3
+  variants:
+  - name: Ch0
+    description: 'Single ended mode: SCANDATA result originates from ADCn_CH0. Differential mode: SCANDATA result originates from ADCn_CH0-ADCn_CH1.'
+    value: 0
+  - name: Ch1
+    description: 'Single ended mode: SCANDATA result originates from ADCn_CH1. Differential mode: SCANDATA result originates from ADCn_CH2_ADCn_CH3.'
+    value: 1
+  - name: Ch2
+    description: 'Single ended mode: SCANDATA result originates from ADCn_CH2. Differential mode: SCANDATA result originates from ADCn_CH4-ADCn_CH5.'
+    value: 2
+  - name: Ch3
+    description: 'Single ended mode: SCANDATA result originates from ADCn_CH3. Differential mode: SCANDATA result originates from ADCn_CH6-ADCn_CH7.'
+    value: 3
+  - name: Ch4
+    description: SCANDATA result originates from ADCn_CH4.
+    value: 4
+  - name: Ch5
+    description: SCANDATA result originates from ADCn_CH5.
+    value: 5
+  - name: Ch6
+    description: SCANDATA result originates from ADCn_CH6.
+    value: 6
+  - name: Ch7
+    description: SCANDATA result originates from ADCn_CH7.
+    value: 7
+enum/vals::SinglectrlAt:
+  bit_size: 4
+  variants:
+  - name: _128cycles
+    description: 128 ADC_CLK cycles acquisition time for single sample.
+    value: 7
+  - name: _16cycles
+    description: 16 ADC_CLK cycles acquisition time for single sample.
+    value: 4
+  - name: _1cycle
+    description: 1 ADC_CLK cycle acquisition time for single sample.
+    value: 0
+  - name: _256cycles
+    description: 256 ADC_CLK cycles acquisition time for single sample.
+    value: 8
+  - name: _2cycles
+    description: 2 ADC_CLK cycles acquisition time for single sample.
+    value: 1
+  - name: _32cycles
+    description: 32 ADC_CLK cycles acquisition time for single sample.
+    value: 5
+  - name: _4cycles
+    description: 4 ADC_CLK cycles acquisition time for single sample.
+    value: 2
+  - name: _64cycles
+    description: 64 ADC_CLK cycles acquisition time for single sample.
+    value: 6
+  - name: _8cycles
+    description: 8 ADC_CLK cycles acquisition time for single sample.
+    value: 3
+enum/vals::SinglectrlPrssel:
+  bit_size: 4
+  variants:
+  - name: Prsch0
+    description: PRS ch 0 triggers single sample.
+    value: 0
+  - name: Prsch1
+    description: PRS ch 1 triggers single sample.
+    value: 1
+  - name: Prsch10
+    description: PRS ch 10 triggers single sample.
+    value: 10
+  - name: Prsch11
+    description: PRS ch 11 triggers single sample.
+    value: 11
+  - name: Prsch2
+    description: PRS ch 2 triggers single sample.
+    value: 2
+  - name: Prsch3
+    description: PRS ch 3 triggers single sample.
+    value: 3
+  - name: Prsch4
+    description: PRS ch 4 triggers single sample.
+    value: 4
+  - name: Prsch5
+    description: PRS ch 5 triggers single sample.
+    value: 5
+  - name: Prsch6
+    description: PRS ch 6 triggers single sample.
+    value: 6
+  - name: Prsch7
+    description: PRS ch 7 triggers single sample.
+    value: 7
+  - name: Prsch8
+    description: PRS ch 8 triggers single sample.
+    value: 8
+  - name: Prsch9
+    description: PRS ch 9 triggers single sample.
+    value: 9
+enum/vals::SinglectrlRef:
+  bit_size: 3
+  variants:
+  - name: Extsingle
+    description: Single ended external reference from ADCn_CH6.
+    value: 4
+  - name: Vdd
+    description: Buffered VDD.
+    value: 2
+  - name: _1v25
+    description: Internal 1.25 V reference.
+    value: 0
+  - name: _2v5
+    description: Internal 2.5 V reference.
+    value: 1
+  - name: _2xextdiff
+    description: Differential external reference, 2x(ADCn_CH6 - ADCn_CH7).
+    value: 5
+  - name: _2xvdd
+    description: Unbuffered 2xVDD.
+    value: 6
+  - name: _5vdiff
+    description: Internal differential 5 V reference.
+    value: 3
+enum/vals::SinglectrlRes:
+  bit_size: 2
+  variants:
+  - name: Ovs
+    description: Oversampling enabled. Oversampling rate is set in OVSRSEL.
+    value: 3
+  - name: _12bit
+    description: 12-bit resolution.
+    value: 0
+  - name: _6bit
+    description: 6-bit resolution.
+    value: 2
+  - name: _8bit
+    description: 8-bit resolution.
+    value: 1
+enum/vals::Warmupmode:
+  bit_size: 2
+  variants:
+  - name: Fastbg
+    description: Bandgap references do not need warm up, but have reduced accuracy.
+    value: 1
+  - name: Keepadcwarm
+    description: ADC is kept warmed up and scan reference is kept warm.
+    value: 3
+  - name: Keepscanrefwarm
+    description: Reference selected for scan mode is kept warm.
+    value: 2
+  - name: Normal
+    description: ADC is shut down after each conversion.
+    value: 0

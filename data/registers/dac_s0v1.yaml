@@ -1,0 +1,975 @@
+block/Dac:
+  description: DAC peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: status
+    description: Status Register.
+    byte_offset: 4
+    access: Read
+    fieldset: regs::Status
+  - name: ch0ctrl
+    description: Channel 0 Control Register.
+    byte_offset: 8
+    fieldset: regs::Ch0ctrl
+  - name: ch1ctrl
+    description: Channel 1 Control Register.
+    byte_offset: 12
+    fieldset: regs::Ch1ctrl
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 16
+    fieldset: regs::Ien
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 20
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 24
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 28
+    access: Write
+    fieldset: regs::Ifc
+  - name: ch0data
+    description: Channel 0 Data Register.
+    byte_offset: 32
+    fieldset: regs::Ch0data
+  - name: ch1data
+    description: Channel 1 Data Register.
+    byte_offset: 36
+    fieldset: regs::Ch1data
+  - name: combdata
+    description: Combined Data Register.
+    byte_offset: 40
+    access: Write
+    fieldset: regs::Combdata
+  - name: cal
+    description: Calibration Register.
+    byte_offset: 44
+    fieldset: regs::Cal
+  - name: biasprog
+    description: Bias Programming Register.
+    byte_offset: 48
+    fieldset: regs::Biasprog
+  - name: opactrl
+    description: Operational Amplifier Control Register.
+    byte_offset: 84
+    fieldset: regs::Opactrl
+  - name: opaoffset
+    description: Operational Amplifier Offset Register.
+    byte_offset: 88
+    fieldset: regs::Opaoffset
+  - name: opa0mux
+    description: Operational Amplifier Mux Configuration Register.
+    byte_offset: 92
+    fieldset: regs::Opa0mux
+  - name: opa1mux
+    description: Operational Amplifier Mux Configuration Register.
+    byte_offset: 96
+    fieldset: regs::Opa1mux
+  - name: opa2mux
+    description: Operational Amplifier Mux Configuration Register.
+    byte_offset: 100
+    fieldset: regs::Opa2mux
+fieldset/regs::Biasprog:
+  description: Bias Programming Register.
+  fields:
+  - name: biasprog
+    description: Bias Programming Value.
+    bit_offset: 0
+    bit_size: 4
+  - name: halfbias
+    description: Half Bias Current.
+    bit_offset: 6
+    bit_size: 1
+  - name: opa2biasprog
+    description: Bias Programming Value for OPA2.
+    bit_offset: 8
+    bit_size: 4
+  - name: opa2halfbias
+    description: Half Bias Current.
+    bit_offset: 14
+    bit_size: 1
+fieldset/regs::Cal:
+  description: Calibration Register.
+  fields:
+  - name: ch0offset
+    description: Channel 0 Offset Calibration Value.
+    bit_offset: 0
+    bit_size: 6
+  - name: ch1offset
+    description: Channel 1 Offset Calibration Value.
+    bit_offset: 8
+    bit_size: 6
+  - name: gain
+    description: Gain Calibration Value.
+    bit_offset: 16
+    bit_size: 7
+fieldset/regs::Ch0ctrl:
+  description: Channel 0 Control Register.
+  fields:
+  - name: en
+    description: Channel 0 Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: refren
+    description: Channel 0 Automatic Refresh Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: prsen
+    description: Channel 0 PRS Trigger Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: prssel
+    description: Channel 0 PRS Trigger Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::Ch0ctrlPrssel
+fieldset/regs::Ch0data:
+  description: Channel 0 Data Register.
+  fields:
+  - name: data
+    description: Channel 0 Data.
+    bit_offset: 0
+    bit_size: 12
+fieldset/regs::Ch1ctrl:
+  description: Channel 1 Control Register.
+  fields:
+  - name: en
+    description: Channel 1 Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: refren
+    description: Channel 1 Automatic Refresh Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: prsen
+    description: Channel 1 PRS Trigger Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: prssel
+    description: Channel 1 PRS Trigger Select.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::Ch1ctrlPrssel
+fieldset/regs::Ch1data:
+  description: Channel 1 Data Register.
+  fields:
+  - name: data
+    description: Channel 1 Data.
+    bit_offset: 0
+    bit_size: 12
+fieldset/regs::Combdata:
+  description: Combined Data Register.
+  fields:
+  - name: ch0data
+    description: Channel 0 Data.
+    bit_offset: 0
+    bit_size: 12
+  - name: ch1data
+    description: Channel 1 Data.
+    bit_offset: 16
+    bit_size: 12
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: diff
+    description: Differential Mode.
+    bit_offset: 0
+    bit_size: 1
+  - name: sinemode
+    description: Sine Mode.
+    bit_offset: 1
+    bit_size: 1
+  - name: convmode
+    description: Conversion Mode.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Convmode
+  - name: outmode
+    description: Output Mode.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::CtrlOutmode
+  - name: outenprs
+    description: PRS Controlled Output Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: ch0prescrst
+    description: Channel 0 Start Reset Prescaler.
+    bit_offset: 7
+    bit_size: 1
+  - name: refsel
+    description: Reference Selection.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Refsel
+  - name: presc
+    description: Prescaler Setting.
+    bit_offset: 16
+    bit_size: 3
+    enum: vals::Presc
+  - name: refrsel
+    description: Refresh Interval Select.
+    bit_offset: 20
+    bit_size: 2
+    enum: vals::Refrsel
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: ch0
+    description: Channel 0 Conversion Complete Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1
+    description: Channel 1 Conversion Complete Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch0uf
+    description: Channel 0 Conversion Data Underflow Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch1uf
+    description: Channel 1 Conversion Data Underflow Interrupt Enable.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: ch0
+    description: Channel 0 Conversion Complete Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1
+    description: Channel 1 Conversion Complete Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch0uf
+    description: Channel 0 Data Underflow Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch1uf
+    description: Channel 1 Data Underflow Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: ch0
+    description: Channel 0 Conversion Complete Interrupt Flag Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1
+    description: Channel 1 Conversion Complete Interrupt Flag Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch0uf
+    description: Channel 0 Data Underflow Interrupt Flag Clear.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch1uf
+    description: Channel 1 Data Underflow Interrupt Flag Clear.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: ch0
+    description: Channel 0 Conversion Complete Interrupt Flag Set.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1
+    description: Channel 1 Conversion Complete Interrupt Flag Set.
+    bit_offset: 1
+    bit_size: 1
+  - name: ch0uf
+    description: Channel 0 Data Underflow Interrupt Flag Set.
+    bit_offset: 4
+    bit_size: 1
+  - name: ch1uf
+    description: Channel 1 Data Underflow Interrupt Flag Set.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Opa0mux:
+  description: Operational Amplifier Mux Configuration Register.
+  fields:
+  - name: possel
+    description: OPA0 non-inverting Input Mux.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Opa0muxPossel
+  - name: negsel
+    description: OPA0 inverting Input Mux.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Opa0muxNegsel
+  - name: resinmux
+    description: OPA0 Resistor Ladder Input Mux.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Opa0muxResinmux
+  - name: ppen
+    description: OPA0 Positive Pad Input Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: npen
+    description: OPA0 Negative Pad Input Enable.
+    bit_offset: 13
+    bit_size: 1
+  - name: outpen
+    description: OPA0 Output Enable Value.
+    bit_offset: 14
+    bit_size: 5
+    enum: vals::Opa0muxOutpen
+  - name: outmode
+    description: Output Select.
+    bit_offset: 22
+    bit_size: 2
+    enum: vals::Opa0muxOutmode
+  - name: nextout
+    description: OPA0 Next Enable.
+    bit_offset: 26
+    bit_size: 1
+  - name: ressel
+    description: OPA0 Resistor Ladder Select.
+    bit_offset: 28
+    bit_size: 3
+    enum: vals::Opa0muxRessel
+fieldset/regs::Opa1mux:
+  description: Operational Amplifier Mux Configuration Register.
+  fields:
+  - name: possel
+    description: OPA1 non-inverting Input Mux.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Opa1muxPossel
+  - name: negsel
+    description: OPA1 inverting Input Mux.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Opa1muxNegsel
+  - name: resinmux
+    description: OPA1 Resistor Ladder Input Mux.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Opa1muxResinmux
+  - name: ppen
+    description: OPA1 Positive Pad Input Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: npen
+    description: OPA1 Negative Pad Input Enable.
+    bit_offset: 13
+    bit_size: 1
+  - name: outpen
+    description: OPA1 Output Enable Value.
+    bit_offset: 14
+    bit_size: 5
+    enum: vals::Opa1muxOutpen
+  - name: outmode
+    description: Output Select.
+    bit_offset: 22
+    bit_size: 2
+    enum: vals::Opa1muxOutmode
+  - name: nextout
+    description: OPA1 Next Enable.
+    bit_offset: 26
+    bit_size: 1
+  - name: ressel
+    description: OPA1 Resistor Ladder Select.
+    bit_offset: 28
+    bit_size: 3
+    enum: vals::Opa1muxRessel
+fieldset/regs::Opa2mux:
+  description: Operational Amplifier Mux Configuration Register.
+  fields:
+  - name: possel
+    description: OPA2 non-inverting Input Mux.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Opa2muxPossel
+  - name: negsel
+    description: OPA2 inverting Input Mux.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Opa2muxNegsel
+  - name: resinmux
+    description: OPA2 Resistor Ladder Input Mux.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Opa2muxResinmux
+  - name: ppen
+    description: OPA2 Positive Pad Input Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: npen
+    description: OPA2 Negative Pad Input Enable.
+    bit_offset: 13
+    bit_size: 1
+  - name: outpen
+    description: OPA2 Output Location.
+    bit_offset: 14
+    bit_size: 2
+    enum: vals::Opa2muxOutpen
+  - name: outmode
+    description: Output Select.
+    bit_offset: 22
+    bit_size: 1
+  - name: nextout
+    description: OPA2 Next Enable.
+    bit_offset: 26
+    bit_size: 1
+  - name: ressel
+    description: OPA2 Resistor Ladder Select.
+    bit_offset: 28
+    bit_size: 3
+    enum: vals::Opa2muxRessel
+fieldset/regs::Opactrl:
+  description: Operational Amplifier Control Register.
+  fields:
+  - name: opa0en
+    description: OPA0 Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: opa1en
+    description: OPA1 Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: opa2en
+    description: OPA2 Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: opa0hcmdis
+    description: High Common Mode Disable.
+    bit_offset: 6
+    bit_size: 1
+  - name: opa1hcmdis
+    description: High Common Mode Disable.
+    bit_offset: 7
+    bit_size: 1
+  - name: opa2hcmdis
+    description: High Common Mode Disable.
+    bit_offset: 8
+    bit_size: 1
+  - name: opa0lpfdis
+    description: Disables Low Pass Filter.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Opa0lpfdis
+  - name: opa1lpfdis
+    description: Disables Low Pass Filter.
+    bit_offset: 14
+    bit_size: 2
+    enum: vals::Opa1lpfdis
+  - name: opa2lpfdis
+    description: Disables Low Pass Filter.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Opa2lpfdis
+  - name: opa0short
+    description: Short the non-inverting and inverting input.
+    bit_offset: 22
+    bit_size: 1
+  - name: opa1short
+    description: Short the non-inverting and inverting input.
+    bit_offset: 23
+    bit_size: 1
+  - name: opa2short
+    description: Short the non-inverting and inverting input.
+    bit_offset: 24
+    bit_size: 1
+fieldset/regs::Opaoffset:
+  description: Operational Amplifier Offset Register.
+  fields:
+  - name: opa2offset
+    description: OPA2 Offset Configuration Value.
+    bit_offset: 0
+    bit_size: 6
+fieldset/regs::Status:
+  description: Status Register.
+  fields:
+  - name: ch0dv
+    description: Channel 0 Data Valid.
+    bit_offset: 0
+    bit_size: 1
+  - name: ch1dv
+    description: Channel 1 Data Valid.
+    bit_offset: 1
+    bit_size: 1
+enum/vals::Ch0ctrlPrssel:
+  bit_size: 4
+  variants:
+  - name: Prsch0
+    description: PRS ch 0 triggers channel 0 conversion.
+    value: 0
+  - name: Prsch1
+    description: PRS ch 1 triggers channel 0 conversion.
+    value: 1
+  - name: Prsch10
+    description: PRS ch 10 triggers channel 0 conversion.
+    value: 10
+  - name: Prsch11
+    description: PRS ch 11 triggers channel 0 conversion.
+    value: 11
+  - name: Prsch2
+    description: PRS ch 2 triggers channel 0 conversion.
+    value: 2
+  - name: Prsch3
+    description: PRS ch 3 triggers channel 0 conversion.
+    value: 3
+  - name: Prsch4
+    description: PRS ch 4 triggers channel 0 conversion.
+    value: 4
+  - name: Prsch5
+    description: PRS ch 5 triggers channel 0 conversion.
+    value: 5
+  - name: Prsch6
+    description: PRS ch 6 triggers channel 0 conversion.
+    value: 6
+  - name: Prsch7
+    description: PRS ch 7 triggers channel 0 conversion.
+    value: 7
+  - name: Prsch8
+    description: PRS ch 8 triggers channel 0 conversion.
+    value: 8
+  - name: Prsch9
+    description: PRS ch 9 triggers channel 0 conversion.
+    value: 9
+enum/vals::Ch1ctrlPrssel:
+  bit_size: 4
+  variants:
+  - name: Prsch0
+    description: PRS ch 0 triggers channel 1 conversion.
+    value: 0
+  - name: Prsch1
+    description: PRS ch 1 triggers channel 1 conversion.
+    value: 1
+  - name: Prsch10
+    description: PRS ch 10 triggers channel 1 conversion.
+    value: 10
+  - name: Prsch11
+    description: PRS ch 11 triggers channel 1 conversion.
+    value: 11
+  - name: Prsch2
+    description: PRS ch 2 triggers channel 1 conversion.
+    value: 2
+  - name: Prsch3
+    description: PRS ch 3 triggers channel 1 conversion.
+    value: 3
+  - name: Prsch4
+    description: PRS ch 4 triggers channel 1 conversion.
+    value: 4
+  - name: Prsch5
+    description: PRS ch 5 triggers channel 1 conversion.
+    value: 5
+  - name: Prsch6
+    description: PRS ch 6 triggers channel 1 conversion.
+    value: 6
+  - name: Prsch7
+    description: PRS ch 7 triggers channel 1 conversion.
+    value: 7
+  - name: Prsch8
+    description: PRS ch 8 triggers channel 1 conversion.
+    value: 8
+  - name: Prsch9
+    description: PRS ch 9 triggers channel 1 conversion.
+    value: 9
+enum/vals::Convmode:
+  bit_size: 2
+  variants:
+  - name: Continuous
+    description: DAC is set in continuous mode.
+    value: 0
+  - name: Samplehold
+    description: DAC is set in sample/hold mode.
+    value: 1
+  - name: Sampleoff
+    description: DAC is set in sample/shut off mode.
+    value: 2
+enum/vals::CtrlOutmode:
+  bit_size: 2
+  variants:
+  - name: Adc
+    description: DAC output to pin disabled. DAC output to ADC and ACMP enabled.
+    value: 2
+  - name: Disable
+    description: DAC output to pin and ADC disabled.
+    value: 0
+  - name: Pin
+    description: DAC output to pin enabled. DAC output to ADC and ACMP disabled.
+    value: 1
+  - name: Pinadc
+    description: DAC output to pin, ADC, and ACMP enabled.
+    value: 3
+enum/vals::Opa0lpfdis:
+  bit_size: 2
+  variants:
+  - name: Nlpfdis
+    description: Disables the LPF between negative pad and negative input.
+    value: 2
+  - name: Plpfdis
+    description: Disables the LPF between positive pad and positive input.
+    value: 1
+enum/vals::Opa0muxNegsel:
+  bit_size: 2
+  variants:
+  - name: Disable
+    description: Input disabled.
+    value: 0
+  - name: Negpad
+    description: Input from NEG PAD.
+    value: 3
+  - name: Opatap
+    description: OPA0 Resistor ladder as input.
+    value: 2
+  - name: Ug
+    description: Unity Gain feedback path.
+    value: 1
+enum/vals::Opa0muxOutmode:
+  bit_size: 2
+  variants:
+  - name: All
+    description: Main OPA0 output drives both main and alternative outputs.
+    value: 3
+  - name: Alt
+    description: OPA0 alternative output enabled.
+    value: 2
+  - name: Disable
+    description: OPA0 output is disabled.
+    value: 0
+  - name: Main
+    description: Main OPA0 output to pin enabled.
+    value: 1
+enum/vals::Opa0muxOutpen:
+  bit_size: 5
+  variants:
+  - name: Out0
+    description: Alternate Output 0.
+    value: 1
+  - name: Out1
+    description: Alternate Output 1.
+    value: 2
+  - name: Out2
+    description: Alternate Output 2.
+    value: 4
+  - name: Out3
+    description: Alternate Output 3.
+    value: 8
+  - name: Out4
+    description: Alternate Output 4.
+    value: 16
+enum/vals::Opa0muxPossel:
+  bit_size: 3
+  variants:
+  - name: Dac
+    description: DAC as input.
+    value: 1
+  - name: Disable
+    description: Input disabled.
+    value: 0
+  - name: Opa0inp
+    description: OPA0 as input.
+    value: 3
+  - name: Opatap
+    description: OPA0 Resistor ladder as input.
+    value: 4
+  - name: Pospad
+    description: POS PAD as input.
+    value: 2
+enum/vals::Opa0muxResinmux:
+  bit_size: 3
+  variants:
+  - name: Disable
+    description: Set for Unity Gain.
+    value: 0
+  - name: Negpad
+    description: NEG pad connected.
+    value: 2
+  - name: Opa0inp
+    description: Set for OPA0 input.
+    value: 1
+  - name: Pospad
+    description: POS pad connected.
+    value: 3
+  - name: Vss
+    description: VSS connected.
+    value: 4
+enum/vals::Opa0muxRessel:
+  bit_size: 3
+  variants:
+  - name: Res0
+    description: Gain of 1/3.
+    value: 0
+  - name: Res1
+    description: Gain of 1.
+    value: 1
+  - name: Res2
+    description: Gain of 1 2/3.
+    value: 2
+  - name: Res3
+    description: Gain of 2.
+    value: 3
+  - name: Res4
+    description: Gain of 3.
+    value: 4
+  - name: Res5
+    description: Gain of 4 1/3.
+    value: 5
+  - name: Res6
+    description: Gain of 7.
+    value: 6
+  - name: Res7
+    description: Gain of 15.
+    value: 7
+enum/vals::Opa1lpfdis:
+  bit_size: 2
+  variants:
+  - name: Nlpfdis
+    description: Disables the LPF between negative pad and negative input.
+    value: 2
+  - name: Plpfdis
+    description: Disables the LPF between positive pad and positive input.
+    value: 1
+enum/vals::Opa1muxNegsel:
+  bit_size: 2
+  variants:
+  - name: Disable
+    description: Input disabled.
+    value: 0
+  - name: Negpad
+    description: Input from NEG PAD.
+    value: 3
+  - name: Opatap
+    description: OPA1 Resistor ladder as input.
+    value: 2
+  - name: Ug
+    description: Unity Gain feedback path.
+    value: 1
+enum/vals::Opa1muxOutmode:
+  bit_size: 2
+  variants:
+  - name: All
+    description: Main OPA1 output drives both main and alternative outputs.
+    value: 3
+  - name: Alt
+    description: OPA1 alternative output enabled.
+    value: 2
+  - name: Disable
+    description: OPA0 output is disabled.
+    value: 0
+  - name: Main
+    description: Main OPA1 output to pin enabled.
+    value: 1
+enum/vals::Opa1muxOutpen:
+  bit_size: 5
+  variants:
+  - name: Out0
+    description: Alternate Output 0.
+    value: 1
+  - name: Out1
+    description: Alternate Output 1.
+    value: 2
+  - name: Out2
+    description: Alternate Output 2.
+    value: 4
+  - name: Out3
+    description: Alternate Output 3.
+    value: 8
+  - name: Out4
+    description: Alternate Output 4.
+    value: 16
+enum/vals::Opa1muxPossel:
+  bit_size: 3
+  variants:
+  - name: Dac
+    description: DAC as input.
+    value: 1
+  - name: Disable
+    description: Input disabled.
+    value: 0
+  - name: Opa0inp
+    description: OPA0 as input.
+    value: 3
+  - name: Opatap
+    description: OPA 1 Resistor ladder as input.
+    value: 4
+  - name: Pospad
+    description: POS PAD as input.
+    value: 2
+enum/vals::Opa1muxResinmux:
+  bit_size: 3
+  variants:
+  - name: Disable
+    description: Set for Unity Gain.
+    value: 0
+  - name: Negpad
+    description: NEG PAD connected.
+    value: 2
+  - name: Opa0inp
+    description: Set for OPA0 input.
+    value: 1
+  - name: Pospad
+    description: POS PAD connected.
+    value: 3
+  - name: Vss
+    description: VSS connected.
+    value: 4
+enum/vals::Opa1muxRessel:
+  bit_size: 3
+  variants:
+  - name: Res0
+    description: Gain of 1/3.
+    value: 0
+  - name: Res1
+    description: Gain of 1.
+    value: 1
+  - name: Res2
+    description: Gain of 1 2/3.
+    value: 2
+  - name: Res3
+    description: Gain of 2.
+    value: 3
+  - name: Res4
+    description: Gain of 3.
+    value: 4
+  - name: Res5
+    description: Gain of 4 1/3.
+    value: 5
+  - name: Res6
+    description: Gain of 7.
+    value: 6
+  - name: Res7
+    description: Gain of 15.
+    value: 7
+enum/vals::Opa2lpfdis:
+  bit_size: 2
+  variants:
+  - name: Nlpfdis
+    description: Disables the LPF between negative pad and negative input.
+    value: 2
+  - name: Plpfdis
+    description: Disables the LPF between positive pad and positive input.
+    value: 1
+enum/vals::Opa2muxNegsel:
+  bit_size: 2
+  variants:
+  - name: Disable
+    description: Input disabled.
+    value: 0
+  - name: Negpad
+    description: Input from NEG PAD.
+    value: 3
+  - name: Opatap
+    description: OPA2 Resistor ladder as input.
+    value: 2
+  - name: Ug
+    description: Unity Gain feedback path.
+    value: 1
+enum/vals::Opa2muxOutpen:
+  bit_size: 2
+  variants:
+  - name: Out0
+    description: Main Output 0.
+    value: 1
+  - name: Out1
+    description: Main Output 1.
+    value: 2
+enum/vals::Opa2muxPossel:
+  bit_size: 3
+  variants:
+  - name: Disable
+    description: Input disabled.
+    value: 0
+  - name: Opa1inp
+    description: OPA1 as input.
+    value: 3
+  - name: Opatap
+    description: OPA0 Resistor ladder as input.
+    value: 4
+  - name: Pospad
+    description: POS PAD as input.
+    value: 2
+enum/vals::Opa2muxResinmux:
+  bit_size: 3
+  variants:
+  - name: Disable
+    description: Set for Unity Gain.
+    value: 0
+  - name: Negpad
+    description: NEG PAD connected.
+    value: 2
+  - name: Opa1inp
+    description: Set for OPA1 input.
+    value: 1
+  - name: Pospad
+    description: POS PAD connected.
+    value: 3
+  - name: Vss
+    description: VSS connected.
+    value: 4
+enum/vals::Opa2muxRessel:
+  bit_size: 3
+  variants:
+  - name: Res0
+    description: Gain of 1/3.
+    value: 0
+  - name: Res1
+    description: Gain of 1.
+    value: 1
+  - name: Res2
+    description: Gain of 1 2/3.
+    value: 2
+  - name: Res3
+    description: Gain of 2.
+    value: 3
+  - name: Res4
+    description: Gain of 3.
+    value: 4
+  - name: Res5
+    description: Gain of 4 1/3.
+    value: 5
+  - name: Res6
+    description: Gain of 7.
+    value: 6
+  - name: Res7
+    description: Gain of 15.
+    value: 7
+enum/vals::Presc:
+  bit_size: 3
+  variants:
+  - name: Nodivision
+    value: 0
+enum/vals::Refrsel:
+  bit_size: 2
+  variants:
+  - name: _16cycles
+    description: All channels with enabled refresh are refreshed every 16 prescaled cycles.
+    value: 1
+  - name: _32cycles
+    description: All channels with enabled refresh are refreshed every 32 prescaled cycles.
+    value: 2
+  - name: _64cycles
+    description: All channels with enabled refresh are refreshed every 64 prescaled cycles.
+    value: 3
+  - name: _8cycles
+    description: All channels with enabled refresh are refreshed every 8 prescaled cycles.
+    value: 0
+enum/vals::Refsel:
+  bit_size: 2
+  variants:
+  - name: Vdd
+    description: VDD reference.
+    value: 2
+  - name: _1v25
+    description: Internal 1.25 V bandgap reference.
+    value: 0
+  - name: _2v5
+    description: Internal 2.5 V bandgap reference.
+    value: 1

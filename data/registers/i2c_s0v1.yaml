@@ -1,0 +1,646 @@
+block/I2c:
+  description: I2C peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: cmd
+    description: Command Register.
+    byte_offset: 4
+    access: Write
+    fieldset: regs::Cmd
+  - name: state
+    description: State Register.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::State
+  - name: status
+    description: Status Register.
+    byte_offset: 12
+    access: Read
+    fieldset: regs::Status
+  - name: clkdiv
+    description: Clock Division Register.
+    byte_offset: 16
+    fieldset: regs::Clkdiv
+  - name: saddr
+    description: Slave Address Register.
+    byte_offset: 20
+    fieldset: regs::Saddr
+  - name: saddrmask
+    description: Slave Address Mask Register.
+    byte_offset: 24
+    fieldset: regs::Saddrmask
+  - name: rxdata
+    description: Receive Buffer Data Register.
+    byte_offset: 28
+    access: Read
+    fieldset: regs::Rxdata
+  - name: rxdatap
+    description: Receive Buffer Data Peek Register.
+    byte_offset: 32
+    access: Read
+    fieldset: regs::Rxdatap
+  - name: txdata
+    description: Transmit Buffer Data Register.
+    byte_offset: 36
+    access: Write
+    fieldset: regs::Txdata
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 44
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 48
+    access: Write
+    fieldset: regs::Ifc
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 52
+    fieldset: regs::Ien
+  - name: route
+    description: I/O Routing Register.
+    byte_offset: 56
+    fieldset: regs::Route
+fieldset/regs::Clkdiv:
+  description: Clock Division Register.
+  fields:
+  - name: div
+    description: Clock Divider.
+    bit_offset: 0
+    bit_size: 9
+fieldset/regs::Cmd:
+  description: Command Register.
+  fields:
+  - name: start
+    description: Send start condition.
+    bit_offset: 0
+    bit_size: 1
+  - name: stop
+    description: Send stop condition.
+    bit_offset: 1
+    bit_size: 1
+  - name: ack
+    description: Send ACK.
+    bit_offset: 2
+    bit_size: 1
+  - name: nack
+    description: Send NACK.
+    bit_offset: 3
+    bit_size: 1
+  - name: cont
+    description: Continue transmission.
+    bit_offset: 4
+    bit_size: 1
+  - name: abort
+    description: Abort transmission.
+    bit_offset: 5
+    bit_size: 1
+  - name: cleartx
+    description: Clear TX.
+    bit_offset: 6
+    bit_size: 1
+  - name: clearpc
+    description: Clear Pending Commands.
+    bit_offset: 7
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: en
+    description: I2C Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: slave
+    description: Addressable as Slave.
+    bit_offset: 1
+    bit_size: 1
+  - name: autoack
+    description: Automatic Acknowledge.
+    bit_offset: 2
+    bit_size: 1
+  - name: autose
+    description: Automatic STOP when Empty.
+    bit_offset: 3
+    bit_size: 1
+  - name: autosn
+    description: Automatic STOP on NACK.
+    bit_offset: 4
+    bit_size: 1
+  - name: arbdis
+    description: Arbitration Disable.
+    bit_offset: 5
+    bit_size: 1
+  - name: gcamen
+    description: General Call Address Match Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: clhr
+    description: Clock Low High Ratio.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Clhr
+  - name: bito
+    description: Bus Idle Timeout.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Bito
+  - name: gibito
+    description: Go Idle on Bus Idle Timeout.
+    bit_offset: 15
+    bit_size: 1
+  - name: clto
+    description: Clock Low Timeout.
+    bit_offset: 16
+    bit_size: 3
+    enum: vals::Clto
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: start
+    description: START Condition Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: rstart
+    description: Repeated START condition Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: addr
+    description: Address Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: txc
+    description: Transfer Completed Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: txbl
+    description: Transmit Buffer level Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: rxdatav
+    description: Receive Data Valid Interrupt Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: ack
+    description: Acknowledge Received Interrupt Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: nack
+    description: Not Acknowledge Received Interrupt Enable.
+    bit_offset: 7
+    bit_size: 1
+  - name: mstop
+    description: MSTOP Interrupt Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: arblost
+    description: Arbitration Lost Interrupt Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: buserr
+    description: Bus Error Interrupt Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: bushold
+    description: Bus Held Interrupt Enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: txof
+    description: Transmit Buffer Overflow Interrupt Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: rxuf
+    description: Receive Buffer Underflow Interrupt Enable.
+    bit_offset: 13
+    bit_size: 1
+  - name: bito
+    description: Bus Idle Timeout Interrupt Enable.
+    bit_offset: 14
+    bit_size: 1
+  - name: clto
+    description: Clock Low Interrupt Enable.
+    bit_offset: 15
+    bit_size: 1
+  - name: sstop
+    description: SSTOP Interrupt Enable.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: start
+    description: START condition Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: rstart
+    description: Repeated START condition Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: addr
+    description: Address Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: txc
+    description: Transfer Completed Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: txbl
+    description: Transmit Buffer Level Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: rxdatav
+    description: Receive Data Valid Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: ack
+    description: Acknowledge Received Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: nack
+    description: Not Acknowledge Received Interrupt Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: mstop
+    description: Master STOP Condition Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: arblost
+    description: Arbitration Lost Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: buserr
+    description: Bus Error Interrupt Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: bushold
+    description: Bus Held Interrupt Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: txof
+    description: Transmit Buffer Overflow Interrupt Flag.
+    bit_offset: 12
+    bit_size: 1
+  - name: rxuf
+    description: Receive Buffer Underflow Interrupt Flag.
+    bit_offset: 13
+    bit_size: 1
+  - name: bito
+    description: Bus Idle Timeout Interrupt Flag.
+    bit_offset: 14
+    bit_size: 1
+  - name: clto
+    description: Clock Low Timeout Interrupt Flag.
+    bit_offset: 15
+    bit_size: 1
+  - name: sstop
+    description: Slave STOP condition Interrupt Flag.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: start
+    description: Clear START Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: rstart
+    description: Clear Repeated START Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: addr
+    description: Clear Address Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: txc
+    description: Clear Transfer Completed Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: ack
+    description: Clear Acknowledge Received Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: nack
+    description: Clear Not Acknowledge Received Interrupt Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: mstop
+    description: Clear MSTOP Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: arblost
+    description: Clear Arbitration Lost Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: buserr
+    description: Clear Bus Error Interrupt Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: bushold
+    description: Clear Bus Held Interrupt Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: txof
+    description: Clear Transmit Buffer Overflow Interrupt Flag.
+    bit_offset: 12
+    bit_size: 1
+  - name: rxuf
+    description: Clear Receive Buffer Underflow Interrupt Flag.
+    bit_offset: 13
+    bit_size: 1
+  - name: bito
+    description: Clear Bus Idle Timeout Interrupt Flag.
+    bit_offset: 14
+    bit_size: 1
+  - name: clto
+    description: Clear Clock Low Interrupt Flag.
+    bit_offset: 15
+    bit_size: 1
+  - name: sstop
+    description: Clear SSTOP Interrupt Flag.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: start
+    description: Set START Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: rstart
+    description: Set Repeated START Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: addr
+    description: Set Address Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: txc
+    description: Set Transfer Completed Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: ack
+    description: Set Acknowledge Received Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: nack
+    description: Set Not Acknowledge Received Interrupt Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: mstop
+    description: Set MSTOP Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: arblost
+    description: Set Arbitration Lost Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: buserr
+    description: Set Bus Error Interrupt Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: bushold
+    description: Set Bus Held Interrupt Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: txof
+    description: Set Transmit Buffer Overflow Interrupt Flag.
+    bit_offset: 12
+    bit_size: 1
+  - name: rxuf
+    description: Set Receive Buffer Underflow Interrupt Flag.
+    bit_offset: 13
+    bit_size: 1
+  - name: bito
+    description: Set Bus Idle Timeout Interrupt Flag.
+    bit_offset: 14
+    bit_size: 1
+  - name: clto
+    description: Set Clock Low Interrupt Flag.
+    bit_offset: 15
+    bit_size: 1
+  - name: sstop
+    description: Set SSTOP Interrupt Flag.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Route:
+  description: I/O Routing Register.
+  fields:
+  - name: sdapen
+    description: SDA Pin Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: sclpen
+    description: SCL Pin Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: location
+    description: I/O Location.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Location
+fieldset/regs::Rxdata:
+  description: Receive Buffer Data Register.
+  fields:
+  - name: rxdata
+    description: RX Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Rxdatap:
+  description: Receive Buffer Data Peek Register.
+  fields:
+  - name: rxdatap
+    description: RX Data Peek.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Saddr:
+  description: Slave Address Register.
+  fields:
+  - name: addr
+    description: Slave address.
+    bit_offset: 1
+    bit_size: 7
+fieldset/regs::Saddrmask:
+  description: Slave Address Mask Register.
+  fields:
+  - name: mask
+    description: Slave Address Mask.
+    bit_offset: 1
+    bit_size: 7
+fieldset/regs::State:
+  description: State Register.
+  fields:
+  - name: busy
+    description: Bus Busy.
+    bit_offset: 0
+    bit_size: 1
+  - name: master
+    description: Master.
+    bit_offset: 1
+    bit_size: 1
+  - name: transmitter
+    description: Transmitter.
+    bit_offset: 2
+    bit_size: 1
+  - name: nacked
+    description: Nack Received.
+    bit_offset: 3
+    bit_size: 1
+  - name: bushold
+    description: Bus Held.
+    bit_offset: 4
+    bit_size: 1
+  - name: state
+    description: Transmission State.
+    bit_offset: 5
+    bit_size: 3
+    enum: vals::State
+fieldset/regs::Status:
+  description: Status Register.
+  fields:
+  - name: pstart
+    description: Pending START.
+    bit_offset: 0
+    bit_size: 1
+  - name: pstop
+    description: Pending STOP.
+    bit_offset: 1
+    bit_size: 1
+  - name: pack
+    description: Pending ACK.
+    bit_offset: 2
+    bit_size: 1
+  - name: pnack
+    description: Pending NACK.
+    bit_offset: 3
+    bit_size: 1
+  - name: pcont
+    description: Pending continue.
+    bit_offset: 4
+    bit_size: 1
+  - name: pabort
+    description: Pending abort.
+    bit_offset: 5
+    bit_size: 1
+  - name: txc
+    description: TX Complete.
+    bit_offset: 6
+    bit_size: 1
+  - name: txbl
+    description: TX Buffer Level.
+    bit_offset: 7
+    bit_size: 1
+  - name: rxdatav
+    description: RX Data Valid.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::Txdata:
+  description: Transmit Buffer Data Register.
+  fields:
+  - name: txdata
+    description: TX Data.
+    bit_offset: 0
+    bit_size: 8
+enum/vals::Bito:
+  bit_size: 2
+  variants:
+  - name: Off
+    description: Timeout disabled.
+    value: 0
+  - name: _160pcc
+    description: Timeout after 160 prescaled clock cycles. In standard mode at 100 kHz, this results in a 200us timeout.
+    value: 3
+  - name: _40pcc
+    description: Timeout after 40 prescaled clock cycles. In standard mode at 100 kHz, this results in a 50us timeout.
+    value: 1
+  - name: _80pcc
+    description: Timeout after 80 prescaled clock cycles. In standard mode at 100 kHz, this results in a 100us timeout.
+    value: 2
+enum/vals::Clhr:
+  bit_size: 2
+  variants:
+  - name: Asymmetric
+    description: The ratio between low period and high period counters (Nlow:Nhigh) is 6:3.
+    value: 1
+  - name: Fast
+    description: The ratio between low period and high period counters (Nlow:Nhigh) is 11:6.
+    value: 2
+  - name: Standard
+    description: The ratio between low period and high period counters (Nlow:Nhigh) is 4:4.
+    value: 0
+enum/vals::Clto:
+  bit_size: 3
+  variants:
+  - name: Off
+    description: Timeout disabled.
+    value: 0
+  - name: _1024ppc
+    description: Timeout after 1024 prescaled clock cycles. In standard mode at 100 kHz, this results in a 1280us timeout.
+    value: 5
+  - name: _160pcc
+    description: Timeout after 160 prescaled clock cycles. In standard mode at 100 kHz, this results in a 200us timeout.
+    value: 3
+  - name: _320ppc
+    description: Timeout after 320 prescaled clock cycles. In standard mode at 100 kHz, this results in a 400us timeout.
+    value: 4
+  - name: _40pcc
+    description: Timeout after 40 prescaled clock cycles. In standard mode at 100 kHz, this results in a 50us timeout.
+    value: 1
+  - name: _80pcc
+    description: Timeout after 80 prescaled clock cycles. In standard mode at 100 kHz, this results in a 100us timeout.
+    value: 2
+enum/vals::Location:
+  bit_size: 3
+  variants:
+  - name: Loc0
+    description: Location 0.
+    value: 0
+  - name: Loc1
+    description: Location 1.
+    value: 1
+  - name: Loc2
+    description: Location 2.
+    value: 2
+  - name: Loc3
+    description: Location 3.
+    value: 3
+  - name: Loc4
+    description: Location 4.
+    value: 4
+  - name: Loc5
+    description: Location 5.
+    value: 5
+  - name: Loc6
+    description: Location 6.
+    value: 6
+enum/vals::State:
+  bit_size: 3
+  variants:
+  - name: Addr
+    description: Address transmitted or received.
+    value: 3
+  - name: Addrack
+    description: Address ack/nack transmitted or received.
+    value: 4
+  - name: Data
+    description: Data transmitted or received.
+    value: 5
+  - name: Dataack
+    description: Data ack/nack transmitted or received.
+    value: 6
+  - name: Idle
+    description: No transmission is being performed.
+    value: 0
+  - name: Start
+    description: Start transmitted or received.
+    value: 2
+  - name: Wait
+    description: Waiting for idle. Will send a start condition as soon as the bus is idle.
+    value: 1

@@ -1,0 +1,414 @@
+block/Msc:
+  description: MSC peripheral.
+  items:
+  - name: ctrl
+    description: Memory System Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: readctrl
+    description: Read Control Register.
+    byte_offset: 4
+    fieldset: regs::Readctrl
+  - name: writectrl
+    description: Write Control Register.
+    byte_offset: 8
+    fieldset: regs::Writectrl
+  - name: writecmd
+    description: Write Command Register.
+    byte_offset: 12
+    access: Write
+    fieldset: regs::Writecmd
+  - name: addrb
+    description: Page Erase/Write Address Buffer.
+    byte_offset: 16
+    fieldset: regs::Addrb
+  - name: wdata
+    description: Write Data Register.
+    byte_offset: 24
+    fieldset: regs::Wdata
+  - name: status
+    description: Status Register.
+    byte_offset: 28
+    access: Read
+    fieldset: regs::Status
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 44
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 48
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 52
+    access: Write
+    fieldset: regs::Ifc
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 56
+    fieldset: regs::Ien
+  - name: lock
+    description: Configuration Lock Register.
+    byte_offset: 60
+    fieldset: regs::Lock
+  - name: cmd
+    description: Command Register.
+    byte_offset: 64
+    access: Write
+    fieldset: regs::Cmd
+  - name: cachehits
+    description: Cache Hits Performance Counter.
+    byte_offset: 68
+    access: Read
+    fieldset: regs::Cachehits
+  - name: cachemisses
+    description: Cache Misses Performance Counter.
+    byte_offset: 72
+    access: Read
+    fieldset: regs::Cachemisses
+  - name: timebase
+    description: Flash Write and Erase Timebase.
+    byte_offset: 80
+    fieldset: regs::Timebase
+  - name: masslock
+    description: Mass Erase Lock Register.
+    byte_offset: 84
+    fieldset: regs::Masslock
+fieldset/regs::Addrb:
+  description: Page Erase/Write Address Buffer.
+  fields:
+  - name: addrb
+    description: Page Erase or Write Address Buffer.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Cachehits:
+  description: Cache Hits Performance Counter.
+  fields:
+  - name: cachehits
+    description: Cache hits since last performance counter start command.
+    bit_offset: 0
+    bit_size: 20
+fieldset/regs::Cachemisses:
+  description: Cache Misses Performance Counter.
+  fields:
+  - name: cachemisses
+    description: Cache misses since last performance counter start command.
+    bit_offset: 0
+    bit_size: 20
+fieldset/regs::Cmd:
+  description: Command Register.
+  fields:
+  - name: invcache
+    description: Invalidate Instruction Cache.
+    bit_offset: 0
+    bit_size: 1
+  - name: startpc
+    description: Start Performance Counters.
+    bit_offset: 1
+    bit_size: 1
+  - name: stoppc
+    description: Stop Performance Counters.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: Memory System Control Register.
+  fields:
+  - name: busfault
+    description: Bus Fault Response Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: erase
+    description: Erase Done Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: write
+    description: Write Done Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: chof
+    description: Cache Hits Overflow Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: cmof
+    description: Cache Misses Overflow Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: erase
+    description: Erase Done Interrupt Read Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: write
+    description: Write Done Interrupt Read Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: chof
+    description: Cache Hits Overflow Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: cmof
+    description: Cache Misses Overflow Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: erase
+    description: Erase Done Interrupt Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: write
+    description: Write Done Interrupt Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: chof
+    description: Cache Hits Overflow Interrupt Clear.
+    bit_offset: 2
+    bit_size: 1
+  - name: cmof
+    description: Cache Misses Overflow Interrupt Clear.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: erase
+    description: Erase Done Interrupt Set.
+    bit_offset: 0
+    bit_size: 1
+  - name: write
+    description: Write Done Interrupt Set.
+    bit_offset: 1
+    bit_size: 1
+  - name: chof
+    description: Cache Hits Overflow Interrupt Set.
+    bit_offset: 2
+    bit_size: 1
+  - name: cmof
+    description: Cache Misses Overflow Interrupt Set.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::Lock:
+  description: Configuration Lock Register.
+  fields:
+  - name: lockkey
+    description: Configuration Lock.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::LockLockkey
+fieldset/regs::Masslock:
+  description: Mass Erase Lock Register.
+  fields:
+  - name: lockkey
+    description: Mass Erase Lock.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::MasslockLockkey
+fieldset/regs::Readctrl:
+  description: Read Control Register.
+  fields:
+  - name: mode
+    description: Read Mode.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Mode
+  - name: ifcdis
+    description: Internal Flash Cache Disable.
+    bit_offset: 3
+    bit_size: 1
+  - name: aidis
+    description: Automatic Invalidate Disable.
+    bit_offset: 4
+    bit_size: 1
+  - name: iccdis
+    description: Interrupt Context Cache Disable.
+    bit_offset: 5
+    bit_size: 1
+  - name: ebicdis
+    description: External Bus Interface Cache Disable.
+    bit_offset: 6
+    bit_size: 1
+  - name: ramcen
+    description: RAM Cache Enable.
+    bit_offset: 7
+    bit_size: 1
+  - name: prefetch
+    description: Prefetch Mode.
+    bit_offset: 8
+    bit_size: 1
+  - name: busstrategy
+    description: Strategy for bus matrix.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Busstrategy
+fieldset/regs::Status:
+  description: Status Register.
+  fields:
+  - name: busy
+    description: Erase/Write Busy.
+    bit_offset: 0
+    bit_size: 1
+  - name: locked
+    description: Access Locked.
+    bit_offset: 1
+    bit_size: 1
+  - name: invaddr
+    description: Invalid Write Address or Erase Page.
+    bit_offset: 2
+    bit_size: 1
+  - name: wdataready
+    description: WDATA Write Ready.
+    bit_offset: 3
+    bit_size: 1
+  - name: wordtimeout
+    description: Flash Write Word Timeout.
+    bit_offset: 4
+    bit_size: 1
+  - name: eraseaborted
+    description: The Current Flash Erase Operation Aborted.
+    bit_offset: 5
+    bit_size: 1
+  - name: pcrunning
+    description: Performance Counters Running.
+    bit_offset: 6
+    bit_size: 1
+fieldset/regs::Timebase:
+  description: Flash Write and Erase Timebase.
+  fields:
+  - name: base
+    description: Timebase used by MSC to time flash writes and erases.
+    bit_offset: 0
+    bit_size: 6
+  - name: period
+    description: Sets the timebase period.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Wdata:
+  description: Write Data Register.
+  fields:
+  - name: wdata
+    description: Write Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Writecmd:
+  description: Write Command Register.
+  fields:
+  - name: laddrim
+    description: Load MSC_ADDRB into ADDR.
+    bit_offset: 0
+    bit_size: 1
+  - name: erasepage
+    description: Erase Page.
+    bit_offset: 1
+    bit_size: 1
+  - name: writeend
+    description: End Write Mode.
+    bit_offset: 2
+    bit_size: 1
+  - name: writeonce
+    description: Word Write-Once Trigger.
+    bit_offset: 3
+    bit_size: 1
+  - name: writetrig
+    description: Word Write Sequence Trigger.
+    bit_offset: 4
+    bit_size: 1
+  - name: eraseabort
+    description: Abort erase sequence.
+    bit_offset: 5
+    bit_size: 1
+  - name: erasemain0
+    description: Mass erase region 0.
+    bit_offset: 8
+    bit_size: 1
+  - name: erasemain1
+    description: Mass erase region 1.
+    bit_offset: 9
+    bit_size: 1
+  - name: clearwdata
+    description: Clear WDATA state.
+    bit_offset: 12
+    bit_size: 1
+fieldset/regs::Writectrl:
+  description: Write Control Register.
+  fields:
+  - name: wren
+    description: Enable Write/Erase Controller.
+    bit_offset: 0
+    bit_size: 1
+  - name: irqeraseabort
+    description: Abort Page Erase on Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: wdouble
+    description: Write two words at a time.
+    bit_offset: 2
+    bit_size: 1
+  - name: lpwrite
+    description: Low-Power Erase.
+    bit_offset: 3
+    bit_size: 1
+  - name: lperase
+    description: Low-Power Erase.
+    bit_offset: 4
+    bit_size: 1
+  - name: rwwen
+    description: Read-While-Write Enable.
+    bit_offset: 5
+    bit_size: 1
+enum/vals::Busstrategy:
+  bit_size: 2
+  variants:
+  - name: Cpu
+    value: 0
+  - name: Dma
+    value: 1
+  - name: Dmaem1
+    value: 2
+  - name: None
+    value: 3
+enum/vals::LockLockkey:
+  bit_size: 16
+  variants:
+  - name: Locked
+    value: 1
+  - name: Unlocked
+    value: 0
+enum/vals::MasslockLockkey:
+  bit_size: 16
+  variants:
+  - name: Locked
+    description: Mass erase locked.
+    value: 1
+  - name: Unlocked
+    description: Mass erase unlocked.
+    value: 0
+enum/vals::Mode:
+  bit_size: 3
+  variants:
+  - name: Ws0
+    description: Zero wait-states inserted in fetch or read transfers.
+    value: 0
+  - name: Ws0scbtp
+    description: Zero wait-states inserted with the Suppressed Conditional Branch Target Prefetch (SCBTP) function enabled. SCBTP saves energy by delaying the Cortex' conditional branch target prefetches until the conditional branch instruction is in the execute stage. When the instruction reaches this stage, the evaluation of the branch condition is completed and the core does not perform a speculative prefetch of both the branch target address and the next sequential address. With the SCBTP function enabled, one instruction fetch is saved for each branch not taken, with a negligible performance penalty.
+    value: 2
+  - name: Ws1
+    description: One wait-state inserted for each fetch or read transfer. This mode is required for a core frequency above 16 MHz.
+    value: 1
+  - name: Ws1scbtp
+    description: One wait-state access with SCBTP enabled.
+    value: 3
+  - name: Ws2
+    description: Two wait-states inserted for each fetch or read transfer. This mode is required for a core frequency above 32 MHz.
+    value: 4
+  - name: Ws2scbtp
+    description: Two wait-state access with SCBTP enabled.
+    value: 5

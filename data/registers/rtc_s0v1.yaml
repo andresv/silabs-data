@@ -1,0 +1,165 @@
+block/Rtc:
+  description: RTC peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: cnt
+    description: Counter Value Register.
+    byte_offset: 4
+    fieldset: regs::Cnt
+  - name: comp0
+    description: Compare Value Register 0.
+    byte_offset: 8
+    fieldset: regs::Comp0
+  - name: comp1
+    description: Compare Value Register 1.
+    byte_offset: 12
+    fieldset: regs::Comp1
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 20
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 24
+    access: Write
+    fieldset: regs::Ifc
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 28
+    fieldset: regs::Ien
+  - name: freeze
+    description: Freeze Register.
+    byte_offset: 32
+    fieldset: regs::Freeze
+  - name: syncbusy
+    description: Synchronization Busy Register.
+    byte_offset: 36
+    access: Read
+    fieldset: regs::Syncbusy
+fieldset/regs::Cnt:
+  description: Counter Value Register.
+  fields:
+  - name: cnt
+    description: Counter Value.
+    bit_offset: 0
+    bit_size: 24
+fieldset/regs::Comp0:
+  description: Compare Value Register 0.
+  fields:
+  - name: comp0
+    description: Compare Value 0.
+    bit_offset: 0
+    bit_size: 24
+fieldset/regs::Comp1:
+  description: Compare Value Register 1.
+  fields:
+  - name: comp1
+    description: Compare Value 1.
+    bit_offset: 0
+    bit_size: 24
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: en
+    description: RTC Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: debugrun
+    description: Debug Mode Run Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: comp0top
+    description: Compare Channel 0 is Top Value.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Freeze:
+  description: Freeze Register.
+  fields:
+  - name: regfreeze
+    description: Register Update Freeze.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: of
+    description: Overflow Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp0
+    description: Compare Match 0 Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: comp1
+    description: Compare Match 1 Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: of
+    description: Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp0
+    description: Compare Match 0 Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: comp1
+    description: Compare Match 1 Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: of
+    description: Clear Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp0
+    description: Clear Compare match 0 Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: comp1
+    description: Clear Compare match 1 Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: of
+    description: Set Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp0
+    description: Set Compare match 0 Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: comp1
+    description: Set Compare match 1 Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Syncbusy:
+  description: Synchronization Busy Register.
+  fields:
+  - name: ctrl
+    description: CTRL Register Busy.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp0
+    description: COMP0 Register Busy.
+    bit_offset: 1
+    bit_size: 1
+  - name: comp1
+    description: COMP1 Register Busy.
+    bit_offset: 2
+    bit_size: 1
