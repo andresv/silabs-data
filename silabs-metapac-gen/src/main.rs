@@ -262,7 +262,9 @@ fn run_gen(
         let chip_dir = out_dir.join("src/chips").join(&feat);
         std::fs::create_dir_all(&chip_dir)?;
 
-        let pac_rs = crate_layout::build_chip_pac_rs(chip);
+        let gpio_ports = crate_layout::gpio_port_count(chip, &irs)
+            .with_context(|| format!("GPIO port count for {}", chip.chip.name))?;
+        let pac_rs = crate_layout::build_chip_pac_rs(chip, gpio_ports);
         std::fs::write(chip_dir.join("pac.rs"), pac_rs)?;
 
         // Iterable chip metadata sibling — consumed by HAL build scripts

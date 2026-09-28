@@ -20,12 +20,12 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::fmt::Write as _;
 use std::path::Path;
 
-use anyhow::{Context, Result, bail};
+use anyhow::{Context, Result, anyhow, bail};
 use convert_case::{Boundary, Case, Casing};
 use silabs_data_gen::chips::{ChipFile, Interrupt, PeripheralInstance};
 use silabs_data_gen::pdsc::MemoryRegion;
 
-use crate::pac::module_name;
+use crate::pac::{IpKey, module_name};
 use crate::peripheral::{nonsecure_to_secure_name, secure_to_nonsecure_name};
 
 /// Convert a perimap-routed block name (e.g. `GPIO`, `EUSART`, `I2C`) into the
@@ -262,7 +262,7 @@ pub fn write_lib_rs(out: &Path) -> Result<()> {
 /// `(kind, register_version, block)` triple (assigned by perimap during
 /// `silabs-data-gen gen`). We use those directly — there's no separate
 /// `kinds` lookup parameter.
-pub fn build_chip_pac_rs(chip: &ChipFile) -> String {
+pub fn build_chip_pac_rs(chip: &ChipFile, gpio_ports: Option<usize>) -> String {
     let mut s = String::new();
     s.push_str("// Per-chip PAC content: peripheral module decls, typed peripheral\n");
     s.push_str("// consts, interrupt enum + cortex-m-rt glue, memory map.\n");
@@ -337,7 +337,7 @@ pub fn build_chip_pac_rs(chip: &ChipFile) -> String {
     s.push_str("/// address. Infix vendor names such as `_NS_HOST` remain unchanged.\n");
     emit_typed_peripheral_consts(&mut s, &chip.peripherals);
 
-    emit_gpio_port_constants(&mut s, &chip.peripherals);
+    emit_gpio_port_constants(&mut s, gpio_ports);
 
     // Interrupts are emitted as the `pub enum Interrupt { … }` inside
     // `emit_cortex_m_rt_glue` — same shape as stm32-metapac. Numeric
@@ -446,15 +446,37 @@ fn emit_typed_peripheral_consts(s: &mut String, peripherals: &[PeripheralInstanc
     s.push('\n');
 }
 
-fn emit_gpio_port_constants(s: &mut String, peripherals: &[PeripheralInstance]) {
-    if !peripherals.iter().any(|p| p.name == "GPIO_NS" || p.name == "GPIO") {
-        return;
+/// Number of GPIO ports on a chip: the `p_ctrl` register-array length in
+/// its curated GPIO block. `None` when the chip has no GPIO peripheral.
+pub fn gpio_port_count(chip: &ChipFile, irs: &BTreeMap<IpKey, chiptool::ir::IR>) -> Result<Option<usize>> {
+    let Some(gpio) = chip.peripherals.iter().find(|p| p.kind == "gpio") else {
+        return Ok(None);
+    };
+    let mod_name = module_name(&gpio.kind, &gpio.register_version);
+    let ir = irs
+        .get(&(gpio.kind.clone(), gpio.register_version.clone()))
+        .ok_or_else(|| anyhow!("no IR loaded for {mod_name}"))?;
+    for block in ir.blocks.values() {
+        if let Some(item) = block.items.iter().find(|i| i.name == "p_ctrl") {
+            let Some(array) = &item.array else {
+                bail!("{mod_name}: p_ctrl is not a register array");
+            };
+            return Ok(Some(array.len()));
+        }
     }
-    s.push_str("/// GPIO port indices, mirroring `efr32mg<NN>_gpio.h`'s\n");
-    s.push_str("/// `#define GPIO_PORTA 0` etc. Use as `GPIO.p(gpio_port::PORTC)`\n");
-    s.push_str("/// (or just `GPIO.p(2)` — they're equivalent).\n");
+    bail!("{mod_name}: GPIO block has no p_ctrl register array")
+}
+
+fn emit_gpio_port_constants(s: &mut String, gpio_ports: Option<usize>) {
+    let Some(n) = gpio_ports else {
+        return;
+    };
+    s.push_str("/// GPIO port indices, mirroring the CMSIS `<family>_gpio.h`\n");
+    s.push_str("/// `#define GPIO_PORTA 0` etc. Use as `GPIO.p_ctrl(gpio_port::PORTC)`\n");
+    s.push_str("/// (or just `GPIO.p_ctrl(2)` — they're equivalent).\n");
     s.push_str("pub mod gpio_port {\n");
-    for (i, ch) in ['A', 'B', 'C', 'D'].iter().enumerate() {
+    for i in 0..n {
+        let ch = (b'A' + i as u8) as char;
         s.push_str(&format!("    pub const PORT{ch}: usize = {i};\n"));
     }
     s.push_str("}\n\n");
@@ -677,7 +699,7 @@ mod tests {
 
     #[test]
     fn pac_rs_emits_typed_consts_and_dedupes_interrupts() {
-        let s = build_chip_pac_rs(&fake_chip());
+        let s = build_chip_pac_rs(&fake_chip(), None);
         // The chip JSON's `block` field holds the perimap-routed name in raw
         // form (e.g. "ACMP"); `block_struct_ident` Pascal-cases it to match
         // `Sanitize::default()`'s output in the rendered register YAML.
@@ -777,7 +799,7 @@ mod tests {
             register_version: "v1".into(),
             block: "SEMAILBOX_S_HOST".into(),
         });
-        let s = build_chip_pac_rs(&chip);
+        let s = build_chip_pac_rs(&chip, None);
         assert!(s.contains("pub use acmp_v2 as acmp;"), "missing acmp alias:\n{s}");
         assert!(s.contains("pub use dcdc_v1 as dcdc;"), "missing dcdc alias:\n{s}");
         assert!(
@@ -824,30 +846,45 @@ mod tests {
     }
 
     #[test]
-    fn gpio_port_constants_emitted_only_when_gpio_present() {
-        let mut chip = fake_chip();
-        chip.peripherals.push(PeripheralInstance {
-            name: "GPIO_NS".into(),
-            base_address: 0x5003_C000,
-            version: Some("7".into()),
-            kind: "gpio".into(),
-            register_version: "v7".into(),
-            block: "GPIO".into(),
-        });
-        let s = build_chip_pac_rs(&chip);
+    fn gpio_port_constants_follow_port_count() {
+        let s = build_chip_pac_rs(&fake_chip(), Some(4));
         assert!(s.contains("pub mod gpio_port"), "missing gpio_port mod:\n{s}");
         assert!(s.contains("pub const PORTA: usize = 0;"));
         assert!(s.contains("pub const PORTD: usize = 3;"));
+        assert!(!s.contains("PORTE"));
 
-        let s = build_chip_pac_rs(&fake_chip());
+        // EFM32GG: GPIO_P_TypeDef P[6U] → ports A..F.
+        let s = build_chip_pac_rs(&fake_chip(), Some(6));
+        assert!(s.contains("pub const PORTF: usize = 5;"));
+
+        let s = build_chip_pac_rs(&fake_chip(), None);
         assert!(!s.contains("gpio_port"));
+    }
+
+    #[test]
+    fn gpio_port_count_reads_p_ctrl_array_len() {
+        let yaml = "block/Gpio:\n  items:\n  - name: p_ctrl\n    array:\n      len: 6\n      stride: 36\n    byte_offset: 0\n    fieldset: regs::PortCtrl\n";
+        let ir: chiptool::ir::IR = serde_yaml::from_str(yaml).unwrap();
+        let mut chip = fake_chip();
+        chip.peripherals.push(PeripheralInstance {
+            name: "GPIO".into(),
+            base_address: 0x4000_6000,
+            version: None,
+            kind: "gpio".into(),
+            register_version: "s0v1".into(),
+            block: "GPIO".into(),
+        });
+        let mut irs = BTreeMap::new();
+        irs.insert(("gpio".to_string(), "s0v1".to_string()), ir);
+        assert_eq!(gpio_port_count(&chip, &irs).unwrap(), Some(6));
+        assert_eq!(gpio_port_count(&fake_chip(), &irs).unwrap(), None);
     }
 
     #[test]
     fn pac_rs_emits_nvic_prio_bits_from_chip() {
         let mut c = fake_chip();
         c.chip.nvic_prio_bits = Some(3);
-        let s = build_chip_pac_rs(&c);
+        let s = build_chip_pac_rs(&c, None);
         assert!(s.contains("pub const NVIC_PRIO_BITS: u8 = 3;"), "{s}");
     }
 
