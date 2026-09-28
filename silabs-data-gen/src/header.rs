@@ -90,12 +90,14 @@ pub fn parse_file(path: impl AsRef<Path>) -> Result<Vec<HeaderIrq>> {
 /// `_SILICON_LABS_32B_SERIES_<N>_CONFIG` macros.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct Series {
-    /// Series number (`_SILICON_LABS_32B_SERIES`). `2` for current
-    /// Cortex-M33 Series 2 chips (xG21..xG29), `3` for newer
-    /// `SI`-prefixed Series 3 chips.
+    /// Series number (`_SILICON_LABS_32B_SERIES`). `0` for EFM32 Gecko
+    /// (Cortex-M0+/M3), `1` for EFM32/EFR32 xG1x (Cortex-M4), `2` for
+    /// Cortex-M33 Series 2 chips (xG21..xG29), `3` for newer `SI`-prefixed
+    /// Series 3 chips.
     pub series: u8,
     /// Within-series config number (`_SILICON_LABS_32B_SERIES_<N>_CONFIG`).
-    /// Series 2: 1..9 (one per family). Series 3: 301+.
+    /// Series 0: always 0 (the header has no config macro). Series 1: 1..4,
+    /// not unique per family. Series 2: 1..9 (one per family). Series 3: 301+.
     pub config: u16,
 }
 
@@ -141,6 +143,9 @@ pub fn extract_series(text: &str) -> Result<Series> {
 
     match (series, config) {
         (Some(series), Some(config)) => Ok(Series { series, config }),
+        // Series 0 headers define `_SILICON_LABS_32B_SERIES 0` but no
+        // `_SILICON_LABS_32B_SERIES_0_CONFIG`. Series 0 has no config axis.
+        (Some(0), None) => Ok(Series { series: 0, config: 0 }),
         (None, _) => anyhow::bail!("no `#define _SILICON_LABS_32B_SERIES <N>` found in header"),
         (_, None) => anyhow::bail!("no `#define _SILICON_LABS_32B_SERIES_<N>_CONFIG <M>` found in header"),
     }
@@ -255,6 +260,39 @@ struct foo { int FRC_IRQn; };
         "#;
         let s = extract_series(sample).expect("extract");
         assert_eq!(s, Series { series: 3, config: 301 });
+    }
+
+    /// EFM32GG390F1024 — Series 0 headers carry `_SILICON_LABS_32B_SERIES 0`
+    /// but no `_SILICON_LABS_32B_SERIES_0_CONFIG` macro.
+    #[test]
+    fn extracts_series_0_without_config() {
+        let sample = r#"
+#define _SILICON_LABS_32B_SERIES_0                 /**< Silicon Labs series number */
+#define _SILICON_LABS_32B_SERIES                0  /**< Silicon Labs series number */
+#define _SILICON_LABS_GECKO_INTERNAL_SDID       72 /**< Silicon Labs internal use only, may change any time */
+        "#;
+        let s = extract_series(sample).expect("extract");
+        assert_eq!(s, Series { series: 0, config: 0 });
+    }
+
+    /// EFM32GG11B820F2048GL192 — Series 1 has the same macro shape as Series 2.
+    #[test]
+    fn extracts_series_1_config() {
+        let sample = r#"
+#define _SILICON_LABS_32B_SERIES_1                   /**< Silicon Labs series number */
+#define _SILICON_LABS_32B_SERIES                 1   /**< Silicon Labs series number */
+#define _SILICON_LABS_32B_SERIES_1_CONFIG_1          /**< Series 1, Configuration 1 */
+#define _SILICON_LABS_32B_SERIES_1_CONFIG        1   /**< Series 1, Configuration 1 */
+        "#;
+        let s = extract_series(sample).expect("extract");
+        assert_eq!(s, Series { series: 1, config: 1 });
+    }
+
+    /// The Series 0 exemption must not hide a missing config on Series 2.
+    #[test]
+    fn extract_series_still_requires_config_for_series_2() {
+        let err = extract_series("#define _SILICON_LABS_32B_SERIES 2\n").unwrap_err();
+        assert!(err.to_string().contains("_CONFIG"), "{err}");
     }
 
     #[test]
