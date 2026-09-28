@@ -472,14 +472,19 @@ pub fn stub_device_x(chip_name: &str) -> String {
 ///
 /// Panics if the chip JSON predates the schema change that added
 /// `Chip.series` — regenerate with `./d gen-all`. Also panics on a
-/// series number outside the {2, 3} range, since the [`Series`] enum
-/// only covers Series 2 + Series 3 today (matches the metapac side).
+/// series number outside the {0, 1, 2, 3} range, since the [`Series`]
+/// enum covers Series 0 through Series 3 (matches the metapac side).
 fn series_literal_for_chip(chip: &ChipFile) -> String {
     let s = chip
         .chip
         .series
         .expect("chip.series missing — re-run silabs-data-gen to populate it");
     match s.series {
+        0 => "Series::Series0".to_string(),
+        1 => {
+            let cfg: u8 = s.config.try_into().expect("Series 1 config fits in u8 (1..=4)");
+            format!("Series::Series1({cfg})")
+        }
         2 => {
             let cfg: u8 = s.config.try_into().expect("Series 2 config fits in u8 (1..=9)");
             format!("Series::Series2({cfg})")
@@ -875,6 +880,13 @@ mod tests {
         // Series 3 — config is u16 (3-digit numbering).
         c.chip.series = Some(silabs_data_gen::header::Series { series: 3, config: 301 });
         assert_eq!(series_literal_for_chip(&c), "Series::Series3(301)");
+
+        // Series 0 — no config axis.
+        c.chip.series = Some(silabs_data_gen::header::Series { series: 0, config: 0 });
+        assert_eq!(series_literal_for_chip(&c), "Series::Series0");
+        // Series 1 — config fits in u8.
+        c.chip.series = Some(silabs_data_gen::header::Series { series: 1, config: 2 });
+        assert_eq!(series_literal_for_chip(&c), "Series::Series1(2)");
     }
 
     #[test]
