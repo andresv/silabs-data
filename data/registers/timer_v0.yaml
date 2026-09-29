@@ -166,6 +166,174 @@ block/Timer:
     byte_offset: 252
     access: Write
     fieldset: regs::Dtlock
+block/Timer32:
+  description: TIMER peripheral, 32-bit counter.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: cfg
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::Cfg
+  - name: ctrl
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Ctrl
+  - name: cmd
+    description: No Description.
+    byte_offset: 12
+    access: Write
+    fieldset: regs::Cmd
+  - name: status
+    description: No Description.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Status
+  - name: if_
+    description: No Description.
+    byte_offset: 20
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Ien
+  - name: top
+    description: No Description.
+    byte_offset: 28
+    fieldset: regs::Top32
+  - name: topb
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::Topb32
+  - name: cnt
+    description: No Description.
+    byte_offset: 36
+    fieldset: regs::Cnt32
+  - name: lock
+    description: No Description.
+    byte_offset: 44
+    access: Write
+    fieldset: regs::Lock
+  - name: en
+    description: No Description.
+    byte_offset: 48
+    fieldset: regs::En
+  - name: cc0_cfg
+    description: No Description.
+    byte_offset: 96
+    fieldset: regs::Cc0Cfg
+  - name: cc0_ctrl
+    description: No Description.
+    byte_offset: 100
+    fieldset: regs::Cc0Ctrl
+  - name: cc0_oc
+    description: No Description.
+    byte_offset: 104
+    fieldset: regs::Cc0Oc32
+  - name: cc0_ocb
+    description: No Description.
+    byte_offset: 112
+    fieldset: regs::Cc0Ocb32
+  - name: cc0_icf
+    description: No Description.
+    byte_offset: 116
+    access: Read
+    fieldset: regs::Cc0Icf32
+  - name: cc0_icof
+    description: No Description.
+    byte_offset: 120
+    access: Read
+    fieldset: regs::Cc0Icof32
+  - name: cc1_cfg
+    description: No Description.
+    byte_offset: 128
+    fieldset: regs::Cc1Cfg
+  - name: cc1_ctrl
+    description: No Description.
+    byte_offset: 132
+    fieldset: regs::Cc1Ctrl
+  - name: cc1_oc
+    description: No Description.
+    byte_offset: 136
+    fieldset: regs::Cc1Oc32
+  - name: cc1_ocb
+    description: No Description.
+    byte_offset: 144
+    fieldset: regs::Cc1Ocb32
+  - name: cc1_icf
+    description: No Description.
+    byte_offset: 148
+    access: Read
+    fieldset: regs::Cc1Icf32
+  - name: cc1_icof
+    description: No Description.
+    byte_offset: 152
+    access: Read
+    fieldset: regs::Cc1Icof32
+  - name: cc2_cfg
+    description: No Description.
+    byte_offset: 160
+    fieldset: regs::Cc2Cfg
+  - name: cc2_ctrl
+    description: No Description.
+    byte_offset: 164
+    fieldset: regs::Cc2Ctrl
+  - name: cc2_oc
+    description: No Description.
+    byte_offset: 168
+    fieldset: regs::Cc2Oc32
+  - name: cc2_ocb
+    description: No Description.
+    byte_offset: 176
+    fieldset: regs::Cc2Ocb32
+  - name: cc2_icf
+    description: No Description.
+    byte_offset: 180
+    access: Read
+    fieldset: regs::Cc2Icf32
+  - name: cc2_icof
+    description: No Description.
+    byte_offset: 184
+    access: Read
+    fieldset: regs::Cc2Icof32
+  - name: dtcfg
+    description: No Description.
+    byte_offset: 224
+    fieldset: regs::Dtcfg
+  - name: dttimecfg
+    description: No Description.
+    byte_offset: 228
+    fieldset: regs::Dttimecfg
+  - name: dtfcfg
+    description: No Description.
+    byte_offset: 232
+    fieldset: regs::Dtfcfg
+  - name: dtctrl
+    description: No Description.
+    byte_offset: 236
+    fieldset: regs::Dtctrl
+  - name: dtogen
+    description: No Description.
+    byte_offset: 240
+    fieldset: regs::Dtogen
+  - name: dtfault
+    description: No Description.
+    byte_offset: 244
+    access: Read
+    fieldset: regs::Dtfault
+  - name: dtfaultc
+    description: No Description.
+    byte_offset: 248
+    access: Write
+    fieldset: regs::Dtfaultc
+  - name: dtlock
+    description: No Description.
+    byte_offset: 252
+    access: Write
+    fieldset: regs::Dtlock
 fieldset/regs::Cc0Cfg:
   description: No Description.
   fields:
@@ -235,6 +403,13 @@ fieldset/regs::Cc0Icf:
     description: Input Capture FIFO.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cc0Icf32:
+  description: No Description.
+  fields:
+  - name: icf
+    description: Input Capture FIFO.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Cc0Icof:
   description: No Description.
   fields:
@@ -242,6 +417,13 @@ fieldset/regs::Cc0Icof:
     description: Input Capture FIFO Overflow.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cc0Icof32:
+  description: No Description.
+  fields:
+  - name: icof
+    description: Input Capture FIFO Overflow.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Cc0Oc:
   description: No Description.
   fields:
@@ -249,6 +431,13 @@ fieldset/regs::Cc0Oc:
     description: Output Compare Value.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cc0Oc32:
+  description: No Description.
+  fields:
+  - name: oc
+    description: Output Compare Value.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Cc0Ocb:
   description: No Description.
   fields:
@@ -256,6 +445,13 @@ fieldset/regs::Cc0Ocb:
     description: Output Compare Value Buffer.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cc0Ocb32:
+  description: No Description.
+  fields:
+  - name: ocb
+    description: Output Compare Value Buffer.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Cc1Cfg:
   description: No Description.
   fields:
@@ -325,6 +521,13 @@ fieldset/regs::Cc1Icf:
     description: Input Capture FIFO.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cc1Icf32:
+  description: No Description.
+  fields:
+  - name: icf
+    description: Input Capture FIFO.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Cc1Icof:
   description: No Description.
   fields:
@@ -332,6 +535,13 @@ fieldset/regs::Cc1Icof:
     description: Input Capture FIFO Overflow.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cc1Icof32:
+  description: No Description.
+  fields:
+  - name: icof
+    description: Input Capture FIFO Overflow.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Cc1Oc:
   description: No Description.
   fields:
@@ -339,6 +549,13 @@ fieldset/regs::Cc1Oc:
     description: Output Compare Value.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cc1Oc32:
+  description: No Description.
+  fields:
+  - name: oc
+    description: Output Compare Value.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Cc1Ocb:
   description: No Description.
   fields:
@@ -346,6 +563,13 @@ fieldset/regs::Cc1Ocb:
     description: Output Compare Value Buffer.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cc1Ocb32:
+  description: No Description.
+  fields:
+  - name: ocb
+    description: Output Compare Value Buffer.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Cc2Cfg:
   description: No Description.
   fields:
@@ -415,6 +639,13 @@ fieldset/regs::Cc2Icf:
     description: Input Capture FIFO.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cc2Icf32:
+  description: No Description.
+  fields:
+  - name: icf
+    description: Input Capture FIFO.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Cc2Icof:
   description: No Description.
   fields:
@@ -422,6 +653,13 @@ fieldset/regs::Cc2Icof:
     description: Input Capture FIFO Overflow.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cc2Icof32:
+  description: No Description.
+  fields:
+  - name: icof
+    description: Input Capture FIFO Overflow.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Cc2Oc:
   description: No Description.
   fields:
@@ -429,6 +667,13 @@ fieldset/regs::Cc2Oc:
     description: Output Compare Value.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cc2Oc32:
+  description: No Description.
+  fields:
+  - name: oc
+    description: Output Compare Value.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Cc2Ocb:
   description: No Description.
   fields:
@@ -436,6 +681,13 @@ fieldset/regs::Cc2Ocb:
     description: Output Compare Value Buffer.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cc2Ocb32:
+  description: No Description.
+  fields:
+  - name: ocb
+    description: Output Compare Value Buffer.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Cfg:
   description: No Description.
   fields:
@@ -514,6 +766,13 @@ fieldset/regs::Cnt:
     description: Counter Value.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Cnt32:
+  description: No Description.
+  fields:
+  - name: cnt
+    description: Counter Value.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Ctrl:
   description: No Description.
   fields:
@@ -911,6 +1170,13 @@ fieldset/regs::Top:
     description: Counter Top Value.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Top32:
+  description: No Description.
+  fields:
+  - name: top
+    description: Counter Top Value.
+    bit_offset: 0
+    bit_size: 32
 fieldset/regs::Topb:
   description: No Description.
   fields:
@@ -918,6 +1184,13 @@ fieldset/regs::Topb:
     description: Counter Top Buffer Register.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::Topb32:
+  description: No Description.
+  fields:
+  - name: topb
+    description: Counter Top Buffer Register.
+    bit_offset: 0
+    bit_size: 32
 enum/vals::Cc0CfgInsel:
   bit_size: 2
   variants:

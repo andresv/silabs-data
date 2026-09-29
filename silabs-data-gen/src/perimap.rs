@@ -1,17 +1,14 @@
 //! Regex-keyed routing from `(chip, peripheral, svd_version)` to
 //! `(kind, version, block)`.
 //!
-//! `perimap` is the explicit authority on which curated register YAML a
-//! peripheral instance maps to. The default routing (used when no entry
-//! matches) is derived from the SVD: kind = peripheral name with `_NS` /
-//! `_S` / trailing-digits stripped, version = the SVD `<peripheral><version>`
-//! tag, block = the stripped kind name. perimap overrides that default for:
+//! `perimap` decides which curated register YAML a peripheral instance uses.
+//! When no entry matches, `default_route` derives the route from the SVD
+//! peripheral name and `<version>` tag. Entries override that default for:
 //!
 //! - structural splits the SVD merges accidentally (e.g. EUSART0 has an LF
 //!   sub-block, EUSART1+ don't, but all four claim `<version>2</version>`);
 //! - cosmetic renames (drop `_NS` from the block name);
-//! - explicit pinning of version labels so vendor SVD drift can't silently
-//!   change the routing.
+//! - fixed version labels, so vendor SVD drift cannot change the routing.
 //!
 //! First match wins. Order entries from most-specific to least-specific.
 
@@ -58,12 +55,13 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     ("EFR32MG2[46].*:EUSART[1-9]_NS:.*", "eusart", "v2", "EUSART"),
     // TIMER bit-width split. Wide (32-bit) and narrow (16-bit) timers
     // share <version>1</version> in the SVD but differ in the bit_size of
-    // CNT / TOP / CCx. The instance-number grouping is:
+    // CNT / TOP / CCx. Like stm32-data's TimGp16/TimGp32, both are blocks
+    // of one `timer_v1.yaml`: `Timer` (16-bit) and `Timer32` (32-bit).
+    // The instance-number grouping is:
     //   MG24: TIMER0/1 wide, TIMER2..4 narrow.
     //   MG26: TIMER0/1/8/9 wide, TIMER2..7 narrow.
-    // Verified by diff'ing extracted IRs across all instances on both packs.
-    ("EFR32MG2[46].*:TIMER[01]_NS:.*", "timer", "v1_w", "TIMER"),
-    ("EFR32MG26.*:TIMER[89]_NS:.*", "timer", "v1_w", "TIMER"),
+    ("EFR32MG2[46].*:TIMER[01]_NS:.*", "timer", "v1", "TIMER32"),
+    ("EFR32MG26.*:TIMER[89]_NS:.*", "timer", "v1", "TIMER32"),
     ("EFR32MG2[46].*:TIMER[2-7]_NS:.*", "timer", "v1", "TIMER"),
     // IADC high-accuracy variant. Some sub-families ship an IADC with an
     // extra `OSRHA` field plus HIGHACCURACY / HIGHSPEED ADCMODE enum
@@ -130,9 +128,8 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     // <version>2</version>; the WAITSTATES bit is the only IR difference.
     ("EFR32MG24.*:DMEM_NS:.*", "dmem", "v2_ws", "DMEM"),
     // DEVINFO is a per-family factory-programmed block. Both families
-    // report <version>0.0</version> but their register layouts differ
-    // substantially (different calibration data, chip-specific fields).
-    // Route to family-specific versions.
+    // report <version>0.0</version>, but their register layouts differ
+    // (calibration data, chip-specific fields).
     ("EFR32MG24.*:DEVINFO:.*", "devinfo", "v0_mg24", "DEVINFO"),
     ("EFR32MG26.*:DEVINFO:.*", "devinfo", "v0_mg26", "DEVINFO"),
     // --- EFR32FG25 (Series 2, config 5) ---
@@ -144,8 +141,8 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     ("EFR32FG25.*:EUSART[1-9]_NS:.*", "eusart", "v2", "EUSART"),
     // TIMER bit-width split, same rationale as the MG2x entries above.
     // FG25 ships TIMER0..7; TIMER0/1 are 32-bit wide, TIMER2..7 are 16-bit
-    // narrow. Reuse the shared timer_v1_w / timer_v1 labels.
-    ("EFR32FG25.*:TIMER[01]_NS:.*", "timer", "v1_w", "TIMER"),
+    // narrow. Reuse the shared timer_v1 blocks.
+    ("EFR32FG25.*:TIMER[01]_NS:.*", "timer", "v1", "TIMER32"),
     ("EFR32FG25.*:TIMER[2-7]_NS:.*", "timer", "v1", "TIMER"),
     // The following three peripherals share an SVD <version> with the MG2x
     // curated YAMLs but extract to a structurally different IR on FG25
@@ -157,11 +154,11 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     ("EFR32FG25.*:IADC[0-9]+_NS:.*", "iadc", "v3_fg25", "IADC"),
     ("EFR32FG25.*:VDAC[0-9]+_NS:.*", "vdac", "v2_fg25", "VDAC"),
     // --- EFR32MG22 (Series 2, config 2) ---
-    // TIMER split: on MG22 only TIMER0 is the advanced/wide timer; TIMER1..4
-    // are the basic ones. They share <version>0</version> but extract to
-    // different IRs, so pin distinct labels (timer_v0_w for TIMER0, timer_v0
-    // for the rest). Both are MG22-specific (config-2 timer, version 0).
-    ("EFR32MG22.*:TIMER0_NS:.*", "timer", "v0_w", "TIMER"),
+    // TIMER split: on MG22 only TIMER0 is the wide (32-bit) timer. TIMER1..4
+    // are 16-bit. They share <version>0</version> and differ only in field
+    // widths, so both are blocks of `timer_v0.yaml` (`Timer32` for TIMER0,
+    // `Timer` for the rest).
+    ("EFR32MG22.*:TIMER0_NS:.*", "timer", "v0", "TIMER32"),
     ("EFR32MG22.*:TIMER[1-4]_NS:.*", "timer", "v0", "TIMER"),
     // --- EFM32GG (Series 0 Giant Gecko) ---
     // UART0/1 are the asynchronous subset of the USART IP and share its
