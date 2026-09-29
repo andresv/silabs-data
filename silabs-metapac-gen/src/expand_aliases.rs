@@ -23,13 +23,16 @@
 //! flag) register on Series 2: writes to base `IF` are *silently
 //! ignored*, and clearing flags requires writing to `IF_CLR`.
 
-use std::collections::HashSet;
+use std::collections::{BTreeSet, HashSet};
 use std::path::Path;
 use std::sync::OnceLock;
 
 use anyhow::{Context, Result};
 use chiptool::ir::{Access, BlockItem, BlockItemInner, IR};
 use regex::Regex;
+use silabs_data_gen::chips::ChipFile;
+
+use crate::pac::IpKey;
 
 /// Scan the extracted CMSIS pack(s) under `extract_dirs` for peripherals
 /// marked `#define <PERI>_HAS_SET_CLEAR` and return the set of kinds
@@ -75,6 +78,22 @@ pub fn discover_banked_kinds(extract_dirs: &[&Path]) -> Result<HashSet<String>> 
         }
     }
     Ok(out)
+}
+
+/// The `(kind, version)` register modules that get SET/CLR/TGL aliases:
+/// those whose kind is in `banked_kinds` and that are used by at least one
+/// Series 2+ chip. `banked_kinds` holds bare kind names gathered from every
+/// pack, so without the series check a Series 0/1 block of the same kind
+/// (e.g. `letimer_s0v1`) would get aliases at +0x1000/+0x2000/+0x3000 that
+/// don't exist in its hardware.
+pub fn banked_keys(chips: &[ChipFile], banked_kinds: &HashSet<String>) -> BTreeSet<IpKey> {
+    chips
+        .iter()
+        .filter(|c| c.chip.series.is_some_and(|s| s.series >= 2))
+        .flat_map(|c| &c.peripherals)
+        .filter(|p| banked_kinds.contains(&p.kind))
+        .map(|p| (p.kind.clone(), p.register_version.clone()))
+        .collect()
 }
 
 const SET_OFFSET: u32 = 0x1000;
@@ -143,6 +162,48 @@ mod tests {
     use chiptool::ir::{Block, BlockItem, BlockItemInner, IR, Register};
 
     use super::*;
+
+    fn chip_with(name: &str, series: u8, kind: &str, version: &str) -> ChipFile {
+        ChipFile {
+            chip: silabs_data_gen::pdsc::Chip {
+                name: name.into(),
+                core: "Cortex-M33".into(),
+                fpu: false,
+                mpu: false,
+                trustzone: false,
+                series: Some(silabs_data_gen::header::Series { series, config: 0 }),
+                nvic_prio_bits: Some(4),
+                memory: vec![],
+                flash_algo: None,
+                svd: "x.svd".into(),
+                package: None,
+            },
+            peripherals: vec![silabs_data_gen::chips::PeripheralInstance {
+                name: "LETIMER0".into(),
+                base_address: 0x4000_0000,
+                version: None,
+                kind: kind.into(),
+                register_version: version.into(),
+                block: "LETIMER".into(),
+            }],
+            interrupts: vec![],
+        }
+    }
+
+    /// `_HAS_SET_CLEAR` is discovered per kind name across all packs, but
+    /// SET/CLR/TGL alias regions only exist on Series 2+. A Series 0 block
+    /// of the same kind (`letimer_s0v1`) must not get aliases.
+    #[test]
+    fn banked_keys_only_cover_series_2_and_later() {
+        let chips = vec![
+            chip_with("EFR32MG24B210F1536IM48", 2, "letimer", "v1"),
+            chip_with("EFM32GG390F1024", 0, "letimer", "s0v1"),
+        ];
+        let kinds: HashSet<String> = ["letimer".to_string()].into();
+        let keys = banked_keys(&chips, &kinds);
+        assert!(keys.contains(&("letimer".to_string(), "v1".to_string())));
+        assert!(!keys.contains(&("letimer".to_string(), "s0v1".to_string())));
+    }
 
     fn rw_reg(name: &str, offset: u32, fieldset: &str) -> BlockItem {
         BlockItem {

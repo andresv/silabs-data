@@ -230,6 +230,8 @@ fn run_gen(
         }
     }
 
+    let banked_keys = silabs_metapac_gen::expand_aliases::banked_keys(&chips, &banked_kinds);
+
     // Load `data/registers/<kind>_<version>.yaml` for each key.
     let mut irs: BTreeMap<IpKey, chiptool::ir::IR> = BTreeMap::new();
     for key in module_users.keys() {
@@ -249,7 +251,7 @@ fn run_gen(
         // SVD/YAML only carry the base layout; the per-peripheral CMSIS
         // device header is what marks these peripherals with
         // `_HAS_SET_CLEAR` (see `discover_banked_kinds` above).
-        if banked_kinds.contains(&key.0) {
+        if banked_keys.contains(key) {
             silabs_metapac_gen::expand_aliases::expand_series2_aliases(&mut ir);
         }
         irs.insert(key.clone(), ir);
