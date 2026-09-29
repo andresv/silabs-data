@@ -1,4 +1,4 @@
-//! Assemble a `silabs-metapac` crate from per-chip JSON + the curated
+//! Build the `silabs-metapac` crate from per-chip JSON and the curated
 //! `data/registers/<kind>_<version>.yaml` IR snapshots.
 //!
 //! Two subcommands:
@@ -61,9 +61,9 @@ enum Cmd {
         only: Vec<String>,
     },
 
-    /// One-shot bootstrap: extract every peripheral from SVDs, bucket by
-    /// `(kind, version)`, write `data/registers/<kind>_<version>.yaml` per
-    /// bucket. Hash-bails on cross-chip divergence.
+    /// One-shot bootstrap of `data/registers/<kind>_<version>.yaml` from the
+    /// SVDs. Stops at the first difference between two instances of one
+    /// version, unless `--candidates-dir` is set.
     Seed {
         /// Path to a .pack file. May be repeated.
         #[arg(long)]
@@ -194,12 +194,9 @@ fn run_gen(
     };
     let only_set: BTreeSet<String> = only.iter().map(|s| s.to_ascii_lowercase()).collect();
 
-    // Discover register-banked peripheral kinds.
-    //
-    // Series 2 marks each peripheral with `#define <PERI>_HAS_SET_CLEAR`
-    // in its per-peripheral CMSIS device header. We scan the extracted
-    // pack(s) to recover the set rather than hard-coding it, so new
-    // packs/families pick up new banked kinds automatically.
+    // Series 2 marks each banked peripheral with `#define <PERI>_HAS_SET_CLEAR`
+    // in its CMSIS device header. Reading the packs instead of a fixed list
+    // picks up the banked kinds of new families.
     let extract_refs: Vec<&Path> = extract_dirs.iter().map(PathBuf::as_path).collect();
     let banked_kinds: std::collections::HashSet<String> =
         silabs_metapac_gen::expand_aliases::discover_banked_kinds(&extract_refs)?;
@@ -246,26 +243,19 @@ fn run_gen(
         let bytes = std::fs::read(&path).with_context(|| format!("read {}", path.display()))?;
         let mut ir: chiptool::ir::IR =
             serde_yaml::from_slice(&bytes).with_context(|| format!("parse {}", path.display()))?;
-        // For Series 2 banked peripherals, materialise the
-        // _SET/_CLR/_TGL alias views at +0x1000/+0x2000/+0x3000. The
-        // SVD/YAML only carry the base layout; the per-peripheral CMSIS
-        // device header is what marks these peripherals with
-        // `_HAS_SET_CLEAR` (see `discover_banked_kinds` above).
+        // Add the `_SET`/`_CLR`/`_TGL` alias views at +0x1000/+0x2000/+0x3000.
+        // The SVD and the YAML carry only the base layout.
         if banked_keys.contains(key) {
             silabs_metapac_gen::expand_aliases::expand_series2_aliases(&mut ir);
         }
         irs.insert(key.clone(), ir);
     }
 
-    // Emit src/peripherals/<kind>_<version>.rs + IR metadata.
     std::fs::create_dir_all(out_dir.join("src/chips"))
         .with_context(|| format!("create out dir {}", out_dir.display()))?;
     pac::write_peripherals_dir(&irs, &out_dir.join("src/peripherals"))?;
     pac::write_common_module(&out_dir.join("src/common.rs"))?;
 
-    // IR-metadata module (`metadata.rs` type defs) + per-kind static IR
-    // (`src/registers/<kind>_<version>.rs`). Mirrors stm32-metapac's
-    // layout — see `silabs_metapac_gen::ir_metadata`.
     silabs_metapac_gen::ir_metadata::write_metadata_module(out_dir)?;
     silabs_metapac_gen::ir_metadata::write_registers_dir(&irs, &out_dir.join("src/registers"))?;
 
@@ -275,6 +265,8 @@ fn run_gen(
     crate_layout::write_build_rs(&out_dir.join("build.rs"))?;
 
     crate_layout::write_lib_rs(&out_dir.join("src/lib.rs"))?;
+    crate_layout::write_all_tables(&chips, &out_dir.join("src"))?;
+    silabs_metapac_gen::cfgs::write_check_cfgs(&chips, &out_dir.join("src/check_cfgs.txt"))?;
 
     std::fs::write(
         out_dir.join("README.md"),
@@ -293,10 +285,10 @@ fn run_gen(
         let pac_rs = crate_layout::build_chip_pac_rs(chip, gpio_ports);
         std::fs::write(chip_dir.join("pac.rs"), pac_rs)?;
 
-        // Iterable chip metadata sibling — consumed by HAL build scripts
-        // (e.g. embassy-silabs/build.rs) to generate singleton lists.
+        // HAL build scripts read the chip metadata to generate singletons.
         let metadata_rs = crate_layout::build_chip_metadata_rs(chip);
         std::fs::write(chip_dir.join("metadata.rs"), metadata_rs)?;
+        silabs_metapac_gen::cfgs::write_chip_cfgs(chip, &chip_dir.join("cfgs.txt"))?;
 
         let device_x_path = chip_dir.join("device.x");
         let render_device_x = !extract_dirs.is_empty() && (only_set.is_empty() || only_set.contains(&feat));
@@ -306,9 +298,6 @@ fn run_gen(
                 .map(|d| d.join(&chip.chip.svd))
                 .find(|p| p.is_file())
                 .ok_or_else(|| anyhow!("SVD {} missing for {}", chip.chip.svd, chip.chip.name))?;
-            // Forward the chip JSON's interrupt list (header-derived) as
-            // the authoritative IRQ table — chiptool's SVD-derived list
-            // is discarded inside `codegen::generate`.
             let irqs: Vec<codegen::Interrupt<'_>> = chip
                 .interrupts
                 .iter()
@@ -520,16 +509,13 @@ fn run_seed(
         let mut f = std::fs::File::create(&path).with_context(|| format!("create {}", path.display()))?;
         serde_yaml::to_writer(&mut f, &bucket.ir).with_context(|| format!("serialise IR to {}", path.display()))?;
     }
-    // Mention the block name for traceability — useful when debugging
-    // mismatches between chip JSON and committed YAML.
-    let _ = perimap::compile()?; // sanity check: perimap entries still compile.
+    let _ = perimap::compile()?;
     eprintln!(
         "Wrote {} register YAMLs to {}",
         buckets.len() - diverged.len(),
         registers_yaml_dir.display()
     );
-    // Surface bucket→block→first-claim summary so future hand-tweakers see
-    // which chip each YAML was first extracted from.
+    // Show the chip that each YAML was first extracted from, for hand curation.
     for (key, bucket) in &buckets {
         if diverged.contains(key) {
             continue;

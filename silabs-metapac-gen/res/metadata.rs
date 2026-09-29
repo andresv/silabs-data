@@ -1,3 +1,4 @@
+// `pub mod ir` is copied from stm32-metapac (https://github.com/embassy-rs/stm32-data), MIT OR Apache-2.0.
 pub mod ir {
     #[derive(Debug, Eq, PartialEq, Clone)]
     pub struct IR {
@@ -121,10 +122,10 @@ pub mod ir {
     }
 }
 
-/// Silicon Labs chip generation.
-/// Mirrors the SDK's `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>` macro pair.
-/// HAL build scripts can emit `cargo:rustc-cfg=silabs_series_N_config="M"` based on this enum.
-/// In HAL source user can then do: #[cfg(any(silabs_series_2_config = "3", silabs_series_2_config = "8"))]
+/// Silicon Labs chip generation, from the SDK's
+/// `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>` macro pair.
+///
+/// Direct dependents also get it as cfgs: `#[cfg(silabs_series_2_config = "3")]`.
 #[derive(Debug, Eq, PartialEq, Clone, Copy)]
 pub enum Series {
     /// Series 0 (Cortex-M0+/M3, EFM32 Gecko families G/GG/LG/TG/WG/ZG/HG).
@@ -143,12 +144,10 @@ pub enum Series {
     Series3(u16),
 }
 
-/// Chip-level metadata: peripherals, interrupts, memory regions.
+/// Chip metadata for HAL build scripts.
 ///
-/// Mirrors `stm32-metapac::metadata::Metadata` so HAL build scripts can
-/// walk a chip's hardware inventory at build time without re-parsing the
-/// per-chip JSON. The Cargo `metadata` feature exposes a chip-specific
-/// `METADATA` static of this shape at `silabs_metapac::metadata::METADATA`.
+/// The `metadata` feature exports the active chip's value as
+/// `silabs_metapac::metadata::METADATA`.
 #[derive(Debug, Eq, PartialEq, Clone)]
 pub struct Metadata {
     /// Full chip part number (matches the Cargo feature flag).
@@ -165,14 +164,16 @@ pub struct Metadata {
     /// Silicon Labs chip generation + within-series config number.
     /// See [`Series`].
     pub series: Series,
+    /// Number of NVIC priority bits (`__NVIC_PRIO_BITS` in the CMSIS
+    /// device header): 2 on Cortex-M0+, 3 on Series 0/1 M3/M4, 4 on M33.
+    pub nvic_priority_bits: u8,
     pub memory: &'static [MemoryRegion],
     /// Peripheral instances, with paired TrustZone aliases sharing one
     /// register-layout entry. Both exact SVD addresses remain available on
     /// [`Peripheral`].
     pub peripherals: &'static [Peripheral],
-    /// Cortex-M interrupt table from the CMSIS device header
-    /// (radio IRQs included — the SVD `<interrupt>` blocks are
-    /// incomplete on Silabs parts and intentionally ignored).
+    /// Cortex-M interrupt table from the CMSIS device header, radio IRQs
+    /// included.
     pub interrupts: &'static [Interrupt],
 }
 

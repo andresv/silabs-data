@@ -6,14 +6,19 @@
 //! silabs-metapac/
 //! ├── Cargo.toml
 //! ├── README.md
+//! ├── build.rs
 //! └── src/
 //!     ├── lib.rs
 //!     ├── common.rs
-//!     ├── peripherals/<kind>_<version>.rs
+//!     ├── metadata.rs, all_chips.rs, all_peripheral_versions.rs, check_cfgs.txt
+//!     ├── peripherals/<kind>_<version>.rs   # chiptool register API
+//!     ├── registers/<kind>_<version>.rs     # IR statics for `metadata`
 //!     └── chips/
 //!         └── <chip>/
+//!             ├── pac.rs        # peripheral instances + interrupts + memory map
+//!             ├── metadata.rs   # `METADATA` static
 //!             ├── device.x      # cortex-m-rt linker fragment (or stub)
-//!             └── mod.rs        # peripheral instances + interrupts + memory map
+//!             └── cfgs.txt
 //! ```
 
 use std::collections::{BTreeMap, BTreeSet};
@@ -32,10 +37,8 @@ use crate::peripheral::{nonsecure_to_secure_name, secure_to_nonsecure_name};
 /// PascalCase identifier `chiptool::transform::sanitize::Sanitize::default()`
 /// produces (e.g. `Gpio`, `Eusart`, `I2c`).
 ///
-/// Mirrors chiptool's `sanitize_with_case`, which first removes digit
-/// boundaries so `I2C` is treated as the merged token `i2c` rather than
-/// three separate words. Without that step `I2C` would round-trip to `I2C`
-/// under `Case::Pascal` and miss the struct named `I2c` in the YAML.
+/// Like chiptool's `sanitize_with_case`, it removes digit boundaries first.
+/// Without that step `I2C` stays `I2C` and misses the struct `I2c`.
 fn block_struct_ident(block: &str) -> String {
     block.remove_boundaries(&Boundary::digits()).to_case(Case::Pascal)
 }
@@ -95,10 +98,11 @@ fn peripheral_groups(peripherals: &[PeripheralInstance]) -> BTreeMap<String, Per
     groups
 }
 
-/// Validate the documented Series 2 address relationship. Exact addresses
-/// still come from the SVD; the XOR is checked only as an invariant so a
-/// changed vendor map fails generation instead of silently producing a
-/// misleading API.
+/// Check that the two addresses of each Series 2 NS/S pair differ by
+/// `0x1000_0000`.
+///
+/// The addresses come from the SVD. The check makes a changed vendor
+/// map fail generation instead of producing a misleading API.
 pub fn validate_trustzone_aliases(chip: &ChipFile) -> Result<()> {
     let groups = peripheral_groups(&chip.peripherals);
     for group in groups.values() {
@@ -129,7 +133,8 @@ pub fn feature_name(chip: &str) -> String {
 }
 
 /// Write `build.rs` that adds the active chip's source directory to the
-/// linker search path under the `rt` feature.
+/// linker search path under the `rt` feature, and passes the chip's cfgs
+/// to direct dependents through `links` metadata (see [`crate::cfgs`]).
 ///
 /// `cortex-m-rt`'s `link.x` does `INCLUDE device.x`, and `silabs-metapac`
 /// emits a per-chip `device.x` into `src/chips/<chip>/`. Without this
@@ -137,8 +142,7 @@ pub fn feature_name(chip: &str) -> String {
 /// in `stm32-metapac`.
 pub fn write_build_rs(out: &Path) -> Result<()> {
     let s = r##"use std::env;
-#[cfg(feature = "rt")]
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 enum GetOneError {
     None,
@@ -161,8 +165,14 @@ impl<T: Iterator> IteratorExt for T {
     }
 }
 
+/// Read a generated one-item-per-line list and join it with spaces.
+fn read_list(path: &Path) -> String {
+    println!("cargo:rerun-if-changed={}", path.display());
+    let text = std::fs::read_to_string(path).unwrap_or_else(|e| panic!("read {}: {e}", path.display()));
+    text.lines().filter(|l| !l.is_empty()).collect::<Vec<_>>().join(" ")
+}
+
 fn main() {
-    #[cfg(feature = "rt")]
     let crate_dir = PathBuf::from(env::var_os("CARGO_MANIFEST_DIR").unwrap());
 
     let chip_name = match env::vars()
@@ -185,14 +195,25 @@ fn main() {
         chip_name,
     );
 
-    // Mirror stm32-metapac's env-var-driven include pattern: emit the
-    // selected chip's pac.rs / metadata.rs paths so `lib.rs` can collapse
-    // 66 cfg-gated `include!`s into a single `include!(env!(...))`.
+    // Give `lib.rs` the chip's pac.rs and metadata.rs paths, so it needs one
+    // `include!(env!(...))` and not one cfg-gated `include!` per chip.
     println!("cargo:rustc-env=SILABS_METAPAC_PAC_PATH=chips/{}/pac.rs", chip_name);
     println!(
         "cargo:rustc-env=SILABS_METAPAC_METADATA_PATH=chips/{}/metadata.rs",
         chip_name
     );
+
+    // `links = "silabs-metapac"` metadata. Cargo passes each key to the
+    // build script of every direct dependent as `DEP_SILABS_METAPAC_<KEY>`.
+    // A dependent re-emits `cfgs` as `cargo:rustc-cfg` and `check_cfgs` as
+    // `cargo:rustc-check-cfg`. Then it can use `#[cfg(letimer_s0v1)]` without
+    // its own chip features. Both lists are space-separated.
+    println!("cargo::metadata=chip={chip_name}");
+    println!(
+        "cargo::metadata=cfgs={}",
+        read_list(&crate_dir.join("src/chips").join(&chip_name).join("cfgs.txt"))
+    );
+    println!("cargo::metadata=check_cfgs={}", read_list(&crate_dir.join("src/check_cfgs.txt")));
 
     println!("cargo:rerun-if-changed=build.rs");
 }
@@ -230,17 +251,13 @@ pub fn write_lib_rs(out: &Path) -> Result<()> {
 "#,
     );
 
-    // Mirrors stm32-metapac/res/src/lib.rs exactly — the heavy lifting
-    // (per-kind `#[path] pub mod <kind>;` declarations and the typed
-    // peripheral consts) is done inside `chips/<chip>/pac.rs` and
-    // `chips/<chip>/metadata.rs`, which are selected by the env vars
-    // emitted from `build.rs`. The `include!`d file's tokens carry their
-    // original `Span`, so `#[path]` inside those files resolves relative
-    // to the chip directory — not lib.rs.
+    // The module declarations and typed peripheral consts are in
+    // `chips/<chip>/pac.rs` and `chips/<chip>/metadata.rs`, which the
+    // `build.rs` env vars select. Included tokens keep their `Span`, so
+    // `#[path]` in those files resolves relative to the chip directory.
     //
-    // Chip-feature presence is enforced by `build.rs` (panics on zero or
-    // multiple chip features) — matches stm32-data, which similarly has
-    // no `compile_error!` in lib.rs.
+    // `build.rs` panics on zero or several chip features, so lib.rs needs no
+    // `compile_error!`.
     s.push_str("pub mod common;\n\n");
 
     s.push_str("#[cfg(feature = \"pac\")]\n");
@@ -250,18 +267,48 @@ pub fn write_lib_rs(out: &Path) -> Result<()> {
     s.push_str("pub mod metadata {\n");
     s.push_str("    include!(\"metadata.rs\");\n");
     s.push_str("    include!(env!(\"SILABS_METAPAC_METADATA_PATH\"));\n");
+    s.push_str("    include!(\"all_chips.rs\");\n");
+    s.push_str("    include!(\"all_peripheral_versions.rs\");\n");
     s.push_str("}\n");
 
     std::fs::write(out, s).with_context(|| format!("write lib.rs at {}", out.display()))?;
     Ok(())
 }
 
-/// Build the `chips/<chip>/mod.rs` content from a parsed ChipFile.
+/// Write `src/all_chips.rs` and `src/all_peripheral_versions.rs`, included
+/// into `pub mod metadata`. A HAL build script uses them to declare every
+/// chip and `<kind>_<version>` cfg for `rustc-check-cfg`, not only the active
+/// chip's.
+pub fn write_all_tables(chips: &[ChipFile], src_dir: &Path) -> Result<()> {
+    let mut s = String::from("pub static ALL_CHIPS: &[&str] = &[\n");
+    for chip in chips {
+        writeln!(&mut s, "    {:?},", chip.chip.name).expect("writing to a String cannot fail");
+    }
+    s.push_str("];\n");
+    let out = src_dir.join("all_chips.rs");
+    std::fs::write(&out, s).with_context(|| format!("write {}", out.display()))?;
+
+    let mut versions: BTreeMap<&str, BTreeSet<&str>> = BTreeMap::new();
+    for chip in chips {
+        for p in &chip.peripherals {
+            versions.entry(&p.kind).or_default().insert(&p.register_version);
+        }
+    }
+    let mut s = String::from("pub static ALL_PERIPHERAL_VERSIONS: &[(&str, &[&str])] = &[\n");
+    for (kind, vs) in &versions {
+        let vs: Vec<String> = vs.iter().map(|v| format!("{v:?}")).collect();
+        writeln!(&mut s, "    ({kind:?}, &[{}]),", vs.join(", ")).expect("writing to a String cannot fail");
+    }
+    s.push_str("];\n");
+    let out = src_dir.join("all_peripheral_versions.rs");
+    std::fs::write(&out, s).with_context(|| format!("write {}", out.display()))?;
+    Ok(())
+}
+
+/// Build the `chips/<chip>/pac.rs` content from a parsed ChipFile.
 ///
-/// Each peripheral instance in `chip.peripherals` carries its routed
-/// `(kind, register_version, block)` triple (assigned by perimap during
-/// `silabs-data-gen gen`). We use those directly — there's no separate
-/// `kinds` lookup parameter.
+/// Each peripheral instance carries the `(kind, register_version, block)`
+/// that perimap gave it in `silabs-data-gen gen`.
 pub fn build_chip_pac_rs(chip: &ChipFile, gpio_ports: Option<usize>) -> String {
     let mut s = String::new();
     s.push_str("// Per-chip PAC content: peripheral module decls, typed peripheral\n");
@@ -339,9 +386,8 @@ pub fn build_chip_pac_rs(chip: &ChipFile, gpio_ports: Option<usize>) -> String {
 
     emit_gpio_port_constants(&mut s, gpio_ports);
 
-    // Interrupts are emitted as the `pub enum Interrupt { … }` inside
-    // `emit_cortex_m_rt_glue` — same shape as stm32-metapac. Numeric
-    // values are reachable via `Interrupt::FOO as u16`.
+    // Interrupts exist only as `pub enum Interrupt`. `Interrupt::FOO as u16`
+    // gives the number.
     let nvic_prio_bits = chip
         .chip
         .nvic_prio_bits
@@ -405,8 +451,9 @@ fn emit_cortex_m_rt_glue(s: &mut String, interrupts: &[Interrupt], nvic_prio_bit
     s.push_str("    ];\n");
     s.push_str("}\n\n");
 
+    // Not gated on `rt`: crates that set NVIC priorities (rtic-monotonics)
+    // need it without owning the vector table.
     s.push_str("/// Number available in the NVIC for configuring priority.\n");
-    s.push_str("#[cfg(feature = \"rt\")]\n");
     s.push_str(&format!("pub const NVIC_PRIO_BITS: u8 = {nvic_prio_bits};\n\n"));
 
     s.push_str("#[cfg(feature = \"rt\")]\n");
@@ -422,10 +469,9 @@ fn emit_memory_consts(s: &mut String, m: &MemoryRegion) {
 }
 
 /// Emit typed peripheral instance consts. A confirmed NS/S pair shares the
-/// non-secure peer's register-block type but retains both exact SVD addresses.
-/// For suffix pairs, the existing unsuffixed non-secure constant is retained
-/// alongside the explicit `_S` constant; a redundant `_NS` constant is not
-/// emitted.
+/// non-secure peer's register-block type but keeps both exact SVD addresses.
+/// A suffix pair gets the unsuffixed non-secure const and an `_S` const, but
+/// no `_NS` const.
 fn emit_typed_peripheral_consts(s: &mut String, peripherals: &[PeripheralInstance]) {
     fn emit_const(s: &mut String, name: &str, type_owner: &PeripheralInstance, address: u64) {
         let mod_name = module_name(&type_owner.kind, &type_owner.register_version);
@@ -471,9 +517,8 @@ fn emit_gpio_port_constants(s: &mut String, gpio_ports: Option<usize>) {
     let Some(n) = gpio_ports else {
         return;
     };
-    s.push_str("/// GPIO port indices, mirroring the CMSIS `<family>_gpio.h`\n");
-    s.push_str("/// `#define GPIO_PORTA 0` etc. Use as `GPIO.p_ctrl(gpio_port::PORTC)`\n");
-    s.push_str("/// (or just `GPIO.p_ctrl(2)` — they're equivalent).\n");
+    s.push_str("/// GPIO port indices, as in the CMSIS `<family>_gpio.h`\n");
+    s.push_str("/// `#define GPIO_PORTA 0`. Use as `GPIO.p_ctrl(gpio_port::PORTC)`.\n");
     s.push_str("pub mod gpio_port {\n");
     for i in 0..n {
         let ch = (b'A' + i as u8) as char;
@@ -487,15 +532,12 @@ pub fn stub_device_x(chip_name: &str) -> String {
     format!("/* device.x for {chip_name} not yet generated */\n")
 }
 
-/// Emit the `Series::Series<N>(<M>)` literal for a chip, sourced from
-/// the `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>` macros extracted from
-/// the chip's CMSIS device header by `silabs-data-gen` (see
-/// [`silabs_data_gen::header::extract_series`]).
+/// The `Series::Series<N>(<M>)` literal for a chip, from the
+/// `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>` macros in its CMSIS device
+/// header (see [`silabs_data_gen::header::extract_series`]).
 ///
-/// Panics if the chip JSON predates the schema change that added
-/// `Chip.series` — regenerate with `./d gen-all`. Also panics on a
-/// series number outside the {0, 1, 2, 3} range, since the [`Series`]
-/// enum covers Series 0 through Series 3 (matches the metapac side).
+/// Panics when the chip JSON has no `Chip.series` (run `./d gen-all`), or
+/// when the series is not 0 to 3, the range of the metapac `Series` enum.
 fn series_literal_for_chip(chip: &ChipFile) -> String {
     let s = chip
         .chip
@@ -518,21 +560,15 @@ fn series_literal_for_chip(chip: &ChipFile) -> String {
 
 /// Build the `chips/<chip>/metadata.rs` content from a parsed `ChipFile`.
 ///
-/// Emits a `pub static METADATA: Metadata = …;` populated from the chip
-/// JSON. Mirrors stm32-metapac's per-chip metadata module so HAL build
-/// scripts can walk a chip's peripheral / interrupt / memory inventory
-/// at build time.
+/// The file holds `pub static METADATA: Metadata`. It is included into the
+/// crate's `pub mod metadata` (see [`write_lib_rs`]), so `Metadata`,
+/// `Peripheral` and the other type names resolve without a `use`.
 ///
-/// The file is `include!`d into the metapac crate's top-level
-/// `pub mod metadata` block (see [`write_lib_rs`]), so the type names
-/// `Metadata`, `MemoryRegion`, `Peripheral`, `Interrupt` resolve against
-/// the surrounding module without an explicit `use`.
-///
-/// Dedup: one metadata row owns each register layout. For a paired TrustZone
+/// One metadata row owns each register layout. For a paired TrustZone
 /// peripheral it carries both the non-secure and secure SVD base addresses.
 pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
     let mut s = String::new();
-    s.push_str("// Per-chip iterable metadata. Generated for ");
+    s.push_str("// Per-chip metadata. Generated for ");
     s.push_str(&chip.chip.name);
     s.push_str(".\n//\n");
     s.push_str("// Included from `pub mod metadata` in the metapac crate root;\n");
@@ -557,6 +593,11 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
     s.push_str(&format!("    mpu: {},\n", chip.chip.mpu));
     s.push_str(&format!("    trustzone: {},\n", chip.chip.trustzone));
     s.push_str(&format!("    series: {},\n", series_literal_for_chip(chip)));
+    let nvic_prio_bits = chip
+        .chip
+        .nvic_prio_bits
+        .expect("chip.nvic_prio_bits missing — re-run silabs-data-gen to populate it");
+    s.push_str(&format!("    nvic_priority_bits: {nvic_prio_bits},\n"));
 
     s.push_str("    memory: &[\n");
     for m in &chip.chip.memory {
@@ -591,10 +632,9 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
     s.push_str("    ],\n");
     s.push_str("};\n\n");
 
-    // Per-kind IR-static mod decls. Each `<kind>_<version>.rs` exposes
-    // `pub static REGISTERS: IR`. The
-    // chip declares only the kinds it uses; `#[path]` is relative to this
-    // file, so `../../registers/...` reaches `src/registers/`.
+    // Each `<kind>_<version>.rs` holds `pub static REGISTERS: IR`. The chip
+    // declares only the kinds it uses. `#[path]` is relative to this file, so
+    // `../../registers/...` reaches `src/registers/`.
     let paired_secure = paired_secure_alias_names(&chip.peripherals);
     let mut kinds: BTreeSet<(String, String)> = BTreeSet::new();
     for p in &chip.peripherals {
@@ -720,9 +760,8 @@ mod tests {
             s.contains("pub const DCDC: crate::dcdc_v1::Dcdc"),
             "missing typed DCDC const:\n{s}"
         );
-        // Interrupts are emitted only as the `pub enum Interrupt` variants —
-        // no separate `pub const ACMP0: u8 = 41;` const module, matching
-        // stm32-metapac's pac.rs shape.
+        // Interrupts exist only as `pub enum Interrupt` variants, with no
+        // const module.
         assert!(s.contains("ACMP0 = 41,"), "missing ACMP0 enum variant:\n{s}");
         assert!(s.contains("TIMER0 = 25,"));
         assert!(!s.contains("pub const ACMP0: u8"));
