@@ -93,16 +93,16 @@ block/Gpio:
     byte_offset: 276
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 280
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 284
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: route
     description: I/O Routing Register.
     byte_offset: 288
@@ -287,20 +287,6 @@ fieldset/regs::If:
   fields:
   - name: ext
     description: External Interrupt Flag n.
-    bit_offset: 0
-    bit_size: 16
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: ext
-    description: External Interrupt Flag Clear.
-    bit_offset: 0
-    bit_size: 16
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: ext
-    description: External Interrupt Flag n Set.
     bit_offset: 0
     bit_size: 16
 fieldset/regs::Insense:

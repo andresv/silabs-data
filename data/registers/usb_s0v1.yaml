@@ -15,16 +15,16 @@ block/Usb:
     byte_offset: 8
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 12
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 16
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: ien
     description: Interrupt Enable Register.
     byte_offset: 20
@@ -5654,28 +5654,6 @@ fieldset/regs::If:
     bit_size: 1
   - name: vregosl
     description: VREGO Sense Low Interrupt Flag.
-    bit_offset: 1
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: vregosh
-    description: Clear VREGO Sense High Interrupt Flag.
-    bit_offset: 0
-    bit_size: 1
-  - name: vregosl
-    description: Clear VREGO Sense Low Interrupt Flag.
-    bit_offset: 1
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: vregosh
-    description: Set VREGO Sense High Interrupt Flag.
-    bit_offset: 0
-    bit_size: 1
-  - name: vregosl
-    description: Set VREGO Sense Low Interrupt Flag.
     bit_offset: 1
     bit_size: 1
 fieldset/regs::Pcgcctl:

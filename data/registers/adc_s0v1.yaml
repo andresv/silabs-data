@@ -32,16 +32,16 @@ block/Adc:
     byte_offset: 24
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 28
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 32
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: singledata
     description: Single Conversion Result Data.
     byte_offset: 36
@@ -190,44 +190,6 @@ fieldset/regs::If:
     bit_size: 1
   - name: scanof
     description: Scan Result Overflow Interrupt Flag.
-    bit_offset: 9
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: single
-    description: Single Conversion Complete Interrupt Flag Clear.
-    bit_offset: 0
-    bit_size: 1
-  - name: scan
-    description: Scan Conversion Complete Interrupt Flag Clear.
-    bit_offset: 1
-    bit_size: 1
-  - name: singleof
-    description: Single Result Overflow Interrupt Flag Clear.
-    bit_offset: 8
-    bit_size: 1
-  - name: scanof
-    description: Scan Result Overflow Interrupt Flag Clear.
-    bit_offset: 9
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: single
-    description: Single Conversion Complete Interrupt Flag Set.
-    bit_offset: 0
-    bit_size: 1
-  - name: scan
-    description: Scan Conversion Complete Interrupt Flag Set.
-    bit_offset: 1
-    bit_size: 1
-  - name: singleof
-    description: Single Result Overflow Interrupt Flag Set.
-    bit_offset: 8
-    bit_size: 1
-  - name: scanof
-    description: Scan Result Overflow Interrupt Flag Set.
     bit_offset: 9
     bit_size: 1
 fieldset/regs::Scanctrl:

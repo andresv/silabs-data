@@ -23,16 +23,16 @@ block/Vcmp:
     byte_offset: 16
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 20
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 24
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
 fieldset/regs::Ctrl:
   description: Control Register.
   fields:
@@ -89,28 +89,6 @@ fieldset/regs::If:
     bit_size: 1
   - name: warmup
     description: Warm-up Interrupt Flag.
-    bit_offset: 1
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: edge
-    description: Edge Triggered Interrupt Flag Clear.
-    bit_offset: 0
-    bit_size: 1
-  - name: warmup
-    description: Warm-up Interrupt Flag Clear.
-    bit_offset: 1
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: edge
-    description: Edge Triggered Interrupt Flag Set.
-    bit_offset: 0
-    bit_size: 1
-  - name: warmup
-    description: Warm-up Interrupt Flag Set.
     bit_offset: 1
     bit_size: 1
 fieldset/regs::Inputsel:

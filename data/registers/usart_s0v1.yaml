@@ -82,13 +82,13 @@ block/Usart:
     byte_offset: 64
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 68
     access: Write
     fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 72
     access: Write
     fieldset: regs::Ifc

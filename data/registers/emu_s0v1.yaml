@@ -51,16 +51,16 @@ block/Emu:
     byte_offset: 72
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 76
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 80
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: ien
     description: Interrupt Enable Register.
     byte_offset: 84
@@ -205,20 +205,6 @@ fieldset/regs::If:
   fields:
   - name: burdy
     description: Backup functionality ready Interrupt Flag.
-    bit_offset: 0
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: burdy
-    description: Clear Backup functionality ready Interrupt Flag.
-    bit_offset: 0
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: burdy
-    description: Set Backup functionality ready Interrupt Flag.
     bit_offset: 0
     bit_size: 1
 fieldset/regs::Lock:

@@ -76,16 +76,16 @@ block/Lesense:
     byte_offset: 64
     access: Read
     fieldset: regs::If
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 68
     access: Write
-    fieldset: regs::Ifc
-  - name: ifs
-    description: Interrupt Flag Set Register.
+    fieldset: regs::If
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 72
     access: Write
-    fieldset: regs::Ifs
+    fieldset: regs::If
   - name: ien
     description: Interrupt Enable Register.
     byte_offset: 76
@@ -2131,150 +2131,6 @@ fieldset/regs::Ien:
     bit_size: 1
 fieldset/regs::If:
   description: Interrupt Flag Register.
-  fields:
-  - name: ch0
-    bit_offset: 0
-    bit_size: 1
-  - name: ch1
-    bit_offset: 1
-    bit_size: 1
-  - name: ch2
-    bit_offset: 2
-    bit_size: 1
-  - name: ch3
-    bit_offset: 3
-    bit_size: 1
-  - name: ch4
-    bit_offset: 4
-    bit_size: 1
-  - name: ch5
-    bit_offset: 5
-    bit_size: 1
-  - name: ch6
-    bit_offset: 6
-    bit_size: 1
-  - name: ch7
-    bit_offset: 7
-    bit_size: 1
-  - name: ch8
-    bit_offset: 8
-    bit_size: 1
-  - name: ch9
-    bit_offset: 9
-    bit_size: 1
-  - name: ch10
-    bit_offset: 10
-    bit_size: 1
-  - name: ch11
-    bit_offset: 11
-    bit_size: 1
-  - name: ch12
-    bit_offset: 12
-    bit_size: 1
-  - name: ch13
-    bit_offset: 13
-    bit_size: 1
-  - name: ch14
-    bit_offset: 14
-    bit_size: 1
-  - name: ch15
-    bit_offset: 15
-    bit_size: 1
-  - name: scancomplete
-    bit_offset: 16
-    bit_size: 1
-  - name: dec
-    bit_offset: 17
-    bit_size: 1
-  - name: decerr
-    bit_offset: 18
-    bit_size: 1
-  - name: bufdatav
-    bit_offset: 19
-    bit_size: 1
-  - name: buflevel
-    bit_offset: 20
-    bit_size: 1
-  - name: bufof
-    bit_offset: 21
-    bit_size: 1
-  - name: cntof
-    bit_offset: 22
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: ch0
-    bit_offset: 0
-    bit_size: 1
-  - name: ch1
-    bit_offset: 1
-    bit_size: 1
-  - name: ch2
-    bit_offset: 2
-    bit_size: 1
-  - name: ch3
-    bit_offset: 3
-    bit_size: 1
-  - name: ch4
-    bit_offset: 4
-    bit_size: 1
-  - name: ch5
-    bit_offset: 5
-    bit_size: 1
-  - name: ch6
-    bit_offset: 6
-    bit_size: 1
-  - name: ch7
-    bit_offset: 7
-    bit_size: 1
-  - name: ch8
-    bit_offset: 8
-    bit_size: 1
-  - name: ch9
-    bit_offset: 9
-    bit_size: 1
-  - name: ch10
-    bit_offset: 10
-    bit_size: 1
-  - name: ch11
-    bit_offset: 11
-    bit_size: 1
-  - name: ch12
-    bit_offset: 12
-    bit_size: 1
-  - name: ch13
-    bit_offset: 13
-    bit_size: 1
-  - name: ch14
-    bit_offset: 14
-    bit_size: 1
-  - name: ch15
-    bit_offset: 15
-    bit_size: 1
-  - name: scancomplete
-    bit_offset: 16
-    bit_size: 1
-  - name: dec
-    bit_offset: 17
-    bit_size: 1
-  - name: decerr
-    bit_offset: 18
-    bit_size: 1
-  - name: bufdatav
-    bit_offset: 19
-    bit_size: 1
-  - name: buflevel
-    bit_offset: 20
-    bit_size: 1
-  - name: bufof
-    bit_offset: 21
-    bit_size: 1
-  - name: cntof
-    bit_offset: 22
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
   fields:
   - name: ch0
     bit_offset: 0

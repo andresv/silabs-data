@@ -34,16 +34,16 @@ block/Pcnt:
     byte_offset: 24
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 28
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 32
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: ien
     description: Interrupt Enable Register.
     byte_offset: 36
@@ -179,44 +179,6 @@ fieldset/regs::If:
     bit_size: 1
   - name: auxof
     description: Overflow Interrupt Read Flag.
-    bit_offset: 3
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: uf
-    description: Underflow Interrupt Clear.
-    bit_offset: 0
-    bit_size: 1
-  - name: of
-    description: Overflow Interrupt Clear.
-    bit_offset: 1
-    bit_size: 1
-  - name: dircng
-    description: Direction Change Detect Interrupt Clear.
-    bit_offset: 2
-    bit_size: 1
-  - name: auxof
-    description: Auxiliary Overflow Interrupt Clear.
-    bit_offset: 3
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: uf
-    description: Underflow interrupt set.
-    bit_offset: 0
-    bit_size: 1
-  - name: of
-    description: Overflow Interrupt Set.
-    bit_offset: 1
-    bit_size: 1
-  - name: dircng
-    description: Direction Change Detect Interrupt Set.
-    bit_offset: 2
-    bit_size: 1
-  - name: auxof
-    description: Auxiliary Overflow Interrupt Set.
     bit_offset: 3
     bit_size: 1
 fieldset/regs::Input:

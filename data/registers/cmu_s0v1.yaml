@@ -57,16 +57,16 @@ block/Cmu:
     byte_offset: 48
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 52
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 56
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: ien
     description: Interrupt Enable Register.
     byte_offset: 60
@@ -461,76 +461,6 @@ fieldset/regs::If:
     bit_size: 1
   - name: usbchfclksel
     description: USBC HFCLK Selected Interrupt Flag.
-    bit_offset: 7
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: hfrcordy
-    description: HFRCO Ready Interrupt Flag Clear.
-    bit_offset: 0
-    bit_size: 1
-  - name: hfxordy
-    description: HFXO Ready Interrupt Flag Clear.
-    bit_offset: 1
-    bit_size: 1
-  - name: lfrcordy
-    description: LFRCO Ready Interrupt Flag Clear.
-    bit_offset: 2
-    bit_size: 1
-  - name: lfxordy
-    description: LFXO Ready Interrupt Flag Clear.
-    bit_offset: 3
-    bit_size: 1
-  - name: auxhfrcordy
-    description: AUXHFRCO Ready Interrupt Flag Clear.
-    bit_offset: 4
-    bit_size: 1
-  - name: calrdy
-    description: Calibration Ready Interrupt Flag Clear.
-    bit_offset: 5
-    bit_size: 1
-  - name: calof
-    description: Calibration Overflow Interrupt Flag Clear.
-    bit_offset: 6
-    bit_size: 1
-  - name: usbchfclksel
-    description: USBC HFCLK Selected Interrupt Flag Clear.
-    bit_offset: 7
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: hfrcordy
-    description: HFRCO Ready Interrupt Flag Set.
-    bit_offset: 0
-    bit_size: 1
-  - name: hfxordy
-    description: HFXO Ready Interrupt Flag Set.
-    bit_offset: 1
-    bit_size: 1
-  - name: lfrcordy
-    description: LFRCO Ready Interrupt Flag Set.
-    bit_offset: 2
-    bit_size: 1
-  - name: lfxordy
-    description: LFXO Ready Interrupt Flag Set.
-    bit_offset: 3
-    bit_size: 1
-  - name: auxhfrcordy
-    description: AUXHFRCO Ready Interrupt Flag Set.
-    bit_offset: 4
-    bit_size: 1
-  - name: calrdy
-    description: Calibration Ready Interrupt Flag Set.
-    bit_offset: 5
-    bit_size: 1
-  - name: calof
-    description: Calibration Overflow Interrupt Flag Set.
-    bit_offset: 6
-    bit_size: 1
-  - name: usbchfclksel
-    description: USBC HFCLK Selected Interrupt Flag Set.
     bit_offset: 7
     bit_size: 1
 fieldset/regs::Lcdctrl:
