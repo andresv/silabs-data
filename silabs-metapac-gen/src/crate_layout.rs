@@ -931,7 +931,7 @@ mod tests {
     fn cargo_toml_uses_publish_template_and_appends_chip_features() {
         let s = render_cargo_toml(&["efr32mg24b210f1536im48".into(), "efr32mg26b211f2048im68".into()]);
 
-        assert!(s.contains("version = \"0.5.0\""));
+        assert!(s.contains("version = \"0.6.0\""));
         assert!(s.contains("repository = \"https://github.com/andresv/silabs-data-generated\""));
         assert!(s.contains("[package.metadata.docs.rs]"));
         assert!(s.contains("\"build.rs\","));
