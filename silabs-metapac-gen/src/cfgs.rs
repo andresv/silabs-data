@@ -9,8 +9,8 @@
 //! - `letimer` — the chip has the kind.
 //! - `letimer_s0v1` — exact register version.
 //! - `letimer_s0` — any Series 0 version.
-//! - Every `_`-separated prefix of the label: `eusart_s2v2_lf` also gives
-//!   `eusart_s2v2`.
+//! - Every `_`-separated prefix of the label: `devinfo_s2v0_mg24` also gives
+//!   `devinfo_s2v0`.
 //! - `silabs_series="0"`, and `silabs_series_2_config="4"` for chips
 //!   with a config number (Series 1+).
 

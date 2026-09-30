@@ -5,8 +5,8 @@
 //! When no entry matches, `default_route` derives the route from the SVD
 //! peripheral name and `<version>` tag. Entries override that default for:
 //!
-//! - structural splits the SVD merges accidentally (e.g. EUSART0 has an LF
-//!   sub-block, EUSART1+ don't, but all four claim `<version>2</version>`);
+//! - structural splits that the SVD merges (TIMER0/1 are 32-bit, TIMER2+ are
+//!   16-bit, but all claim `<version>1</version>`);
 //! - cosmetic renames (drop `_NS` from the block name);
 //! - fixed version labels, so vendor SVD drift cannot change the routing.
 //!
@@ -48,13 +48,10 @@ pub struct Route {
 pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     // (key_regex, kind, version, block)
     //
-    // EUSART variant split. EUSART0 carries the LF (low-frequency) sub-block
-    // with IRLFCFG / TIMINGCFG / IRHFCFG-LF; EUSART1-3 don't. All four
-    // peripherals report <version>2</version> in the SVD, but their register
-    // layouts differ structurally. Route EUSART0 to `eusart_s2v2_lf.yaml` and
-    // the others to `eusart_s2v2.yaml`.
-    ("EFR32MG2[46].*:EUSART0_NS:.*", "eusart", "s2v2_lf", "EUSART"),
-    ("EFR32MG2[46].*:EUSART[1-9]_NS:.*", "eusart", "s2v2", "EUSART"),
+    // EUSART needs no row. All instances report <version>2</version>.
+    // EUSART0 adds a few low-frequency registers and fields that EUSART1+
+    // reserve. So `eusart_s2v2.yaml` is their superset, and every instance
+    // has the same type.
     // TIMER bit-width split. Wide (32-bit) and narrow (16-bit) timers
     // share <version>1</version> in the SVD but differ in the bit_size of
     // CNT / TOP / CCx. Both are blocks of one `timer_s2v1.yaml`: `Timer`
@@ -65,24 +62,10 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     ("EFR32MG2[46].*:TIMER[01]_NS:.*", "timer", "s2v1", "TIMER32"),
     ("EFR32MG26.*:TIMER[89]_NS:.*", "timer", "s2v1", "TIMER32"),
     ("EFR32MG2[46].*:TIMER[2-7]_NS:.*", "timer", "s2v1", "TIMER"),
-    // IADC high-accuracy variant. Some sub-families ship an IADC with an
-    // extra `OSRHA` field plus HIGHACCURACY / HIGHSPEED ADCMODE enum
-    // variants; others don't. All report <version>3</version>. The HA
-    // sub-families differ per chip family:
-    //   MG24: hundreds digit 1 or 3 (A1xx/B1xx/A3xx/B3xx).
-    //   MG26: hundreds digit 3 or 5 (B3xx/B5xx).
-    (
-        "EFR32MG24[A-Z][13][0-9][0-9].*:IADC[0-9]+_NS:.*",
-        "iadc",
-        "s2v3_ha",
-        "IADC",
-    ),
-    (
-        "EFR32MG26[A-Z][35][0-9][0-9].*:IADC[0-9]+_NS:.*",
-        "iadc",
-        "s2v3_ha",
-        "IADC",
-    ),
+    // IADC needs no row. The high-accuracy sub-families add an OSRHA field,
+    // HIGHACCURACY / HIGHSPEED ADCMODE and VREF2P5. FG25 adds a LESENSE scan
+    // trigger. These only add fields and enum values, so `iadc_s2v3.yaml` is
+    // the superset of every <version>3</version> IADC.
     // SMU MVP-aware variant. Chips that include the MVP peripheral add
     // MVPAHBDATA0..2 fields and an MVP privilege/secure-access bit to
     // SMU's access-control registers. We enumerate the chip patterns
@@ -135,25 +118,18 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     ("EFR32MG24.*:DEVINFO:.*", "devinfo", "s2v0_mg24", "DEVINFO"),
     ("EFR32MG26.*:DEVINFO:.*", "devinfo", "s2v0_mg26", "DEVINFO"),
     // --- EFR32FG25 (Series 2, config 5) ---
-    // EUSART variant split, same rationale as the MG2x entries above:
-    // EUSART0 carries the LF sub-block, EUSART1+ don't, but all report
-    // <version>2</version> in the SVD. Reuse the shared eusart_s2v2_lf /
-    // eusart_s2v2 labels — they hold if FG25's EUSART matches MG2x's.
-    ("EFR32FG25.*:EUSART0_NS:.*", "eusart", "s2v2_lf", "EUSART"),
-    ("EFR32FG25.*:EUSART[1-9]_NS:.*", "eusart", "s2v2", "EUSART"),
     // TIMER bit-width split, same rationale as the MG2x entries above.
     // FG25 ships TIMER0..7; TIMER0/1 are 32-bit wide, TIMER2..7 are 16-bit
     // narrow. Reuse the shared timer_s2v1 blocks.
     ("EFR32FG25.*:TIMER[01]_NS:.*", "timer", "s2v1", "TIMER32"),
     ("EFR32FG25.*:TIMER[2-7]_NS:.*", "timer", "s2v1", "TIMER"),
-    // The following three peripherals share an SVD <version> with the MG2x
+    // The following two peripherals share an SVD <version> with the MG2x
     // curated YAMLs but extract to a structurally different IR on FG25
     // (config 5). Pin FG25-specific labels so they don't collide with the
     // MG2x buckets. (All other shared (kind,version) buckets — EUSART,
     // TIMER, I2C, BURTC, … — extract identically across FG25/MG24/MG26 and
     // are reused.)
     ("EFR32FG25.*:DMEM_NS:.*", "dmem", "s2v2_fg25", "DMEM"),
-    ("EFR32FG25.*:IADC[0-9]+_NS:.*", "iadc", "s2v3_fg25", "IADC"),
     ("EFR32FG25.*:VDAC[0-9]+_NS:.*", "vdac", "s2v2_fg25", "VDAC"),
     // --- EFR32MG22 (Series 2, config 2) ---
     // TIMER split: on MG22 only TIMER0 is the wide (32-bit) timer. TIMER1..4

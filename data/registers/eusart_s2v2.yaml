@@ -34,6 +34,10 @@ block/Eusart:
     description: No Description.
     byte_offset: 28
     fieldset: regs::Irhfcfg
+  - name: irlfcfg
+    description: IrDA Low-Frequency Configuration. EUSART0 only (the low-frequency capable instance); reserved on EUSART1+.
+    byte_offset: 32
+    fieldset: regs::Irlfcfg
   - name: timingcfg
     description: No Description.
     byte_offset: 36
@@ -189,6 +193,14 @@ fieldset/regs::Cfg1:
     bit_offset: 4
     bit_size: 3
     enum: vals::Rxtimeout
+  - name: txdmawu
+    description: Transmitter DMA Wakeup. EUSART0 only; reserved on EUSART1+.
+    bit_offset: 9
+    bit_size: 1
+  - name: rxdmawu
+    description: Receiver DMA Wakeup. EUSART0 only; reserved on EUSART1+.
+    bit_offset: 10
+    bit_size: 1
   - name: sfubrx
     description: Start Frame Unblock Receiver.
     bit_offset: 11
@@ -417,6 +429,10 @@ fieldset/regs::Ien:
     description: TX IDLE Enable.
     bit_offset: 13
     bit_size: 1
+  - name: cswu
+    description: CS Wake-up Enable. EUSART0 only; reserved on EUSART1+.
+    bit_offset: 16
+    bit_size: 1
   - name: startf
     description: Start Frame Enable.
     bit_offset: 18
@@ -492,6 +508,10 @@ fieldset/regs::If:
     description: TX Idle Interrupt Flag.
     bit_offset: 13
     bit_size: 1
+  - name: cswu
+    description: CS Wake-up Interrupt Flag. EUSART0 only; reserved on EUSART1+.
+    bit_offset: 16
+    bit_size: 1
   - name: startf
     description: Start Frame Interrupt Flag.
     bit_offset: 18
@@ -530,6 +550,13 @@ fieldset/regs::Irhfcfg:
   - name: irhffilt
     description: IrDA RX Filter.
     bit_offset: 3
+    bit_size: 1
+fieldset/regs::Irlfcfg:
+  description: IrDA Low-Frequency Configuration. EUSART0 only.
+  fields:
+  - name: irlfen
+    description: Pulse Generator/Extender Enable.
+    bit_offset: 0
     bit_size: 1
 fieldset/regs::Rxdata:
   description: No Description.

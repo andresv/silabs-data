@@ -196,6 +196,11 @@ fieldset/regs::Cfg0:
     bit_offset: 2
     bit_size: 3
     enum: vals::Cfg0Osrhs
+  - name: osrha
+    description: High Accuracy OSR. High-accuracy IADC variants only (see the chip's reference manual).
+    bit_offset: 5
+    bit_size: 3
+    enum: vals::Cfg0Osrha
   - name: analoggain
     description: Analog Gain.
     bit_offset: 12
@@ -229,6 +234,11 @@ fieldset/regs::Cfg1:
     bit_offset: 2
     bit_size: 3
     enum: vals::Cfg1Osrhs
+  - name: osrha
+    description: High Accuracy OSR. High-accuracy IADC variants only (see the chip's reference manual).
+    bit_offset: 5
+    bit_size: 3
+    enum: vals::Cfg1Osrha
   - name: analoggain
     description: Analog Gain.
     bit_offset: 12
@@ -1216,6 +1226,12 @@ fieldset/regs::Trigger:
 enum/vals::Cfg0Adcmode:
   bit_size: 2
   variants:
+  - name: Highaccuracy
+    description: High accuracy mode with maximum ADC_CLK of 5 MHz. High-accuracy IADC variants only (see the chip's reference manual).
+    value: 2
+  - name: Highspeed
+    description: Double high speed mode with a maximum ADC_CLK of 20 MHz. Power consumption is boosted to allow faster conversions. High-accuracy IADC variants only (see the chip's reference manual).
+    value: 1
   - name: Normal
     description: High speed mode with a maximum ADC_CLK of 10 MHz.
     value: 0
@@ -1255,6 +1271,27 @@ enum/vals::Cfg0Digavg:
   - name: Avg8
     description: Collect and average 8 digital output words.
     value: 3
+enum/vals::Cfg0Osrha:
+  bit_size: 3
+  variants:
+  - name: Hiacc128
+    description: High accuracy over sampling of 128x.
+    value: 4
+  - name: Hiacc16
+    description: High accuracy over sampling of 16x.
+    value: 0
+  - name: Hiacc256
+    description: High accuracy over sampling of 256x.
+    value: 5
+  - name: Hiacc32
+    description: High accuracy over sampling of 32x.
+    value: 1
+  - name: Hiacc64
+    description: High accuracy over sampling of 64x.
+    value: 2
+  - name: Hiacc92
+    description: High accuracy over sampling of 92x.
+    value: 3
 enum/vals::Cfg0Osrhs:
   bit_size: 3
   variants:
@@ -1291,6 +1328,9 @@ enum/vals::Cfg0Refsel:
   - name: Vref
     description: External Reference. (Calibrated for 1.25V nominal.).
     value: 1
+  - name: Vref2p5
+    description: External Reference. Supports 2.5V in high accuracy mode. High-accuracy IADC variants only (see the chip's reference manual).
+    value: 2
 enum/vals::Cfg0Twoscompl:
   bit_size: 2
   variants:
@@ -1306,6 +1346,12 @@ enum/vals::Cfg0Twoscompl:
 enum/vals::Cfg1Adcmode:
   bit_size: 2
   variants:
+  - name: Highaccuracy
+    description: High accuracy mode with maximum ADC_CLK of 5 MHz. High-accuracy IADC variants only (see the chip's reference manual).
+    value: 2
+  - name: Highspeed
+    description: Double high speed mode with a maximum ADC_CLK of 20 MHz. Power consumption is boosted to allow faster conversions. High-accuracy IADC variants only (see the chip's reference manual).
+    value: 1
   - name: Normal
     description: High speed mode with a maximum ADC_CLK of 10 MHz.
     value: 0
@@ -1345,6 +1391,27 @@ enum/vals::Cfg1Digavg:
   - name: Avg8
     description: Collect and average 8 digital output words.
     value: 3
+enum/vals::Cfg1Osrha:
+  bit_size: 3
+  variants:
+  - name: Hiacc128
+    description: High accuracy over sampling of 128x.
+    value: 4
+  - name: Hiacc16
+    description: High accuracy over sampling of 16x.
+    value: 0
+  - name: Hiacc256
+    description: High accuracy over sampling of 256x.
+    value: 5
+  - name: Hiacc32
+    description: High accuracy over sampling of 32x.
+    value: 1
+  - name: Hiacc64
+    description: High accuracy over sampling of 64x.
+    value: 2
+  - name: Hiacc92
+    description: High accuracy over sampling of 92x.
+    value: 3
 enum/vals::Cfg1Osrhs:
   bit_size: 3
   variants:
@@ -1381,6 +1448,9 @@ enum/vals::Cfg1Refsel:
   - name: Vref
     description: External Reference. (Calibrated for 1.25V nominal.).
     value: 1
+  - name: Vref2p5
+    description: External Reference. Supports 2.5V in high accuracy mode. High-accuracy IADC variants only (see the chip's reference manual).
+    value: 2
 enum/vals::Cfg1Twoscompl:
   bit_size: 2
   variants:
@@ -2563,6 +2633,9 @@ enum/vals::Scantrigsel:
   - name: Immediate
     description: Immediate triggering. The scan queue will be disabled once all conversions in the scan table are complete, unless TRIGGERACTION is set to continuous.
     value: 0
+  - name: Lesense
+    description: Triggers on LESENSE convert request. When using the LESENSE for the SCAN Table, only one entry is converted per LESENSE convert request. Chips with LESENSE only (EFR32FG25).
+    value: 5
   - name: Prsclkgrp
     description: Triggers on PRS0 from a timer module that is using the same clock group as the ADC and has been programmed to use the same clock source as the ADC. The prescale may be different between the ADC and the timer module.
     value: 2

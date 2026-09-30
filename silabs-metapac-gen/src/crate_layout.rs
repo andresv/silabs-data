@@ -320,8 +320,8 @@ pub fn build_chip_pac_rs(chip: &ChipFile, gpio_ports: Option<usize>) -> String {
     s.push_str("// reaches the shared chiptool modules in `src/peripherals/`.\n\n");
 
     // Declare only the (kind, version) pairs this chip uses. Module names keep
-    // the version because one die can have two versions of a kind (EFR32MG26:
-    // `eusart_s2v2` and `eusart_s2v2_lf`).
+    // the version because `src/peripherals/` holds every (kind, version) of
+    // every chip.
     let paired_secure = paired_secure_alias_names(&chip.peripherals);
     let mut kinds: BTreeSet<(String, String)> = BTreeSet::new();
     for p in &chip.peripherals {
