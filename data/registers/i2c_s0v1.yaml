@@ -470,8 +470,8 @@ fieldset/regs::Saddr:
 fieldset/regs::Saddrmask:
   description: Slave Address Mask Register.
   fields:
-  - name: mask
-    description: Slave Address Mask.
+  - name: saddrmask
+    description: Slave Address Mask (MASK in the reference manual).
     bit_offset: 1
     bit_size: 7
 fieldset/regs::State:
@@ -554,13 +554,13 @@ enum/vals::Bito:
   - name: Off
     description: Timeout disabled.
     value: 0
-  - name: _160pcc
+  - name: Pcc160
     description: Timeout after 160 prescaled clock cycles. In standard mode at 100 kHz, this results in a 200us timeout.
     value: 3
-  - name: _40pcc
+  - name: Pcc40
     description: Timeout after 40 prescaled clock cycles. In standard mode at 100 kHz, this results in a 50us timeout.
     value: 1
-  - name: _80pcc
+  - name: Pcc80
     description: Timeout after 80 prescaled clock cycles. In standard mode at 100 kHz, this results in a 100us timeout.
     value: 2
 enum/vals::Clhr:
@@ -581,19 +581,19 @@ enum/vals::Clto:
   - name: Off
     description: Timeout disabled.
     value: 0
-  - name: _1024ppc
+  - name: Pcc1024
     description: Timeout after 1024 prescaled clock cycles. In standard mode at 100 kHz, this results in a 1280us timeout.
     value: 5
-  - name: _160pcc
+  - name: Pcc160
     description: Timeout after 160 prescaled clock cycles. In standard mode at 100 kHz, this results in a 200us timeout.
     value: 3
-  - name: _320ppc
+  - name: Pcc320
     description: Timeout after 320 prescaled clock cycles. In standard mode at 100 kHz, this results in a 400us timeout.
     value: 4
-  - name: _40pcc
+  - name: Pcc40
     description: Timeout after 40 prescaled clock cycles. In standard mode at 100 kHz, this results in a 50us timeout.
     value: 1
-  - name: _80pcc
+  - name: Pcc80
     description: Timeout after 80 prescaled clock cycles. In standard mode at 100 kHz, this results in a 100us timeout.
     value: 2
 enum/vals::Location:

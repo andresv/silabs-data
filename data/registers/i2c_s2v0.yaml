@@ -518,18 +518,18 @@ fieldset/regs::Txdouble:
 enum/vals::Bito:
   bit_size: 2
   variants:
-  - name: I2c160pcc
-    description: Timeout after 160 prescaled clock cycles. In standard mode at 100 kHz, this results in a 200us timeout.
-    value: 3
-  - name: I2c40pcc
-    description: Timeout after 40 prescaled clock cycles. In standard mode at 100 kHz, this results in a 50us timeout.
-    value: 1
-  - name: I2c80pcc
-    description: Timeout after 80 prescaled clock cycles. In standard mode at 100 kHz, this results in a 100us timeout.
-    value: 2
   - name: Off
     description: Timeout disabled.
     value: 0
+  - name: Pcc160
+    description: Timeout after 160 prescaled clock cycles. In standard mode at 100 kHz, this results in a 200us timeout.
+    value: 3
+  - name: Pcc40
+    description: Timeout after 40 prescaled clock cycles. In standard mode at 100 kHz, this results in a 50us timeout.
+    value: 1
+  - name: Pcc80
+    description: Timeout after 80 prescaled clock cycles. In standard mode at 100 kHz, this results in a 100us timeout.
+    value: 2
 enum/vals::Clhr:
   bit_size: 2
   variants:
@@ -545,24 +545,24 @@ enum/vals::Clhr:
 enum/vals::Clto:
   bit_size: 3
   variants:
-  - name: I2c1024pcc
-    description: Timeout after 1024 prescaled clock cycles. In standard mode at 100 kHz, this results in a 1280us timeout.
-    value: 5
-  - name: I2c160pcc
-    description: Timeout after 160 prescaled clock cycles. In standard mode at 100 kHz, this results in a 200us timeout.
-    value: 3
-  - name: I2c320pcc
-    description: Timeout after 320 prescaled clock cycles. In standard mode at 100 kHz, this results in a 400us timeout.
-    value: 4
-  - name: I2c40pcc
-    description: Timeout after 40 prescaled clock cycles. In standard mode at 100 kHz, this results in a 50us timeout.
-    value: 1
-  - name: I2c80pcc
-    description: Timeout after 80 prescaled clock cycles. In standard mode at 100 kHz, this results in a 100us timeout.
-    value: 2
   - name: Off
     description: Timeout disabled.
     value: 0
+  - name: Pcc1024
+    description: Timeout after 1024 prescaled clock cycles. In standard mode at 100 kHz, this results in a 1280us timeout.
+    value: 5
+  - name: Pcc160
+    description: Timeout after 160 prescaled clock cycles. In standard mode at 100 kHz, this results in a 200us timeout.
+    value: 3
+  - name: Pcc320
+    description: Timeout after 320 prescaled clock cycles. In standard mode at 100 kHz, this results in a 400us timeout.
+    value: 4
+  - name: Pcc40
+    description: Timeout after 40 prescaled clock cycles. In standard mode at 100 kHz, this results in a 50us timeout.
+    value: 1
+  - name: Pcc80
+    description: Timeout after 80 prescaled clock cycles. In standard mode at 100 kHz, this results in a 100us timeout.
+    value: 2
 enum/vals::State:
   bit_size: 3
   variants:
