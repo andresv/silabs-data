@@ -202,12 +202,35 @@ pub struct Peripheral {
     pub secure_address: Option<u64>,
     /// Routed peripheral kind (`timer`, `gpio`, `eusart`, …).
     pub kind: &'static str,
-    /// Routed register-YAML version label (`v1_w`, `v7`, `v2_lf`, …).
+    /// Routed register-YAML version label (`s2v1`, `s2v7`, `s0v1`, …).
     /// Together with `kind` this names the `<kind>_<version>` module
     /// at the metapac crate root.
     pub version: &'static str,
     /// Canonical block name inside the register YAML (`Timer`, `Gpio`).
     pub block: &'static str,
+    /// CMU clock-gate bit that turns this peripheral's bus clock on, like
+    /// stm32-metapac's `rcc.enable`. `None` for peripherals that are
+    /// always clocked (CMU, EMU, DEVINFO, ...).
+    pub enable: Option<ClockEnable>,
+}
+
+/// One CMU clock-gate bit.
+///
+/// To set it without a read-modify-write race:
+/// - Series 2: write `1 << bit` to `address + 0x1000` (the register's SET
+///   alias).
+/// - Series 0 (Cortex-M3): write `1` to the bit-band alias word
+///   `0x4200_0000 + (address - 0x4000_0000) * 32 + bit * 4`.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct ClockEnable {
+    /// CMU register name (`clken1`, `hfperclken0`).
+    pub register: &'static str,
+    /// Field name in that register (`timer4`).
+    pub field: &'static str,
+    /// Absolute address of the non-secure CMU register.
+    pub address: u64,
+    /// Bit number of the field.
+    pub bit: u32,
 }
 
 #[derive(Debug, Eq, PartialEq, Clone)]

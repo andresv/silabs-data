@@ -63,6 +63,15 @@ struct PeripheralGroup<'a> {
     secure: Option<&'a PeripheralInstance>,
 }
 
+/// Canonical peripheral names of a chip, as used for `METADATA.peripherals`
+/// and the typed instance consts (one name per NS/S pair).
+pub fn canonical_peripheral_names(chip: &ChipFile) -> Vec<String> {
+    peripheral_groups(&chip.peripherals)
+        .into_values()
+        .map(|g| g.canonical_name)
+        .collect()
+}
+
 /// Collapse each confirmed NS/S pair to one register-layout owner while
 /// retaining the original secure instance (and address) alongside it.
 fn peripheral_groups(peripherals: &[PeripheralInstance]) -> BTreeMap<String, PeripheralGroup<'_>> {
@@ -562,7 +571,7 @@ fn series_literal_for_chip(chip: &ChipFile) -> String {
 ///
 /// One metadata row owns each register layout. For a paired TrustZone
 /// peripheral it carries both the non-secure and secure SVD base addresses.
-pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
+pub fn build_chip_metadata_rs(chip: &ChipFile, clocks: &BTreeMap<String, crate::clocks::ClockEnable>) -> String {
     let mut s = String::new();
     s.push_str("// Per-chip metadata. Generated for ");
     s.push_str(&chip.chip.name);
@@ -611,9 +620,18 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
             .secure
             .map(|secure| format!("Some(0x{:08X})", secure.base_address))
             .unwrap_or_else(|| "None".to_owned());
+        let enable = clocks
+            .get(&group.canonical_name)
+            .map(|c| {
+                format!(
+                    "Some(ClockEnable {{ register: {:?}, field: {:?}, address: 0x{:08X}, bit: {} }})",
+                    c.register, c.field, c.address, c.bit
+                )
+            })
+            .unwrap_or_else(|| "None".to_owned());
         s.push_str(&format!(
-            "        Peripheral {{ name: {:?}, address: 0x{:08X}, secure_address: {}, kind: {:?}, version: {:?}, block: {:?} }},\n",
-            group.canonical_name, p.base_address, secure_address, p.kind, p.register_version, p.block,
+            "        Peripheral {{ name: {:?}, address: 0x{:08X}, secure_address: {}, kind: {:?}, version: {:?}, block: {:?}, enable: {} }},\n",
+            group.canonical_name, p.base_address, secure_address, p.kind, p.register_version, p.block, enable,
         ));
     }
     s.push_str("    ],\n");
@@ -858,7 +876,7 @@ mod tests {
 
     #[test]
     fn metadata_rs_emits_per_kind_register_mod_decls() {
-        let s = build_chip_metadata_rs(&fake_chip());
+        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new());
         assert!(
             s.contains("pub static METADATA: Metadata = Metadata {"),
             "missing METADATA static:\n{s}"
@@ -978,7 +996,7 @@ mod tests {
 
     #[test]
     fn metadata_rs_emits_series_field() {
-        let s = build_chip_metadata_rs(&fake_chip());
+        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new());
         assert!(
             s.contains("series: Series::Series2(6),"),
             "missing series field in metadata.rs:\n{s}"

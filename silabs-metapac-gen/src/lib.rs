@@ -1,4 +1,5 @@
 pub mod cfgs;
+pub mod clocks;
 pub mod codegen;
 pub mod crate_layout;
 pub mod expand_aliases;
