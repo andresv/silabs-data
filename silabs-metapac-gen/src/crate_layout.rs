@@ -314,18 +314,14 @@ pub fn build_chip_pac_rs(chip: &ChipFile, gpio_ports: Option<usize>) -> String {
     s.push_str("// Per-chip PAC content: peripheral module decls, typed peripheral\n");
     s.push_str("// consts, interrupt enum + cortex-m-rt glue, memory map.\n");
     s.push_str(&format!("// Generated for {}.\n//\n", chip.chip.name));
-    s.push_str("// This file is `include!`d at the metapac crate root by `lib.rs`\n");
-    s.push_str("// (selected via the `SILABS_METAPAC_PAC_PATH` env var emitted from\n");
-    s.push_str("// `build.rs`). Mirrors `stm32-metapac`'s `chips/<chip>/pac.rs`\n");
-    s.push_str("// layout — `#[path]` resolves relative to *this* file, so the\n");
-    s.push_str("// `../../peripherals/...` paths below reach the shared chiptool\n");
-    s.push_str("// peripheral modules under `src/peripherals/`.\n\n");
+    s.push_str("// `lib.rs` includes this file at the crate root, through the\n");
+    s.push_str("// `SILABS_METAPAC_PAC_PATH` env var from `build.rs`. `#[path]`\n");
+    s.push_str("// resolves relative to this file, so `../../peripherals/...`\n");
+    s.push_str("// reaches the shared chiptool modules in `src/peripherals/`.\n\n");
 
-    // Per-kind chiptool peripheral mod decls. Each chip declares only
-    // the (kind, version) pairs it actually uses.
-    // Module names keep `<kind>_<version>` to support chips with multiple
-    // versions of the same kind on the same die (e.g. EFR32MG26 with
-    // `eusart_v2` + `eusart_v2_lf`).
+    // Declare only the (kind, version) pairs this chip uses. Module names keep
+    // the version because one die can have two versions of a kind (EFR32MG26:
+    // `eusart_s2v2` and `eusart_s2v2_lf`).
     let paired_secure = paired_secure_alias_names(&chip.peripherals);
     let mut kinds: BTreeSet<(String, String)> = BTreeSet::new();
     for p in &chip.peripherals {
@@ -344,7 +340,7 @@ pub fn build_chip_pac_rs(chip: &ChipFile, gpio_ports: Option<usize>) -> String {
         }
         s.push_str("\n");
 
-        // Version-neutral aliases (`pub use cmu_v3 as cmu;`), emitted when the
+        // Version-neutral aliases (`pub use cmu_s2v3 as cmu;`), emitted when the
         // chip's non-secure peripherals agree on one version of a kind.
         let mut ns_versions: BTreeMap<&String, BTreeSet<&String>> = BTreeMap::new();
         for p in &chip.peripherals {
@@ -697,7 +693,7 @@ mod tests {
                     base_address: 0x5000_E000,
                     version: Some("2".into()),
                     kind: "acmp".into(),
-                    register_version: "v2".into(),
+                    register_version: "s2v2".into(),
                     block: "ACMP".into(),
                 },
                 PeripheralInstance {
@@ -705,7 +701,7 @@ mod tests {
                     base_address: 0x4000_E000,
                     version: Some("2".into()),
                     kind: "acmp".into(),
-                    register_version: "v2".into(),
+                    register_version: "s2v2".into(),
                     block: "ACMP".into(),
                 },
                 PeripheralInstance {
@@ -713,7 +709,7 @@ mod tests {
                     base_address: 0x4000_4000,
                     version: Some("1".into()),
                     kind: "dcdc".into(),
-                    register_version: "v1".into(),
+                    register_version: "s2v1".into(),
                     block: "DCDC".into(),
                 },
             ],
@@ -745,19 +741,19 @@ mod tests {
         // `Sanitize::default()`'s output in the rendered register YAML.
         assert!(
             s.contains(
-                "pub const ACMP0: crate::acmp_v2::Acmp = unsafe { crate::acmp_v2::Acmp::from_ptr(0x5000E000 as *mut ()) };"
+                "pub const ACMP0: crate::acmp_s2v2::Acmp = unsafe { crate::acmp_s2v2::Acmp::from_ptr(0x5000E000 as *mut ()) };"
             ),
             "missing typed ACMP0 const:\n{s}"
         );
         assert!(!s.contains("pub const ACMP0_NS:"), "redundant ACMP0_NS const:\n{s}");
         assert!(
             s.contains(
-                "pub const ACMP0_S: crate::acmp_v2::Acmp = unsafe { crate::acmp_v2::Acmp::from_ptr(0x4000E000 as *mut ()) };"
+                "pub const ACMP0_S: crate::acmp_s2v2::Acmp = unsafe { crate::acmp_s2v2::Acmp::from_ptr(0x4000E000 as *mut ()) };"
             ),
             "missing secure ACMP0_S const:\n{s}"
         );
         assert!(
-            s.contains("pub const DCDC: crate::dcdc_v1::Dcdc"),
+            s.contains("pub const DCDC: crate::dcdc_s2v1::Dcdc"),
             "missing typed DCDC const:\n{s}"
         );
         // Interrupts exist only as `pub enum Interrupt` variants, with no
@@ -769,17 +765,16 @@ mod tests {
         assert!(s.contains("IROM1_BASE: usize = 0x08000000"));
         assert!(s.contains("IROM1_SIZE: usize = 0x00200000"));
 
-        // Per-kind chiptool mod decls — mirrors stm32 pac.rs structure.
-        // Both acmp_v2 (used by ACMP0/1) and dcdc_v1 (used by DCDC) appear once.
+        // One `#[path]` mod decl for each (kind, version) the chip uses.
         assert!(
-            s.contains("#[path = \"../../peripherals/acmp_v2.rs\"]\npub mod acmp_v2;"),
-            "missing acmp_v2 #[path] mod decl:\n{s}"
+            s.contains("#[path = \"../../peripherals/acmp_s2v2.rs\"]\npub mod acmp_s2v2;"),
+            "missing acmp_s2v2 #[path] mod decl:\n{s}"
         );
         assert!(
-            s.contains("#[path = \"../../peripherals/dcdc_v1.rs\"]\npub mod dcdc_v1;"),
-            "missing dcdc_v1 #[path] mod decl:\n{s}"
+            s.contains("#[path = \"../../peripherals/dcdc_s2v1.rs\"]\npub mod dcdc_s2v1;"),
+            "missing dcdc_s2v1 #[path] mod decl:\n{s}"
         );
-        assert_eq!(s.matches("pub mod acmp_v2;").count(), 1);
+        assert_eq!(s.matches("pub mod acmp_s2v2;").count(), 1);
     }
 
     #[test]
@@ -791,7 +786,7 @@ mod tests {
             base_address: 0x5000_0000,
             version: Some("2".into()),
             kind: "eusart".into(),
-            register_version: "v2".into(),
+            register_version: "s2v2".into(),
             block: "EUSART".into(),
         });
         chip.peripherals.push(PeripheralInstance {
@@ -799,7 +794,7 @@ mod tests {
             base_address: 0x5000_1000,
             version: Some("2".into()),
             kind: "eusart".into(),
-            register_version: "v2_lf".into(),
+            register_version: "s2v2_lf".into(),
             block: "EUSART".into(),
         });
         // A secure alias routed to a different version must not suppress the
@@ -810,7 +805,7 @@ mod tests {
             base_address: 0x5000_2000,
             version: Some("2".into()),
             kind: "dmem".into(),
-            register_version: "v2_fg25".into(),
+            register_version: "s2v2_fg25".into(),
             block: "DMEM".into(),
         });
         chip.peripherals.push(PeripheralInstance {
@@ -818,7 +813,7 @@ mod tests {
             base_address: 0x4000_2000,
             version: Some("2".into()),
             kind: "dmem".into(),
-            register_version: "v2".into(),
+            register_version: "s2v2".into(),
             block: "DMEM".into(),
         });
         chip.peripherals.push(PeripheralInstance {
@@ -826,7 +821,7 @@ mod tests {
             base_address: 0x5C00_0000,
             version: Some("1".into()),
             kind: "semailbox_ns_host".into(),
-            register_version: "v1".into(),
+            register_version: "s2v1".into(),
             block: "SEMAILBOX_NS_HOST".into(),
         });
         // Secure `_S_` infix instance shares its NS peer's register type.
@@ -835,14 +830,14 @@ mod tests {
             base_address: 0x4C00_0000,
             version: Some("1".into()),
             kind: "semailbox_s_host".into(),
-            register_version: "v1".into(),
+            register_version: "s2v1".into(),
             block: "SEMAILBOX_S_HOST".into(),
         });
         let s = build_chip_pac_rs(&chip, None);
-        assert!(s.contains("pub use acmp_v2 as acmp;"), "missing acmp alias:\n{s}");
-        assert!(s.contains("pub use dcdc_v1 as dcdc;"), "missing dcdc alias:\n{s}");
+        assert!(s.contains("pub use acmp_s2v2 as acmp;"), "missing acmp alias:\n{s}");
+        assert!(s.contains("pub use dcdc_s2v1 as dcdc;"), "missing dcdc alias:\n{s}");
         assert!(
-            s.contains("pub use dmem_v2_fg25 as dmem;"),
+            s.contains("pub use dmem_s2v2_fg25 as dmem;"),
             "alias must follow the non-secure instance's version:\n{s}"
         );
         assert!(
@@ -850,12 +845,12 @@ mod tests {
             "eusart has two versions, must not be aliased:\n{s}"
         );
         assert!(
-            !s.contains(" as semailbox_s_host;") && !s.contains("pub mod semailbox_s_host_v1;"),
+            !s.contains(" as semailbox_s_host;") && !s.contains("pub mod semailbox_s_host_s2v1;"),
             "secure infix register module must be deduplicated:\n{s}"
         );
         assert!(
             s.contains(
-                "pub const SEMAILBOX_S_HOST: crate::semailbox_ns_host_v1::SemailboxNsHost = unsafe { crate::semailbox_ns_host_v1::SemailboxNsHost::from_ptr(0x4C000000 as *mut ()) };"
+                "pub const SEMAILBOX_S_HOST: crate::semailbox_ns_host_s2v1::SemailboxNsHost = unsafe { crate::semailbox_ns_host_s2v1::SemailboxNsHost::from_ptr(0x4C000000 as *mut ()) };"
             ),
             "secure infix instance must retain its address with the NS type:\n{s}"
         );
@@ -871,12 +866,12 @@ mod tests {
         // Per-kind IR-static mod decls — declared inside `pub mod metadata`
         // so REGISTERS are reachable at `crate::metadata::<kind>_<version>`.
         assert!(
-            s.contains("#[path = \"../../registers/acmp_v2.rs\"]\npub mod acmp_v2;"),
-            "missing acmp_v2 register mod decl:\n{s}"
+            s.contains("#[path = \"../../registers/acmp_s2v2.rs\"]\npub mod acmp_s2v2;"),
+            "missing acmp_s2v2 register mod decl:\n{s}"
         );
         assert!(
-            s.contains("#[path = \"../../registers/dcdc_v1.rs\"]\npub mod dcdc_v1;"),
-            "missing dcdc_v1 register mod decl:\n{s}"
+            s.contains("#[path = \"../../registers/dcdc_s2v1.rs\"]\npub mod dcdc_s2v1;"),
+            "missing dcdc_s2v1 register mod decl:\n{s}"
         );
         assert!(
             s.contains("Peripheral { name: \"ACMP0\", address: 0x5000E000, secure_address: Some(0x4000E000)"),

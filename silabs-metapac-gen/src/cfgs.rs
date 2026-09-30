@@ -8,9 +8,9 @@
 //! Names, for a chip with LETIMER0 at version `s0v1`:
 //! - `letimer` — the chip has the kind.
 //! - `letimer_s0v1` — exact register version.
-//! - `letimer_s0` — any Series 0 version (only for `s<N>v<M>` labels).
-//! - For `_`-separated labels every prefix: `eusart_v2_lf` also gives
-//!   `eusart_v2` (same rule as embassy-stm32's `foreach_version_cfg`).
+//! - `letimer_s0` — any Series 0 version.
+//! - Every `_`-separated prefix of the label: `eusart_s2v2_lf` also gives
+//!   `eusart_s2v2`.
 //! - `silabs_series="0"`, and `silabs_series_2_config="4"` for chips
 //!   with a config number (Series 1+).
 
@@ -157,7 +157,7 @@ mod tests {
 
     #[test]
     fn underscore_label_adds_every_prefix() {
-        assert_eq!(version_cfgs("eusart", "v2_lf"), ["eusart", "eusart_v2", "eusart_v2_lf"]);
-        assert_eq!(version_cfgs("timer", "v1"), ["timer", "timer_v1"]);
+        assert_eq!(version_cfgs("eusart", "s2v2_lf"), ["eusart", "eusart_s2", "eusart_s2v2", "eusart_s2v2_lf"]);
+        assert_eq!(version_cfgs("timer", "s2v1"), ["timer", "timer_s2", "timer_s2v1"]);
     }
 }

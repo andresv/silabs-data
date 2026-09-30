@@ -44,14 +44,14 @@ One feature per OPN gates the chip's content; pick exactly one. Enable the `rt` 
 
 - Run `./d seed`
 
-  > Extracts every peripheral on every chip in `silabs-data-source/families.toml`, applies `transforms/<KIND>.yaml` if present, buckets by `(kind, version)`, and writes one `data/registers/<kind>_v<version>.yaml` per bucket. Hash-bails on cross-chip divergence so an inconsistency surfaces instead of being silently merged.
+  > Extracts every peripheral on every chip in `silabs-data-source/families.toml`, applies `transforms/<KIND>.yaml` if present, buckets by `(kind, version)`, and writes one `data/registers/<kind>_<version>.yaml` per bucket. Hash-bails on cross-chip divergence so an inconsistency surfaces instead of being silently merged.
 
 ## Data sources
 
 Silicon Labs CMSIS DFP packs:
 
 - SVD per OPN — peripheral base addresses and register maps. **Authoritative for register layout.** Its `<interrupt>` blocks are intentionally **not** consulted (the public SVD omits radio peripheral IRQs — FRC, MODEM, AGC, BUFC, PROTIMER, SYNTH, RAC_*, RFECA*).
-- Per-chip CMSIS device header (`Device/SiliconLabs/<FAMILY>/Include/<chip>.h`) — **authoritative for the IRQ table.** Parsed by `silabs-data-gen/src/header.rs` for `<NAME>_IRQn = <N>,` enum members. Mirrors stm32-data's approach (`stm32-data-gen/src/header.rs`), which treats the C header as the sole source of truth for interrupts.
+- Per-chip CMSIS device header (`Device/SiliconLabs/<FAMILY>/Include/<chip>.h`) — **authoritative for the IRQ table.** Parsed by `silabs-data-gen/src/header.rs` for `<NAME>_IRQn = <N>,` enum members.
 - pdsc manifest — chip list, memory map, package info, SVD↔OPN mapping.
 
 No `header_map.yaml` analogue is required, and no CubeDB-style separate XML database either — pdsc is sufficient.
@@ -60,14 +60,14 @@ Series 0 and Series 1 packs (EFM32 Gecko, EFM32/EFR32 xG1x) stopped at version 4
 
 ## Per-register YAML curation policy
 
-For register blocks, YAMLs are initially extracted from SVDs, **manually cleaned up and committed. From this point on, they're manually maintained.** We don't maintain "patches". Fixing mistakes and typos in SVDs is done by editing `data/registers/<kind>_v<version>.yaml` directly — not by patching the SVD or by re-running `./d seed`.
+For register blocks, YAMLs are initially extracted from SVDs, **manually cleaned up and committed. From this point on, they're manually maintained.** We don't maintain "patches". Fixing mistakes and typos in SVDs is done by editing `data/registers/<kind>_<version>.yaml` directly — not by patching the SVD or by re-running `./d seed`.
 
 Regenerating (`./d gen-all`) reads `data/registers/` as **input** and writes only to `build/`. It never overwrites the curated YAMLs. The `./d seed` command is the sole writer to `data/registers/` and is a manual, infrequent bootstrap operation.
 
 Two payoffs from this policy:
 
 - **Fixing vendor mistakes is trivial.** Edit the YAML, commit. No patch system, no diff dance.
-- **Consistency across chips.** Each `(kind, version)` has exactly one canonical YAML, shared by every chip that uses it. A HAL written against `gpio_v3` works on every chip that routes to `gpio_v3` — that's the whole point.
+- **Consistency across chips.** Each `(kind, version)` has exactly one canonical YAML, shared by every chip that uses it. A HAL written against `gpio_s2v3` works on every chip that routes to `gpio_s2v3` — that's the whole point.
 
 ## Toolchain pipeline
 
@@ -92,19 +92,17 @@ Three stages:
                                                                                        v
                                                                       build/silabs-metapac/
                                                                       Cargo.toml (one feature per OPN)
-                                                                      src/registers/<kind>_v<v>.rs
+                                                                      src/registers/<kind>_<v>.rs
                                                                       src/chips/<chip>/{mod.rs, device.x}
 ```
 
 1. **Source acquisition** — `./d download-all` fetches packs into `silabs-data-source/packs/`.
 2. **JSON generation** — `silabs-data-gen gen` parses each chip's pdsc + SVD and emits one JSON per chip into `build/data/chips/`. Per peripheral, the chip JSON records its perimap-routed `(kind, version, block)` triple.
-3. **PAC generation** — `silabs-metapac-gen gen` reads the chip JSONs + the committed `data/registers/<kind>_v<version>.yaml` + `transforms/<KIND>.yaml` and emits the metapac crate into `build/silabs-metapac/`.
+3. **PAC generation** — `silabs-metapac-gen gen` reads the chip JSONs + the committed `data/registers/<kind>_<version>.yaml` + `transforms/<KIND>.yaml` and emits the metapac crate into `build/silabs-metapac/`.
 
 The `seed` subcommand sits outside this normal pipeline. It exists only to (re-)write `data/registers/` from raw SVDs on first bootstrap of a family.
 
 ## Adding support for a new peripheral
-
-(Adapted from stm32-data's recipe.)
 
 - First, make sure you can regenerate the YAMLs following the steps above. You should be able to run `./d seed` against the current chip set and end up with no diff to the committed `data/registers/`.
 - Run `./d seed --chips '<chip regex>' --candidates-dir tmp/candidates`. When chips disagree on a `(kind, version)`, this writes every distinct extraction to `tmp/candidates/<kind>_<version>/<hash>.yaml` (gitignored), with `index.txt` listing which chip peripherals produced each one.
@@ -113,10 +111,10 @@ The `seed` subcommand sits outside this normal pipeline. It exists only to (re-)
   2. SVD inconsistencies — same register, different names across chips.
   3. SVD mistakes — yes, there are some.
   4. Missing stuff in SVDs — usually enums or doc descriptions.
-- Identify how many actually-different (incompatible) versions of the peripheral exist — they must *not* be merged. Name them `v1`, `v2`, … in order of chip release date where possible.
-- For each version, pick the "best" extraction (most complete, fewest mistakes, richest doc strings). Copy to `data/registers/<kind>_v<N>.yaml`.
+- Identify how many actually-different (incompatible) versions of the peripheral exist — they must *not* be merged. Label them as described in "Version labels" below.
+- For each version, pick the "best" extraction (most complete, fewest mistakes, richest doc strings). Copy to `data/registers/<kind>_<version>.yaml`.
 - Hand-clean (see "Register cleanup" below).
-- Minimise the diff between adjacent versions. If `<kind>_v<N+1>.yaml` is missing an enum description that `<kind>_v<N>.yaml` has, copy it across.
+- Minimise the diff between adjacent versions. If `<kind>_s2v<N+1>.yaml` is missing an enum description that `<kind>_s2v<N>.yaml` has, copy it across.
 - Set the block name correctly — strip the `_NS` TrustZone suffix (the canonical block name is `GPIO`, not `GPIO_NS`).
 - Add `perimap` entries in `silabs-data-gen/src/perimap.rs` routing the relevant `(chip, peripheral_name, svd_version)` triples to the right `(kind, version, block)`. See "perimap" below.
 - Regenerate (`./d gen-all`), check `data/chips/*.json` has the right `block:` field, ensure a successful build for at least one chip per affected family.
@@ -153,9 +151,16 @@ First match wins. Entries are explicit so future SVD drift doesn't silently chan
 
 `perimap` is also where we split structurally-different peripherals that the SVD `<version>` field accidentally merges, and where we strip the vendor `_NS` suffix from block names. SVD `<version>` is the *default* — perimap overrides it when reality disagrees.
 
+### Version labels
+
+Every version label starts with the chip's series: `s<series>v<N>`, optionally followed by a descriptive suffix. The metapac module names (`timer_s2v1`) and the version cfgs (`timer_s2`, `timer_s2v1`) come from the label, so they look the same on every series.
+
+- Series 2 and later SVDs carry a `<peripheral><version>` tag. The default label is `s<series>v<tag>`, for example `gpio_s2v3`.
+- When the SVD gives one tag to blocks that really differ, a perimap row adds a suffix, for example `smu_s2v3_mvp`.
+
 ### Unversioned SVDs
 
-Chips whose SVDs have no peripheral versions get their label from `perimap::UNVERSIONED` (chip regex → label). Labels follow `s<series>v<N>`, numbered per series in release order (EFM32GG is `s0v1`). `ENTRIES` rows still win, so a block that differs from the family default is split with an `ENTRIES` row. An unversioned peripheral with no route is a hard error.
+Chips whose SVDs have no peripheral versions get their label from `perimap::UNVERSIONED` (chip regex → label). These labels are numbered per series in release order (EFM32GG is `s0v1`). `ENTRIES` rows still win, so a block that differs from the family default is split with an `ENTRIES` row. An unversioned peripheral with no route is a hard error.
 
 ## Adding a new chip family
 
@@ -171,7 +176,7 @@ Chips whose SVDs have no peripheral versions get their label from `perimap::UNVE
 Load-bearing rules that future automation should pick up:
 
 1. **`data/registers/` is build input, never overwrite.** The only writer is `./d seed`, and that's a manual bootstrap. `./d gen-all` reads from `data/registers/` and writes only to `build/`.
-2. **Commit subjects are plain and descriptive.** No phase tags, no progress markers, no agent-speak, no co-author trailers. `Add gpio_v3.yaml`, not `Phase 5.2 done: add gpio`.
+2. **Commit subjects are plain and descriptive.** No phase tags, no progress markers, no agent-speak, no co-author trailers. `Add gpio_s2v3.yaml`, not `Phase 5.2 done: add gpio`.
 3. **Plan files are not committed.** Working plans live on disk but are gitignored (`*-plan.md`, `*.plan.md`, `RESET-PLAN.md`).
 4. **The user pushes, not the agent.** Hand off after the work is committed; never `git push`.
 5. **Hash-bail on `(kind, version)` divergence.** When two chips extract to the same `(kind, version)` but produce different IR, stop and surface it. Resolve via transform / hand-curation / perimap split — never via auto-fingerprint-suffix or silent merge.
@@ -181,7 +186,7 @@ Load-bearing rules that future automation should pick up:
 - `silabs-data-gen/` — Rust binary: pack → per-chip JSON, plus perimap-driven peripheral routing.
 - `silabs-metapac-gen/` — Rust binary: JSON + curated YAMLs + chiptool → per-IP register modules + typed-const chip mods.
 - `transforms/<KIND>.yaml` — chiptool transforms applied during `./d seed` and `./d gen-all`. Sparse — only kinds that need cleanup have a file.
-- `data/registers/<kind>_v<version>.yaml` — committed source-of-truth register IR, one per `(kind, version)`. Hand-maintained.
+- `data/registers/<kind>_<version>.yaml` — committed source-of-truth register IR, one per `(kind, version)`. Hand-maintained.
 - `d` — shell driver wrapping the most common workflows.
 - `build/` — gitignored generated outputs (silabs-metapac, per-chip JSON, pack-extracted dirs).
 

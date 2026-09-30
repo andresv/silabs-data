@@ -1,4 +1,4 @@
-use anyhow::Result;
+use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 
 use crate::header::HeaderIrq;
@@ -23,7 +23,7 @@ pub struct PeripheralInstance {
     /// Canonical kind (lowercase, no `_NS`/`_S` suffix, no trailing digits).
     /// Routed via `perimap`. Example: `gpio`, `eusart`, `timer`.
     pub kind: String,
-    /// Routed register-YAML version label, e.g. `v3`, `v7`, `v2_lf`.
+    /// Routed register-YAML version label, e.g. `s2v3`, `s2v7`, `s0v1`.
     /// Names the `data/registers/<kind>_<version>.yaml` file the peripheral
     /// uses for its register layout.
     pub register_version: String,
@@ -44,10 +44,15 @@ pub fn build(
     header_irqs: &[HeaderIrq],
     perimap_entries: &[Entry],
 ) -> Result<ChipFile> {
+    let series = chip
+        .series
+        .as_ref()
+        .with_context(|| format!("{}: series must be set before routing peripherals", chip.name))?
+        .series;
     let instances = peripherals
         .iter()
         .map(|p| {
-            let route = perimap::route(perimap_entries, &chip.name, &p.name, p.version.as_deref())?;
+            let route = perimap::route(perimap_entries, &chip.name, &p.name, p.version.as_deref(), series)?;
             Ok(PeripheralInstance {
                 name: p.name.clone(),
                 base_address: p.base_address,
@@ -66,17 +71,8 @@ pub fn build(
     })
 }
 
-/// Build the chip's interrupt table from the CMSIS device header.
-///
-/// The header (`Device/SiliconLabs/<FAMILY>/Include/<chip>.h`) is the
-/// authoritative IRQ table — it lists every vector slot including the
-/// radio peripherals (FRC, MODEM, AGC, BUFC, PROTIMER, SYNTH, RAC_*,
-/// RFECA*) that the public SVD omits. The SVD's `<interrupt>` blocks
-/// are intentionally ignored: they're an incomplete subset and using
-/// only the header matches stm32-data's approach
-/// (`stm32-data-gen/src/interrupts.rs`).
-///
-/// Output is sorted by IRQ value for determinism.
+/// Build the chip's interrupt table from the CMSIS device header (see
+/// [`crate::header`] for why not the SVD), sorted by IRQ value.
 fn build_interrupts(header: &[HeaderIrq]) -> Vec<Interrupt> {
     let mut out: Vec<Interrupt> = header
         .iter()
@@ -111,13 +107,11 @@ mod tests {
         }
     }
 
-    /// Verify that `build()` threads the perimap-routed `(kind, version,
-    /// block)` triple from each `Entry` into the corresponding
-    /// `PeripheralInstance` and that the result round-trips through JSON.
+    /// `build()` copies the routed `(kind, version, block)` of each `Entry`
+    /// into its `PeripheralInstance`, and the result round-trips through JSON.
     ///
-    /// Uses a hand-rolled minimal `Entry` list (not `perimap::compile()`),
-    /// so adding real perimap entries doesn't churn this test. The actual
-    /// routing semantics of real entries are covered by `perimap.rs` tests.
+    /// A hand-made `Entry` list keeps this test stable when the real perimap
+    /// entries change. The `perimap.rs` tests cover the real entries.
     #[test]
     fn build_threads_routed_kind_version_block_into_json() {
         use regex::Regex;
@@ -160,9 +154,9 @@ mod tests {
         assert_eq!(cf.peripherals[0].block, "FooBlock");
 
         // Routed via default — strip `_NS`, strip trailing digit, lowercase kind,
-        // prepend `v` to SVD version, block name without suffix.
+        // prepend `s<series>v` to the SVD version, block name without suffix.
         assert_eq!(cf.peripherals[1].kind, "bar");
-        assert_eq!(cf.peripherals[1].register_version, "v3");
+        assert_eq!(cf.peripherals[1].register_version, "s2v3");
         assert_eq!(cf.peripherals[1].block, "BAR");
 
         // JSON round-trip.
@@ -170,13 +164,11 @@ mod tests {
         let back: ChipFile = serde_json::from_str(&json).unwrap();
         assert_eq!(back.peripherals[0].kind, "foo");
         assert_eq!(back.peripherals[0].block, "FooBlock");
-        assert_eq!(back.peripherals[1].register_version, "v3");
+        assert_eq!(back.peripherals[1].register_version, "s2v3");
     }
 
-    /// The header drives the chip's interrupt table verbatim — including
-    /// radio peripherals (FRC, MODEM, AGC, BUFC, …) that the public SVD
-    /// omits. Output is sorted by IRQ value for deterministic device.x
-    /// ordering.
+    /// The header gives the interrupt table verbatim. Sorting by IRQ value
+    /// keeps `device.x` deterministic.
     #[test]
     fn build_interrupts_uses_header_verbatim_sorted_by_value() {
         let header = vec![
