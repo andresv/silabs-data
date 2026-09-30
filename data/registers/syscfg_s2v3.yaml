@@ -157,6 +157,18 @@ fieldset/regs::Dmem0portmapsel:
     description: SRWECA1 portmap selection.
     bit_offset: 8
     bit_size: 2
+  - name: mvpahbdata0portsel
+    description: MVPAHBDATA0 portmap selection. Chips with MVP only; reserved elsewhere.
+    bit_offset: 10
+    bit_size: 2
+  - name: mvpahbdata1portsel
+    description: MVPAHBDATA1 portmap selection. Chips with MVP only; reserved elsewhere.
+    bit_offset: 12
+    bit_size: 2
+  - name: mvpahbdata2portsel
+    description: MVPAHBDATA2 portmap selection. Chips with MVP only; reserved elsewhere.
+    bit_offset: 14
+    bit_size: 2
 fieldset/regs::Dmem0retnctrl:
   description: Configure to provide general RAM retention configuration.
   fields:

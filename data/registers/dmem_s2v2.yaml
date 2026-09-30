@@ -91,6 +91,10 @@ fieldset/regs::Ctrl:
     description: Address fault bus fault enable.
     bit_offset: 6
     bit_size: 1
+  - name: waitstates
+    description: RAM read wait states. EFR32MG24 only; reserved elsewhere.
+    bit_offset: 7
+    bit_size: 1
 fieldset/regs::Eccerraddr0:
   description: No Description.
   fields:

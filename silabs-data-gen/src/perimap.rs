@@ -66,52 +66,11 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     // HIGHACCURACY / HIGHSPEED ADCMODE and VREF2P5. FG25 adds a LESENSE scan
     // trigger. These only add fields and enum values, so `iadc_s2v3.yaml` is
     // the superset of every <version>3</version> IADC.
-    // SMU MVP-aware variant. Chips that include the MVP peripheral add
-    // MVPAHBDATA0..2 fields and an MVP privilege/secure-access bit to
-    // SMU's access-control registers. We enumerate the chip patterns
-    // that ship MVP (see `grep MVP_NS` across each pack):
-    //
-    //   MG24: B210 / B220 / B310
-    //   MG26: B410 / B420 / B510 / B520 / B610  (all last-digit-0 in 4xx-6xx)
-    //
-    // SMU version stays v3 on MG24, v7 on MG26 — the divergence is the
-    // chip's MVP presence, not the SMU IP version.
-    ("EFR32MG24B[23][0-9][0-9]F.*:SMU_NS:.*", "smu", "s2v3_mvp", "SMU"),
-    ("EFR32MG26B[456][0-9]0F.*:SMU_NS:.*", "smu", "s2v7_mvp", "SMU"),
-    // SYSCFG MVP-aware variant. Same chip set as SMU above adds
-    // MVPAHBDATA0/1/2 PORTSEL fields to SYSCFG's port-select register.
-    ("EFR32MG24B[23][0-9][0-9]F.*:SYSCFG_NS:.*", "syscfg", "s2v3_mvp", "SYSCFG"),
-    ("EFR32MG26B[456][0-9]0F.*:SYSCFG_NS:.*", "syscfg", "s2v9_mvp", "SYSCFG"),
-    // SMU_NS_CFGNS / SMU_S_CFGNS MVP-aware variants. Same chip set as SMU.
-    (
-        "EFR32MG24B[23][0-9][0-9]F.*:SMU_NS_CFGNS:.*",
-        "smu_ns_cfgns",
-        "s2v3_mvp",
-        "SMU_NS_CFGNS",
-    ),
-    (
-        "EFR32MG24B[23][0-9][0-9]F.*:SMU_S_CFGNS:.*",
-        "smu_s_cfgns",
-        "s2v3_mvp",
-        "SMU_S_CFGNS",
-    ),
-    (
-        "EFR32MG26B[456][0-9]0F.*:SMU_NS_CFGNS:.*",
-        "smu_ns_cfgns",
-        "s2v7_mvp",
-        "SMU_NS_CFGNS",
-    ),
-    (
-        "EFR32MG26B[456][0-9]0F.*:SMU_S_CFGNS:.*",
-        "smu_s_cfgns",
-        "s2v7_mvp",
-        "SMU_S_CFGNS",
-    ),
-    // DMEM wait-states variant. MG24 has a single DMEM_NS instance that
-    // exposes a CTRL.WAITSTATES bit (RAM read wait-states). MG26 has two
-    // DMEM instances (DMEM0_NS, DMEM1_NS) without that field. Both report
-    // <version>2</version>; the WAITSTATES bit is the only IR difference.
-    ("EFR32MG24.*:DMEM_NS:.*", "dmem", "s2v2_ws", "DMEM"),
+    // SMU, SMU_*_CFGNS, SYSCFG, DMEM and VDAC need no rows. Chips with MVP
+    // add MVP access-control and port-select fields. MG24's DMEM adds
+    // CTRL.WAITSTATES. FG25's DMEM has two AHB ports instead of four, and its
+    // VDAC adds a LESENSE trigger. None of that moves or resizes a field, so
+    // each (kind, version) is one superset YAML.
     // DEVINFO is a per-family factory-programmed block. Both families
     // report <version>0.0</version>, but their register layouts differ
     // (calibration data, chip-specific fields).
@@ -123,14 +82,6 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     // narrow. Reuse the shared timer_s2v1 blocks.
     ("EFR32FG25.*:TIMER[01]_NS:.*", "timer", "s2v1", "TIMER32"),
     ("EFR32FG25.*:TIMER[2-7]_NS:.*", "timer", "s2v1", "TIMER"),
-    // The following two peripherals share an SVD <version> with the MG2x
-    // curated YAMLs but extract to a structurally different IR on FG25
-    // (config 5). Pin FG25-specific labels so they don't collide with the
-    // MG2x buckets. (All other shared (kind,version) buckets — EUSART,
-    // TIMER, I2C, BURTC, … — extract identically across FG25/MG24/MG26 and
-    // are reused.)
-    ("EFR32FG25.*:DMEM_NS:.*", "dmem", "s2v2_fg25", "DMEM"),
-    ("EFR32FG25.*:VDAC[0-9]+_NS:.*", "vdac", "s2v2_fg25", "VDAC"),
     // --- EFR32MG22 (Series 2, config 2) ---
     // TIMER split: on MG22 only TIMER0 is the wide (32-bit) timer. TIMER1..4
     // are 16-bit. They share <version>0</version> and differ only in field

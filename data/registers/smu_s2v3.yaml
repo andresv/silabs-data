@@ -120,6 +120,18 @@ fieldset/regs::Bmpupatd0:
     description: MCU LDMA privileged mode.
     bit_offset: 2
     bit_size: 1
+  - name: mvpahbdata0
+    description: MVPAHBDATA0 privileged mode. Chips with MVP only; reserved elsewhere.
+    bit_offset: 3
+    bit_size: 1
+  - name: mvpahbdata1
+    description: MVPAHBDATA1 privileged mode. Chips with MVP only; reserved elsewhere.
+    bit_offset: 4
+    bit_size: 1
+  - name: mvpahbdata2
+    description: MVPAHBDATA2 privileged mode. Chips with MVP only; reserved elsewhere.
+    bit_offset: 5
+    bit_size: 1
   - name: rfeca0
     description: RFECA0 privileged mode.
     bit_offset: 6
@@ -146,6 +158,18 @@ fieldset/regs::Bmpusatd0:
   - name: ldma
     description: MCU LDMA secure mode.
     bit_offset: 2
+    bit_size: 1
+  - name: mvpahbdata0
+    description: MVPAHBDATA0 secure mode. Chips with MVP only; reserved elsewhere.
+    bit_offset: 3
+    bit_size: 1
+  - name: mvpahbdata1
+    description: MVPAHBDATA1 secure mode. Chips with MVP only; reserved elsewhere.
+    bit_offset: 4
+    bit_size: 1
+  - name: mvpahbdata2
+    description: MVPAHBDATA2 secure mode. Chips with MVP only; reserved elsewhere.
+    bit_offset: 5
     bit_size: 1
   - name: rfeca0
     description: RFECA0 secure mode.
@@ -494,6 +518,10 @@ fieldset/regs::Ppupatd1:
     description: SEMAILBOX Privileged Access.
     bit_offset: 19
     bit_size: 1
+  - name: mvp
+    description: MVP Privileged Access. Chips with MVP only; reserved elsewhere.
+    bit_offset: 20
+    bit_size: 1
   - name: ahbradio
     description: AHBRADIO Privileged Access.
     bit_offset: 21
@@ -707,6 +735,10 @@ fieldset/regs::Ppusatd1:
   - name: semailbox
     description: SEMAILBOX Secure Access.
     bit_offset: 19
+    bit_size: 1
+  - name: mvp
+    description: MVP Secure Access. Chips with MVP only; reserved elsewhere.
+    bit_offset: 20
     bit_size: 1
   - name: ahbradio
     description: AHBRADIO Secure Access.

@@ -55,6 +55,18 @@ fieldset/regs::Bmpunspatd0:
     description: LDMA Privileged Mode.
     bit_offset: 2
     bit_size: 1
+  - name: mvpahbdata0
+    description: MVPAHBDATA0 Privileged Mode. Chips with MVP only; reserved elsewhere.
+    bit_offset: 3
+    bit_size: 1
+  - name: mvpahbdata1
+    description: MVPAHBDATA1 Privileged Mode. Chips with MVP only; reserved elsewhere.
+    bit_offset: 4
+    bit_size: 1
+  - name: mvpahbdata2
+    description: MVPAHBDATA2 Privileged Mode. Chips with MVP only; reserved elsewhere.
+    bit_offset: 5
+    bit_size: 1
   - name: rfeca0
     description: RFECA0 Privileged Mode.
     bit_offset: 6
@@ -375,6 +387,10 @@ fieldset/regs::Ppunspatd2:
   - name: semailbox
     description: SEMAILBOX Privileged Access.
     bit_offset: 1
+    bit_size: 1
+  - name: mvp
+    description: MVP Privileged Access. Chips with MVP only; reserved elsewhere.
+    bit_offset: 2
     bit_size: 1
   - name: ahbradio
     description: AHBRADIO Privileged Access.

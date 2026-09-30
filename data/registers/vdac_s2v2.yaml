@@ -566,6 +566,9 @@ enum/vals::Ch0cfgTrigmode:
   - name: Internaltimer
     description: Channel 0 is triggered by Internal Timer Overflow.
     value: 4
+  - name: Lesense
+    description: Channel 0 is triggered by LESENSE. Chips with LESENSE only (EFR32FG25).
+    value: 3
   - name: None
     description: No Conversion Trigger Source Selected for Channel 0.
     value: 0
@@ -617,6 +620,9 @@ enum/vals::Ch1cfgTrigmode:
   - name: Internaltimer
     description: Channel 1 is triggered by Internal Timer Overflow.
     value: 4
+  - name: Lesense
+    description: Channel 1 is triggered by LESENSE. Chips with LESENSE only (EFR32FG25).
+    value: 3
   - name: None
     description: No Conversion Trigger Source Selected for Channel 1.
     value: 0
