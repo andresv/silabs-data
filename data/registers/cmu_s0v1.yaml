@@ -635,6 +635,7 @@ fieldset/regs::Pcntctrl:
     description: PCNT0 Clock Select.
     bit_offset: 1
     bit_size: 1
+    enum: vals::Pcntclksel
   - name: pcnt1clken
     description: PCNT1 Clock Enable.
     bit_offset: 2
@@ -643,6 +644,7 @@ fieldset/regs::Pcntctrl:
     description: PCNT1 Clock Select.
     bit_offset: 3
     bit_size: 1
+    enum: vals::Pcntclksel
   - name: pcnt2clken
     description: PCNT2 Clock Enable.
     bit_offset: 4
@@ -651,6 +653,7 @@ fieldset/regs::Pcntctrl:
     description: PCNT2 Clock Select.
     bit_offset: 5
     bit_size: 1
+    enum: vals::Pcntclksel
 fieldset/regs::Route:
   description: I/O Routing Register.
   fields:
@@ -1197,6 +1200,15 @@ enum/vals::Lockkey:
     value: 1
   - name: Unlocked
     value: 0
+enum/vals::Pcntclksel:
+  bit_size: 1
+  variants:
+  - name: Lfaclk
+    description: LFACLK is clocking PCNTn.
+    value: 0
+  - name: Pcnts0
+    description: External pin PCNTn_S0 is clocking PCNTn.
+    value: 1
 enum/vals::Rtc:
   bit_size: 4
   variants:

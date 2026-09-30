@@ -208,10 +208,50 @@ pub struct Peripheral {
     pub version: &'static str,
     /// Canonical block name inside the register YAML (`Timer`, `Gpio`).
     pub block: &'static str,
-    /// CMU clock-gate bit that turns this peripheral's bus clock on, like
-    /// stm32-metapac's `rcc.enable`. `None` for peripherals that are
-    /// always clocked (CMU, EMU, DEVINFO, ...).
+    /// Register layout of `<kind>_<version>`. Build scripts use it to find
+    /// fields and enums.
+    pub ir: &'static ir::IR,
+    /// CMU data. `None` when the peripheral has neither a clock gate nor a
+    /// kernel clock (CMU, EMU, DEVINFO, ...).
+    pub cmu: Option<PeripheralCmu>,
+}
+
+/// CMU data of one peripheral.
+///
+/// There is no bus clock or reset entry: Silicon Labs chips have no
+/// per-peripheral reset bits.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct PeripheralCmu {
+    /// Clock-gate bit that turns the peripheral's bus clock on. `None`
+    /// when the peripheral is always clocked.
     pub enable: Option<ClockEnable>,
+    /// Clock that drives the peripheral (baud rate, counter, sampling).
+    /// `None` when the peripheral has no kernel clock of its own.
+    pub kernel_clock: Option<PeripheralCmuKernelClock>,
+}
+
+/// Source of a peripheral's kernel clock.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub enum PeripheralCmuKernelClock {
+    /// A fixed clock-tree node, in lowercase: `em01grpaclk`, `pclk`,
+    /// `lspclk`, `hfperclk`, ... Group clocks such as EM01GRPACLK have
+    /// their own mux, which the HAL sets when it sets up the clock tree.
+    Clock(&'static str),
+    /// A CMU select field of this peripheral (`eusart0clkctrl.clksel`).
+    /// The field has an enum. Each variant names a source clock, in the
+    /// same lowercase form as [`PeripheralCmuKernelClock::Clock`]. A `rt`
+    /// suffix (`Hfxort`) is the retimed copy of the same clock, and
+    /// `Hclkdiv1024` is HCLK divided by 1024.
+    Mux(PeripheralCmuRegister),
+}
+
+/// A field in a CMU register.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct PeripheralCmuRegister {
+    /// Register name as in the register YAML (`eusart0clkctrl`).
+    pub register: &'static str,
+    /// Field name (`clksel`).
+    pub field: &'static str,
 }
 
 /// One CMU clock-gate bit.

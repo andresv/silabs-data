@@ -282,9 +282,9 @@ fn run_gen(
 
         // HAL build scripts read the chip metadata to generate singletons.
         let names = crate_layout::canonical_peripheral_names(chip);
-        let clocks = silabs_metapac_gen::clocks::clock_enables(chip, &names, &irs)
-            .with_context(|| format!("clock enables for {}", chip.chip.name))?;
-        let metadata_rs = crate_layout::build_chip_metadata_rs(chip, &clocks);
+        let cmu = silabs_metapac_gen::clocks::peripheral_cmu(chip, &names, &irs)
+            .with_context(|| format!("CMU data for {}", chip.chip.name))?;
+        let metadata_rs = crate_layout::build_chip_metadata_rs(chip, &cmu);
         std::fs::write(chip_dir.join("metadata.rs"), metadata_rs)?;
         silabs_metapac_gen::cfgs::write_chip_cfgs(chip, &chip_dir.join("cfgs.txt"))?;
 

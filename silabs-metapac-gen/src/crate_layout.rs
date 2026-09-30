@@ -563,6 +563,27 @@ fn series_literal_for_chip(chip: &ChipFile) -> String {
     }
 }
 
+fn peripheral_cmu_literal(c: &crate::clocks::PeripheralCmu) -> String {
+    use crate::clocks::KernelClock;
+    let enable = c
+        .enable
+        .as_ref()
+        .map(|e| {
+            format!(
+                "Some(ClockEnable {{ register: {:?}, field: {:?}, address: 0x{:08X}, bit: {} }})",
+                e.register, e.field, e.address, e.bit
+            )
+        })
+        .unwrap_or_else(|| "None".to_owned());
+    let kernel_clock = match &c.kernel_clock {
+        None => "None".to_owned(),
+        Some(KernelClock::Clock(name)) => format!("Some(PeripheralCmuKernelClock::Clock({name:?}))"),
+        Some(KernelClock::Mux { register, field }) => format!(
+            "Some(PeripheralCmuKernelClock::Mux(PeripheralCmuRegister {{ register: {register:?}, field: {field:?} }}))"
+        ),
+    };
+    format!("PeripheralCmu {{ enable: {enable}, kernel_clock: {kernel_clock} }}")
+}
 /// Build the `chips/<chip>/metadata.rs` content from a parsed `ChipFile`.
 ///
 /// The file holds `pub static METADATA: Metadata`. It is included into the
@@ -571,7 +592,7 @@ fn series_literal_for_chip(chip: &ChipFile) -> String {
 ///
 /// One metadata row owns each register layout. For a paired TrustZone
 /// peripheral it carries both the non-secure and secure SVD base addresses.
-pub fn build_chip_metadata_rs(chip: &ChipFile, clocks: &BTreeMap<String, crate::clocks::ClockEnable>) -> String {
+pub fn build_chip_metadata_rs(chip: &ChipFile, cmu: &BTreeMap<String, crate::clocks::PeripheralCmu>) -> String {
     let mut s = String::new();
     s.push_str("// Per-chip metadata. Generated for ");
     s.push_str(&chip.chip.name);
@@ -620,18 +641,13 @@ pub fn build_chip_metadata_rs(chip: &ChipFile, clocks: &BTreeMap<String, crate::
             .secure
             .map(|secure| format!("Some(0x{:08X})", secure.base_address))
             .unwrap_or_else(|| "None".to_owned());
-        let enable = clocks
+        let cmu = cmu
             .get(&group.canonical_name)
-            .map(|c| {
-                format!(
-                    "Some(ClockEnable {{ register: {:?}, field: {:?}, address: 0x{:08X}, bit: {} }})",
-                    c.register, c.field, c.address, c.bit
-                )
-            })
+            .map(|c| format!("Some({})", peripheral_cmu_literal(c)))
             .unwrap_or_else(|| "None".to_owned());
         s.push_str(&format!(
-            "        Peripheral {{ name: {:?}, address: 0x{:08X}, secure_address: {}, kind: {:?}, version: {:?}, block: {:?}, enable: {} }},\n",
-            group.canonical_name, p.base_address, secure_address, p.kind, p.register_version, p.block, enable,
+            "        Peripheral {{ name: {:?}, address: 0x{:08X}, secure_address: {}, kind: {:?}, version: {:?}, block: {:?}, ir: &{}_{}::REGISTERS, cmu: {} }},\n",
+            group.canonical_name, p.base_address, secure_address, p.kind, p.register_version, p.block, p.kind, p.register_version, cmu,
         ));
     }
     s.push_str("    ],\n");

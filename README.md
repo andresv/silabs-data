@@ -171,6 +171,17 @@ Every version label starts with the chip's series: `s<series>v<N>`, optionally f
 
 Chips whose SVDs have no peripheral versions get their label from `perimap::UNVERSIONED` (chip regex → label). These labels are numbered per series in release order (EFM32GG is `s0v1`). `ENTRIES` rows still win, so a block that differs from the family default is split with an `ENTRIES` row. An unversioned peripheral with no route is a hard error.
 
+## CMU metadata
+
+Each `METADATA` peripheral has a `cmu` entry. `silabs-metapac-gen/src/clocks.rs` makes it from the chip's CMU registers:
+
+- `enable` is the clock-gate bit. The generator finds it by name: the gate field has the name of the peripheral (`CLKEN1.TIMER4`, `HFPERCLKEN0.TIMER0`). `OVERRIDES` lists the names that do not match.
+- `kernel_clock` is the clock that drives the peripheral. It is one of these:
+  - `Mux`: the peripheral has its own select field (`EUSART0CLKCTRL.CLKSEL`). Each enum variant names a source clock.
+  - `Clock`: a fixed clock-tree node (`em01grpaclk`, `pclk`). On Series 2 it comes from `SERIES2_FIXED`, a copy of the peripheral-to-branch table in `CMU_ClockFreqGet` (`platform/emlib/src/em_cmu.c` in the Simplicity SDK). On Series 0 it is the bus of the gate register (`HFPERCLKEN0` gives `hfperclk`).
+
+Group clocks (EM01GRPACLK, EM23GRPACLK, ...) are fixed clocks in this data. The HAL sets their muxes and calculates their frequencies when it sets up the clock tree.
+
 ## Adding a new chip family
 
 1. Add the pack URL + version to `silabs-data-source/families.toml`.
@@ -178,7 +189,8 @@ Chips whose SVDs have no peripheral versions get their label from `perimap::UNVE
 3. `./d seed --chips '<chip regex>' --candidates-dir tmp/candidates` to extract every peripheral of the new family. `--chips` limits seeding to the new family, so curated YAMLs of other families are never rewritten. `--candidates-dir` writes every divergent IR to `tmp/candidates/<kind>_<version>/` instead of stopping at the first conflict.
 4. For each `(kind, version)` not yet in `data/registers/`, follow the "Adding support for a new peripheral" recipe.
 5. Add the required `perimap` entries.
-6. Regenerate, verify one chip per sub-family compiles.
+6. Check the kernel clocks. Compare `SERIES2_FIXED` in `clocks.rs` with `CMU_ClockFreqGet` for the new config. Generation stops for Series 2 config 1 (xG21), because its table is different.
+7. Regenerate, verify one chip per sub-family compiles.
 
 ## Agent-facing rules
 
