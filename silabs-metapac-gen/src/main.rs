@@ -1,21 +1,15 @@
 //! Build the `silabs-metapac` crate from per-chip JSON and the curated
 //! `data/registers/<kind>_<version>.yaml` IR snapshots.
 //!
-//! Two subcommands:
-//!
-//! - `gen`: Reads per-chip JSON + `data/registers/*.yaml` + `transforms/*.yaml`,
-//!   renders the metapac crate into `--out-dir`. `data/registers/` is treated
-//!   as committed input; this subcommand never writes there.
-//!
-//! - `seed`: Bootstrap-only. Extracts every peripheral on every chip directly
-//!   from the SVDs, applies `transforms/<BLOCK>.yaml` if present, buckets by
-//!   `(kind, register_version)` (assigned by perimap), and writes one
-//!   `data/registers/<kind>_<version>.yaml` per bucket. Hash-bails when two
-//!   chips' IRs land in the same bucket but disagree, surfacing the conflict
-//!   for the human to resolve via transform / hand-curation / perimap split.
-//!   `--chips <regex>` limits seeding to matching chips, so curated YAMLs
-//!   of other families are never rewritten. `--candidates-dir <dir>` dumps
-//!   every divergent IR for hand-curation instead of bailing.
+//! - `gen` renders the crate into `--out-dir`. It reads `data/registers/`
+//!   and never writes there.
+//! - `seed` is a one-shot bootstrap. It extracts every peripheral from the
+//!   SVDs, applies `transforms/<BLOCK>.yaml`, and groups the IRs by the
+//!   perimap `(kind, register_version, block)`. It writes one
+//!   `data/registers/<kind>_<version>.yaml` per `(kind, version)`.
+//!   Instances that only add registers, fields or enum values merge into a
+//!   superset. A real conflict (a name that moves or changes width) stops
+//!   the command.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
@@ -27,6 +21,7 @@ use silabs_data_gen::chips::ChipFile;
 use silabs_data_gen::perimap;
 use silabs_metapac_gen::codegen::{self, GenerateInput};
 use silabs_metapac_gen::pac::{self, IpKey, module_name};
+use silabs_metapac_gen::seed_merge::{combine_blocks, merge_superset};
 use silabs_metapac_gen::{crate_layout, extract, peripheral};
 use svd_parser::ValidateLevel;
 
@@ -62,8 +57,8 @@ enum Cmd {
     },
 
     /// One-shot bootstrap of `data/registers/<kind>_<version>.yaml` from the
-    /// SVDs. Stops at the first difference between two instances of one
-    /// version, unless `--candidates-dir` is set.
+    /// SVDs. Stops at the first conflict between two instances of one block,
+    /// unless `--candidates-dir` is set.
     Seed {
         /// Path to a .pack file. May be repeated.
         #[arg(long)]
@@ -323,32 +318,39 @@ fn run_gen(
     Ok(())
 }
 
-/// Hash-bail divergence report.
+/// Conflict report for `seed`.
+#[allow(clippy::too_many_arguments)]
 fn bail_divergence(
     key: &IpKey,
+    block: &str,
     a_chip: &str,
     a_peripheral: &str,
     a_hash: &str,
     b_chip: &str,
     b_peripheral: &str,
     b_hash: &str,
+    why: &str,
 ) -> ! {
     eprintln!();
-    eprintln!("=== seed divergence: (kind={}, version={}) ===", key.0, key.1);
+    eprintln!(
+        "=== seed conflict: (kind={}, version={}, block={block}) ===",
+        key.0, key.1
+    );
     eprintln!("  {a_chip} :: {a_peripheral}  →  IR hash {a_hash}");
     eprintln!("  {b_chip} :: {b_peripheral}  →  IR hash {b_hash}");
+    eprintln!("  {why}");
     eprintln!();
-    eprintln!("Both peripherals route to the same (kind, version) but extract to");
-    eprintln!("different IRs. Resolve via one of:");
+    eprintln!("Both peripherals route to the same (kind, version, block) but their");
+    eprintln!("IRs conflict: a name moves or changes width, so neither is a superset");
+    eprintln!("of the other. Resolve via one of:");
     eprintln!("  1. write a transforms/<BLOCK>.yaml rule that normalises both");
     eprintln!("     extractions to one canonical shape;");
     eprintln!(
-        "  2. hand-curate data/registers/{}.yaml with the canonical/superset",
+        "  2. hand-curate data/registers/{}.yaml with the canonical shape;",
         module_name(&key.0, &key.1)
     );
-    eprintln!("     shape;");
-    eprintln!("  3. add a perimap entry in silabs-data-gen/src/perimap.rs that");
-    eprintln!("     splits one of these peripherals to a distinct version label.");
+    eprintln!("  3. add a perimap entry in silabs-data-gen/src/perimap.rs that routes");
+    eprintln!("     one of these peripherals to a distinct version label or block.");
     std::process::exit(1);
 }
 
@@ -382,18 +384,21 @@ fn run_seed(
         .expand_properties(true)
         .validate_level(ValidateLevel::Disabled);
 
-    // (kind, version) → (block, ir, hash, first-claiming chip, first-claiming peripheral).
+    // (kind, version, block) → (superset ir, hash of the first ir, first-claiming chip / peripheral).
     struct Bucket {
-        block: String,
         ir: chiptool::ir::IR,
         hash: String,
         chip: String,
         peripheral: String,
     }
-    let mut buckets: BTreeMap<IpKey, Bucket> = BTreeMap::new();
+    type BlockKey = (String, String, String);
+    let mut buckets: BTreeMap<BlockKey, Bucket> = BTreeMap::new();
     // Every distinct IR per bucket, with the chip peripherals that produced
     // it. Only filled when `--candidates-dir` is set.
-    let mut variants: BTreeMap<IpKey, BTreeMap<String, (chiptool::ir::IR, Vec<String>)>> = BTreeMap::new();
+    let mut variants: BTreeMap<BlockKey, BTreeMap<String, (chiptool::ir::IR, Vec<String>)>> = BTreeMap::new();
+    // Buckets whose IRs conflict, and superset merges to report.
+    let mut conflicts: BTreeSet<BlockKey> = BTreeSet::new();
+    let mut merges: BTreeMap<BlockKey, Vec<String>> = BTreeMap::new();
 
     for chip in &chips {
         let svd_path = extract_dirs
@@ -428,7 +433,7 @@ fn run_seed(
                     chip.chip.name
                 ),
             };
-            let key: IpKey = (inst.kind.clone(), inst.register_version.clone());
+            let key: BlockKey = (inst.kind.clone(), inst.register_version.clone(), inst.block.clone());
             let ir = extract::extract_ip(periph, &inst.block, &inst.register_version, transforms_dir).with_context(
                 || {
                     format!(
@@ -448,25 +453,33 @@ fn run_seed(
                     .push(format!("{} :: {pname}", chip.chip.name));
             }
 
-            match buckets.get(&key) {
-                Some(existing) => {
-                    if existing.hash != hash && candidates_dir.is_none() {
-                        bail_divergence(
-                            &key,
-                            &existing.chip,
-                            &existing.peripheral,
-                            &existing.hash,
-                            &chip.chip.name,
-                            pname,
-                            &hash,
-                        );
+            match buckets.get_mut(&key) {
+                Some(existing) if existing.hash != hash => match merge_superset(&mut existing.ir, &ir) {
+                    Ok(0) => {}
+                    Ok(n) => merges
+                        .entry(key.clone())
+                        .or_default()
+                        .push(format!("{} :: {pname} adds {n}", chip.chip.name)),
+                    Err(why) if candidates_dir.is_none() => bail_divergence(
+                        &(key.0.clone(), key.1.clone()),
+                        &key.2,
+                        &existing.chip,
+                        &existing.peripheral,
+                        &existing.hash,
+                        &chip.chip.name,
+                        pname,
+                        &hash,
+                        &why,
+                    ),
+                    Err(_) => {
+                        conflicts.insert(key.clone());
                     }
-                }
+                },
+                Some(_) => {}
                 None => {
                     buckets.insert(
                         key,
                         Bucket {
-                            block: inst.block.clone(),
                             ir,
                             hash,
                             chip: chip.chip.name.clone(),
@@ -478,14 +491,13 @@ fn run_seed(
         }
     }
 
-    let mut diverged: BTreeSet<IpKey> = BTreeSet::new();
+    let diverged: BTreeSet<IpKey> = conflicts.iter().map(|k| (k.0.clone(), k.1.clone())).collect();
     if let Some(dir) = candidates_dir {
         for (key, by_hash) in &variants {
-            if by_hash.len() < 2 {
+            if !conflicts.contains(key) {
                 continue;
             }
-            diverged.insert(key.clone());
-            let kdir = dir.join(module_name(&key.0, &key.1));
+            let kdir = dir.join(format!("{}_{}", module_name(&key.0, &key.1), key.2));
             std::fs::create_dir_all(&kdir).with_context(|| format!("create {}", kdir.display()))?;
             let mut index = String::new();
             for (hash, (ir, users)) in by_hash {
@@ -499,30 +511,62 @@ fn run_seed(
         }
     }
 
-    std::fs::create_dir_all(registers_yaml_dir).with_context(|| format!("create {}", registers_yaml_dir.display()))?;
-    for (key, bucket) in &buckets {
-        if diverged.contains(key) {
-            continue;
+    for (key, notes) in &merges {
+        eprintln!(
+            "  merged into superset: {} block {}",
+            module_name(&key.0, &key.1),
+            key.2
+        );
+        for n in notes {
+            eprintln!("    {n}");
         }
+    }
+
+    // One YAML per (kind, version) with every block of that version in it.
+    let mut by_version: BTreeMap<IpKey, Vec<(String, chiptool::ir::IR)>> = BTreeMap::new();
+    for (key, bucket) in &buckets {
+        let top = bucket
+            .ir
+            .blocks
+            .keys()
+            .find(|b| {
+                !bucket.ir.blocks.values().any(|o| {
+                    o.items
+                        .iter()
+                        .any(|i| matches!(&i.inner, chiptool::ir::BlockItemInner::Block(x) if &x.block == *b))
+                })
+            })
+            .with_context(|| format!("no top-level block in {}_{} {}", key.0, key.1, key.2))?
+            .clone();
+        by_version
+            .entry((key.0.clone(), key.1.clone()))
+            .or_default()
+            .push((top, bucket.ir.clone()));
+    }
+
+    std::fs::create_dir_all(registers_yaml_dir).with_context(|| format!("create {}", registers_yaml_dir.display()))?;
+    for (key, parts) in by_version.iter().filter(|(k, _)| !diverged.contains(*k)) {
+        let ir = combine_blocks(parts.clone())
+            .with_context(|| format!("combine blocks of {}", module_name(&key.0, &key.1)))?;
         let fname = format!("{}.yaml", module_name(&key.0, &key.1));
         let path = registers_yaml_dir.join(&fname);
         let mut f = std::fs::File::create(&path).with_context(|| format!("create {}", path.display()))?;
-        serde_yaml::to_writer(&mut f, &bucket.ir).with_context(|| format!("serialise IR to {}", path.display()))?;
+        serde_yaml::to_writer(&mut f, &ir).with_context(|| format!("serialise IR to {}", path.display()))?;
     }
     let _ = perimap::compile()?;
     eprintln!(
         "Wrote {} register YAMLs to {}",
-        buckets.len() - diverged.len(),
+        by_version.len() - diverged.len(),
         registers_yaml_dir.display()
     );
     // Show the chip that each YAML was first extracted from, for hand curation.
     for (key, bucket) in &buckets {
-        if diverged.contains(key) {
+        if diverged.contains(&(key.0.clone(), key.1.clone())) {
             continue;
         }
         eprintln!(
             "  {}_{}.yaml  block={}  seeded from {} :: {}",
-            key.0, key.1, bucket.block, bucket.chip, bucket.peripheral
+            key.0, key.1, key.2, bucket.chip, bucket.peripheral
         );
     }
     if !diverged.is_empty() {

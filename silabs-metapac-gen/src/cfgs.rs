@@ -157,7 +157,10 @@ mod tests {
 
     #[test]
     fn underscore_label_adds_every_prefix() {
-        assert_eq!(version_cfgs("eusart", "s2v2_lf"), ["eusart", "eusart_s2", "eusart_s2v2", "eusart_s2v2_lf"]);
+        assert_eq!(
+            version_cfgs("eusart", "s2v2_lf"),
+            ["eusart", "eusart_s2", "eusart_s2v2", "eusart_s2v2_lf"]
+        );
         assert_eq!(version_cfgs("timer", "s2v1"), ["timer", "timer_s2", "timer_s2v1"]);
     }
 }

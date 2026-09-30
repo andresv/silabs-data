@@ -7,3 +7,4 @@ pub mod ir_metadata;
 pub mod kind;
 pub mod pac;
 pub mod peripheral;
+pub mod seed_merge;

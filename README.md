@@ -44,7 +44,7 @@ One feature per OPN gates the chip's content; pick exactly one. Enable the `rt` 
 
 - Run `./d seed`
 
-  > Extracts every peripheral on every chip in `silabs-data-source/families.toml`, applies `transforms/<KIND>.yaml` if present, buckets by `(kind, version)`, and writes one `data/registers/<kind>_<version>.yaml` per bucket. Hash-bails on cross-chip divergence so an inconsistency surfaces instead of being silently merged.
+  > Extracts every peripheral on every chip in `silabs-data-source/families.toml`, applies `transforms/<KIND>.yaml` if present, buckets by `(kind, version, block)`, and writes one `data/registers/<kind>_<version>.yaml` per `(kind, version)` with all its blocks. Instances that only add registers, fields or enum values are merged into their superset, and seed prints each merge. Seed stops on a conflict (a name that moves or changes width), so an inconsistency surfaces instead of being silently merged.
 
 ## Data sources
 
@@ -102,16 +102,25 @@ Three stages:
 
 The `seed` subcommand sits outside this normal pipeline. It exists only to (re-)write `data/registers/` from raw SVDs on first bootstrap of a family.
 
+### Unifying versions
+
+A HAL is easiest to write when one peripheral kind has few versions and the same names everywhere. Apply these rules when you curate:
+
+- **Additions only: one version.** Some chips or instances add registers, fields or enum values, and nothing else changes. Keep one superset YAML for the version. Add a note to each added item's description that says which chips have it. Example: EUSART0's low-frequency registers are in `eusart_s2v2.yaml`, noted "EUSART0 only".
+- **Changed width: one version, two blocks.** A field is wider on some instances. Keep one version with one block per width. Give the differing fieldsets a suffix. Example: `timer_s2v1.yaml` has `Timer` and `Timer32`, with `regs::Cnt` and `regs::Cnt32`.
+- **Moved or renamed registers: separate versions.** The layout differs, so the versions stay apart. Example: `usart_s0v1` and `usart_s2v0`.
+- **Same meaning: same name.** A register, field or enum value can mean the same thing on two series. Use the same name on both, and prefer the Series 2 name. Write the reference-manual name in the description, for example "(IFC in the reference manual)". Example: Series 0 `IFC` is `if_clr`, and Series 0 `DOUTSET` is `p_dout_set`.
+
 ## Adding support for a new peripheral
 
-- First, make sure you can regenerate the YAMLs following the steps above. You should be able to run `./d seed` against the current chip set and end up with no diff to the committed `data/registers/`.
+- First, make sure you can regenerate the YAMLs following the steps above. You should be able to run `./d seed --registers-yaml-dir tmp/seed` against the current chip set without a conflict. Its output has the same structure as the committed `data/registers/`; only hand-curated names and descriptions differ.
 - Run `./d seed --chips '<chip regex>' --candidates-dir tmp/candidates`. When chips disagree on a `(kind, version)`, this writes every distinct extraction to `tmp/candidates/<kind>_<version>/<hash>.yaml` (gitignored), with `index.txt` listing which chip peripherals produced each one.
 - Diff the extracted YAMLs against each other. The differences can be one of:
   1. Legitimate differences between families or instances (added registers/fields → new `(kind, version)`).
   2. SVD inconsistencies — same register, different names across chips.
   3. SVD mistakes — yes, there are some.
   4. Missing stuff in SVDs — usually enums or doc descriptions.
-- Identify how many actually-different (incompatible) versions of the peripheral exist — they must *not* be merged. Label them as described in "Version labels" below.
+- Identify how many actually-different (incompatible) versions of the peripheral exist — they must *not* be merged. Use the rules in "Unifying versions" below. Label them as described in "Version labels" below.
 - For each version, pick the "best" extraction (most complete, fewest mistakes, richest doc strings). Copy to `data/registers/<kind>_<version>.yaml`.
 - Hand-clean (see "Register cleanup" below).
 - Minimise the diff between adjacent versions. If `<kind>_s2v<N+1>.yaml` is missing an enum description that `<kind>_s2v<N>.yaml` has, copy it across.
@@ -179,7 +188,7 @@ Load-bearing rules that future automation should pick up:
 2. **Commit subjects are plain and descriptive.** No phase tags, no progress markers, no agent-speak, no co-author trailers. `Add gpio_s2v3.yaml`, not `Phase 5.2 done: add gpio`.
 3. **Plan files are not committed.** Working plans live on disk but are gitignored (`*-plan.md`, `*.plan.md`, `RESET-PLAN.md`).
 4. **The user pushes, not the agent.** Hand off after the work is committed; never `git push`.
-5. **Hash-bail on `(kind, version)` divergence.** When two chips extract to the same `(kind, version)` but produce different IR, stop and surface it. Resolve via transform / hand-curation / perimap split — never via auto-fingerprint-suffix or silent merge.
+5. **Stop on `(kind, version, block)` conflicts.** Seed merges instances that only add registers, fields or enum values, and prints each merge. When a name moves or changes width, seed stops and surfaces it. Resolve via transform / hand-curation / perimap split — never via auto-fingerprint-suffix or silent merge.
 
 ## Layout
 

@@ -117,10 +117,18 @@ fn unversioned_label(chip: &str) -> Option<&'static str> {
     let compiled = COMPILED.get_or_init(|| {
         UNVERSIONED
             .iter()
-            .map(|(key, label)| (Regex::new(&format!("^{key}$")).expect("UNVERSIONED regex compiles"), *label))
+            .map(|(key, label)| {
+                (
+                    Regex::new(&format!("^{key}$")).expect("UNVERSIONED regex compiles"),
+                    *label,
+                )
+            })
             .collect()
     });
-    compiled.iter().find(|(re, _)| re.is_match(chip)).map(|(_, label)| *label)
+    compiled
+        .iter()
+        .find(|(re, _)| re.is_match(chip))
+        .map(|(_, label)| *label)
 }
 
 /// Compile the static `ENTRIES` table into runtime `Entry`s.
@@ -172,13 +180,7 @@ fn default_route(peripheral: &str, svd_version: Option<&str>, series: u8) -> Rou
 /// Fails when the SVD has no `<version>` for the peripheral and neither
 /// `ENTRIES` nor `UNVERSIONED` covers the chip, so no peripheral is ever
 /// published under a guessed version.
-pub fn route(
-    compiled: &[Entry],
-    chip: &str,
-    peripheral: &str,
-    svd_version: Option<&str>,
-    series: u8,
-) -> Result<Route> {
+pub fn route(compiled: &[Entry], chip: &str, peripheral: &str, svd_version: Option<&str>, series: u8) -> Result<Route> {
     let key = format!("{chip}:{peripheral}:{}", svd_version.unwrap_or(""));
     for e in compiled {
         if e.key.is_match(&key) {
@@ -255,14 +257,20 @@ mod tests {
     fn unversioned_efm32gg_gets_family_label() {
         let compiled = compile().unwrap();
         let r = route(&compiled, "EFM32GG390F1024", "TIMER0", None, 0).unwrap();
-        assert_eq!((r.kind.as_str(), r.version.as_str(), r.block.as_str()), ("timer", "s0v1", "TIMER"));
+        assert_eq!(
+            (r.kind.as_str(), r.version.as_str(), r.block.as_str()),
+            ("timer", "s0v1", "TIMER")
+        );
     }
 
     #[test]
     fn efm32gg_uart_routes_to_usart() {
         let compiled = compile().unwrap();
         let r = route(&compiled, "EFM32GG390F1024", "UART1", None, 0).unwrap();
-        assert_eq!((r.kind.as_str(), r.version.as_str(), r.block.as_str()), ("usart", "s0v1", "USART"));
+        assert_eq!(
+            (r.kind.as_str(), r.version.as_str(), r.block.as_str()),
+            ("usart", "s0v1", "USART")
+        );
     }
 
     #[test]

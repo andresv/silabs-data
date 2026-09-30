@@ -20,14 +20,14 @@ Subcommands:
   download-all     Fetch vendor packs into silabs-data-source/packs/.
   seed [--chips <regex>] [--candidates-dir <dir>]
                    One-shot bootstrap of data/registers/*.yaml from SVDs.
-                   Hash-bails on cross-chip (kind, version) divergence.
+                   Merges additive differences, stops on conflicts.
   gen-all          Regenerate build/data/ (per-chip JSON) and
                    build/silabs-metapac/ (PAC crate) from committed
                    data/registers/*.yaml. Never writes to data/registers/.
 EOF
 }
 
-# Discover all .pack files referenced in silabs-data-source/families.toml.
+# List the .pack files in silabs-data-source/packs/.
 # Prints absolute paths, one per line.
 discover_packs() {
     for p in "$PACKS_DIR"/*.pack; do
@@ -62,7 +62,7 @@ cmd_seed() {
             --out-dir build/data
     done
     # silabs-metapac-gen seed takes multiple --pack.
-    # macOS bash 3.2 lacks mapfile; capture into a positional array via a subshell + set.
+    # macOS bash 3.2 has no mapfile, so read the list one line at a time.
     pa=()
     while IFS= read -r line; do
         pa+=("$line")
