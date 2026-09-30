@@ -65,12 +65,27 @@ pub fn chip_cfgs(chip: &ChipFile) -> BTreeSet<String> {
     out
 }
 
+/// Series and config numbers that Silicon Labs defines, with or without
+/// chips in the metapac: Series 1 configs 1..4, Series 2 configs 1..9
+/// (xG21..xG29), Series 3 config 301. A HAL can then gate code for a family
+/// that the metapac does not cover, without `unexpected_cfgs` warnings.
+const KNOWN_CONFIGS: &[(u8, &[u16])] = &[
+    (0, &[]),
+    (1, &[1, 2, 3, 4]),
+    (2, &[1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    (3, &[301]),
+];
+
 /// `rustc-check-cfg` specs that declare every cfg any chip can enable.
 /// Specs contain no spaces, so a dependent can split the list on spaces.
 pub fn check_cfgs(chips: &[ChipFile]) -> Vec<String> {
     let mut names = BTreeSet::new();
-    let mut series_values = BTreeSet::new();
-    let mut config_values: BTreeMap<u8, BTreeSet<u16>> = BTreeMap::new();
+    let mut series_values: BTreeSet<u8> = KNOWN_CONFIGS.iter().map(|(s, _)| *s).collect();
+    let mut config_values: BTreeMap<u8, BTreeSet<u16>> = KNOWN_CONFIGS
+        .iter()
+        .filter(|(_, c)| !c.is_empty())
+        .map(|(s, c)| (*s, c.iter().copied().collect()))
+        .collect();
     for chip in chips {
         let (series, config) = series_of(chip);
         series_values.insert(series);
@@ -89,7 +104,10 @@ pub fn check_cfgs(chips: &[ChipFile]) -> Vec<String> {
     let mut out: Vec<String> = names.iter().map(|n| format!("cfg({n})")).collect();
     out.push(format!("cfg(silabs_series,values({}))", values(&series_values)));
     for (series, configs) in &config_values {
-        out.push(format!("cfg(silabs_series_{series}_config,values({}))", values(configs)));
+        out.push(format!(
+            "cfg(silabs_series_{series}_config,values({}))",
+            values(configs)
+        ));
     }
     out
 }
@@ -122,7 +140,19 @@ mod tests {
 
     #[test]
     fn series_label_adds_series_prefix() {
-        assert_eq!(version_cfgs("letimer", "s0v1"), ["letimer", "letimer_s0", "letimer_s0v1"]);
+        assert_eq!(
+            version_cfgs("letimer", "s0v1"),
+            ["letimer", "letimer_s0", "letimer_s0v1"]
+        );
+    }
+
+    #[test]
+    fn check_cfgs_declare_known_configs_without_chips() {
+        let specs = check_cfgs(&[]);
+        assert!(specs.contains(&r#"cfg(silabs_series,values("0","1","2","3"))"#.to_owned()));
+        assert!(
+            specs.contains(&r#"cfg(silabs_series_2_config,values("1","2","3","4","5","6","7","8","9"))"#.to_owned())
+        );
     }
 
     #[test]
