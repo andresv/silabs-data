@@ -177,16 +177,34 @@ pub struct Metadata {
     pub interrupts: &'static [Interrupt],
 }
 
+/// One memory region.
 #[derive(Debug, Eq, PartialEq, Clone)]
 pub struct MemoryRegion {
     /// Region identifier from the pdsc (`IROM1`, `IRAM1`, etc.).
     pub name: &'static str,
+    pub kind: MemoryRegionKind,
     /// Base address.
     pub address: u64,
     /// Region size in bytes.
     pub size: u64,
-    /// Access string from the pdsc (`rx`, `rwx`, …).
-    pub access: &'static str,
+    /// Erase and write geometry. `Some` only for flash.
+    pub settings: Option<FlashSettings>,
+}
+
+#[derive(Debug, Eq, PartialEq, Clone, Copy)]
+pub enum MemoryRegionKind {
+    Flash,
+    Ram,
+}
+
+#[derive(Debug, Eq, PartialEq, Clone, Copy)]
+pub struct FlashSettings {
+    /// Erase page size in bytes (`FLASH_PAGE_SIZE` in the device header).
+    pub erase_size: u32,
+    /// Smallest write unit in bytes. The MSC writes one 32-bit word at a time.
+    pub write_size: u32,
+    /// Value of an erased byte.
+    pub erase_value: u8,
 }
 
 #[derive(Debug, Eq, PartialEq, Clone)]

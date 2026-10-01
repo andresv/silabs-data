@@ -13,6 +13,8 @@
 //!   `devinfo_s2v0`.
 //! - `silabs_series="0"`, and `silabs_series_2_config="4"` for chips
 //!   with a config number (Series 1+).
+//! - `peri_<name>` per peripheral instance, from the lowercase
+//!   `METADATA.peripherals` name: `peri_timer0`, `peri_gpio`.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
@@ -21,6 +23,15 @@ use std::sync::OnceLock;
 use anyhow::{Context, Result};
 use regex::Regex;
 use silabs_data_gen::chips::ChipFile;
+
+use crate::crate_layout::canonical_peripheral_names;
+
+/// `peri_<name>` cfgs of one chip.
+fn peri_cfgs(chip: &ChipFile) -> impl Iterator<Item = String> {
+    canonical_peripheral_names(chip)
+        .into_iter()
+        .map(|n| format!("peri_{}", n.to_ascii_lowercase()))
+}
 
 /// Cfg names implied by one `(kind, version)` pair.
 pub fn version_cfgs(kind: &str, version: &str) -> Vec<String> {
@@ -62,6 +73,7 @@ pub fn chip_cfgs(chip: &ChipFile) -> BTreeSet<String> {
     for p in &chip.peripherals {
         out.extend(version_cfgs(&p.kind, &p.register_version));
     }
+    out.extend(peri_cfgs(chip));
     out
 }
 
@@ -95,6 +107,7 @@ pub fn check_cfgs(chips: &[ChipFile]) -> Vec<String> {
         for p in &chip.peripherals {
             names.extend(version_cfgs(&p.kind, &p.register_version));
         }
+        names.extend(peri_cfgs(chip));
     }
 
     fn values<T: std::fmt::Display>(v: &BTreeSet<T>) -> String {
@@ -153,6 +166,31 @@ mod tests {
         assert!(
             specs.contains(&r#"cfg(silabs_series_2_config,values("1","2","3","4","5","6","7","8","9"))"#.to_owned())
         );
+    }
+
+    #[test]
+    fn peri_cfgs_use_canonical_names() {
+        let peripheral = |name: &str, address: u64, kind: &str| {
+            serde_json::json!({ "name": name, "base_address": address, "version": "1",
+                                "kind": kind, "register_version": "s2v1", "block": kind.to_uppercase() })
+        };
+        let chip: ChipFile = serde_json::from_value(serde_json::json!({
+            "chip": { "name": "FAKE", "core": "CM33", "fpu": true, "mpu": true, "trustzone": true,
+                      "memory": [], "svd": "x.svd", "series": { "series": 2, "config": 4 } },
+            "peripherals": [
+                peripheral("GPIO_NS", 0x5003_C000, "gpio"),
+                peripheral("GPIO_S", 0x4003_C000, "gpio"),
+                peripheral("SEMAILBOX_NS_HOST", 0x5C00_0000, "semailbox_ns_host"),
+                peripheral("SEMAILBOX_S_HOST", 0x4C00_0000, "semailbox_s_host"),
+            ],
+            "interrupts": []
+        }))
+        .unwrap();
+        let peri: Vec<String> = chip_cfgs(&chip)
+            .into_iter()
+            .filter(|c| c.starts_with("peri_"))
+            .collect();
+        assert_eq!(peri, ["peri_gpio", "peri_semailbox_ns_host"]);
     }
 
     #[test]

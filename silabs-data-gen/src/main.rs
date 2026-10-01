@@ -77,12 +77,6 @@ fn main() -> anyhow::Result<()> {
                     .map_err(|e| anyhow::anyhow!("reading SVD {}: {e}", svd_path.display()))?;
                 let peripherals = silabs_data_gen::svd::parse(&svd_xml)?;
 
-                // The SVD's own `<interrupt>` blocks are intentionally not
-                // consulted — they're an incomplete subset (radio
-                // peripherals are missing). The per-chip CMSIS device
-                // header sits next to the SVD in the pack tree. Convention:
-                // `SVD/<FAMILY>/<CHIP>.svd` →
-                // `Device/SiliconLabs/<FAMILY>/Include/<chip_lowercase>.h`.
                 let hpath = match header_path_for_chip(&extract_dir, &chip) {
                     Some(hpath) if hpath.is_file() => hpath,
                     Some(hpath) => {
@@ -98,19 +92,20 @@ fn main() -> anyhow::Result<()> {
                 };
                 let header_irqs = silabs_data_gen::header::parse_file(&hpath)
                     .map_err(|e| anyhow::anyhow!("reading header {}: {e}", hpath.display()))?;
-                // Extract the `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>`
-                // identifier from the same header. Stored on `Chip` and
-                // consumed downstream by `silabs-metapac-gen`'s
-                // `build_chip_metadata_rs`.
                 let series = silabs_data_gen::header::extract_series_file(&hpath)
                     .map_err(|e| anyhow::anyhow!("extracting series from {}: {e}", hpath.display()))?;
                 let mut chip = chip;
                 chip.series = Some(series);
                 chip.nvic_prio_bits = Some(
-                    silabs_data_gen::header::extract_nvic_prio_bits_file(&hpath).map_err(|e| {
-                        anyhow::anyhow!("extracting __NVIC_PRIO_BITS from {}: {e}", hpath.display())
-                    })?,
+                    silabs_data_gen::header::extract_nvic_prio_bits_file(&hpath)
+                        .map_err(|e| anyhow::anyhow!("extracting __NVIC_PRIO_BITS from {}: {e}", hpath.display()))?,
                 );
+                let header = std::fs::read_to_string(&hpath)
+                    .map_err(|e| anyhow::anyhow!("reading header {}: {e}", hpath.display()))?;
+                chip.flash_page_size =
+                    Some(silabs_data_gen::header::parse_flash_page_size(&header).ok_or_else(|| {
+                        anyhow::anyhow!("{}: no `#define FLASH_PAGE_SIZE` in {}", chip.name, hpath.display())
+                    })?);
 
                 let chip_name = chip.name.clone();
                 let chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_irqs, &perimap_entries)?;
@@ -128,8 +123,7 @@ fn main() -> anyhow::Result<()> {
 /// Derive the per-chip CMSIS device header path from the SVD path inside an
 /// extracted Silicon Labs CMSIS pack.
 ///
-/// Convention (verified across `SiliconLabs.GeckoPlatform_EFR32MG24_DFP` and
-/// `…_EFR32MG26_DFP` packs):
+/// Pack layout:
 ///
 /// ```text
 /// SVD path:    SVD/<FAMILY>/<CHIP>.svd

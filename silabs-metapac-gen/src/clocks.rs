@@ -45,6 +45,7 @@ use chiptool::ir::{BitOffset, BlockItemInner, IR};
 use regex::Regex;
 use silabs_data_gen::chips::ChipFile;
 
+use crate::crate_layout::block_struct_ident;
 use crate::pac::IpKey;
 
 /// CMU data of one peripheral. At least one field is `Some`.
@@ -138,12 +139,11 @@ pub fn peripheral_cmu(
     let ir = irs
         .get(&(cmu.kind.clone(), cmu.register_version.clone()))
         .with_context(|| format!("no IR for cmu_{}", cmu.register_version))?;
+    let block_name = block_struct_ident(&cmu.block);
     let block = ir
         .blocks
-        .iter()
-        .find(|(name, _)| name.eq_ignore_ascii_case(&cmu.block))
-        .map(|(_, b)| b)
-        .context("CMU IR has no block")?;
+        .get(&block_name)
+        .with_context(|| format!("CMU IR has no block `{block_name}`"))?;
 
     let gate_re = Regex::new(GATE_REGISTERS).expect("GATE_REGISTERS compiles");
     // field name → gate, across every gate register.

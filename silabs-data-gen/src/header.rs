@@ -1,12 +1,10 @@
-//! Extract the IRQn enum from a Silicon Labs CMSIS device header.
+//! Facts from a Silicon Labs CMSIS device header: the IRQn enum, series and
+//! config, NVIC priority bits and flash page size.
 //!
-//! ## Why
-//!
-//! Silicon Labs CMSIS SVDs do not list radio peripheral IRQs (FRC, MODEM,
-//! AGC, BUFC, PROTIMER, SYNTH, RAC_RSM, RAC_SEQ, RFECA0, RFECA1, …) — the
-//! peripherals exist but their `<interrupt>` blocks are missing. The
-//! per-chip C header `Device/SiliconLabs/<FAMILY>/Include/<chip>.h` has
-//! the full IRQ enum:
+//! The SVDs omit the `<interrupt>` blocks of the radio peripherals (FRC, MODEM,
+//! AGC, BUFC, PROTIMER, SYNTH, RAC_RSM, RAC_SEQ, RFECA0, RFECA1, …). The
+//! per-chip header `Device/SiliconLabs/<FAMILY>/Include/<chip>.h` has the full
+//! IRQ enum:
 //!
 //! ```c
 //! typedef enum IRQn {
@@ -18,13 +16,8 @@
 //! } IRQn_Type;
 //! ```
 //!
-//! We parse those lines and use them verbatim as the chip's interrupt
-//! table in `chips::build`. The SVD's `<interrupt>` blocks are
-//! intentionally ignored.
-//!
-//! This mirrors stm32-data's approach: it doesn't trust the SVD for
-//! interrupts either, and parses STM32 HAL headers for `<NAME>_IRQn = N,`
-//! enum members (`stm32-data-gen/src/header.rs`).
+//! `chips::build` uses these entries as the interrupt table and ignores the
+//! SVD `<interrupt>` blocks.
 
 use std::path::Path;
 use std::sync::OnceLock;
@@ -44,16 +37,14 @@ pub struct HeaderIrq {
 /// Parse `<NAME>_IRQn = <N>,` enum members from a Silicon Labs CMSIS device
 /// header.
 ///
-/// Tolerates extra whitespace, an optional trailing comma, and trailing
-/// comments like `/*!<  4 EFR32 TIMER0 Interrupt */`. Skips any negative
-/// values (the Cortex-M core exceptions in the header — e.g.
-/// `HardFault_IRQn = -13` — are emitted separately by cortex-m-rt and
-/// don't belong in `__INTERRUPTS`).
+/// Skips negative values. They are Cortex-M core exceptions
+/// (`HardFault_IRQn = -13`), which cortex-m-rt emits itself, so they do not
+/// belong in `__INTERRUPTS`.
 pub fn parse(text: &str) -> Vec<HeaderIrq> {
     static RE: OnceLock<Regex> = OnceLock::new();
     let re = RE.get_or_init(|| {
-        // Anchored to the line start (after optional whitespace) so we don't
-        // match `#define FOO_IRQn = 12` style macros or in-comment mentions.
+        // Anchored to the line start, so `#define FOO_IRQn = 12` macros and
+        // mentions in comments do not match.
         Regex::new(r"^\s*([A-Za-z_][A-Za-z0-9_]*)_IRQn\s*=\s*(-?\d+)\s*,?").expect("regex compiles")
     });
 
@@ -66,8 +57,6 @@ pub fn parse(text: &str) -> Vec<HeaderIrq> {
             continue;
         };
         if value < 0 {
-            // Cortex-M core exceptions (HardFault, MemoryManagement, etc.).
-            // Not part of the device-specific vector table.
             continue;
         }
         out.push(HeaderIrq {
@@ -78,7 +67,6 @@ pub fn parse(text: &str) -> Vec<HeaderIrq> {
     out
 }
 
-/// Convenience wrapper: read a header from disk and parse it.
 pub fn parse_file(path: impl AsRef<Path>) -> Result<Vec<HeaderIrq>> {
     let path = path.as_ref();
     let text = std::fs::read_to_string(path).with_context(|| format!("read header {}", path.display()))?;
@@ -122,8 +110,7 @@ pub fn extract_series(text: &str) -> Result<Series> {
     let config_re = CONFIG_RE.get_or_init(|| {
         // `#define _SILICON_LABS_32B_SERIES_<N>_CONFIG <number>`. The `_<N>_`
         // distinguishes from the valueless tag `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>`.
-        Regex::new(r"^\s*#\s*define\s+_SILICON_LABS_32B_SERIES_\d+_CONFIG\s+(\d+)\b")
-            .expect("config regex compiles")
+        Regex::new(r"^\s*#\s*define\s+_SILICON_LABS_32B_SERIES_\d+_CONFIG\s+(\d+)\b").expect("config regex compiles")
     });
 
     let mut series: Option<u8> = None;
@@ -151,7 +138,6 @@ pub fn extract_series(text: &str) -> Result<Series> {
     }
 }
 
-/// Convenience wrapper: read a header from disk and extract [`Series`].
 pub fn extract_series_file(path: impl AsRef<Path>) -> Result<Series> {
     let path = path.as_ref();
     let text = std::fs::read_to_string(path).with_context(|| format!("read header {}", path.display()))?;
@@ -176,23 +162,36 @@ pub fn extract_nvic_prio_bits(text: &str) -> Result<u8> {
     anyhow::bail!("no `#define __NVIC_PRIO_BITS <N>` found in header")
 }
 
-/// Convenience wrapper: read a header from disk and extract `__NVIC_PRIO_BITS`.
 pub fn extract_nvic_prio_bits_file(path: impl AsRef<Path>) -> Result<u8> {
     let path = path.as_ref();
     let text = std::fs::read_to_string(path).with_context(|| format!("read header {}", path.display()))?;
     extract_nvic_prio_bits(&text)
 }
 
+/// Parse `#define FLASH_PAGE_SIZE <N>` from a CMSIS device header. Series 2
+/// writes `(0x00002000UL)`, Series 0 writes `4096U`.
+pub fn parse_flash_page_size(text: &str) -> Option<u32> {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    let re = RE.get_or_init(|| {
+        Regex::new(r"^\s*#\s*define\s+FLASH_PAGE_SIZE\s+\(?\s*(0[xX][0-9A-Fa-f]+|\d+)[uUlL]*\s*\)?")
+            .expect("flash page size regex compiles")
+    });
+    text.lines().find_map(|line| {
+        let n = &re.captures(line)?[1];
+        match n.strip_prefix("0x").or_else(|| n.strip_prefix("0X")) {
+            Some(hex) => u32::from_str_radix(hex, 16).ok(),
+            None => n.parse().ok(),
+        }
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    /// Sanity check against a slice of the EFR32MG26 device header. The
-    /// radio peripherals (FRC, MODEM, AGC, BUFC, PROTIMER, SYNTH,
-    /// RAC_RSM, RAC_SEQ, RFECA0, RFECA1) live in the public C header but
-    /// not the public SVD — those are exactly the IRQs this parser exists
-    /// to recover. Includes a negative-valued Cortex-M core exception
-    /// (`MemoryManagement_IRQn = -12`) to confirm the parser drops it.
+    /// A slice of the EFR32MG26 device header. The radio IRQs (FRC, MODEM,
+    /// AGC, …) are in the header but not in the SVD.
+    /// `MemoryManagement_IRQn = -12` checks that core exceptions are dropped.
     #[test]
     fn parses_efr32mg26_radio_irqs() {
         let sample = r#"
@@ -258,10 +257,9 @@ struct foo { int FRC_IRQn; };
         assert!(names.is_empty(), "unexpected matches: {names:?}");
     }
 
-    /// EFR32MG26 header slice — the four `_SILICON_LABS_32B_SERIES*` macros
-    /// in the shape Silicon Labs ships. We pull only the two valued ones
-    /// (`SERIES` and `SERIES_<N>_CONFIG`); the valueless tags
-    /// (`_SERIES_2`, `_SERIES_2_CONFIG_6`) must not poison the parse.
+    /// EFR32MG26 header slice with the four `_SILICON_LABS_32B_SERIES*`
+    /// macros. The valueless tags (`_SERIES_2`, `_SERIES_2_CONFIG_6`) must
+    /// not change the result.
     #[test]
     fn extracts_series_from_efr32mg26_header() {
         let sample = r#"
@@ -337,6 +335,21 @@ struct foo { int FRC_IRQn; };
     fn extract_nvic_prio_bits_rejects_missing_macro() {
         let err = extract_nvic_prio_bits("nothing here").unwrap_err();
         assert!(err.to_string().contains("__NVIC_PRIO_BITS"), "{err}");
+    }
+
+    #[test]
+    fn parses_flash_page_size() {
+        let sample = "#define ICACHE0_FLASH_SIZE                      0x180000UL  /**> Flash size */\n\
+                      #define FLASH_PAGE_SIZE                                   (0x00002000UL) /**< Flash Memory page size */\n";
+        assert_eq!(parse_flash_page_size(sample), Some(0x2000));
+        assert_eq!(
+            parse_flash_page_size("#define FLASH_PAGE_SIZE         4096U                  /**< Flash Memory page size */\n"),
+            Some(4096)
+        );
+        assert_eq!(
+            parse_flash_page_size("#define ICACHE0_FLASH_SIZE                      0x180000UL  /**> Flash size */\n"),
+            None
+        );
     }
 
     #[test]

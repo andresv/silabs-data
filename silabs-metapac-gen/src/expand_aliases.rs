@@ -154,6 +154,7 @@ mod tests {
                 trustzone: false,
                 series: Some(silabs_data_gen::header::Series { series, config: 0 }),
                 nvic_prio_bits: Some(4),
+                flash_page_size: Some(0x2000),
                 memory: vec![],
                 flash_algo: None,
                 svd: "x.svd".into(),

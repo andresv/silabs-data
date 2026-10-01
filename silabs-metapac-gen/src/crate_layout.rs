@@ -18,6 +18,7 @@
 //!             ├── pac.rs        # peripheral instances + interrupts + memory map
 //!             ├── metadata.rs   # `METADATA` static
 //!             ├── device.x      # cortex-m-rt linker fragment (or stub)
+//!             ├── memory.x
 //!             └── cfgs.txt
 //! ```
 
@@ -39,7 +40,7 @@ use crate::peripheral::{nonsecure_to_secure_name, secure_to_nonsecure_name};
 ///
 /// Like chiptool's `sanitize_with_case`, it removes digit boundaries first.
 /// Without that step `I2C` stays `I2C` and misses the struct `I2c`.
-fn block_struct_ident(block: &str) -> String {
+pub(crate) fn block_struct_ident(block: &str) -> String {
     block.remove_boundaries(&Boundary::digits()).to_case(Case::Pascal)
 }
 
@@ -141,14 +142,14 @@ pub fn feature_name(chip: &str) -> String {
     chip.to_ascii_lowercase()
 }
 
-/// Write `build.rs` that adds the active chip's source directory to the
-/// linker search path under the `rt` feature, and passes the chip's cfgs
-/// to direct dependents through `links` metadata (see [`crate::cfgs`]).
+/// Write `build.rs`. It puts the active chip's `device.x` (feature `rt`) and
+/// `memory.x` (feature `memory-x`) on the linker search path. It also passes
+/// the chip's cfgs to direct dependents through `links` metadata (see
+/// [`crate::cfgs`]).
 ///
-/// `cortex-m-rt`'s `link.x` does `INCLUDE device.x`, and `silabs-metapac`
-/// emits a per-chip `device.x` into `src/chips/<chip>/`. Without this
-/// helper the linker can't find it. Mirrors the analogous build script
-/// in `stm32-metapac`.
+/// `cortex-m-rt`'s `link.x` does `INCLUDE device.x` and `INCLUDE memory.x`.
+/// Both files are copied into `OUT_DIR`, so `rt` alone never exposes the
+/// chip's `memory.x` to a crate that brings its own.
 pub fn write_build_rs(out: &Path) -> Result<()> {
     let s = r##"use std::env;
 use std::path::{Path, PathBuf};
@@ -197,12 +198,16 @@ fn main() {
     .unwrap()
     .to_ascii_lowercase();
 
-    #[cfg(feature = "rt")]
-    println!(
-        "cargo:rustc-link-search={}/src/chips/{}",
-        crate_dir.display(),
-        chip_name,
-    );
+    let chip_dir = crate_dir.join("src/chips").join(&chip_name);
+    let out_dir = PathBuf::from(env::var_os("OUT_DIR").unwrap());
+    for (enabled, file) in [(cfg!(feature = "rt"), "device.x"), (cfg!(feature = "memory-x"), "memory.x")] {
+        if enabled {
+            let from = chip_dir.join(file);
+            println!("cargo:rerun-if-changed={}", from.display());
+            std::fs::copy(&from, out_dir.join(file)).unwrap_or_else(|e| panic!("copy {}: {e}", from.display()));
+        }
+    }
+    println!("cargo:rustc-link-search={}", out_dir.display());
 
     // Give `lib.rs` the chip's pac.rs and metadata.rs paths, so it needs one
     // `include!(env!(...))` and not one cfg-gated `include!` per chip.
@@ -592,7 +597,7 @@ fn peripheral_cmu_literal(c: &crate::clocks::PeripheralCmu) -> String {
 ///
 /// One metadata row owns each register layout. For a paired TrustZone
 /// peripheral it carries both the non-secure and secure SVD base addresses.
-pub fn build_chip_metadata_rs(chip: &ChipFile, cmu: &BTreeMap<String, crate::clocks::PeripheralCmu>) -> String {
+pub fn build_chip_metadata_rs(chip: &ChipFile, cmu: &BTreeMap<String, crate::clocks::PeripheralCmu>) -> Result<String> {
     let mut s = String::new();
     s.push_str("// Per-chip metadata. Generated for ");
     s.push_str(&chip.chip.name);
@@ -627,9 +632,22 @@ pub fn build_chip_metadata_rs(chip: &ChipFile, cmu: &BTreeMap<String, crate::clo
 
     s.push_str("    memory: &[\n");
     for m in &chip.chip.memory {
+        let (kind, settings) = match memory_kind(m)? {
+            MemoryKind::Flash => {
+                let page = chip
+                    .chip
+                    .flash_page_size
+                    .with_context(|| format!("{}: flash_page_size missing, re-run silabs-data-gen", chip.chip.name))?;
+                (
+                    "Flash",
+                    format!("Some(FlashSettings {{ erase_size: {page}, write_size: 4, erase_value: 0xFF }})"),
+                )
+            }
+            MemoryKind::Ram => ("Ram", "None".to_owned()),
+        };
         s.push_str(&format!(
-            "        MemoryRegion {{ name: {:?}, address: 0x{:08X}, size: 0x{:08X}, access: {:?} }},\n",
-            m.id, m.start, m.size, m.access,
+            "        MemoryRegion {{ name: {:?}, kind: MemoryRegionKind::{kind}, address: 0x{:08X}, size: 0x{:08X}, settings: {settings} }},\n",
+            m.id, m.start, m.size,
         ));
     }
     s.push_str("    ],\n");
@@ -647,7 +665,7 @@ pub fn build_chip_metadata_rs(chip: &ChipFile, cmu: &BTreeMap<String, crate::clo
             .unwrap_or_else(|| "None".to_owned());
         s.push_str(&format!(
             "        Peripheral {{ name: {:?}, address: 0x{:08X}, secure_address: {}, kind: {:?}, version: {:?}, block: {:?}, ir: &{}_{}::REGISTERS, cmu: {} }},\n",
-            group.canonical_name, p.base_address, secure_address, p.kind, p.register_version, p.block, p.kind, p.register_version, cmu,
+            group.canonical_name, p.base_address, secure_address, p.kind, p.register_version, block_struct_ident(&p.block), p.kind, p.register_version, cmu,
         ));
     }
     s.push_str("    ],\n");
@@ -683,7 +701,56 @@ pub fn build_chip_metadata_rs(chip: &ChipFile, cmu: &BTreeMap<String, crate::clo
         }
     }
 
-    s
+    Ok(s)
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum MemoryKind {
+    Flash,
+    Ram,
+}
+
+/// Memory kind from the pdsc region name: `IROM*` is flash, `IRAM*` is RAM.
+fn memory_kind(m: &MemoryRegion) -> Result<MemoryKind> {
+    if m.id.starts_with("IROM") {
+        Ok(MemoryKind::Flash)
+    } else if m.id.starts_with("IRAM") {
+        Ok(MemoryKind::Ram)
+    } else {
+        bail!("unknown pdsc memory region `{}`: expected IROM* or IRAM*", m.id)
+    }
+}
+
+/// Build `chips/<chip>/memory.x` from the first flash and the first RAM region.
+pub fn build_memory_x(chip: &ChipFile) -> Result<String> {
+    let first = |kind| -> Result<&MemoryRegion> {
+        for m in &chip.chip.memory {
+            if memory_kind(m)? == kind {
+                return Ok(m);
+            }
+        }
+        bail!(
+            "{} has no {} region",
+            chip.chip.name,
+            if kind == MemoryKind::Flash { "flash" } else { "RAM" }
+        )
+    };
+    fn length(size: u64) -> String {
+        if size % 1024 == 0 {
+            format!("{}K", size / 1024)
+        } else {
+            size.to_string()
+        }
+    }
+    let flash = first(MemoryKind::Flash)?;
+    let ram = first(MemoryKind::Ram)?;
+    Ok(format!(
+        "MEMORY\n{{\n  FLASH : ORIGIN = 0x{:08X}, LENGTH = {}\n  RAM : ORIGIN = 0x{:08X}, LENGTH = {}\n}}\n",
+        flash.start,
+        length(flash.size),
+        ram.start,
+        length(ram.size),
+    ))
 }
 
 #[cfg(test)]
@@ -703,6 +770,7 @@ mod tests {
                 trustzone: false,
                 series: Some(silabs_data_gen::header::Series { series: 2, config: 6 }),
                 nvic_prio_bits: Some(4),
+                flash_page_size: Some(0x2000),
                 memory: vec![
                     MemoryRegion {
                         id: "IROM1".into(),
@@ -892,7 +960,7 @@ mod tests {
 
     #[test]
     fn metadata_rs_emits_per_kind_register_mod_decls() {
-        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new());
+        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new()).unwrap();
         assert!(
             s.contains("pub static METADATA: Metadata = Metadata {"),
             "missing METADATA static:\n{s}"
@@ -910,6 +978,18 @@ mod tests {
         assert!(
             s.contains("Peripheral { name: \"ACMP0\", address: 0x5000E000, secure_address: Some(0x4000E000)"),
             "metadata must retain both TrustZone addresses:\n{s}"
+        );
+        assert!(
+            s.contains("block: \"Acmp\""),
+            "block must be the IR block name, not the perimap name:\n{s}"
+        );
+        assert!(
+            s.contains("MemoryRegion { name: \"IROM1\", kind: MemoryRegionKind::Flash, address: 0x08000000, size: 0x00200000, settings: Some(FlashSettings { erase_size: 8192, write_size: 4, erase_value: 0xFF }) }"),
+            "missing flash region:\n{s}"
+        );
+        assert!(
+            s.contains("MemoryRegion { name: \"IRAM1\", kind: MemoryRegionKind::Ram, address: 0x20000000, size: 0x00040000, settings: None }"),
+            "missing RAM region:\n{s}"
         );
     }
 
@@ -1012,7 +1092,7 @@ mod tests {
 
     #[test]
     fn metadata_rs_emits_series_field() {
-        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new());
+        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new()).unwrap();
         assert!(
             s.contains("series: Series::Series2(6),"),
             "missing series field in metadata.rs:\n{s}"

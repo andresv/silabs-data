@@ -20,6 +20,18 @@ silabs-metapac = { path = "../silabs-data/build/silabs-metapac" }
 
 One feature per OPN gates the chip's content; pick exactly one. Enable the `rt` feature for `cortex-m-rt` interrupt-vector glue.
 
+### Peripheral cfgs
+
+The metapac gives each direct dependent one `peri_<name>` cfg per peripheral instance. The name is the lowercase `METADATA.peripherals` name. Examples are `peri_timer0`, `peri_eusart1` and `peri_gpio`. A TrustZone pair (`GPIO_NS` and `GPIO_S`) gives one cfg.
+
+### Memory regions
+
+Each `METADATA.memory` entry has a `kind`, `Flash` or `Ram`. The pdsc region name sets the kind: `IROM*` is flash and `IRAM*` is RAM. A flash region has `settings` with the erase size, the write size and the erase value. The erase size is `FLASH_PAGE_SIZE` from the device header. The write size is 4 bytes. The erase value is `0xFF`. A RAM region has no settings.
+
+### `memory-x` feature
+
+The `memory-x` feature gives the linker a `memory.x` file for the chip. The file has the first flash region and the first RAM region. Do not enable the feature when your application has its own `memory.x`.
+
 ## Quick guide
 
 ### How to regenerate everything
