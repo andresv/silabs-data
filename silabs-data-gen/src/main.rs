@@ -107,8 +107,18 @@ fn main() -> anyhow::Result<()> {
                         anyhow::anyhow!("{}: no `#define FLASH_PAGE_SIZE` in {}", chip.name, hpath.display())
                     })?);
 
+                let header_data = silabs_data_gen::chips::HeaderData {
+                    irqs: header_irqs,
+                    gpio_port_masks: silabs_data_gen::header::parse_gpio_port_masks(&header),
+                    dma_requests: dma_requests(&hpath, series.series)?,
+                    dma_channel_count: silabs_data_gen::header::parse_dma_channel_count(&header),
+                };
+                if header_data.dma_channel_count > 0 && header_data.dma_requests.is_empty() {
+                    anyhow::bail!("{}: has DMA channels but no DMA request header", chip.name);
+                }
+
                 let chip_name = chip.name.clone();
-                let chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_irqs, &perimap_entries)?;
+                let chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_data, &perimap_entries)?;
 
                 let out = chips_dir.join(format!("{chip_name}.json"));
                 std::fs::write(&out, serde_json::to_string_pretty(&chip_file)?)?;
@@ -150,4 +160,34 @@ fn header_path_for_chip(
             .join("Include")
             .join(header_file),
     )
+}
+
+/// DMA request signals from the family header next to the device header:
+/// `<family>_ldmaxbar_defines.h` on Series 2, `<family>_dmareq.h` on
+/// Series 0. Empty when the family has neither.
+fn dma_requests(hpath: &std::path::Path, series: u8) -> anyhow::Result<Vec<silabs_data_gen::header::HeaderDmaRequest>> {
+    let include = hpath.parent().expect("header has a parent dir");
+    let family = include
+        .parent()
+        .and_then(|p| p.file_name())
+        .and_then(|f| f.to_str())
+        .ok_or_else(|| anyhow::anyhow!("no family dir above {}", hpath.display()))?
+        .to_ascii_lowercase();
+    let (file, parse): (_, fn(&str) -> Vec<_>) = if series == 0 {
+        (
+            format!("{family}_dmareq.h"),
+            silabs_data_gen::header::parse_dmareq_requests,
+        )
+    } else {
+        (
+            format!("{family}_ldmaxbar_defines.h"),
+            silabs_data_gen::header::parse_ldmaxbar_requests,
+        )
+    };
+    let path = include.join(file);
+    if !path.is_file() {
+        return Ok(Vec::new());
+    }
+    let text = std::fs::read_to_string(&path).map_err(|e| anyhow::anyhow!("reading {}: {e}", path.display()))?;
+    Ok(parse(&text))
 }

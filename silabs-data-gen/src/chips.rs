@@ -1,7 +1,10 @@
+use std::collections::{BTreeMap, BTreeSet};
+
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 
-use crate::header::HeaderIrq;
+use crate::header::{HeaderDmaRequest, HeaderIrq};
+use crate::interrupts::PeripheralInterrupt;
 use crate::pdsc::Chip;
 use crate::perimap::{self, Entry};
 use crate::svd::PeripheralIr;
@@ -11,6 +14,38 @@ pub struct ChipFile {
     pub chip: Chip,
     pub peripherals: Vec<PeripheralInstance>,
     pub interrupts: Vec<Interrupt>,
+    /// Bonded GPIO pins, sorted by port, then pin. Empty on Series 0: its
+    /// headers carry no pin masks.
+    #[serde(default)]
+    pub pins: Vec<Pin>,
+    /// Number of DMA channels. 0 when the chip has no DMA.
+    #[serde(default)]
+    pub dma_channel_count: u8,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+pub struct Pin {
+    pub port: u8,
+    pub pin: u8,
+}
+
+/// One DMA request signal of a peripheral.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct PeripheralDmaRequest {
+    /// Signal name without the peripheral prefix (`RXFL`, `CC0`).
+    pub signal: String,
+    pub sourcesel: u8,
+    pub sigsel: u8,
+}
+
+/// Data from the CMSIS headers of one chip.
+#[derive(Debug, Default)]
+pub struct HeaderData {
+    pub irqs: Vec<HeaderIrq>,
+    /// `(port index, bonded pin mask)`.
+    pub gpio_port_masks: Vec<(u8, u32)>,
+    pub dma_requests: Vec<HeaderDmaRequest>,
+    pub dma_channel_count: u8,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -29,6 +64,13 @@ pub struct PeripheralInstance {
     pub register_version: String,
     /// Canonical block name inside the register YAML, e.g. `GPIO`, `EUSART`.
     pub block: String,
+    /// IRQs of the peripheral. Empty on a secure alias whose `_NS` peer
+    /// exists: the peer owns them.
+    #[serde(default)]
+    pub interrupts: Vec<PeripheralInterrupt>,
+    /// DMA request signals, with the same alias rule as `interrupts`.
+    #[serde(default)]
+    pub dma_requests: Vec<PeripheralDmaRequest>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -41,7 +83,7 @@ pub struct Interrupt {
 pub fn build(
     chip: Chip,
     peripherals: &[PeripheralIr],
-    header_irqs: &[HeaderIrq],
+    header: &HeaderData,
     perimap_entries: &[Entry],
 ) -> Result<ChipFile> {
     let series = chip
@@ -49,9 +91,34 @@ pub fn build(
         .as_ref()
         .with_context(|| format!("{}: series must be set before routing peripherals", chip.name))?
         .series;
+    let interrupts = build_interrupts(&header.irqs);
+
+    let canonical = canonical_names(peripherals);
+    let owners: Vec<&str> = canonical.iter().flatten().map(String::as_str).collect();
+    let irq_names: Vec<&str> = interrupts.iter().map(|i| i.name.as_str()).collect();
+    let mut irqs = crate::interrupts::attach(&owners, &irq_names);
+
+    let mut dma: BTreeMap<&str, Vec<PeripheralDmaRequest>> = BTreeMap::new();
+    let mut skipped: BTreeSet<&str> = BTreeSet::new();
+    for r in &header.dma_requests {
+        if owners.contains(&r.source.as_str()) {
+            dma.entry(&r.source).or_default().push(PeripheralDmaRequest {
+                signal: r.signal.clone(),
+                sourcesel: r.sourcesel,
+                sigsel: r.sigsel,
+            });
+        } else {
+            skipped.insert(&r.source);
+        }
+    }
+    if !skipped.is_empty() {
+        eprintln!("{}: DMA sources with no peripheral: {skipped:?}", chip.name);
+    }
+
     let instances = peripherals
         .iter()
-        .map(|p| {
+        .zip(&canonical)
+        .map(|(p, canonical)| {
             let route = perimap::route(perimap_entries, &chip.name, &p.name, p.version.as_deref(), series)?;
             Ok(PeripheralInstance {
                 name: p.name.clone(),
@@ -60,14 +127,57 @@ pub fn build(
                 kind: route.kind,
                 register_version: route.version,
                 block: route.block,
+                interrupts: canonical.as_ref().and_then(|c| irqs.remove(c)).unwrap_or_default(),
+                dma_requests: canonical.as_deref().and_then(|c| dma.remove(c)).unwrap_or_default(),
             })
         })
         .collect::<Result<Vec<_>>>()?;
 
+    let mut pins: Vec<Pin> = header
+        .gpio_port_masks
+        .iter()
+        .flat_map(|&(port, mask)| {
+            (0..32)
+                .filter(move |b| mask & (1 << b) != 0)
+                .map(move |pin| Pin { port, pin })
+        })
+        .collect();
+    pins.sort();
+
     Ok(ChipFile {
         chip,
         peripherals: instances,
-        interrupts: build_interrupts(header_irqs),
+        interrupts,
+        pins,
+        dma_channel_count: header.dma_channel_count,
+    })
+}
+
+/// Canonical name of each SVD instance: the name without a trailing `_NS`.
+/// `None` for a secure alias whose `_NS` peer exists, because the peer owns
+/// the metadata row.
+fn canonical_names(peripherals: &[PeripheralIr]) -> Vec<Option<String>> {
+    let names: BTreeSet<&str> = peripherals.iter().map(|p| p.name.as_str()).collect();
+    peripherals
+        .iter()
+        .map(|p| {
+            if secure_to_nonsecure_name(&p.name).is_some_and(|peer| names.contains(peer.as_str())) {
+                return None;
+            }
+            Some(p.name.strip_suffix("_NS").unwrap_or(&p.name).to_owned())
+        })
+        .collect()
+}
+
+/// Return the corresponding non-secure alias name for an `_S`/`_S_` name.
+pub fn secure_to_nonsecure_name(name: &str) -> Option<String> {
+    if let Some(base) = name.strip_suffix("_S") {
+        return Some(format!("{base}_NS"));
+    }
+    name.find("_S_").map(|at| {
+        let mut peer = name.to_owned();
+        peer.replace_range(at..at + 3, "_NS_");
+        peer
     })
 }
 
@@ -145,7 +255,7 @@ mod tests {
             },
         ];
 
-        let cf = build(fake_chip("FAKE"), &peripherals, &[], &entries).unwrap();
+        let cf = build(fake_chip("FAKE"), &peripherals, &HeaderData::default(), &entries).unwrap();
 
         assert_eq!(cf.peripherals.len(), 2);
 

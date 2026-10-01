@@ -28,6 +28,31 @@ The metapac gives each direct dependent one `peri_<name>` cfg per peripheral ins
 
 Each `METADATA.memory` entry has a `kind`, `Flash` or `Ram`. The pdsc region name sets the kind: `IROM*` is flash and `IRAM*` is RAM. A flash region has `settings` with the erase size, the write size and the erase value. The erase size is `FLASH_PAGE_SIZE` from the device header. The write size is 4 bytes. The erase value is `0xFF`. A RAM region has no settings.
 
+### Peripheral interrupts
+
+Each `METADATA.peripherals` entry has an `interrupts` list. Each item has a `signal` and an `interrupt`. The `interrupt` is the IRQ name in `METADATA.interrupts`. The generator attaches an IRQ to a peripheral with these rules:
+
+1. An IRQ with the same name as a peripheral gets the signal `GLOBAL`. For example, `TIMER0` gets `(GLOBAL, TIMER0)`.
+2. An IRQ named `<peripheral>_<suffix>` gets the signal `<suffix>`. For example, `EUSART0` gets `(RX, EUSART0_RX)`. When two peripheral names match, the longer name wins. Thus `TIMER10_X` never goes to `TIMER1`.
+3. `OVERRIDES` in `silabs-data-gen/src/interrupts.rs` attaches the IRQs that match no name. For example, `SYSRTC0` gets `(APP, SYSRTC_APP)`.
+
+All other IRQs have no peripheral. Radio, software, kernel, CTI and bus-bridge IRQs are in this group.
+
+### Pins
+
+`METADATA.pins` lists the GPIO pins that the package bonds. Each pin has a `name`, a `port` and a `pin` number. The name uses the Silicon Labs format of the series. Series 2 names have a two-digit pin number (`PA00`). Series 0 names have no zero padding (`PA0`, `PE10`). On Series 2, the `GPIO_Px_MASK` defines in the device header give the pins. Series 0 headers have no pin masks. Thus a Series 0 chip lists 16 pins for each GPIO port.
+
+### DMA requests
+
+Each `METADATA.peripherals` entry has a `dma_requests` list. Each item has a `signal`, a `sourcesel` value and a `sigsel` value. The signal name has no peripheral prefix, for example `RXFL` or `CC0`. A request named like its source gets the signal `GLOBAL`, for example MG26 `LCD`.
+
+- On Series 2, the values come from `<family>_ldmaxbar_defines.h`. Write them to the LDMAXBAR `CH_REQSEL` register.
+- On Series 0, the values come from `<family>_dmareq.h`. Write them to the DMA `CH_CTRL` register.
+
+A request source with no peripheral on the chip is not in the data.
+
+`METADATA.dma_channel_count` is the number of DMA channels. The value comes from `LDMA_CH_NUM` on Series 2 and from `DMA_CHAN_COUNT` on Series 0. It is 0 when the chip has no DMA.
+
 ### `memory-x` feature
 
 The `memory-x` feature gives the linker a `memory.x` file for the chip. The file has the first flash region and the first RAM region. Do not enable the feature when your application has its own `memory.x`.

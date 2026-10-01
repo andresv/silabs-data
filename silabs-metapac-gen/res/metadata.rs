@@ -175,6 +175,21 @@ pub struct Metadata {
     /// Cortex-M interrupt table from the CMSIS device header, radio IRQs
     /// included.
     pub interrupts: &'static [Interrupt],
+    /// Bonded GPIO pins, sorted by port, then pin. Series 0 headers have no
+    /// pin masks, so a Series 0 chip lists 16 pins on each GPIO port.
+    pub pins: &'static [Pin],
+    /// Number of DMA channels (`LDMA_CH_NUM` / `DMA_CHAN_COUNT`). 0 when the chip has no DMA.
+    pub dma_channel_count: u8,
+}
+
+/// One GPIO pin.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct Pin {
+    /// Port letter and pin number, as Silicon Labs names the pin: two
+    /// digits on Series 2 (`PA00`), no padding on Series 0 (`PA0`, `PE10`).
+    pub name: &'static str,
+    pub port: u8,
+    pub pin: u8,
 }
 
 /// One memory region.
@@ -232,6 +247,30 @@ pub struct Peripheral {
     /// CMU data. `None` when the peripheral has neither a clock gate nor a
     /// kernel clock (CMU, EMU, DEVINFO, ...).
     pub cmu: Option<PeripheralCmu>,
+    /// IRQs of the peripheral.
+    pub interrupts: &'static [PeripheralInterrupt],
+    /// DMA request signals of the peripheral.
+    pub dma_requests: &'static [PeripheralDmaRequest],
+}
+
+/// One IRQ of a peripheral.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct PeripheralInterrupt {
+    /// Signal name: `GLOBAL` when the IRQ belongs to the whole peripheral, else the IRQ name suffix (`RX`, `APP`, `ODD`).
+    pub signal: &'static str,
+    /// IRQ name, as in `Metadata.interrupts`.
+    pub interrupt: &'static str,
+}
+
+/// One DMA request signal of a peripheral.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct PeripheralDmaRequest {
+    /// Signal name without the peripheral prefix: `RXFL`, `TXFL`, `RXDATAV`, `CC0`.
+    pub signal: &'static str,
+    /// SOURCESEL value (LDMAXBAR `CH_REQSEL` on Series 2, DMA `CH_CTRL` on Series 0).
+    pub sourcesel: u8,
+    /// SIGSEL value.
+    pub sigsel: u8,
 }
 
 /// CMU data of one peripheral.

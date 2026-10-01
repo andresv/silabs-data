@@ -5,18 +5,16 @@ use anyhow::Result;
 use quick_xml::events::Event;
 use quick_xml::reader::Reader;
 use quick_xml::writer::Writer;
+pub use silabs_data_gen::chips::secure_to_nonsecure_name;
 
 /// Strip paired `_S` TrustZone-alias register definitions from an SVD XML.
 ///
-/// Series 2 Silabs SVDs duplicate every peripheral as `<base>_NS` (non-secure)
-/// and `<base>_S` (secure) with identical register layouts. Silabs's mapping is
-/// the *opposite* of the typical ARMv8-M convention: NS lives at `0x5xxx_xxxx`
-/// and S at `0x4xxx_xxxx` for most peripherals. For register codegen we drop
-/// the `_S` definition only when its `_NS` peer exists, so chiptool sees one
-/// register-block definition per IP. The per-chip instance inventory is built
-/// separately from the original SVD and retains both exact base addresses.
-///
-/// Returns the rewritten XML.
+/// Series 2 SVDs list every peripheral twice, as `<base>_NS` and `<base>_S`,
+/// with the same registers. Unlike the usual ARMv8-M layout, NS is at
+/// `0x5xxx_xxxx` and S at `0x4xxx_xxxx` for most peripherals. An `_S`
+/// peripheral is dropped only when its `_NS` peer exists, so chiptool sees one
+/// block per IP. The chip inventory reads the original SVD and keeps both
+/// addresses.
 pub fn strip_secure_peripherals(xml: &str) -> Result<String> {
     let peripheral_names = collect_peripheral_names(xml)?;
     let mut reader = Reader::from_str(xml);
@@ -24,14 +22,12 @@ pub fn strip_secure_peripherals(xml: &str) -> Result<String> {
     let mut buf = Vec::new();
     let mut out = Writer::new(Cursor::new(Vec::new()));
 
-    // We're inside <peripherals><peripheral>...</peripheral></peripherals>.
-    // Walk: find a <peripheral> start tag, capture all events until matching </peripheral>,
-    // peek at <name> inside the captured events, and either re-emit or skip the whole block.
+    // Capture each <peripheral> block, read its top-level <name>, then
+    // re-emit or drop the whole block.
     loop {
         let ev = reader.read_event_into(&mut buf)?;
         match &ev {
             Event::Start(e) if e.name().as_ref() == b"peripheral" => {
-                // Capture this peripheral.
                 let mut block_events: Vec<Event<'static>> = vec![ev.clone().into_owned()];
                 let mut name = String::new();
                 // `elem_depth` tracks element nesting *inside* this peripheral.
@@ -88,18 +84,6 @@ pub fn strip_secure_peripherals(xml: &str) -> Result<String> {
     }
     let inner = out.into_inner().into_inner();
     Ok(String::from_utf8(inner)?)
-}
-
-/// Return the corresponding non-secure alias name for an `_S`/`_S_` name.
-pub fn secure_to_nonsecure_name(name: &str) -> Option<String> {
-    if let Some(base) = name.strip_suffix("_S") {
-        return Some(format!("{base}_NS"));
-    }
-    name.find("_S_").map(|at| {
-        let mut peer = name.to_owned();
-        peer.replace_range(at..at + 3, "_NS_");
-        peer
-    })
 }
 
 /// Return the corresponding secure alias name for an `_NS`/`_NS_` name.
@@ -199,12 +183,10 @@ mod tests {
         assert!(stripped.contains("ONLY_S_PORT"));
     }
 
-    /// Strip-test against an MG26-shaped fixture with multiple NS/S pairs.
-    /// Hermetic — no dependency on a vendored pack being extracted.
-    /// Addresses copied verbatim from EFR32MG26B211F2048IM68.svd.
+    /// Uses an MG26-shaped fixture, so the test needs no extracted pack.
+    /// Addresses come from EFR32MG26B211F2048IM68.svd.
     #[test]
     fn drops_secure_in_mg26_shaped_svd() {
-        // The fixture lives in the silabs-metapac-gen tests dir.
         let fixture = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/mg26_smoke.svd");
         let xml = std::fs::read_to_string(&fixture).unwrap_or_else(|e| panic!("read {}: {e}", fixture.display()));
 

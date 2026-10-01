@@ -167,8 +167,12 @@ mod tests {
                 kind: kind.into(),
                 register_version: version.into(),
                 block: "LETIMER".into(),
+                interrupts: vec![],
+                dma_requests: vec![],
             }],
             interrupts: vec![],
+            pins: vec![],
+            dma_channel_count: 0,
         }
     }
 

@@ -28,7 +28,7 @@ use std::path::Path;
 
 use anyhow::{Context, Result, anyhow, bail};
 use convert_case::{Boundary, Case, Casing};
-use silabs_data_gen::chips::{ChipFile, Interrupt, PeripheralInstance};
+use silabs_data_gen::chips::{ChipFile, Interrupt, PeripheralInstance, Pin};
 use silabs_data_gen::pdsc::MemoryRegion;
 
 use crate::pac::{IpKey, module_name};
@@ -597,7 +597,11 @@ fn peripheral_cmu_literal(c: &crate::clocks::PeripheralCmu) -> String {
 ///
 /// One metadata row owns each register layout. For a paired TrustZone
 /// peripheral it carries both the non-secure and secure SVD base addresses.
-pub fn build_chip_metadata_rs(chip: &ChipFile, cmu: &BTreeMap<String, crate::clocks::PeripheralCmu>) -> Result<String> {
+pub fn build_chip_metadata_rs(
+    chip: &ChipFile,
+    cmu: &BTreeMap<String, crate::clocks::PeripheralCmu>,
+    gpio_ports: Option<usize>,
+) -> Result<String> {
     let mut s = String::new();
     s.push_str("// Per-chip metadata. Generated for ");
     s.push_str(&chip.chip.name);
@@ -663,9 +667,30 @@ pub fn build_chip_metadata_rs(chip: &ChipFile, cmu: &BTreeMap<String, crate::clo
             .get(&group.canonical_name)
             .map(|c| format!("Some({})", peripheral_cmu_literal(c)))
             .unwrap_or_else(|| "None".to_owned());
+        let interrupts: Vec<String> = p
+            .interrupts
+            .iter()
+            .map(|i| {
+                format!(
+                    "PeripheralInterrupt {{ signal: {:?}, interrupt: {:?} }}",
+                    i.signal, i.interrupt
+                )
+            })
+            .collect();
+        let dma_requests: Vec<String> = p
+            .dma_requests
+            .iter()
+            .map(|r| {
+                format!(
+                    "PeripheralDmaRequest {{ signal: {:?}, sourcesel: {}, sigsel: {} }}",
+                    r.signal, r.sourcesel, r.sigsel
+                )
+            })
+            .collect();
         s.push_str(&format!(
-            "        Peripheral {{ name: {:?}, address: 0x{:08X}, secure_address: {}, kind: {:?}, version: {:?}, block: {:?}, ir: &{}_{}::REGISTERS, cmu: {} }},\n",
+            "        Peripheral {{ name: {:?}, address: 0x{:08X}, secure_address: {}, kind: {:?}, version: {:?}, block: {:?}, ir: &{}_{}::REGISTERS, cmu: {}, interrupts: &[{}], dma_requests: &[{}] }},\n",
             group.canonical_name, p.base_address, secure_address, p.kind, p.register_version, block_struct_ident(&p.block), p.kind, p.register_version, cmu,
+            interrupts.join(", "), dma_requests.join(", "),
         ));
     }
     s.push_str("    ],\n");
@@ -678,6 +703,24 @@ pub fn build_chip_metadata_rs(chip: &ChipFile, cmu: &BTreeMap<String, crate::clo
         ));
     }
     s.push_str("    ],\n");
+
+    s.push_str("    pins: &[\n");
+    let series0 = chip.chip.series.is_some_and(|s| s.series == 0);
+    for pin in chip_pins(chip, gpio_ports) {
+        // Silicon Labs names pins `PA00` on Series 2 and `PA0` on Series 0.
+        let port = (b'A' + pin.port) as char;
+        let name = if series0 {
+            format!("P{port}{}", pin.pin)
+        } else {
+            format!("P{port}{:02}", pin.pin)
+        };
+        s.push_str(&format!(
+            "        Pin {{ name: {name:?}, port: {}, pin: {} }},\n",
+            pin.port, pin.pin
+        ));
+    }
+    s.push_str("    ],\n");
+    s.push_str(&format!("    dma_channel_count: {},\n", chip.dma_channel_count));
     s.push_str("};\n\n");
 
     // Each `<kind>_<version>.rs` holds `pub static REGISTERS: IR`. The chip
@@ -702,6 +745,18 @@ pub fn build_chip_metadata_rs(chip: &ChipFile, cmu: &BTreeMap<String, crate::clo
     }
 
     Ok(s)
+}
+
+/// Bonded pins of a chip. Series 0 headers carry no pin masks, so a Series 0
+/// chip gets 16 pins on each of its `gpio_ports`.
+fn chip_pins(chip: &ChipFile, gpio_ports: Option<usize>) -> Vec<Pin> {
+    let series0 = chip.chip.series.is_some_and(|s| s.series == 0);
+    if !series0 || !chip.pins.is_empty() {
+        return chip.pins.clone();
+    }
+    (0..gpio_ports.unwrap_or(0) as u8)
+        .flat_map(|port| (0..16).map(move |pin| Pin { port, pin }))
+        .collect()
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -797,6 +852,15 @@ mod tests {
                     kind: "acmp".into(),
                     register_version: "s2v2".into(),
                     block: "ACMP".into(),
+                    interrupts: vec![silabs_data_gen::interrupts::PeripheralInterrupt {
+                        signal: "GLOBAL".into(),
+                        interrupt: "ACMP0".into(),
+                    }],
+                    dma_requests: vec![silabs_data_gen::chips::PeripheralDmaRequest {
+                        signal: "CC0".into(),
+                        sourcesel: 2,
+                        sigsel: 0,
+                    }],
                 },
                 PeripheralInstance {
                     name: "ACMP0_S".into(),
@@ -805,6 +869,8 @@ mod tests {
                     kind: "acmp".into(),
                     register_version: "s2v2".into(),
                     block: "ACMP".into(),
+                    interrupts: vec![],
+                    dma_requests: vec![],
                 },
                 PeripheralInstance {
                     name: "DCDC".into(),
@@ -813,6 +879,8 @@ mod tests {
                     kind: "dcdc".into(),
                     register_version: "s2v1".into(),
                     block: "DCDC".into(),
+                    interrupts: vec![],
+                    dma_requests: vec![],
                 },
             ],
             interrupts: vec![
@@ -832,6 +900,8 @@ mod tests {
                     description: None,
                 },
             ],
+            pins: vec![Pin { port: 0, pin: 0 }, Pin { port: 1, pin: 5 }],
+            dma_channel_count: 8,
         }
     }
 
@@ -890,6 +960,8 @@ mod tests {
             kind: "eusart".into(),
             register_version: "s2v2".into(),
             block: "EUSART".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
         });
         chip.peripherals.push(PeripheralInstance {
             name: "EUSART1_NS".into(),
@@ -898,6 +970,8 @@ mod tests {
             kind: "eusart".into(),
             register_version: "s2v2_lf".into(),
             block: "EUSART".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
         });
         // A secure alias routed to a different version must not suppress the
         // version-neutral alias. Its instance constant uses the non-secure
@@ -909,6 +983,8 @@ mod tests {
             kind: "dmem".into(),
             register_version: "s2v2_fg25".into(),
             block: "DMEM".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
         });
         chip.peripherals.push(PeripheralInstance {
             name: "DMEM_S".into(),
@@ -917,6 +993,8 @@ mod tests {
             kind: "dmem".into(),
             register_version: "s2v2".into(),
             block: "DMEM".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
         });
         chip.peripherals.push(PeripheralInstance {
             name: "SEMAILBOX_NS_HOST".into(),
@@ -925,6 +1003,8 @@ mod tests {
             kind: "semailbox_ns_host".into(),
             register_version: "s2v1".into(),
             block: "SEMAILBOX_NS_HOST".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
         });
         // Secure `_S_` infix instance shares its NS peer's register type.
         chip.peripherals.push(PeripheralInstance {
@@ -934,6 +1014,8 @@ mod tests {
             kind: "semailbox_s_host".into(),
             register_version: "s2v1".into(),
             block: "SEMAILBOX_S_HOST".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
         });
         let s = build_chip_pac_rs(&chip, None);
         assert!(s.contains("pub use acmp_s2v2 as acmp;"), "missing acmp alias:\n{s}");
@@ -960,7 +1042,7 @@ mod tests {
 
     #[test]
     fn metadata_rs_emits_per_kind_register_mod_decls() {
-        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new()).unwrap();
+        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new(), Some(4)).unwrap();
         assert!(
             s.contains("pub static METADATA: Metadata = Metadata {"),
             "missing METADATA static:\n{s}"
@@ -991,6 +1073,32 @@ mod tests {
             s.contains("MemoryRegion { name: \"IRAM1\", kind: MemoryRegionKind::Ram, address: 0x20000000, size: 0x00040000, settings: None }"),
             "missing RAM region:\n{s}"
         );
+        assert!(
+            s.contains("interrupts: &[PeripheralInterrupt { signal: \"GLOBAL\", interrupt: \"ACMP0\" }], dma_requests: &[PeripheralDmaRequest { signal: \"CC0\", sourcesel: 2, sigsel: 0 }] }"),
+            "missing peripheral interrupts or DMA requests:\n{s}"
+        );
+        assert!(
+            s.contains(
+                "Pin { name: \"PA00\", port: 0, pin: 0 },\n        Pin { name: \"PB05\", port: 1, pin: 5 },\n    ],"
+            ),
+            "Series 2 pins must come from the header masks:\n{s}"
+        );
+        assert!(s.contains("dma_channel_count: 8,"), "missing DMA channel count:\n{s}");
+
+        let mut s0 = fake_chip();
+        s0.chip.series = Some(silabs_data_gen::header::Series { series: 0, config: 0 });
+        s0.pins.clear();
+        let s = build_chip_metadata_rs(&s0, &BTreeMap::new(), Some(2)).unwrap();
+        assert_eq!(
+            s.matches("Pin { name: ").count(),
+            32,
+            "Series 0 gets 16 pins per port:\n{s}"
+        );
+        assert!(
+            s.contains("Pin { name: \"PA0\", port: 0, pin: 0 }"),
+            "Series 0 names are not zero-padded:\n{s}"
+        );
+        assert!(s.contains("Pin { name: \"PB15\", port: 1, pin: 15 }"));
     }
 
     #[test]
@@ -1021,6 +1129,8 @@ mod tests {
             kind: "gpio".into(),
             register_version: "s0v1".into(),
             block: "GPIO".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
         });
         let mut irs = BTreeMap::new();
         irs.insert(("gpio".to_string(), "s0v1".to_string()), ir);
@@ -1092,7 +1202,7 @@ mod tests {
 
     #[test]
     fn metadata_rs_emits_series_field() {
-        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new()).unwrap();
+        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new(), None).unwrap();
         assert!(
             s.contains("series: Series::Series2(6),"),
             "missing series field in metadata.rs:\n{s}"
