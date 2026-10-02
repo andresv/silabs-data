@@ -127,6 +127,13 @@ pub mod ir {
 /// In HAL source user can then do: #[cfg(any(silabs_series_2_config = "3", silabs_series_2_config = "8"))]
 #[derive(Debug, Eq, PartialEq, Clone, Copy)]
 pub enum Series {
+    /// Series 0 (Cortex-M0+/M3, EFM32 Gecko families G/GG/LG/TG/WG/ZG/HG).
+    /// Series 0 headers define no config number.
+    Series0,
+    /// Series 1 (Cortex-M4, EFM32xG1x / EFR32xG1x). The config number is
+    /// not unique per family: GG11B, TG11B, PG1B and JG1B all report 1.
+    /// Use the chip family, not only the config, to select HAL code.
+    Series1(u8),
     /// Series 2 (Cortex-M33 + TrustZone, ~2020-2024). Within-series
     /// config 1..9, one per chip family: xG21=1, xG22=2, xG23=3,
     /// xG24=4, FG25=5, xG26=6, xG27=7, xG28=8, xG29=9.

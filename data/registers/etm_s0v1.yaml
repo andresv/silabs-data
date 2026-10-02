@@ -1,0 +1,750 @@
+block/Etm:
+  description: ETM peripheral.
+  items:
+  - name: etmcr
+    description: Main Control Register.
+    byte_offset: 0
+    fieldset: regs::Etmcr
+  - name: etmccr
+    description: Configuration Code Register.
+    byte_offset: 4
+    access: Read
+    fieldset: regs::Etmccr
+  - name: etmtrigger
+    description: ETM Trigger Event Register.
+    byte_offset: 8
+    fieldset: regs::Etmtrigger
+  - name: etmsr
+    description: ETM Status Register.
+    byte_offset: 16
+    fieldset: regs::Etmsr
+  - name: etmscr
+    description: ETM System Configuration Register.
+    byte_offset: 20
+    access: Read
+    fieldset: regs::Etmscr
+  - name: etmteevr
+    description: ETM TraceEnable Event Register.
+    byte_offset: 32
+    fieldset: regs::Etmteevr
+  - name: etmtecr1
+    description: ETM Trace control Register.
+    byte_offset: 36
+    fieldset: regs::Etmtecr1
+  - name: etmfflr
+    description: ETM Fifo Full Level Register.
+    byte_offset: 44
+    fieldset: regs::Etmfflr
+  - name: etmcntrldvr1
+    description: Counter Reload Value.
+    byte_offset: 320
+    fieldset: regs::Etmcntrldvr1
+  - name: etmsyncfr
+    description: Synchronisation Frequency Register.
+    byte_offset: 480
+    fieldset: regs::Etmsyncfr
+  - name: etmidr
+    description: ID Register.
+    byte_offset: 484
+    access: Read
+    fieldset: regs::Etmidr
+  - name: etmccer
+    description: Configuration Code Extension Register.
+    byte_offset: 488
+    access: Read
+    fieldset: regs::Etmccer
+  - name: etmtesseicr
+    description: TraceEnable Start/Stop EmbeddedICE Control Register.
+    byte_offset: 496
+    fieldset: regs::Etmtesseicr
+  - name: etmtsevr
+    description: Timestamp Event Register.
+    byte_offset: 504
+    fieldset: regs::Etmtsevr
+  - name: etmtraceidr
+    description: CoreSight Trace ID Register.
+    byte_offset: 512
+    fieldset: regs::Etmtraceidr
+  - name: etmidr2
+    description: ETM ID Register 2.
+    byte_offset: 520
+    access: Read
+    fieldset: regs::Etmidr2
+  - name: etmpdsr
+    description: Device Power-down Status Register.
+    byte_offset: 788
+    access: Read
+    fieldset: regs::Etmpdsr
+  - name: etmiscin
+    description: Integration Test Miscellaneous Inputs Register.
+    byte_offset: 3808
+    fieldset: regs::Etmiscin
+  - name: ittrigout
+    description: Integration Test Trigger Out Register.
+    byte_offset: 3816
+    access: Write
+    fieldset: regs::Ittrigout
+  - name: etmitatbctr2
+    description: ETM Integration Test ATB Control 2 Register.
+    byte_offset: 3824
+    access: Read
+    fieldset: regs::Etmitatbctr2
+  - name: etmitatbctr0
+    description: ETM Integration Test ATB Control 0 Register.
+    byte_offset: 3832
+    access: Write
+    fieldset: regs::Etmitatbctr0
+  - name: etmitctrl
+    description: ETM Integration Control Register.
+    byte_offset: 3840
+    fieldset: regs::Etmitctrl
+  - name: etmclaimset
+    description: ETM Claim Tag Set Register.
+    byte_offset: 4000
+    fieldset: regs::Etmclaimset
+  - name: etmclaimclr
+    description: ETM Claim Tag Clear Register.
+    byte_offset: 4004
+    fieldset: regs::Etmclaimclr
+  - name: etmlar
+    description: ETM Lock Access Register.
+    byte_offset: 4016
+    fieldset: regs::Etmlar
+  - name: etmlsr
+    description: Lock Status Register.
+    byte_offset: 4020
+    access: Read
+    fieldset: regs::Etmlsr
+  - name: etmauthstatus
+    description: ETM Authentication Status Register.
+    byte_offset: 4024
+    access: Read
+    fieldset: regs::Etmauthstatus
+  - name: etmdevtype
+    description: CoreSight Device Type Register.
+    byte_offset: 4044
+    access: Read
+    fieldset: regs::Etmdevtype
+  - name: etmpidr4
+    description: Peripheral ID4 Register.
+    byte_offset: 4048
+    access: Read
+    fieldset: regs::Etmpidr4
+  - name: etmpidr5
+    description: Peripheral ID5 Register.
+    byte_offset: 4052
+    access: Write
+  - name: etmpidr6
+    description: Peripheral ID6 Register.
+    byte_offset: 4056
+    access: Write
+  - name: etmpidr7
+    description: Peripheral ID7 Register.
+    byte_offset: 4060
+    access: Write
+  - name: etmpidr0
+    description: Peripheral ID0 Register.
+    byte_offset: 4064
+    access: Read
+    fieldset: regs::Etmpidr0
+  - name: etmpidr1
+    description: Peripheral ID1 Register.
+    byte_offset: 4068
+    access: Read
+    fieldset: regs::Etmpidr1
+  - name: etmpidr2
+    description: Peripheral ID2 Register.
+    byte_offset: 4072
+    access: Read
+    fieldset: regs::Etmpidr2
+  - name: etmpidr3
+    description: Peripheral ID3 Register.
+    byte_offset: 4076
+    access: Read
+    fieldset: regs::Etmpidr3
+  - name: etmcidr0
+    description: Component ID0 Register.
+    byte_offset: 4080
+    access: Read
+    fieldset: regs::Etmcidr0
+  - name: etmcidr1
+    description: Component ID1 Register.
+    byte_offset: 4084
+    access: Read
+    fieldset: regs::Etmcidr1
+  - name: etmcidr2
+    description: Component ID2 Register.
+    byte_offset: 4088
+    access: Read
+    fieldset: regs::Etmcidr2
+  - name: etmcidr3
+    description: Component ID3 Register.
+    byte_offset: 4092
+    access: Read
+    fieldset: regs::Etmcidr3
+fieldset/regs::Etmauthstatus:
+  description: ETM Authentication Status Register.
+  fields:
+  - name: nonsecinvdbg
+    description: Non-secure invasive Debug Status.
+    bit_offset: 0
+    bit_size: 2
+  - name: nonsecnoninvdbg
+    description: Non-secure non-invasive Debug Status.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Nonsecnoninvdbg
+  - name: secinvdbg
+    description: Secure invasive Debug Status.
+    bit_offset: 4
+    bit_size: 2
+  - name: secnoninvdbg
+    description: Secure non-invasive Debug Status.
+    bit_offset: 6
+    bit_size: 2
+fieldset/regs::Etmccer:
+  description: Configuration Code Extension Register.
+  fields:
+  - name: extinpsel
+    description: Extended External Input Selectors.
+    bit_offset: 0
+    bit_size: 2
+  - name: extinpbus
+    description: Extended External Input Bus.
+    bit_offset: 3
+    bit_size: 8
+  - name: readregs
+    description: Readable Registers.
+    bit_offset: 11
+    bit_size: 1
+  - name: daddrcmp
+    description: Data Address comparisons.
+    bit_offset: 12
+    bit_size: 1
+  - name: instres
+    description: Instrumentation Resources.
+    bit_offset: 13
+    bit_size: 3
+  - name: eicewpnt
+    description: EmbeddedICE watchpoint inputs.
+    bit_offset: 16
+    bit_size: 4
+  - name: teicewpnt
+    description: Trace Sart/Stop Block Uses EmbeddedICE watchpoint inputs.
+    bit_offset: 20
+    bit_size: 1
+  - name: eiceimp
+    description: EmbeddedICE Behavior control Implemented.
+    bit_offset: 21
+    bit_size: 1
+  - name: timp
+    description: Timestamping Implemented.
+    bit_offset: 22
+    bit_size: 1
+  - name: rfcnt
+    description: Reduced Function Counter.
+    bit_offset: 27
+    bit_size: 1
+  - name: tenc
+    description: Timestamp Encoding.
+    bit_offset: 28
+    bit_size: 1
+  - name: tsize
+    description: Timestamp Size.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::Etmccr:
+  description: Configuration Code Register.
+  fields:
+  - name: adrcmppair
+    description: Number of Address Comparator Pairs.
+    bit_offset: 0
+    bit_size: 4
+  - name: datacmpnum
+    description: Number of Data Value Comparators.
+    bit_offset: 4
+    bit_size: 4
+  - name: mmdeccnt
+    description: Number of Memeory Map Decoders.
+    bit_offset: 8
+    bit_size: 5
+  - name: countnum
+    description: Number of Counters.
+    bit_offset: 13
+    bit_size: 3
+  - name: seqpres
+    description: Sequencer Present.
+    bit_offset: 16
+    bit_size: 1
+  - name: extinpnum
+    description: Number of External Inputs.
+    bit_offset: 17
+    bit_size: 3
+    enum: vals::Extinpnum
+  - name: extoutnum
+    description: Number of External Output.
+    bit_offset: 20
+    bit_size: 3
+  - name: fifofullpres
+    description: FIFIO FULL present.
+    bit_offset: 23
+    bit_size: 1
+  - name: idcompnum
+    description: Number of context ID Comparators.
+    bit_offset: 24
+    bit_size: 2
+  - name: tracess
+    description: Trace Start/Stop Block Present.
+    bit_offset: 26
+    bit_size: 1
+  - name: mmaccess
+    description: Coprocessor and Memeory Access.
+    bit_offset: 27
+    bit_size: 1
+  - name: etmid
+    description: ETM ID Register Present.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Etmcidr0:
+  description: Component ID0 Register.
+  fields:
+  - name: preamb
+    description: CoreSight Preamble.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Etmcidr1:
+  description: Component ID1 Register.
+  fields:
+  - name: preamb
+    description: CoreSight Preamble.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Etmcidr2:
+  description: Component ID2 Register.
+  fields:
+  - name: preamb
+    description: CoreSight Preamble.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Etmcidr3:
+  description: Component ID3 Register.
+  fields:
+  - name: preamb
+    description: CoreSight Preamble.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Etmclaimclr:
+  description: ETM Claim Tag Clear Register.
+  fields:
+  - name: clrtag
+    description: Tag Bits.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Etmclaimset:
+  description: ETM Claim Tag Set Register.
+  fields:
+  - name: settag
+    description: Tag Bits.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Etmcntrldvr1:
+  description: Counter Reload Value.
+  fields:
+  - name: count
+    description: Free running counter reload value.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Etmcr:
+  description: Main Control Register.
+  fields:
+  - name: powerdwn
+    description: ETM Control in low power mode.
+    bit_offset: 0
+    bit_size: 1
+  - name: portsize
+    description: ETM Port Size.
+    bit_offset: 4
+    bit_size: 3
+  - name: stall
+    description: Stall Processor.
+    bit_offset: 7
+    bit_size: 1
+  - name: branchoutput
+    description: Branch Output.
+    bit_offset: 8
+    bit_size: 1
+  - name: dbgreqctrl
+    description: Debug Request Control.
+    bit_offset: 9
+    bit_size: 1
+  - name: etmprog
+    description: ETM Programming.
+    bit_offset: 10
+    bit_size: 1
+  - name: etmportsel
+    description: ETM Port Selection.
+    bit_offset: 11
+    bit_size: 1
+  - name: portmode2
+    description: Port Mode[2].
+    bit_offset: 13
+    bit_size: 1
+  - name: portmode
+    description: Port Mode Control.
+    bit_offset: 16
+    bit_size: 2
+  - name: eportsize
+    description: Port Size[3].
+    bit_offset: 21
+    bit_size: 2
+  - name: tstampen
+    description: Time Stamp Enable.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Etmdevtype:
+  description: CoreSight Device Type Register.
+  fields:
+  - name: tracesrc
+    description: Trace Source.
+    bit_offset: 0
+    bit_size: 4
+  - name: proctrace
+    description: Processor Trace.
+    bit_offset: 4
+    bit_size: 4
+fieldset/regs::Etmfflr:
+  description: ETM Fifo Full Level Register.
+  fields:
+  - name: bytenum
+    description: Bytes left in FIFO.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Etmidr:
+  description: ID Register.
+  fields:
+  - name: impver
+    description: Implementation Revision.
+    bit_offset: 0
+    bit_size: 4
+  - name: etmminver
+    description: Minor ETM Architecture Version.
+    bit_offset: 4
+    bit_size: 4
+  - name: etmmajver
+    description: Major ETM Architecture Version.
+    bit_offset: 8
+    bit_size: 4
+  - name: procfam
+    description: Implementer Code.
+    bit_offset: 12
+    bit_size: 4
+  - name: lpcf
+    description: Load PC First.
+    bit_offset: 16
+    bit_size: 1
+  - name: thumbt
+    description: 32-bit Thumb Instruction Tracing.
+    bit_offset: 18
+    bit_size: 1
+  - name: secext
+    description: Security Extension Support.
+    bit_offset: 19
+    bit_size: 1
+  - name: bpe
+    description: Branch Packet Encoding.
+    bit_offset: 20
+    bit_size: 1
+  - name: impcode
+    description: Implementer Code.
+    bit_offset: 24
+    bit_size: 8
+fieldset/regs::Etmidr2:
+  description: ETM ID Register 2.
+  fields:
+  - name: rfe
+    description: RFE Transfer Order.
+    bit_offset: 0
+    bit_size: 1
+  - name: swp
+    description: SWP Transfer Order.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Etmiscin:
+  description: Integration Test Miscellaneous Inputs Register.
+  fields:
+  - name: extin
+    description: EXTIN Value.
+    bit_offset: 0
+    bit_size: 2
+  - name: corehalt
+    description: Core Halt.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::Etmitatbctr0:
+  description: ETM Integration Test ATB Control 0 Register.
+  fields:
+  - name: atvalid
+    description: ATVALID Output Value.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Etmitatbctr2:
+  description: ETM Integration Test ATB Control 2 Register.
+  fields:
+  - name: atready
+    description: ATREADY Input Value.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Etmitctrl:
+  description: ETM Integration Control Register.
+  fields:
+  - name: iten
+    description: Integration Mode Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Etmlar:
+  description: ETM Lock Access Register.
+  fields:
+  - name: key
+    description: Key Value.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Etmlsr:
+  description: Lock Status Register.
+  fields:
+  - name: lockimp
+    description: ETM Locking Implemented.
+    bit_offset: 0
+    bit_size: 1
+  - name: locked
+    description: ETM locked.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Etmpdsr:
+  description: Device Power-down Status Register.
+  fields:
+  - name: etmup
+    description: ETM Powered Up.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Etmpidr0:
+  description: Peripheral ID0 Register.
+  fields:
+  - name: partnum
+    description: Part Number.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Etmpidr1:
+  description: Peripheral ID1 Register.
+  fields:
+  - name: partnum
+    description: Part Number.
+    bit_offset: 0
+    bit_size: 4
+  - name: idcode
+    description: JEP106 Identity Code.
+    bit_offset: 4
+    bit_size: 4
+fieldset/regs::Etmpidr2:
+  description: Peripheral ID2 Register.
+  fields:
+  - name: idcode
+    description: JEP106 Identity Code.
+    bit_offset: 0
+    bit_size: 3
+  - name: always1
+    description: Always 1.
+    bit_offset: 3
+    bit_size: 1
+  - name: rev
+    description: Revision.
+    bit_offset: 4
+    bit_size: 4
+fieldset/regs::Etmpidr3:
+  description: Peripheral ID3 Register.
+  fields:
+  - name: custmod
+    description: Customer Modified.
+    bit_offset: 0
+    bit_size: 4
+  - name: revand
+    description: RevAnd.
+    bit_offset: 4
+    bit_size: 4
+fieldset/regs::Etmpidr4:
+  description: Peripheral ID4 Register.
+  fields:
+  - name: contcode
+    description: JEP106 Continuation Code.
+    bit_offset: 0
+    bit_size: 4
+  - name: count
+    description: 4KB Count.
+    bit_offset: 4
+    bit_size: 4
+fieldset/regs::Etmscr:
+  description: ETM System Configuration Register.
+  fields:
+  - name: maxportsize
+    description: Maximum Port Size.
+    bit_offset: 0
+    bit_size: 3
+  - name: fifofull
+    description: FIFO FULL Supported.
+    bit_offset: 8
+    bit_size: 1
+  - name: maxportsize3
+    description: Max Port Size[3].
+    bit_offset: 9
+    bit_size: 1
+  - name: portsize
+    description: Port Size Supported.
+    bit_offset: 10
+    bit_size: 1
+  - name: portmode
+    description: Port Mode Supported.
+    bit_offset: 11
+    bit_size: 1
+  - name: procnum
+    description: Number of Supported Processros.
+    bit_offset: 12
+    bit_size: 3
+  - name: nofetchcomp
+    description: No Fetch Comparison.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::Etmsr:
+  description: ETM Status Register.
+  fields:
+  - name: ethof
+    description: ETM Overflow.
+    bit_offset: 0
+    bit_size: 1
+  - name: etmprogbit
+    description: ETM Programming Bit Status.
+    bit_offset: 1
+    bit_size: 1
+  - name: tracestat
+    description: Trace Start/Stop Status.
+    bit_offset: 2
+    bit_size: 1
+  - name: trigbit
+    description: Trigger Bit.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::Etmsyncfr:
+  description: Synchronisation Frequency Register.
+  fields:
+  - name: freq
+    description: Synchronisation Frequency Value.
+    bit_offset: 0
+    bit_size: 12
+fieldset/regs::Etmtecr1:
+  description: ETM Trace control Register.
+  fields:
+  - name: adrcmp
+    description: Address Comparator.
+    bit_offset: 0
+    bit_size: 8
+  - name: memmap
+    description: Memmap.
+    bit_offset: 8
+    bit_size: 16
+  - name: incexctl
+    description: Trace Include/Exclude Flag.
+    bit_offset: 24
+    bit_size: 1
+  - name: tce
+    description: Trace Control Enable.
+    bit_offset: 25
+    bit_size: 1
+fieldset/regs::Etmteevr:
+  description: ETM TraceEnable Event Register.
+  fields:
+  - name: resa
+    description: ETM Resource A Trace Enable.
+    bit_offset: 0
+    bit_size: 7
+  - name: resb
+    description: ETM Resource B Trace Enable.
+    bit_offset: 7
+    bit_size: 7
+  - name: etmfcnen
+    description: ETM Function Trace Enable.
+    bit_offset: 14
+    bit_size: 3
+fieldset/regs::Etmtesseicr:
+  description: TraceEnable Start/Stop EmbeddedICE Control Register.
+  fields:
+  - name: startrsel
+    description: Stop Resource Selection.
+    bit_offset: 0
+    bit_size: 4
+  - name: stoprsel
+    description: Stop Resource Selection.
+    bit_offset: 16
+    bit_size: 4
+fieldset/regs::Etmtraceidr:
+  description: CoreSight Trace ID Register.
+  fields:
+  - name: traceid
+    description: Trace ID.
+    bit_offset: 0
+    bit_size: 7
+fieldset/regs::Etmtrigger:
+  description: ETM Trigger Event Register.
+  fields:
+  - name: resa
+    description: ETM Resource A.
+    bit_offset: 0
+    bit_size: 7
+  - name: resb
+    description: ETM Resource B.
+    bit_offset: 7
+    bit_size: 7
+  - name: etmfcn
+    description: ETM Function.
+    bit_offset: 14
+    bit_size: 3
+fieldset/regs::Etmtsevr:
+  description: Timestamp Event Register.
+  fields:
+  - name: resaevt
+    description: ETM Resource A Event.
+    bit_offset: 0
+    bit_size: 7
+  - name: resbevt
+    description: ETM Resource B Event.
+    bit_offset: 7
+    bit_size: 7
+  - name: etmfcnevt
+    description: ETM Function Event.
+    bit_offset: 14
+    bit_size: 3
+fieldset/regs::Ittrigout:
+  description: Integration Test Trigger Out Register.
+  fields:
+  - name: triggerout
+    description: Trigger output value.
+    bit_offset: 0
+    bit_size: 1
+enum/vals::Extinpnum:
+  bit_size: 3
+  variants:
+  - name: One
+    description: One inputs presents.
+    value: 1
+  - name: Two
+    description: Two inputs presents.
+    value: 2
+  - name: Zero
+    description: Zero inputs presents.
+    value: 0
+enum/vals::Nonsecnoninvdbg:
+  bit_size: 2
+  variants:
+  - name: Disable
+    description: Non-secure non-invasive debug disable.
+    value: 2
+  - name: Enable
+    description: Non-secure non-invasive debug enable.
+    value: 3

@@ -1,0 +1,164 @@
+block/Vcmp:
+  description: VCMP peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: inputsel
+    description: Input Selection Register.
+    byte_offset: 4
+    fieldset: regs::Inputsel
+  - name: status
+    description: Status Register.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::Status
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 12
+    fieldset: regs::Ien
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 20
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 24
+    access: Write
+    fieldset: regs::Ifc
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: en
+    description: Voltage Supply Comparator Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: inactval
+    description: Inactive Value.
+    bit_offset: 2
+    bit_size: 1
+  - name: hysten
+    description: Hysteresis Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: warmtime
+    description: Warm-Up Time.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Warmtime
+  - name: irise
+    description: Rising Edge Interrupt Sense.
+    bit_offset: 16
+    bit_size: 1
+  - name: ifall
+    description: Falling Edge Interrupt Sense.
+    bit_offset: 17
+    bit_size: 1
+  - name: biasprog
+    description: VCMP Bias Programming Value.
+    bit_offset: 24
+    bit_size: 4
+  - name: halfbias
+    description: Half Bias Current.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: edge
+    description: Edge Trigger Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: warmup
+    description: Warm-up Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: edge
+    description: Edge Triggered Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: warmup
+    description: Warm-up Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: edge
+    description: Edge Triggered Interrupt Flag Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: warmup
+    description: Warm-up Interrupt Flag Clear.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: edge
+    description: Edge Triggered Interrupt Flag Set.
+    bit_offset: 0
+    bit_size: 1
+  - name: warmup
+    description: Warm-up Interrupt Flag Set.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Inputsel:
+  description: Input Selection Register.
+  fields:
+  - name: triglevel
+    description: Trigger Level.
+    bit_offset: 0
+    bit_size: 6
+  - name: lpref
+    description: Low Power Reference.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::Status:
+  description: Status Register.
+  fields:
+  - name: vcmpact
+    description: Voltage Supply Comparator Active.
+    bit_offset: 0
+    bit_size: 1
+  - name: vcmpout
+    description: Voltage Supply Comparator Output.
+    bit_offset: 1
+    bit_size: 1
+enum/vals::Warmtime:
+  bit_size: 3
+  variants:
+  - name: _128cycles
+    description: 128 HFPERCLK cycles.
+    value: 5
+  - name: _16cycles
+    description: 16 HFPERCLK cycles.
+    value: 2
+  - name: _256cycles
+    description: 256 HFPERCLK cycles.
+    value: 6
+  - name: _32cycles
+    description: 32 HFPERCLK cycles.
+    value: 3
+  - name: _4cycles
+    description: 4 HFPERCLK cycles.
+    value: 0
+  - name: _512cycles
+    description: 512 HFPERCLK cycles.
+    value: 7
+  - name: _64cycles
+    description: 64 HFPERCLK cycles.
+    value: 4
+  - name: _8cycles
+    description: 8 HFPERCLK cycles.
+    value: 1

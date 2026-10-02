@@ -1,0 +1,102 @@
+block/Rmu:
+  description: RMU peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: rstcause
+    description: Reset Cause Register.
+    byte_offset: 4
+    access: Read
+    fieldset: regs::Rstcause
+  - name: cmd
+    description: Command Register.
+    byte_offset: 8
+    access: Write
+    fieldset: regs::Cmd
+fieldset/regs::Cmd:
+  description: Command Register.
+  fields:
+  - name: rcclr
+    description: Reset Cause Clear.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: lockuprdis
+    description: Lockup Reset Disable.
+    bit_offset: 0
+    bit_size: 1
+  - name: bursten
+    description: Backup domain reset enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Rstcause:
+  description: Reset Cause Register.
+  fields:
+  - name: porst
+    description: Power On Reset.
+    bit_offset: 0
+    bit_size: 1
+  - name: bodunregrst
+    description: Brown Out Detector Unregulated Domain Reset.
+    bit_offset: 1
+    bit_size: 1
+  - name: bodregrst
+    description: Brown Out Detector Regulated Domain Reset.
+    bit_offset: 2
+    bit_size: 1
+  - name: extrst
+    description: External Pin Reset.
+    bit_offset: 3
+    bit_size: 1
+  - name: wdogrst
+    description: Watchdog Reset.
+    bit_offset: 4
+    bit_size: 1
+  - name: lockuprst
+    description: LOCKUP Reset.
+    bit_offset: 5
+    bit_size: 1
+  - name: sysreqrst
+    description: System Request Reset.
+    bit_offset: 6
+    bit_size: 1
+  - name: em4rst
+    description: EM4 Reset.
+    bit_offset: 7
+    bit_size: 1
+  - name: em4wurst
+    description: EM4 Wake-up Reset.
+    bit_offset: 8
+    bit_size: 1
+  - name: bodavdd0
+    description: AVDD0 Bod Reset.
+    bit_offset: 9
+    bit_size: 1
+  - name: bodavdd1
+    description: AVDD1 Bod Reset.
+    bit_offset: 10
+    bit_size: 1
+  - name: bubodvdddreg
+    description: Backup Brown Out Detector, VDD_DREG.
+    bit_offset: 11
+    bit_size: 1
+  - name: bubodbuvin
+    description: Backup Brown Out Detector, BU_VIN.
+    bit_offset: 12
+    bit_size: 1
+  - name: bubodunreg
+    description: Backup Brown Out Detector Unregulated Domain.
+    bit_offset: 13
+    bit_size: 1
+  - name: bubodreg
+    description: Backup Brown Out Detector Regulated Domain.
+    bit_offset: 14
+    bit_size: 1
+  - name: bumoderst
+    description: Backup mode reset.
+    bit_offset: 15
+    bit_size: 1

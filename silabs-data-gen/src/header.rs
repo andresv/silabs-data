@@ -90,12 +90,14 @@ pub fn parse_file(path: impl AsRef<Path>) -> Result<Vec<HeaderIrq>> {
 /// `_SILICON_LABS_32B_SERIES_<N>_CONFIG` macros.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct Series {
-    /// Series number (`_SILICON_LABS_32B_SERIES`). `2` for current
-    /// Cortex-M33 Series 2 chips (xG21..xG29), `3` for newer
-    /// `SI`-prefixed Series 3 chips.
+    /// Series number (`_SILICON_LABS_32B_SERIES`). `0` for EFM32 Gecko
+    /// (Cortex-M0+/M3), `1` for EFM32/EFR32 xG1x (Cortex-M4), `2` for
+    /// Cortex-M33 Series 2 chips (xG21..xG29), `3` for newer `SI`-prefixed
+    /// Series 3 chips.
     pub series: u8,
     /// Within-series config number (`_SILICON_LABS_32B_SERIES_<N>_CONFIG`).
-    /// Series 2: 1..9 (one per family). Series 3: 301+.
+    /// Series 0: always 0 (the header has no config macro). Series 1: 1..4,
+    /// not unique per family. Series 2: 1..9 (one per family). Series 3: 301+.
     pub config: u16,
 }
 
@@ -141,6 +143,9 @@ pub fn extract_series(text: &str) -> Result<Series> {
 
     match (series, config) {
         (Some(series), Some(config)) => Ok(Series { series, config }),
+        // Series 0 headers define `_SILICON_LABS_32B_SERIES 0` but no
+        // `_SILICON_LABS_32B_SERIES_0_CONFIG`. Series 0 has no config axis.
+        (Some(0), None) => Ok(Series { series: 0, config: 0 }),
         (None, _) => anyhow::bail!("no `#define _SILICON_LABS_32B_SERIES <N>` found in header"),
         (_, None) => anyhow::bail!("no `#define _SILICON_LABS_32B_SERIES_<N>_CONFIG <M>` found in header"),
     }
@@ -151,6 +156,31 @@ pub fn extract_series_file(path: impl AsRef<Path>) -> Result<Series> {
     let path = path.as_ref();
     let text = std::fs::read_to_string(path).with_context(|| format!("read header {}", path.display()))?;
     extract_series(&text)
+}
+
+/// Parse `#define __NVIC_PRIO_BITS <N>U` from a CMSIS device header.
+/// Seen values: 2 (Cortex-M0+: EFM32ZG/HG), 3 (Cortex-M3/M4: EFM32 Series
+/// 0/1), 4 (Cortex-M33: EFR32 Series 2).
+pub fn extract_nvic_prio_bits(text: &str) -> Result<u8> {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    let re = RE.get_or_init(|| {
+        Regex::new(r"^\s*#\s*define\s+__NVIC_PRIO_BITS\s+(\d+)U?\b").expect("nvic prio bits regex compiles")
+    });
+    for line in text.lines() {
+        if let Some(caps) = re.captures(line) {
+            return caps[1]
+                .parse()
+                .with_context(|| format!("parse __NVIC_PRIO_BITS in {line:?}"));
+        }
+    }
+    anyhow::bail!("no `#define __NVIC_PRIO_BITS <N>` found in header")
+}
+
+/// Convenience wrapper: read a header from disk and extract `__NVIC_PRIO_BITS`.
+pub fn extract_nvic_prio_bits_file(path: impl AsRef<Path>) -> Result<u8> {
+    let path = path.as_ref();
+    let text = std::fs::read_to_string(path).with_context(|| format!("read header {}", path.display()))?;
+    extract_nvic_prio_bits(&text)
 }
 
 #[cfg(test)]
@@ -255,6 +285,58 @@ struct foo { int FRC_IRQn; };
         "#;
         let s = extract_series(sample).expect("extract");
         assert_eq!(s, Series { series: 3, config: 301 });
+    }
+
+    /// EFM32GG390F1024 — Series 0 headers carry `_SILICON_LABS_32B_SERIES 0`
+    /// but no `_SILICON_LABS_32B_SERIES_0_CONFIG` macro.
+    #[test]
+    fn extracts_series_0_without_config() {
+        let sample = r#"
+#define _SILICON_LABS_32B_SERIES_0                 /**< Silicon Labs series number */
+#define _SILICON_LABS_32B_SERIES                0  /**< Silicon Labs series number */
+#define _SILICON_LABS_GECKO_INTERNAL_SDID       72 /**< Silicon Labs internal use only, may change any time */
+        "#;
+        let s = extract_series(sample).expect("extract");
+        assert_eq!(s, Series { series: 0, config: 0 });
+    }
+
+    /// EFM32GG11B820F2048GL192 — Series 1 has the same macro shape as Series 2.
+    #[test]
+    fn extracts_series_1_config() {
+        let sample = r#"
+#define _SILICON_LABS_32B_SERIES_1                   /**< Silicon Labs series number */
+#define _SILICON_LABS_32B_SERIES                 1   /**< Silicon Labs series number */
+#define _SILICON_LABS_32B_SERIES_1_CONFIG_1          /**< Series 1, Configuration 1 */
+#define _SILICON_LABS_32B_SERIES_1_CONFIG        1   /**< Series 1, Configuration 1 */
+        "#;
+        let s = extract_series(sample).expect("extract");
+        assert_eq!(s, Series { series: 1, config: 1 });
+    }
+
+    /// The Series 0 exemption must not hide a missing config on Series 2.
+    #[test]
+    fn extract_series_still_requires_config_for_series_2() {
+        let err = extract_series("#define _SILICON_LABS_32B_SERIES 2\n").unwrap_err();
+        assert!(err.to_string().contains("_CONFIG"), "{err}");
+    }
+
+    #[test]
+    fn extracts_nvic_prio_bits() {
+        // EFM32ZG222F32 (Cortex-M0+).
+        let m0 = "#define __NVIC_PRIO_BITS          2U /**< NVIC interrupt priority bits */\n";
+        assert_eq!(extract_nvic_prio_bits(m0).unwrap(), 2);
+        // EFM32GG390F1024 (Cortex-M3).
+        let m3 = "#define __NVIC_PRIO_BITS          3U /**< NVIC interrupt priority bits */\n";
+        assert_eq!(extract_nvic_prio_bits(m3).unwrap(), 3);
+        // EFR32MG24B210F1536IM48 (Cortex-M33).
+        let m33 = "#define __NVIC_PRIO_BITS          4U      /**< NVIC interrupt priority bits */\n";
+        assert_eq!(extract_nvic_prio_bits(m33).unwrap(), 4);
+    }
+
+    #[test]
+    fn extract_nvic_prio_bits_rejects_missing_macro() {
+        let err = extract_nvic_prio_bits("nothing here").unwrap_err();
+        assert!(err.to_string().contains("__NVIC_PRIO_BITS"), "{err}");
     }
 
     #[test]

@@ -1,0 +1,1372 @@
+block/Ebi:
+  description: EBI peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: addrtiming
+    description: Address Timing Register.
+    byte_offset: 4
+    fieldset: regs::Addrtiming
+  - name: rdtiming
+    description: Read Timing Register.
+    byte_offset: 8
+    fieldset: regs::Rdtiming
+  - name: wrtiming
+    description: Write Timing Register.
+    byte_offset: 12
+    fieldset: regs::Wrtiming
+  - name: polarity
+    description: Polarity Register.
+    byte_offset: 16
+    fieldset: regs::Polarity
+  - name: route
+    description: I/O Routing Register.
+    byte_offset: 20
+    fieldset: regs::Route
+  - name: addrtiming1
+    description: Address Timing Register 1.
+    byte_offset: 24
+    fieldset: regs::Addrtiming1
+  - name: rdtiming1
+    description: Read Timing Register 1.
+    byte_offset: 28
+    fieldset: regs::Rdtiming1
+  - name: wrtiming1
+    description: Write Timing Register 1.
+    byte_offset: 32
+    fieldset: regs::Wrtiming1
+  - name: polarity1
+    description: Polarity Register 1.
+    byte_offset: 36
+    fieldset: regs::Polarity1
+  - name: addrtiming2
+    description: Address Timing Register 2.
+    byte_offset: 40
+    fieldset: regs::Addrtiming2
+  - name: rdtiming2
+    description: Read Timing Register 2.
+    byte_offset: 44
+    fieldset: regs::Rdtiming2
+  - name: wrtiming2
+    description: Write Timing Register 2.
+    byte_offset: 48
+    fieldset: regs::Wrtiming2
+  - name: polarity2
+    description: Polarity Register 2.
+    byte_offset: 52
+    fieldset: regs::Polarity2
+  - name: addrtiming3
+    description: Address Timing Register 3.
+    byte_offset: 56
+    fieldset: regs::Addrtiming3
+  - name: rdtiming3
+    description: Read Timing Register 3.
+    byte_offset: 60
+    fieldset: regs::Rdtiming3
+  - name: wrtiming3
+    description: Write Timing Register 3.
+    byte_offset: 64
+    fieldset: regs::Wrtiming3
+  - name: polarity3
+    description: Polarity Register 3.
+    byte_offset: 68
+    fieldset: regs::Polarity3
+  - name: pagectrl
+    description: Page Control Register.
+    byte_offset: 72
+    fieldset: regs::Pagectrl
+  - name: nandctrl
+    description: NAND Control Register.
+    byte_offset: 76
+    fieldset: regs::Nandctrl
+  - name: cmd
+    description: Command Register.
+    byte_offset: 80
+    access: Write
+    fieldset: regs::Cmd
+  - name: status
+    description: Status Register.
+    byte_offset: 84
+    access: Read
+    fieldset: regs::Status
+  - name: eccparity
+    description: ECC Parity register.
+    byte_offset: 88
+    access: Read
+    fieldset: regs::Eccparity
+  - name: tftctrl
+    description: TFT Control Register.
+    byte_offset: 92
+    fieldset: regs::Tftctrl
+  - name: tftstatus
+    description: TFT Status Register.
+    byte_offset: 96
+    access: Read
+    fieldset: regs::Tftstatus
+  - name: tftframebase
+    description: TFT Frame Base Register.
+    byte_offset: 100
+    fieldset: regs::Tftframebase
+  - name: tftstride
+    description: TFT Stride Register.
+    byte_offset: 104
+    fieldset: regs::Tftstride
+  - name: tftsize
+    description: TFT Size Register.
+    byte_offset: 108
+    fieldset: regs::Tftsize
+  - name: tfthporch
+    description: TFT Horizontal Porch Register.
+    byte_offset: 112
+    fieldset: regs::Tfthporch
+  - name: tftvporch
+    description: TFT Vertical Porch Register.
+    byte_offset: 116
+    fieldset: regs::Tftvporch
+  - name: tfttiming
+    description: TFT Timing Register.
+    byte_offset: 120
+    fieldset: regs::Tfttiming
+  - name: tftpolarity
+    description: TFT Polarity Register.
+    byte_offset: 124
+    fieldset: regs::Tftpolarity
+  - name: tftdd
+    description: TFT Direct Drive Data Register.
+    byte_offset: 128
+    fieldset: regs::Tftdd
+  - name: tftalpha
+    description: TFT Alpha Blending Register.
+    byte_offset: 132
+    fieldset: regs::Tftalpha
+  - name: tftpixel0
+    description: TFT Pixel 0 Register.
+    byte_offset: 136
+    fieldset: regs::Tftpixel0
+  - name: tftpixel1
+    description: TFT Pixel 1 Register.
+    byte_offset: 140
+    fieldset: regs::Tftpixel1
+  - name: tftpixel
+    description: TFT Alpha Blending Result Pixel Register.
+    byte_offset: 144
+    access: Read
+    fieldset: regs::Tftpixel
+  - name: tftmask
+    description: TFT Masking Register.
+    byte_offset: 148
+    fieldset: regs::Tftmask
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 152
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 156
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 160
+    access: Write
+    fieldset: regs::Ifc
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 164
+    fieldset: regs::Ien
+fieldset/regs::Addrtiming:
+  description: Address Timing Register.
+  fields:
+  - name: addrsetup
+    description: Address Setup Time.
+    bit_offset: 0
+    bit_size: 2
+  - name: addrhold
+    description: Address Hold Time.
+    bit_offset: 8
+    bit_size: 2
+  - name: halfale
+    description: Half Cycle ALE Strobe Duration Enable.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Addrtiming1:
+  description: Address Timing Register 1.
+  fields:
+  - name: addrsetup
+    description: Address Setup Time.
+    bit_offset: 0
+    bit_size: 2
+  - name: addrhold
+    description: Address Hold Time.
+    bit_offset: 8
+    bit_size: 2
+  - name: halfale
+    description: Half Cycle ALE Strobe Duration Enable.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Addrtiming2:
+  description: Address Timing Register 2.
+  fields:
+  - name: addrsetup
+    description: Address Setup Time.
+    bit_offset: 0
+    bit_size: 2
+  - name: addrhold
+    description: Address Hold Time.
+    bit_offset: 8
+    bit_size: 2
+  - name: halfale
+    description: Half Cycle ALE Strobe Duration Enable.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Addrtiming3:
+  description: Address Timing Register 3.
+  fields:
+  - name: addrsetup
+    description: Address Setup Time.
+    bit_offset: 0
+    bit_size: 2
+  - name: addrhold
+    description: Address Hold Time.
+    bit_offset: 8
+    bit_size: 2
+  - name: halfale
+    description: Half Cycle ALE Strobe Duration Enable.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Cmd:
+  description: Command Register.
+  fields:
+  - name: eccstart
+    description: Error Correction Code Generation Start.
+    bit_offset: 0
+    bit_size: 1
+  - name: eccstop
+    description: Error Correction Code Generation Stop.
+    bit_offset: 1
+    bit_size: 1
+  - name: eccclear
+    description: Error Correction Code Clear.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: mode
+    description: Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Mode
+  - name: mode1
+    description: Mode 1.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Mode1
+  - name: mode2
+    description: Mode 2.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Mode2
+  - name: mode3
+    description: Mode 3.
+    bit_offset: 6
+    bit_size: 2
+    enum: vals::Mode3
+  - name: bank0en
+    description: Bank 0 Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: bank1en
+    description: Bank 1 Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: bank2en
+    description: Bank 2 Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: bank3en
+    description: Bank 3 Enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: noidle
+    description: No idle cycle insertion on bank 0.
+    bit_offset: 12
+    bit_size: 1
+  - name: noidle1
+    description: No idle cycle insertion on bank 1.
+    bit_offset: 13
+    bit_size: 1
+  - name: noidle2
+    description: No idle cycle insertion on bank 2.
+    bit_offset: 14
+    bit_size: 1
+  - name: noidle3
+    description: No idle cycle insertion on bank 3.
+    bit_offset: 15
+    bit_size: 1
+  - name: ardyen
+    description: ARDY Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: ardytodis
+    description: ARDY Timeout Disable.
+    bit_offset: 17
+    bit_size: 1
+  - name: ardy1en
+    description: ARDY Enable for bank 1.
+    bit_offset: 18
+    bit_size: 1
+  - name: ardyto1dis
+    description: ARDY Timeout Disable for bank 1.
+    bit_offset: 19
+    bit_size: 1
+  - name: ardy2en
+    description: ARDY Enable for bank 2.
+    bit_offset: 20
+    bit_size: 1
+  - name: ardyto2dis
+    description: ARDY Timeout Disable for bank 2.
+    bit_offset: 21
+    bit_size: 1
+  - name: ardy3en
+    description: ARDY Enable for bank 3.
+    bit_offset: 22
+    bit_size: 1
+  - name: ardyto3dis
+    description: ARDY Timeout Disable for bank 3.
+    bit_offset: 23
+    bit_size: 1
+  - name: bl
+    description: Byte Lane Enable for bank 0.
+    bit_offset: 24
+    bit_size: 1
+  - name: bl1
+    description: Byte Lane Enable for bank 1.
+    bit_offset: 25
+    bit_size: 1
+  - name: bl2
+    description: Byte Lane Enable for bank 2.
+    bit_offset: 26
+    bit_size: 1
+  - name: bl3
+    description: Byte Lane Enable for bank 3.
+    bit_offset: 27
+    bit_size: 1
+  - name: its
+    description: Individual Timing Set, Line Polarity and Mode Definition Enable.
+    bit_offset: 30
+    bit_size: 1
+  - name: altmap
+    description: Alternative Address Map Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Eccparity:
+  description: ECC Parity register.
+  fields:
+  - name: eccparity
+    description: ECC Parity Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: vsync
+    description: Vertical Sync Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: hsync
+    description: Horizontal Sync Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: vbporch
+    description: Vertical Back Porch Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: vfporch
+    description: Vertical Front Porch Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: ddempty
+    description: Direct Drive Data Empty Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: ddjit
+    description: Direct Drive Jitter Interrupt Enable.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: vsync
+    description: Vertical Sync Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: hsync
+    description: Horizontal Sync Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: vbporch
+    description: Vertical Back Porch Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: vfporch
+    description: Vertical Front Porch Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: ddempty
+    description: Direct Drive Data Empty Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: ddjit
+    description: Direct Drive Jitter Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: vsync
+    description: Vertical Sync Interrupt Flag Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: hsync
+    description: Horizontal Sync Interrupt Flag Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: vbporch
+    description: Vertical Back Porch Interrupt Flag Clear.
+    bit_offset: 2
+    bit_size: 1
+  - name: vfporch
+    description: Vertical Front Porch Interrupt Flag Clear.
+    bit_offset: 3
+    bit_size: 1
+  - name: ddempty
+    description: Direct Drive Data Empty Interrupt Flag Clear.
+    bit_offset: 4
+    bit_size: 1
+  - name: ddjit
+    description: Direct Drive Jitter Interrupt Flag Clear.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: vsync
+    description: Vertical Sync Interrupt Flag Set.
+    bit_offset: 0
+    bit_size: 1
+  - name: hsync
+    description: Horizontal Sync Interrupt Flag Set.
+    bit_offset: 1
+    bit_size: 1
+  - name: vbporch
+    description: Vertical Back Porch Interrupt Flag Set.
+    bit_offset: 2
+    bit_size: 1
+  - name: vfporch
+    description: Vertical Front Porch Interrupt Flag Set.
+    bit_offset: 3
+    bit_size: 1
+  - name: ddempty
+    description: Direct Drive Data Empty Interrupt Flag Set.
+    bit_offset: 4
+    bit_size: 1
+  - name: ddjit
+    description: Direct Drive Jitter Interrupt Flag Set.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Nandctrl:
+  description: NAND Control Register.
+  fields:
+  - name: en
+    description: NAND Flash control enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: banksel
+    description: NAND Flash Bank.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::NandctrlBanksel
+fieldset/regs::Pagectrl:
+  description: Page Control Register.
+  fields:
+  - name: pagelen
+    description: Page Length.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Pagelen
+  - name: inchit
+    description: Intrapage hit only on incremental addresses.
+    bit_offset: 4
+    bit_size: 1
+  - name: rdpa
+    description: Page Read Access Time.
+    bit_offset: 8
+    bit_size: 3
+  - name: keepopen
+    description: Maximum Page Open Time.
+    bit_offset: 20
+    bit_size: 7
+fieldset/regs::Polarity:
+  description: Polarity Register.
+  fields:
+  - name: cspol
+    description: Chip Select Polarity.
+    bit_offset: 0
+    bit_size: 1
+  - name: repol
+    description: Read Enable Polarity.
+    bit_offset: 1
+    bit_size: 1
+  - name: wepol
+    description: Write Enable Polarity.
+    bit_offset: 2
+    bit_size: 1
+  - name: alepol
+    description: Address Latch Polarity.
+    bit_offset: 3
+    bit_size: 1
+  - name: ardypol
+    description: ARDY Polarity.
+    bit_offset: 4
+    bit_size: 1
+  - name: blpol
+    description: BL Polarity.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Polarity1:
+  description: Polarity Register 1.
+  fields:
+  - name: cspol
+    description: Chip Select Polarity.
+    bit_offset: 0
+    bit_size: 1
+  - name: repol
+    description: Read Enable Polarity.
+    bit_offset: 1
+    bit_size: 1
+  - name: wepol
+    description: Write Enable Polarity.
+    bit_offset: 2
+    bit_size: 1
+  - name: alepol
+    description: Address Latch Polarity.
+    bit_offset: 3
+    bit_size: 1
+  - name: ardypol
+    description: ARDY Polarity.
+    bit_offset: 4
+    bit_size: 1
+  - name: blpol
+    description: BL Polarity.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Polarity2:
+  description: Polarity Register 2.
+  fields:
+  - name: cspol
+    description: Chip Select Polarity.
+    bit_offset: 0
+    bit_size: 1
+  - name: repol
+    description: Read Enable Polarity.
+    bit_offset: 1
+    bit_size: 1
+  - name: wepol
+    description: Write Enable Polarity.
+    bit_offset: 2
+    bit_size: 1
+  - name: alepol
+    description: Address Latch Polarity.
+    bit_offset: 3
+    bit_size: 1
+  - name: ardypol
+    description: ARDY Polarity.
+    bit_offset: 4
+    bit_size: 1
+  - name: blpol
+    description: BL Polarity.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Polarity3:
+  description: Polarity Register 3.
+  fields:
+  - name: cspol
+    description: Chip Select Polarity.
+    bit_offset: 0
+    bit_size: 1
+  - name: repol
+    description: Read Enable Polarity.
+    bit_offset: 1
+    bit_size: 1
+  - name: wepol
+    description: Write Enable Polarity.
+    bit_offset: 2
+    bit_size: 1
+  - name: alepol
+    description: Address Latch Polarity.
+    bit_offset: 3
+    bit_size: 1
+  - name: ardypol
+    description: ARDY Polarity.
+    bit_offset: 4
+    bit_size: 1
+  - name: blpol
+    description: BL Polarity.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Rdtiming:
+  description: Read Timing Register.
+  fields:
+  - name: rdsetup
+    description: Read Setup Time.
+    bit_offset: 0
+    bit_size: 2
+  - name: rdstrb
+    description: Read Strobe Time.
+    bit_offset: 8
+    bit_size: 6
+  - name: rdhold
+    description: Read Hold Time.
+    bit_offset: 16
+    bit_size: 2
+  - name: halfre
+    description: Half Cycle REn Strobe Duration Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: prefetch
+    description: Prefetch Enable.
+    bit_offset: 29
+    bit_size: 1
+  - name: pagemode
+    description: Page Mode Access Enable.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::Rdtiming1:
+  description: Read Timing Register 1.
+  fields:
+  - name: rdsetup
+    description: Read Setup Time.
+    bit_offset: 0
+    bit_size: 2
+  - name: rdstrb
+    description: Read Strobe Time.
+    bit_offset: 8
+    bit_size: 6
+  - name: rdhold
+    description: Read Hold Time.
+    bit_offset: 16
+    bit_size: 2
+  - name: halfre
+    description: Half Cycle REn Strobe Duration Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: prefetch
+    description: Prefetch Enable.
+    bit_offset: 29
+    bit_size: 1
+  - name: pagemode
+    description: Page Mode Access Enable.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::Rdtiming2:
+  description: Read Timing Register 2.
+  fields:
+  - name: rdsetup
+    description: Read Setup Time.
+    bit_offset: 0
+    bit_size: 2
+  - name: rdstrb
+    description: Read Strobe Time.
+    bit_offset: 8
+    bit_size: 6
+  - name: rdhold
+    description: Read Hold Time.
+    bit_offset: 16
+    bit_size: 2
+  - name: halfre
+    description: Half Cycle REn Strobe Duration Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: prefetch
+    description: Prefetch Enable.
+    bit_offset: 29
+    bit_size: 1
+  - name: pagemode
+    description: Page Mode Access Enable.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::Rdtiming3:
+  description: Read Timing Register 3.
+  fields:
+  - name: rdsetup
+    description: Read Setup Time.
+    bit_offset: 0
+    bit_size: 2
+  - name: rdstrb
+    description: Read Strobe Time.
+    bit_offset: 8
+    bit_size: 6
+  - name: rdhold
+    description: Read Hold Time.
+    bit_offset: 16
+    bit_size: 2
+  - name: halfre
+    description: Half Cycle REn Strobe Duration Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: prefetch
+    description: Prefetch Enable.
+    bit_offset: 29
+    bit_size: 1
+  - name: pagemode
+    description: Page Mode Access Enable.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::Route:
+  description: I/O Routing Register.
+  fields:
+  - name: ebipen
+    description: EBI Pin Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: cs0pen
+    description: EBI_CS0 Pin Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: cs1pen
+    description: EBI_CS1 Pin Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: cs2pen
+    description: EBI_CS2 Pin Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: cs3pen
+    description: EBI_CS3 Pin Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: alepen
+    description: EBI_ALE Pin Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: ardypen
+    description: EBI_ARDY Pin Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: blpen
+    description: EBI_BL[1:0] Pin Enable.
+    bit_offset: 7
+    bit_size: 1
+  - name: nandpen
+    description: NANDRE and NANDWE Pin Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: alb
+    description: Sets the lower bound for EBI_A enabling.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Alb
+  - name: apen
+    description: EBI_A Pin Enable.
+    bit_offset: 18
+    bit_size: 5
+    enum: vals::Apen
+  - name: tftpen
+    description: EBI_TFT Pin Enable.
+    bit_offset: 24
+    bit_size: 1
+  - name: dataenpen
+    description: EBI_TFT Pin Enable.
+    bit_offset: 25
+    bit_size: 1
+  - name: cstftpen
+    description: EBI_CSTFT Pin Enable.
+    bit_offset: 26
+    bit_size: 1
+  - name: location
+    description: I/O Location.
+    bit_offset: 28
+    bit_size: 3
+    enum: vals::Location
+fieldset/regs::Status:
+  description: Status Register.
+  fields:
+  - name: ahbact
+    description: EBI Busy with AHB Transaction.
+    bit_offset: 0
+    bit_size: 1
+  - name: eccact
+    description: EBI ECC Generation Active.
+    bit_offset: 4
+    bit_size: 1
+  - name: tftpixel0empty
+    description: EBI_TFTPIXEL0 is empty.
+    bit_offset: 8
+    bit_size: 1
+  - name: tftpixel1empty
+    description: EBI_TFTPIXEL1 is empty.
+    bit_offset: 9
+    bit_size: 1
+  - name: tftpixelfull
+    description: EBI_TFTPIXEL0 is full.
+    bit_offset: 10
+    bit_size: 1
+  - name: ddact
+    description: EBI Busy with Direct Drive Transactions.
+    bit_offset: 12
+    bit_size: 1
+  - name: tftddempty
+    description: EBI_TFTDD register is empty.
+    bit_offset: 13
+    bit_size: 1
+fieldset/regs::Tftalpha:
+  description: TFT Alpha Blending Register.
+  fields:
+  - name: alpha
+    description: TFT Alpha Blending Factor.
+    bit_offset: 0
+    bit_size: 9
+fieldset/regs::Tftctrl:
+  description: TFT Control Register.
+  fields:
+  - name: dd
+    description: TFT Direct Drive Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Dd
+  - name: maskblend
+    description: TFT Mask and Blend Mode.
+    bit_offset: 2
+    bit_size: 3
+    enum: vals::Maskblend
+  - name: shiftdclken
+    description: TFT EBI_DCLK Shift Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: fbctrig
+    description: TFT Frame Base Copy Trigger.
+    bit_offset: 9
+    bit_size: 1
+  - name: interleave
+    description: Interleave Mode.
+    bit_offset: 10
+    bit_size: 2
+    enum: vals::Interleave
+  - name: color1src
+    description: Masking/Alpha Blending Color1 Source.
+    bit_offset: 12
+    bit_size: 1
+  - name: width
+    description: TFT Transaction Width.
+    bit_offset: 16
+    bit_size: 1
+  - name: banksel
+    description: Graphics Bank.
+    bit_offset: 20
+    bit_size: 2
+    enum: vals::TftctrlBanksel
+  - name: rgbmode
+    description: TFT RGB Mode.
+    bit_offset: 24
+    bit_size: 1
+fieldset/regs::Tftdd:
+  description: TFT Direct Drive Data Register.
+  fields:
+  - name: data
+    description: TFT Direct Drive Data from Internal Memory.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Tftframebase:
+  description: TFT Frame Base Register.
+  fields:
+  - name: framebase
+    description: Frame Base Address.
+    bit_offset: 0
+    bit_size: 28
+fieldset/regs::Tfthporch:
+  description: TFT Horizontal Porch Register.
+  fields:
+  - name: hsync
+    description: Horizontal Synchronization Pulse Width.
+    bit_offset: 0
+    bit_size: 7
+  - name: hfporch
+    description: Horizontal Front Porch Size.
+    bit_offset: 8
+    bit_size: 8
+  - name: hbporch
+    description: Horizontal Back Porch Size.
+    bit_offset: 18
+    bit_size: 8
+  - name: hsyncstart
+    description: HSYNC Start Delay.
+    bit_offset: 28
+    bit_size: 2
+fieldset/regs::Tftmask:
+  description: TFT Masking Register.
+  fields:
+  - name: tftmask
+    description: TFT Mask Value.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Tftpixel:
+  description: TFT Alpha Blending Result Pixel Register.
+  fields:
+  - name: data
+    description: Alpha Blending Result.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Tftpixel0:
+  description: TFT Pixel 0 Register.
+  fields:
+  - name: data
+    description: RGB data.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Tftpixel1:
+  description: TFT Pixel 1 Register.
+  fields:
+  - name: data
+    description: RGB data.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Tftpolarity:
+  description: TFT Polarity Register.
+  fields:
+  - name: cspol
+    description: TFT Chip Select Polarity.
+    bit_offset: 0
+    bit_size: 1
+  - name: dclkpol
+    description: TFT DCLK Polarity.
+    bit_offset: 1
+    bit_size: 1
+  - name: dataenpol
+    description: TFT DATAEN Polarity.
+    bit_offset: 2
+    bit_size: 1
+  - name: hsyncpol
+    description: Address Latch Polarity.
+    bit_offset: 3
+    bit_size: 1
+  - name: vsyncpol
+    description: VSYNC Polarity.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::Tftsize:
+  description: TFT Size Register.
+  fields:
+  - name: hsz
+    description: Horizontal Size (excluding porches).
+    bit_offset: 0
+    bit_size: 10
+  - name: vsz
+    description: Vertical Size (excluding porches).
+    bit_offset: 16
+    bit_size: 10
+fieldset/regs::Tftstatus:
+  description: TFT Status Register.
+  fields:
+  - name: hcnt
+    description: Horizontal Count.
+    bit_offset: 0
+    bit_size: 11
+  - name: vcnt
+    description: Vertical Count.
+    bit_offset: 16
+    bit_size: 11
+fieldset/regs::Tftstride:
+  description: TFT Stride Register.
+  fields:
+  - name: hstride
+    description: Horizontal Stride.
+    bit_offset: 0
+    bit_size: 12
+fieldset/regs::Tfttiming:
+  description: TFT Timing Register.
+  fields:
+  - name: dclkperiod
+    description: TFT Direct Drive Transaction (EBI_DCLK) Period.
+    bit_offset: 0
+    bit_size: 11
+  - name: tftstart
+    description: TFT Direct Drive Transaction Start.
+    bit_offset: 12
+    bit_size: 11
+  - name: tftsetup
+    description: TFT Setup Time.
+    bit_offset: 24
+    bit_size: 2
+  - name: tfthold
+    description: TFT Hold Time.
+    bit_offset: 28
+    bit_size: 2
+fieldset/regs::Tftvporch:
+  description: TFT Vertical Porch Register.
+  fields:
+  - name: vsync
+    description: Vertical Synchronization Pulse Width.
+    bit_offset: 0
+    bit_size: 7
+  - name: vfporch
+    description: Vertical Front Porch Size.
+    bit_offset: 8
+    bit_size: 8
+  - name: vbporch
+    description: Vertical Back Porch Size.
+    bit_offset: 18
+    bit_size: 8
+fieldset/regs::Wrtiming:
+  description: Write Timing Register.
+  fields:
+  - name: wrsetup
+    description: Write Setup Time.
+    bit_offset: 0
+    bit_size: 2
+  - name: wrstrb
+    description: Write Strobe Time.
+    bit_offset: 8
+    bit_size: 6
+  - name: wrhold
+    description: Write Hold Time.
+    bit_offset: 16
+    bit_size: 2
+  - name: halfwe
+    description: Half Cycle WEn Strobe Duration Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: wbufdis
+    description: Write Buffer Disable.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::Wrtiming1:
+  description: Write Timing Register 1.
+  fields:
+  - name: wrsetup
+    description: Write Setup Time.
+    bit_offset: 0
+    bit_size: 2
+  - name: wrstrb
+    description: Write Strobe Time.
+    bit_offset: 8
+    bit_size: 6
+  - name: wrhold
+    description: Write Hold Time.
+    bit_offset: 16
+    bit_size: 2
+  - name: halfwe
+    description: Half Cycle WEn Strobe Duration Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: wbufdis
+    description: Write Buffer Disable.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::Wrtiming2:
+  description: Write Timing Register 2.
+  fields:
+  - name: wrsetup
+    description: Write Setup Time.
+    bit_offset: 0
+    bit_size: 2
+  - name: wrstrb
+    description: Write Strobe Time.
+    bit_offset: 8
+    bit_size: 6
+  - name: wrhold
+    description: Write Hold Time.
+    bit_offset: 16
+    bit_size: 2
+  - name: halfwe
+    description: Half Cycle WEn Strobe Duration Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: wbufdis
+    description: Write Buffer Disable.
+    bit_offset: 29
+    bit_size: 1
+fieldset/regs::Wrtiming3:
+  description: Write Timing Register 3.
+  fields:
+  - name: wrsetup
+    description: Write Setup Time.
+    bit_offset: 0
+    bit_size: 2
+  - name: wrstrb
+    description: Write Strobe Time.
+    bit_offset: 8
+    bit_size: 6
+  - name: wrhold
+    description: Write Hold Time.
+    bit_offset: 16
+    bit_size: 2
+  - name: halfwe
+    description: Half Cycle WEn Strobe Duration Enable.
+    bit_offset: 28
+    bit_size: 1
+  - name: wbufdis
+    description: Write Buffer Disable.
+    bit_offset: 29
+    bit_size: 1
+enum/vals::Alb:
+  bit_size: 2
+  variants:
+  - name: A0
+    description: Address lines from EBI_A[0] and upwards can be enabled via APEN.
+    value: 0
+  - name: A16
+    description: Address lines from EBI_A[16] and upwards can be enabled via APEN.
+    value: 2
+  - name: A24
+    description: Address lines from EBI_A[24] and upwards can be enabled via APEN.
+    value: 3
+  - name: A8
+    description: Address lines from EBI_A[8] and upwards can be enabled via APEN.
+    value: 1
+enum/vals::Apen:
+  bit_size: 5
+  variants:
+  - name: A0
+    description: All EBI_A pins are disabled.
+    value: 0
+  - name: A10
+    description: EBI_A[9:L] pins enabled.
+    value: 10
+  - name: A11
+    description: EBI_A[10:L] pins enabled.
+    value: 11
+  - name: A12
+    description: EBI_A[11:L] pins enabled.
+    value: 12
+  - name: A13
+    description: EBI_A[12:L] pins enabled.
+    value: 13
+  - name: A14
+    description: EBI_A[13:L] pins enabled.
+    value: 14
+  - name: A15
+    description: EBI_A[14:L] pins enabled.
+    value: 15
+  - name: A16
+    description: EBI_A[15:L] pins enabled.
+    value: 16
+  - name: A17
+    description: EBI_A[16:L] pins enabled.
+    value: 17
+  - name: A18
+    description: EBI_A[17:L] pins enabled.
+    value: 18
+  - name: A19
+    description: EBI_A[18:L] pins enabled.
+    value: 19
+  - name: A20
+    description: EBI_A[19:L] pins enabled.
+    value: 20
+  - name: A21
+    description: EBI_A[20:L] pins enabled.
+    value: 21
+  - name: A22
+    description: EBI_A[21:L] pins enabled.
+    value: 22
+  - name: A23
+    description: EBI_A[22:L] pins enabled.
+    value: 23
+  - name: A24
+    description: EBI_A[23:L] pins enabled.
+    value: 24
+  - name: A25
+    description: EBI_A[24:L] pins enabled.
+    value: 25
+  - name: A26
+    description: EBI_A[25:L] pins enabled.
+    value: 26
+  - name: A27
+    description: EBI_A[26:L] pins enabled.
+    value: 27
+  - name: A28
+    description: EBI_A[27:L] pins enabled.
+    value: 28
+  - name: A5
+    description: EBI_A[4:L] pins enabled.
+    value: 5
+  - name: A6
+    description: EBI_A[5:L] pins enabled.
+    value: 6
+  - name: A7
+    description: EBI_A[6:L] pins enabled.
+    value: 7
+  - name: A8
+    description: EBI_A[7:L] pins enabled.
+    value: 8
+  - name: A9
+    description: EBI_A[8:L] pins enabled.
+    value: 9
+enum/vals::Dd:
+  bit_size: 2
+  variants:
+  - name: Disabled
+    description: Direct Drive is disabled.
+    value: 0
+  - name: External
+    description: Direct Drive from external memory enabled and started.
+    value: 2
+  - name: Internal
+    description: Direct Drive from internal memory enabled and started.
+    value: 1
+enum/vals::Interleave:
+  bit_size: 2
+  variants:
+  - name: Oneperdclk
+    description: Allow 1 interleaved EBI access per EBI_DCLK period.
+    value: 1
+  - name: Porch
+    description: Only allow EBI accesses during TFT porches.
+    value: 2
+  - name: Unlimited
+    description: Allow unlimited interleaved EBI accesses per EBI_DCLK period. This can cause jitter on the EBI_DCLK.
+    value: 0
+enum/vals::Location:
+  bit_size: 3
+  variants:
+  - name: Loc0
+    description: Location 0.
+    value: 0
+  - name: Loc1
+    description: Location 1.
+    value: 1
+  - name: Loc2
+    description: Location 2.
+    value: 2
+enum/vals::Maskblend:
+  bit_size: 3
+  variants:
+  - name: Disabled
+    description: Masking and Blending are disabled.
+    value: 0
+  - name: Ealpha
+    description: External Alpha Blending is enabled.
+    value: 6
+  - name: Emask
+    description: External Masking is enabled.
+    value: 5
+  - name: Emaskealpha
+    description: External Masking and Alpha Blending are enabled.
+    value: 7
+  - name: Ialpha
+    description: Internal Alpha Blending is enabled.
+    value: 2
+  - name: Imask
+    description: Internal Masking is enabled.
+    value: 1
+  - name: Imaskialpha
+    description: Internal Masking and Alpha Blending are enabled.
+    value: 3
+enum/vals::Mode:
+  bit_size: 2
+  variants:
+  - name: D16
+    description: EBI_AD drives 16 bit data, ALE not used. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 3
+  - name: D16a16ale
+    description: EBI_AD drives 16 bit data, 16 bit address, ALE is used for address latching. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 1
+  - name: D8a24ale
+    description: EBI_AD drives 8 bit data, 24 bit address, ALE is used for address latching. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 2
+  - name: D8a8
+    description: EBI_AD drives 8 bit data, 8 bit address, ALE not used. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 0
+enum/vals::Mode1:
+  bit_size: 2
+  variants:
+  - name: D16
+    description: EBI_AD drives 16 bit data, ALE not used. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 3
+  - name: D16a16ale
+    description: EBI_AD drives 16 bit data, 16 bit address, ALE is used for address latching. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 1
+  - name: D8a24ale
+    description: EBI_AD drives 8 bit data, 24 bit address, ALE is used for address latching. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 2
+  - name: D8a8
+    description: EBI_AD drives 8 bit data, 8 bit address, ALE not used. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 0
+enum/vals::Mode2:
+  bit_size: 2
+  variants:
+  - name: D16
+    description: EBI_AD drives 16 bit data, ALE not used. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 3
+  - name: D16a16ale
+    description: EBI_AD drives 16 bit data, 16 bit address, ALE is used for address latching. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 1
+  - name: D8a24ale
+    description: EBI_AD drives 8 bit data, 24 bit address, ALE is used for address latching. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 2
+  - name: D8a8
+    description: EBI_AD drives 8 bit data, 8 bit address, ALE not used. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 0
+enum/vals::Mode3:
+  bit_size: 2
+  variants:
+  - name: D16
+    description: EBI_AD drives 16 bit data, ALE not used. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 3
+  - name: D16a16ale
+    description: EBI_AD drives 16 bit data, 16 bit address, ALE is used for address latching. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 1
+  - name: D8a24ale
+    description: EBI_AD drives 8 bit data, 24 bit address, ALE is used for address latching. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 2
+  - name: D8a8
+    description: EBI_AD drives 8 bit data, 8 bit address, ALE not used. Extended address bits can be enabled on EBI_A in the EBI_ROUTE register.
+    value: 0
+enum/vals::NandctrlBanksel:
+  bit_size: 2
+  variants:
+  - name: Bank0
+    description: Memory bank 0 is connected to a NAND Flash device.
+    value: 0
+  - name: Bank1
+    description: Memory bank 1 is connected to a NAND Flash device.
+    value: 1
+  - name: Bank2
+    description: Memory bank 2 is connected to a NAND Flash device.
+    value: 2
+  - name: Bank3
+    description: Memory bank 3 is connected to a NAND Flash device.
+    value: 3
+enum/vals::Pagelen:
+  bit_size: 2
+  variants:
+  - name: Member16
+    description: 16 members in a page.
+    value: 2
+  - name: Member32
+    description: 32 members in a page.
+    value: 3
+  - name: Member4
+    description: 4 members in a page.
+    value: 0
+  - name: Member8
+    description: 8 members in a page.
+    value: 1
+enum/vals::TftctrlBanksel:
+  bit_size: 2
+  variants:
+  - name: Bank0
+    description: Memory bank 0 is used for Direct Drive, Masking, and Alpha Blending.
+    value: 0
+  - name: Bank1
+    description: Memory bank 1 is used for Direct Drive, Masking, and Alpha Blending.
+    value: 1
+  - name: Bank2
+    description: Memory bank 2 is used for Direct Drive, Masking, and Alpha Blending.
+    value: 2
+  - name: Bank3
+    description: Memory bank 3 is used for Direct Drive, Masking, and Alpha Blending.
+    value: 3

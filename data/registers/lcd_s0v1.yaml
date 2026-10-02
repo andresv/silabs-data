@@ -1,0 +1,598 @@
+block/Lcd:
+  description: LCD peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: dispctrl
+    description: Display Control Register.
+    byte_offset: 4
+    fieldset: regs::Dispctrl
+  - name: segen
+    description: Segment Enable Register.
+    byte_offset: 8
+    fieldset: regs::Segen
+  - name: bactrl
+    description: Blink and Animation Control Register.
+    byte_offset: 12
+    fieldset: regs::Bactrl
+  - name: status
+    description: Status Register.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Status
+  - name: arega
+    description: Animation Register A.
+    byte_offset: 20
+    fieldset: regs::Arega
+  - name: aregb
+    description: Animation Register B.
+    byte_offset: 24
+    fieldset: regs::Aregb
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 28
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 32
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 36
+    access: Write
+    fieldset: regs::Ifc
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 40
+    fieldset: regs::Ien
+  - name: segd0l
+    description: Segment Data Low Register 0.
+    byte_offset: 64
+    fieldset: regs::Segd0l
+  - name: segd1l
+    description: Segment Data Low Register 1.
+    byte_offset: 68
+    fieldset: regs::Segd1l
+  - name: segd2l
+    description: Segment Data Low Register 2.
+    byte_offset: 72
+    fieldset: regs::Segd2l
+  - name: segd3l
+    description: Segment Data Low Register 3.
+    byte_offset: 76
+    fieldset: regs::Segd3l
+  - name: segd0h
+    description: Segment Data High Register 0.
+    byte_offset: 80
+    fieldset: regs::Segd0h
+  - name: segd1h
+    description: Segment Data High Register 1.
+    byte_offset: 84
+    fieldset: regs::Segd1h
+  - name: segd2h
+    description: Segment Data High Register 2.
+    byte_offset: 88
+    fieldset: regs::Segd2h
+  - name: segd3h
+    description: Segment Data High Register 3.
+    byte_offset: 92
+    fieldset: regs::Segd3h
+  - name: freeze
+    description: Freeze Register.
+    byte_offset: 96
+    fieldset: regs::Freeze
+  - name: syncbusy
+    description: Synchronization Busy Register.
+    byte_offset: 100
+    access: Read
+    fieldset: regs::Syncbusy
+  - name: segd4h
+    description: Segment Data High Register 4.
+    byte_offset: 180
+    fieldset: regs::Segd4h
+  - name: segd5h
+    description: Segment Data High Register 5.
+    byte_offset: 184
+    fieldset: regs::Segd5h
+  - name: segd6h
+    description: Segment Data High Register 6.
+    byte_offset: 188
+    fieldset: regs::Segd6h
+  - name: segd7h
+    description: Segment Data High Register 7.
+    byte_offset: 192
+    fieldset: regs::Segd7h
+  - name: segd4l
+    description: Segment Data Low Register 4.
+    byte_offset: 204
+    fieldset: regs::Segd4l
+  - name: segd5l
+    description: Segment Data Low Register 5.
+    byte_offset: 208
+    fieldset: regs::Segd5l
+  - name: segd6l
+    description: Segment Data Low Register 6.
+    byte_offset: 212
+    fieldset: regs::Segd6l
+  - name: segd7l
+    description: Segment Data Low Register 7.
+    byte_offset: 216
+    fieldset: regs::Segd7l
+fieldset/regs::Arega:
+  description: Animation Register A.
+  fields:
+  - name: arega
+    description: Animation Register A Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Aregb:
+  description: Animation Register B.
+  fields:
+  - name: aregb
+    description: Animation Register B Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Bactrl:
+  description: Blink and Animation Control Register.
+  fields:
+  - name: blinken
+    description: Blink Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: blank
+    description: Blank Display.
+    bit_offset: 1
+    bit_size: 1
+  - name: aen
+    description: Animation Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: aregasc
+    description: Animate Register A Shift Control.
+    bit_offset: 3
+    bit_size: 2
+    enum: vals::Aregasc
+  - name: aregbsc
+    description: Animate Register B Shift Control.
+    bit_offset: 5
+    bit_size: 2
+    enum: vals::Aregbsc
+  - name: alogsel
+    description: Animate Logic Function Select.
+    bit_offset: 7
+    bit_size: 1
+  - name: fcen
+    description: Frame Counter Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: fcpresc
+    description: Frame Counter Prescaler.
+    bit_offset: 16
+    bit_size: 2
+    enum: vals::Fcpresc
+  - name: fctop
+    description: Frame Counter Top Value.
+    bit_offset: 18
+    bit_size: 6
+  - name: aloc
+    description: Animation Location.
+    bit_offset: 28
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: en
+    description: LCD Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: udctrl
+    description: Update Data Control.
+    bit_offset: 1
+    bit_size: 2
+    enum: vals::Udctrl
+  - name: dsc
+    description: Direct Segment Control.
+    bit_offset: 23
+    bit_size: 1
+fieldset/regs::Dispctrl:
+  description: Display Control Register.
+  fields:
+  - name: mux
+    description: Mux Configuration.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Mux
+  - name: bias
+    description: Bias Configuration.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Bias
+  - name: wave
+    description: Waveform Selection.
+    bit_offset: 4
+    bit_size: 1
+  - name: conlev
+    description: Contrast Level.
+    bit_offset: 8
+    bit_size: 5
+    enum: vals::Conlev
+  - name: conconf
+    description: Contrast Configuration.
+    bit_offset: 15
+    bit_size: 1
+  - name: vlcdsel
+    description: VLCD Selection.
+    bit_offset: 16
+    bit_size: 1
+  - name: vblev
+    description: Voltage Boost Level.
+    bit_offset: 18
+    bit_size: 3
+    enum: vals::Vblev
+  - name: muxe
+    description: Extended Mux Configuration.
+    bit_offset: 22
+    bit_size: 1
+fieldset/regs::Freeze:
+  description: Freeze Register.
+  fields:
+  - name: regfreeze
+    description: Register Update Freeze.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: fc
+    description: Frame Counter Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: fc
+    description: Frame Counter Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: fc
+    description: Frame Counter Interrupt Flag Clear.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: fc
+    description: Frame Counter Interrupt Flag Set.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Segd0h:
+  description: Segment Data High Register 0.
+  fields:
+  - name: segd0h
+    description: COM0 Segment Data High.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Segd0l:
+  description: Segment Data Low Register 0.
+  fields:
+  - name: segd0l
+    description: COM0 Segment Data Low.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Segd1h:
+  description: Segment Data High Register 1.
+  fields:
+  - name: segd1h
+    description: COM1 Segment Data High.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Segd1l:
+  description: Segment Data Low Register 1.
+  fields:
+  - name: segd1l
+    description: COM1 Segment Data Low.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Segd2h:
+  description: Segment Data High Register 2.
+  fields:
+  - name: segd2h
+    description: COM2 Segment Data High.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Segd2l:
+  description: Segment Data Low Register 2.
+  fields:
+  - name: segd2l
+    description: COM2 Segment Data Low.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Segd3h:
+  description: Segment Data High Register 3.
+  fields:
+  - name: segd3h
+    description: COM3 Segment Data High.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Segd3l:
+  description: Segment Data Low Register 3.
+  fields:
+  - name: segd3l
+    description: COM3 Segment Data Low.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Segd4h:
+  description: Segment Data High Register 4.
+  fields:
+  - name: segd4h
+    description: COM0 Segment Data High.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Segd4l:
+  description: Segment Data Low Register 4.
+  fields:
+  - name: segd4l
+    description: COM4 Segment Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Segd5h:
+  description: Segment Data High Register 5.
+  fields:
+  - name: segd5h
+    description: COM1 Segment Data High.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Segd5l:
+  description: Segment Data Low Register 5.
+  fields:
+  - name: segd5l
+    description: COM5 Segment Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Segd6h:
+  description: Segment Data High Register 6.
+  fields:
+  - name: segd6h
+    description: COM2 Segment Data High.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Segd6l:
+  description: Segment Data Low Register 6.
+  fields:
+  - name: segd6l
+    description: COM6 Segment Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Segd7h:
+  description: Segment Data High Register 7.
+  fields:
+  - name: segd7h
+    description: COM3 Segment Data High.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Segd7l:
+  description: Segment Data Low Register 7.
+  fields:
+  - name: segd7l
+    description: COM7 Segment Data.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Segen:
+  description: Segment Enable Register.
+  fields:
+  - name: segen
+    description: Segment Enable.
+    bit_offset: 0
+    bit_size: 10
+fieldset/regs::Status:
+  description: Status Register.
+  fields:
+  - name: astate
+    description: Current Animation State.
+    bit_offset: 0
+    bit_size: 4
+  - name: blink
+    description: Blink State.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::Syncbusy:
+  description: Synchronization Busy Register.
+  fields:
+  - name: ctrl
+    description: CTRL Register Busy.
+    bit_offset: 0
+    bit_size: 1
+  - name: bactrl
+    description: BACTRL Register Busy.
+    bit_offset: 1
+    bit_size: 1
+  - name: arega
+    description: AREGA Register Busy.
+    bit_offset: 2
+    bit_size: 1
+  - name: aregb
+    description: AREGB Register Busy.
+    bit_offset: 3
+    bit_size: 1
+  - name: segd0l
+    description: SEGD0L Register Busy.
+    bit_offset: 4
+    bit_size: 1
+  - name: segd1l
+    description: SEGD1L Register Busy.
+    bit_offset: 5
+    bit_size: 1
+  - name: segd2l
+    description: SEGD2L Register Busy.
+    bit_offset: 6
+    bit_size: 1
+  - name: segd3l
+    description: SEGD3L Register Busy.
+    bit_offset: 7
+    bit_size: 1
+  - name: segd0h
+    description: SEGD0H Register Busy.
+    bit_offset: 8
+    bit_size: 1
+  - name: segd1h
+    description: SEGD1H Register Busy.
+    bit_offset: 9
+    bit_size: 1
+  - name: segd2h
+    description: SEGD2H Register Busy.
+    bit_offset: 10
+    bit_size: 1
+  - name: segd3h
+    description: SEGD3H Register Busy.
+    bit_offset: 11
+    bit_size: 1
+  - name: segd4h
+    description: SEGD4H Register Busy.
+    bit_offset: 12
+    bit_size: 1
+  - name: segd5h
+    description: SEGD5H Register Busy.
+    bit_offset: 13
+    bit_size: 1
+  - name: segd6h
+    description: SEGD6H Register Busy.
+    bit_offset: 14
+    bit_size: 1
+  - name: segd7h
+    description: SEGD7H Register Busy.
+    bit_offset: 15
+    bit_size: 1
+  - name: segd4l
+    description: SEGD4L Register Busy.
+    bit_offset: 16
+    bit_size: 1
+  - name: segd5l
+    description: SEGD5L Register Busy.
+    bit_offset: 17
+    bit_size: 1
+  - name: segd6l
+    description: SEGD6L Register Busy.
+    bit_offset: 18
+    bit_size: 1
+  - name: segd7l
+    description: SEGD7L Register Busy.
+    bit_offset: 19
+    bit_size: 1
+enum/vals::Aregasc:
+  bit_size: 2
+  variants:
+  - name: Noshift
+    description: No Shift operation on Animation Register A.
+    value: 0
+  - name: Shiftleft
+    description: Animation Register A is shifted left.
+    value: 1
+  - name: Shiftright
+    description: Animation Register A is shifted right.
+    value: 2
+enum/vals::Aregbsc:
+  bit_size: 2
+  variants:
+  - name: Noshift
+    description: No Shift operation on Animation Register B.
+    value: 0
+  - name: Shiftleft
+    description: Animation Register B is shifted left.
+    value: 1
+  - name: Shiftright
+    description: Animation Register B is shifted right.
+    value: 2
+enum/vals::Bias:
+  bit_size: 2
+  variants:
+  - name: Onefourth
+    description: 1/4 Bias.
+    value: 3
+  - name: Onehalf
+    description: 1/2 Bias.
+    value: 1
+  - name: Onethird
+    description: 1/3 Bias.
+    value: 2
+  - name: Static
+    description: Static.
+    value: 0
+enum/vals::Conlev:
+  bit_size: 5
+  variants:
+  - name: Max
+    description: Maximum contrast.
+    value: 31
+  - name: Min
+    description: Minimum contrast.
+    value: 0
+enum/vals::Fcpresc:
+  bit_size: 2
+  variants:
+  - name: Div1
+    description: CLKFC = CLKFRAME / 1.
+    value: 0
+  - name: Div2
+    description: CLKFC = CLKFRAME / 2.
+    value: 1
+  - name: Div4
+    description: CLKFC = CLKFRAME / 4.
+    value: 2
+  - name: Div8
+    description: CLKFC = CLKFRAME / 8.
+    value: 3
+enum/vals::Mux:
+  bit_size: 2
+  variants:
+  - name: Duplex
+    description: Duplex.
+    value: 1
+  - name: Quadruplex
+    description: Quadruplex.
+    value: 3
+  - name: Static
+    description: Static.
+    value: 0
+  - name: Triplex
+    description: Triplex.
+    value: 2
+enum/vals::Udctrl:
+  bit_size: 2
+  variants:
+  - name: Fcevent
+    description: The data transfer is done at the next event triggered by the Frame Counter.
+    value: 1
+  - name: Framestart
+    description: The data transfer is done continuously at every LCD frame start.
+    value: 2
+  - name: Regular
+    description: The data transfer is controlled by SW. Transfer is performed as soon as possible.
+    value: 0
+enum/vals::Vblev:
+  bit_size: 3
+  variants:
+  - name: Level0
+    description: Minimum boost level.
+    value: 0
+  - name: Level1
+    value: 1
+  - name: Level2
+    value: 2
+  - name: Level3
+    value: 3
+  - name: Level4
+    value: 4
+  - name: Level5
+    value: 5
+  - name: Level6
+    value: 6
+  - name: Level7
+    description: Maximum boost level.
+    value: 7

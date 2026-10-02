@@ -1,0 +1,219 @@
+block/Aes:
+  description: AES peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: cmd
+    description: Command Register.
+    byte_offset: 4
+    access: Write
+    fieldset: regs::Cmd
+  - name: status
+    description: Status Register.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::Status
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 12
+    fieldset: regs::Ien
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 20
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 24
+    access: Write
+    fieldset: regs::Ifc
+  - name: data
+    description: DATA Register.
+    byte_offset: 28
+    fieldset: regs::Data
+  - name: xordata
+    description: XORDATA Register.
+    byte_offset: 32
+    fieldset: regs::Xordata
+  - name: keyla
+    description: KEY Low Register.
+    byte_offset: 48
+    fieldset: regs::Keyla
+  - name: keylb
+    description: KEY Low Register.
+    byte_offset: 52
+    fieldset: regs::Keylb
+  - name: keylc
+    description: KEY Low Register.
+    byte_offset: 56
+    fieldset: regs::Keylc
+  - name: keyld
+    description: KEY Low Register.
+    byte_offset: 60
+    fieldset: regs::Keyld
+  - name: keyha
+    description: KEY High Register.
+    byte_offset: 64
+    fieldset: regs::Keyha
+  - name: keyhb
+    description: KEY High Register.
+    byte_offset: 68
+    fieldset: regs::Keyhb
+  - name: keyhc
+    description: KEY High Register.
+    byte_offset: 72
+    fieldset: regs::Keyhc
+  - name: keyhd
+    description: KEY High Register.
+    byte_offset: 76
+    fieldset: regs::Keyhd
+fieldset/regs::Cmd:
+  description: Command Register.
+  fields:
+  - name: start
+    description: Encryption/Decryption Start.
+    bit_offset: 0
+    bit_size: 1
+  - name: stop
+    description: Encryption/Decryption Stop.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: decrypt
+    description: Decryption/Encryption Mode.
+    bit_offset: 0
+    bit_size: 1
+  - name: aes256
+    description: AES-256 Mode.
+    bit_offset: 1
+    bit_size: 1
+  - name: keybufen
+    description: Key Buffer Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: datastart
+    description: AES_DATA Write Start.
+    bit_offset: 4
+    bit_size: 1
+  - name: xorstart
+    description: AES_XORDATA Write Start.
+    bit_offset: 5
+    bit_size: 1
+  - name: byteorder
+    description: Configure byte order in data and key registers.
+    bit_offset: 6
+    bit_size: 1
+fieldset/regs::Data:
+  description: DATA Register.
+  fields:
+  - name: data
+    description: Data Access.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: done
+    description: Encryption/Decryption Done Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: done
+    description: Encryption/Decryption Done Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: done
+    description: Encryption/Decryption Done Interrupt Flag Clear.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: done
+    description: Encryption/Decryption Done Interrupt Flag Set.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Keyha:
+  description: KEY High Register.
+  fields:
+  - name: keyha
+    description: Key High Access A.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Keyhb:
+  description: KEY High Register.
+  fields:
+  - name: keyhb
+    description: Key High Access B.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Keyhc:
+  description: KEY High Register.
+  fields:
+  - name: keyhc
+    description: Key High Access C.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Keyhd:
+  description: KEY High Register.
+  fields:
+  - name: keyhd
+    description: Key High Access D.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Keyla:
+  description: KEY Low Register.
+  fields:
+  - name: keyla
+    description: Key Low Access A.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Keylb:
+  description: KEY Low Register.
+  fields:
+  - name: keylb
+    description: Key Low Access B.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Keylc:
+  description: KEY Low Register.
+  fields:
+  - name: keylc
+    description: Key Low Access C.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Keyld:
+  description: KEY Low Register.
+  fields:
+  - name: keyld
+    description: Key Low Access D.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Status:
+  description: Status Register.
+  fields:
+  - name: running
+    description: AES Running.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Xordata:
+  description: XORDATA Register.
+  fields:
+  - name: xordata
+    description: XOR Data Access.
+    bit_offset: 0
+    bit_size: 32

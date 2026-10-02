@@ -1,0 +1,40 @@
+# Series 0 GPIO (EFM32GG) transforms.
+#
+# The SVD lists six flat port register groups PA_* .. PF_* at stride 0x24;
+# efm32gg_gpio.h models them as `GPIO_P_TypeDef P[6U]`. Recover the arrays
+# and give them the same shape as Series 2 (`GPIO.p_ctrl(n)`,
+# `regs::PortCtrl`) so HAL code can stay similar across series.
+#
+# Names are raw pre-Sanitize UPPER_SNAKE, same convention as GPIO.yaml.
+transforms:
+  # 1. One pin-mode enum for 16 pins x 6 ports (MODEL MODE0-7, MODEH MODE8-15).
+  - !MergeEnums
+      from: ^vals::P[A-F]_MODE[LH]_MODE\d+$
+      to: vals::MODE
+      check: Layout
+  # 2. One drive-mode enum for the six port CTRL registers.
+  - !MergeEnums
+      from: ^vals::P[A-F]_CTRL_DRIVEMODE$
+      to: vals::DRIVEMODE
+      check: Layout
+  # 3. The per-port fieldsets are now identical; merge them.
+  - !MergeFieldsets
+      from: ^regs::P[A-F]_(CTRL|MODEL|MODEH|DOUT|DOUTSET|DOUTCLR|DOUTTGL|DIN|PINLOCKN)$
+      to: regs::PORT_$1
+      check: NoCheck
+  # 4. MODE0..7 / MODE8..15 → an 8-element mode field array per register.
+  - !MakeFieldArray
+      fieldsets: ^regs::PORT_MODE[LH]$
+      from: ^MODE\d+$
+      to: MODE
+  # 5. PA_* .. PF_* → P_*[6] register arrays.
+  - !MakeRegisterArray
+      blocks: ^GPIO$
+      from: ^P([A-F])_(.*)$
+      to: P_$2
+      check: Layout
+  # 6. EXTIPSEL0..15 all select a port A..F; one enum is enough.
+  - !MergeEnums
+      from: ^vals::EXTIPSEL\d+$
+      to: vals::EXTIPSEL
+      check: Layout

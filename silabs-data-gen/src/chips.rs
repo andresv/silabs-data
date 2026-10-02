@@ -1,3 +1,4 @@
+use anyhow::Result;
 use serde::{Deserialize, Serialize};
 
 use crate::header::HeaderIrq;
@@ -42,27 +43,27 @@ pub fn build(
     peripherals: &[PeripheralIr],
     header_irqs: &[HeaderIrq],
     perimap_entries: &[Entry],
-) -> ChipFile {
+) -> Result<ChipFile> {
     let instances = peripherals
         .iter()
         .map(|p| {
-            let route = perimap::route(perimap_entries, &chip.name, &p.name, p.version.as_deref());
-            PeripheralInstance {
+            let route = perimap::route(perimap_entries, &chip.name, &p.name, p.version.as_deref())?;
+            Ok(PeripheralInstance {
                 name: p.name.clone(),
                 base_address: p.base_address,
                 version: p.version.clone(),
                 kind: route.kind,
                 register_version: route.version,
                 block: route.block,
-            }
+            })
         })
-        .collect();
+        .collect::<Result<Vec<_>>>()?;
 
-    ChipFile {
+    Ok(ChipFile {
         chip,
         peripherals: instances,
         interrupts: build_interrupts(header_irqs),
-    }
+    })
 }
 
 /// Build the chip's interrupt table from the CMSIS device header.
@@ -102,6 +103,7 @@ mod tests {
             mpu: true,
             trustzone: true,
             series: Some(crate::header::Series { series: 2, config: 6 }),
+            nvic_prio_bits: Some(4),
             memory: vec![],
             flash_algo: None,
             svd: "fake.svd".to_string(),
@@ -148,7 +150,7 @@ mod tests {
             },
         ];
 
-        let cf = build(fake_chip("FAKE"), &peripherals, &[], &entries);
+        let cf = build(fake_chip("FAKE"), &peripherals, &[], &entries).unwrap();
 
         assert_eq!(cf.peripherals.len(), 2);
 

@@ -18,7 +18,8 @@ Usage: ./d <subcommand>
 
 Subcommands:
   download-all     Fetch vendor packs into silabs-data-source/packs/.
-  seed             One-shot bootstrap of data/registers/*.yaml from SVDs.
+  seed [--chips <regex>] [--candidates-dir <dir>]
+                   One-shot bootstrap of data/registers/*.yaml from SVDs.
                    Hash-bails on cross-chip (kind, version) divergence.
   gen-all          Regenerate build/data/ (per-chip JSON) and
                    build/silabs-metapac/ (PAC crate) from committed
@@ -71,7 +72,7 @@ cmd_seed() {
         --data-dir build/data \
         --transforms-dir transforms \
         --registers-yaml-dir data/registers \
-        "${pa[@]}"
+        "${pa[@]}" "$@"
 }
 
 cmd_gen_all() {
@@ -96,7 +97,7 @@ cmd_gen_all() {
 
 case "${1:-}" in
     download-all) cmd_download_all ;;
-    seed)         cmd_seed ;;
+    seed)         shift; cmd_seed "$@" ;;
     gen-all)      cmd_gen_all ;;
     -h|--help|help|"") usage ;;
     *) echo "unknown subcommand: $1" >&2; usage; exit 1 ;;

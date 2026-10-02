@@ -1,0 +1,364 @@
+block/Emu:
+  description: EMU peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: memctrl
+    description: Memory Control Register.
+    byte_offset: 4
+    fieldset: regs::Memctrl
+  - name: lock
+    description: Configuration Lock Register.
+    byte_offset: 8
+    fieldset: regs::Lock
+  - name: auxctrl
+    description: Auxiliary Control Register.
+    byte_offset: 36
+    fieldset: regs::Auxctrl
+  - name: em4conf
+    description: Energy mode 4 configuration register.
+    byte_offset: 44
+    fieldset: regs::Em4conf
+  - name: buctrl
+    description: Backup Power configuration register.
+    byte_offset: 48
+    fieldset: regs::Buctrl
+  - name: pwrconf
+    description: Power connection configuration register.
+    byte_offset: 52
+    fieldset: regs::Pwrconf
+  - name: buinact
+    description: Backup mode inactive configuration register.
+    byte_offset: 56
+    fieldset: regs::Buinact
+  - name: buact
+    description: Backup mode active configuration register.
+    byte_offset: 60
+    fieldset: regs::Buact
+  - name: status
+    description: Status register.
+    byte_offset: 64
+    access: Read
+    fieldset: regs::Status
+  - name: route
+    description: I/O Routing Register.
+    byte_offset: 68
+    fieldset: regs::Route
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 72
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 76
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 80
+    access: Write
+    fieldset: regs::Ifc
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 84
+    fieldset: regs::Ien
+  - name: bubodbuvincal
+    description: BU_VIN Backup BOD calibration.
+    byte_offset: 88
+    fieldset: regs::Bubodbuvincal
+  - name: bubodunregcal
+    description: Unregulated power Backup BOD calibration.
+    byte_offset: 92
+    fieldset: regs::Bubodunregcal
+fieldset/regs::Auxctrl:
+  description: Auxiliary Control Register.
+  fields:
+  - name: hrcclr
+    description: Hard Reset Cause Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: redlfxoboost
+    description: Reduce LFXO Start-up Boost Current.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::Buact:
+  description: Backup mode active configuration register.
+  fields:
+  - name: buexthres
+    bit_offset: 0
+    bit_size: 3
+  - name: buexrange
+    bit_offset: 3
+    bit_size: 2
+  - name: pwrcon
+    description: Power connection configuration when in Backup mode.
+    bit_offset: 5
+    bit_size: 2
+    enum: vals::BuactPwrcon
+fieldset/regs::Bubodbuvincal:
+  description: BU_VIN Backup BOD calibration.
+  fields:
+  - name: thres
+    bit_offset: 0
+    bit_size: 3
+  - name: range
+    bit_offset: 3
+    bit_size: 2
+fieldset/regs::Bubodunregcal:
+  description: Unregulated power Backup BOD calibration.
+  fields:
+  - name: thres
+    bit_offset: 0
+    bit_size: 3
+  - name: range
+    bit_offset: 3
+    bit_size: 2
+fieldset/regs::Buctrl:
+  description: Backup Power configuration register.
+  fields:
+  - name: en
+    description: Enable backup mode.
+    bit_offset: 0
+    bit_size: 1
+  - name: staten
+    description: Enable backup mode status export.
+    bit_offset: 1
+    bit_size: 1
+  - name: bodcal
+    description: Enable BOD calibration mode.
+    bit_offset: 2
+    bit_size: 1
+  - name: bumodeboden
+    description: Enable brown out detection on BU_VIN when in backup mode.
+    bit_offset: 3
+    bit_size: 1
+  - name: probe
+    description: Voltage probe select.
+    bit_offset: 5
+    bit_size: 2
+    enum: vals::Probe
+fieldset/regs::Buinact:
+  description: Backup mode inactive configuration register.
+  fields:
+  - name: buenthres
+    bit_offset: 0
+    bit_size: 3
+  - name: buenrange
+    bit_offset: 3
+    bit_size: 2
+  - name: pwrcon
+    description: Power connection configuration when not in Backup mode.
+    bit_offset: 5
+    bit_size: 2
+    enum: vals::BuinactPwrcon
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: emvreg
+    description: Energy Mode Voltage Regulator Control.
+    bit_offset: 0
+    bit_size: 1
+  - name: em2block
+    description: Energy Mode 2 Block.
+    bit_offset: 1
+    bit_size: 1
+  - name: em4ctrl
+    description: Energy Mode 4 Control.
+    bit_offset: 2
+    bit_size: 2
+fieldset/regs::Em4conf:
+  description: Energy mode 4 configuration register.
+  fields:
+  - name: vregen
+    description: EM4 voltage regulator enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: burtcwu
+    description: Backup RTC EM4 wakeup enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: osc
+    description: Select EM4 duty oscillator.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Osc
+  - name: bubodrstdis
+    description: Disable reset from Backup BOD in EM4.
+    bit_offset: 4
+    bit_size: 1
+  - name: lockconf
+    description: EM4 configuration lock enable.
+    bit_offset: 16
+    bit_size: 1
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: burdy
+    description: Backup functionality ready Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: burdy
+    description: Backup functionality ready Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: burdy
+    description: Clear Backup functionality ready Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: burdy
+    description: Set Backup functionality ready Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Lock:
+  description: Configuration Lock Register.
+  fields:
+  - name: lockkey
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Memctrl:
+  description: Memory Control Register.
+  fields:
+  - name: powerdown
+    description: RAM block power-down.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Powerdown
+fieldset/regs::Pwrconf:
+  description: Power connection configuration register.
+  fields:
+  - name: voutweak
+    description: BU_VOUT weak enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: voutmed
+    description: BU_VOUT medium enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: voutstrong
+    description: BU_VOUT strong enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: pwrres
+    description: Power domain resistor select.
+    bit_offset: 3
+    bit_size: 2
+    enum: vals::Pwrres
+fieldset/regs::Route:
+  description: I/O Routing Register.
+  fields:
+  - name: buvinpen
+    description: BU_VIN Pin Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Status:
+  description: Status register.
+  fields:
+  - name: burdy
+    description: Backup mode ready.
+    bit_offset: 0
+    bit_size: 1
+enum/vals::BuactPwrcon:
+  bit_size: 2
+  variants:
+  - name: Bumain
+    description: Main power and backup power are connected through a diode, allowing current to flow from backup power source to main power source, but not the other way.
+    value: 1
+  - name: Mainbu
+    description: Main power and backup power are connected through a diode, allowing current to flow from main power source to backup power source, but not the other way.
+    value: 2
+  - name: Nodiode
+    description: Main power and backup power are connected without diode.
+    value: 3
+  - name: None
+    description: No connection.
+    value: 0
+enum/vals::BuinactPwrcon:
+  bit_size: 2
+  variants:
+  - name: Bumain
+    description: Main power and backup power are connected through a diode, allowing current to flow from backup power source to main power source, but not the other way.
+    value: 1
+  - name: Mainbu
+    description: Main power and backup power are connected through a diode, allowing current to flow from main power source to backup power source, but not the other way.
+    value: 2
+  - name: Nodiode
+    description: Main power and backup power are connected without diode.
+    value: 3
+  - name: None
+    description: No connection.
+    value: 0
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Locked
+    value: 1
+  - name: Unlocked
+    value: 0
+enum/vals::Osc:
+  bit_size: 2
+  variants:
+  - name: Lfrco
+    description: LFRCO is available. Can only be set if LFRCO is running before EM4/backup entry.
+    value: 1
+  - name: Lfxo
+    description: LFXO is available. Can only be set if LFXO is available before EM4/backup entry.
+    value: 2
+  - name: Ulfrco
+    description: ULFRCO is available.
+    value: 0
+enum/vals::Powerdown:
+  bit_size: 3
+  variants:
+  - name: Blk123
+    description: Power down RAM blocks 1-3 (address range 0x20008000-0x2001FFFF).
+    value: 7
+  - name: Blk23
+    description: Power down RAM blocks 2-3 (address range 0x20010000-0x2001FFFF).
+    value: 6
+  - name: Blk3
+    description: Power down RAM block 3 (address range 0x20018000-0x2001FFFF).
+    value: 4
+enum/vals::Probe:
+  bit_size: 2
+  variants:
+  - name: Buin
+    description: Connect probe to BU_IN.
+    value: 2
+  - name: Buout
+    description: Connect probe to BU_OUT.
+    value: 3
+  - name: Disable
+    description: Disable voltage probe.
+    value: 0
+  - name: Vdddreg
+    description: Connect probe to VDD_DREG.
+    value: 1
+enum/vals::Pwrres:
+  bit_size: 2
+  variants:
+  - name: Res0
+    description: Main power and backup power connected with RES0 series resistance.
+    value: 0
+  - name: Res1
+    description: Main power and backup power connected with RES1 series resistance.
+    value: 1
+  - name: Res2
+    description: Main power and backup power connected with RES2 series resistance.
+    value: 2
+  - name: Res3
+    description: Main power and backup power connected with RES3 series resistance.
+    value: 3

@@ -1,0 +1,1793 @@
+block/Burtc:
+  description: BURTC peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: lpmode
+    description: Low power mode configuration.
+    byte_offset: 4
+    fieldset: regs::Lpmode
+  - name: cnt
+    description: Counter Value Register.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::Cnt
+  - name: comp0
+    description: Counter Compare Value.
+    byte_offset: 12
+    fieldset: regs::Comp0
+  - name: timestamp
+    description: Backup mode timestamp.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Timestamp
+  - name: lfxofdet
+    description: LFXO.
+    byte_offset: 20
+    fieldset: regs::Lfxofdet
+  - name: status
+    description: Status Register.
+    byte_offset: 24
+    access: Read
+    fieldset: regs::Status
+  - name: cmd
+    description: Command Register.
+    byte_offset: 28
+    access: Write
+    fieldset: regs::Cmd
+  - name: powerdown
+    description: Retention RAM power-down Register.
+    byte_offset: 32
+    fieldset: regs::Powerdown
+  - name: lock
+    description: Configuration Lock Register.
+    byte_offset: 36
+    fieldset: regs::Lock
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 44
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 48
+    access: Write
+    fieldset: regs::Ifc
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 52
+    fieldset: regs::Ien
+  - name: freeze
+    description: Freeze Register.
+    byte_offset: 56
+    fieldset: regs::Freeze
+  - name: syncbusy
+    description: Synchronization Busy Register.
+    byte_offset: 60
+    access: Read
+    fieldset: regs::Syncbusy
+  - name: ret0_reg
+    description: Retention Register.
+    byte_offset: 256
+    fieldset: regs::Ret0Reg
+  - name: ret1_reg
+    description: Retention Register.
+    byte_offset: 260
+    fieldset: regs::Ret1Reg
+  - name: ret2_reg
+    description: Retention Register.
+    byte_offset: 264
+    fieldset: regs::Ret2Reg
+  - name: ret3_reg
+    description: Retention Register.
+    byte_offset: 268
+    fieldset: regs::Ret3Reg
+  - name: ret4_reg
+    description: Retention Register.
+    byte_offset: 272
+    fieldset: regs::Ret4Reg
+  - name: ret5_reg
+    description: Retention Register.
+    byte_offset: 276
+    fieldset: regs::Ret5Reg
+  - name: ret6_reg
+    description: Retention Register.
+    byte_offset: 280
+    fieldset: regs::Ret6Reg
+  - name: ret7_reg
+    description: Retention Register.
+    byte_offset: 284
+    fieldset: regs::Ret7Reg
+  - name: ret8_reg
+    description: Retention Register.
+    byte_offset: 288
+    fieldset: regs::Ret8Reg
+  - name: ret9_reg
+    description: Retention Register.
+    byte_offset: 292
+    fieldset: regs::Ret9Reg
+  - name: ret10_reg
+    description: Retention Register.
+    byte_offset: 296
+    fieldset: regs::Ret10Reg
+  - name: ret11_reg
+    description: Retention Register.
+    byte_offset: 300
+    fieldset: regs::Ret11Reg
+  - name: ret12_reg
+    description: Retention Register.
+    byte_offset: 304
+    fieldset: regs::Ret12Reg
+  - name: ret13_reg
+    description: Retention Register.
+    byte_offset: 308
+    fieldset: regs::Ret13Reg
+  - name: ret14_reg
+    description: Retention Register.
+    byte_offset: 312
+    fieldset: regs::Ret14Reg
+  - name: ret15_reg
+    description: Retention Register.
+    byte_offset: 316
+    fieldset: regs::Ret15Reg
+  - name: ret16_reg
+    description: Retention Register.
+    byte_offset: 320
+    fieldset: regs::Ret16Reg
+  - name: ret17_reg
+    description: Retention Register.
+    byte_offset: 324
+    fieldset: regs::Ret17Reg
+  - name: ret18_reg
+    description: Retention Register.
+    byte_offset: 328
+    fieldset: regs::Ret18Reg
+  - name: ret19_reg
+    description: Retention Register.
+    byte_offset: 332
+    fieldset: regs::Ret19Reg
+  - name: ret20_reg
+    description: Retention Register.
+    byte_offset: 336
+    fieldset: regs::Ret20Reg
+  - name: ret21_reg
+    description: Retention Register.
+    byte_offset: 340
+    fieldset: regs::Ret21Reg
+  - name: ret22_reg
+    description: Retention Register.
+    byte_offset: 344
+    fieldset: regs::Ret22Reg
+  - name: ret23_reg
+    description: Retention Register.
+    byte_offset: 348
+    fieldset: regs::Ret23Reg
+  - name: ret24_reg
+    description: Retention Register.
+    byte_offset: 352
+    fieldset: regs::Ret24Reg
+  - name: ret25_reg
+    description: Retention Register.
+    byte_offset: 356
+    fieldset: regs::Ret25Reg
+  - name: ret26_reg
+    description: Retention Register.
+    byte_offset: 360
+    fieldset: regs::Ret26Reg
+  - name: ret27_reg
+    description: Retention Register.
+    byte_offset: 364
+    fieldset: regs::Ret27Reg
+  - name: ret28_reg
+    description: Retention Register.
+    byte_offset: 368
+    fieldset: regs::Ret28Reg
+  - name: ret29_reg
+    description: Retention Register.
+    byte_offset: 372
+    fieldset: regs::Ret29Reg
+  - name: ret30_reg
+    description: Retention Register.
+    byte_offset: 376
+    fieldset: regs::Ret30Reg
+  - name: ret31_reg
+    description: Retention Register.
+    byte_offset: 380
+    fieldset: regs::Ret31Reg
+  - name: ret32_reg
+    description: Retention Register.
+    byte_offset: 384
+    fieldset: regs::Ret32Reg
+  - name: ret33_reg
+    description: Retention Register.
+    byte_offset: 388
+    fieldset: regs::Ret33Reg
+  - name: ret34_reg
+    description: Retention Register.
+    byte_offset: 392
+    fieldset: regs::Ret34Reg
+  - name: ret35_reg
+    description: Retention Register.
+    byte_offset: 396
+    fieldset: regs::Ret35Reg
+  - name: ret36_reg
+    description: Retention Register.
+    byte_offset: 400
+    fieldset: regs::Ret36Reg
+  - name: ret37_reg
+    description: Retention Register.
+    byte_offset: 404
+    fieldset: regs::Ret37Reg
+  - name: ret38_reg
+    description: Retention Register.
+    byte_offset: 408
+    fieldset: regs::Ret38Reg
+  - name: ret39_reg
+    description: Retention Register.
+    byte_offset: 412
+    fieldset: regs::Ret39Reg
+  - name: ret40_reg
+    description: Retention Register.
+    byte_offset: 416
+    fieldset: regs::Ret40Reg
+  - name: ret41_reg
+    description: Retention Register.
+    byte_offset: 420
+    fieldset: regs::Ret41Reg
+  - name: ret42_reg
+    description: Retention Register.
+    byte_offset: 424
+    fieldset: regs::Ret42Reg
+  - name: ret43_reg
+    description: Retention Register.
+    byte_offset: 428
+    fieldset: regs::Ret43Reg
+  - name: ret44_reg
+    description: Retention Register.
+    byte_offset: 432
+    fieldset: regs::Ret44Reg
+  - name: ret45_reg
+    description: Retention Register.
+    byte_offset: 436
+    fieldset: regs::Ret45Reg
+  - name: ret46_reg
+    description: Retention Register.
+    byte_offset: 440
+    fieldset: regs::Ret46Reg
+  - name: ret47_reg
+    description: Retention Register.
+    byte_offset: 444
+    fieldset: regs::Ret47Reg
+  - name: ret48_reg
+    description: Retention Register.
+    byte_offset: 448
+    fieldset: regs::Ret48Reg
+  - name: ret49_reg
+    description: Retention Register.
+    byte_offset: 452
+    fieldset: regs::Ret49Reg
+  - name: ret50_reg
+    description: Retention Register.
+    byte_offset: 456
+    fieldset: regs::Ret50Reg
+  - name: ret51_reg
+    description: Retention Register.
+    byte_offset: 460
+    fieldset: regs::Ret51Reg
+  - name: ret52_reg
+    description: Retention Register.
+    byte_offset: 464
+    fieldset: regs::Ret52Reg
+  - name: ret53_reg
+    description: Retention Register.
+    byte_offset: 468
+    fieldset: regs::Ret53Reg
+  - name: ret54_reg
+    description: Retention Register.
+    byte_offset: 472
+    fieldset: regs::Ret54Reg
+  - name: ret55_reg
+    description: Retention Register.
+    byte_offset: 476
+    fieldset: regs::Ret55Reg
+  - name: ret56_reg
+    description: Retention Register.
+    byte_offset: 480
+    fieldset: regs::Ret56Reg
+  - name: ret57_reg
+    description: Retention Register.
+    byte_offset: 484
+    fieldset: regs::Ret57Reg
+  - name: ret58_reg
+    description: Retention Register.
+    byte_offset: 488
+    fieldset: regs::Ret58Reg
+  - name: ret59_reg
+    description: Retention Register.
+    byte_offset: 492
+    fieldset: regs::Ret59Reg
+  - name: ret60_reg
+    description: Retention Register.
+    byte_offset: 496
+    fieldset: regs::Ret60Reg
+  - name: ret61_reg
+    description: Retention Register.
+    byte_offset: 500
+    fieldset: regs::Ret61Reg
+  - name: ret62_reg
+    description: Retention Register.
+    byte_offset: 504
+    fieldset: regs::Ret62Reg
+  - name: ret63_reg
+    description: Retention Register.
+    byte_offset: 508
+    fieldset: regs::Ret63Reg
+  - name: ret64_reg
+    description: Retention Register.
+    byte_offset: 512
+    fieldset: regs::Ret64Reg
+  - name: ret65_reg
+    description: Retention Register.
+    byte_offset: 516
+    fieldset: regs::Ret65Reg
+  - name: ret66_reg
+    description: Retention Register.
+    byte_offset: 520
+    fieldset: regs::Ret66Reg
+  - name: ret67_reg
+    description: Retention Register.
+    byte_offset: 524
+    fieldset: regs::Ret67Reg
+  - name: ret68_reg
+    description: Retention Register.
+    byte_offset: 528
+    fieldset: regs::Ret68Reg
+  - name: ret69_reg
+    description: Retention Register.
+    byte_offset: 532
+    fieldset: regs::Ret69Reg
+  - name: ret70_reg
+    description: Retention Register.
+    byte_offset: 536
+    fieldset: regs::Ret70Reg
+  - name: ret71_reg
+    description: Retention Register.
+    byte_offset: 540
+    fieldset: regs::Ret71Reg
+  - name: ret72_reg
+    description: Retention Register.
+    byte_offset: 544
+    fieldset: regs::Ret72Reg
+  - name: ret73_reg
+    description: Retention Register.
+    byte_offset: 548
+    fieldset: regs::Ret73Reg
+  - name: ret74_reg
+    description: Retention Register.
+    byte_offset: 552
+    fieldset: regs::Ret74Reg
+  - name: ret75_reg
+    description: Retention Register.
+    byte_offset: 556
+    fieldset: regs::Ret75Reg
+  - name: ret76_reg
+    description: Retention Register.
+    byte_offset: 560
+    fieldset: regs::Ret76Reg
+  - name: ret77_reg
+    description: Retention Register.
+    byte_offset: 564
+    fieldset: regs::Ret77Reg
+  - name: ret78_reg
+    description: Retention Register.
+    byte_offset: 568
+    fieldset: regs::Ret78Reg
+  - name: ret79_reg
+    description: Retention Register.
+    byte_offset: 572
+    fieldset: regs::Ret79Reg
+  - name: ret80_reg
+    description: Retention Register.
+    byte_offset: 576
+    fieldset: regs::Ret80Reg
+  - name: ret81_reg
+    description: Retention Register.
+    byte_offset: 580
+    fieldset: regs::Ret81Reg
+  - name: ret82_reg
+    description: Retention Register.
+    byte_offset: 584
+    fieldset: regs::Ret82Reg
+  - name: ret83_reg
+    description: Retention Register.
+    byte_offset: 588
+    fieldset: regs::Ret83Reg
+  - name: ret84_reg
+    description: Retention Register.
+    byte_offset: 592
+    fieldset: regs::Ret84Reg
+  - name: ret85_reg
+    description: Retention Register.
+    byte_offset: 596
+    fieldset: regs::Ret85Reg
+  - name: ret86_reg
+    description: Retention Register.
+    byte_offset: 600
+    fieldset: regs::Ret86Reg
+  - name: ret87_reg
+    description: Retention Register.
+    byte_offset: 604
+    fieldset: regs::Ret87Reg
+  - name: ret88_reg
+    description: Retention Register.
+    byte_offset: 608
+    fieldset: regs::Ret88Reg
+  - name: ret89_reg
+    description: Retention Register.
+    byte_offset: 612
+    fieldset: regs::Ret89Reg
+  - name: ret90_reg
+    description: Retention Register.
+    byte_offset: 616
+    fieldset: regs::Ret90Reg
+  - name: ret91_reg
+    description: Retention Register.
+    byte_offset: 620
+    fieldset: regs::Ret91Reg
+  - name: ret92_reg
+    description: Retention Register.
+    byte_offset: 624
+    fieldset: regs::Ret92Reg
+  - name: ret93_reg
+    description: Retention Register.
+    byte_offset: 628
+    fieldset: regs::Ret93Reg
+  - name: ret94_reg
+    description: Retention Register.
+    byte_offset: 632
+    fieldset: regs::Ret94Reg
+  - name: ret95_reg
+    description: Retention Register.
+    byte_offset: 636
+    fieldset: regs::Ret95Reg
+  - name: ret96_reg
+    description: Retention Register.
+    byte_offset: 640
+    fieldset: regs::Ret96Reg
+  - name: ret97_reg
+    description: Retention Register.
+    byte_offset: 644
+    fieldset: regs::Ret97Reg
+  - name: ret98_reg
+    description: Retention Register.
+    byte_offset: 648
+    fieldset: regs::Ret98Reg
+  - name: ret99_reg
+    description: Retention Register.
+    byte_offset: 652
+    fieldset: regs::Ret99Reg
+  - name: ret100_reg
+    description: Retention Register.
+    byte_offset: 656
+    fieldset: regs::Ret100Reg
+  - name: ret101_reg
+    description: Retention Register.
+    byte_offset: 660
+    fieldset: regs::Ret101Reg
+  - name: ret102_reg
+    description: Retention Register.
+    byte_offset: 664
+    fieldset: regs::Ret102Reg
+  - name: ret103_reg
+    description: Retention Register.
+    byte_offset: 668
+    fieldset: regs::Ret103Reg
+  - name: ret104_reg
+    description: Retention Register.
+    byte_offset: 672
+    fieldset: regs::Ret104Reg
+  - name: ret105_reg
+    description: Retention Register.
+    byte_offset: 676
+    fieldset: regs::Ret105Reg
+  - name: ret106_reg
+    description: Retention Register.
+    byte_offset: 680
+    fieldset: regs::Ret106Reg
+  - name: ret107_reg
+    description: Retention Register.
+    byte_offset: 684
+    fieldset: regs::Ret107Reg
+  - name: ret108_reg
+    description: Retention Register.
+    byte_offset: 688
+    fieldset: regs::Ret108Reg
+  - name: ret109_reg
+    description: Retention Register.
+    byte_offset: 692
+    fieldset: regs::Ret109Reg
+  - name: ret110_reg
+    description: Retention Register.
+    byte_offset: 696
+    fieldset: regs::Ret110Reg
+  - name: ret111_reg
+    description: Retention Register.
+    byte_offset: 700
+    fieldset: regs::Ret111Reg
+  - name: ret112_reg
+    description: Retention Register.
+    byte_offset: 704
+    fieldset: regs::Ret112Reg
+  - name: ret113_reg
+    description: Retention Register.
+    byte_offset: 708
+    fieldset: regs::Ret113Reg
+  - name: ret114_reg
+    description: Retention Register.
+    byte_offset: 712
+    fieldset: regs::Ret114Reg
+  - name: ret115_reg
+    description: Retention Register.
+    byte_offset: 716
+    fieldset: regs::Ret115Reg
+  - name: ret116_reg
+    description: Retention Register.
+    byte_offset: 720
+    fieldset: regs::Ret116Reg
+  - name: ret117_reg
+    description: Retention Register.
+    byte_offset: 724
+    fieldset: regs::Ret117Reg
+  - name: ret118_reg
+    description: Retention Register.
+    byte_offset: 728
+    fieldset: regs::Ret118Reg
+  - name: ret119_reg
+    description: Retention Register.
+    byte_offset: 732
+    fieldset: regs::Ret119Reg
+  - name: ret120_reg
+    description: Retention Register.
+    byte_offset: 736
+    fieldset: regs::Ret120Reg
+  - name: ret121_reg
+    description: Retention Register.
+    byte_offset: 740
+    fieldset: regs::Ret121Reg
+  - name: ret122_reg
+    description: Retention Register.
+    byte_offset: 744
+    fieldset: regs::Ret122Reg
+  - name: ret123_reg
+    description: Retention Register.
+    byte_offset: 748
+    fieldset: regs::Ret123Reg
+  - name: ret124_reg
+    description: Retention Register.
+    byte_offset: 752
+    fieldset: regs::Ret124Reg
+  - name: ret125_reg
+    description: Retention Register.
+    byte_offset: 756
+    fieldset: regs::Ret125Reg
+  - name: ret126_reg
+    description: Retention Register.
+    byte_offset: 760
+    fieldset: regs::Ret126Reg
+  - name: ret127_reg
+    description: Retention Register.
+    byte_offset: 764
+    fieldset: regs::Ret127Reg
+fieldset/regs::Cmd:
+  description: Command Register.
+  fields:
+  - name: clrstatus
+    description: Clear BURTC_STATUS register.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Cnt:
+  description: Counter Value Register.
+  fields:
+  - name: cnt
+    description: Counter Value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Comp0:
+  description: Counter Compare Value.
+  fields:
+  - name: comp0
+    description: Compare match value.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: mode
+    description: BURTC Enable.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Mode
+  - name: debugrun
+    description: Debug Mode Run Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: rsten
+    description: Enable BURTC reset.
+    bit_offset: 3
+    bit_size: 1
+  - name: comp0top
+    description: Compare clear enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: lpcomp
+    description: Low power mode compare configuration.
+    bit_offset: 5
+    bit_size: 3
+    enum: vals::Lpcomp
+  - name: presc
+    description: Select BURTC prescaler factor.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Presc
+  - name: clksel
+    description: Select BURTC clock source.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Clksel
+  - name: bumodetsen
+    description: Backup mode timestamp enable.
+    bit_offset: 14
+    bit_size: 1
+fieldset/regs::Freeze:
+  description: Freeze Register.
+  fields:
+  - name: regfreeze
+    description: Register Update Freeze.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: of
+    description: Overflow Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp0
+    description: Compare match Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: lfxofail
+    description: LFXO failure Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: of
+    description: Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp0
+    description: Compare match Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: lfxofail
+    description: LFXO failure Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: of
+    description: Clear Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp0
+    description: Clear compare match Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: lfxofail
+    description: Clear LFXO failure Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: of
+    description: Set Overflow Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp0
+    description: Set compare match Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: lfxofail
+    description: Set LFXO fail Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Lfxofdet:
+  description: LFXO.
+  fields:
+  - name: osc
+    description: LFXO failure detection configuration.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Osc
+  - name: top
+    description: LFXO failure counter top value.
+    bit_offset: 4
+    bit_size: 5
+fieldset/regs::Lock:
+  description: Configuration Lock Register.
+  fields:
+  - name: lockkey
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Lpmode:
+  description: Low power mode configuration.
+  fields:
+  - name: lpmode
+    description: Low power mode configuration.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Lpmode
+fieldset/regs::Powerdown:
+  description: Retention RAM power-down Register.
+  fields:
+  - name: ram
+    description: Retention RAM power-down.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ret0Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret100Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret101Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret102Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret103Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret104Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret105Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret106Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret107Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret108Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret109Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret10Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret110Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret111Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret112Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret113Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret114Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret115Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret116Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret117Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret118Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret119Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret11Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret120Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret121Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret122Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret123Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret124Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret125Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret126Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret127Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret12Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret13Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret14Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret15Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret16Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret17Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret18Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret19Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret1Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret20Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret21Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret22Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret23Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret24Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret25Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret26Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret27Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret28Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret29Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret2Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret30Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret31Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret32Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret33Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret34Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret35Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret36Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret37Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret38Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret39Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret3Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret40Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret41Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret42Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret43Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret44Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret45Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret46Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret47Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret48Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret49Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret4Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret50Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret51Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret52Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret53Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret54Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret55Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret56Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret57Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret58Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret59Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret5Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret60Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret61Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret62Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret63Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret64Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret65Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret66Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret67Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret68Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret69Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret6Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret70Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret71Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret72Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret73Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret74Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret75Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret76Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret77Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret78Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret79Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret7Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret80Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret81Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret82Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret83Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret84Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret85Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret86Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret87Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret88Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret89Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret8Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret90Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret91Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret92Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret93Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret94Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret95Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret96Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret97Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret98Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret99Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Ret9Reg:
+  description: Retention Register.
+  fields:
+  - name: reg
+    description: General Purpose Retention Register.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Status:
+  description: Status Register.
+  fields:
+  - name: lpmodeact
+    description: Low power mode active.
+    bit_offset: 0
+    bit_size: 1
+  - name: bumodets
+    description: Timestamp for backup mode entry stored.
+    bit_offset: 1
+    bit_size: 1
+  - name: ramwerr
+    description: RAM write error.
+    bit_offset: 2
+    bit_size: 1
+fieldset/regs::Syncbusy:
+  description: Synchronization Busy Register.
+  fields:
+  - name: lpmode
+    description: LPMODE Register Busy.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp0
+    description: COMP0 Register Busy.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Timestamp:
+  description: Backup mode timestamp.
+  fields:
+  - name: timestamp
+    description: Backup mode timestamp.
+    bit_offset: 0
+    bit_size: 32
+enum/vals::Clksel:
+  bit_size: 2
+  variants:
+  - name: Lfrco
+    description: LFRCO selected as BURTC clock source.
+    value: 1
+  - name: Lfxo
+    description: LFXO selected as BURTC clock source.
+    value: 2
+  - name: None
+    description: No clock source selected for BURTC.
+    value: 0
+  - name: Ulfrco
+    description: ULFRCO selected as BURTC clock source.
+    value: 3
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Locked
+    value: 1
+  - name: Unlocked
+    value: 0
+enum/vals::Lpcomp:
+  bit_size: 3
+  variants:
+  - name: Ign0lsb
+    description: Do not ignore any bits for compare match evaluation.
+    value: 0
+  - name: Ign1lsb
+    description: The LSB of the counter is ignored for compare match evaluation.
+    value: 1
+  - name: Ign2lsb
+    description: The two LSBs of the counter are ignored for compare match evaluation.
+    value: 2
+  - name: Ign3lsb
+    description: The three LSBs of the counter are ignored for compare match evaluation.
+    value: 3
+  - name: Ign4lsb
+    description: The four LSBs of the counter are ignored for compare match evaluation.
+    value: 4
+  - name: Ign5lsb
+    description: The five LSBs of the counter are ignored for compare match evaluation.
+    value: 5
+  - name: Ign6lsb
+    description: The six LSBs of the counter are ignored for compare match evaluation.
+    value: 6
+  - name: Ign7lsb
+    description: The seven LSBs of the counter are ignored for compare match evaluation.
+    value: 7
+enum/vals::Lpmode:
+  bit_size: 2
+  variants:
+  - name: Buen
+    description: Low power mode enabled in backup mode.
+    value: 2
+  - name: Disable
+    description: Low power mode is disabled.
+    value: 0
+  - name: Enable
+    description: Low power mode always enabled.
+    value: 1
+enum/vals::Mode:
+  bit_size: 2
+  variants:
+  - name: Disable
+    description: The BURTC is disabled.
+    value: 0
+  - name: Em2en
+    description: The BURTC is in normal operating mode, operating in EM0-EM2. Oscillators must be enabled in CMU for use.
+    value: 1
+  - name: Em3en
+    description: The BURTC is enabled in EM0-EM3. Will prevent CMU from disabling used oscillators all the way down to EM3.
+    value: 2
+  - name: Em4en
+    description: The BURTC is enabled in EM0-EM4. Will prevent CMU from disabling used oscillators all the way down to EM4.
+    value: 3
+enum/vals::Osc:
+  bit_size: 2
+  variants:
+  - name: Disable
+    description: LFXO failure detection disabled.
+    value: 0
+  - name: Lfrco
+    description: LFRCO used for LFXO failure detection.
+    value: 1
+  - name: Ulfrco
+    description: ULFRCO used for LFXO failure detection.
+    value: 2
+enum/vals::Presc:
+  bit_size: 3
+  variants:
+  - name: Div1
+    description: No prescaling.
+    value: 0
+  - name: Div128
+    description: Prescaling factor of 128.
+    value: 7
+  - name: Div16
+    description: Prescaling factor of 16.
+    value: 4
+  - name: Div2
+    description: Prescaling factor of 2.
+    value: 1
+  - name: Div32
+    description: Prescaling factor of 32.
+    value: 5
+  - name: Div4
+    description: Prescaling factor of 4.
+    value: 2
+  - name: Div64
+    description: Prescaling factor of 64.
+    value: 6
+  - name: Div8
+    description: Prescaling factor of 8.
+    value: 3

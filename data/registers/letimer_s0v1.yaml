@@ -1,0 +1,382 @@
+block/Letimer:
+  description: LETIMER peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: cmd
+    description: Command Register.
+    byte_offset: 4
+    access: Write
+    fieldset: regs::Cmd
+  - name: status
+    description: Status Register.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::Status
+  - name: cnt
+    description: Counter Value Register.
+    byte_offset: 12
+    fieldset: regs::Cnt
+  - name: comp0
+    description: Compare Value Register 0.
+    byte_offset: 16
+    fieldset: regs::Comp0
+  - name: comp1
+    description: Compare Value Register 1.
+    byte_offset: 20
+    fieldset: regs::Comp1
+  - name: rep0
+    description: Repeat Counter Register 0.
+    byte_offset: 24
+    fieldset: regs::Rep0
+  - name: rep1
+    description: Repeat Counter Register 1.
+    byte_offset: 28
+    fieldset: regs::Rep1
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 32
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 36
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 40
+    access: Write
+    fieldset: regs::Ifc
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 44
+    fieldset: regs::Ien
+  - name: freeze
+    description: Freeze Register.
+    byte_offset: 48
+    fieldset: regs::Freeze
+  - name: syncbusy
+    description: Synchronization Busy Register.
+    byte_offset: 52
+    access: Read
+    fieldset: regs::Syncbusy
+  - name: route
+    description: I/O Routing Register.
+    byte_offset: 64
+    fieldset: regs::Route
+fieldset/regs::Cmd:
+  description: Command Register.
+  fields:
+  - name: start
+    description: Start LETIMER.
+    bit_offset: 0
+    bit_size: 1
+  - name: stop
+    description: Stop LETIMER.
+    bit_offset: 1
+    bit_size: 1
+  - name: clear
+    description: Clear LETIMER.
+    bit_offset: 2
+    bit_size: 1
+  - name: cto0
+    description: Clear Toggle Output 0.
+    bit_offset: 3
+    bit_size: 1
+  - name: cto1
+    description: Clear Toggle Output 1.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::Cnt:
+  description: Counter Value Register.
+  fields:
+  - name: cnt
+    description: Counter Value.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Comp0:
+  description: Compare Value Register 0.
+  fields:
+  - name: comp0
+    description: Compare Value 0.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Comp1:
+  description: Compare Value Register 1.
+  fields:
+  - name: comp1
+    description: Compare Value 1.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: repmode
+    description: Repeat Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Repmode
+  - name: ufoa0
+    description: Underflow Output Action 0.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Ufoa0
+  - name: ufoa1
+    description: Underflow Output Action 1.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Ufoa1
+  - name: opol0
+    description: Output 0 Polarity.
+    bit_offset: 6
+    bit_size: 1
+  - name: opol1
+    description: Output 1 Polarity.
+    bit_offset: 7
+    bit_size: 1
+  - name: buftop
+    description: Buffered Top.
+    bit_offset: 8
+    bit_size: 1
+  - name: comp0top
+    description: Compare Value 0 Is Top Value.
+    bit_offset: 9
+    bit_size: 1
+  - name: rtcc0ten
+    description: RTC Compare 0 Trigger Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: rtcc1ten
+    description: RTC Compare 1 Trigger Enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: debugrun
+    description: Debug Mode Run Enable.
+    bit_offset: 12
+    bit_size: 1
+fieldset/regs::Freeze:
+  description: Freeze Register.
+  fields:
+  - name: regfreeze
+    description: Register Update Freeze.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: comp0
+    description: Compare Match 0 Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp1
+    description: Compare Match 1 Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: uf
+    description: Underflow Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: rep0
+    description: Repeat Counter 0 Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: rep1
+    description: Repeat Counter 1 Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: comp0
+    description: Compare Match 0 Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp1
+    description: Compare Match 1 Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: uf
+    description: Underflow Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: rep0
+    description: Repeat Counter 0 Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: rep1
+    description: Repeat Counter 1 Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: comp0
+    description: Clear Compare Match 0 Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp1
+    description: Clear Compare Match 1 Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: uf
+    description: Clear Underflow Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: rep0
+    description: Clear Repeat Counter 0 Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: rep1
+    description: Clear Repeat Counter 1 Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: comp0
+    description: Set Compare Match 0 Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: comp1
+    description: Set Compare Match 1 Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: uf
+    description: Set Underflow Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: rep0
+    description: Set Repeat Counter 0 Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: rep1
+    description: Set Repeat Counter 1 Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::Rep0:
+  description: Repeat Counter Register 0.
+  fields:
+  - name: rep0
+    description: Repeat Counter 0.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Rep1:
+  description: Repeat Counter Register 1.
+  fields:
+  - name: rep1
+    description: Repeat Counter 1.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Route:
+  description: I/O Routing Register.
+  fields:
+  - name: out0pen
+    description: Output 0 Pin Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: out1pen
+    description: Output 1 Pin Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: location
+    description: I/O Location.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Location
+fieldset/regs::Status:
+  description: Status Register.
+  fields:
+  - name: running
+    description: LETIMER Running.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Syncbusy:
+  description: Synchronization Busy Register.
+  fields:
+  - name: ctrl
+    description: CTRL Register Busy.
+    bit_offset: 0
+    bit_size: 1
+  - name: cmd
+    description: CMD Register Busy.
+    bit_offset: 1
+    bit_size: 1
+  - name: comp0
+    description: COMP0 Register Busy.
+    bit_offset: 2
+    bit_size: 1
+  - name: comp1
+    description: COMP1 Register Busy.
+    bit_offset: 3
+    bit_size: 1
+  - name: rep0
+    description: REP0 Register Busy.
+    bit_offset: 4
+    bit_size: 1
+  - name: rep1
+    description: REP1 Register Busy.
+    bit_offset: 5
+    bit_size: 1
+enum/vals::Location:
+  bit_size: 3
+  variants:
+  - name: Loc0
+    description: Location 0.
+    value: 0
+  - name: Loc1
+    description: Location 1.
+    value: 1
+  - name: Loc2
+    description: Location 2.
+    value: 2
+  - name: Loc3
+    description: Location 3.
+    value: 3
+enum/vals::Repmode:
+  bit_size: 2
+  variants:
+  - name: Buffered
+    description: The counter counts REP0 times. If REP1 has been written, it is loaded into REP0 when REP0 reaches zero. Else the counter stops.
+    value: 2
+  - name: Double
+    description: Both REP0 and REP1 are decremented when the LETIMER wraps around. The LETIMER counts until both REP0 and REP1 are zero.
+    value: 3
+  - name: Free
+    description: When started, the LETIMER counts down until it is stopped by software.
+    value: 0
+  - name: Oneshot
+    description: The counter counts REP0 times. When REP0 reaches zero, the counter stops.
+    value: 1
+enum/vals::Ufoa0:
+  bit_size: 2
+  variants:
+  - name: None
+    description: LETn_O0 is held at its idle value as defined by OPOL0.
+    value: 0
+  - name: Pulse
+    description: LETn_O0 is held active for one LFACLKLETIMER0 clock cycle on CNT underflow. The output then returns to its idle value as defined by OPOL0.
+    value: 2
+  - name: Pwm
+    description: LETn_O0 is set idle on CNT underflow, and active on compare match with COMP1.
+    value: 3
+  - name: Toggle
+    description: LETn_O0 is toggled on CNT underflow.
+    value: 1
+enum/vals::Ufoa1:
+  bit_size: 2
+  variants:
+  - name: None
+    description: LETn_O1 is held at its idle value as defined by OPOL1.
+    value: 0
+  - name: Pulse
+    description: LETn_O1 is held active for one LFACLKLETIMER0 clock cycle on CNT underflow. The output then returns to its idle value as defined by OPOL1.
+    value: 2
+  - name: Pwm
+    description: LETn_O1 is set idle on CNT underflow, and active on compare match with COMP1.
+    value: 3
+  - name: Toggle
+    description: LETn_O1 is toggled on CNT underflow.
+    value: 1

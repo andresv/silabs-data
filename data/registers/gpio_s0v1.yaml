@@ -1,0 +1,628 @@
+block/Gpio:
+  description: GPIO peripheral.
+  items:
+  - name: p_ctrl
+    description: Port Control Register.
+    array:
+      len: 6
+      stride: 36
+    byte_offset: 0
+    fieldset: regs::PortCtrl
+  - name: p_model
+    description: Port Pin Mode Low Register.
+    array:
+      len: 6
+      stride: 36
+    byte_offset: 4
+    fieldset: regs::PortModel
+  - name: p_modeh
+    description: Port Pin Mode High Register.
+    array:
+      len: 6
+      stride: 36
+    byte_offset: 8
+    fieldset: regs::PortModeh
+  - name: p_dout
+    description: Port Data Out Register.
+    array:
+      len: 6
+      stride: 36
+    byte_offset: 12
+    fieldset: regs::PortDout
+  - name: p_doutset
+    description: Port Data Out Set Register.
+    array:
+      len: 6
+      stride: 36
+    byte_offset: 16
+    access: Write
+    fieldset: regs::PortDoutset
+  - name: p_doutclr
+    description: Port Data Out Clear Register.
+    array:
+      len: 6
+      stride: 36
+    byte_offset: 20
+    access: Write
+    fieldset: regs::PortDoutclr
+  - name: p_douttgl
+    description: Port Data Out Toggle Register.
+    array:
+      len: 6
+      stride: 36
+    byte_offset: 24
+    access: Write
+    fieldset: regs::PortDouttgl
+  - name: p_din
+    description: Port Data In Register.
+    array:
+      len: 6
+      stride: 36
+    byte_offset: 28
+    access: Read
+    fieldset: regs::PortDin
+  - name: p_pinlockn
+    description: Port Unlocked Pins Register.
+    array:
+      len: 6
+      stride: 36
+    byte_offset: 32
+    fieldset: regs::PortPinlockn
+  - name: extipsell
+    description: External Interrupt Port Select Low Register.
+    byte_offset: 256
+    fieldset: regs::Extipsell
+  - name: extipselh
+    description: External Interrupt Port Select High Register.
+    byte_offset: 260
+    fieldset: regs::Extipselh
+  - name: extirise
+    description: External Interrupt Rising Edge Trigger Register.
+    byte_offset: 264
+    fieldset: regs::Extirise
+  - name: extifall
+    description: External Interrupt Falling Edge Trigger Register.
+    byte_offset: 268
+    fieldset: regs::Extifall
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 272
+    fieldset: regs::Ien
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 276
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 280
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 284
+    access: Write
+    fieldset: regs::Ifc
+  - name: route
+    description: I/O Routing Register.
+    byte_offset: 288
+    fieldset: regs::Route
+  - name: insense
+    description: Input Sense Register.
+    byte_offset: 292
+    fieldset: regs::Insense
+  - name: lock
+    description: Configuration Lock Register.
+    byte_offset: 296
+    fieldset: regs::Lock
+  - name: ctrl
+    description: GPIO Control Register.
+    byte_offset: 300
+    fieldset: regs::Ctrl
+  - name: cmd
+    description: GPIO Command Register.
+    byte_offset: 304
+    access: Write
+    fieldset: regs::Cmd
+  - name: em4wuen
+    description: EM4 Wake-up Enable Register.
+    byte_offset: 308
+    fieldset: regs::Em4wuen
+  - name: em4wupol
+    description: EM4 Wake-up Polarity Register.
+    byte_offset: 312
+    fieldset: regs::Em4wupol
+  - name: em4wucause
+    description: EM4 Wake-up Cause Register.
+    byte_offset: 316
+    access: Read
+    fieldset: regs::Em4wucause
+fieldset/regs::Cmd:
+  description: GPIO Command Register.
+  fields:
+  - name: em4wuclr
+    description: EM4 Wake-up clear.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: GPIO Control Register.
+  fields:
+  - name: em4ret
+    description: Enable EM4 retention.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Em4wucause:
+  description: EM4 Wake-up Cause Register.
+  fields:
+  - name: em4wucause
+    description: EM4 wake-up cause.
+    bit_offset: 0
+    bit_size: 6
+    enum: vals::Em4wucause
+fieldset/regs::Em4wuen:
+  description: EM4 Wake-up Enable Register.
+  fields:
+  - name: em4wuen
+    description: EM4 Wake-up enable.
+    bit_offset: 0
+    bit_size: 6
+    enum: vals::Em4wuen
+fieldset/regs::Em4wupol:
+  description: EM4 Wake-up Polarity Register.
+  fields:
+  - name: em4wupol
+    description: EM4 Wake-up Polarity.
+    bit_offset: 0
+    bit_size: 6
+    enum: vals::Em4wupol
+fieldset/regs::Extifall:
+  description: External Interrupt Falling Edge Trigger Register.
+  fields:
+  - name: extifall
+    description: External Interrupt n Falling Edge Trigger Enable.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Extipselh:
+  description: External Interrupt Port Select High Register.
+  fields:
+  - name: extipsel8
+    description: External Interrupt 8 Port Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel9
+    description: External Interrupt 9 Port Select.
+    bit_offset: 4
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel10
+    description: External Interrupt 10 Port Select.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel11
+    description: External Interrupt 11 Port Select.
+    bit_offset: 12
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel12
+    description: External Interrupt 12 Port Select.
+    bit_offset: 16
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel13
+    description: External Interrupt 13 Port Select.
+    bit_offset: 20
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel14
+    description: External Interrupt 14 Port Select.
+    bit_offset: 24
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel15
+    description: External Interrupt 15 Port Select.
+    bit_offset: 28
+    bit_size: 3
+    enum: vals::Extipsel
+fieldset/regs::Extipsell:
+  description: External Interrupt Port Select Low Register.
+  fields:
+  - name: extipsel0
+    description: External Interrupt 0 Port Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel1
+    description: External Interrupt 1 Port Select.
+    bit_offset: 4
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel2
+    description: External Interrupt 2 Port Select.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel3
+    description: External Interrupt 3 Port Select.
+    bit_offset: 12
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel4
+    description: External Interrupt 4 Port Select.
+    bit_offset: 16
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel5
+    description: External Interrupt 5 Port Select.
+    bit_offset: 20
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel6
+    description: External Interrupt 6 Port Select.
+    bit_offset: 24
+    bit_size: 3
+    enum: vals::Extipsel
+  - name: extipsel7
+    description: External Interrupt 7 Port Select.
+    bit_offset: 28
+    bit_size: 3
+    enum: vals::Extipsel
+fieldset/regs::Extirise:
+  description: External Interrupt Rising Edge Trigger Register.
+  fields:
+  - name: extirise
+    description: External Interrupt n Rising Edge Trigger Enable.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: ext
+    description: External Interrupt n Enable.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: ext
+    description: External Interrupt Flag n.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: ext
+    description: External Interrupt Flag Clear.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: ext
+    description: External Interrupt Flag n Set.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Insense:
+  description: Input Sense Register.
+  fields:
+  - name: int
+    description: Interrupt Sense Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: prs
+    description: PRS Sense Enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Lock:
+  description: Configuration Lock Register.
+  fields:
+  - name: lockkey
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::PortCtrl:
+  description: Port Control Register.
+  fields:
+  - name: drivemode
+    description: Drive Mode Select.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Drivemode
+fieldset/regs::PortDin:
+  description: Port Data In Register.
+  fields:
+  - name: din
+    description: Data In.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::PortDout:
+  description: Port Data Out Register.
+  fields:
+  - name: dout
+    description: Data Out.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::PortDoutclr:
+  description: Port Data Out Clear Register.
+  fields:
+  - name: doutclr
+    description: Data Out Clear.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::PortDoutset:
+  description: Port Data Out Set Register.
+  fields:
+  - name: doutset
+    description: Data Out Set.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::PortDouttgl:
+  description: Port Data Out Toggle Register.
+  fields:
+  - name: douttgl
+    description: Data Out Toggle.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::PortModeh:
+  description: Port Pin Mode High Register.
+  fields:
+  - name: mode
+    description: Pin 8 Mode.
+    bit_offset: 0
+    bit_size: 4
+    array:
+      len: 8
+      stride: 4
+    enum: vals::Mode
+fieldset/regs::PortModel:
+  description: Port Pin Mode Low Register.
+  fields:
+  - name: mode
+    description: Pin 0 Mode.
+    bit_offset: 0
+    bit_size: 4
+    array:
+      len: 8
+      stride: 4
+    enum: vals::Mode
+fieldset/regs::PortPinlockn:
+  description: Port Unlocked Pins Register.
+  fields:
+  - name: pinlockn
+    description: Unlocked Pins.
+    bit_offset: 0
+    bit_size: 16
+fieldset/regs::Route:
+  description: I/O Routing Register.
+  fields:
+  - name: swclkpen
+    description: Serial Wire Clock Pin Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: swdiopen
+    description: Serial Wire Data Pin Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: swopen
+    description: Serial Wire Viewer Output Pin Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: swlocation
+    description: I/O Location.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Swlocation
+  - name: tclkpen
+    description: ETM Trace Clock Pin Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: td0pen
+    description: ETM Trace Data Pin Enable.
+    bit_offset: 13
+    bit_size: 1
+  - name: td1pen
+    description: ETM Trace Data Pin Enable.
+    bit_offset: 14
+    bit_size: 1
+  - name: td2pen
+    description: ETM Trace Data Pin Enable.
+    bit_offset: 15
+    bit_size: 1
+  - name: td3pen
+    description: ETM Trace Data Pin Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: etmlocation
+    description: I/O Location.
+    bit_offset: 24
+    bit_size: 2
+    enum: vals::Etmlocation
+enum/vals::Drivemode:
+  bit_size: 2
+  variants:
+  - name: High
+    description: 20 mA drive current.
+    value: 2
+  - name: Low
+    description: 1 mA drive current.
+    value: 3
+  - name: Lowest
+    description: 0.1 mA drive current.
+    value: 1
+  - name: Standard
+    description: 6 mA drive current.
+    value: 0
+enum/vals::Em4wucause:
+  bit_size: 6
+  variants:
+  - name: A0
+    description: This bit indicates an em4 wake-up request occurred on pin A0.
+    value: 1
+  - name: A6
+    description: This bit indicates an em4 wake-up request occurred on pin A6.
+    value: 2
+  - name: C9
+    description: This bit indicates an em4 wake-up request occurred on pin C9.
+    value: 4
+  - name: E13
+    description: This bit indicates an em4 wake-up request occurred on pin E13.
+    value: 32
+  - name: F1
+    description: This bit indicates an em4 wake-up request occurred on pin F1.
+    value: 8
+  - name: F2
+    description: This bit indicates an em4 wake-up request occurred on pin F2.
+    value: 16
+enum/vals::Em4wuen:
+  bit_size: 6
+  variants:
+  - name: A0
+    description: Enable em4 wakeup on pin A0.
+    value: 1
+  - name: A6
+    description: Enable em4 wakeup on pin A6.
+    value: 2
+  - name: C9
+    description: Enable em4 wakeup on pin C9.
+    value: 4
+  - name: E13
+    description: Enable em4 wakeup on pin E13.
+    value: 32
+  - name: F1
+    description: Enable em4 wakeup on pin F1.
+    value: 8
+  - name: F2
+    description: Enable em4 wakeup on pin F2.
+    value: 16
+enum/vals::Em4wupol:
+  bit_size: 6
+  variants:
+  - name: A0
+    description: Determines polarity on pin A0.
+    value: 1
+  - name: A6
+    description: Determines polarity on pin A6.
+    value: 2
+  - name: C9
+    description: Determines polarity on pin C9.
+    value: 4
+  - name: E13
+    description: Determines polarity on pin E13.
+    value: 32
+  - name: F1
+    description: Determines polarity on pin F1.
+    value: 8
+  - name: F2
+    description: Determines polarity on pin F2.
+    value: 16
+enum/vals::Etmlocation:
+  bit_size: 2
+  variants:
+  - name: Loc0
+    description: Location 0.
+    value: 0
+  - name: Loc1
+    description: Location 1.
+    value: 1
+  - name: Loc2
+    description: Location 2.
+    value: 2
+  - name: Loc3
+    description: Location 3.
+    value: 3
+enum/vals::Extipsel:
+  bit_size: 3
+  variants:
+  - name: Porta
+    description: Port A pin 0 selected for external interrupt 0.
+    value: 0
+  - name: Portb
+    description: Port B pin 0 selected for external interrupt 0.
+    value: 1
+  - name: Portc
+    description: Port C pin 0 selected for external interrupt 0.
+    value: 2
+  - name: Portd
+    description: Port D pin 0 selected for external interrupt 0.
+    value: 3
+  - name: Porte
+    description: Port E pin 0 selected for external interrupt 0.
+    value: 4
+  - name: Portf
+    description: Port F pin 0 selected for external interrupt 0.
+    value: 5
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Locked
+    value: 1
+  - name: Unlocked
+    value: 0
+enum/vals::Mode:
+  bit_size: 4
+  variants:
+  - name: Disabled
+    description: Input disabled. Pullup if DOUT is set.
+    value: 0
+  - name: Input
+    description: Input enabled. Filter if DOUT is set.
+    value: 1
+  - name: Inputpull
+    description: Input enabled. DOUT determines pull direction.
+    value: 2
+  - name: Inputpullfilter
+    description: Input enabled with filter. DOUT determines pull direction.
+    value: 3
+  - name: Pushpull
+    description: Push-pull output.
+    value: 4
+  - name: Pushpulldrive
+    description: Push-pull output with drive-strength set by DRIVEMODE.
+    value: 5
+  - name: Wiredand
+    description: Open-drain output.
+    value: 8
+  - name: Wiredanddrive
+    description: Open-drain output with drive-strength set by DRIVEMODE.
+    value: 12
+  - name: Wiredanddrivefilter
+    description: Open-drain output with filter and drive-strength set by DRIVEMODE.
+    value: 13
+  - name: Wiredanddrivepullup
+    description: Open-drain output with pullup and drive-strength set by DRIVEMODE.
+    value: 14
+  - name: Wiredanddrivepullupfilter
+    description: Open-drain output with filter, pullup and drive-strength set by DRIVEMODE.
+    value: 15
+  - name: Wiredandfilter
+    description: Open-drain output with filter.
+    value: 9
+  - name: Wiredandpullup
+    description: Open-drain output with pullup.
+    value: 10
+  - name: Wiredandpullupfilter
+    description: Open-drain output with filter and pullup.
+    value: 11
+  - name: Wiredor
+    description: Wired-or output.
+    value: 6
+  - name: Wiredorpulldown
+    description: Wired-or output with pull-down.
+    value: 7
+enum/vals::Swlocation:
+  bit_size: 2
+  variants:
+  - name: Loc0
+    description: Location 0.
+    value: 0
+  - name: Loc1
+    description: Location 1.
+    value: 1
+  - name: Loc2
+    description: Location 2.
+    value: 2
+  - name: Loc3
+    description: Location 3.
+    value: 3

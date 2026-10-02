@@ -1,0 +1,1124 @@
+block/Usart:
+  description: USART peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: frame
+    description: USART Frame Format Register.
+    byte_offset: 4
+    fieldset: regs::Frame
+  - name: trigctrl
+    description: USART Trigger Control register.
+    byte_offset: 8
+    fieldset: regs::Trigctrl
+  - name: cmd
+    description: Command Register.
+    byte_offset: 12
+    access: Write
+    fieldset: regs::Cmd
+  - name: status
+    description: USART Status Register.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Status
+  - name: clkdiv
+    description: Clock Control Register.
+    byte_offset: 20
+    fieldset: regs::Clkdiv
+  - name: rxdatax
+    description: RX Buffer Data Extended Register.
+    byte_offset: 24
+    access: Read
+    fieldset: regs::Rxdatax
+  - name: rxdata
+    description: RX Buffer Data Register.
+    byte_offset: 28
+    access: Read
+    fieldset: regs::Rxdata
+  - name: rxdoublex
+    description: RX Buffer Double Data Extended Register.
+    byte_offset: 32
+    access: Read
+    fieldset: regs::Rxdoublex
+  - name: rxdouble
+    description: RX FIFO Double Data Register.
+    byte_offset: 36
+    access: Read
+    fieldset: regs::Rxdouble
+  - name: rxdataxp
+    description: RX Buffer Data Extended Peek Register.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::Rxdataxp
+  - name: rxdoublexp
+    description: RX Buffer Double Data Extended Peek Register.
+    byte_offset: 44
+    access: Read
+    fieldset: regs::Rxdoublexp
+  - name: txdatax
+    description: TX Buffer Data Extended Register.
+    byte_offset: 48
+    access: Write
+    fieldset: regs::Txdatax
+  - name: txdata
+    description: TX Buffer Data Register.
+    byte_offset: 52
+    access: Write
+    fieldset: regs::Txdata
+  - name: txdoublex
+    description: TX Buffer Double Data Extended Register.
+    byte_offset: 56
+    access: Write
+    fieldset: regs::Txdoublex
+  - name: txdouble
+    description: TX Buffer Double Data Register.
+    byte_offset: 60
+    access: Write
+    fieldset: regs::Txdouble
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 64
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 68
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 72
+    access: Write
+    fieldset: regs::Ifc
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 76
+    fieldset: regs::Ien
+  - name: irctrl
+    description: IrDA Control Register.
+    byte_offset: 80
+    fieldset: regs::Irctrl
+  - name: route
+    description: I/O Routing Register.
+    byte_offset: 84
+    fieldset: regs::Route
+  - name: input
+    description: USART Input Register.
+    byte_offset: 88
+    fieldset: regs::Input
+  - name: i2sctrl
+    description: I2S Control Register.
+    byte_offset: 92
+    fieldset: regs::I2sctrl
+fieldset/regs::Clkdiv:
+  description: Clock Control Register.
+  fields:
+  - name: div
+    description: Fractional Clock Divider.
+    bit_offset: 6
+    bit_size: 15
+fieldset/regs::Cmd:
+  description: Command Register.
+  fields:
+  - name: rxen
+    description: Receiver Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: rxdis
+    description: Receiver Disable.
+    bit_offset: 1
+    bit_size: 1
+  - name: txen
+    description: Transmitter Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: txdis
+    description: Transmitter Disable.
+    bit_offset: 3
+    bit_size: 1
+  - name: masteren
+    description: Master Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: masterdis
+    description: Master Disable.
+    bit_offset: 5
+    bit_size: 1
+  - name: rxblocken
+    description: Receiver Block Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: rxblockdis
+    description: Receiver Block Disable.
+    bit_offset: 7
+    bit_size: 1
+  - name: txtrien
+    description: Transmitter Tristate Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: txtridis
+    description: Transmitter Tristate Disable.
+    bit_offset: 9
+    bit_size: 1
+  - name: cleartx
+    description: Clear TX.
+    bit_offset: 10
+    bit_size: 1
+  - name: clearrx
+    description: Clear RX.
+    bit_offset: 11
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: sync
+    description: USART Synchronous Mode.
+    bit_offset: 0
+    bit_size: 1
+  - name: loopbk
+    description: Loopback Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: ccen
+    description: Collision Check Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: mpm
+    description: Multi-Processor Mode.
+    bit_offset: 3
+    bit_size: 1
+  - name: mpab
+    description: Multi-Processor Address-Bit.
+    bit_offset: 4
+    bit_size: 1
+  - name: ovs
+    description: Oversampling.
+    bit_offset: 5
+    bit_size: 2
+    enum: vals::Ovs
+  - name: clkpol
+    description: Clock Polarity.
+    bit_offset: 8
+    bit_size: 1
+  - name: clkpha
+    description: Clock Edge For Setup/Sample.
+    bit_offset: 9
+    bit_size: 1
+  - name: msbf
+    description: Most Significant Bit First.
+    bit_offset: 10
+    bit_size: 1
+  - name: csma
+    description: Action On Slave-Select In Master Mode.
+    bit_offset: 11
+    bit_size: 1
+  - name: txbil
+    description: TX Buffer Interrupt Level.
+    bit_offset: 12
+    bit_size: 1
+  - name: rxinv
+    description: Receiver Input Invert.
+    bit_offset: 13
+    bit_size: 1
+  - name: txinv
+    description: Transmitter output Invert.
+    bit_offset: 14
+    bit_size: 1
+  - name: csinv
+    description: Chip Select Invert.
+    bit_offset: 15
+    bit_size: 1
+  - name: autocs
+    description: Automatic Chip Select.
+    bit_offset: 16
+    bit_size: 1
+  - name: autotri
+    description: Automatic TX Tristate.
+    bit_offset: 17
+    bit_size: 1
+  - name: scmode
+    description: SmartCard Mode.
+    bit_offset: 18
+    bit_size: 1
+  - name: scretrans
+    description: SmartCard Retransmit.
+    bit_offset: 19
+    bit_size: 1
+  - name: skipperrf
+    description: Skip Parity Error Frames.
+    bit_offset: 20
+    bit_size: 1
+  - name: bit8dv
+    description: Bit 8 Default Value.
+    bit_offset: 21
+    bit_size: 1
+  - name: errsdma
+    description: Halt DMA On Error.
+    bit_offset: 22
+    bit_size: 1
+  - name: errsrx
+    description: Disable RX On Error.
+    bit_offset: 23
+    bit_size: 1
+  - name: errstx
+    description: Disable TX On Error.
+    bit_offset: 24
+    bit_size: 1
+  - name: txdelay
+    description: TX Delay Transmission.
+    bit_offset: 26
+    bit_size: 2
+    enum: vals::Txdelay
+  - name: byteswap
+    description: Byteswap In Double Accesses.
+    bit_offset: 28
+    bit_size: 1
+  - name: autotx
+    description: Always Transmit When RX Not Full.
+    bit_offset: 29
+    bit_size: 1
+  - name: mvdis
+    description: Majority Vote Disable.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::Frame:
+  description: USART Frame Format Register.
+  fields:
+  - name: databits
+    description: Data-Bit Mode.
+    bit_offset: 0
+    bit_size: 4
+    enum: vals::Databits
+  - name: parity
+    description: Parity-Bit Mode.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Parity
+  - name: stopbits
+    description: Stop-Bit Mode.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Stopbits
+fieldset/regs::I2sctrl:
+  description: I2S Control Register.
+  fields:
+  - name: en
+    description: Enable I2S Mode.
+    bit_offset: 0
+    bit_size: 1
+  - name: mono
+    description: Stero or Mono.
+    bit_offset: 1
+    bit_size: 1
+  - name: justify
+    description: Justification of I2S Data.
+    bit_offset: 2
+    bit_size: 1
+  - name: dmasplit
+    description: Separate DMA Request For Left/Right Data.
+    bit_offset: 3
+    bit_size: 1
+  - name: delay
+    description: Delay on I2S data.
+    bit_offset: 4
+    bit_size: 1
+  - name: format
+    description: I2S Word Format.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Format
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: txc
+    description: TX Complete Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: txbl
+    description: TX Buffer Level Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: rxdatav
+    description: RX Data Valid Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: rxfull
+    description: RX Buffer Full Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: rxof
+    description: RX Overflow Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: rxuf
+    description: RX Underflow Interrupt Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: txof
+    description: TX Overflow Interrupt Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: txuf
+    description: TX Underflow Interrupt Enable.
+    bit_offset: 7
+    bit_size: 1
+  - name: perr
+    description: Parity Error Interrupt Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: ferr
+    description: Framing Error Interrupt Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: mpaf
+    description: Multi-Processor Address Frame Interrupt Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: ssm
+    description: Slave-Select In Master Mode Interrupt Enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: ccf
+    description: Collision Check Fail Interrupt Enable.
+    bit_offset: 12
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: txc
+    description: TX Complete Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: txbl
+    description: TX Buffer Level Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: rxdatav
+    description: RX Data Valid Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: rxfull
+    description: RX Buffer Full Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: rxof
+    description: RX Overflow Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: rxuf
+    description: RX Underflow Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: txof
+    description: TX Overflow Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: txuf
+    description: TX Underflow Interrupt Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: perr
+    description: Parity Error Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: ferr
+    description: Framing Error Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: mpaf
+    description: Multi-Processor Address Frame Interrupt Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: ssm
+    description: Slave-Select In Master Mode Interrupt Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: ccf
+    description: Collision Check Fail Interrupt Flag.
+    bit_offset: 12
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: txc
+    description: Clear TX Complete Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: rxfull
+    description: Clear RX Buffer Full Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: rxof
+    description: Clear RX Overflow Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: rxuf
+    description: Clear RX Underflow Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: txof
+    description: Clear TX Overflow Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: txuf
+    description: Clear TX Underflow Interrupt Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: perr
+    description: Clear Parity Error Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: ferr
+    description: Clear Framing Error Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: mpaf
+    description: Clear Multi-Processor Address Frame Interrupt Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: ssm
+    description: Clear Slave-Select In Master Mode Interrupt Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: ccf
+    description: Clear Collision Check Fail Interrupt Flag.
+    bit_offset: 12
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: txc
+    description: Set TX Complete Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: rxfull
+    description: Set RX Buffer Full Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: rxof
+    description: Set RX Overflow Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: rxuf
+    description: Set RX Underflow Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: txof
+    description: Set TX Overflow Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: txuf
+    description: Set TX Underflow Interrupt Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: perr
+    description: Set Parity Error Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: ferr
+    description: Set Framing Error Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: mpaf
+    description: Set Multi-Processor Address Frame Interrupt Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: ssm
+    description: Set Slave-Select in Master mode Interrupt Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: ccf
+    description: Set Collision Check Fail Interrupt Flag.
+    bit_offset: 12
+    bit_size: 1
+fieldset/regs::Input:
+  description: USART Input Register.
+  fields:
+  - name: rxprssel
+    description: RX PRS Channel Select.
+    bit_offset: 0
+    bit_size: 4
+    enum: vals::Rxprssel
+  - name: rxprs
+    description: PRS RX Enable.
+    bit_offset: 4
+    bit_size: 1
+fieldset/regs::Irctrl:
+  description: IrDA Control Register.
+  fields:
+  - name: iren
+    description: Enable IrDA Module.
+    bit_offset: 0
+    bit_size: 1
+  - name: irpw
+    description: IrDA TX Pulse Width.
+    bit_offset: 1
+    bit_size: 2
+    enum: vals::Irpw
+  - name: irfilt
+    description: IrDA RX Filter.
+    bit_offset: 3
+    bit_size: 1
+  - name: irprssel
+    description: IrDA PRS Channel Select.
+    bit_offset: 4
+    bit_size: 3
+    enum: vals::Irprssel
+  - name: irprsen
+    description: IrDA PRS Channel Enable.
+    bit_offset: 7
+    bit_size: 1
+fieldset/regs::Route:
+  description: I/O Routing Register.
+  fields:
+  - name: rxpen
+    description: RX Pin Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: txpen
+    description: TX Pin Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: cspen
+    description: CS Pin Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: clkpen
+    description: CLK Pin Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: location
+    description: I/O Location.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::Location
+fieldset/regs::Rxdata:
+  description: RX Buffer Data Register.
+  fields:
+  - name: rxdata
+    description: RX Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Rxdatax:
+  description: RX Buffer Data Extended Register.
+  fields:
+  - name: rxdata
+    description: RX Data.
+    bit_offset: 0
+    bit_size: 9
+  - name: perr
+    description: Data Parity Error.
+    bit_offset: 14
+    bit_size: 1
+  - name: ferr
+    description: Data Framing Error.
+    bit_offset: 15
+    bit_size: 1
+fieldset/regs::Rxdataxp:
+  description: RX Buffer Data Extended Peek Register.
+  fields:
+  - name: rxdatap
+    description: RX Data Peek.
+    bit_offset: 0
+    bit_size: 9
+  - name: perrp
+    description: Data Parity Error Peek.
+    bit_offset: 14
+    bit_size: 1
+  - name: ferrp
+    description: Data Framing Error Peek.
+    bit_offset: 15
+    bit_size: 1
+fieldset/regs::Rxdouble:
+  description: RX FIFO Double Data Register.
+  fields:
+  - name: rxdata0
+    description: RX Data 0.
+    bit_offset: 0
+    bit_size: 8
+  - name: rxdata1
+    description: RX Data 1.
+    bit_offset: 8
+    bit_size: 8
+fieldset/regs::Rxdoublex:
+  description: RX Buffer Double Data Extended Register.
+  fields:
+  - name: rxdata0
+    description: RX Data 0.
+    bit_offset: 0
+    bit_size: 9
+  - name: perr0
+    description: Data Parity Error 0.
+    bit_offset: 14
+    bit_size: 1
+  - name: ferr0
+    description: Data Framing Error 0.
+    bit_offset: 15
+    bit_size: 1
+  - name: rxdata1
+    description: RX Data 1.
+    bit_offset: 16
+    bit_size: 9
+  - name: perr1
+    description: Data Parity Error 1.
+    bit_offset: 30
+    bit_size: 1
+  - name: ferr1
+    description: Data Framing Error 1.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Rxdoublexp:
+  description: RX Buffer Double Data Extended Peek Register.
+  fields:
+  - name: rxdatap0
+    description: RX Data 0 Peek.
+    bit_offset: 0
+    bit_size: 9
+  - name: perrp0
+    description: Data Parity Error 0 Peek.
+    bit_offset: 14
+    bit_size: 1
+  - name: ferrp0
+    description: Data Framing Error 0 Peek.
+    bit_offset: 15
+    bit_size: 1
+  - name: rxdatap1
+    description: RX Data 1 Peek.
+    bit_offset: 16
+    bit_size: 9
+  - name: perrp1
+    description: Data Parity Error 1 Peek.
+    bit_offset: 30
+    bit_size: 1
+  - name: ferrp1
+    description: Data Framing Error 1 Peek.
+    bit_offset: 31
+    bit_size: 1
+fieldset/regs::Status:
+  description: USART Status Register.
+  fields:
+  - name: rxens
+    description: Receiver Enable Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: txens
+    description: Transmitter Enable Status.
+    bit_offset: 1
+    bit_size: 1
+  - name: master
+    description: SPI Master Mode.
+    bit_offset: 2
+    bit_size: 1
+  - name: rxblock
+    description: Block Incoming Data.
+    bit_offset: 3
+    bit_size: 1
+  - name: txtri
+    description: Transmitter Tristated.
+    bit_offset: 4
+    bit_size: 1
+  - name: txc
+    description: TX Complete.
+    bit_offset: 5
+    bit_size: 1
+  - name: txbl
+    description: TX Buffer Level.
+    bit_offset: 6
+    bit_size: 1
+  - name: rxdatav
+    description: RX Data Valid.
+    bit_offset: 7
+    bit_size: 1
+  - name: rxfull
+    description: RX FIFO Full.
+    bit_offset: 8
+    bit_size: 1
+  - name: txbdright
+    description: TX Buffer Expects Double Right Data.
+    bit_offset: 9
+    bit_size: 1
+  - name: txbsright
+    description: TX Buffer Expects Single Right Data.
+    bit_offset: 10
+    bit_size: 1
+  - name: rxdatavright
+    description: RX Data Right.
+    bit_offset: 11
+    bit_size: 1
+  - name: rxfullright
+    description: RX Full of Right Data.
+    bit_offset: 12
+    bit_size: 1
+fieldset/regs::Trigctrl:
+  description: USART Trigger Control register.
+  fields:
+  - name: tsel
+    description: Trigger PRS Channel Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Tsel
+  - name: rxten
+    description: Receive Trigger Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: txten
+    description: Transmit Trigger Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: autotxten
+    description: AUTOTX Trigger Enable.
+    bit_offset: 6
+    bit_size: 1
+fieldset/regs::Txdata:
+  description: TX Buffer Data Register.
+  fields:
+  - name: txdata
+    description: TX Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Txdatax:
+  description: TX Buffer Data Extended Register.
+  fields:
+  - name: txdatax
+    description: TX Data.
+    bit_offset: 0
+    bit_size: 9
+  - name: ubrxat
+    description: Unblock RX After Transmission.
+    bit_offset: 11
+    bit_size: 1
+  - name: txtriat
+    description: Set TXTRI After Transmission.
+    bit_offset: 12
+    bit_size: 1
+  - name: txbreak
+    description: Transmit Data As Break.
+    bit_offset: 13
+    bit_size: 1
+  - name: txdisat
+    description: Clear TXEN After Transmission.
+    bit_offset: 14
+    bit_size: 1
+  - name: rxenat
+    description: Enable RX After Transmission.
+    bit_offset: 15
+    bit_size: 1
+fieldset/regs::Txdouble:
+  description: TX Buffer Double Data Register.
+  fields:
+  - name: txdata0
+    description: TX Data.
+    bit_offset: 0
+    bit_size: 8
+  - name: txdata1
+    description: TX Data.
+    bit_offset: 8
+    bit_size: 8
+fieldset/regs::Txdoublex:
+  description: TX Buffer Double Data Extended Register.
+  fields:
+  - name: txdata0
+    description: TX Data.
+    bit_offset: 0
+    bit_size: 9
+  - name: ubrxat0
+    description: Unblock RX After Transmission.
+    bit_offset: 11
+    bit_size: 1
+  - name: txtriat0
+    description: Set TXTRI After Transmission.
+    bit_offset: 12
+    bit_size: 1
+  - name: txbreak0
+    description: Transmit Data As Break.
+    bit_offset: 13
+    bit_size: 1
+  - name: txdisat0
+    description: Clear TXEN After Transmission.
+    bit_offset: 14
+    bit_size: 1
+  - name: rxenat0
+    description: Enable RX After Transmission.
+    bit_offset: 15
+    bit_size: 1
+  - name: txdata1
+    description: TX Data.
+    bit_offset: 16
+    bit_size: 9
+  - name: ubrxat1
+    description: Unblock RX After Transmission.
+    bit_offset: 27
+    bit_size: 1
+  - name: txtriat1
+    description: Set TXTRI After Transmission.
+    bit_offset: 28
+    bit_size: 1
+  - name: txbreak1
+    description: Transmit Data As Break.
+    bit_offset: 29
+    bit_size: 1
+  - name: txdisat1
+    description: Clear TXEN After Transmission.
+    bit_offset: 30
+    bit_size: 1
+  - name: rxenat1
+    description: Enable RX After Transmission.
+    bit_offset: 31
+    bit_size: 1
+enum/vals::Databits:
+  bit_size: 4
+  variants:
+  - name: Eight
+    description: Each frame contains 8 data bits.
+    value: 5
+  - name: Eleven
+    description: Each frame contains 11 data bits.
+    value: 8
+  - name: Fifteen
+    description: Each frame contains 15 data bits.
+    value: 12
+  - name: Five
+    description: Each frame contains 5 data bits.
+    value: 2
+  - name: Four
+    description: Each frame contains 4 data bits.
+    value: 1
+  - name: Fourteen
+    description: Each frame contains 14 data bits.
+    value: 11
+  - name: Nine
+    description: Each frame contains 9 data bits.
+    value: 6
+  - name: Seven
+    description: Each frame contains 7 data bits.
+    value: 4
+  - name: Six
+    description: Each frame contains 6 data bits.
+    value: 3
+  - name: Sixteen
+    description: Each frame contains 16 data bits.
+    value: 13
+  - name: Ten
+    description: Each frame contains 10 data bits.
+    value: 7
+  - name: Thirteen
+    description: Each frame contains 13 data bits.
+    value: 10
+  - name: Twelve
+    description: Each frame contains 12 data bits.
+    value: 9
+enum/vals::Format:
+  bit_size: 3
+  variants:
+  - name: W16d16
+    description: 16-bit word, 16-bit data.
+    value: 5
+  - name: W16d8
+    description: 16-bit word, 8-bit data.
+    value: 6
+  - name: W32d16
+    description: 32-bit word, 16-bit data.
+    value: 3
+  - name: W32d24
+    description: 32-bit word, 24-bit data.
+    value: 2
+  - name: W32d24m
+    description: 32-bit word, 32-bit data with 8 lsb masked.
+    value: 1
+  - name: W32d32
+    description: 32-bit word, 32-bit data.
+    value: 0
+  - name: W32d8
+    description: 32-bit word, 8-bit data.
+    value: 4
+  - name: W8d8
+    description: 8-bit word, 8-bit data.
+    value: 7
+enum/vals::Irprssel:
+  bit_size: 3
+  variants:
+  - name: Prsch0
+    description: PRS Channel 0 selected.
+    value: 0
+  - name: Prsch1
+    description: PRS Channel 1 selected.
+    value: 1
+  - name: Prsch2
+    description: PRS Channel 2 selected.
+    value: 2
+  - name: Prsch3
+    description: PRS Channel 3 selected.
+    value: 3
+  - name: Prsch4
+    description: PRS Channel 4 selected.
+    value: 4
+  - name: Prsch5
+    description: PRS Channel 5 selected.
+    value: 5
+  - name: Prsch6
+    description: PRS Channel 6 selected.
+    value: 6
+  - name: Prsch7
+    description: PRS Channel 7 selected.
+    value: 7
+enum/vals::Irpw:
+  bit_size: 2
+  variants:
+  - name: Four
+    description: IrDA pulse width is 4/16 for OVS=0 and 4/8 for OVS=1.
+    value: 3
+  - name: One
+    description: IrDA pulse width is 1/16 for OVS=0 and 1/8 for OVS=1.
+    value: 0
+  - name: Three
+    description: IrDA pulse width is 3/16 for OVS=0 and 3/8 for OVS=1.
+    value: 2
+  - name: Two
+    description: IrDA pulse width is 2/16 for OVS=0 and 2/8 for OVS=1.
+    value: 1
+enum/vals::Location:
+  bit_size: 3
+  variants:
+  - name: Loc0
+    description: Location 0.
+    value: 0
+  - name: Loc1
+    description: Location 1.
+    value: 1
+  - name: Loc2
+    description: Location 2.
+    value: 2
+  - name: Loc3
+    description: Location 3.
+    value: 3
+  - name: Loc4
+    description: Location 4.
+    value: 4
+  - name: Loc5
+    description: Location 5.
+    value: 5
+enum/vals::Ovs:
+  bit_size: 2
+  variants:
+  - name: X16
+    description: Regular UART mode with 16X oversampling in asynchronous mode.
+    value: 0
+  - name: X4
+    description: Quadruple speed with 4X oversampling in asynchronous mode.
+    value: 3
+  - name: X6
+    description: 6X oversampling in asynchronous mode.
+    value: 2
+  - name: X8
+    description: Double speed with 8X oversampling in asynchronous mode.
+    value: 1
+enum/vals::Parity:
+  bit_size: 2
+  variants:
+  - name: Even
+    description: Even parity are used. Parity bits are automatically generated and checked by hardware.
+    value: 2
+  - name: None
+    description: Parity bits are not used.
+    value: 0
+  - name: Odd
+    description: Odd parity is used. Parity bits are automatically generated and checked by hardware.
+    value: 3
+enum/vals::Rxprssel:
+  bit_size: 4
+  variants:
+  - name: Prsch0
+    description: PRS Channel 0 selected.
+    value: 0
+  - name: Prsch1
+    description: PRS Channel 1 selected.
+    value: 1
+  - name: Prsch10
+    description: PRS Channel 10 selected.
+    value: 10
+  - name: Prsch11
+    description: PRS Channel 11 selected.
+    value: 11
+  - name: Prsch2
+    description: PRS Channel 2 selected.
+    value: 2
+  - name: Prsch3
+    description: PRS Channel 3 selected.
+    value: 3
+  - name: Prsch4
+    description: PRS Channel 4 selected.
+    value: 4
+  - name: Prsch5
+    description: PRS Channel 5 selected.
+    value: 5
+  - name: Prsch6
+    description: PRS Channel 6 selected.
+    value: 6
+  - name: Prsch7
+    description: PRS Channel 7 selected.
+    value: 7
+  - name: Prsch8
+    description: PRS Channel 8 selected.
+    value: 8
+  - name: Prsch9
+    description: PRS Channel 9 selected.
+    value: 9
+enum/vals::Stopbits:
+  bit_size: 2
+  variants:
+  - name: Half
+    description: The transmitter generates a half stop bit. Stop-bits are not verified by receiver.
+    value: 0
+  - name: One
+    description: One stop bit is generated and verified.
+    value: 1
+  - name: Oneandahalf
+    description: The transmitter generates one and a half stop bit. The receiver verifies the first stop bit.
+    value: 2
+  - name: Two
+    description: The transmitter generates two stop bits. The receiver checks the first stop-bit only.
+    value: 3
+enum/vals::Tsel:
+  bit_size: 3
+  variants:
+  - name: Prsch0
+    description: PRS Channel 0 selected.
+    value: 0
+  - name: Prsch1
+    description: PRS Channel 1 selected.
+    value: 1
+  - name: Prsch2
+    description: PRS Channel 2 selected.
+    value: 2
+  - name: Prsch3
+    description: PRS Channel 3 selected.
+    value: 3
+  - name: Prsch4
+    description: PRS Channel 4 selected.
+    value: 4
+  - name: Prsch5
+    description: PRS Channel 5 selected.
+    value: 5
+  - name: Prsch6
+    description: PRS Channel 6 selected.
+    value: 6
+  - name: Prsch7
+    description: PRS Channel 7 selected.
+    value: 7
+enum/vals::Txdelay:
+  bit_size: 2
+  variants:
+  - name: Double
+    description: Transmission of new frames are delayed by two baud periods.
+    value: 2
+  - name: None
+    description: Frames are transmitted immediately.
+    value: 0
+  - name: Single
+    description: Transmission of new frames are delayed by a single baud period.
+    value: 1
+  - name: Triple
+    description: Transmission of new frames are delayed by three baud periods.
+    value: 3

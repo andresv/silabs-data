@@ -106,9 +106,14 @@ fn main() -> anyhow::Result<()> {
                     .map_err(|e| anyhow::anyhow!("extracting series from {}: {e}", hpath.display()))?;
                 let mut chip = chip;
                 chip.series = Some(series);
+                chip.nvic_prio_bits = Some(
+                    silabs_data_gen::header::extract_nvic_prio_bits_file(&hpath).map_err(|e| {
+                        anyhow::anyhow!("extracting __NVIC_PRIO_BITS from {}: {e}", hpath.display())
+                    })?,
+                );
 
                 let chip_name = chip.name.clone();
-                let chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_irqs, &perimap_entries);
+                let chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_irqs, &perimap_entries)?;
 
                 let out = chips_dir.join(format!("{chip_name}.json"));
                 std::fs::write(&out, serde_json::to_string_pretty(&chip_file)?)?;

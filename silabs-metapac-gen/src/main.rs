@@ -13,6 +13,9 @@
 //!   `data/registers/<kind>_<version>.yaml` per bucket. Hash-bails when two
 //!   chips' IRs land in the same bucket but disagree, surfacing the conflict
 //!   for the human to resolve via transform / hand-curation / perimap split.
+//!   `--chips <regex>` limits seeding to matching chips, so curated YAMLs
+//!   of other families are never rewritten. `--candidates-dir <dir>` dumps
+//!   every divergent IR for hand-curation instead of bailing.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
@@ -74,6 +77,18 @@ enum Cmd {
         /// Output directory for committed register IR snapshots.
         #[arg(long, default_value = "data/registers")]
         registers_yaml_dir: PathBuf,
+        /// Only seed chips whose name matches this regex (e.g.
+        /// `^EFM32GG[0-9]{3}F`). Buckets used only by other chips are not
+        /// written, so their curated YAMLs stay untouched.
+        #[arg(long)]
+        chips: Option<String>,
+        /// On `(kind, version)` divergence, write every distinct IR to
+        /// `<dir>/<kind>_<version>/<hash>.yaml` plus `index.txt` (which chip
+        /// peripherals produced each hash), instead of exiting at the first
+        /// conflict. Diverged buckets are not written to the registers dir,
+        /// and the command exits non-zero after listing them.
+        #[arg(long)]
+        candidates_dir: Option<PathBuf>,
     },
 }
 
@@ -92,7 +107,16 @@ fn main() -> Result<()> {
             data_dir,
             transforms_dir,
             registers_yaml_dir,
-        } => run_seed(&pack, &data_dir, &transforms_dir, &registers_yaml_dir),
+            chips,
+            candidates_dir,
+        } => run_seed(
+            &pack,
+            &data_dir,
+            &transforms_dir,
+            &registers_yaml_dir,
+            chips.as_deref(),
+            candidates_dir.as_deref(),
+        ),
     }
 }
 
@@ -206,6 +230,8 @@ fn run_gen(
         }
     }
 
+    let banked_keys = silabs_metapac_gen::expand_aliases::banked_keys(&chips, &banked_kinds);
+
     // Load `data/registers/<kind>_<version>.yaml` for each key.
     let mut irs: BTreeMap<IpKey, chiptool::ir::IR> = BTreeMap::new();
     for key in module_users.keys() {
@@ -225,7 +251,7 @@ fn run_gen(
         // SVD/YAML only carry the base layout; the per-peripheral CMSIS
         // device header is what marks these peripherals with
         // `_HAS_SET_CLEAR` (see `discover_banked_kinds` above).
-        if banked_kinds.contains(&key.0) {
+        if banked_keys.contains(key) {
             silabs_metapac_gen::expand_aliases::expand_series2_aliases(&mut ir);
         }
         irs.insert(key.clone(), ir);
@@ -262,7 +288,9 @@ fn run_gen(
         let chip_dir = out_dir.join("src/chips").join(&feat);
         std::fs::create_dir_all(&chip_dir)?;
 
-        let pac_rs = crate_layout::build_chip_pac_rs(chip);
+        let gpio_ports = crate_layout::gpio_port_count(chip, &irs)
+            .with_context(|| format!("GPIO port count for {}", chip.chip.name))?;
+        let pac_rs = crate_layout::build_chip_pac_rs(chip, gpio_ports);
         std::fs::write(chip_dir.join("pac.rs"), pac_rs)?;
 
         // Iterable chip metadata sibling — consumed by HAL build scripts
@@ -335,12 +363,30 @@ fn bail_divergence(
     std::process::exit(1);
 }
 
-fn run_seed(packs: &[PathBuf], data_dir: &Path, transforms_dir: &Path, registers_yaml_dir: &Path) -> Result<()> {
+fn run_seed(
+    packs: &[PathBuf],
+    data_dir: &Path,
+    transforms_dir: &Path,
+    registers_yaml_dir: &Path,
+    chips_filter: Option<&str>,
+    candidates_dir: Option<&Path>,
+) -> Result<()> {
     if packs.is_empty() {
         bail!("at least one --pack is required for seed");
     }
     let extract_dirs = pack_extract_dirs(packs)?;
     let chips = load_chips(&data_dir.join("chips"))?;
+    let chips_re = chips_filter
+        .map(regex::Regex::new)
+        .transpose()
+        .context("--chips regex")?;
+    let chips: Vec<ChipFile> = chips
+        .into_iter()
+        .filter(|c| chips_re.as_ref().is_none_or(|re| re.is_match(&c.chip.name)))
+        .collect();
+    if chips.is_empty() {
+        bail!("--chips {chips_filter:?} matched no chip JSON");
+    }
     eprintln!("Seeding {} chips across {} packs", chips.len(), packs.len());
 
     let cfg = svd_parser::Config::default()
@@ -356,6 +402,9 @@ fn run_seed(packs: &[PathBuf], data_dir: &Path, transforms_dir: &Path, registers
         peripheral: String,
     }
     let mut buckets: BTreeMap<IpKey, Bucket> = BTreeMap::new();
+    // Every distinct IR per bucket, with the chip peripherals that produced
+    // it. Only filled when `--candidates-dir` is set.
+    let mut variants: BTreeMap<IpKey, BTreeMap<String, (chiptool::ir::IR, Vec<String>)>> = BTreeMap::new();
 
     for chip in &chips {
         let svd_path = extract_dirs
@@ -400,10 +449,19 @@ fn run_seed(packs: &[PathBuf], data_dir: &Path, transforms_dir: &Path, registers
                 },
             )?;
             let hash = ir_hash(&ir);
+            if candidates_dir.is_some() {
+                variants
+                    .entry(key.clone())
+                    .or_default()
+                    .entry(hash.clone())
+                    .or_insert_with(|| (ir.clone(), Vec::new()))
+                    .1
+                    .push(format!("{} :: {pname}", chip.chip.name));
+            }
 
             match buckets.get(&key) {
                 Some(existing) => {
-                    if existing.hash != hash {
+                    if existing.hash != hash && candidates_dir.is_none() {
                         bail_divergence(
                             &key,
                             &existing.chip,
@@ -431,8 +489,32 @@ fn run_seed(packs: &[PathBuf], data_dir: &Path, transforms_dir: &Path, registers
         }
     }
 
+    let mut diverged: BTreeSet<IpKey> = BTreeSet::new();
+    if let Some(dir) = candidates_dir {
+        for (key, by_hash) in &variants {
+            if by_hash.len() < 2 {
+                continue;
+            }
+            diverged.insert(key.clone());
+            let kdir = dir.join(module_name(&key.0, &key.1));
+            std::fs::create_dir_all(&kdir).with_context(|| format!("create {}", kdir.display()))?;
+            let mut index = String::new();
+            for (hash, (ir, users)) in by_hash {
+                std::fs::write(kdir.join(format!("{hash}.yaml")), serde_yaml::to_string(ir)?)?;
+                index.push_str(&format!("{hash}.yaml\n"));
+                for u in users {
+                    index.push_str(&format!("  {u}\n"));
+                }
+            }
+            std::fs::write(kdir.join("index.txt"), index)?;
+        }
+    }
+
     std::fs::create_dir_all(registers_yaml_dir).with_context(|| format!("create {}", registers_yaml_dir.display()))?;
     for (key, bucket) in &buckets {
+        if diverged.contains(key) {
+            continue;
+        }
         let fname = format!("{}.yaml", module_name(&key.0, &key.1));
         let path = registers_yaml_dir.join(&fname);
         let mut f = std::fs::File::create(&path).with_context(|| format!("create {}", path.display()))?;
@@ -443,15 +525,28 @@ fn run_seed(packs: &[PathBuf], data_dir: &Path, transforms_dir: &Path, registers
     let _ = perimap::compile()?; // sanity check: perimap entries still compile.
     eprintln!(
         "Wrote {} register YAMLs to {}",
-        buckets.len(),
+        buckets.len() - diverged.len(),
         registers_yaml_dir.display()
     );
     // Surface bucket→block→first-claim summary so future hand-tweakers see
     // which chip each YAML was first extracted from.
     for (key, bucket) in &buckets {
+        if diverged.contains(key) {
+            continue;
+        }
         eprintln!(
             "  {}_{}.yaml  block={}  seeded from {} :: {}",
             key.0, key.1, bucket.block, bucket.chip, bucket.peripheral
+        );
+    }
+    if !diverged.is_empty() {
+        for key in &diverged {
+            eprintln!("  diverged: {}", module_name(&key.0, &key.1));
+        }
+        bail!(
+            "{} bucket(s) diverged; candidates written to {}",
+            diverged.len(),
+            candidates_dir.expect("diverged implies candidates_dir").display()
         );
     }
     Ok(())

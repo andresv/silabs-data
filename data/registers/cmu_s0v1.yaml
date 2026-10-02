@@ -1,0 +1,1377 @@
+block/Cmu:
+  description: CMU peripheral.
+  items:
+  - name: ctrl
+    description: CMU Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: hfcoreclkdiv
+    description: High Frequency Core Clock Division Register.
+    byte_offset: 4
+    fieldset: regs::Hfcoreclkdiv
+  - name: hfperclkdiv
+    description: High Frequency Peripheral Clock Division Register.
+    byte_offset: 8
+    fieldset: regs::Hfperclkdiv
+  - name: hfrcoctrl
+    description: HFRCO Control Register.
+    byte_offset: 12
+    fieldset: regs::Hfrcoctrl
+  - name: lfrcoctrl
+    description: LFRCO Control Register.
+    byte_offset: 16
+    fieldset: regs::Lfrcoctrl
+  - name: auxhfrcoctrl
+    description: AUXHFRCO Control Register.
+    byte_offset: 20
+    fieldset: regs::Auxhfrcoctrl
+  - name: calctrl
+    description: Calibration Control Register.
+    byte_offset: 24
+    fieldset: regs::Calctrl
+  - name: calcnt
+    description: Calibration Counter Register.
+    byte_offset: 28
+    fieldset: regs::Calcnt
+  - name: oscencmd
+    description: Oscillator Enable/Disable Command Register.
+    byte_offset: 32
+    access: Write
+    fieldset: regs::Oscencmd
+  - name: cmd
+    description: Command Register.
+    byte_offset: 36
+    access: Write
+    fieldset: regs::Cmd
+  - name: lfclksel
+    description: Low Frequency Clock Select Register.
+    byte_offset: 40
+    fieldset: regs::Lfclksel
+  - name: status
+    description: Status Register.
+    byte_offset: 44
+    access: Read
+    fieldset: regs::Status
+  - name: if_
+    description: Interrupt Flag Register.
+    byte_offset: 48
+    access: Read
+    fieldset: regs::If
+  - name: ifs
+    description: Interrupt Flag Set Register.
+    byte_offset: 52
+    access: Write
+    fieldset: regs::Ifs
+  - name: ifc
+    description: Interrupt Flag Clear Register.
+    byte_offset: 56
+    access: Write
+    fieldset: regs::Ifc
+  - name: ien
+    description: Interrupt Enable Register.
+    byte_offset: 60
+    fieldset: regs::Ien
+  - name: hfcoreclken0
+    description: High Frequency Core Clock Enable Register 0.
+    byte_offset: 64
+    fieldset: regs::Hfcoreclken0
+  - name: hfperclken0
+    description: High Frequency Peripheral Clock Enable Register 0.
+    byte_offset: 68
+    fieldset: regs::Hfperclken0
+  - name: syncbusy
+    description: Synchronization Busy Register.
+    byte_offset: 80
+    access: Read
+    fieldset: regs::Syncbusy
+  - name: freeze
+    description: Freeze Register.
+    byte_offset: 84
+    fieldset: regs::Freeze
+  - name: lfaclken0
+    description: Low Frequency A Clock Enable Register 0 (Async Reg).
+    byte_offset: 88
+    fieldset: regs::Lfaclken0
+  - name: lfbclken0
+    description: Low Frequency B Clock Enable Register 0 (Async Reg).
+    byte_offset: 96
+    fieldset: regs::Lfbclken0
+  - name: lfapresc0
+    description: Low Frequency A Prescaler Register 0 (Async Reg).
+    byte_offset: 104
+    fieldset: regs::Lfapresc0
+  - name: lfbpresc0
+    description: Low Frequency B Prescaler Register 0 (Async Reg).
+    byte_offset: 112
+    fieldset: regs::Lfbpresc0
+  - name: pcntctrl
+    description: PCNT Control Register.
+    byte_offset: 120
+    fieldset: regs::Pcntctrl
+  - name: lcdctrl
+    description: LCD Control Register.
+    byte_offset: 124
+    fieldset: regs::Lcdctrl
+  - name: route
+    description: I/O Routing Register.
+    byte_offset: 128
+    fieldset: regs::Route
+  - name: lock
+    description: Configuration Lock Register.
+    byte_offset: 132
+    fieldset: regs::Lock
+fieldset/regs::Auxhfrcoctrl:
+  description: AUXHFRCO Control Register.
+  fields:
+  - name: tuning
+    description: AUXHFRCO Tuning Value.
+    bit_offset: 0
+    bit_size: 8
+  - name: band
+    description: AUXHFRCO Band Select.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::AuxhfrcoctrlBand
+fieldset/regs::Calcnt:
+  description: Calibration Counter Register.
+  fields:
+  - name: calcnt
+    description: Calibration Counter.
+    bit_offset: 0
+    bit_size: 20
+fieldset/regs::Calctrl:
+  description: Calibration Control Register.
+  fields:
+  - name: upsel
+    description: Calibration Up-counter Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Upsel
+  - name: downsel
+    description: Calibration Down-counter Select.
+    bit_offset: 3
+    bit_size: 3
+    enum: vals::Downsel
+  - name: cont
+    description: Continuous Calibration.
+    bit_offset: 6
+    bit_size: 1
+fieldset/regs::Cmd:
+  description: Command Register.
+  fields:
+  - name: hfclksel
+    description: HFCLK Select.
+    bit_offset: 0
+    bit_size: 3
+    enum: vals::Hfclksel
+  - name: calstart
+    description: Calibration Start.
+    bit_offset: 3
+    bit_size: 1
+  - name: calstop
+    description: Calibration Stop.
+    bit_offset: 4
+    bit_size: 1
+  - name: usbcclksel
+    description: USB Core Clock Select.
+    bit_offset: 5
+    bit_size: 3
+    enum: vals::Usbcclksel
+fieldset/regs::Ctrl:
+  description: CMU Control Register.
+  fields:
+  - name: hfxomode
+    description: HFXO Mode.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Hfxomode
+  - name: hfxoboost
+    description: HFXO Start-up Boost Current.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Hfxoboost
+  - name: hfxobufcur
+    description: HFXO Boost Buffer Current.
+    bit_offset: 5
+    bit_size: 2
+    enum: vals::Hfxobufcur
+  - name: hfxoglitchdeten
+    description: HFXO Glitch Detector Enable.
+    bit_offset: 7
+    bit_size: 1
+  - name: hfxotimeout
+    description: HFXO Timeout.
+    bit_offset: 9
+    bit_size: 2
+    enum: vals::Hfxotimeout
+  - name: lfxomode
+    description: LFXO Mode.
+    bit_offset: 11
+    bit_size: 2
+    enum: vals::Lfxomode
+  - name: lfxoboost
+    description: LFXO Start-up Boost Current.
+    bit_offset: 13
+    bit_size: 1
+  - name: hfclkdiv
+    description: HFCLK Division.
+    bit_offset: 14
+    bit_size: 3
+  - name: lfxobufcur
+    description: LFXO Boost Buffer Current.
+    bit_offset: 17
+    bit_size: 1
+  - name: lfxotimeout
+    description: LFXO Timeout.
+    bit_offset: 18
+    bit_size: 2
+    enum: vals::Lfxotimeout
+  - name: clkoutsel0
+    description: Clock Output Select 0.
+    bit_offset: 20
+    bit_size: 3
+    enum: vals::Clkoutsel0
+  - name: clkoutsel1
+    description: Clock Output Select 1.
+    bit_offset: 23
+    bit_size: 4
+    enum: vals::Clkoutsel1
+  - name: dbgclk
+    description: Debug Clock.
+    bit_offset: 28
+    bit_size: 1
+  - name: hfle
+    description: High-Frequency LE Interface.
+    bit_offset: 30
+    bit_size: 1
+fieldset/regs::Freeze:
+  description: Freeze Register.
+  fields:
+  - name: regfreeze
+    description: Register Update Freeze.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Hfcoreclkdiv:
+  description: High Frequency Core Clock Division Register.
+  fields:
+  - name: hfcoreclkdiv
+    description: HFCORECLK Divider.
+    bit_offset: 0
+    bit_size: 4
+    enum: vals::Hfcoreclkdiv
+  - name: hfcoreclklediv
+    description: Additional Division Factor For HFCORECLKLE.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::Hfcoreclken0:
+  description: High Frequency Core Clock Enable Register 0.
+  fields:
+  - name: dma
+    description: Direct Memory Access Controller Clock Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: aes
+    description: Advanced Encryption Standard Accelerator Clock Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: usbc
+    description: Universal Serial Bus Interface Core Clock Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: usb
+    description: Universal Serial Bus Interface Clock Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: le
+    description: Low Energy Peripheral Interface Clock Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: ebi
+    description: External Bus Interface Clock Enable.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Hfperclkdiv:
+  description: High Frequency Peripheral Clock Division Register.
+  fields:
+  - name: hfperclkdiv
+    description: HFPERCLK Divider.
+    bit_offset: 0
+    bit_size: 4
+    enum: vals::Hfperclkdiv
+  - name: hfperclken
+    description: HFPERCLK Enable.
+    bit_offset: 8
+    bit_size: 1
+fieldset/regs::Hfperclken0:
+  description: High Frequency Peripheral Clock Enable Register 0.
+  fields:
+  - name: usart0
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 0 Clock Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: usart1
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 1 Clock Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: usart2
+    description: Universal Synchronous/Asynchronous Receiver/Transmitter 2 Clock Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: uart0
+    description: Universal Asynchronous Receiver/Transmitter 0 Clock Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: uart1
+    description: Universal Asynchronous Receiver/Transmitter 1 Clock Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: timer0
+    description: Timer 0 Clock Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: timer1
+    description: Timer 1 Clock Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: timer2
+    description: Timer 2 Clock Enable.
+    bit_offset: 7
+    bit_size: 1
+  - name: timer3
+    description: Timer 3 Clock Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: acmp0
+    description: Analog Comparator 0 Clock Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: acmp1
+    description: Analog Comparator 1 Clock Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: i2c0
+    description: I2C 0 Clock Enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: i2c1
+    description: I2C 1 Clock Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: gpio
+    description: General purpose Input/Output Clock Enable.
+    bit_offset: 13
+    bit_size: 1
+  - name: vcmp
+    description: Voltage Comparator Clock Enable.
+    bit_offset: 14
+    bit_size: 1
+  - name: prs
+    description: Peripheral Reflex System Clock Enable.
+    bit_offset: 15
+    bit_size: 1
+  - name: adc0
+    description: Analog to Digital Converter 0 Clock Enable.
+    bit_offset: 16
+    bit_size: 1
+  - name: dac0
+    description: Digital to Analog Converter 0 Clock Enable.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::Hfrcoctrl:
+  description: HFRCO Control Register.
+  fields:
+  - name: tuning
+    description: HFRCO Tuning Value.
+    bit_offset: 0
+    bit_size: 8
+  - name: band
+    description: HFRCO Band Select.
+    bit_offset: 8
+    bit_size: 3
+    enum: vals::HfrcoctrlBand
+  - name: sudelay
+    description: HFRCO Start-up Delay.
+    bit_offset: 12
+    bit_size: 5
+fieldset/regs::Ien:
+  description: Interrupt Enable Register.
+  fields:
+  - name: hfrcordy
+    description: HFRCO Ready Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: hfxordy
+    description: HFXO Ready Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: lfrcordy
+    description: LFRCO Ready Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: lfxordy
+    description: LFXO Ready Interrupt Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: auxhfrcordy
+    description: AUXHFRCO Ready Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: calrdy
+    description: Calibration Ready Interrupt Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: calof
+    description: Calibration Overflow Interrupt Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: usbchfclksel
+    description: USBC HFCLK Selected Interrupt Enable.
+    bit_offset: 7
+    bit_size: 1
+fieldset/regs::If:
+  description: Interrupt Flag Register.
+  fields:
+  - name: hfrcordy
+    description: HFRCO Ready Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: hfxordy
+    description: HFXO Ready Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: lfrcordy
+    description: LFRCO Ready Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: lfxordy
+    description: LFXO Ready Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: auxhfrcordy
+    description: AUXHFRCO Ready Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: calrdy
+    description: Calibration Ready Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: calof
+    description: Calibration Overflow Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: usbchfclksel
+    description: USBC HFCLK Selected Interrupt Flag.
+    bit_offset: 7
+    bit_size: 1
+fieldset/regs::Ifc:
+  description: Interrupt Flag Clear Register.
+  fields:
+  - name: hfrcordy
+    description: HFRCO Ready Interrupt Flag Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: hfxordy
+    description: HFXO Ready Interrupt Flag Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: lfrcordy
+    description: LFRCO Ready Interrupt Flag Clear.
+    bit_offset: 2
+    bit_size: 1
+  - name: lfxordy
+    description: LFXO Ready Interrupt Flag Clear.
+    bit_offset: 3
+    bit_size: 1
+  - name: auxhfrcordy
+    description: AUXHFRCO Ready Interrupt Flag Clear.
+    bit_offset: 4
+    bit_size: 1
+  - name: calrdy
+    description: Calibration Ready Interrupt Flag Clear.
+    bit_offset: 5
+    bit_size: 1
+  - name: calof
+    description: Calibration Overflow Interrupt Flag Clear.
+    bit_offset: 6
+    bit_size: 1
+  - name: usbchfclksel
+    description: USBC HFCLK Selected Interrupt Flag Clear.
+    bit_offset: 7
+    bit_size: 1
+fieldset/regs::Ifs:
+  description: Interrupt Flag Set Register.
+  fields:
+  - name: hfrcordy
+    description: HFRCO Ready Interrupt Flag Set.
+    bit_offset: 0
+    bit_size: 1
+  - name: hfxordy
+    description: HFXO Ready Interrupt Flag Set.
+    bit_offset: 1
+    bit_size: 1
+  - name: lfrcordy
+    description: LFRCO Ready Interrupt Flag Set.
+    bit_offset: 2
+    bit_size: 1
+  - name: lfxordy
+    description: LFXO Ready Interrupt Flag Set.
+    bit_offset: 3
+    bit_size: 1
+  - name: auxhfrcordy
+    description: AUXHFRCO Ready Interrupt Flag Set.
+    bit_offset: 4
+    bit_size: 1
+  - name: calrdy
+    description: Calibration Ready Interrupt Flag Set.
+    bit_offset: 5
+    bit_size: 1
+  - name: calof
+    description: Calibration Overflow Interrupt Flag Set.
+    bit_offset: 6
+    bit_size: 1
+  - name: usbchfclksel
+    description: USBC HFCLK Selected Interrupt Flag Set.
+    bit_offset: 7
+    bit_size: 1
+fieldset/regs::Lcdctrl:
+  description: LCD Control Register.
+  fields:
+  - name: fdiv
+    description: Frame Rate Control.
+    bit_offset: 0
+    bit_size: 3
+  - name: vboosten
+    description: Voltage Boost Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: vbfdiv
+    description: Voltage Boost Frequency Division.
+    bit_offset: 4
+    bit_size: 3
+    enum: vals::Vbfdiv
+fieldset/regs::Lfaclken0:
+  description: Low Frequency A Clock Enable Register 0 (Async Reg).
+  fields:
+  - name: lesense
+    description: Low Energy Sensor Interface Clock Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: rtc
+    description: Real-Time Counter Clock Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: letimer0
+    description: Low Energy Timer 0 Clock Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: lcd
+    description: Liquid Crystal Display Controller Clock Enable.
+    bit_offset: 3
+    bit_size: 1
+fieldset/regs::Lfapresc0:
+  description: Low Frequency A Prescaler Register 0 (Async Reg).
+  fields:
+  - name: lesense
+    description: Low Energy Sensor Interface Prescaler.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Lesense
+  - name: rtc
+    description: Real-Time Counter Prescaler.
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::Rtc
+  - name: letimer0
+    description: Low Energy Timer 0 Prescaler.
+    bit_offset: 8
+    bit_size: 4
+    enum: vals::Letimer0
+  - name: lcd
+    description: Liquid Crystal Display Controller Prescaler.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Lcd
+fieldset/regs::Lfbclken0:
+  description: Low Frequency B Clock Enable Register 0 (Async Reg).
+  fields:
+  - name: leuart0
+    description: Low Energy UART 0 Clock Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: leuart1
+    description: Low Energy UART 1 Clock Enable.
+    bit_offset: 1
+    bit_size: 1
+fieldset/regs::Lfbpresc0:
+  description: Low Frequency B Prescaler Register 0 (Async Reg).
+  fields:
+  - name: leuart0
+    description: Low Energy UART 0 Prescaler.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Leuart0
+  - name: leuart1
+    description: Low Energy UART 1 Prescaler.
+    bit_offset: 4
+    bit_size: 2
+    enum: vals::Leuart1
+fieldset/regs::Lfclksel:
+  description: Low Frequency Clock Select Register.
+  fields:
+  - name: lfa
+    description: Clock Select for LFA.
+    bit_offset: 0
+    bit_size: 2
+    enum: vals::Lfa
+  - name: lfb
+    description: Clock Select for LFB.
+    bit_offset: 2
+    bit_size: 2
+    enum: vals::Lfb
+  - name: lfae
+    description: Clock Select for LFA Extended.
+    bit_offset: 16
+    bit_size: 1
+  - name: lfbe
+    description: Clock Select for LFB Extended.
+    bit_offset: 20
+    bit_size: 1
+fieldset/regs::Lfrcoctrl:
+  description: LFRCO Control Register.
+  fields:
+  - name: tuning
+    description: LFRCO Tuning Value.
+    bit_offset: 0
+    bit_size: 7
+fieldset/regs::Lock:
+  description: Configuration Lock Register.
+  fields:
+  - name: lockkey
+    description: Configuration Lock Key.
+    bit_offset: 0
+    bit_size: 16
+    enum: vals::Lockkey
+fieldset/regs::Oscencmd:
+  description: Oscillator Enable/Disable Command Register.
+  fields:
+  - name: hfrcoen
+    description: HFRCO Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: hfrcodis
+    description: HFRCO Disable.
+    bit_offset: 1
+    bit_size: 1
+  - name: hfxoen
+    description: HFXO Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: hfxodis
+    description: HFXO Disable.
+    bit_offset: 3
+    bit_size: 1
+  - name: auxhfrcoen
+    description: AUXHFRCO Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: auxhfrcodis
+    description: AUXHFRCO Disable.
+    bit_offset: 5
+    bit_size: 1
+  - name: lfrcoen
+    description: LFRCO Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: lfrcodis
+    description: LFRCO Disable.
+    bit_offset: 7
+    bit_size: 1
+  - name: lfxoen
+    description: LFXO Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: lfxodis
+    description: LFXO Disable.
+    bit_offset: 9
+    bit_size: 1
+fieldset/regs::Pcntctrl:
+  description: PCNT Control Register.
+  fields:
+  - name: pcnt0clken
+    description: PCNT0 Clock Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: pcnt0clksel
+    description: PCNT0 Clock Select.
+    bit_offset: 1
+    bit_size: 1
+  - name: pcnt1clken
+    description: PCNT1 Clock Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: pcnt1clksel
+    description: PCNT1 Clock Select.
+    bit_offset: 3
+    bit_size: 1
+  - name: pcnt2clken
+    description: PCNT2 Clock Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: pcnt2clksel
+    description: PCNT2 Clock Select.
+    bit_offset: 5
+    bit_size: 1
+fieldset/regs::Route:
+  description: I/O Routing Register.
+  fields:
+  - name: clkout0pen
+    description: CLKOUT0 Pin Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: clkout1pen
+    description: CLKOUT1 Pin Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: location
+    description: I/O Location.
+    bit_offset: 2
+    bit_size: 3
+    enum: vals::Location
+fieldset/regs::Status:
+  description: Status Register.
+  fields:
+  - name: hfrcoens
+    description: HFRCO Enable Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: hfrcordy
+    description: HFRCO Ready.
+    bit_offset: 1
+    bit_size: 1
+  - name: hfxoens
+    description: HFXO Enable Status.
+    bit_offset: 2
+    bit_size: 1
+  - name: hfxordy
+    description: HFXO Ready.
+    bit_offset: 3
+    bit_size: 1
+  - name: auxhfrcoens
+    description: AUXHFRCO Enable Status.
+    bit_offset: 4
+    bit_size: 1
+  - name: auxhfrcordy
+    description: AUXHFRCO Ready.
+    bit_offset: 5
+    bit_size: 1
+  - name: lfrcoens
+    description: LFRCO Enable Status.
+    bit_offset: 6
+    bit_size: 1
+  - name: lfrcordy
+    description: LFRCO Ready.
+    bit_offset: 7
+    bit_size: 1
+  - name: lfxoens
+    description: LFXO Enable Status.
+    bit_offset: 8
+    bit_size: 1
+  - name: lfxordy
+    description: LFXO Ready.
+    bit_offset: 9
+    bit_size: 1
+  - name: hfrcosel
+    description: HFRCO Selected.
+    bit_offset: 10
+    bit_size: 1
+  - name: hfxosel
+    description: HFXO Selected.
+    bit_offset: 11
+    bit_size: 1
+  - name: lfrcosel
+    description: LFRCO Selected.
+    bit_offset: 12
+    bit_size: 1
+  - name: lfxosel
+    description: LFXO Selected.
+    bit_offset: 13
+    bit_size: 1
+  - name: calbsy
+    description: Calibration Busy.
+    bit_offset: 14
+    bit_size: 1
+  - name: usbchfclksel
+    description: USBC HFCLK Selected.
+    bit_offset: 15
+    bit_size: 1
+  - name: usbclfxosel
+    description: USBC LFXO Selected.
+    bit_offset: 16
+    bit_size: 1
+  - name: usbclfrcosel
+    description: USBC LFRCO Selected.
+    bit_offset: 17
+    bit_size: 1
+fieldset/regs::Syncbusy:
+  description: Synchronization Busy Register.
+  fields:
+  - name: lfaclken0
+    description: Low Frequency A Clock Enable 0 Busy.
+    bit_offset: 0
+    bit_size: 1
+  - name: lfapresc0
+    description: Low Frequency A Prescaler 0 Busy.
+    bit_offset: 2
+    bit_size: 1
+  - name: lfbclken0
+    description: Low Frequency B Clock Enable 0 Busy.
+    bit_offset: 4
+    bit_size: 1
+  - name: lfbpresc0
+    description: Low Frequency B Prescaler 0 Busy.
+    bit_offset: 6
+    bit_size: 1
+enum/vals::AuxhfrcoctrlBand:
+  bit_size: 3
+  variants:
+  - name: _11mhz
+    description: '11 MHz band. NOTE: Also set the TUNING value (bits 7:0) when changing band.'
+    value: 1
+  - name: _14mhz
+    description: '14 MHz band. NOTE: Also set the TUNING value (bits 7:0) when changing band.'
+    value: 0
+  - name: _1mhz
+    description: '1 MHz band. NOTE: Also set the TUNING value (bits 7:0) when changing band.'
+    value: 3
+  - name: _21mhz
+    description: '21 MHz band. NOTE: Also set the TUNING value (bits 7:0) when changing band.'
+    value: 7
+  - name: _28mhz
+    description: '28 MHz band. NOTE: Also set the TUNING value (bits 7:0) when changing band.'
+    value: 6
+  - name: _7mhz
+    description: '7 MHz band. NOTE: Also set the TUNING value (bits 7:0) when changing band.'
+    value: 2
+enum/vals::Clkoutsel0:
+  bit_size: 3
+  variants:
+  - name: Auxhfrco
+    description: AUXHFRCO (directly from oscillator).
+    value: 7
+  - name: Hfclk16
+    description: HFCLK/16.
+    value: 5
+  - name: Hfclk2
+    description: HFCLK/2.
+    value: 2
+  - name: Hfclk4
+    description: HFCLK/4.
+    value: 3
+  - name: Hfclk8
+    description: HFCLK/8.
+    value: 4
+  - name: Hfrco
+    description: HFRCO (directly from oscillator).
+    value: 0
+  - name: Hfxo
+    description: HFXO (directly from oscillator).
+    value: 1
+  - name: Ulfrco
+    description: ULFRCO (directly from oscillator).
+    value: 6
+enum/vals::Clkoutsel1:
+  bit_size: 4
+  variants:
+  - name: Auxhfrcoq
+    description: AUXHFRCO (qualified).
+    value: 7
+  - name: Hfclk
+    description: HFCLK (undivided).
+    value: 2
+  - name: Hfrcoq
+    description: HFRCO (qualified).
+    value: 6
+  - name: Hfxoq
+    description: HFXO (qualified).
+    value: 4
+  - name: Lfrco
+    description: LFRCO (directly from oscillator).
+    value: 0
+  - name: Lfrcoq
+    description: LFRCO (qualified).
+    value: 5
+  - name: Lfxo
+    description: LFXO (directly from oscillator).
+    value: 1
+  - name: Lfxoq
+    description: LFXO (qualified).
+    value: 3
+enum/vals::Downsel:
+  bit_size: 3
+  variants:
+  - name: Auxhfrco
+    description: Select AUXHFRCO for down-counter.
+    value: 5
+  - name: Hfclk
+    description: Select HFCLK for down-counter.
+    value: 0
+  - name: Hfrco
+    description: Select HFRCO for down-counter.
+    value: 3
+  - name: Hfxo
+    description: Select HFXO for down-counter.
+    value: 1
+  - name: Lfrco
+    description: Select LFRCO for down-counter.
+    value: 4
+  - name: Lfxo
+    description: Select LFXO for down-counter.
+    value: 2
+enum/vals::Hfclksel:
+  bit_size: 3
+  variants:
+  - name: Hfrco
+    description: Select HFRCO as HFCLK.
+    value: 1
+  - name: Hfxo
+    description: Select HFXO as HFCLK.
+    value: 2
+  - name: Lfrco
+    description: Select LFRCO as HFCLK.
+    value: 3
+  - name: Lfxo
+    description: Select LFXO as HFCLK.
+    value: 4
+enum/vals::Hfcoreclkdiv:
+  bit_size: 4
+  variants:
+  - name: Hfclk
+    description: HFCORECLK = HFCLK.
+    value: 0
+  - name: Hfclk128
+    description: HFCORECLK = HFCLK/128.
+    value: 7
+  - name: Hfclk16
+    description: HFCORECLK = HFCLK/16.
+    value: 4
+  - name: Hfclk2
+    description: HFCORECLK = HFCLK/2.
+    value: 1
+  - name: Hfclk256
+    description: HFCORECLK = HFCLK/256.
+    value: 8
+  - name: Hfclk32
+    description: HFCORECLK = HFCLK/32.
+    value: 5
+  - name: Hfclk4
+    description: HFCORECLK = HFCLK/4.
+    value: 2
+  - name: Hfclk512
+    description: HFCORECLK = HFCLK/512.
+    value: 9
+  - name: Hfclk64
+    description: HFCORECLK = HFCLK/64.
+    value: 6
+  - name: Hfclk8
+    description: HFCORECLK = HFCLK/8.
+    value: 3
+enum/vals::Hfperclkdiv:
+  bit_size: 4
+  variants:
+  - name: Hfclk
+    description: HFPERCLK = HFCLK.
+    value: 0
+  - name: Hfclk128
+    description: HFPERCLK = HFCLK/128.
+    value: 7
+  - name: Hfclk16
+    description: HFPERCLK = HFCLK/16.
+    value: 4
+  - name: Hfclk2
+    description: HFPERCLK = HFCLK/2.
+    value: 1
+  - name: Hfclk256
+    description: HFPERCLK = HFCLK/256.
+    value: 8
+  - name: Hfclk32
+    description: HFPERCLK = HFCLK/32.
+    value: 5
+  - name: Hfclk4
+    description: HFPERCLK = HFCLK/4.
+    value: 2
+  - name: Hfclk512
+    description: HFPERCLK = HFCLK/512.
+    value: 9
+  - name: Hfclk64
+    description: HFPERCLK = HFCLK/64.
+    value: 6
+  - name: Hfclk8
+    description: HFPERCLK = HFCLK/8.
+    value: 3
+enum/vals::HfrcoctrlBand:
+  bit_size: 3
+  variants:
+  - name: _11mhz
+    description: '11 MHz band. NOTE: Also set the TUNING value (bits 7:0) when changing band.'
+    value: 2
+  - name: _14mhz
+    description: '14 MHz band. NOTE: Also set the TUNING value (bits 7:0) when changing band.'
+    value: 3
+  - name: _1mhz
+    description: '1 MHz band. NOTE: Also set the TUNING value (bits 7:0) when changing band.'
+    value: 0
+  - name: _21mhz
+    description: '21 MHz band. NOTE: Also set the TUNING value (bits 7:0) when changing band.'
+    value: 4
+  - name: _28mhz
+    description: '28 MHz band. NOTE: Also set the TUNING value (bits 7:0) when changing band.'
+    value: 5
+  - name: _7mhz
+    description: '7 MHz band. NOTE: Also set the TUNING value (bits 7:0) when changing band.'
+    value: 1
+enum/vals::Hfxoboost:
+  bit_size: 2
+  variants:
+  - name: _100pcent
+    description: 100 % (default).
+    value: 3
+  - name: _50pcent
+    description: 50 %.
+    value: 0
+  - name: _70pcent
+    description: 70 %.
+    value: 1
+  - name: _80pcent
+    description: 80 %.
+    value: 2
+enum/vals::Hfxobufcur:
+  bit_size: 2
+  variants:
+  - name: Boostabove32mhz
+    description: Boost Buffer Current Level when HFXO is above 32 MHz.
+    value: 3
+  - name: Boostupto32mhz
+    description: Boost Buffer Current level when HFXO is below or equal to 32 MHz.
+    value: 1
+enum/vals::Hfxomode:
+  bit_size: 2
+  variants:
+  - name: Bufextclk
+    description: An AC coupled buffer is coupled in series with HFXTAL_N, suitable for external sine wave (4-48 MHz). The sine wave should have a minimum of 200 mV peak to peak.
+    value: 1
+  - name: Digextclk
+    description: Digital external clock on HFXTAL_N pin. Oscillator is effectively bypassed.
+    value: 2
+  - name: Xtal
+    description: 4-48 MHz crystal oscillator.
+    value: 0
+enum/vals::Hfxotimeout:
+  bit_size: 2
+  variants:
+  - name: _16kcycles
+    description: Timeout period of 16384 cycles.
+    value: 3
+  - name: _1kcycles
+    description: Timeout period of 1024 cycles.
+    value: 2
+  - name: _256cycles
+    description: Timeout period of 256 cycles.
+    value: 1
+  - name: _8cycles
+    description: Timeout period of 8 cycles.
+    value: 0
+enum/vals::Lcd:
+  bit_size: 2
+  variants:
+  - name: Div128
+    description: LFACLKLCD = LFACLK/128.
+    value: 3
+  - name: Div16
+    description: LFACLKLCD = LFACLK/16.
+    value: 0
+  - name: Div32
+    description: LFACLKLCD = LFACLK/32.
+    value: 1
+  - name: Div64
+    description: LFACLKLCD = LFACLK/64.
+    value: 2
+enum/vals::Lesense:
+  bit_size: 2
+  variants:
+  - name: Div1
+    description: LFACLKLESENSE = LFACLK.
+    value: 0
+  - name: Div2
+    description: LFACLKLESENSE = LFACLK/2.
+    value: 1
+  - name: Div4
+    description: LFACLKLESENSE = LFACLK/4.
+    value: 2
+  - name: Div8
+    description: LFACLKLESENSE = LFACLK/8.
+    value: 3
+enum/vals::Letimer0:
+  bit_size: 4
+  variants:
+  - name: Div1
+    description: LFACLKLETIMER0 = LFACLK.
+    value: 0
+  - name: Div1024
+    description: LFACLKLETIMER0 = LFACLK/1024.
+    value: 10
+  - name: Div128
+    description: LFACLKLETIMER0 = LFACLK/128.
+    value: 7
+  - name: Div16
+    description: LFACLKLETIMER0 = LFACLK/16.
+    value: 4
+  - name: Div16384
+    description: LFACLKLETIMER0 = LFACLK/16384.
+    value: 14
+  - name: Div2
+    description: LFACLKLETIMER0 = LFACLK/2.
+    value: 1
+  - name: Div2048
+    description: LFACLKLETIMER0 = LFACLK/2048.
+    value: 11
+  - name: Div256
+    description: LFACLKLETIMER0 = LFACLK/256.
+    value: 8
+  - name: Div32
+    description: LFACLKLETIMER0 = LFACLK/32.
+    value: 5
+  - name: Div32768
+    description: LFACLKLETIMER0 = LFACLK/32768.
+    value: 15
+  - name: Div4
+    description: LFACLKLETIMER0 = LFACLK/4.
+    value: 2
+  - name: Div4096
+    description: LFACLKLETIMER0 = LFACLK/4096.
+    value: 12
+  - name: Div512
+    description: LFACLKLETIMER0 = LFACLK/512.
+    value: 9
+  - name: Div64
+    description: LFACLKLETIMER0 = LFACLK/64.
+    value: 6
+  - name: Div8
+    description: LFACLKLETIMER0 = LFACLK/8.
+    value: 3
+  - name: Div8192
+    description: LFACLKLETIMER0 = LFACLK/8192.
+    value: 13
+enum/vals::Leuart0:
+  bit_size: 2
+  variants:
+  - name: Div1
+    description: LFBCLKLEUART0 = LFBCLK.
+    value: 0
+  - name: Div2
+    description: LFBCLKLEUART0 = LFBCLK/2.
+    value: 1
+  - name: Div4
+    description: LFBCLKLEUART0 = LFBCLK/4.
+    value: 2
+  - name: Div8
+    description: LFBCLKLEUART0 = LFBCLK/8.
+    value: 3
+enum/vals::Leuart1:
+  bit_size: 2
+  variants:
+  - name: Div1
+    description: LFBCLKLEUART1 = LFBCLK.
+    value: 0
+  - name: Div2
+    description: LFBCLKLEUART1 = LFBCLK/2.
+    value: 1
+  - name: Div4
+    description: LFBCLKLEUART1 = LFBCLK/4.
+    value: 2
+  - name: Div8
+    description: LFBCLKLEUART1 = LFBCLK/8.
+    value: 3
+enum/vals::Lfa:
+  bit_size: 2
+  variants:
+  - name: Disabled
+    description: LFACLK is disabled.
+    value: 0
+  - name: Hfcoreclklediv2
+    description: HFCORECLKLE divided by two or four is selected as LFACLK. The division factor is determined by CMU_CTRL_HFLE and CMU_HFCORECLKDIV_HFCORECLKLEDIV.
+    value: 3
+  - name: Lfrco
+    description: LFRCO selected as LFACLK.
+    value: 1
+  - name: Lfxo
+    description: LFXO selected as LFACLK.
+    value: 2
+enum/vals::Lfb:
+  bit_size: 2
+  variants:
+  - name: Disabled
+    description: LFBCLK is disabled.
+    value: 0
+  - name: Hfcoreclklediv2
+    description: HFCORECLKLE divided by two or four is selected as LFACLK. The division factor is determined by CMU_CTRL_HFLE and CMU_HFCORECLKDIV_HFCORECLKLEDIV.
+    value: 3
+  - name: Lfrco
+    description: LFRCO selected as LFBCLK.
+    value: 1
+  - name: Lfxo
+    description: LFXO selected as LFBCLK.
+    value: 2
+enum/vals::Lfxomode:
+  bit_size: 2
+  variants:
+  - name: Bufextclk
+    description: An AC coupled buffer is coupled in series with LFXTAL_N pin, suitable for external sinus wave (32.768 kHz).
+    value: 1
+  - name: Digextclk
+    description: Digital external clock on LFXTAL_N pin. Oscillator is effectively bypassed.
+    value: 2
+  - name: Xtal
+    description: 32.768 kHz crystal oscillator.
+    value: 0
+enum/vals::Lfxotimeout:
+  bit_size: 2
+  variants:
+  - name: _16kcycles
+    description: Timeout period of 16384 cycles.
+    value: 2
+  - name: _1kcycles
+    description: Timeout period of 1024 cycles.
+    value: 1
+  - name: _32kcycles
+    description: Timeout period of 32768 cycles.
+    value: 3
+  - name: _8cycles
+    description: Timeout period of 8 cycles.
+    value: 0
+enum/vals::Location:
+  bit_size: 3
+  variants:
+  - name: Loc0
+    description: Location 0.
+    value: 0
+  - name: Loc1
+    description: Location 1.
+    value: 1
+  - name: Loc2
+    description: Location 2.
+    value: 2
+enum/vals::Lockkey:
+  bit_size: 16
+  variants:
+  - name: Locked
+    value: 1
+  - name: Unlocked
+    value: 0
+enum/vals::Rtc:
+  bit_size: 4
+  variants:
+  - name: Div1
+    description: LFACLKRTC = LFACLK.
+    value: 0
+  - name: Div1024
+    description: LFACLKRTC = LFACLK/1024.
+    value: 10
+  - name: Div128
+    description: LFACLKRTC = LFACLK/128.
+    value: 7
+  - name: Div16
+    description: LFACLKRTC = LFACLK/16.
+    value: 4
+  - name: Div16384
+    description: LFACLKRTC = LFACLK/16384.
+    value: 14
+  - name: Div2
+    description: LFACLKRTC = LFACLK/2.
+    value: 1
+  - name: Div2048
+    description: LFACLKRTC = LFACLK/2048.
+    value: 11
+  - name: Div256
+    description: LFACLKRTC = LFACLK/256.
+    value: 8
+  - name: Div32
+    description: LFACLKRTC = LFACLK/32.
+    value: 5
+  - name: Div32768
+    description: LFACLKRTC = LFACLK/32768.
+    value: 15
+  - name: Div4
+    description: LFACLKRTC = LFACLK/4.
+    value: 2
+  - name: Div4096
+    description: LFACLKRTC = LFACLK/4096.
+    value: 12
+  - name: Div512
+    description: LFACLKRTC = LFACLK/512.
+    value: 9
+  - name: Div64
+    description: LFACLKRTC = LFACLK/64.
+    value: 6
+  - name: Div8
+    description: LFACLKRTC = LFACLK/8.
+    value: 3
+  - name: Div8192
+    description: LFACLKRTC = LFACLK/8192.
+    value: 13
+enum/vals::Upsel:
+  bit_size: 3
+  variants:
+  - name: Auxhfrco
+    description: Select AUXHFRCO as up-counter.
+    value: 4
+  - name: Hfrco
+    description: Select HFRCO as up-counter.
+    value: 2
+  - name: Hfxo
+    description: Select HFXO as up-counter.
+    value: 0
+  - name: Lfrco
+    description: Select LFRCO as up-counter.
+    value: 3
+  - name: Lfxo
+    description: Select LFXO as up-counter.
+    value: 1
+enum/vals::Usbcclksel:
+  bit_size: 3
+  variants:
+  - name: Hfclknodiv
+    description: Select HFCLK (undivided) as HFCORECLKUSBC.
+    value: 1
+  - name: Lfrco
+    description: Select LFRCO as HFCORECLKUSBC.
+    value: 3
+  - name: Lfxo
+    description: Select LFXO as HFCORECLKUSBC.
+    value: 2
+enum/vals::Vbfdiv:
+  bit_size: 3
+  variants:
+  - name: Div1
+    description: Voltage Boost update Frequency = LFACLK.
+    value: 0
+  - name: Div128
+    description: Voltage Boost update Frequency = LFACLK/128.
+    value: 7
+  - name: Div16
+    description: Voltage Boost update Frequency = LFACLK/16.
+    value: 4
+  - name: Div2
+    description: Voltage Boost update Frequency = LFACLK/2.
+    value: 1
+  - name: Div32
+    description: Voltage Boost update Frequency = LFACLK/32.
+    value: 5
+  - name: Div4
+    description: Voltage Boost update Frequency = LFACLK/4.
+    value: 2
+  - name: Div64
+    description: Voltage Boost update Frequency = LFACLK/64.
+    value: 6
+  - name: Div8
+    description: Voltage Boost update Frequency = LFACLK/8.
+    value: 3

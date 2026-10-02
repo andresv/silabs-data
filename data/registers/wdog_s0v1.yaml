@@ -1,0 +1,87 @@
+block/Wdog:
+  description: WDOG peripheral.
+  items:
+  - name: ctrl
+    description: Control Register.
+    byte_offset: 0
+    fieldset: regs::Ctrl
+  - name: cmd
+    description: Command Register.
+    byte_offset: 4
+    access: Write
+    fieldset: regs::Cmd
+  - name: syncbusy
+    description: Synchronization Busy Register.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::Syncbusy
+fieldset/regs::Cmd:
+  description: Command Register.
+  fields:
+  - name: clear
+    description: Watchdog Timer Clear.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: Control Register.
+  fields:
+  - name: en
+    description: Watchdog Timer Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: debugrun
+    description: Debug Mode Run Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: em2run
+    description: Energy Mode 2 Run Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: em3run
+    description: Energy Mode 3 Run Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: lock
+    description: Configuration lock.
+    bit_offset: 4
+    bit_size: 1
+  - name: em4block
+    description: Energy Mode 4 Block.
+    bit_offset: 5
+    bit_size: 1
+  - name: swoscblock
+    description: Software Oscillator Disable Block.
+    bit_offset: 6
+    bit_size: 1
+  - name: persel
+    description: Watchdog Timeout Period Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: clksel
+    description: Watchdog Clock Select.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Clksel
+fieldset/regs::Syncbusy:
+  description: Synchronization Busy Register.
+  fields:
+  - name: ctrl
+    description: CTRL Register Busy.
+    bit_offset: 0
+    bit_size: 1
+  - name: cmd
+    description: CMD Register Busy.
+    bit_offset: 1
+    bit_size: 1
+enum/vals::Clksel:
+  bit_size: 2
+  variants:
+  - name: Lfrco
+    description: LFRCO.
+    value: 1
+  - name: Lfxo
+    description: LFXO.
+    value: 2
+  - name: Ulfrco
+    description: ULFRCO.
+    value: 0
