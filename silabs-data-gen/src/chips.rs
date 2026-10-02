@@ -27,6 +27,10 @@ pub struct ChipFile {
 pub struct Pin {
     pub port: u8,
     pub pin: u8,
+    /// The pin keeps working in EM2. From `data/pins` on Series 2. `None`
+    /// when the pin data has no EM2 facts.
+    #[serde(default)]
+    pub em2: Option<bool>,
 }
 
 /// One DMA request signal of a peripheral.
@@ -71,6 +75,11 @@ pub struct PeripheralInstance {
     /// DMA request signals, with the same alias rule as `interrupts`.
     #[serde(default)]
     pub dma_requests: Vec<PeripheralDmaRequest>,
+    /// Pins that can carry each signal, from `data/pins`: one entry for
+    /// each signal and route, sorted by signal, then by route. Empty on a
+    /// secure alias, like `interrupts`.
+    #[serde(default)]
+    pub pins: Vec<crate::pins::PeripheralPins>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -93,7 +102,8 @@ pub fn build(
         .series;
     let interrupts = build_interrupts(&header.irqs);
 
-    let canonical = canonical_names(peripherals);
+    let names: Vec<&str> = peripherals.iter().map(|p| p.name.as_str()).collect();
+    let canonical = canonical_names(&names);
     let owners: Vec<&str> = canonical.iter().flatten().map(String::as_str).collect();
     let irq_names: Vec<&str> = interrupts.iter().map(|i| i.name.as_str()).collect();
     let mut irqs = crate::interrupts::attach(&owners, &irq_names);
@@ -129,6 +139,7 @@ pub fn build(
                 block: route.block,
                 interrupts: canonical.as_ref().and_then(|c| irqs.remove(c)).unwrap_or_default(),
                 dma_requests: canonical.as_deref().and_then(|c| dma.remove(c)).unwrap_or_default(),
+                pins: Vec::new(),
             })
         })
         .collect::<Result<Vec<_>>>()?;
@@ -139,7 +150,7 @@ pub fn build(
         .flat_map(|&(port, mask)| {
             (0..32)
                 .filter(move |b| mask & (1 << b) != 0)
-                .map(move |pin| Pin { port, pin })
+                .map(move |pin| Pin { port, pin, em2: None })
         })
         .collect();
     pins.sort();
@@ -153,18 +164,19 @@ pub fn build(
     })
 }
 
-/// Canonical name of each SVD instance: the name without a trailing `_NS`.
-/// `None` for a secure alias whose `_NS` peer exists, because the peer owns
-/// the metadata row.
-fn canonical_names(peripherals: &[PeripheralIr]) -> Vec<Option<String>> {
-    let names: BTreeSet<&str> = peripherals.iter().map(|p| p.name.as_str()).collect();
-    peripherals
+/// Canonical name of each peripheral instance: the name without a trailing
+/// `_NS`. `None` for a secure alias whose `_NS` peer exists, because the
+/// peer owns the metadata entry. This is the one place that defines the
+/// alias grouping. The pin entries and the metapac crate layout use it too.
+pub fn canonical_names(names: &[&str]) -> Vec<Option<String>> {
+    let set: BTreeSet<&str> = names.iter().copied().collect();
+    names
         .iter()
-        .map(|p| {
-            if secure_to_nonsecure_name(&p.name).is_some_and(|peer| names.contains(peer.as_str())) {
+        .map(|name| {
+            if secure_to_nonsecure_name(name).is_some_and(|peer| set.contains(peer.as_str())) {
                 return None;
             }
-            Some(p.name.strip_suffix("_NS").unwrap_or(&p.name).to_owned())
+            Some(name.strip_suffix("_NS").unwrap_or(name).to_owned())
         })
         .collect()
 }
@@ -204,6 +216,7 @@ mod tests {
     fn fake_chip(name: &str) -> Chip {
         Chip {
             name: name.to_string(),
+            family: "EFR32MG24".to_string(),
             core: "CM33".to_string(),
             fpu: true,
             mpu: true,

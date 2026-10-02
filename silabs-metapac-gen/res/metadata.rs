@@ -175,8 +175,10 @@ pub struct Metadata {
     /// Cortex-M interrupt table from the CMSIS device header, radio IRQs
     /// included.
     pub interrupts: &'static [Interrupt],
-    /// Bonded GPIO pins, sorted by port, then pin. Series 0 headers have no
-    /// pin masks, so a Series 0 chip lists 16 pins on each GPIO port.
+    /// Bonded GPIO pins, sorted by port, then pin. Series 2 takes them from
+    /// the device header masks. Series 0 takes them from the `data/pins`
+    /// package. A Series 0 chip without pin data (EFM32GG900) lists 16 pins
+    /// on each GPIO port.
     pub pins: &'static [Pin],
     /// Number of DMA channels (`LDMA_CH_NUM` / `DMA_CHAN_COUNT`). 0 when the chip has no DMA.
     pub dma_channel_count: u8,
@@ -190,6 +192,9 @@ pub struct Pin {
     pub name: &'static str,
     pub port: u8,
     pub pin: u8,
+    /// The pin keeps working in EM2 (Series 2). `None` on Series 0: the pin
+    /// data has no EM2 facts for it.
+    pub em2: Option<bool>,
 }
 
 /// One memory region.
@@ -251,6 +256,63 @@ pub struct Peripheral {
     pub interrupts: &'static [PeripheralInterrupt],
     /// DMA request signals of the peripheral.
     pub dma_requests: &'static [PeripheralDmaRequest],
+    /// Pins that can carry each signal. One entry for each signal and route,
+    /// sorted by signal, then by route. Only bonded pins are listed.
+    pub pins: &'static [PeripheralPins],
+}
+
+/// The pins that can carry one signal of a peripheral with one route.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct PeripheralPins {
+    /// Signal name without the peripheral prefix: "TX", "SDA", "CC0".
+    pub signal: &'static str,
+    pub route: PinRoute,
+    /// Vendor pin names, sorted by port, then by pin number: "PA05" on
+    /// Series 2, "PA5" on Series 0.
+    pub pins: &'static [&'static str],
+}
+
+/// How to connect a pin to a peripheral signal.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub enum PinRoute {
+    /// Series 2 digital bus: write the port and pin to GPIO.<register>.
+    /// Then set GPIO.<enable.register>.<enable.field>. `enable` is `None`
+    /// only for a signal in the generator's `NO_ENABLE` list, for example
+    /// an input-only signal (`ctsroute`).
+    Dbus {
+        register: &'static str,
+        enable: Option<PinRouteEnable>,
+    },
+    /// Series 0: write <location> to the LOCATION field of the peripheral
+    /// `route` register. Then set the enable field of the same register.
+    /// All signals of a peripheral share one LOCATION. A peripheral whose
+    /// `route` register has no LOCATION field has one location, 0. `enable`
+    /// is `None` only for a signal in the generator's `NO_ENABLE` list.
+    Location {
+        location: u8,
+        enable: Option<PinRouteEnable>,
+    },
+    /// Series 2 analog bus of the pin's port: "ABUS" (port A), "BBUS"
+    /// (port B) or "CDBUS" (ports C and D). Allocate the pin in
+    /// GPIO.<bus>ALLOC. The field depends on the pin parity (even or odd).
+    Analog { bus: &'static str },
+    /// Fixed-function pin. There is no route register. `enable` is the field
+    /// that connects the pin, when the peripheral has one (Series 0 USB
+    /// `route.phypen`). `alternative` is the number of a numbered fixed
+    /// alternative (Series 0 DAC0 `OUT0ALT`: the bit in `OPA0MUX.OUTPEN`).
+    Fixed {
+        enable: Option<PinRouteEnable>,
+        alternative: Option<u8>,
+    },
+}
+
+/// A register field that enables a routed pin. The register belongs to the
+/// GPIO for `Dbus` and Series 2 `Fixed`, and to the peripheral for
+/// `Location` and Series 0 `Fixed`.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct PinRouteEnable {
+    pub register: &'static str,
+    pub field: &'static str,
 }
 
 /// One IRQ of a peripheral.

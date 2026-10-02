@@ -34,6 +34,40 @@ enum Cmd {
         /// Output base directory (will create chips/ subdirectory).
         #[arg(long)]
         out_dir: PathBuf,
+        /// Curated pin facts, `<family>.yaml`.
+        #[arg(long, default_value = "data/pins")]
+        pins_dir: PathBuf,
+        /// Curated register YAMLs, for the route register names.
+        #[arg(long, default_value = "data/registers")]
+        registers_dir: PathBuf,
+    },
+    /// One-shot: extract `data/pins/<family>.yaml` from the Silicon Labs pin
+    /// tool. Writes only facts. `gen` never runs this.
+    ExtractPins {
+        /// A family directory of the pin tool, for example
+        /// `.../hwconf_data/pin_tool/efr32mg24`. May be repeated.
+        #[arg(long, required = true)]
+        pin_tool: Vec<PathBuf>,
+        /// Pin-tool version for the file header (`Simplicity SDK 2025.12.0`).
+        #[arg(long)]
+        sdk: String,
+        /// Directory with the per-chip JSON (`chips/`) from `gen`.
+        #[arg(long)]
+        data_dir: PathBuf,
+        /// Output directory of the `<family>.yaml` files.
+        #[arg(long)]
+        out_dir: PathBuf,
+        /// Directory of extracted CMSIS packs, for the Series 0 AF headers.
+        #[arg(long)]
+        pack_dir: Option<PathBuf>,
+        /// Curated register YAMLs, for the Series 2 GPIO route registers.
+        #[arg(long, default_value = "data/registers")]
+        registers_dir: PathBuf,
+        /// Overwrite a YAML file that differs from the extractor output. The
+        /// files are maintained by hand, so without this flag the command
+        /// prints the difference and stops.
+        #[arg(long)]
+        force: bool,
     },
 }
 
@@ -59,7 +93,71 @@ fn main() -> anyhow::Result<()> {
             println!("{}", serde_json::to_string_pretty(&peripherals)?);
             Ok(())
         }
-        Cmd::Gen { pack, out_dir } => {
+        Cmd::ExtractPins {
+            pin_tool,
+            sdk,
+            data_dir,
+            out_dir,
+            pack_dir,
+            registers_dir,
+            force,
+        } => {
+            let chips_dir = data_dir.join("chips");
+            let mut chips = std::collections::BTreeMap::new();
+            for entry in
+                std::fs::read_dir(&chips_dir).map_err(|e| anyhow::anyhow!("read {}: {e}", chips_dir.display()))?
+            {
+                let path = entry?.path();
+                if path.extension().and_then(|e| e.to_str()) != Some("json") {
+                    continue;
+                }
+                let chip: silabs_data_gen::chips::ChipFile = serde_json::from_slice(&std::fs::read(&path)?)
+                    .map_err(|e| anyhow::anyhow!("parse {}: {e}", path.display()))?;
+                chips.insert(chip.chip.name.to_ascii_lowercase(), chip);
+            }
+            std::fs::create_dir_all(&out_dir)?;
+            for dir in &pin_tool {
+                let (yaml, report) =
+                    silabs_data_gen::pintool::extract_family(&silabs_data_gen::pintool::ExtractInput {
+                        family_dir: dir,
+                        sdk: &sdk,
+                        chips: &chips,
+                        pack_dir: pack_dir.as_deref(),
+                        registers_dir: &registers_dir,
+                    })?;
+                let family = dir.file_name().unwrap().to_string_lossy();
+                for line in report {
+                    eprintln!("[extract-pins] {family}: {line}");
+                }
+                let out = out_dir.join(format!("{family}.yaml"));
+                let old = std::fs::read_to_string(&out).ok();
+                match old {
+                    Some(old) if old == yaml => {
+                        eprintln!("[extract-pins] {family}: {} is up to date", out.display());
+                    }
+                    Some(old) if !force => {
+                        let summary = line_diff(&old, &yaml);
+                        anyhow::bail!(
+                            "{family}: {} differs from the extractor output. It is maintained by hand, so it is not overwritten. Use --force to overwrite.\n{summary}",
+                            out.display()
+                        );
+                    }
+                    _ => {
+                        std::fs::write(&out, yaml)?;
+                        eprintln!("[extract-pins] {family}: wrote {}", out.display());
+                    }
+                }
+            }
+            Ok(())
+        }
+        Cmd::Gen {
+            pack,
+            out_dir,
+            pins_dir,
+            registers_dir,
+        } => {
+            let pin_families = silabs_data_gen::pins::load_dir(&pins_dir)?;
+            let mut register_names = silabs_data_gen::pins::RegisterCache::new(&registers_dir);
             let extract_dir = pack.with_extension("pack-extracted");
             silabs_data_gen::pack::extract_pack(&pack, &extract_dir)?;
             let pdsc_path = silabs_data_gen::pack::find_pdsc(&extract_dir)?;
@@ -118,7 +216,10 @@ fn main() -> anyhow::Result<()> {
                 }
 
                 let chip_name = chip.name.clone();
-                let chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_data, &perimap_entries)?;
+                let mut chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_data, &perimap_entries)?;
+                for warning in silabs_data_gen::pins::attach(&mut chip_file, &pin_families, &mut register_names)? {
+                    eprintln!("{warning}");
+                }
 
                 let out = chips_dir.join(format!("{chip_name}.json"));
                 std::fs::write(&out, serde_json::to_string_pretty(&chip_file)?)?;
@@ -190,4 +291,25 @@ fn dma_requests(hpath: &std::path::Path, series: u8) -> anyhow::Result<Vec<silab
     }
     let text = std::fs::read_to_string(&path).map_err(|e| anyhow::anyhow!("reading {}: {e}", path.display()))?;
     Ok(parse(&text))
+}
+
+/// A short summary of the lines that differ between two texts: the count of
+/// removed and added lines, and the first lines of each.
+fn line_diff(old: &str, new: &str) -> String {
+    let old_lines: std::collections::BTreeSet<&str> = old.lines().collect();
+    let new_lines: std::collections::BTreeSet<&str> = new.lines().collect();
+    let removed: Vec<&str> = old.lines().filter(|l| !new_lines.contains(l)).collect();
+    let added: Vec<&str> = new.lines().filter(|l| !old_lines.contains(l)).collect();
+    let mut s = format!(
+        "{} line(s) only in the file, {} line(s) only in the output",
+        removed.len(),
+        added.len()
+    );
+    for l in removed.iter().take(10) {
+        s.push_str(&format!("\n  - {l}"));
+    }
+    for l in added.iter().take(10) {
+        s.push_str(&format!("\n  + {l}"));
+    }
+    s
 }

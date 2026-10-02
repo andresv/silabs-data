@@ -1,0 +1,219 @@
+# EFR32MG24 pin facts. Extracted once from the Silicon Labs pin tool
+# (Simplicity SDK 2025.12.0) with `./d extract-pins`. Maintained by hand.
+em2:
+  ports: [A, B]
+  pins: [PC00, PC05, PC07, PD02, PD05]
+peripherals:
+  ACMP0:
+    DIGOUT: { ports: [A, B, C, D] }
+    NEG: { bus: ABUS }
+    POS: { bus: ABUS }
+  ACMP1:
+    DIGOUT: { ports: [A, B, C, D] }
+    NEG: { bus: ABUS }
+    POS: { bus: ABUS }
+  CMU:
+    CLKIN0: { ports: [C, D] }
+    CLKOUT0: { ports: [C, D] }
+    CLKOUT1: { ports: [C, D] }
+    CLKOUT2: { ports: [A, B] }
+  EUSART0:
+    CS: { ports: [A, B] }
+    CTS: { ports: [A, B] }
+    RTS: { ports: [A, B] }
+    RX: { ports: [A, B] }
+    SCLK: { ports: [A, B] }
+    TX: { ports: [A, B] }
+  EUSART1:
+    CS: { ports: [A, B, C, D] }
+    CTS: { ports: [A, B, C, D] }
+    RTS: { ports: [A, B, C, D] }
+    RX: { ports: [A, B, C, D] }
+    SCLK: { ports: [A, B, C, D] }
+    TX: { ports: [A, B, C, D] }
+  GPIO:
+    EFP_INT: { pins: [PC05] }
+    EFP_TX_SCL: { pins: [PC02] }
+    EFP_TX_SDA: { pins: [PC01] }
+    EM4WU0: { pins: [PA05] }
+    EM4WU10: { pins: [PD05] }
+    EM4WU3: { pins: [PB01] }
+    EM4WU4: { pins: [PB03] }
+    EM4WU6: { pins: [PC00] }
+    EM4WU7: { pins: [PC05] }
+    EM4WU8: { pins: [PC07] }
+    EM4WU9: { pins: [PD02] }
+    SWCLK: { pins: [PA01] }
+    SWDIO: { pins: [PA02] }
+    SWV: { pins: [PA03] }
+    TDI: { pins: [PA04] }
+    TDO: { pins: [PA03] }
+    THMSW_EN: { pins: [PC09] }
+    THMSW_HALFSWITCH: { pins: [PC09] }
+    TRACECLK: { pins: [PA04] }
+    TRACEDATA0: { pins: [PA03] }
+    TRACEDATA1: { pins: [PA05] }
+    TRACEDATA2: { pins: [PA06] }
+    TRACEDATA3: { pins: [PA07] }
+  HFXO0:
+    BUFOUT_REQ_IN_ASYNC: { ports: [A, B] }
+  I2C0:
+    SCL: { ports: [A, B, C, D] }
+    SDA: { ports: [A, B, C, D] }
+  I2C1:
+    SCL: { ports: [C, D] }
+    SDA: { ports: [C, D] }
+  IADC0:
+    NEG: { bus: ABUS }
+    POS: { bus: ABUS }
+    SCAN0NEG: { bus: ABUS }
+    SCAN0POS: { bus: ABUS }
+    SCAN10NEG: { bus: ABUS }
+    SCAN10POS: { bus: ABUS }
+    SCAN11NEG: { bus: ABUS }
+    SCAN11POS: { bus: ABUS }
+    SCAN12NEG: { bus: ABUS }
+    SCAN12POS: { bus: ABUS }
+    SCAN13NEG: { bus: ABUS }
+    SCAN13POS: { bus: ABUS }
+    SCAN14NEG: { bus: ABUS }
+    SCAN14POS: { bus: ABUS }
+    SCAN15NEG: { bus: ABUS }
+    SCAN15POS: { bus: ABUS }
+    SCAN1NEG: { bus: ABUS }
+    SCAN1POS: { bus: ABUS }
+    SCAN2NEG: { bus: ABUS }
+    SCAN2POS: { bus: ABUS }
+    SCAN3NEG: { bus: ABUS }
+    SCAN3POS: { bus: ABUS }
+    SCAN4NEG: { bus: ABUS }
+    SCAN4POS: { bus: ABUS }
+    SCAN5NEG: { bus: ABUS }
+    SCAN5POS: { bus: ABUS }
+    SCAN6NEG: { bus: ABUS }
+    SCAN6POS: { bus: ABUS }
+    SCAN7NEG: { bus: ABUS }
+    SCAN7POS: { bus: ABUS }
+    SCAN8NEG: { bus: ABUS }
+    SCAN8POS: { bus: ABUS }
+    SCAN9NEG: { bus: ABUS }
+    SCAN9POS: { bus: ABUS }
+  KEYSCAN:
+    COL_OUT_0: { ports: [A, B, C, D] }
+    COL_OUT_1: { ports: [A, B, C, D] }
+    COL_OUT_2: { ports: [A, B, C, D] }
+    COL_OUT_3: { ports: [A, B, C, D] }
+    COL_OUT_4: { ports: [A, B, C, D] }
+    COL_OUT_5: { ports: [A, B, C, D] }
+    COL_OUT_6: { ports: [A, B, C, D] }
+    COL_OUT_7: { ports: [A, B, C, D] }
+    ROW_SENSE_0: { ports: [A, B] }
+    ROW_SENSE_1: { ports: [A, B] }
+    ROW_SENSE_2: { ports: [A, B] }
+    ROW_SENSE_3: { ports: [A, B] }
+    ROW_SENSE_4: { ports: [A, B] }
+    ROW_SENSE_5: { ports: [A, B] }
+  LETIMER0:
+    OUT0: { ports: [A, B] }
+    OUT1: { ports: [A, B] }
+  LFXO:
+    LFXTAL_I: { pins: [PD01] }
+    LFXTAL_O: { pins: [PD00] }
+    LF_EXTCLK: { pins: [PD01] }
+  MODEM:
+    ANT0: { ports: [A, B, C, D] }
+    ANT1: { ports: [A, B, C, D] }
+    ANT_ROLL_OVER: { ports: [C, D] }
+    ANT_RR0: { ports: [C, D] }
+    ANT_RR1: { ports: [C, D] }
+    ANT_RR2: { ports: [C, D] }
+    ANT_RR3: { ports: [C, D] }
+    ANT_RR4: { ports: [C, D] }
+    ANT_RR5: { ports: [C, D] }
+    ANT_SW_EN: { ports: [C, D] }
+    ANT_SW_US: { ports: [C, D] }
+    ANT_TRIG: { ports: [C, D] }
+    ANT_TRIG_STOP: { ports: [C, D] }
+    DCLK: { ports: [A, B] }
+    DIN: { ports: [A, B] }
+    DOUT: { ports: [A, B] }
+  PCNT0:
+    S0IN: { ports: [A, B] }
+    S1IN: { ports: [A, B] }
+  PRS:
+    ASYNCH0: { ports: [A, B] }
+    ASYNCH1: { ports: [A, B] }
+    ASYNCH10: { ports: [C, D] }
+    ASYNCH11: { ports: [C, D] }
+    ASYNCH12: { ports: [A, B] }
+    ASYNCH13: { ports: [A, B] }
+    ASYNCH14: { ports: [A, B] }
+    ASYNCH15: { ports: [A, B] }
+    ASYNCH2: { ports: [A, B] }
+    ASYNCH3: { ports: [A, B] }
+    ASYNCH4: { ports: [A, B] }
+    ASYNCH5: { ports: [A, B] }
+    ASYNCH6: { ports: [C, D] }
+    ASYNCH7: { ports: [C, D] }
+    ASYNCH8: { ports: [C, D] }
+    ASYNCH9: { ports: [C, D] }
+    SYNCH0: { ports: [A, B, C, D] }
+    SYNCH1: { ports: [A, B, C, D] }
+    SYNCH2: { ports: [A, B, C, D] }
+    SYNCH3: { ports: [A, B, C, D] }
+  PTI:
+    DCLK: { ports: [C, D] }
+    DFRAME: { ports: [C, D] }
+    DOUT: { ports: [C, D] }
+  TIMER0:
+    CC0: { ports: [A, B, C, D] }
+    CC1: { ports: [A, B, C, D] }
+    CC2: { ports: [A, B, C, D] }
+    CDTI0: { ports: [A, B, C, D] }
+    CDTI1: { ports: [A, B, C, D] }
+    CDTI2: { ports: [A, B, C, D] }
+  TIMER1:
+    CC0: { ports: [A, B, C, D] }
+    CC1: { ports: [A, B, C, D] }
+    CC2: { ports: [A, B, C, D] }
+    CDTI0: { ports: [A, B, C, D] }
+    CDTI1: { ports: [A, B, C, D] }
+    CDTI2: { ports: [A, B, C, D] }
+  TIMER2:
+    CC0: { ports: [A, B] }
+    CC1: { ports: [A, B] }
+    CC2: { ports: [A, B] }
+    CDTI0: { ports: [A, B] }
+    CDTI1: { ports: [A, B] }
+    CDTI2: { ports: [A, B] }
+  TIMER3:
+    CC0: { ports: [C, D] }
+    CC1: { ports: [C, D] }
+    CC2: { ports: [C, D] }
+    CDTI0: { ports: [C, D] }
+    CDTI1: { ports: [C, D] }
+    CDTI2: { ports: [C, D] }
+  TIMER4:
+    CC0: { ports: [A, B] }
+    CC1: { ports: [A, B] }
+    CC2: { ports: [A, B] }
+    CDTI0: { ports: [A, B] }
+    CDTI1: { ports: [A, B] }
+    CDTI2: { ports: [A, B] }
+  USART0:
+    CLK: { ports: [A, B, C, D] }
+    CS: { ports: [A, B, C, D] }
+    CTS: { ports: [A, B, C, D] }
+    RTS: { ports: [A, B, C, D] }
+    RX: { ports: [A, B, C, D] }
+    TX: { ports: [A, B, C, D] }
+  VDAC0:
+    CH0_ABUS_OUT: { bus: ABUS }
+    CH0_MAIN_OUT: { pins: [PB00] }
+    CH1_ABUS_OUT: { bus: ABUS }
+    CH1_MAIN_OUT: { pins: [PB01] }
+  VDAC1:
+    CH0_ABUS_OUT: { bus: ABUS }
+    CH0_MAIN_OUT: { pins: [PB02] }
+    CH1_ABUS_OUT: { bus: ABUS }
+    CH1_MAIN_OUT: { pins: [PB03] }

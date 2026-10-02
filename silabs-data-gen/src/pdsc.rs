@@ -13,6 +13,9 @@ pub struct ChipDb {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Chip {
     pub name: String,
+    /// Family name from the pdsc `<family Dfamily>` (`EFR32MG24`, `EFM32GG`).
+    #[serde(default)]
+    pub family: String,
     pub core: String,
     pub fpu: bool,
     pub mpu: bool,
@@ -228,6 +231,9 @@ pub fn parse(xml: &str) -> Result<ChipDb> {
     }
 
     let family = family.ok_or_else(|| anyhow!("no <family> element found"))?;
+    for c in &mut chips {
+        c.family = family.clone();
+    }
     Ok(ChipDb { family, chips })
 }
 
@@ -294,6 +300,7 @@ impl DeviceBuilder {
 
         Ok(Chip {
             name: self.name,
+            family: String::new(),
             core,
             fpu: proc_info.fpu.unwrap_or(false),
             mpu: proc_info.mpu.unwrap_or(false),

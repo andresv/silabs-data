@@ -40,7 +40,43 @@ All other IRQs have no peripheral. Radio, software, kernel, CTI and bus-bridge I
 
 ### Pins
 
-`METADATA.pins` lists the GPIO pins that the package bonds. Each pin has a `name`, a `port` and a `pin` number. The name uses the Silicon Labs format of the series. Series 2 names have a two-digit pin number (`PA00`). Series 0 names have no zero padding (`PA0`, `PE10`). On Series 2, the `GPIO_Px_MASK` defines in the device header give the pins. Series 0 headers have no pin masks. Thus a Series 0 chip lists 16 pins for each GPIO port.
+`METADATA.pins` lists the GPIO pins that the package bonds. Each pin has a `name`, a `port` and a `pin` number. The name uses the Silicon Labs format of the series. Series 2 names have a two-digit pin number (`PA00`). Series 0 names have no zero padding (`PA0`, `PE10`). On Series 2, the `GPIO_Px_MASK` defines in the device header give the pins. Series 0 headers have no pin masks. Thus on Series 0, the `packages` key in `data/pins/efm32gg.yaml` gives the pins. Two Series 0 chips have no pin data (see below). Each of them lists 16 pins for each GPIO port, and `gen` prints one warning for each.
+
+Each pin also has `em2`. `Some(true)` means that the pin keeps working in EM2. On Series 2, the value comes from the `em2` key in `data/pins/<family>.yaml`. On Series 0, the value is `None`, because the pin tool has no EM2 facts for Series 0.
+
+### Peripheral pins
+
+Each `METADATA.peripherals` entry has a `pins` list. The list has one entry for each signal and route. Each entry has a `signal`, a `route` and a `pins` list. The signal name has no peripheral prefix (`TX`, `SDA`, `CC0`). The pin names use the vendor format of the series (`PA05` or `PA5`). The list has only bonded pins, sorted by port, then by pin number. The entries are sorted by signal, then by route: `Location` by number, `Analog` by bus name.
+
+For example, MG24 `EUSART0` has one `TX` entry. Its route is `Dbus`, and its pins are `PA00` to `PA09` and `PB00` to `PB05`. A Series 0 `USART0` has one `TX` entry for each location, with one pin each.
+
+The `route` tells a HAL how to connect the pin:
+
+- `Dbus { register, enable }` (Series 2): write the port and pin to `GPIO.<register>`. Then set `GPIO.<enable.register>.<enable.field>`.
+- `Location { location, enable }` (Series 0): write `location` to the LOCATION field of the peripheral `route` register. Then set the enable field of the same register. All signals of a peripheral share one LOCATION. A peripheral whose `route` register has no LOCATION field (`LESENSE`, `USB`) has one location, 0.
+- `Analog { bus }` (Series 2): the pin connects through the analog bus of its port. Port A uses `ABUS`, port B uses `BBUS`, and ports C and D use `CDBUS`. Allocate the pin in `GPIO.<bus>ALLOC`. The field depends on the pin parity (even or odd). The pin tool calls every bus `ABUS`, so the files keep `bus: ABUS`. `gen` chooses the bus from the port, and stops when the GPIO register YAML has no `<bus>alloc` register.
+- `Fixed { enable, alternative }`: the pin is fixed. There is no route register. `enable` is the field that connects the pin, when there is one: Series 0 USB `DM`, `DP` and `ID` use `route.phypen`, and the Series 2 debug and trace pins use `GPIO.dbgroutepen` and `GPIO.traceroutepen`. `FIXED_ENABLES` in `silabs-data-gen/src/pins.rs` lists them. `alternative` is the number of a numbered fixed alternative, for example Series 0 DAC0 `OUT0ALT` 0 to 4 (the bit in `OPA0MUX.OUTPEN`).
+
+A `Dbus` or `Location` route has `enable: None` only when the signal is in the `NO_ENABLE` list in `silabs-data-gen/src/pins.rs`. Each entry gives the reason, for example "input-only" for `CTS`, or "the multi-bit field `apen` enables a range of address lines" for EBI `A00` to `A27`. `gen` stops on any other missing enable. It names the chip, the peripheral and the signal. It also stops when a `NO_ENABLE` signal has an enable, because then the entry is stale.
+
+The source is `data/pins/<family>.yaml`. We extracted these files once from the Silicon Labs pin tool with `./d extract-pins`. Now we maintain them by hand, like `data/registers/`. `./d gen-all` never reads pin-tool files. `gen` takes the family file whose name is the exact `family` of the chip (`EFR32MG24`, `EFM32GG`). Each file gives one form for each signal:
+
+- `{ ports: [A, B] }`: every bonded pin of these ports. This gives one `Dbus` entry.
+- `{ pins: [PD01] }`: these fixed pins, when the chip bonds them. This gives one `Fixed` entry.
+- `{ alternatives: { 0: PC0, 1: PC1 } }`: numbered fixed alternatives. This gives one `Fixed` entry for each bonded alternative.
+- `{ bus: ABUS }`: every bonded pin, through an analog bus. This gives one `Analog` entry for each bus.
+- `{ locations: { 0: PE10, 1: PE7 } }` (Series 0): the LOCATION value of each pin. This gives one `Location` entry for each location whose pin is bonded.
+
+A Series 2 file has an `em2` key with whole `ports` and single `pins`. A Series 0 file has a `packages` key with the bonded pins of each group of parts. Series 2 takes its bonded pins from the device headers.
+
+The route register is `GPIO.<inst>_<sig>route`, and the enable bit is `GPIO.<inst>_routeen.<sig>pen`. `<inst>` and `<sig>` are the lowercase peripheral and signal names. `ROUTE_EXCEPTIONS` in `silabs-data-gen/src/pins.rs` lists the names that do not follow this rule, for example `letimer_out0route` for `LETIMER0`. `gen` stops when a route register is not in the GPIO register YAML. A Series 2 signal with a route register must use the `ports` form. `gen` stops when the file gives `pins` for it, because a hand edit lost the route.
+
+Some data has no entries:
+
+- `efm32gg900f1024` and `efm32gg900f512` have no peripheral pins. They are die parts, and the pin tool has no data for them. `gen` prints one warning for each.
+- A peripheral in the pin file that is not on the chip gets no entries. `gen` prints the set for each chip. Examples are `MODEM` and `PTI` on Series 2, and `BU`, `HFXO` and `LFXO` on Series 0.
+- Series 0 `DBG` and `ETM` get no entries. Their pins route through `GPIO.ROUTE` (the `SWLOCATION` and `ETMLOCATION` fields), and the metadata does not model this. `gen` prints them in a separate set.
+- Some MG24 and MG26 parts have dedicated analog pads (`AIN0`, `AIN1`) for `IADC0`. They are not GPIO pins, so the files do not list them.
 
 ### DMA requests
 
@@ -74,6 +110,16 @@ The `memory-x` feature gives the linker a `memory.x` file for the chip. The file
 - Run `./deploy.sh [<dest>]`
 
   > Runs `./d gen-all`, renders the support-matrix README via the `summary` binary, and rsyncs `build/silabs-metapac/` into `<dest>/silabs-metapac/`. Dest defaults to `../silabs-data-generated`; the library crate's `Cargo.lock` is omitted and `target/` is excluded. Review and commit the dest separately.
+
+### How to bootstrap `data/pins/` from scratch
+
+> Rarely needed. The files are committed and maintained by hand.
+
+- Run `./d extract-pins <pin-tool-dir> "<sdk label>" [<pin-tool-dir> "<sdk label>"]...`
+
+  > Reads the Silicon Labs pin tool (`platform/hwconf_data/pin_tool` in the `pintool.zip` release asset of the SDK) and writes `data/pins/<family>.yaml`. The pin-tool files are under the MSLA. Never copy them, or a part of them, into a repo. The command writes only facts. For each part, the family table filtered by the part's bonded pins must equal the part's own data, or the command stops. On Series 0, every location must also agree with `<family>_af_ports.h` and `<family>_af_pins.h`. On Series 2, a signal with a GPIO route register must be whole ports, or the command stops.
+
+  > The files are maintained by hand. When a file is the same as the output, the command says that it is up to date and writes nothing. When a file differs, the command prints the difference and stops. Add `--force` (`./d extract-pins --force ...`) to overwrite it.
 
 ### How to bootstrap `data/registers/` from scratch
 
@@ -245,6 +291,7 @@ Load-bearing rules that future automation should pick up:
 - `silabs-metapac-gen/` — Rust binary: JSON + curated YAMLs + chiptool → per-IP register modules + typed-const chip mods.
 - `transforms/<KIND>.yaml` — chiptool transforms applied during `./d seed` and `./d gen-all`. Sparse — only kinds that need cleanup have a file.
 - `data/registers/<kind>_<version>.yaml` — committed source-of-truth register IR, one per `(kind, version)`. Hand-maintained.
+- `data/pins/<family>.yaml` — committed pin facts, one per family. Extracted once from the pin tool, then hand-maintained.
 - `d` — shell driver wrapping the most common workflows.
 - `build/` — gitignored generated outputs (silabs-metapac, per-chip JSON, pack-extracted dirs).
 

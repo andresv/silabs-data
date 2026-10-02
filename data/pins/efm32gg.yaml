@@ -1,0 +1,376 @@
+# EFM32GG pin facts. Extracted once from the Silicon Labs pin tool
+# (Gecko SDK 4.5.1) with `./d extract-pins`. Maintained by hand.
+packages:
+  - parts: [efm32gg230f1024, efm32gg230f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA8, PA9, PA10, PA15,
+      PB7, PB8, PB11, PB12, PB13, PB14,
+      PC0, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10, PC11, PC12, PC13, PC14, PC15,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8,
+      PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF3, PF4, PF5]
+  - parts: [efm32gg232f1024, efm32gg232f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA8, PA9, PA10,
+      PB7, PB8, PB11, PB13, PB14,
+      PC0, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10, PC11, PC12, PC13, PC14, PC15,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8,
+      PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF3, PF4, PF5]
+  - parts: [efm32gg280f1024, efm32gg280f512, efm32gg880f1024, efm32gg880f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA7, PA8, PA9, PA10, PA11, PA12, PA13, PA14, PA15,
+      PB0, PB1, PB2, PB3, PB4, PB5, PB6, PB7, PB8, PB9, PB10, PB11, PB12, PB13, PB14,
+      PC0, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10, PC11, PC12, PC13, PC14, PC15,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8, PD9, PD10, PD11, PD12,
+      PE0, PE1, PE2, PE3, PE4, PE5, PE6, PE7, PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF3, PF4, PF5, PF6, PF7, PF8, PF9]
+  - parts: [efm32gg290f1024, efm32gg290f512, efm32gg890f1024, efm32gg890f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA7, PA8, PA9, PA10, PA11, PA12, PA13, PA14, PA15,
+      PB0, PB1, PB2, PB3, PB4, PB5, PB6, PB7, PB8, PB9, PB10, PB11, PB12, PB13, PB14, PB15,
+      PC0, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10, PC11, PC12, PC13, PC14, PC15,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8, PD9, PD10, PD11, PD12, PD13, PD14, PD15,
+      PE0, PE1, PE2, PE3, PE4, PE5, PE6, PE7, PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF3, PF4, PF5, PF6, PF7, PF8, PF9]
+  - parts: [efm32gg295f1024, efm32gg295f512, efm32gg395f1024, efm32gg395f512, efm32gg895f1024, efm32gg895f512, efm32gg995f1024, efm32gg995f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA7, PA8, PA9, PA10, PA11, PA12, PA13, PA14, PA15,
+      PB0, PB1, PB2, PB3, PB4, PB5, PB6, PB7, PB8, PB9, PB10, PB11, PB12, PB13, PB14, PB15,
+      PC0, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10, PC11, PC12, PC13, PC14, PC15,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8, PD9, PD10, PD11, PD12, PD13, PD14, PD15,
+      PE0, PE1, PE2, PE3, PE4, PE5, PE6, PE7, PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF3, PF4, PF5, PF6, PF7, PF8, PF9, PF10, PF11, PF12]
+  - parts: [efm32gg330f1024, efm32gg330f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA8, PA9, PA10, PA15,
+      PB7, PB8, PB11, PB12, PB13, PB14,
+      PC0, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10, PC11,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8,
+      PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF5, PF10, PF11, PF12]
+  - parts: [efm32gg332f1024, efm32gg332f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA8, PA9, PA10,
+      PB7, PB8, PB11, PB13, PB14,
+      PC0, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10, PC11,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8,
+      PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF5, PF10, PF11, PF12]
+  - parts: [efm32gg380f1024, efm32gg380f512, efm32gg980f1024, efm32gg980f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA7, PA8, PA9, PA10, PA11, PA12, PA13, PA14, PA15,
+      PB0, PB1, PB2, PB3, PB4, PB5, PB6, PB7, PB8, PB9, PB10, PB11, PB12, PB13, PB14,
+      PC0, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10, PC11,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8, PD9, PD10, PD11, PD12,
+      PE0, PE1, PE2, PE3, PE4, PE5, PE6, PE7, PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF5, PF6, PF7, PF8, PF9, PF10, PF11, PF12]
+  - parts: [efm32gg390f1024, efm32gg390f512, efm32gg990f1024, efm32gg990f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA7, PA8, PA9, PA10, PA11, PA12, PA13, PA14, PA15,
+      PB0, PB1, PB2, PB3, PB4, PB5, PB6, PB7, PB8, PB9, PB10, PB11, PB12, PB13, PB14, PB15,
+      PC0, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10, PC11,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8, PD9, PD10, PD11, PD12, PD13, PD14, PD15,
+      PE0, PE1, PE2, PE3, PE4, PE5, PE6, PE7, PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF5, PF6, PF7, PF8, PF9, PF10, PF11, PF12]
+  - parts: [efm32gg840f1024, efm32gg840f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA12, PA13, PA14, PA15,
+      PB3, PB4, PB5, PB6, PB7, PB8, PB11, PB12, PB13, PB14,
+      PC4, PC5, PC6, PC7, PC12, PC13, PC14, PC15,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8,
+      PE4, PE5, PE6, PE7, PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF3, PF4, PF5]
+  - parts: [efm32gg842f1024, efm32gg842f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA12, PA13, PA14,
+      PB3, PB4, PB5, PB6, PB7, PB8, PB11, PB13, PB14,
+      PC4, PC5, PC6, PC7, PC12, PC13, PC14, PC15,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8,
+      PE4, PE5, PE6, PE7, PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF3, PF4, PF5]
+  - parts: [efm32gg940f1024, efm32gg940f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA12, PA13, PA14, PA15,
+      PB3, PB4, PB5, PB6, PB7, PB8, PB11, PB12, PB13, PB14,
+      PC4, PC5, PC6, PC7,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8,
+      PE4, PE5, PE6, PE7, PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF5, PF10, PF11, PF12]
+  - parts: [efm32gg942f1024, efm32gg942f512]
+    pins: [PA0, PA1, PA2, PA3, PA4, PA5, PA12, PA13, PA14,
+      PB3, PB4, PB5, PB6, PB7, PB8, PB11, PB13, PB14,
+      PC4, PC5, PC6, PC7,
+      PD0, PD1, PD2, PD3, PD4, PD5, PD6, PD7, PD8,
+      PE4, PE5, PE6, PE7, PE8, PE9, PE10, PE11, PE12, PE13, PE14, PE15,
+      PF0, PF1, PF2, PF5, PF10, PF11, PF12]
+peripherals:
+  ACMP0:
+    CH0: { pins: [PC0] }
+    CH1: { pins: [PC1] }
+    CH2: { pins: [PC2] }
+    CH3: { pins: [PC3] }
+    CH4: { pins: [PC4] }
+    CH5: { pins: [PC5] }
+    CH6: { pins: [PC6] }
+    CH7: { pins: [PC7] }
+    OUT: { locations: { 0: PE13, 1: PE2, 2: PD6 } }
+  ACMP1:
+    CH0: { pins: [PC8] }
+    CH1: { pins: [PC9] }
+    CH2: { pins: [PC10] }
+    CH3: { pins: [PC11] }
+    CH4: { pins: [PC12] }
+    CH5: { pins: [PC13] }
+    CH6: { pins: [PC14] }
+    CH7: { pins: [PC15] }
+    OUT: { locations: { 0: PF2, 1: PE3, 2: PD7 } }
+  ADC0:
+    CH0: { pins: [PD0] }
+    CH1: { pins: [PD1] }
+    CH2: { pins: [PD2] }
+    CH3: { pins: [PD3] }
+    CH4: { pins: [PD4] }
+    CH5: { pins: [PD5] }
+    CH6: { pins: [PD6] }
+    CH7: { pins: [PD7] }
+  BU:
+    STAT: { pins: [PE3] }
+    VIN: { pins: [PD8] }
+    VOUT: { pins: [PE2] }
+  CMU:
+    CLK0: { locations: { 0: PA2, 1: PC12, 2: PD7 } }
+    CLK1: { locations: { 0: PA1, 1: PD8, 2: PE12 } }
+  DAC0:
+    N0: { pins: [PC5] }
+    N1: { pins: [PD7] }
+    N2: { pins: [PD3] }
+    OUT0: { pins: [PB11] }
+    OUT0ALT: { alternatives: { 0: PC0, 1: PC1, 2: PC2, 3: PC3, 4: PD0 } }
+    OUT1: { pins: [PB12] }
+    OUT1ALT: { alternatives: { 0: PC12, 1: PC13, 2: PC14, 3: PC15, 4: PD1 } }
+    OUT2: { alternatives: { 0: PD5, 1: PD0 } }
+    P0: { pins: [PC4] }
+    P1: { pins: [PD6] }
+    P2: { pins: [PD4] }
+  DBG:
+    SWCLK: { locations: { 0: PF0, 1: PF0, 2: PF0, 3: PF0 } }
+    SWDIO: { locations: { 0: PF1, 1: PF1, 2: PF1, 3: PF1 } }
+    SWO: { locations: { 0: PF2, 1: PC15, 2: PD1, 3: PD2 } }
+  EBI:
+    A00: { locations: { 0: PA12, 1: PA12, 2: PA12 } }
+    A01: { locations: { 0: PA13, 1: PA13, 2: PA13 } }
+    A02: { locations: { 0: PA14, 1: PA14, 2: PA14 } }
+    A03: { locations: { 0: PB9, 1: PB9, 2: PB9 } }
+    A04: { locations: { 0: PB10, 1: PB10, 2: PB10 } }
+    A05: { locations: { 0: PC6, 1: PC6, 2: PC6 } }
+    A06: { locations: { 0: PC7, 1: PC7, 2: PC7 } }
+    A07: { locations: { 0: PE0, 1: PE0, 2: PE0 } }
+    A08: { locations: { 0: PE1, 1: PE1, 2: PE1 } }
+    A09: { locations: { 0: PE2, 1: PC9, 2: PC9 } }
+    A10: { locations: { 0: PE3, 1: PC10, 2: PC10 } }
+    A11: { locations: { 0: PE4, 1: PE4, 2: PE4 } }
+    A12: { locations: { 0: PE5, 1: PE5, 2: PE5 } }
+    A13: { locations: { 0: PE6, 1: PE6, 2: PE6 } }
+    A14: { locations: { 0: PE7, 1: PE7, 2: PE7 } }
+    A15: { locations: { 0: PC8, 1: PC8, 2: PC8 } }
+    A16: { locations: { 0: PB0, 1: PB0, 2: PB0 } }
+    A17: { locations: { 0: PB1, 1: PB1, 2: PB1 } }
+    A18: { locations: { 0: PB2, 1: PB2, 2: PB2 } }
+    A19: { locations: { 0: PB3, 1: PB3, 2: PB3 } }
+    A20: { locations: { 0: PB4, 1: PB4, 2: PB4 } }
+    A21: { locations: { 0: PB5, 1: PB5, 2: PB5 } }
+    A22: { locations: { 0: PB6, 1: PB6, 2: PB6 } }
+    A23: { locations: { 0: PC0, 1: PC0, 2: PC0 } }
+    A24: { locations: { 0: PC1, 1: PC1, 2: PC1 } }
+    A25: { locations: { 0: PC2, 1: PC2, 2: PC2 } }
+    A26: { locations: { 0: PC4, 1: PC4, 2: PC4 } }
+    A27: { locations: { 0: PD2, 1: PD2, 2: PD2 } }
+    AD00: { locations: { 0: PE8, 1: PE8, 2: PE8 } }
+    AD01: { locations: { 0: PE9, 1: PE9, 2: PE9 } }
+    AD02: { locations: { 0: PE10, 1: PE10, 2: PE10 } }
+    AD03: { locations: { 0: PE11, 1: PE11, 2: PE11 } }
+    AD04: { locations: { 0: PE12, 1: PE12, 2: PE12 } }
+    AD05: { locations: { 0: PE13, 1: PE13, 2: PE13 } }
+    AD06: { locations: { 0: PE14, 1: PE14, 2: PE14 } }
+    AD07: { locations: { 0: PE15, 1: PE15, 2: PE15 } }
+    AD08: { locations: { 0: PA15, 1: PA15, 2: PA15 } }
+    AD09: { locations: { 0: PA0, 1: PA0, 2: PA0 } }
+    AD10: { locations: { 0: PA1, 1: PA1, 2: PA1 } }
+    AD11: { locations: { 0: PA2, 1: PA2, 2: PA2 } }
+    AD12: { locations: { 0: PA3, 1: PA3, 2: PA3 } }
+    AD13: { locations: { 0: PA4, 1: PA4, 2: PA4 } }
+    AD14: { locations: { 0: PA5, 1: PA5, 2: PA5 } }
+    AD15: { locations: { 0: PA6, 1: PA6, 2: PA6 } }
+    ALE: { locations: { 0: PF3, 1: PC11, 2: PC11 } }
+    ARDY: { locations: { 0: PF2, 1: PF2, 2: PF2 } }
+    BL0: { locations: { 0: PF6, 1: PF6, 2: PF6 } }
+    BL1: { locations: { 0: PF7, 1: PF7, 2: PF7 } }
+    CS0: { locations: { 0: PD9, 1: PD9, 2: PD9 } }
+    CS1: { locations: { 0: PD10, 1: PD10, 2: PD10 } }
+    CS2: { locations: { 0: PD11, 1: PD11, 2: PD11 } }
+    CS3: { locations: { 0: PD12, 1: PD12, 2: PD12 } }
+    CSTFT: { locations: { 0: PA7, 1: PA7, 2: PA7 } }
+    DCLK: { locations: { 0: PA8, 1: PA8, 2: PA8 } }
+    DTEN: { locations: { 0: PA9, 1: PA9, 2: PA9 } }
+    HSNC: { locations: { 0: PA11, 1: PA11, 2: PA11 } }
+    NANDREn: { locations: { 0: PC3, 1: PC3, 2: PC3 } }
+    NANDWEn: { locations: { 0: PC5, 1: PC5, 2: PC5 } }
+    REn: { locations: { 0: PF5, 1: PF9, 2: PF5 } }
+    VSNC: { locations: { 0: PA10, 1: PA10, 2: PA10 } }
+    WEn: { locations: { 0: PF4, 1: PF8, 2: PF4 } }
+  ETM:
+    TCLK: { locations: { 0: PD7, 1: PF8, 2: PC6, 3: PA6 } }
+    TD0: { locations: { 0: PD6, 1: PF9, 2: PC7, 3: PA2 } }
+    TD1: { locations: { 0: PD3, 1: PD13, 2: PD3, 3: PA3 } }
+    TD2: { locations: { 0: PD4, 1: PB15, 2: PD4, 3: PA4 } }
+    TD3: { locations: { 0: PD5, 1: PF3, 2: PD5, 3: PA5 } }
+  GPIO:
+    EM4WU0: { pins: [PA0] }
+    EM4WU1: { pins: [PA6] }
+    EM4WU2: { pins: [PC9] }
+    EM4WU3: { pins: [PF1] }
+    EM4WU4: { pins: [PF2] }
+    EM4WU5: { pins: [PE13] }
+  HFXO:
+    "N": { pins: [PB14] }
+    P: { pins: [PB13] }
+  I2C0:
+    SCL: { locations: { 0: PA1, 1: PD7, 2: PC7, 3: PD15, 4: PC1, 5: PF1, 6: PE13 } }
+    SDA: { locations: { 0: PA0, 1: PD6, 2: PC6, 3: PD14, 4: PC0, 5: PF0, 6: PE12 } }
+  I2C1:
+    SCL: { locations: { 0: PC5, 1: PB12, 2: PE1 } }
+    SDA: { locations: { 0: PC4, 1: PB11, 2: PE0 } }
+  LCD:
+    BCAP_N: { pins: [PA13] }
+    BCAP_P: { pins: [PA12] }
+    BEXT: { pins: [PA14] }
+    COM0: { pins: [PE4] }
+    COM1: { pins: [PE5] }
+    COM2: { pins: [PE6] }
+    COM3: { pins: [PE7] }
+    SEG0: { pins: [PF2] }
+    SEG1: { pins: [PF3] }
+    SEG10: { pins: [PE14] }
+    SEG11: { pins: [PE15] }
+    SEG12: { pins: [PA15] }
+    SEG13: { pins: [PA0] }
+    SEG14: { pins: [PA1] }
+    SEG15: { pins: [PA2] }
+    SEG16: { pins: [PA3] }
+    SEG17: { pins: [PA4] }
+    SEG18: { pins: [PA5] }
+    SEG19: { pins: [PA6] }
+    SEG2: { pins: [PF4] }
+    SEG20: { pins: [PB3] }
+    SEG21: { pins: [PB4] }
+    SEG22: { pins: [PB5] }
+    SEG23: { pins: [PB6] }
+    SEG24: { pins: [PF6] }
+    SEG25: { pins: [PF7] }
+    SEG26: { pins: [PF8] }
+    SEG27: { pins: [PF9] }
+    SEG28: { pins: [PD9] }
+    SEG29: { pins: [PD10] }
+    SEG3: { pins: [PF5] }
+    SEG30: { pins: [PD11] }
+    SEG31: { pins: [PD12] }
+    SEG32: { pins: [PB0] }
+    SEG33: { pins: [PB1] }
+    SEG34: { pins: [PB2] }
+    SEG35: { pins: [PA7] }
+    SEG36: { pins: [PA8] }
+    SEG37: { pins: [PA9] }
+    SEG38: { pins: [PA10] }
+    SEG39: { pins: [PA11] }
+    SEG4: { pins: [PE8] }
+    SEG5: { pins: [PE9] }
+    SEG6: { pins: [PE10] }
+    SEG7: { pins: [PE11] }
+    SEG8: { pins: [PE12] }
+    SEG9: { pins: [PE13] }
+  LESENSE:
+    ALTEX0: { locations: { 0: PD6 } }
+    ALTEX1: { locations: { 0: PD7 } }
+    ALTEX2: { locations: { 0: PA3 } }
+    ALTEX3: { locations: { 0: PA4 } }
+    ALTEX4: { locations: { 0: PA5 } }
+    ALTEX5: { locations: { 0: PE11 } }
+    ALTEX6: { locations: { 0: PE12 } }
+    ALTEX7: { locations: { 0: PE13 } }
+    CH0: { locations: { 0: PC0 } }
+    CH1: { locations: { 0: PC1 } }
+    CH10: { locations: { 0: PC10 } }
+    CH11: { locations: { 0: PC11 } }
+    CH12: { locations: { 0: PC12 } }
+    CH13: { locations: { 0: PC13 } }
+    CH14: { locations: { 0: PC14 } }
+    CH15: { locations: { 0: PC15 } }
+    CH2: { locations: { 0: PC2 } }
+    CH3: { locations: { 0: PC3 } }
+    CH4: { locations: { 0: PC4 } }
+    CH5: { locations: { 0: PC5 } }
+    CH6: { locations: { 0: PC6 } }
+    CH7: { locations: { 0: PC7 } }
+    CH8: { locations: { 0: PC8 } }
+    CH9: { locations: { 0: PC9 } }
+  LETIMER0:
+    OUT0: { locations: { 0: PD6, 1: PB11, 2: PF0, 3: PC4 } }
+    OUT1: { locations: { 0: PD7, 1: PB12, 2: PF1, 3: PC5 } }
+  LEUART0:
+    RX: { locations: { 0: PD5, 1: PB14, 2: PE15, 3: PF1, 4: PA0 } }
+    TX: { locations: { 0: PD4, 1: PB13, 2: PE14, 3: PF0, 4: PF2 } }
+  LEUART1:
+    RX: { locations: { 0: PC7, 1: PA6 } }
+    TX: { locations: { 0: PC6, 1: PA5 } }
+  LFXO:
+    "N": { pins: [PB8] }
+    P: { pins: [PB7] }
+  PCNT0:
+    S0IN: { locations: { 0: PC13, 1: PE0, 2: PC0, 3: PD6 } }
+    S1IN: { locations: { 0: PC14, 1: PE1, 2: PC1, 3: PD7 } }
+  PCNT1:
+    S0IN: { locations: { 0: PC4, 1: PB3 } }
+    S1IN: { locations: { 0: PC5, 1: PB4 } }
+  PCNT2:
+    S0IN: { locations: { 0: PD0, 1: PE8 } }
+    S1IN: { locations: { 0: PD1, 1: PE9 } }
+  PRS:
+    CH0: { locations: { 0: PA0, 1: PF3 } }
+    CH1: { locations: { 0: PA1, 1: PF4 } }
+    CH2: { locations: { 0: PC0, 1: PF5 } }
+    CH3: { locations: { 0: PC1, 1: PE8 } }
+  TIMER0:
+    CC0: { locations: { 0: PA0, 1: PA0, 2: PF6, 3: PD1, 4: PA0, 5: PF0 } }
+    CC1: { locations: { 0: PA1, 1: PA1, 2: PF7, 3: PD2, 4: PC0, 5: PF1 } }
+    CC2: { locations: { 0: PA2, 1: PA2, 2: PF8, 3: PD3, 4: PC1, 5: PF2 } }
+    CDTI0: { locations: { 0: PA3, 1: PC13, 2: PF3, 3: PC13, 4: PC2, 5: PF3 } }
+    CDTI1: { locations: { 0: PA4, 1: PC14, 2: PF4, 3: PC14, 4: PC3, 5: PF4 } }
+    CDTI2: { locations: { 0: PA5, 1: PC15, 2: PF5, 3: PC15, 4: PC4, 5: PF5 } }
+  TIMER1:
+    CC0: { locations: { 0: PC13, 1: PE10, 2: PB0, 3: PB7, 4: PD6 } }
+    CC1: { locations: { 0: PC14, 1: PE11, 2: PB1, 3: PB8, 4: PD7 } }
+    CC2: { locations: { 0: PC15, 1: PE12, 2: PB2, 3: PB11, 4: PC13 } }
+  TIMER2:
+    CC0: { locations: { 0: PA8, 1: PA12, 2: PC8 } }
+    CC1: { locations: { 0: PA9, 1: PA13, 2: PC9 } }
+    CC2: { locations: { 0: PA10, 1: PA14, 2: PC10 } }
+  TIMER3:
+    CC0: { locations: { 0: PE14, 1: PE0 } }
+    CC1: { locations: { 0: PE15, 1: PE1 } }
+    CC2: { locations: { 0: PA15, 1: PE2 } }
+  UART0:
+    RX: { locations: { 0: PF7, 1: PE1, 2: PA4, 3: PC15 } }
+    TX: { locations: { 0: PF6, 1: PE0, 2: PA3, 3: PC14 } }
+  UART1:
+    RX: { locations: { 0: PC13, 1: PF11, 2: PB10, 3: PE3 } }
+    TX: { locations: { 0: PC12, 1: PF10, 2: PB9, 3: PE2 } }
+  USART0:
+    CLK: { locations: { 0: PE12, 1: PE5, 2: PC9, 3: PC15, 4: PB13, 5: PB13 } }
+    CS: { locations: { 0: PE13, 1: PE4, 2: PC8, 3: PC14, 4: PB14, 5: PB14 } }
+    RX: { locations: { 0: PE11, 1: PE6, 2: PC10, 3: PE12, 4: PB8, 5: PC1 } }
+    TX: { locations: { 0: PE10, 1: PE7, 2: PC11, 3: PE13, 4: PB7, 5: PC0 } }
+  USART1:
+    CLK: { locations: { 0: PB7, 1: PD2, 2: PF0 } }
+    CS: { locations: { 0: PB8, 1: PD3, 2: PF1 } }
+    RX: { locations: { 0: PC1, 1: PD1, 2: PD6 } }
+    TX: { locations: { 0: PC0, 1: PD0, 2: PD7 } }
+  USART2:
+    CLK: { locations: { 0: PC4, 1: PB5 } }
+    CS: { locations: { 0: PC5, 1: PB6 } }
+    RX: { locations: { 0: PC3, 1: PB4 } }
+    TX: { locations: { 0: PC2, 1: PB3 } }
+  USB:
+    DM: { pins: [PF10] }
+    DMPU: { locations: { 0: PD2 } }
+    DP: { pins: [PF11] }
+    ID: { pins: [PF12] }
+    VBUSEN: { locations: { 0: PF5 } }

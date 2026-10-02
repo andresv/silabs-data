@@ -148,6 +148,7 @@ mod tests {
         ChipFile {
             chip: silabs_data_gen::pdsc::Chip {
                 name: name.into(),
+                family: "EFR32MG24".into(),
                 core: "Cortex-M33".into(),
                 fpu: false,
                 mpu: false,
@@ -169,6 +170,7 @@ mod tests {
                 block: "LETIMER".into(),
                 interrupts: vec![],
                 dma_requests: vec![],
+                pins: vec![],
             }],
             interrupts: vec![],
             pins: vec![],

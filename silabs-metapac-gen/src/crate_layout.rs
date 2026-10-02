@@ -78,23 +78,20 @@ pub fn canonical_peripheral_names(chip: &ChipFile) -> Vec<String> {
 fn peripheral_groups(peripherals: &[PeripheralInstance]) -> BTreeMap<String, PeripheralGroup<'_>> {
     let by_name: BTreeMap<&str, &PeripheralInstance> = peripherals.iter().map(|p| (p.name.as_str(), p)).collect();
     let paired_secure = paired_secure_alias_names(peripherals);
+    let names: Vec<&str> = peripherals.iter().map(|p| p.name.as_str()).collect();
     let mut groups = BTreeMap::new();
 
-    for p in peripherals {
-        if paired_secure.contains(p.name.as_str()) {
+    // The shared alias grouping: `None` is a paired secure alias. A suffix
+    // alias keeps its public name (`GPIO_NS` becomes `GPIO`). An infix alias
+    // keeps its full name (`SEMAILBOX_NS_HOST`).
+    for (p, canonical_name) in peripherals.iter().zip(silabs_data_gen::chips::canonical_names(&names)) {
+        let Some(canonical_name) = canonical_name else {
             continue;
-        }
+        };
 
         let secure = nonsecure_to_secure_name(&p.name)
             .and_then(|name| by_name.get(name.as_str()).copied())
             .filter(|candidate| paired_secure.contains(candidate.name.as_str()));
-        // Preserve the existing public name for suffix aliases (`GPIO_NS` →
-        // `GPIO`). Infix aliases were already public as `SEMAILBOX_NS_HOST`.
-        let canonical_name = p
-            .name
-            .strip_suffix("_NS")
-            .map(str::to_owned)
-            .unwrap_or_else(|| p.name.clone());
         let old = groups.insert(
             canonical_name.clone(),
             PeripheralGroup {
@@ -568,6 +565,42 @@ fn series_literal_for_chip(chip: &ChipFile) -> String {
     }
 }
 
+fn peripheral_pins_literal(p: &silabs_data_gen::pins::PeripheralPins) -> String {
+    use silabs_data_gen::pins::PinRoute;
+    let enable = |e: &Option<silabs_data_gen::pins::PinRouteEnable>| match e {
+        Some(e) => format!(
+            "Some(PinRouteEnable {{ register: {:?}, field: {:?} }})",
+            e.register, e.field
+        ),
+        None => "None".to_owned(),
+    };
+    let route = match &p.route {
+        PinRoute::Dbus { register, enable: e } => {
+            format!("PinRoute::Dbus {{ register: {register:?}, enable: {} }}", enable(e))
+        }
+        PinRoute::Location { location, enable: e } => {
+            format!("PinRoute::Location {{ location: {location}, enable: {} }}", enable(e))
+        }
+        PinRoute::Analog { bus } => format!("PinRoute::Analog {{ bus: {bus:?} }}"),
+        PinRoute::Fixed { enable: e, alternative } => {
+            let alternative = match alternative {
+                Some(n) => format!("Some({n})"),
+                None => "None".to_owned(),
+            };
+            format!(
+                "PinRoute::Fixed {{ enable: {}, alternative: {alternative} }}",
+                enable(e)
+            )
+        }
+    };
+    let pins: Vec<String> = p.pins.iter().map(|pin| format!("{pin:?}")).collect();
+    format!(
+        "PeripheralPins {{ signal: {:?}, route: {route}, pins: &[{}] }}",
+        p.signal,
+        pins.join(", ")
+    )
+}
+
 fn peripheral_cmu_literal(c: &crate::clocks::PeripheralCmu) -> String {
     use crate::clocks::KernelClock;
     let enable = c
@@ -687,10 +720,11 @@ pub fn build_chip_metadata_rs(
                 )
             })
             .collect();
+        let pins: Vec<String> = p.pins.iter().map(peripheral_pins_literal).collect();
         s.push_str(&format!(
-            "        Peripheral {{ name: {:?}, address: 0x{:08X}, secure_address: {}, kind: {:?}, version: {:?}, block: {:?}, ir: &{}_{}::REGISTERS, cmu: {}, interrupts: &[{}], dma_requests: &[{}] }},\n",
+            "        Peripheral {{ name: {:?}, address: 0x{:08X}, secure_address: {}, kind: {:?}, version: {:?}, block: {:?}, ir: &{}_{}::REGISTERS, cmu: {}, interrupts: &[{}], dma_requests: &[{}], pins: &[{}] }},\n",
             group.canonical_name, p.base_address, secure_address, p.kind, p.register_version, block_struct_ident(&p.block), p.kind, p.register_version, cmu,
-            interrupts.join(", "), dma_requests.join(", "),
+            interrupts.join(", "), dma_requests.join(", "), pins.join(", "),
         ));
     }
     s.push_str("    ],\n");
@@ -714,8 +748,12 @@ pub fn build_chip_metadata_rs(
         } else {
             format!("P{port}{:02}", pin.pin)
         };
+        let em2 = match pin.em2 {
+            Some(b) => format!("Some({b})"),
+            None => "None".to_owned(),
+        };
         s.push_str(&format!(
-            "        Pin {{ name: {name:?}, port: {}, pin: {} }},\n",
+            "        Pin {{ name: {name:?}, port: {}, pin: {}, em2: {em2} }},\n",
             pin.port, pin.pin
         ));
     }
@@ -747,15 +785,16 @@ pub fn build_chip_metadata_rs(
     Ok(s)
 }
 
-/// Bonded pins of a chip. Series 0 headers carry no pin masks, so a Series 0
-/// chip gets 16 pins on each of its `gpio_ports`.
+/// Bonded pins of a chip. On Series 0, `silabs-data-gen` takes them from the
+/// `data/pins` package. A Series 0 chip without pin data (EFM32GG900) gets
+/// 16 pins on each of its `gpio_ports`.
 fn chip_pins(chip: &ChipFile, gpio_ports: Option<usize>) -> Vec<Pin> {
     let series0 = chip.chip.series.is_some_and(|s| s.series == 0);
     if !series0 || !chip.pins.is_empty() {
         return chip.pins.clone();
     }
     (0..gpio_ports.unwrap_or(0) as u8)
-        .flat_map(|port| (0..16).map(move |pin| Pin { port, pin }))
+        .flat_map(|port| (0..16).map(move |pin| Pin { port, pin, em2: None }))
         .collect()
 }
 
@@ -812,6 +851,7 @@ pub fn build_memory_x(chip: &ChipFile) -> Result<String> {
 mod tests {
     use silabs_data_gen::chips::{Interrupt, PeripheralInstance};
     use silabs_data_gen::pdsc::{Chip, MemoryRegion};
+    use silabs_data_gen::pins::{PeripheralPins, PinRoute, PinRouteEnable};
 
     use super::*;
 
@@ -819,6 +859,7 @@ mod tests {
         ChipFile {
             chip: Chip {
                 name: "EFR32MG26B211F2048IM68".into(),
+                family: "EFR32MG26".into(),
                 core: "Cortex-M33".into(),
                 fpu: false,
                 mpu: false,
@@ -861,6 +902,24 @@ mod tests {
                         sourcesel: 2,
                         sigsel: 0,
                     }],
+                    pins: vec![
+                        PeripheralPins {
+                            signal: "DIGOUT".into(),
+                            route: PinRoute::Dbus {
+                                register: "acmp0_acmpoutroute".into(),
+                                enable: Some(PinRouteEnable {
+                                    register: "acmp0_routeen".into(),
+                                    field: "acmpoutpen".into(),
+                                }),
+                            },
+                            pins: vec!["PA00".into(), "PB05".into()],
+                        },
+                        PeripheralPins {
+                            signal: "POS".into(),
+                            route: PinRoute::Analog { bus: "ABUS".into() },
+                            pins: vec!["PA00".into()],
+                        },
+                    ],
                 },
                 PeripheralInstance {
                     name: "ACMP0_S".into(),
@@ -871,6 +930,7 @@ mod tests {
                     block: "ACMP".into(),
                     interrupts: vec![],
                     dma_requests: vec![],
+                    pins: vec![],
                 },
                 PeripheralInstance {
                     name: "DCDC".into(),
@@ -881,6 +941,14 @@ mod tests {
                     block: "DCDC".into(),
                     interrupts: vec![],
                     dma_requests: vec![],
+                    pins: vec![PeripheralPins {
+                        signal: "SENSE".into(),
+                        route: PinRoute::Fixed {
+                            enable: None,
+                            alternative: None,
+                        },
+                        pins: vec!["PA00".into()],
+                    }],
                 },
             ],
             interrupts: vec![
@@ -900,7 +968,18 @@ mod tests {
                     description: None,
                 },
             ],
-            pins: vec![Pin { port: 0, pin: 0 }, Pin { port: 1, pin: 5 }],
+            pins: vec![
+                Pin {
+                    port: 0,
+                    pin: 0,
+                    em2: Some(true),
+                },
+                Pin {
+                    port: 1,
+                    pin: 5,
+                    em2: Some(false),
+                },
+            ],
             dma_channel_count: 8,
         }
     }
@@ -962,6 +1041,7 @@ mod tests {
             block: "EUSART".into(),
             interrupts: vec![],
             dma_requests: vec![],
+            pins: vec![],
         });
         chip.peripherals.push(PeripheralInstance {
             name: "EUSART1_NS".into(),
@@ -972,6 +1052,7 @@ mod tests {
             block: "EUSART".into(),
             interrupts: vec![],
             dma_requests: vec![],
+            pins: vec![],
         });
         // A secure alias routed to a different version must not suppress the
         // version-neutral alias. Its instance constant uses the non-secure
@@ -985,6 +1066,7 @@ mod tests {
             block: "DMEM".into(),
             interrupts: vec![],
             dma_requests: vec![],
+            pins: vec![],
         });
         chip.peripherals.push(PeripheralInstance {
             name: "DMEM_S".into(),
@@ -995,6 +1077,7 @@ mod tests {
             block: "DMEM".into(),
             interrupts: vec![],
             dma_requests: vec![],
+            pins: vec![],
         });
         chip.peripherals.push(PeripheralInstance {
             name: "SEMAILBOX_NS_HOST".into(),
@@ -1005,6 +1088,7 @@ mod tests {
             block: "SEMAILBOX_NS_HOST".into(),
             interrupts: vec![],
             dma_requests: vec![],
+            pins: vec![],
         });
         // Secure `_S_` infix instance shares its NS peer's register type.
         chip.peripherals.push(PeripheralInstance {
@@ -1016,6 +1100,7 @@ mod tests {
             block: "SEMAILBOX_S_HOST".into(),
             interrupts: vec![],
             dma_requests: vec![],
+            pins: vec![],
         });
         let s = build_chip_pac_rs(&chip, None);
         assert!(s.contains("pub use acmp_s2v2 as acmp;"), "missing acmp alias:\n{s}");
@@ -1074,31 +1159,84 @@ mod tests {
             "missing RAM region:\n{s}"
         );
         assert!(
-            s.contains("interrupts: &[PeripheralInterrupt { signal: \"GLOBAL\", interrupt: \"ACMP0\" }], dma_requests: &[PeripheralDmaRequest { signal: \"CC0\", sourcesel: 2, sigsel: 0 }] }"),
+            s.contains("interrupts: &[PeripheralInterrupt { signal: \"GLOBAL\", interrupt: \"ACMP0\" }], dma_requests: &[PeripheralDmaRequest { signal: \"CC0\", sourcesel: 2, sigsel: 0 }], pins: &["),
             "missing peripheral interrupts or DMA requests:\n{s}"
+        );
+        // One entry of each Series 2 route kind, with its pin list.
+        assert!(
+            s.contains("PeripheralPins { signal: \"DIGOUT\", route: PinRoute::Dbus { register: \"acmp0_acmpoutroute\", enable: Some(PinRouteEnable { register: \"acmp0_routeen\", field: \"acmpoutpen\" }) }, pins: &[\"PA00\", \"PB05\"] }, PeripheralPins { signal: \"POS\", route: PinRoute::Analog { bus: \"ABUS\" }, pins: &[\"PA00\"] }] }"),
+            "missing Dbus or Analog pin entries:\n{s}"
+        );
+        assert!(
+            s.contains("pins: &[PeripheralPins { signal: \"SENSE\", route: PinRoute::Fixed { enable: None, alternative: None }, pins: &[\"PA00\"] }] }"),
+            "missing Fixed pin entry:\n{s}"
         );
         assert!(
             s.contains(
-                "Pin { name: \"PA00\", port: 0, pin: 0 },\n        Pin { name: \"PB05\", port: 1, pin: 5 },\n    ],"
+                "Pin { name: \"PA00\", port: 0, pin: 0, em2: Some(true) },\n        Pin { name: \"PB05\", port: 1, pin: 5, em2: Some(false) },\n    ],"
             ),
-            "Series 2 pins must come from the header masks:\n{s}"
+            "Series 2 pins must come from the header masks, with em2:\n{s}"
         );
         assert!(s.contains("dma_channel_count: 8,"), "missing DMA channel count:\n{s}");
 
         let mut s0 = fake_chip();
         s0.chip.series = Some(silabs_data_gen::header::Series { series: 0, config: 0 });
         s0.pins.clear();
+        s0.peripherals[0].pins = vec![
+            PeripheralPins {
+                signal: "OUT".into(),
+                route: PinRoute::Location {
+                    location: 3,
+                    enable: Some(PinRouteEnable {
+                        register: "route".into(),
+                        field: "acmppen".into(),
+                    }),
+                },
+                pins: vec!["PE13".into()],
+            },
+            PeripheralPins {
+                signal: "OUT0ALT".into(),
+                route: PinRoute::Fixed {
+                    enable: None,
+                    alternative: Some(4),
+                },
+                pins: vec!["PD0".into()],
+            },
+        ];
         let s = build_chip_metadata_rs(&s0, &BTreeMap::new(), Some(2)).unwrap();
         assert_eq!(
             s.matches("Pin { name: ").count(),
             32,
-            "Series 0 gets 16 pins per port:\n{s}"
+            "a Series 0 chip without package pins gets 16 pins per port:\n{s}"
         );
         assert!(
-            s.contains("Pin { name: \"PA0\", port: 0, pin: 0 }"),
-            "Series 0 names are not zero-padded:\n{s}"
+            s.contains("Pin { name: \"PA0\", port: 0, pin: 0, em2: None }"),
+            "Series 0 names are not zero-padded, and have no em2 facts:\n{s}"
         );
-        assert!(s.contains("Pin { name: \"PB15\", port: 1, pin: 15 }"));
+        assert!(s.contains("Pin { name: \"PB15\", port: 1, pin: 15, em2: None }"));
+        assert!(
+            s.contains("pins: &[PeripheralPins { signal: \"OUT\", route: PinRoute::Location { location: 3, enable: Some(PinRouteEnable { register: \"route\", field: \"acmppen\" }) }, pins: &[\"PE13\"] }, PeripheralPins { signal: \"OUT0ALT\", route: PinRoute::Fixed { enable: None, alternative: Some(4) }, pins: &[\"PD0\"] }]"),
+            "missing Series 0 Location or Fixed alternative entry:\n{s}"
+        );
+
+        // A Series 0 chip with package pins lists only those.
+        s0.pins = vec![
+            Pin {
+                port: 0,
+                pin: 2,
+                em2: None,
+            },
+            Pin {
+                port: 0,
+                pin: 10,
+                em2: None,
+            },
+        ];
+        let s = build_chip_metadata_rs(&s0, &BTreeMap::new(), Some(2)).unwrap();
+        assert!(
+            s.contains("Pin { name: \"PA2\", port: 0, pin: 2, em2: None },\n        Pin { name: \"PA10\", port: 0, pin: 10, em2: None },\n    ],"),
+            "Series 0 package pins:\n{s}"
+        );
     }
 
     #[test]
@@ -1131,6 +1269,7 @@ mod tests {
             block: "GPIO".into(),
             interrupts: vec![],
             dma_requests: vec![],
+            pins: vec![],
         });
         let mut irs = BTreeMap::new();
         irs.insert(("gpio".to_string(), "s0v1".to_string()), ir);
