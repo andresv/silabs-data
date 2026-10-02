@@ -71,6 +71,11 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     // CTRL.WAITSTATES. FG25's DMEM has two AHB ports instead of four, and its
     // VDAC adds a LESENSE trigger. None of that moves or resizes a field, so
     // each (kind, version) is one superset YAML.
+    // USERDATA is the user data flash page. No SVD lists it, so
+    // `data/extra_peripherals.yaml` adds it and it has no SVD <version>.
+    // The token layout is the same on every Series 2 family
+    // (`sl_token_manager_manufacturing.h`, Zlib), so one YAML serves all.
+    ("EFR32(MG22|MG24|MG26|FG25).*:USERDATA:", "userdata", "s2v1", "USERDATA"),
     // DEVINFO is a per-family factory-programmed block. Both families
     // report <version>0.0</version>, but their register layouts differ
     // (calibration data, chip-specific fields).

@@ -1,0 +1,13 @@
+block/Userdata:
+  description: User data flash page (USERDATA). It holds the manufacturing tokens. Read-only. The base is USERDATA_BASE of the device header (Zlib). The token offsets and sizes are from sl_token_manager_manufacturing.h (Zlib). The validity rules are from sl_clock_manager_init_hal_s2.c (Zlib). Each token is a register of its own size (8 or 16 bits), not a 32-bit register. Erased flash reads all ones, so a token that was not programmed reads 0xFF or 0xFFFF. Only the tokens that the HAL reads are here.
+  items:
+  - name: mfg_lfxo_tune
+    description: MFG_LFXO_TUNE token (1 byte). LFXO capacitor tune. The value is valid when it is 0x7F or less.
+    byte_offset: 156
+    bit_size: 8
+    access: Read
+  - name: mfg_ctune
+    description: MFG_CTUNE token (2 bytes). HFXO CTUNE. The value is valid when it is 0xFF or less.
+    byte_offset: 256
+    bit_size: 16
+    access: Read

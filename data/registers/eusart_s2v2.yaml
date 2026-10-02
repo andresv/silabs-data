@@ -64,20 +64,30 @@ block/Eusart:
     access: Write
     fieldset: regs::Cmd
   - name: rxdata
-    description: No Description.
+    description: RX data, all 16 bits. Use it in synchronous mode and in asynchronous mode with DALICFG.DALIEN = 1. For asynchronous mode with DALIEN = 0, use rxdata_async.
     byte_offset: 60
     access: Read
     fieldset: regs::Rxdata
+  - name: rxdata_async
+    description: RX data in asynchronous mode with DALICFG.DALIEN = 0. The same register as rxdata. A read pops one frame with its own parity and framing error bits.
+    byte_offset: 60
+    access: Read
+    fieldset: regs::RxdataAsync
   - name: rxdatap
     description: No Description.
     byte_offset: 64
     access: Read
     fieldset: regs::Rxdatap
   - name: txdata
-    description: No Description.
+    description: TX data, all 16 bits. Use it in synchronous mode and in asynchronous mode with DALICFG.DALIEN = 1. For asynchronous mode with DALIEN = 0, use txdata_async.
     byte_offset: 68
     access: Write
     fieldset: regs::Txdata
+  - name: txdata_async
+    description: TX data and frame control bits in asynchronous mode with DALICFG.DALIEN = 0. The same register as txdata.
+    byte_offset: 68
+    access: Write
+    fieldset: regs::TxdataAsync
   - name: status
     description: No Description.
     byte_offset: 72
@@ -565,6 +575,21 @@ fieldset/regs::Rxdata:
     description: RX Data and Control bits.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::RxdataAsync:
+  description: 'RX data in asynchronous mode with DALICFG.DALIEN = 0. Source - the EUSART_RXDATA register description in the EFR32xG24 reference manual (rev. 1.1, section 21.5.16), and _EUSART_RXDATA_PERR_SHIFT and _EUSART_RXDATA_FERR_SHIFT in efr32mg22_eusart.h (Zlib). The MG24, FG25 and MG26 headers show only the 16-bit field, because DALI mode uses all 16 bits.'
+  fields:
+  - name: rxdata
+    description: Received data, 7 to 9 bits.
+    bit_offset: 0
+    bit_size: 9
+  - name: perr
+    description: Parity error in this frame.
+    bit_offset: 9
+    bit_size: 1
+  - name: ferr
+    description: Framing error in this frame. A break also gives it.
+    bit_offset: 10
+    bit_size: 1
 fieldset/regs::Rxdatap:
   description: No Description.
   fields:
@@ -741,6 +766,33 @@ fieldset/regs::Txdata:
     description: TX Data and Control bits.
     bit_offset: 0
     bit_size: 16
+fieldset/regs::TxdataAsync:
+  description: 'TX data and frame control bits in asynchronous mode with DALICFG.DALIEN = 0. Source - the EUSART_TXDATA register description and section 21.3.2.5.2 (Frame Transmission Control) in the EFR32xG24 reference manual (rev. 1.1), and _EUSART_TXDATA_TXBREAK_SHIFT in efr32mg22_eusart.h (Zlib). The MG24, FG25 and MG26 headers show only the 16-bit field, because DALI mode uses all 16 bits.'
+  fields:
+  - name: txdata
+    description: Data to send, 7 to 9 bits.
+    bit_offset: 0
+    bit_size: 9
+  - name: ubrxat
+    description: Unblock the receiver (clear RXBLOCK) after this frame.
+    bit_offset: 9
+    bit_size: 1
+  - name: txtriat
+    description: Tristate the transmitter (set TXTRI) after this frame.
+    bit_offset: 10
+    bit_size: 1
+  - name: txbreak
+    description: Send this frame as a break. The output stays low during the stop bits, so the receiver sees a framing error or a break.
+    bit_offset: 11
+    bit_size: 1
+  - name: txdisat
+    description: Disable the transmitter after this frame.
+    bit_offset: 12
+    bit_size: 1
+  - name: rxenat
+    description: Enable the receiver after this frame.
+    bit_offset: 13
+    bit_size: 1
 enum/vals::Clkpha:
   bit_size: 1
   variants:
