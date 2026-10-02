@@ -55,7 +55,7 @@ The `route` tells a HAL how to connect the pin:
 - `Dbus { register, enable }` (Series 2): write the port and pin to `GPIO.<register>`. Then set `GPIO.<enable.register>.<enable.field>`.
 - `Location { location, enable }` (Series 0): write `location` to the LOCATION field of the peripheral `route` register. Then set the enable field of the same register. All signals of a peripheral share one LOCATION. A peripheral whose `route` register has no LOCATION field (`LESENSE`, `USB`) has one location, 0.
 - `Analog { bus }` (Series 2): the pin connects through the analog bus of its port. Port A uses `ABUS`, port B uses `BBUS`, and ports C and D use `CDBUS`. Allocate the pin in `GPIO.<bus>ALLOC`. The field depends on the pin parity (even or odd). The pin tool calls every bus `ABUS`, so the files keep `bus: ABUS`. `gen` chooses the bus from the port, and stops when the GPIO register YAML has no `<bus>alloc` register.
-- `Fixed { enable, alternative }`: the pin is fixed. There is no route register. `enable` is the field that connects the pin, when there is one: Series 0 USB `DM`, `DP` and `ID` use `route.phypen`, and the Series 2 debug and trace pins use `GPIO.dbgroutepen` and `GPIO.traceroutepen`. `FIXED_ENABLES` in `silabs-data-gen/src/pins.rs` lists them. `alternative` is the number of a numbered fixed alternative, for example Series 0 DAC0 `OUT0ALT` 0 to 4 (the bit in `OPA0MUX.OUTPEN`).
+- `Fixed { enable, alternative }`: the pin is fixed. There is no route register. `enable` is the field that connects the pin, when there is one: Series 0 USB `DM`, `DP` and `ID` use `route.phypen`, Series 0 DAC0 `OUT0ALT`, `OUT1ALT` and `OUT2` use `opa0mux.outpen`, `opa1mux.outpen` and `opa2mux.outpen`, and the Series 2 debug and trace pins use `GPIO.dbgroutepen` and `GPIO.traceroutepen`. `FIXED_ENABLES` in `silabs-data-gen/src/pins.rs` lists them. `alternative` is the number of a numbered fixed alternative, for example Series 0 DAC0 `OUT0ALT` 0 to 4. For DAC0, set bit `alternative` of the `outpen` field.
 
 A `Dbus` or `Location` route has `enable: None` only when the signal is in the `NO_ENABLE` list in `silabs-data-gen/src/pins.rs`. Each entry gives the reason, for example "input-only" for `CTS`, or "the multi-bit field `apen` enables a range of address lines" for EBI `A00` to `A27`. `gen` stops on any other missing enable. It names the chip, the peripheral and the signal. It also stops when a `NO_ENABLE` signal has an enable, because then the entry is stale.
 
@@ -74,7 +74,8 @@ The route register is `GPIO.<inst>_<sig>route`, and the enable bit is `GPIO.<ins
 Some data has no entries:
 
 - `efm32gg900f1024` and `efm32gg900f512` have no peripheral pins. They are die parts, and the pin tool has no data for them. `gen` prints one warning for each.
-- A peripheral in the pin file that is not on the chip gets no entries. `gen` prints the set for each chip. Examples are `MODEM` and `PTI` on Series 2, and `BU`, `HFXO` and `LFXO` on Series 0.
+- A peripheral in the pin file that is not on the chip gets no entries. `gen` prints the set for each chip. Examples are `MODEM` and `PTI` on Series 2, and `BU` on Series 0. `BU` (`BU_VIN`, `BU_VOUT`, `BU_STAT`) holds the backup power pins, which the EMU controls. They are not signals of a peripheral.
+- `PERIPHERAL_NAMES` in `silabs-data-gen/src/pins.rs` moves the entries of a pin-file peripheral to another chip peripheral. On Series 0, the CMU controls the crystal oscillators, so the `HFXO` and `LFXO` pins are fixed pins of `CMU`. Their signals keep the vendor names: `HFXO_N`, `HFXO_P`, `LFXO_N` and `LFXO_P` (EFM32GG: PB14, PB13, PB8 and PB7). On Series 2, `HFXO0` and `LFXO` are peripherals, so their pins stay with them.
 - Series 0 `DBG` and `ETM` get no entries. Their pins route through `GPIO.ROUTE` (the `SWLOCATION` and `ETMLOCATION` fields), and the metadata does not model this. `gen` prints them in a separate set.
 - Some MG24 and MG26 parts have dedicated analog pads (`AIN0`, `AIN1`) for `IADC0`. They are not GPIO pins, so the files do not list them.
 
@@ -263,7 +264,23 @@ Each `METADATA` peripheral has a `cmu` entry. `silabs-metapac-gen/src/clocks.rs`
   - `Mux`: the peripheral has its own select field (`EUSART0CLKCTRL.CLKSEL`). Each enum variant names a source clock.
   - `Clock`: a fixed clock-tree node (`em01grpaclk`, `pclk`). On Series 2 it comes from `SERIES2_FIXED`, a copy of the peripheral-to-branch table in `CMU_ClockFreqGet` (`platform/emlib/src/em_cmu.c` in the Simplicity SDK). On Series 0 it is the bus of the gate register (`HFPERCLKEN0` gives `hfperclk`).
 
+- `bus_enable` is a second gate that must be on before `enable`, and before any access to the peripheral registers. Several peripherals share it, so a HAL counts its users. It is `None` on Series 2. On Series 0, `SERIES0_BUS_ENABLES` in `clocks.rs` gives it from the reference manual:
+  - `HFCORECLKEN0.LE` clocks the bus interface of the Low Energy Peripherals (section 5.3.1): RTC, LETIMER0, LEUART0/1, LCD, LESENSE, PCNT0..2, WDOG and BURTC. WDOG and BURTC have no gate of their own, so `bus_enable` is their only CMU data.
+  - `HFCORECLKEN0.USBC` clocks the USB core.
+  The generator stops when a peripheral on `LFACLKEN0` or `LFBCLKEN0` has no entry.
+- `enable.sync_busy` names the `CMU.SYNCBUSY` field that a write to the gate register must wait for. It is `Some` for the Series 0 LF gates (`lfaclken0`, `lfbclken0`), and it has the name of the register. The rule comes from the IR: a CMU register whose description says "(Async Reg)" must have a `SYNCBUSY` field of the same name, or the generator stops. A `SYNCBUSY` bit clears only when the LF branch of the register has a running clock.
+- `prescaler` is a CMU field that divides the kernel clock. It is `Some` only for the Series 0 peripherals on LFACLK or LFBCLK: the field of `LFAPRESC0` or `LFBPRESC0` with the name of the peripheral (`lfapresc0.rtc`). It has its own `sync_busy` (`lfapresc0`). Each variant of its enum is named `Div<N>`, and N is the divider. The raw encoding differs by field: `rtc` and `letimer0` use log2(N), but `lcd` starts at `Div16` = 0. So take N from the enum. The generator stops when a variant is not `Div<N>` with N a power of two. The `Mux` select fields also have `sync_busy`, which is `None` on every chip today.
+
+`METADATA.clocks` lists every clock name in the CMU data of the chip, sorted: each `Clock` name and each source of each `Mux`. A source is the lowercase enum variant name, without `Disabled`. A `rt` suffix is dropped when the enum also has the base name (`Hfxort` is `hfxo`), and a `div<N>` suffix is dropped (`Hclkdiv1024` is `hclk`). A source can be an external pin (`pcnts0`). Clocks that no peripheral uses directly are not in the list: the Series 0 oscillators and HFCLK, and the Series 2 `sysclk`. For example, EFM32GG390F1024 has `hfcoreclk`, `hfperclk`, `lfaclk`, `lfbclk` and `pcnts0`.
+
 Group clocks (EM01GRPACLK, EM23GRPACLK, ...) are fixed clocks in this data. The HAL sets their muxes and calculates their frequencies when it sets up the clock tree.
+
+## Extra peripherals
+
+Some blocks are in the device header but not in the SVD. `data/extra_peripherals.yaml` names them for each family, and `gen` adds them to each chip of the family. The base address comes from `#define <NAME>_BASE` in the chip's device header. `gen` stops when the header has no such define, or when the SVD already has the peripheral. Each one needs a register YAML, written by hand from the family's Zlib header:
+
+- EFM32GG `DEVINFO` (`devinfo_s0v1.yaml`, from `efm32gg_devinfo.h`): factory calibration (HFRCO tuning per band, ADC and DAC calibration) and part data (`PART.PROD_REV`, unique number, memory sizes).
+- EFM32GG `ROMTABLE` (`romtable_s0v1.yaml`, from `efm32gg_romtable.h`): the chip family and the chip revision (`PID0.REVMAJOR`, `PID2.REVMINORMSB`, `PID3.REVMINORLSB`).
 
 ## Adding a new chip family
 

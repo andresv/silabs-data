@@ -40,6 +40,9 @@ enum Cmd {
         /// Curated register YAMLs, for the route register names.
         #[arg(long, default_value = "data/registers")]
         registers_dir: PathBuf,
+        /// Peripherals that a family's SVD does not list.
+        #[arg(long, default_value = "data/extra_peripherals.yaml")]
+        extra_peripherals: PathBuf,
     },
     /// One-shot: extract `data/pins/<family>.yaml` from the Silicon Labs pin
     /// tool. Writes only facts. `gen` never runs this.
@@ -136,7 +139,7 @@ fn main() -> anyhow::Result<()> {
                         eprintln!("[extract-pins] {family}: {} is up to date", out.display());
                     }
                     Some(old) if !force => {
-                        let summary = line_diff(&old, &yaml);
+                        let summary = silabs_data_gen::pintool::line_diff(&old, &yaml);
                         anyhow::bail!(
                             "{family}: {} differs from the extractor output. It is maintained by hand, so it is not overwritten. Use --force to overwrite.\n{summary}",
                             out.display()
@@ -155,7 +158,9 @@ fn main() -> anyhow::Result<()> {
             out_dir,
             pins_dir,
             registers_dir,
+            extra_peripherals,
         } => {
+            let extra = silabs_data_gen::extra::load(&extra_peripherals)?;
             let pin_families = silabs_data_gen::pins::load_dir(&pins_dir)?;
             let mut register_names = silabs_data_gen::pins::RegisterCache::new(&registers_dir);
             let extract_dir = pack.with_extension("pack-extracted");
@@ -173,7 +178,7 @@ fn main() -> anyhow::Result<()> {
                 let svd_path = extract_dir.join(&chip.svd);
                 let svd_xml = std::fs::read_to_string(&svd_path)
                     .map_err(|e| anyhow::anyhow!("reading SVD {}: {e}", svd_path.display()))?;
-                let peripherals = silabs_data_gen::svd::parse(&svd_xml)?;
+                let mut peripherals = silabs_data_gen::svd::parse(&svd_xml)?;
 
                 let hpath = match header_path_for_chip(&extract_dir, &chip) {
                     Some(hpath) if hpath.is_file() => hpath,
@@ -200,6 +205,7 @@ fn main() -> anyhow::Result<()> {
                 );
                 let header = std::fs::read_to_string(&hpath)
                     .map_err(|e| anyhow::anyhow!("reading header {}: {e}", hpath.display()))?;
+                silabs_data_gen::extra::append(&extra, &chip.family, &chip.name, &header, &mut peripherals)?;
                 chip.flash_page_size =
                     Some(silabs_data_gen::header::parse_flash_page_size(&header).ok_or_else(|| {
                         anyhow::anyhow!("{}: no `#define FLASH_PAGE_SIZE` in {}", chip.name, hpath.display())
@@ -291,25 +297,4 @@ fn dma_requests(hpath: &std::path::Path, series: u8) -> anyhow::Result<Vec<silab
     }
     let text = std::fs::read_to_string(&path).map_err(|e| anyhow::anyhow!("reading {}: {e}", path.display()))?;
     Ok(parse(&text))
-}
-
-/// A short summary of the lines that differ between two texts: the count of
-/// removed and added lines, and the first lines of each.
-fn line_diff(old: &str, new: &str) -> String {
-    let old_lines: std::collections::BTreeSet<&str> = old.lines().collect();
-    let new_lines: std::collections::BTreeSet<&str> = new.lines().collect();
-    let removed: Vec<&str> = old.lines().filter(|l| !new_lines.contains(l)).collect();
-    let added: Vec<&str> = new.lines().filter(|l| !old_lines.contains(l)).collect();
-    let mut s = format!(
-        "{} line(s) only in the file, {} line(s) only in the output",
-        removed.len(),
-        added.len()
-    );
-    for l in removed.iter().take(10) {
-        s.push_str(&format!("\n  - {l}"));
-    }
-    for l in added.iter().take(10) {
-        s.push_str(&format!("\n  + {l}"));
-    }
-    s
 }

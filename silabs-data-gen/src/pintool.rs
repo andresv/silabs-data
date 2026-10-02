@@ -767,6 +767,54 @@ pub fn extract_family(input: &ExtractInput) -> Result<(String, Vec<String>)> {
     Ok((yaml, report))
 }
 
+/// A short summary of an ordered line diff between two texts: the count of
+/// removed and added lines, and the first lines of each in file order.
+///
+/// The diff keeps the longest common subsequence of lines. So a line that
+/// moves counts as one removed and one added line, and a repeated line that
+/// is added or removed counts too. A set comparison misses both.
+pub fn line_diff(old: &str, new: &str) -> String {
+    let a: Vec<&str> = old.lines().collect();
+    let b: Vec<&str> = new.lines().collect();
+    // lcs[i][j]: length of the longest common subsequence of a[i..] and b[j..].
+    let mut lcs = vec![vec![0u32; b.len() + 1]; a.len() + 1];
+    for i in (0..a.len()).rev() {
+        for j in (0..b.len()).rev() {
+            lcs[i][j] = if a[i] == b[j] {
+                lcs[i + 1][j + 1] + 1
+            } else {
+                lcs[i + 1][j].max(lcs[i][j + 1])
+            };
+        }
+    }
+    let (mut removed, mut added) = (Vec::new(), Vec::new());
+    let (mut i, mut j) = (0, 0);
+    while i < a.len() || j < b.len() {
+        if i < a.len() && j < b.len() && a[i] == b[j] {
+            i += 1;
+            j += 1;
+        } else if j < b.len() && (i == a.len() || lcs[i][j + 1] >= lcs[i + 1][j]) {
+            added.push((j + 1, b[j]));
+            j += 1;
+        } else {
+            removed.push((i + 1, a[i]));
+            i += 1;
+        }
+    }
+    let mut s = format!(
+        "{} line(s) only in the file, {} line(s) only in the output",
+        removed.len(),
+        added.len()
+    );
+    for (n, l) in removed.iter().take(10) {
+        s.push_str(&format!("\n  - {n}: {l}"));
+    }
+    for (n, l) in added.iter().take(10) {
+        s.push_str(&format!("\n  + {n}: {l}"));
+    }
+    s
+}
+
 #[cfg(test)]
 mod tests {
     //! The XML here is written by hand, with made-up values. It has only the
@@ -774,6 +822,26 @@ mod tests {
     //! the module doc describes.
 
     use super::*;
+
+    #[test]
+    fn line_diff_is_ordered() {
+        assert_eq!(
+            line_diff("a\nb\n", "a\nb\n"),
+            "0 line(s) only in the file, 0 line(s) only in the output"
+        );
+        // A moved line and a repeated line: a set comparison sees no change.
+        let moved = line_diff("a\nb\nc\n", "b\na\nc\n");
+        assert!(
+            moved.starts_with("1 line(s) only in the file, 1 line(s) only in the output"),
+            "{moved}"
+        );
+        let repeated = line_diff("a\nb\n", "a\nb\nb\n");
+        assert!(
+            repeated.starts_with("0 line(s) only in the file, 1 line(s) only in the output"),
+            "{repeated}"
+        );
+        assert!(repeated.contains("+ 3: b"), "{repeated}");
+    }
 
     fn device(pins: &[&str], pads: &[&str]) -> String {
         let mut banks: BTreeMap<u8, Vec<(u8, &str)>> = BTreeMap::new();

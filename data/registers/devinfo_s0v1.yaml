@@ -1,0 +1,295 @@
+block/Devinfo:
+  description: Device information page (DEVINFO). Factory calibration and part data. Read-only. Source - efm32gg_devinfo.h (Zlib).
+  items:
+  - name: cal
+    description: Calibration temperature and checksum.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Cal
+  - name: adc0cal0
+    description: ADC0 calibration register 0.
+    byte_offset: 4
+    access: Read
+    fieldset: regs::Adc0cal0
+  - name: adc0cal1
+    description: ADC0 calibration register 1.
+    byte_offset: 8
+    access: Read
+    fieldset: regs::Adc0cal1
+  - name: adc0cal2
+    description: ADC0 calibration register 2.
+    byte_offset: 12
+    access: Read
+    fieldset: regs::Adc0cal2
+  - name: dac0cal0
+    description: DAC0 calibration register 0.
+    byte_offset: 24
+    access: Read
+    fieldset: regs::Dac0cal0
+  - name: dac0cal1
+    description: DAC0 calibration register 1.
+    byte_offset: 28
+    access: Read
+    fieldset: regs::Dac0cal1
+  - name: dac0cal2
+    description: DAC0 calibration register 2.
+    byte_offset: 32
+    access: Read
+    fieldset: regs::Dac0cal2
+  - name: auxhfrcocal0
+    description: AUXHFRCO calibration register 0.
+    byte_offset: 36
+    access: Read
+    fieldset: regs::Auxhfrcocal0
+  - name: auxhfrcocal1
+    description: AUXHFRCO calibration register 1.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::Auxhfrcocal1
+  - name: hfrcocal0
+    description: HFRCO calibration register 0.
+    byte_offset: 44
+    access: Read
+    fieldset: regs::Hfrcocal0
+  - name: hfrcocal1
+    description: HFRCO calibration register 1.
+    byte_offset: 48
+    access: Read
+    fieldset: regs::Hfrcocal1
+  - name: meminfo
+    description: Memory information.
+    byte_offset: 52
+    access: Read
+    fieldset: regs::Meminfo
+  - name: uniquel
+    description: Low 32 bits of the device unique number.
+    byte_offset: 64
+    access: Read
+    fieldset: regs::Uniquel
+  - name: uniqueh
+    description: High 32 bits of the device unique number.
+    byte_offset: 68
+    access: Read
+    fieldset: regs::Uniqueh
+  - name: msize
+    description: Flash and SRAM memory size, in kilobytes.
+    byte_offset: 72
+    access: Read
+    fieldset: regs::Msize
+  - name: part
+    description: Part description.
+    byte_offset: 76
+    access: Read
+    fieldset: regs::Part
+fieldset/regs::Adc0cal0:
+  description: ADC0 calibration register 0.
+  fields:
+  - name: _1v25_offset
+    description: Offset for the 1V25 reference.
+    bit_offset: 0
+    bit_size: 7
+  - name: _1v25_gain
+    description: Gain for the 1V25 reference.
+    bit_offset: 8
+    bit_size: 7
+  - name: _2v5_offset
+    description: Offset for the 2V5 reference.
+    bit_offset: 16
+    bit_size: 7
+  - name: _2v5_gain
+    description: Gain for the 2V5 reference.
+    bit_offset: 24
+    bit_size: 7
+fieldset/regs::Adc0cal1:
+  description: ADC0 calibration register 1.
+  fields:
+  - name: vdd_offset
+    description: Offset for the VDD reference.
+    bit_offset: 0
+    bit_size: 7
+  - name: vdd_gain
+    description: Gain for the VDD reference.
+    bit_offset: 8
+    bit_size: 7
+  - name: _5vdiff_offset
+    description: Offset for the 5VDIFF reference.
+    bit_offset: 16
+    bit_size: 7
+  - name: _5vdiff_gain
+    description: Gain for the 5VDIFF reference.
+    bit_offset: 24
+    bit_size: 7
+fieldset/regs::Adc0cal2:
+  description: ADC0 calibration register 2.
+  fields:
+  - name: _2xvddvss_offset
+    description: Offset for the 2XVDDVSS reference.
+    bit_offset: 0
+    bit_size: 7
+  - name: temp1v25
+    description: Temperature reading at the 1V25 reference.
+    bit_offset: 20
+    bit_size: 12
+fieldset/regs::Auxhfrcocal0:
+  description: AUXHFRCO calibration register 0.
+  fields:
+  - name: band1
+    description: AUXHFRCO TUNING value for the 1 MHz band.
+    bit_offset: 0
+    bit_size: 8
+  - name: band7
+    description: AUXHFRCO TUNING value for the 7 MHz band.
+    bit_offset: 8
+    bit_size: 8
+  - name: band11
+    description: AUXHFRCO TUNING value for the 11 MHz band.
+    bit_offset: 16
+    bit_size: 8
+  - name: band14
+    description: AUXHFRCO TUNING value for the 14 MHz band.
+    bit_offset: 24
+    bit_size: 8
+fieldset/regs::Auxhfrcocal1:
+  description: AUXHFRCO calibration register 1.
+  fields:
+  - name: band21
+    description: AUXHFRCO TUNING value for the 21 MHz band.
+    bit_offset: 0
+    bit_size: 8
+  - name: band28
+    description: AUXHFRCO TUNING value for the 28 MHz band.
+    bit_offset: 8
+    bit_size: 8
+fieldset/regs::Cal:
+  description: Calibration temperature and checksum.
+  fields:
+  - name: crc
+    description: Integrity CRC checksum.
+    bit_offset: 0
+    bit_size: 16
+  - name: temp
+    description: Calibration temperature, in degrees Celsius.
+    bit_offset: 16
+    bit_size: 8
+fieldset/regs::Dac0cal0:
+  description: DAC0 calibration register 0.
+  fields:
+  - name: _1v25_ch0_offset
+    description: Channel 0 offset for the 1V25 reference.
+    bit_offset: 0
+    bit_size: 6
+  - name: _1v25_ch1_offset
+    description: Channel 1 offset for the 1V25 reference.
+    bit_offset: 8
+    bit_size: 6
+  - name: _1v25_gain
+    description: Gain for the 1V25 reference.
+    bit_offset: 16
+    bit_size: 7
+fieldset/regs::Dac0cal1:
+  description: DAC0 calibration register 1.
+  fields:
+  - name: _2v5_ch0_offset
+    description: Channel 0 offset for the 2V5 reference.
+    bit_offset: 0
+    bit_size: 6
+  - name: _2v5_ch1_offset
+    description: Channel 1 offset for the 2V5 reference.
+    bit_offset: 8
+    bit_size: 6
+  - name: _2v5_gain
+    description: Gain for the 2V5 reference.
+    bit_offset: 16
+    bit_size: 7
+fieldset/regs::Dac0cal2:
+  description: DAC0 calibration register 2.
+  fields:
+  - name: vdd_ch0_offset
+    description: Channel 0 offset for the VDD reference.
+    bit_offset: 0
+    bit_size: 6
+  - name: vdd_ch1_offset
+    description: Channel 1 offset for the VDD reference.
+    bit_offset: 8
+    bit_size: 6
+  - name: vdd_gain
+    description: Gain for the VDD reference.
+    bit_offset: 16
+    bit_size: 7
+fieldset/regs::Hfrcocal0:
+  description: HFRCO calibration register 0.
+  fields:
+  - name: band1
+    description: HFRCO TUNING value for the 1 MHz band.
+    bit_offset: 0
+    bit_size: 8
+  - name: band7
+    description: HFRCO TUNING value for the 7 MHz band.
+    bit_offset: 8
+    bit_size: 8
+  - name: band11
+    description: HFRCO TUNING value for the 11 MHz band.
+    bit_offset: 16
+    bit_size: 8
+  - name: band14
+    description: HFRCO TUNING value for the 14 MHz band.
+    bit_offset: 24
+    bit_size: 8
+fieldset/regs::Hfrcocal1:
+  description: HFRCO calibration register 1.
+  fields:
+  - name: band21
+    description: HFRCO TUNING value for the 21 MHz band.
+    bit_offset: 0
+    bit_size: 8
+  - name: band28
+    description: HFRCO TUNING value for the 28 MHz band.
+    bit_offset: 8
+    bit_size: 8
+fieldset/regs::Meminfo:
+  description: Memory information.
+  fields:
+  - name: flash_page_size
+    description: Flash page size. The reference manual gives the encoding.
+    bit_offset: 24
+    bit_size: 8
+fieldset/regs::Msize:
+  description: Flash and SRAM memory size, in kilobytes.
+  fields:
+  - name: flash
+    description: Flash size, in kilobytes.
+    bit_offset: 0
+    bit_size: 16
+  - name: sram
+    description: SRAM size, in kilobytes.
+    bit_offset: 16
+    bit_size: 16
+fieldset/regs::Part:
+  description: Part description.
+  fields:
+  - name: device_number
+    description: Device number (for example 990 for EFM32GG990).
+    bit_offset: 0
+    bit_size: 16
+  - name: device_family
+    description: Device family (72 for Giant Gecko).
+    bit_offset: 16
+    bit_size: 8
+  - name: prod_rev
+    description: Production revision.
+    bit_offset: 24
+    bit_size: 8
+fieldset/regs::Uniqueh:
+  description: High 32 bits of the device unique number.
+  fields:
+  - name: uniqueh
+    description: High 32 bits of the 64-bit device unique number.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Uniquel:
+  description: Low 32 bits of the device unique number.
+  fields:
+  - name: uniquel
+    description: Low 32 bits of the 64-bit device unique number.
+    bit_offset: 0
+    bit_size: 32

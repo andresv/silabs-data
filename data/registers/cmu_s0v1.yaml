@@ -1198,6 +1198,9 @@ enum/vals::Lockkey:
   variants:
   - name: Locked
     value: 1
+  - name: Unlock
+    description: Write this key to unlock the registers. Any other value locks them.
+    value: 22542
   - name: Unlocked
     value: 0
 enum/vals::Pcntclksel:

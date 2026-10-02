@@ -1,0 +1,75 @@
+block/Romtable:
+  description: Cortex-M ROM table peripheral ID registers (ROMTABLE). They hold the chip family and the chip revision. Read-only. Source - efm32gg_romtable.h (Zlib).
+  items:
+  - name: pid4
+    description: JEP106 bank.
+    byte_offset: 0
+    access: Read
+  - name: pid5
+    description: Unused.
+    byte_offset: 4
+    access: Read
+  - name: pid6
+    description: Unused.
+    byte_offset: 8
+    access: Read
+  - name: pid7
+    description: Unused.
+    byte_offset: 12
+    access: Read
+  - name: pid0
+    description: Chip family LSB and chip major revision.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::Pid0
+  - name: pid1
+    description: JEP106 number and chip family MSB.
+    byte_offset: 20
+    access: Read
+    fieldset: regs::Pid1
+  - name: pid2
+    description: Chip minor revision MSB, JEP106 present and JEP106 number.
+    byte_offset: 24
+    access: Read
+    fieldset: regs::Pid2
+  - name: pid3
+    description: Chip minor revision LSB.
+    byte_offset: 28
+    access: Read
+    fieldset: regs::Pid3
+  - name: cid0
+    description: Unused.
+    byte_offset: 32
+    access: Read
+fieldset/regs::Pid0:
+  description: Chip family LSB and chip major revision.
+  fields:
+  - name: revmajor
+    description: Chip major revision.
+    bit_offset: 0
+    bit_size: 6
+  - name: familylsb
+    description: Bits 1:0 of the chip family.
+    bit_offset: 6
+    bit_size: 2
+fieldset/regs::Pid1:
+  description: JEP106 number and chip family MSB.
+  fields:
+  - name: familymsb
+    description: Bits 5:2 of the chip family.
+    bit_offset: 0
+    bit_size: 4
+fieldset/regs::Pid2:
+  description: Chip minor revision MSB, JEP106 present and JEP106 number.
+  fields:
+  - name: revminormsb
+    description: Bits 7:4 of the chip minor revision.
+    bit_offset: 4
+    bit_size: 4
+fieldset/regs::Pid3:
+  description: Chip minor revision LSB.
+  fields:
+  - name: revminorlsb
+    description: Bits 3:0 of the chip minor revision.
+    bit_offset: 4
+    bit_size: 4

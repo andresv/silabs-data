@@ -284,7 +284,9 @@ fn run_gen(
         let names = crate_layout::canonical_peripheral_names(chip);
         let cmu = silabs_metapac_gen::clocks::peripheral_cmu(chip, &names, &irs)
             .with_context(|| format!("CMU data for {}", chip.chip.name))?;
-        let metadata_rs = crate_layout::build_chip_metadata_rs(chip, &cmu, gpio_ports)
+        let clocks = silabs_metapac_gen::clocks::clock_names(chip, &cmu, &irs)
+            .with_context(|| format!("clock names for {}", chip.chip.name))?;
+        let metadata_rs = crate_layout::build_chip_metadata_rs(chip, &cmu, &clocks, gpio_ports)
             .with_context(|| format!("metadata for {}", chip.chip.name))?;
         std::fs::write(chip_dir.join("metadata.rs"), metadata_rs)?;
         std::fs::write(chip_dir.join("memory.x"), crate_layout::build_memory_x(chip)?)?;

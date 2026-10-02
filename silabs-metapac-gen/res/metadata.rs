@@ -182,6 +182,16 @@ pub struct Metadata {
     pub pins: &'static [Pin],
     /// Number of DMA channels (`LDMA_CH_NUM` / `DMA_CHAN_COUNT`). 0 when the chip has no DMA.
     pub dma_channel_count: u8,
+    /// Every clock that the peripherals' CMU data names, sorted and in
+    /// lowercase. A HAL can use it for its table of clock frequencies.
+    ///
+    /// It has each [`PeripheralCmuKernelClock::Clock`] name and each source of
+    /// each [`PeripheralCmuKernelClock::Mux`], except `Disabled`. A mux source
+    /// loses a `div<N>` suffix (`Hclkdiv1024` is `hclk`), and a `rt` suffix
+    /// when the enum also has the base name (`Hfxort` is `hfxo`). A source can
+    /// be an external pin (`pcnts0`). Clocks that no peripheral uses directly
+    /// (the Series 0 oscillators, `sysclk`) are not in the list.
+    pub clocks: &'static [&'static str],
 }
 
 /// One GPIO pin.
@@ -337,16 +347,40 @@ pub struct PeripheralDmaRequest {
 
 /// CMU data of one peripheral.
 ///
-/// There is no bus clock or reset entry: Silicon Labs chips have no
-/// per-peripheral reset bits.
+/// There is no reset entry: Silicon Labs chips have no per-peripheral reset
+/// bits.
 #[derive(Debug, Eq, PartialEq, Clone)]
 pub struct PeripheralCmu {
     /// Clock-gate bit that turns the peripheral's bus clock on. `None`
     /// when the peripheral is always clocked.
     pub enable: Option<ClockEnable>,
+    /// A gate that must be on before `enable`, and before any access to the
+    /// peripheral's registers. Several peripherals share it, so a HAL counts
+    /// its users. `None` on Series 2.
+    ///
+    /// Series 0:
+    /// - `hfcoreclken0.le` for the Low Energy Peripherals (RTC, LETIMER0,
+    ///   LEUART0/1, LCD, LESENSE, PCNT0..2, WDOG, BURTC). It clocks their
+    ///   bus interface. WDOG and BURTC have this entry only.
+    ///
+    /// USB has no entry. Its core clock `hfcoreclken0.usbc` comes after
+    /// `CMU.CMD.USBCCLKSEL` (reference manual, section 15.3.2).
+    pub bus_enable: Option<ClockEnable>,
     /// Clock that drives the peripheral (baud rate, counter, sampling).
     /// `None` when the peripheral has no kernel clock of its own.
     pub kernel_clock: Option<PeripheralCmuKernelClock>,
+    /// A CMU field that divides the kernel clock. `Some` only on Series 0,
+    /// for the peripherals on LFACLK or LFBCLK (`lfapresc0.rtc`,
+    /// `lfbpresc0.leuart0`).
+    ///
+    /// Each variant of the field's enum is named `Div<N>`, and N is the
+    /// divider. The encoding of the value differs by field, so take N from
+    /// the enum. For example:
+    /// - `lfapresc0.rtc` and `.letimer0`: `Div1` = 0 to `Div32768` = 15
+    ///   (log2(N)).
+    /// - `lfapresc0.lesense`, `lfbpresc0.leuart0/1`: `Div1` = 0 to `Div8` = 3.
+    /// - `lfapresc0.lcd`: `Div16` = 0 to `Div128` = 3 (log2(N) - 4).
+    pub prescaler: Option<PeripheralCmuRegister>,
 }
 
 /// Source of a peripheral's kernel clock.
@@ -371,6 +405,8 @@ pub struct PeripheralCmuRegister {
     pub register: &'static str,
     /// Field name (`clksel`).
     pub field: &'static str,
+    /// Field of `CMU.SYNCBUSY` to wait for. See [`ClockEnable::sync_busy`].
+    pub sync_busy: Option<&'static str>,
 }
 
 /// One CMU clock-gate bit.
@@ -390,6 +426,16 @@ pub struct ClockEnable {
     pub address: u64,
     /// Bit number of the field.
     pub bit: u32,
+    /// Field of `CMU.SYNCBUSY` to wait for. `Some` only for a Series 0
+    /// register in the LF clock domain (`lfaclken0`, `lfbclken0`,
+    /// `lfapresc0`, `lfbpresc0`), and then it has the register's name.
+    ///
+    /// Before a write to the register, wait until this `SYNCBUSY` bit is
+    /// clear. A second write while it is set is not supported (reference
+    /// manual, section 5.3.1.1.1). The bit clears only when the LF branch of
+    /// the register (LFACLK or LFBCLK) has a running clock. So a HAL must
+    /// first select a running source for the branch.
+    pub sync_busy: Option<&'static str>,
 }
 
 #[derive(Debug, Eq, PartialEq, Clone)]

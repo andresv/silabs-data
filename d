@@ -134,7 +134,8 @@ cmd_gen_all() {
             --pack "$pack" \
             --out-dir build/data \
             --pins-dir data/pins \
-            --registers-dir data/registers
+            --registers-dir data/registers \
+            --extra-peripherals data/extra_peripherals.yaml
     done
     pa=()
     while IFS= read -r line; do

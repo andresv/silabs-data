@@ -32,7 +32,7 @@ use silabs_data_gen::chips::{ChipFile, Interrupt, PeripheralInstance, Pin};
 use silabs_data_gen::pdsc::MemoryRegion;
 
 use crate::pac::{IpKey, module_name};
-use crate::peripheral::{nonsecure_to_secure_name, secure_to_nonsecure_name};
+use crate::peripheral::nonsecure_to_secure_name;
 
 /// Convert a perimap-routed block name (e.g. `GPIO`, `EUSART`, `I2C`) into the
 /// PascalCase identifier `chiptool::transform::sanitize::Sanitize::default()`
@@ -46,15 +46,14 @@ pub(crate) fn block_struct_ident(block: &str) -> String {
 
 /// Secure aliases whose non-secure peer is present in the same chip. Only
 /// these confirmed pairs may share the non-secure peer's register definition.
+/// [`silabs_data_gen::chips::canonical_names`] defines the alias rule: a
+/// paired secure alias has no canonical name.
 fn paired_secure_alias_names(peripherals: &[PeripheralInstance]) -> BTreeSet<&str> {
-    let names: BTreeSet<&str> = peripherals.iter().map(|p| p.name.as_str()).collect();
-    peripherals
+    let names: Vec<&str> = peripherals.iter().map(|p| p.name.as_str()).collect();
+    names
         .iter()
-        .filter_map(|p| {
-            secure_to_nonsecure_name(&p.name)
-                .filter(|peer| names.contains(peer.as_str()))
-                .map(|_| p.name.as_str())
-        })
+        .zip(silabs_data_gen::chips::canonical_names(&names))
+        .filter_map(|(name, canonical)| canonical.is_none().then_some(*name))
         .collect()
 }
 
@@ -602,25 +601,46 @@ fn peripheral_pins_literal(p: &silabs_data_gen::pins::PeripheralPins) -> String 
 }
 
 fn peripheral_cmu_literal(c: &crate::clocks::PeripheralCmu) -> String {
-    use crate::clocks::KernelClock;
-    let enable = c
-        .enable
-        .as_ref()
-        .map(|e| {
-            format!(
-                "Some(ClockEnable {{ register: {:?}, field: {:?}, address: 0x{:08X}, bit: {} }})",
-                e.register, e.field, e.address, e.bit
-            )
-        })
-        .unwrap_or_else(|| "None".to_owned());
+    use crate::clocks::{ClockEnable, CmuRegister, KernelClock};
+    fn opt_str(s: &Option<String>) -> String {
+        match s {
+            Some(s) => format!("Some({s:?})"),
+            None => "None".to_owned(),
+        }
+    }
+    let enable = |e: &Option<ClockEnable>| match e {
+        Some(e) => format!(
+            "Some(ClockEnable {{ register: {:?}, field: {:?}, address: 0x{:08X}, bit: {}, sync_busy: {} }})",
+            e.register,
+            e.field,
+            e.address,
+            e.bit,
+            opt_str(&e.sync_busy)
+        ),
+        None => "None".to_owned(),
+    };
+    let register = |r: &CmuRegister| {
+        format!(
+            "PeripheralCmuRegister {{ register: {:?}, field: {:?}, sync_busy: {} }}",
+            r.register,
+            r.field,
+            opt_str(&r.sync_busy)
+        )
+    };
     let kernel_clock = match &c.kernel_clock {
         None => "None".to_owned(),
         Some(KernelClock::Clock(name)) => format!("Some(PeripheralCmuKernelClock::Clock({name:?}))"),
-        Some(KernelClock::Mux { register, field }) => format!(
-            "Some(PeripheralCmuKernelClock::Mux(PeripheralCmuRegister {{ register: {register:?}, field: {field:?} }}))"
-        ),
+        Some(KernelClock::Mux(mux)) => format!("Some(PeripheralCmuKernelClock::Mux({}))", register(mux)),
     };
-    format!("PeripheralCmu {{ enable: {enable}, kernel_clock: {kernel_clock} }}")
+    let prescaler = match &c.prescaler {
+        None => "None".to_owned(),
+        Some(p) => format!("Some({})", register(p)),
+    };
+    format!(
+        "PeripheralCmu {{ enable: {}, bus_enable: {}, kernel_clock: {kernel_clock}, prescaler: {prescaler} }}",
+        enable(&c.enable),
+        enable(&c.bus_enable)
+    )
 }
 /// Build the `chips/<chip>/metadata.rs` content from a parsed `ChipFile`.
 ///
@@ -633,6 +653,7 @@ fn peripheral_cmu_literal(c: &crate::clocks::PeripheralCmu) -> String {
 pub fn build_chip_metadata_rs(
     chip: &ChipFile,
     cmu: &BTreeMap<String, crate::clocks::PeripheralCmu>,
+    clocks: &[String],
     gpio_ports: Option<usize>,
 ) -> Result<String> {
     let mut s = String::new();
@@ -759,6 +780,8 @@ pub fn build_chip_metadata_rs(
     }
     s.push_str("    ],\n");
     s.push_str(&format!("    dma_channel_count: {},\n", chip.dma_channel_count));
+    let clocks: Vec<String> = clocks.iter().map(|c| format!("{c:?}")).collect();
+    s.push_str(&format!("    clocks: &[{}],\n", clocks.join(", ")));
     s.push_str("};\n\n");
 
     // Each `<kind>_<version>.rs` holds `pub static REGISTERS: IR`. The chip
@@ -1127,7 +1150,7 @@ mod tests {
 
     #[test]
     fn metadata_rs_emits_per_kind_register_mod_decls() {
-        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new(), Some(4)).unwrap();
+        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new(), &[], Some(4)).unwrap();
         assert!(
             s.contains("pub static METADATA: Metadata = Metadata {"),
             "missing METADATA static:\n{s}"
@@ -1203,7 +1226,7 @@ mod tests {
                 pins: vec!["PD0".into()],
             },
         ];
-        let s = build_chip_metadata_rs(&s0, &BTreeMap::new(), Some(2)).unwrap();
+        let s = build_chip_metadata_rs(&s0, &BTreeMap::new(), &[], Some(2)).unwrap();
         assert_eq!(
             s.matches("Pin { name: ").count(),
             32,
@@ -1232,10 +1255,50 @@ mod tests {
                 em2: None,
             },
         ];
-        let s = build_chip_metadata_rs(&s0, &BTreeMap::new(), Some(2)).unwrap();
+        let s = build_chip_metadata_rs(&s0, &BTreeMap::new(), &[], Some(2)).unwrap();
         assert!(
             s.contains("Pin { name: \"PA2\", port: 0, pin: 2, em2: None },\n        Pin { name: \"PA10\", port: 0, pin: 10, em2: None },\n    ],"),
             "Series 0 package pins:\n{s}"
+        );
+    }
+
+    #[test]
+    fn metadata_rs_emits_cmu_bus_enable_sync_prescaler_and_clocks() {
+        use crate::clocks::{ClockEnable, CmuRegister, KernelClock, PeripheralCmu};
+        let mut cmu = BTreeMap::new();
+        cmu.insert(
+            "ACMP0".to_owned(),
+            PeripheralCmu {
+                enable: Some(ClockEnable {
+                    register: "lfaclken0".into(),
+                    field: "rtc".into(),
+                    address: 0x400C_8058,
+                    bit: 1,
+                    sync_busy: Some("lfaclken0".into()),
+                }),
+                bus_enable: Some(ClockEnable {
+                    register: "hfcoreclken0".into(),
+                    field: "le".into(),
+                    address: 0x400C_8040,
+                    bit: 4,
+                    sync_busy: None,
+                }),
+                kernel_clock: Some(KernelClock::Clock("lfaclk".into())),
+                prescaler: Some(CmuRegister {
+                    register: "lfapresc0".into(),
+                    field: "rtc".into(),
+                    sync_busy: Some("lfapresc0".into()),
+                }),
+            },
+        );
+        let s = build_chip_metadata_rs(&fake_chip(), &cmu, &["hfperclk".into(), "lfaclk".into()], None).unwrap();
+        assert!(
+            s.contains("cmu: Some(PeripheralCmu { enable: Some(ClockEnable { register: \"lfaclken0\", field: \"rtc\", address: 0x400C8058, bit: 1, sync_busy: Some(\"lfaclken0\") }), bus_enable: Some(ClockEnable { register: \"hfcoreclken0\", field: \"le\", address: 0x400C8040, bit: 4, sync_busy: None }), kernel_clock: Some(PeripheralCmuKernelClock::Clock(\"lfaclk\")), prescaler: Some(PeripheralCmuRegister { register: \"lfapresc0\", field: \"rtc\", sync_busy: Some(\"lfapresc0\") }) })"),
+            "missing CMU entry:\n{s}"
+        );
+        assert!(
+            s.contains("    clocks: &[\"hfperclk\", \"lfaclk\"],\n"),
+            "missing clocks:\n{s}"
         );
     }
 
@@ -1341,7 +1404,7 @@ mod tests {
 
     #[test]
     fn metadata_rs_emits_series_field() {
-        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new(), None).unwrap();
+        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new(), &[], None).unwrap();
         assert!(
             s.contains("series: Series::Series2(6),"),
             "missing series field in metadata.rs:\n{s}"

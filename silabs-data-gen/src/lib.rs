@@ -1,4 +1,5 @@
 pub mod chips;
+pub mod extra;
 pub mod header;
 pub mod interrupts;
 pub mod pack;

@@ -726,7 +726,7 @@ fieldset/regs::Route:
     bit_offset: 24
     bit_size: 1
   - name: dataenpen
-    description: EBI_TFT Pin Enable.
+    description: EBI_DATAEN Pin Enable.
     bit_offset: 25
     bit_size: 1
   - name: cstftpen

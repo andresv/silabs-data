@@ -843,14 +843,26 @@ fn check_enable(series0: bool, peripheral: &str, signal: &str, route: &PinRoute)
     }
 }
 
-/// Pin-file peripheral names that differ from the chip's peripheral name.
-/// `gen` uses an entry only when the chip has no peripheral with the
-/// pin-file name.
+/// Pin-file peripheral names that differ from the chip's peripheral name, as
+/// `(pin file, chip, signal prefix)`. `gen` uses an entry only when the chip
+/// has no peripheral with the pin-file name. The signal prefix goes before
+/// each signal name, so that the signal keeps its vendor name. A prefixed
+/// entry may have fixed pins only.
 ///
-/// | Pin file | Chip | Why |
-/// |---|---|---|
-/// | `USB` | `USB_NS_APBS` | FG25: the USB core registers. This block owns the `USB` IRQ. |
-const PERIPHERAL_NAMES: &[(&str, &str)] = &[("USB", "USB_NS_APBS")];
+/// | Pin file | Chip | Signals | Why |
+/// |---|---|---|---|
+/// | `USB` | `USB_NS_APBS` | as in the file | FG25: the USB core registers. This block owns the `USB` IRQ. |
+/// | `HFXO` | `CMU` | `HFXO_N`, `HFXO_P` | Series 0: the CMU controls the HFXO (`CTRL.HFXOMODE`, `OSCENCMD.HFXOEN`). There is no HFXO peripheral. |
+/// | `LFXO` | `CMU` | `LFXO_N`, `LFXO_P` | Series 0: the CMU controls the LFXO (`CTRL.LFXOMODE`, `OSCENCMD.LFXOEN`). There is no LFXO peripheral. |
+///
+/// `BU` (Series 0 backup power domain: `BU_VIN`, `BU_VOUT`, `BU_STAT`) has no
+/// entry. These are power pins that the EMU controls, not signals of a
+/// peripheral, so `gen` skips them and reports them.
+const PERIPHERAL_NAMES: &[(&str, &str, &str)] = &[
+    ("USB", "USB_NS_APBS", ""),
+    ("HFXO", "CMU", "HFXO_"),
+    ("LFXO", "CMU", "LFXO_"),
+];
 
 /// Series 0 ROUTE enable fields that do not follow the rule `<sig>pen`, as
 /// `(peripherals, signals, field)`. The field must exist in the peripheral's
@@ -876,15 +888,14 @@ const ROUTED_BY_GPIO: &[&str] = &["DBG", "ETM"];
 /// of the peripheral's own register YAML. A fixed pin that is not in this
 /// table has no enable.
 ///
-/// | Series | Peripheral | Signals | Enable |
-/// |---|---|---|---|
-/// | 0 | `USB` | `DM`, `DP`, `ID` | `route.phypen` |
-/// | 2 | `GPIO` | `SWCLK`, `SWDIO`, `TDO`, `TDI` | `dbgroutepen.swclktckpen`, `.swdiotmspen`, `.tdopen`, `.tdipen` |
-/// | 2 | `GPIO` | `SWV`, `TRACECLK`, `TRACEDATA0..3` | `traceroutepen.swvpen`, `.traceclkpen`, `.tracedata0pen..3pen` |
+/// DAC0 `OUTnALT`: the enable is bit `alternative` of `opaNmux.outpen`.
 const FIXED_ENABLES: &[(bool, &str, &str, &str, &str)] = &[
     (true, "USB", "DM", "route", "phypen"),
     (true, "USB", "DP", "route", "phypen"),
     (true, "USB", "ID", "route", "phypen"),
+    (true, "DAC0", "OUT0ALT", "opa0mux", "outpen"),
+    (true, "DAC0", "OUT1ALT", "opa1mux", "outpen"),
+    (true, "DAC0", "OUT2", "opa2mux", "outpen"),
     (false, "GPIO", "SWCLK", "dbgroutepen", "swclktckpen"),
     (false, "GPIO", "SWDIO", "dbgroutepen", "swdiotmspen"),
     (false, "GPIO", "TDO", "dbgroutepen", "tdopen"),
@@ -991,14 +1002,19 @@ fn analog_route(gpio: &RegisterNames, gpio_module: &str, file_bus: &str, pin: Pi
 /// The chip peripheral that owns the entries of pin-file peripheral
 /// `periph`: the same name, else the [`PERIPHERAL_NAMES`] entry.
 pub fn chip_peripheral(owners: &BTreeMap<String, usize>, periph: &str) -> Option<usize> {
-    let mapped = PERIPHERAL_NAMES
+    chip_peripheral_and_prefix(owners, periph).map(|(i, _)| i)
+}
+
+/// [`chip_peripheral`] and the signal prefix of the [`PERIPHERAL_NAMES`]
+/// entry (`""` when the chip has a peripheral with the pin-file name).
+fn chip_peripheral_and_prefix(owners: &BTreeMap<String, usize>, periph: &str) -> Option<(usize, &'static str)> {
+    if let Some(&i) = owners.get(periph) {
+        return Some((i, ""));
+    }
+    PERIPHERAL_NAMES
         .iter()
-        .find(|(from, _)| *from == periph)
-        .map(|(_, to)| *to);
-    owners
-        .get(periph)
-        .or_else(|| mapped.and_then(|m| owners.get(m)))
-        .copied()
+        .find(|(from, _, _)| *from == periph)
+        .and_then(|(_, to, prefix)| owners.get(*to).map(|&i| (i, *prefix)))
 }
 
 /// Canonical peripheral names of a chip to the index of the instance that
@@ -1101,14 +1117,21 @@ pub fn attach(
             by_gpio.insert(periph.as_str());
             continue;
         }
-        let Some(index) = chip_peripheral(&owner, periph) else {
+        let Some((index, prefix)) = chip_peripheral_and_prefix(&owner, periph) else {
             skipped.insert(periph.as_str());
             continue;
         };
         let p = &chip.peripherals[index];
         let module = format!("{}_{}", p.kind, p.register_version);
-        for (sig, signal) in signals {
-            let ctx = || format!("{name}: {periph} {sig}");
+        let chip_periph = p.name.strip_suffix("_NS").unwrap_or(&p.name).to_owned();
+        for (file_sig, signal) in signals {
+            let ctx = || format!("{name}: {periph} {file_sig}");
+            ensure!(
+                prefix.is_empty() || matches!(signal, Signal::Pins(_)),
+                "{}: PERIPHERAL_NAMES maps {periph} to {chip_periph} with a signal prefix, so it must have fixed pins only",
+                ctx()
+            );
+            let sig = &format!("{prefix}{file_sig}");
             if !series0
                 && matches!(signal, Signal::Pins(_) | Signal::Alternatives(_))
                 && let Some(reg) = route_register(regs.get(&gpio_module)?, &gpio.1, periph, sig)
@@ -1567,5 +1590,57 @@ mod tests {
                 alternative: None
             }
         );
+    }
+
+    #[test]
+    fn series0_oscillator_pins_go_to_cmu_and_dac_alternatives_have_enables() {
+        let yaml = "packages:\n  - parts: [xchip9]\n    pins: [PB7, PB8, PB13, PB14, PC0, PD0, PE3]\nperipherals:\n  HFXO:\n    \"N\": { pins: [PB14] }\n    P: { pins: [PB13] }\n  LFXO:\n    \"N\": { pins: [PB8] }\n    P: { pins: [PB7] }\n  BU:\n    STAT: { pins: [PE3] }\n  DAC0:\n    OUT0ALT: { alternatives: { 0: PC0, 4: PD0 } }\n";
+        let families: BTreeMap<String, Family> = [("xfam9".to_owned(), Family::parse(yaml).unwrap())].into();
+        let mut regs = RegisterCache::new(Path::new("/nonexistent"));
+        let mut gpio = regs_yaml(&[]);
+        gpio.arrays.insert("p_ctrl".into(), 6);
+        regs.insert("gpio_s0v9", gpio);
+        regs.insert("cmu_s0v9", regs_yaml(&[("route", &["clkout0pen", "location"])]));
+        regs.insert("dac_s0v9", regs_yaml(&[("opa0mux", &["outpen"])]));
+        let mut c = chip(
+            0,
+            "XFAM9",
+            &[],
+            vec![
+                instance("GPIO", "gpio", "s0v9"),
+                instance("CMU", "cmu", "s0v9"),
+                instance("DAC0", "dac", "s0v9"),
+            ],
+        );
+        let warnings = attach(&mut c, &families, &mut regs).unwrap();
+        let fixed = PinRoute::Fixed {
+            enable: None,
+            alternative: None,
+        };
+        let cmu: Vec<(&str, &PinRoute, Vec<&str>)> = c.peripherals[1]
+            .pins
+            .iter()
+            .map(|e| (e.signal.as_str(), &e.route, e.pins.iter().map(String::as_str).collect()))
+            .collect();
+        assert_eq!(
+            cmu,
+            vec![
+                ("HFXO_N", &fixed, vec!["PB14"]),
+                ("HFXO_P", &fixed, vec!["PB13"]),
+                ("LFXO_N", &fixed, vec!["PB8"]),
+                ("LFXO_P", &fixed, vec!["PB7"]),
+            ]
+        );
+        // BU stays a reported skip.
+        assert_eq!(
+            warnings,
+            vec!["XCHIP9: pin peripherals with no peripheral: {\"BU\"}".to_owned()]
+        );
+        let dac: Vec<&PinRoute> = c.peripherals[2].pins.iter().map(|e| &e.route).collect();
+        let alt = |n| PinRoute::Fixed {
+            enable: Some(PinRouteEnable::new("opa0mux", "outpen")),
+            alternative: Some(n),
+        };
+        assert_eq!(dac, vec![&alt(0), &alt(4)]);
     }
 }

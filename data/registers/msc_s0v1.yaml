@@ -342,6 +342,9 @@ enum/vals::LockLockkey:
   variants:
   - name: Locked
     value: 1
+  - name: Unlock
+    description: Write this key to unlock the registers. Any other value locks them.
+    value: 7025
   - name: Unlocked
     value: 0
 enum/vals::MasslockLockkey:
@@ -350,6 +353,9 @@ enum/vals::MasslockLockkey:
   - name: Locked
     description: Mass erase locked.
     value: 1
+  - name: Unlock
+    description: Write this key to unlock the registers. Any other value locks them.
+    value: 25370
   - name: Unlocked
     description: Mass erase unlocked.
     value: 0

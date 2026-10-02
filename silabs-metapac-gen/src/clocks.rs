@@ -1,46 +1,32 @@
 //! Per-peripheral CMU data: the clock-gate bit (`enable`) and the clock
 //! that drives the peripheral (`kernel_clock`).
 //!
-//! # Clock gates
-//!
-//! Every CMU clock-gate field is named after the peripheral it gates:
-//! Series 2 `CLKENn.TIMER4`, Series 0 `HFPERCLKEN0.TIMER0` /
-//! `LFACLKEN0.LETIMER0` / `PCNTCTRL.PCNT0CLKEN` (the `CLKEN` suffix is
-//! dropped). So a peripheral's enable bit is found by matching
-//! its instance name against the fields of the chip's own CMU gate
-//! registers. [`OVERRIDES`] covers the few names that don't match.
-//! Peripherals without a gate (CMU, EMU, DEVINFO, ...) are always clocked
-//! and get `None`.
-//!
-//! The metapac resolves the register address and bit here, so a consumer
-//! can use them in a `const` lookup without walking the register IR.
-//!
-//! # Kernel clocks
-//!
-//! In order:
-//!
-//! 1. Mux. The peripheral has its own clock select in the CMU, found by
-//!    name: Series 2 `<name>CLKCTRL.CLKSEL` (`EUSART0CLKCTRL`), Series 0
-//!    `<name>CLKSEL` (`PCNTCTRL.PCNT0CLKSEL`). Each variant of the field's
-//!    enum names a source clock.
-//! 2. Fixed clock, named in lowercase (`em01grpaclk`, `pclk`).
-//!    - Series 2: [`SERIES2_FIXED`], the peripheral-to-branch table of
-//!      `CMU_ClockFreqGet` in the SDK's `em_cmu.c`.
-//!    - Series 0: the bus of the gate register (`HFPERCLKEN0` is
-//!      `hfperclk`), see [`SERIES0_GATE_CLOCKS`].
-//! 3. `None`: the peripheral has no kernel clock of its own (oscillators,
-//!    CMU, EMU, ...).
-//!
-//! Group clocks such as EM01GRPACLK have their own mux, but they are
-//! reported as fixed clocks. The HAL computes their frequency when it sets
-//! up the clock tree.
-//!
-//! Series 0 LE prescalers (`LFAPRESC0.LETIMER0`) are not part of the
-//! kernel clock. The driver owns them, like the TIMER `PRESC` field.
+//! - **Gate:** the CMU gate field with the instance name (Series 2
+//!   `CLKENn.TIMER4`, Series 0 `HFPERCLKEN0.TIMER0`, `PCNTCTRL.PCNT0CLKEN`
+//!   without `CLKEN`). [`OVERRIDES`] covers the names that do not match. No
+//!   gate (CMU, EMU, DEVINFO, ...) gives `None`. The address and bit are
+//!   resolved here, so a consumer needs no IR walk.
+//! - **Kernel clock**, first match:
+//!   1. Mux: the peripheral's own CMU select, Series 2
+//!      `<name>CLKCTRL.CLKSEL`, Series 0 `<name>CLKSEL`
+//!      (`PCNTCTRL.PCNT0CLKSEL`). Each enum variant names a source.
+//!   2. Fixed clock, in lowercase: Series 2 [`SERIES2_FIXED`] (from
+//!      `CMU_ClockFreqGet` in the SDK's `em_cmu.c`), Series 0 the bus of the
+//!      gate register ([`SERIES0_GATE_CLOCKS`]). Group clocks such as
+//!      EM01GRPACLK are fixed here. The HAL computes their frequency.
+//!   3. `None` (oscillators, CMU, EMU, ...).
+//! - **Prescaler** (Series 0 LFACLK/LFBCLK): the field with the instance name
+//!   in `LFAPRESC0`/`LFBPRESC0`. Its enum values are `Div<N>`, but the raw
+//!   encoding differs (`RTC`, `LETIMER0`: log2(N); `LCD`: log2(N) - 4), so a
+//!   HAL takes N from the enum.
+//! - **Bus enable** (Series 0): a shared second gate, [`SERIES0_BUS_ENABLES`].
+//! - **LF sync** (Series 0): a write to an "(Async Reg)" register
+//!   (`LFACLKEN0`, `LFBCLKEN0`, `LFAPRESC0`, `LFBPRESC0`) waits for
+//!   `CMU.SYNCBUSY.<register>`. Generation stops when that field is missing.
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 
-use anyhow::{Context, Result, bail};
+use anyhow::{Context, Result, bail, ensure};
 use chiptool::ir::{BitOffset, BlockItemInner, IR};
 use regex::Regex;
 use silabs_data_gen::chips::ChipFile;
@@ -52,7 +38,11 @@ use crate::pac::IpKey;
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct PeripheralCmu {
     pub enable: Option<ClockEnable>,
+    /// A shared gate that must be on before `enable` (`hfcoreclken0.le`).
+    pub bus_enable: Option<ClockEnable>,
     pub kernel_clock: Option<KernelClock>,
+    /// A prescaler field that divides the kernel clock (`lfapresc0.rtc`).
+    pub prescaler: Option<CmuRegister>,
 }
 
 /// Clock that drives a peripheral.
@@ -61,7 +51,16 @@ pub enum KernelClock {
     /// A fixed clock-tree node, lowercase (`em01grpaclk`).
     Clock(String),
     /// A CMU select field (`eusart0clkctrl`.`clksel`) with an enum.
-    Mux { register: String, field: String },
+    Mux(CmuRegister),
+}
+
+/// A field in a CMU register.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct CmuRegister {
+    pub register: String,
+    pub field: String,
+    /// `CMU.SYNCBUSY` field that a write to `register` waits for.
+    pub sync_busy: Option<String>,
 }
 
 /// One clock-gate bit.
@@ -75,6 +74,8 @@ pub struct ClockEnable {
     pub address: u64,
     /// Bit number of the field.
     pub bit: u32,
+    /// `CMU.SYNCBUSY` field that a write to `register` waits for.
+    pub sync_busy: Option<String>,
 }
 
 /// CMU registers that hold clock gates: `CLKENn` on Series 1+ and the
@@ -112,6 +113,20 @@ const SERIES2_FIXED: &[(&str, &str)] = &[
     (r"^(BURTC|ETAMPDET)$", "em4grpaclk"),
 ];
 
+/// Series 0 shared gates that a peripheral needs before its own gate, as
+/// `(peripheral regex, gate field)`. The field must be a gate in the CMU IR.
+/// Source: the EFM32GG reference manual.
+/// - `HFCORECLKEN0.LE` clocks the bus interface to the Low Energy
+///   Peripherals (section 11.5, `CMU_HFCORECLKEN0`). Section 5.3.1 lists them:
+///   LCD, LETIMER, LEUART, PCNT, RTC, WDOG, LESENSE and BURTC.
+///
+/// `HFCORECLKEN0.USBC` is not here. Section 15.3.2 enables it after `USB` and
+/// after `CMD.USBCCLKSEL`, so it is not a gate to enable first.
+pub const SERIES0_BUS_ENABLES: &[(&str, &str)] = &[(r"^(LCD|LETIMER\d|LEUART\d|PCNT\d|RTC|WDOG|LESENSE|BURTC)$", "le")];
+
+/// CMU registers that hold the Series 0 per-peripheral LF prescalers.
+const PRESCALER_REGISTERS: &str = r"^lf[a-z]presc\d+$";
+
 /// Series 0 kernel clock per gate register.
 const SERIES0_GATE_CLOCKS: &[(&str, &str)] = &[
     ("hfperclken0", "hfperclk"),
@@ -144,6 +159,8 @@ pub fn peripheral_cmu(
         .blocks
         .get(&block_name)
         .with_context(|| format!("CMU IR has no block `{block_name}`"))?;
+    let sync_busy = sync_busy_fields(ir, block)?;
+    let sync = |register: &str| sync_busy.contains(register).then(|| register.to_owned());
 
     let gate_re = Regex::new(GATE_REGISTERS).expect("GATE_REGISTERS compiles");
     // field name → gate, across every gate register.
@@ -174,6 +191,7 @@ pub fn peripheral_cmu(
                 field: f.name.clone(),
                 address: cmu.base_address + u64::from(item.byte_offset),
                 bit,
+                sync_busy: sync(&item.name),
             };
             if let Some(prev) = gates.insert(name.to_owned(), gate) {
                 bail!("CMU gate `{name}` is in both {} and {}", prev.register, item.name);
@@ -183,7 +201,7 @@ pub fn peripheral_cmu(
 
     // Select fields by name: `<name>clkctrl`.`clksel` (Series 2) or
     // `<name>clksel` in any register (Series 0).
-    let mut selects: BTreeMap<String, (String, String)> = BTreeMap::new();
+    let mut selects: BTreeMap<String, CmuRegister> = BTreeMap::new();
     for item in &block.items {
         let BlockItemInner::Register(reg) = &item.inner else {
             continue;
@@ -205,7 +223,12 @@ pub fn peripheral_cmu(
                 f.name.strip_suffix("clksel")
             };
             if let Some(key) = key.filter(|k| !k.is_empty()) {
-                selects.insert(key.to_owned(), (item.name.clone(), f.name.clone()));
+                let select = CmuRegister {
+                    register: item.name.clone(),
+                    field: f.name.clone(),
+                    sync_busy: sync(&item.name),
+                };
+                selects.insert(key.to_owned(), select);
             }
         }
     }
@@ -215,6 +238,51 @@ pub fn peripheral_cmu(
         2 => SERIES2_FIXED
             .iter()
             .map(|(re, clock)| Ok((Regex::new(re)?, *clock)))
+            .collect::<Result<Vec<_>>>()?,
+        _ => Vec::new(),
+    };
+
+    // Prescaler fields by name: `lfapresc0.rtc`. Each must have an enum of
+    // `Div<N>` variants.
+    let presc_re = Regex::new(PRESCALER_REGISTERS).expect("PRESCALER_REGISTERS compiles");
+    let mut prescalers: BTreeMap<String, CmuRegister> = BTreeMap::new();
+    for item in &block.items {
+        let BlockItemInner::Register(reg) = &item.inner else {
+            continue;
+        };
+        if !presc_re.is_match(&item.name) || item.array.is_some() {
+            continue;
+        }
+        let Some(fs) = reg.fieldset.as_ref().and_then(|f| ir.fieldsets.get(f)) else {
+            continue;
+        };
+        for f in &fs.fields {
+            check_prescaler_enum(ir, &item.name, &f.name, f.enumm.as_deref())?;
+            let presc = CmuRegister {
+                register: item.name.clone(),
+                field: f.name.clone(),
+                sync_busy: sync(&item.name),
+            };
+            if let Some(prev) = prescalers.insert(f.name.clone(), presc) {
+                bail!(
+                    "CMU prescaler `{}` is in both {} and {}",
+                    f.name,
+                    prev.register,
+                    item.name
+                );
+            }
+        }
+    }
+
+    let bus_enables = match series.series {
+        0 => SERIES0_BUS_ENABLES
+            .iter()
+            .map(|(re, field)| {
+                let gate = gates
+                    .get(*field)
+                    .with_context(|| format!("SERIES0_BUS_ENABLES: the CMU has no gate `{field}`"))?;
+                Ok((Regex::new(re)?, gate.clone()))
+            })
             .collect::<Result<Vec<_>>>()?,
         _ => Vec::new(),
     };
@@ -232,8 +300,8 @@ pub fn peripheral_cmu(
         let mux = [field.clone(), stripped.to_owned(), format!("{field}0")]
             .into_iter()
             .find_map(|k| selects.get(&k).cloned());
-        let kernel_clock = if let Some((register, field)) = mux {
-            Some(KernelClock::Mux { register, field })
+        let kernel_clock = if let Some(mux) = mux {
+            Some(KernelClock::Mux(mux))
         } else if let Some((_, clock)) = fixed.iter().find(|(re, _)| re.is_match(canonical)) {
             Some(KernelClock::Clock((*clock).to_owned()))
         } else if series.series == 0 {
@@ -247,11 +315,164 @@ pub fn peripheral_cmu(
             None
         };
 
-        if enable.is_some() || kernel_clock.is_some() {
-            out.insert(canonical.clone(), PeripheralCmu { enable, kernel_clock });
+        let bus_enable = bus_enables
+            .iter()
+            .find(|(re, _)| re.is_match(canonical))
+            .map(|(_, gate)| gate.clone());
+        // An LF gate needs the LE interface: check that the table agrees.
+        if let Some(e) = &enable
+            && SERIES0_LF_GATES.contains(&e.register.as_str())
+            && bus_enable.is_none()
+        {
+            bail!(
+                "{canonical}: its gate is {}.{}, but SERIES0_BUS_ENABLES has no entry for it",
+                e.register,
+                e.field
+            );
+        }
+        let prescaler = if enable
+            .as_ref()
+            .is_some_and(|e| SERIES0_LF_GATES.contains(&e.register.as_str()))
+        {
+            prescalers.get(&field).cloned()
+        } else {
+            None
+        };
+
+        if enable.is_some() || kernel_clock.is_some() || bus_enable.is_some() {
+            out.insert(
+                canonical.clone(),
+                PeripheralCmu {
+                    enable,
+                    bus_enable,
+                    kernel_clock,
+                    prescaler,
+                },
+            );
         }
     }
     Ok(out)
+}
+
+/// Series 0 gate registers in the LF clock domain.
+const SERIES0_LF_GATES: &[&str] = &["lfaclken0", "lfbclken0"];
+
+/// The fields of `CMU.SYNCBUSY`. Each CMU register that the IR marks
+/// "(Async Reg)" must have one, with the register's name.
+fn sync_busy_fields(ir: &IR, block: &chiptool::ir::Block) -> Result<BTreeSet<String>> {
+    let mut fields = BTreeSet::new();
+    if let Some(item) = block.items.iter().find(|i| i.name == "syncbusy")
+        && let BlockItemInner::Register(reg) = &item.inner
+        && let Some(fs) = reg.fieldset.as_ref().and_then(|f| ir.fieldsets.get(f))
+    {
+        fields.extend(fs.fields.iter().map(|f| f.name.clone()));
+    }
+    for item in &block.items {
+        let is_async = item.description.as_deref().is_some_and(|d| d.contains("(Async Reg)"));
+        if is_async && !fields.contains(&item.name) {
+            bail!(
+                "CMU register `{}` is an Async Reg, but CMU.SYNCBUSY has no `{}` field",
+                item.name,
+                item.name
+            );
+        }
+    }
+    Ok(fields)
+}
+
+/// A prescaler field must have an enum whose variants are all `Div<N>`, with
+/// N a power of two.
+fn check_prescaler_enum(ir: &IR, register: &str, field: &str, enumm: Option<&str>) -> Result<()> {
+    let e = enumm
+        .and_then(|e| ir.enums.get(e))
+        .with_context(|| format!("CMU prescaler {register}.{field} has no enum"))?;
+    for v in &e.variants {
+        let n: u32 = v
+            .name
+            .strip_prefix("Div")
+            .and_then(|n| n.parse().ok())
+            .with_context(|| format!("CMU prescaler {register}.{field}: variant `{}` is not `Div<N>`", v.name))?;
+        ensure!(
+            n.is_power_of_two(),
+            "CMU prescaler {register}.{field}: {} is not a power of two",
+            v.name
+        );
+    }
+    Ok(())
+}
+
+/// Clock names in the kernel-clock, mux and prescaler data of a chip,
+/// sorted: each `Clock` name, and each source of each `Mux` field. A source
+/// name is the lowercase enum variant name. `Disabled` is not a clock. A
+/// `rt` suffix (`Hfxort`, the retimed copy) and a `div<N>` suffix
+/// (`Hclkdiv1024`) are dropped, so the name is the source clock. A
+/// prescaler divides the kernel clock, so it adds no name.
+pub fn clock_names(
+    chip: &ChipFile,
+    cmu: &BTreeMap<String, PeripheralCmu>,
+    irs: &BTreeMap<IpKey, IR>,
+) -> Result<Vec<String>> {
+    let cmu_p = chip
+        .peripherals
+        .iter()
+        .find(|p| p.kind == "cmu" && !p.name.ends_with("_S"))
+        .with_context(|| format!("{} has no CMU", chip.chip.name))?;
+    let ir = irs
+        .get(&(cmu_p.kind.clone(), cmu_p.register_version.clone()))
+        .with_context(|| format!("no IR for cmu_{}", cmu_p.register_version))?;
+    let block_name = block_struct_ident(&cmu_p.block);
+    let block = ir
+        .blocks
+        .get(&block_name)
+        .with_context(|| format!("CMU IR has no block `{block_name}`"))?;
+    let mut names = BTreeSet::new();
+    for c in cmu.values() {
+        match &c.kernel_clock {
+            None => {}
+            Some(KernelClock::Clock(name)) => {
+                names.insert(name.clone());
+            }
+            Some(KernelClock::Mux(mux)) => {
+                let item = block
+                    .items
+                    .iter()
+                    .find(|i| i.name == mux.register)
+                    .with_context(|| format!("CMU has no register {}", mux.register))?;
+                let BlockItemInner::Register(reg) = &item.inner else {
+                    bail!("CMU {} is not a register", mux.register);
+                };
+                let e = reg
+                    .fieldset
+                    .as_ref()
+                    .and_then(|f| ir.fieldsets.get(f))
+                    .and_then(|fs| fs.fields.iter().find(|f| f.name == mux.field))
+                    .and_then(|f| f.enumm.as_ref())
+                    .and_then(|e| ir.enums.get(e))
+                    .with_context(|| format!("CMU {}.{} has no enum", mux.register, mux.field))?;
+                let variants: Vec<String> = e.variants.iter().map(|v| v.name.to_ascii_lowercase()).collect();
+                names.extend(variants.iter().filter_map(|v| mux_source_name(v, &variants)));
+            }
+        }
+    }
+    Ok(names.into_iter().collect())
+}
+
+/// The source clock of a lowercase mux enum variant. `None` for
+/// `disabled`. A `rt` suffix is dropped only when the enum also has the
+/// base name (`hfxort` and `hfxo`).
+fn mux_source_name(variant: &str, variants: &[String]) -> Option<String> {
+    if variant.starts_with("disable") {
+        return None;
+    }
+    let v = match variant.split_once("div") {
+        Some((base, n)) if !base.is_empty() && n.parse::<u32>().is_ok() => base,
+        _ => variant,
+    };
+    let v = match v.strip_suffix("rt") {
+        Some(base) if variants.iter().any(|x| x == base) => base,
+        _ => v,
+    };
+    Some(v.to_owned())
 }
 
 #[cfg(test)]
@@ -358,10 +579,11 @@ enum/vals::Eusart0clkctrlClksel:
     }
 
     fn mux(register: &str) -> Option<KernelClock> {
-        Some(KernelClock::Mux {
+        Some(KernelClock::Mux(CmuRegister {
             register: register.to_owned(),
             field: "clksel".to_owned(),
-        })
+            sync_busy: None,
+        }))
     }
 
     #[test]
@@ -373,7 +595,8 @@ enum/vals::Eusart0clkctrlClksel:
                 register: "clken1".into(),
                 field: "timer4".into(),
                 address: 0x5000_8068,
-                bit: 31
+                bit: 31,
+                sync_busy: None,
             })
         );
         let timer0 = got["TIMER0"].enable.as_ref().unwrap();
@@ -404,30 +627,72 @@ enum/vals::Eusart0clkctrlClksel:
         assert!(run(2, 1, "s2v3", S2_CMU, &["TIMER0"]).is_err());
     }
 
-    #[test]
-    fn series0_kernel_clock_is_the_gate_bus() {
-        let yaml = "
+    const S0_CMU: &str = "
 block/Cmu:
   items:
+  - name: hfcoreclken0
+    byte_offset: 64
+    fieldset: regs::Hfcoreclken0
   - name: hfperclken0
     byte_offset: 68
     fieldset: regs::Hfperclken0
+  - name: syncbusy
+    byte_offset: 80
+    access: Read
+    fieldset: regs::Syncbusy
   - name: lfaclken0
+    description: Low Frequency A Clock Enable Register 0 (Async Reg).
     byte_offset: 88
     fieldset: regs::Lfaclken0
+  - name: lfapresc0
+    description: Low Frequency A Prescaler Register 0 (Async Reg).
+    byte_offset: 104
+    fieldset: regs::Lfapresc0
   - name: pcntctrl
     byte_offset: 120
     fieldset: regs::Pcntctrl
+fieldset/regs::Hfcoreclken0:
+  fields:
+  - name: usbc
+    bit_offset: 2
+    bit_size: 1
+  - name: usb
+    bit_offset: 3
+    bit_size: 1
+  - name: le
+    bit_offset: 4
+    bit_size: 1
 fieldset/regs::Hfperclken0:
   fields:
   - name: timer0
     bit_offset: 5
     bit_size: 1
+fieldset/regs::Syncbusy:
+  fields:
+  - name: lfaclken0
+    bit_offset: 0
+    bit_size: 1
+  - name: lfapresc0
+    bit_offset: 2
+    bit_size: 1
 fieldset/regs::Lfaclken0:
   fields:
+  - name: rtc
+    bit_offset: 1
+    bit_size: 1
   - name: letimer0
     bit_offset: 2
     bit_size: 1
+fieldset/regs::Lfapresc0:
+  fields:
+  - name: rtc
+    bit_offset: 4
+    bit_size: 4
+    enum: vals::Rtc
+  - name: letimer0
+    bit_offset: 8
+    bit_size: 4
+    enum: vals::Rtc
 fieldset/regs::Pcntctrl:
   fields:
   - name: pcnt0clken
@@ -442,21 +707,140 @@ enum/vals::Pcntclksel:
   variants:
   - name: Lfaclk
     value: 0
+  - name: Pcnts0
+    value: 1
+enum/vals::Rtc:
+  bit_size: 4
+  variants:
+  - name: Div1
+    value: 0
+  - name: Div32768
+    value: 15
 ";
-        let got = run(0, 0, "s0v1", yaml, &["TIMER0", "LETIMER0", "PCNT0"]).unwrap();
+
+    const S0_NAMES: &[&str] = &["TIMER0", "LETIMER0", "PCNT0", "RTC", "USB", "WDOG", "GPIO"];
+
+    #[test]
+    fn series0_kernel_clock_is_the_gate_bus() {
+        let got = run(0, 0, "s0v1", S0_CMU, S0_NAMES).unwrap();
         assert_eq!(got["TIMER0"].kernel_clock, clock("hfperclk"));
         assert_eq!(got["LETIMER0"].kernel_clock, clock("lfaclk"));
         assert_eq!(
             got["PCNT0"].kernel_clock,
-            Some(KernelClock::Mux {
+            Some(KernelClock::Mux(CmuRegister {
                 register: "pcntctrl".into(),
-                field: "pcnt0clksel".into()
-            })
+                field: "pcnt0clksel".into(),
+                sync_busy: None,
+            }))
         );
         let pcnt0 = got["PCNT0"].enable.as_ref().unwrap();
         assert_eq!(
             (pcnt0.register.as_str(), pcnt0.field.as_str(), pcnt0.bit),
             ("pcntctrl", "pcnt0clken", 0)
+        );
+    }
+
+    fn gate(register: &str, field: &str, offset: u64, bit: u32, sync: Option<&str>) -> Option<ClockEnable> {
+        Some(ClockEnable {
+            register: register.into(),
+            field: field.into(),
+            address: 0x5000_8000 + offset,
+            bit,
+            sync_busy: sync.map(Into::into),
+        })
+    }
+
+    #[test]
+    fn series0_bus_enable_sync_busy_and_prescaler() {
+        let got = run(0, 0, "s0v1", S0_CMU, S0_NAMES).unwrap();
+        let le = gate("hfcoreclken0", "le", 64, 4, None);
+        // LE peripherals need HFCORECLKEN0.LE. USB has no bus enable.
+        assert_eq!(got["RTC"].bus_enable, le);
+        assert_eq!(got["LETIMER0"].bus_enable, le);
+        assert_eq!(got["PCNT0"].bus_enable, le);
+        assert_eq!(got["USB"].bus_enable, None);
+        assert_eq!(got["TIMER0"].bus_enable, None);
+        // WDOG has no gate and no kernel clock, but needs the LE interface.
+        assert_eq!(
+            got["WDOG"],
+            PeripheralCmu {
+                bus_enable: le.clone(),
+                ..Default::default()
+            }
+        );
+        assert!(!got.contains_key("GPIO"));
+        // An LF gate waits for SYNCBUSY.LFACLKEN0. An HF gate does not.
+        assert_eq!(got["RTC"].enable, gate("lfaclken0", "rtc", 88, 1, Some("lfaclken0")));
+        assert_eq!(got["TIMER0"].enable.as_ref().unwrap().sync_busy, None);
+        // The LF prescaler named after the peripheral, with its sync field.
+        let presc = |field: &str| {
+            Some(CmuRegister {
+                register: "lfapresc0".into(),
+                field: field.into(),
+                sync_busy: Some("lfapresc0".into()),
+            })
+        };
+        assert_eq!(got["RTC"].prescaler, presc("rtc"));
+        assert_eq!(got["LETIMER0"].prescaler, presc("letimer0"));
+        assert_eq!(got["PCNT0"].prescaler, None);
+        assert_eq!(got["TIMER0"].prescaler, None);
+    }
+
+    #[test]
+    fn series2_has_no_bus_enable_sync_or_prescaler() {
+        let got = run(2, 4, "s2v3", S2_CMU, &["TIMER0", "TIMER4", "EUSART0"]).unwrap();
+        for c in got.values() {
+            assert_eq!(c.bus_enable, None);
+            assert_eq!(c.prescaler, None);
+            assert_eq!(c.enable.as_ref().unwrap().sync_busy, None);
+        }
+    }
+
+    #[test]
+    fn async_register_needs_a_syncbusy_field() {
+        let yaml = S0_CMU.replace("  - name: lfapresc0\n    bit_offset: 2\n    bit_size: 1\n", "");
+        let err = run(0, 0, "s0v1", &yaml, S0_NAMES).unwrap_err().to_string();
+        assert!(err.contains("`lfapresc0` is an Async Reg"), "{err}");
+    }
+
+    #[test]
+    fn prescaler_enum_must_name_the_divider() {
+        let yaml = S0_CMU.replace("  - name: Div32768\n", "  - name: Slow\n");
+        let err = run(0, 0, "s0v1", &yaml, S0_NAMES).unwrap_err().to_string();
+        assert!(err.contains("`Slow` is not `Div<N>`"), "{err}");
+        // An LF gate without a SERIES0_BUS_ENABLES entry stops the generator.
+        let yaml = S0_CMU.replace(
+            "  - name: letimer0\n    bit_offset: 2\n",
+            "  - name: vdac9\n    bit_offset: 2\n",
+        );
+        let err = run(0, 0, "s0v1", &yaml, &["VDAC9"]).unwrap_err().to_string();
+        assert!(err.contains("SERIES0_BUS_ENABLES has no entry"), "{err}");
+    }
+
+    #[test]
+    fn clock_names_cover_kernel_clocks_and_mux_sources() {
+        let names = |series: u8, config: u16, version: &str, yaml: &str, peris: &[&str]| {
+            let mut irs = BTreeMap::new();
+            irs.insert(("cmu".to_owned(), version.to_owned()), ir(yaml));
+            let chip = chip(series, config, version);
+            let peris: Vec<String> = peris.iter().map(|n| (*n).to_owned()).collect();
+            let cmu = peripheral_cmu(&chip, &peris, &irs).unwrap();
+            clock_names(&chip, &cmu, &irs).unwrap()
+        };
+        assert_eq!(
+            names(0, 0, "s0v1", S0_CMU, S0_NAMES),
+            ["hfcoreclk", "hfperclk", "lfaclk", "pcnts0"]
+        );
+        // `Lfxo` from the EUSART0 mux, and the fixed clocks of TIMER4 and EUSART1.
+        assert_eq!(
+            names(2, 4, "s2v3", S2_CMU, &["TIMER4", "EUSART0", "EUSART1", "IADC0"]),
+            ["em01grpaclk", "em01grpcclk", "lfxo"]
+        );
+        let all = ["hfxo", "hfxort", "hclkdiv1024", "disabled", "pcnts0"].map(String::from);
+        let got: Vec<Option<String>> = all.iter().map(|v| mux_source_name(v, &all)).collect();
+        assert_eq!(
+            got,
+            [Some("hfxo"), Some("hfxo"), Some("hclk"), None, Some("pcnts0")].map(|o| o.map(String::from))
         );
     }
 }
