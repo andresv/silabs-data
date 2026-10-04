@@ -263,11 +263,11 @@ fn run_gen(
     crate_layout::write_all_tables(&chips, &out_dir.join("src"))?;
     silabs_metapac_gen::cfgs::write_check_cfgs(&chips, &out_dir.join("src/check_cfgs.txt"))?;
 
-    std::fs::write(
-        out_dir.join("README.md"),
-        "# silabs-metapac\n\n\
-         Generated Silicon Labs PAC. Do not edit by hand — regenerate via `silabs-metapac-gen`.\n",
-    )?;
+    std::fs::write(out_dir.join("README.md"), include_str!("../res/README.md"))?;
+    for license in ["LICENSE-MIT", "LICENSE-APACHE"] {
+        let src = Path::new(env!("CARGO_MANIFEST_DIR")).join("..").join(license);
+        std::fs::copy(&src, out_dir.join(license)).with_context(|| format!("copy {}", src.display()))?;
+    }
 
     // Per-chip mod.rs + device.x.
     for chip in &chips {

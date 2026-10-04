@@ -285,15 +285,15 @@ pub struct PeripheralPins {
 /// How to connect a pin to a peripheral signal.
 #[derive(Debug, Eq, PartialEq, Clone)]
 pub enum PinRoute {
-    /// Series 2 digital bus: write the port and pin to GPIO.<register>.
-    /// Then set GPIO.<enable.register>.<enable.field>. `enable` is `None`
+    /// Series 2 digital bus: write the port and pin to `GPIO.<register>`.
+    /// Then set `GPIO.<enable.register>.<enable.field>`. `enable` is `None`
     /// only for a signal in the generator's `NO_ENABLE` list, for example
     /// an input-only signal (`ctsroute`).
     Dbus {
         register: &'static str,
         enable: Option<PinRouteEnable>,
     },
-    /// Series 0: write <location> to the LOCATION field of the peripheral
+    /// Series 0: write `location` to the LOCATION field of the peripheral
     /// `route` register. Then set the enable field of the same register.
     /// All signals of a peripheral share one LOCATION. A peripheral whose
     /// `route` register has no LOCATION field has one location, 0. `enable`
@@ -304,7 +304,7 @@ pub enum PinRoute {
     },
     /// Series 2 analog bus of the pin's port: "ABUS" (port A), "BBUS"
     /// (port B) or "CDBUS" (ports C and D). Allocate the pin in
-    /// GPIO.<bus>ALLOC. The field depends on the pin parity (even or odd).
+    /// `GPIO.<bus>ALLOC`. The field depends on the pin parity (even or odd).
     Analog { bus: &'static str },
     /// Fixed-function pin. There is no route register. `enable` is the field
     /// that connects the pin, when the peripheral has one (Series 0 USB
