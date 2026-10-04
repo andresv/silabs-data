@@ -10,8 +10,7 @@ fn parses_mg26_fixture() {
     let first = &db.chips[0];
     assert!(first.name.starts_with("EFR32MG26"), "got {}", first.name);
     assert_eq!(first.core, "Cortex-M33");
-    // The real MG26 pdsc declares NO_FPU / NO_MPU / NO_TZ at family level —
-    // the parser must correctly interpret those negative tokens.
+    // The real MG26 pdsc declares NO_FPU / NO_MPU / NO_TZ at family level.
     assert!(!first.fpu, "Dfpu=NO_FPU must yield fpu=false");
     assert!(!first.mpu, "Dmpu=NO_MPU must yield mpu=false");
     assert!(!first.trustzone, "Dtz=NO_TZ must yield trustzone=false");

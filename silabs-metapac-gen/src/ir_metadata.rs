@@ -2,11 +2,8 @@
 //! per-kind `silabs-metapac/src/registers/<kind>_<version>.rs` files
 //! (static `REGISTERS` constants).
 //!
-//! Mirrors `stm32-metapac/src/metadata.rs` and
-//! `stm32-metapac/src/registers/*.rs`. The metadata module exposes the
-//! chiptool IR shape as `&'static` types so HALs and tooling can
-//! introspect peripheral layouts at runtime without re-parsing the
-//! source YAML.
+//! HALs and tools can then read register layouts as `&'static` data,
+//! without the source YAML.
 
 use std::collections::BTreeMap;
 use std::fmt::Write as _;
@@ -21,11 +18,7 @@ use crate::pac::{IpKey, module_name_from_key};
 
 /// The type-definitions module written to `<metapac>/src/metadata.rs`.
 ///
-/// Copied verbatim from `stm32-metapac/src/metadata.rs` (the `pub mod ir`
-/// portion). The stm32 `Metadata`/`Peripheral`/`Pin` types are stm32-
-/// specific and not included — we may grow our own later, but the IR
-/// portion alone is sufficient to consume the per-kind register modules
-/// emitted by [`write_registers_dir`].
+/// Its `pub mod ir` is copied verbatim from `stm32-metapac/src/metadata.rs`.
 const METADATA_RS: &str = include_str!("../res/metadata.rs");
 
 /// Write `<out_dir>/src/metadata.rs`.
@@ -277,10 +270,9 @@ fn quote_opt(s: Option<&str>) -> String {
     }
 }
 
-/// Chiptool stores fieldset references prefixed with `regs::` (e.g.
-/// `regs::Cfg`) because the rendered PAC nests them under a `regs`
-/// submodule. The IR metadata is a flat lookup keyed by short name, so
-/// strip the prefix.
+/// Strip the `regs::` prefix that chiptool puts on fieldset references.
+///
+/// The IR metadata looks up fieldsets by short name (`Cfg`, not `regs::Cfg`).
 fn strip_regs_prefix(s: Option<&str>) -> Option<String> {
     s.map(|v| v.strip_prefix("regs::").unwrap_or(v).to_string())
 }

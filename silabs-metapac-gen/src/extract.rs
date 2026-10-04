@@ -1,10 +1,7 @@
 //! Per-peripheral SVD-to-IR extraction.
 //!
-//! Takes one `svd::Peripheral` and produces a chiptool `IR` containing just
-//! that peripheral's block, fieldsets and enums. The block name is
-//! canonicalised to the perimap-routed `block` (e.g. `Eusart`, `Gpio`) before
-//! extraction so every chip emitting the same `(kind, version)` produces a
-//! structurally identical IR.
+//! The block gets the perimap `block` name (`Eusart`, `Gpio`) before
+//! extraction, so every chip with the same `(kind, version)` gives the same IR.
 
 use std::path::Path;
 
@@ -90,12 +87,10 @@ fn apply_transform_file(ir: &mut IR, path: &Path) -> Result<()> {
     Ok(())
 }
 
-/// Extract one peripheral into IR with the block name canonicalised to
-/// `block`. Applies the per-kind transforms after extraction.
+/// Extract one peripheral into IR, with the block renamed to `block`.
 ///
-/// `transforms_dir` is the directory of per-kind YAMLs. We look for
-/// `<BLOCK>.yaml` and (optionally) `<BLOCK>_<version>.yaml`. A missing file
-/// is silently skipped.
+/// Then applies `<BLOCK>.yaml` and `<BLOCK>_<version>.yaml` from
+/// `transforms_dir`, when they exist.
 pub fn extract_ip(
     peripheral: &svd_parser::svd::Peripheral,
     block: &str,
@@ -113,32 +108,25 @@ pub fn extract_ip(
         .with_context(|| format!("extract_peripheral for block {block}"))?;
     strip_block_prefix(&mut ir, block);
 
-    // Apply per-block transform (e.g. transforms/GPIO.yaml). Missing file is OK.
     let block_yaml = transforms_dir.join(format!("{block}.yaml"));
     if block_yaml.is_file() {
         apply_transform_file(&mut ir, &block_yaml).with_context(|| format!("apply {}", block_yaml.display()))?;
     }
-    // Apply per-(block, version) override if present.
     let bv_yaml = transforms_dir.join(format!("{block}_{version}.yaml"));
     if bv_yaml.is_file() {
         apply_transform_file(&mut ir, &bv_yaml).with_context(|| format!("apply {}", bv_yaml.display()))?;
     }
 
-    // Prune trivially useless on/off enums (DISABLE/ENABLE, DIS/EN, OFF/ON,
-    // etc.). `soft: false` removes both the field references *and* the enum
-    // definitions; with `soft: true` the orphan enum definitions linger in
-    // the YAML, bloating downstream Rust output. Matches stm32-data's
-    // per-peripheral `!DeleteEnums from: ^(...)$` intent at a generic level.
+    // Delete on/off enums (DISABLE/ENABLE, OFF/ON). `soft: false` also
+    // deletes the enum definitions, so no orphan enums stay in the YAML.
     chiptool::transform::delete_useless_enums::DeleteUselessEnums { soft: false }
         .run(&mut ir)
         .context("DeleteUselessEnums")?;
 
     chiptool::transform::sort::Sort {}.run(&mut ir).context("sort")?;
 
-    // Canonicalise casing the same way stm32-metapac does: blocks/fieldsets/
-    // enums in PathSnakePascal, fields and block-items in Snake, enum
-    // variants in Pascal. Must run AFTER per-block transforms — their
-    // regexes are written against raw SVD UPPER_SNAKE names.
+    // Pascal case for types and enum variants, snake case for fields. Run
+    // after the transforms, because their regexes match raw SVD UPPER_SNAKE names.
     chiptool::transform::sanitize::Sanitize::default()
         .run(&mut ir)
         .context("Sanitize")?;

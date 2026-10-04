@@ -1,12 +1,8 @@
 //! Pin canonical EFR32MG26 peripheral versions via a hermetic SVD fixture.
 //!
-//! Values come from Silabs's pdsc/SVD `<peripheral><version>` tag
-//! (specifically `EFR32MG26B211F2048IM68.svd`, 2025.12.1 pack). They double as a
-//! regression catch — if Silabs ever bumps a peripheral's version without
-//! adjusting the rest of the SVD consistently we'll see it reflected here.
-//!
-//! Hermetic fixture form (mirrors the `eusart0_min.svd` test pattern) keeps
-//! this independent of `build/` state.
+//! Values come from the `<peripheral><version>` tags of
+//! `EFR32MG26B211F2048IM68.svd` (2025.12.1 pack). The fixture keeps the test
+//! independent of `build/` state.
 
 use std::collections::HashMap;
 
