@@ -5,7 +5,7 @@
 //! ```text
 //! silabs-metapac/
 //! ├── Cargo.toml
-//! ├── README.md
+//! ├── README.md, LICENSE-MIT, LICENSE-APACHE
 //! ├── build.rs
 //! └── src/
 //!     ├── lib.rs

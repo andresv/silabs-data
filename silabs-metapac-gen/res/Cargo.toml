@@ -6,6 +6,8 @@ rust-version = "1.83"
 license = "MIT OR Apache-2.0"
 description = "Peripheral Access Crate (PAC) for all Silicon Labs chips, including metadata."
 repository = "https://github.com/andresv/silabs-data-generated"
+keywords = ["silabs", "efr32", "efm32", "pac", "embedded"]
+categories = ["embedded", "no-std", "hardware-support"]
 # Passes the chip's cfgs to direct dependents as `DEP_SILABS_METAPAC_*`
 # (see build.rs). Also makes Cargo keep a single silabs-metapac in the
 # dependency graph, which the chip feature on the user's dependency needs.
@@ -18,6 +20,8 @@ include = [
     "**/*.txt",
     "Cargo.toml",
     "README.md",
+    "LICENSE-MIT",
+    "LICENSE-APACHE",
     "build.rs",
 ]
 
