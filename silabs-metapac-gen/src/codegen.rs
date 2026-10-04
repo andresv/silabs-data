@@ -2,7 +2,7 @@
 //!
 //! Pipeline:
 //! 1. Read SVD XML from disk.
-//! 2. Strip `_S` TrustZone-alias peripherals (Strategy A, see [`crate::peripheral`]).
+//! 2. Strip `_S` TrustZone-alias peripherals ([`crate::peripheral`]).
 //! 3. Parse with `svd-parser` (the embassy-rs fork).
 //! 4. Convert to chiptool IR.
 //! 5. Apply transforms loaded from one or more YAML files.
@@ -21,19 +21,16 @@ pub struct GenerateInput<'a> {
     pub svd_path: &'a Path,
     /// One or more transforms YAML files. Applied in order.
     pub transforms: &'a [&'a Path],
-    /// Authoritative interrupt table for the chip. Replaces the SVD's
-    /// `<interrupt>` blocks entirely — the Silicon Labs SVDs omit radio
-    /// peripheral IRQs (FRC, MODEM, AGC, BUFC, …), so `silabs-data-gen`
-    /// builds this list from the per-chip CMSIS device header instead
-    /// (see `silabs-data-gen/src/header.rs`). Feeds both the rendered
-    /// `Interrupt` enum in `lib.rs` and the PROVIDE entries in
-    /// `device.x`.
+    /// Interrupt table for the chip, from the CMSIS device header
+    /// (`silabs-data-gen/src/header.rs`). It replaces the SVD `<interrupt>`
+    /// blocks.
     pub interrupts: &'a [Interrupt<'a>],
 }
 
-/// A single interrupt entry passed into the chiptool IR. Same shape as
-/// the chip-JSON `Interrupt`, but kept independent so
-/// `silabs-metapac-gen` doesn't depend on the JSON crate's type layout.
+/// One interrupt entry for the chiptool IR.
+///
+/// A separate type from the chip-JSON `Interrupt`, so this crate does not
+/// depend on the JSON type layout.
 #[derive(Debug, Clone, Copy)]
 pub struct Interrupt<'a> {
     pub name: &'a str,
@@ -84,10 +81,8 @@ pub fn generate(input: GenerateInput<'_>) -> Result<Generated> {
     let device = svd_parser::parse_with_config(&preprocessed, &cfg)
         .with_context(|| format!("parse SVD {}", input.svd_path.display()))?;
 
-    // Use `BlockWithRegsVals` namespace mode (embassy stm32-metapac style):
-    // each peripheral block gets its own module, and fieldsets/enums are split
-    // into `regs::` and `vals::` submodules respectively. This prevents
-    // collisions where a register and an enum share a name (e.g. WDOG `LOCK`).
+    // `BlockWithRegsVals` puts fieldsets in `regs::` and enums in `vals::`.
+    // This prevents a clash when a register and an enum share a name (WDOG `LOCK`).
     let mut ir = svd2ir::convert_svd(&device, NamespaceMode::BlockWithRegsVals).context("svd2ir::convert_svd")?;
 
     // Equivalent to chiptool's private `clean_up_ir`.
@@ -99,19 +94,12 @@ pub fn generate(input: GenerateInput<'_>) -> Result<Generated> {
         apply_transform_file(&mut ir, t)?;
     }
 
-    // Match stm32-metapac casing: Pascal blocks/fieldsets/enums, snake
-    // fields/block-items, Pascal enum variants. Must run after per-block
-    // transforms — their regexes target raw SVD UPPER_SNAKE names.
+    // Pascal case for types and enum variants, snake case for fields. Run
+    // after the transforms, because their regexes match raw SVD UPPER_SNAKE names.
     chiptool::transform::sanitize::Sanitize::default()
         .run(&mut ir)
         .context("Sanitize")?;
 
-    // Replace chiptool's SVD-derived interrupt list with the
-    // header-sourced one before rendering. The SVD's `<interrupt>` blocks
-    // are an incomplete subset on Silabs parts (radio peripherals are
-    // missing), so we ignore them entirely and let the caller — fed by
-    // the per-chip CMSIS device header — drive both the `Interrupt` enum
-    // in lib.rs and the PROVIDE lines in device.x.
     let dev_key = ir
         .devices
         .keys()
@@ -134,18 +122,14 @@ pub fn generate(input: GenerateInput<'_>) -> Result<Generated> {
     let opts = Options::default()
         .with_common_module(CommonModule::Builtin)
         .with_defmt(DefmtOption::Feature("defmt".to_owned()))
-        // The output is `include!()`'d into a parent lib.rs that already
-        // sets `#![no_std]`; suppress the inner attribute here. The
-        // remaining `#![allow(...)]` inner attrs are stripped post-render.
+        // The output is `include!()`d into a lib.rs that already sets
+        // `#![no_std]`. `strip_crate_inner_attrs` removes the other inner attributes.
         .with_skip_no_std(true);
 
-    // The full lib.rs render from the raw SVD is unused by the generator:
-    // `run_gen` consumes only `device_x`, and the PAC's register/peripheral
-    // modules are rendered from the curated `data/registers/*.yaml` IRs via
-    // `pac::write_peripherals_dir` — not from this raw-SVD render. Render it
-    // best-effort so a chiptool enum-validation quirk over the *raw* SVD
-    // (e.g. Silabs LESENSE's PRSACT: 12 overlapping-value variants in a
-    // 3-bit field) doesn't block device.x generation for the whole chip.
+    // `run_gen` uses only `device_x`. The PAC modules come from
+    // `data/registers/*.yaml`. Render lib.rs best-effort, so that a chiptool
+    // enum check on the raw SVD does not block device.x. Example: LESENSE
+    // PRSACT has 12 overlapping variants in a 3-bit field.
     let lib_rs = match generate::render(&ir, &opts) {
         Ok(tokens) => strip_crate_inner_attrs(&tokens.to_string()),
         Err(e) => {
@@ -162,13 +146,9 @@ pub fn generate(input: GenerateInput<'_>) -> Result<Generated> {
 
 /// Strip leading inner attributes `# ! [...]` from the rendered token string.
 ///
-/// chiptool emits a few `#![allow(non_camel_case_types)]` etc. at the top.
-/// Inner attributes are illegal in an `include!()`'d file, so we drop them
-/// — the parent lib.rs sets equivalent allows at crate root.
-///
-/// Token-stream `to_string()` separates every token with a space, so a
-/// crate-level inner attribute looks like: `# ! [allow (... )]`.
-/// We walk the prefix and skip those.
+/// Inner attributes are illegal in an `include!()`d file. The parent lib.rs
+/// sets the same allows. Token-stream `to_string()` puts a space between
+/// tokens, so an attribute looks like `# ! [allow (... )]`.
 fn strip_crate_inner_attrs(s: &str) -> String {
     let bytes = s.as_bytes();
     let mut i = 0;

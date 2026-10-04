@@ -163,16 +163,16 @@ block/Ebi:
     byte_offset: 152
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 156
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 160
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: ien
     description: Interrupt Enable Register.
     byte_offset: 164
@@ -422,60 +422,6 @@ fieldset/regs::If:
     bit_size: 1
   - name: ddjit
     description: Direct Drive Jitter Interrupt Flag.
-    bit_offset: 5
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: vsync
-    description: Vertical Sync Interrupt Flag Clear.
-    bit_offset: 0
-    bit_size: 1
-  - name: hsync
-    description: Horizontal Sync Interrupt Flag Clear.
-    bit_offset: 1
-    bit_size: 1
-  - name: vbporch
-    description: Vertical Back Porch Interrupt Flag Clear.
-    bit_offset: 2
-    bit_size: 1
-  - name: vfporch
-    description: Vertical Front Porch Interrupt Flag Clear.
-    bit_offset: 3
-    bit_size: 1
-  - name: ddempty
-    description: Direct Drive Data Empty Interrupt Flag Clear.
-    bit_offset: 4
-    bit_size: 1
-  - name: ddjit
-    description: Direct Drive Jitter Interrupt Flag Clear.
-    bit_offset: 5
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: vsync
-    description: Vertical Sync Interrupt Flag Set.
-    bit_offset: 0
-    bit_size: 1
-  - name: hsync
-    description: Horizontal Sync Interrupt Flag Set.
-    bit_offset: 1
-    bit_size: 1
-  - name: vbporch
-    description: Vertical Back Porch Interrupt Flag Set.
-    bit_offset: 2
-    bit_size: 1
-  - name: vfporch
-    description: Vertical Front Porch Interrupt Flag Set.
-    bit_offset: 3
-    bit_size: 1
-  - name: ddempty
-    description: Direct Drive Data Empty Interrupt Flag Set.
-    bit_offset: 4
-    bit_size: 1
-  - name: ddjit
-    description: Direct Drive Jitter Interrupt Flag Set.
     bit_offset: 5
     bit_size: 1
 fieldset/regs::Nandctrl:
@@ -780,7 +726,7 @@ fieldset/regs::Route:
     bit_offset: 24
     bit_size: 1
   - name: dataenpen
-    description: EBI_TFT Pin Enable.
+    description: EBI_DATAEN Pin Enable.
     bit_offset: 25
     bit_size: 1
   - name: cstftpen

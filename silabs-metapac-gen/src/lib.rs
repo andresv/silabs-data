@@ -1,3 +1,5 @@
+pub mod cfgs;
+pub mod clocks;
 pub mod codegen;
 pub mod crate_layout;
 pub mod expand_aliases;
@@ -6,3 +8,4 @@ pub mod ir_metadata;
 pub mod kind;
 pub mod pac;
 pub mod peripheral;
+pub mod seed_merge;

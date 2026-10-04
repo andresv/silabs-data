@@ -40,16 +40,16 @@ block/Letimer:
     byte_offset: 32
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 36
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 40
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: ien
     description: Interrupt Enable Register.
     byte_offset: 44
@@ -208,52 +208,6 @@ fieldset/regs::If:
     bit_size: 1
   - name: rep1
     description: Repeat Counter 1 Interrupt Flag.
-    bit_offset: 4
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: comp0
-    description: Clear Compare Match 0 Interrupt Flag.
-    bit_offset: 0
-    bit_size: 1
-  - name: comp1
-    description: Clear Compare Match 1 Interrupt Flag.
-    bit_offset: 1
-    bit_size: 1
-  - name: uf
-    description: Clear Underflow Interrupt Flag.
-    bit_offset: 2
-    bit_size: 1
-  - name: rep0
-    description: Clear Repeat Counter 0 Interrupt Flag.
-    bit_offset: 3
-    bit_size: 1
-  - name: rep1
-    description: Clear Repeat Counter 1 Interrupt Flag.
-    bit_offset: 4
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: comp0
-    description: Set Compare Match 0 Interrupt Flag.
-    bit_offset: 0
-    bit_size: 1
-  - name: comp1
-    description: Set Compare Match 1 Interrupt Flag.
-    bit_offset: 1
-    bit_size: 1
-  - name: uf
-    description: Set Underflow Interrupt Flag.
-    bit_offset: 2
-    bit_size: 1
-  - name: rep0
-    description: Set Repeat Counter 0 Interrupt Flag.
-    bit_offset: 3
-    bit_size: 1
-  - name: rep1
-    description: Set Repeat Counter 1 Interrupt Flag.
     bit_offset: 4
     bit_size: 1
 fieldset/regs::Rep0:

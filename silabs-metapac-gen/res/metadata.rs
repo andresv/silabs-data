@@ -1,3 +1,4 @@
+// `pub mod ir` is copied from stm32-metapac (https://github.com/embassy-rs/stm32-data), MIT OR Apache-2.0.
 pub mod ir {
     #[derive(Debug, Eq, PartialEq, Clone)]
     pub struct IR {
@@ -121,10 +122,10 @@ pub mod ir {
     }
 }
 
-/// Silicon Labs chip generation.
-/// Mirrors the SDK's `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>` macro pair.
-/// HAL build scripts can emit `cargo:rustc-cfg=silabs_series_N_config="M"` based on this enum.
-/// In HAL source user can then do: #[cfg(any(silabs_series_2_config = "3", silabs_series_2_config = "8"))]
+/// Silicon Labs chip generation, from the SDK's
+/// `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>` macro pair.
+///
+/// Direct dependents also get it as cfgs: `#[cfg(silabs_series_2_config = "3")]`.
 #[derive(Debug, Eq, PartialEq, Clone, Copy)]
 pub enum Series {
     /// Series 0 (Cortex-M0+/M3, EFM32 Gecko families G/GG/LG/TG/WG/ZG/HG).
@@ -143,12 +144,10 @@ pub enum Series {
     Series3(u16),
 }
 
-/// Chip-level metadata: peripherals, interrupts, memory regions.
+/// Chip metadata for HAL build scripts.
 ///
-/// Mirrors `stm32-metapac::metadata::Metadata` so HAL build scripts can
-/// walk a chip's hardware inventory at build time without re-parsing the
-/// per-chip JSON. The Cargo `metadata` feature exposes a chip-specific
-/// `METADATA` static of this shape at `silabs_metapac::metadata::METADATA`.
+/// The `metadata` feature exports the active chip's value as
+/// `silabs_metapac::metadata::METADATA`.
 #[derive(Debug, Eq, PartialEq, Clone)]
 pub struct Metadata {
     /// Full chip part number (matches the Cargo feature flag).
@@ -165,27 +164,77 @@ pub struct Metadata {
     /// Silicon Labs chip generation + within-series config number.
     /// See [`Series`].
     pub series: Series,
+    /// Number of NVIC priority bits (`__NVIC_PRIO_BITS` in the CMSIS
+    /// device header): 2 on Cortex-M0+, 3 on Series 0/1 M3/M4, 4 on M33.
+    pub nvic_priority_bits: u8,
     pub memory: &'static [MemoryRegion],
     /// Peripheral instances, with paired TrustZone aliases sharing one
     /// register-layout entry. Both exact SVD addresses remain available on
     /// [`Peripheral`].
     pub peripherals: &'static [Peripheral],
-    /// Cortex-M interrupt table from the CMSIS device header
-    /// (radio IRQs included — the SVD `<interrupt>` blocks are
-    /// incomplete on Silabs parts and intentionally ignored).
+    /// Cortex-M interrupt table from the CMSIS device header, radio IRQs
+    /// included.
     pub interrupts: &'static [Interrupt],
+    /// Bonded GPIO pins, sorted by port, then pin. Series 2 takes them from
+    /// the device header masks. Series 0 takes them from the `data/pins`
+    /// package. A Series 0 chip without pin data (EFM32GG900) lists 16 pins
+    /// on each GPIO port.
+    pub pins: &'static [Pin],
+    /// Number of DMA channels (`LDMA_CH_NUM` / `DMA_CHAN_COUNT`). 0 when the chip has no DMA.
+    pub dma_channel_count: u8,
+    /// Every clock that the peripherals' CMU data names, sorted and in
+    /// lowercase. A HAL can use it for its table of clock frequencies.
+    ///
+    /// It has each [`PeripheralCmuKernelClock::Clock`] name and each source of
+    /// each [`PeripheralCmuKernelClock::Mux`], except `Disabled`. A mux source
+    /// loses a `div<N>` suffix (`Hclkdiv1024` is `hclk`), and a `rt` suffix
+    /// when the enum also has the base name (`Hfxort` is `hfxo`). A source can
+    /// be an external pin (`pcnts0`). Clocks that no peripheral uses directly
+    /// (the Series 0 oscillators, `sysclk`) are not in the list.
+    pub clocks: &'static [&'static str],
 }
 
+/// One GPIO pin.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct Pin {
+    /// Port letter and pin number, as Silicon Labs names the pin: two
+    /// digits on Series 2 (`PA00`), no padding on Series 0 (`PA0`, `PE10`).
+    pub name: &'static str,
+    pub port: u8,
+    pub pin: u8,
+    /// The pin keeps working in EM2 (Series 2). `None` on Series 0: the pin
+    /// data has no EM2 facts for it.
+    pub em2: Option<bool>,
+}
+
+/// One memory region.
 #[derive(Debug, Eq, PartialEq, Clone)]
 pub struct MemoryRegion {
     /// Region identifier from the pdsc (`IROM1`, `IRAM1`, etc.).
     pub name: &'static str,
+    pub kind: MemoryRegionKind,
     /// Base address.
     pub address: u64,
     /// Region size in bytes.
     pub size: u64,
-    /// Access string from the pdsc (`rx`, `rwx`, …).
-    pub access: &'static str,
+    /// Erase and write geometry. `Some` only for flash.
+    pub settings: Option<FlashSettings>,
+}
+
+#[derive(Debug, Eq, PartialEq, Clone, Copy)]
+pub enum MemoryRegionKind {
+    Flash,
+    Ram,
+}
+
+#[derive(Debug, Eq, PartialEq, Clone, Copy)]
+pub struct FlashSettings {
+    /// Erase page size in bytes (`FLASH_PAGE_SIZE` in the device header).
+    pub erase_size: u32,
+    /// Smallest write unit in bytes. The MSC writes one 32-bit word at a time.
+    pub write_size: u32,
+    /// Value of an erased byte.
+    pub erase_value: u8,
 }
 
 #[derive(Debug, Eq, PartialEq, Clone)]
@@ -201,12 +250,192 @@ pub struct Peripheral {
     pub secure_address: Option<u64>,
     /// Routed peripheral kind (`timer`, `gpio`, `eusart`, …).
     pub kind: &'static str,
-    /// Routed register-YAML version label (`v1_w`, `v7`, `v2_lf`, …).
+    /// Routed register-YAML version label (`s2v1`, `s2v7`, `s0v1`, …).
     /// Together with `kind` this names the `<kind>_<version>` module
     /// at the metapac crate root.
     pub version: &'static str,
     /// Canonical block name inside the register YAML (`Timer`, `Gpio`).
     pub block: &'static str,
+    /// Register layout of `<kind>_<version>`. Build scripts use it to find
+    /// fields and enums.
+    pub ir: &'static ir::IR,
+    /// CMU data. `None` when the peripheral has neither a clock gate nor a
+    /// kernel clock (CMU, EMU, DEVINFO, ...).
+    pub cmu: Option<PeripheralCmu>,
+    /// IRQs of the peripheral.
+    pub interrupts: &'static [PeripheralInterrupt],
+    /// DMA request signals of the peripheral.
+    pub dma_requests: &'static [PeripheralDmaRequest],
+    /// Pins that can carry each signal. One entry for each signal and route,
+    /// sorted by signal, then by route. Only bonded pins are listed.
+    pub pins: &'static [PeripheralPins],
+}
+
+/// The pins that can carry one signal of a peripheral with one route.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct PeripheralPins {
+    /// Signal name without the peripheral prefix: "TX", "SDA", "CC0".
+    pub signal: &'static str,
+    pub route: PinRoute,
+    /// Vendor pin names, sorted by port, then by pin number: "PA05" on
+    /// Series 2, "PA5" on Series 0.
+    pub pins: &'static [&'static str],
+}
+
+/// How to connect a pin to a peripheral signal.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub enum PinRoute {
+    /// Series 2 digital bus: write the port and pin to GPIO.<register>.
+    /// Then set GPIO.<enable.register>.<enable.field>. `enable` is `None`
+    /// only for a signal in the generator's `NO_ENABLE` list, for example
+    /// an input-only signal (`ctsroute`).
+    Dbus {
+        register: &'static str,
+        enable: Option<PinRouteEnable>,
+    },
+    /// Series 0: write <location> to the LOCATION field of the peripheral
+    /// `route` register. Then set the enable field of the same register.
+    /// All signals of a peripheral share one LOCATION. A peripheral whose
+    /// `route` register has no LOCATION field has one location, 0. `enable`
+    /// is `None` only for a signal in the generator's `NO_ENABLE` list.
+    Location {
+        location: u8,
+        enable: Option<PinRouteEnable>,
+    },
+    /// Series 2 analog bus of the pin's port: "ABUS" (port A), "BBUS"
+    /// (port B) or "CDBUS" (ports C and D). Allocate the pin in
+    /// GPIO.<bus>ALLOC. The field depends on the pin parity (even or odd).
+    Analog { bus: &'static str },
+    /// Fixed-function pin. There is no route register. `enable` is the field
+    /// that connects the pin, when the peripheral has one (Series 0 USB
+    /// `route.phypen`). `alternative` is the number of a numbered fixed
+    /// alternative (Series 0 DAC0 `OUT0ALT`: the bit in `OPA0MUX.OUTPEN`).
+    Fixed {
+        enable: Option<PinRouteEnable>,
+        alternative: Option<u8>,
+    },
+}
+
+/// A register field that enables a routed pin. The register belongs to the
+/// GPIO for `Dbus` and Series 2 `Fixed`, and to the peripheral for
+/// `Location` and Series 0 `Fixed`.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct PinRouteEnable {
+    pub register: &'static str,
+    pub field: &'static str,
+}
+
+/// One IRQ of a peripheral.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct PeripheralInterrupt {
+    /// Signal name: `GLOBAL` when the IRQ belongs to the whole peripheral, else the IRQ name suffix (`RX`, `APP`, `ODD`).
+    pub signal: &'static str,
+    /// IRQ name, as in `Metadata.interrupts`.
+    pub interrupt: &'static str,
+}
+
+/// One DMA request signal of a peripheral.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct PeripheralDmaRequest {
+    /// Signal name without the peripheral prefix: `RXFL`, `TXFL`, `RXDATAV`, `CC0`.
+    pub signal: &'static str,
+    /// SOURCESEL value (LDMAXBAR `CH_REQSEL` on Series 2, DMA `CH_CTRL` on Series 0).
+    pub sourcesel: u8,
+    /// SIGSEL value.
+    pub sigsel: u8,
+}
+
+/// CMU data of one peripheral.
+///
+/// There is no reset entry: Silicon Labs chips have no per-peripheral reset
+/// bits.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct PeripheralCmu {
+    /// Clock-gate bit that turns the peripheral's bus clock on. `None`
+    /// when the peripheral is always clocked.
+    pub enable: Option<ClockEnable>,
+    /// A gate that must be on before `enable`, and before any access to the
+    /// peripheral's registers. Several peripherals share it, so a HAL counts
+    /// its users. `None` on Series 2.
+    ///
+    /// Series 0:
+    /// - `hfcoreclken0.le` for the Low Energy Peripherals (RTC, LETIMER0,
+    ///   LEUART0/1, LCD, LESENSE, PCNT0..2, WDOG, BURTC). It clocks their
+    ///   bus interface. WDOG and BURTC have this entry only.
+    ///
+    /// USB has no entry. Its core clock `hfcoreclken0.usbc` comes after
+    /// `CMU.CMD.USBCCLKSEL` (reference manual, section 15.3.2).
+    pub bus_enable: Option<ClockEnable>,
+    /// Clock that drives the peripheral (baud rate, counter, sampling).
+    /// `None` when the peripheral has no kernel clock of its own.
+    pub kernel_clock: Option<PeripheralCmuKernelClock>,
+    /// A CMU field that divides the kernel clock. `Some` only on Series 0,
+    /// for the peripherals on LFACLK or LFBCLK (`lfapresc0.rtc`,
+    /// `lfbpresc0.leuart0`).
+    ///
+    /// Each variant of the field's enum is named `Div<N>`, and N is the
+    /// divider. The encoding of the value differs by field, so take N from
+    /// the enum. For example:
+    /// - `lfapresc0.rtc` and `.letimer0`: `Div1` = 0 to `Div32768` = 15
+    ///   (log2(N)).
+    /// - `lfapresc0.lesense`, `lfbpresc0.leuart0/1`: `Div1` = 0 to `Div8` = 3.
+    /// - `lfapresc0.lcd`: `Div16` = 0 to `Div128` = 3 (log2(N) - 4).
+    pub prescaler: Option<PeripheralCmuRegister>,
+}
+
+/// Source of a peripheral's kernel clock.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub enum PeripheralCmuKernelClock {
+    /// A fixed clock-tree node, in lowercase: `em01grpaclk`, `pclk`,
+    /// `lspclk`, `hfperclk`, ... Group clocks such as EM01GRPACLK have
+    /// their own mux, which the HAL sets when it sets up the clock tree.
+    Clock(&'static str),
+    /// A CMU select field of this peripheral (`eusart0clkctrl.clksel`).
+    /// The field has an enum. Each variant names a source clock, in the
+    /// same lowercase form as [`PeripheralCmuKernelClock::Clock`]. A `rt`
+    /// suffix (`Hfxort`) is the retimed copy of the same clock, and
+    /// `Hclkdiv1024` is HCLK divided by 1024.
+    Mux(PeripheralCmuRegister),
+}
+
+/// A field in a CMU register.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct PeripheralCmuRegister {
+    /// Register name as in the register YAML (`eusart0clkctrl`).
+    pub register: &'static str,
+    /// Field name (`clksel`).
+    pub field: &'static str,
+    /// Field of `CMU.SYNCBUSY` to wait for. See [`ClockEnable::sync_busy`].
+    pub sync_busy: Option<&'static str>,
+}
+
+/// One CMU clock-gate bit.
+///
+/// To set it without a read-modify-write race:
+/// - Series 2: write `1 << bit` to `address + 0x1000` (the register's SET
+///   alias).
+/// - Series 0 (Cortex-M3): write `1` to the bit-band alias word
+///   `0x4200_0000 + (address - 0x4000_0000) * 32 + bit * 4`.
+#[derive(Debug, Eq, PartialEq, Clone)]
+pub struct ClockEnable {
+    /// CMU register name (`clken1`, `hfperclken0`).
+    pub register: &'static str,
+    /// Field name in that register (`timer4`).
+    pub field: &'static str,
+    /// Absolute address of the non-secure CMU register.
+    pub address: u64,
+    /// Bit number of the field.
+    pub bit: u32,
+    /// Field of `CMU.SYNCBUSY` to wait for. `Some` only for a Series 0
+    /// register in the LF clock domain (`lfaclken0`, `lfbclken0`,
+    /// `lfapresc0`, `lfbpresc0`), and then it has the register's name.
+    ///
+    /// Before a write to the register, wait until this `SYNCBUSY` bit is
+    /// clear. A second write while it is set is not supported (reference
+    /// manual, section 5.3.1.1.1). The bit clears only when the LF branch of
+    /// the register (LFACLK or LFBCLK) has a running clock. So a HAL must
+    /// first select a running source for the branch.
+    pub sync_busy: Option<&'static str>,
 }
 
 #[derive(Debug, Eq, PartialEq, Clone)]

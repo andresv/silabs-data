@@ -1,17 +1,14 @@
 //! Regex-keyed routing from `(chip, peripheral, svd_version)` to
 //! `(kind, version, block)`.
 //!
-//! `perimap` is the explicit authority on which curated register YAML a
-//! peripheral instance maps to. The default routing (used when no entry
-//! matches) is derived from the SVD: kind = peripheral name with `_NS` /
-//! `_S` / trailing-digits stripped, version = the SVD `<peripheral><version>`
-//! tag, block = the stripped kind name. perimap overrides that default for:
+//! `perimap` decides which curated register YAML a peripheral instance uses.
+//! When no entry matches, `default_route` derives the route from the SVD
+//! peripheral name and `<version>` tag. Entries override that default for:
 //!
-//! - structural splits the SVD merges accidentally (e.g. EUSART0 has an LF
-//!   sub-block, EUSART1+ don't, but all four claim `<version>2</version>`);
+//! - structural splits that the SVD merges (TIMER0/1 are 32-bit, TIMER2+ are
+//!   16-bit, but all claim `<version>1</version>`);
 //! - cosmetic renames (drop `_NS` from the block name);
-//! - explicit pinning of version labels so vendor SVD drift can't silently
-//!   change the routing.
+//! - fixed version labels, so vendor SVD drift cannot change the routing.
 //!
 //! First match wins. Order entries from most-specific to least-specific.
 
@@ -42,127 +39,61 @@ pub struct Route {
 /// Naming convention:
 /// - `kind` is lowercase, no `_NS` / `_S` suffix, no trailing digits.
 ///   `gpio`, `eusart`, `timer`, `cmu`, etc.
-/// - `version` is `v<N>` matching the SVD `<version>` tag where reliable,
-///   or a descriptive label (`v2_lf`) where SVD merges incompatible
-///   variants.
+/// - `version` is `s<series>v<N>`: the chip's series, then the SVD
+///   `<version>` tag where it is reliable (`s2v1`). A descriptive suffix
+///   (`s2v0_mg24`) can follow, where the SVD merges incompatible variants.
+///   Every label starts with its series, so version cfgs such as
+///   `timer_s2` and `timer_s0` look the same on every series.
 /// - `block` is the canonical block name in the curated YAML, no suffix.
 pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
     // (key_regex, kind, version, block)
     //
-    // EUSART variant split. EUSART0 carries the LF (low-frequency) sub-block
-    // with IRLFCFG / TIMINGCFG / IRHFCFG-LF; EUSART1-3 don't. All four
-    // peripherals report <version>2</version> in the SVD, but their register
-    // layouts differ structurally. Route EUSART0 to `eusart_v2_lf.yaml` and
-    // the others to `eusart_v2.yaml`.
-    ("EFR32MG2[46].*:EUSART0_NS:.*", "eusart", "v2_lf", "EUSART"),
-    ("EFR32MG2[46].*:EUSART[1-9]_NS:.*", "eusart", "v2", "EUSART"),
+    // EUSART needs no row. All instances report <version>2</version>.
+    // EUSART0 adds a few low-frequency registers and fields that EUSART1+
+    // reserve. So `eusart_s2v2.yaml` is their superset, and every instance
+    // has the same type.
     // TIMER bit-width split. Wide (32-bit) and narrow (16-bit) timers
     // share <version>1</version> in the SVD but differ in the bit_size of
-    // CNT / TOP / CCx. The instance-number grouping is:
+    // CNT / TOP / CCx. Both are blocks of one `timer_s2v1.yaml`: `Timer`
+    // (16-bit) and `Timer32` (32-bit). The instance grouping comes from a
+    // diff of the extracted IRs of every instance on both packs:
     //   MG24: TIMER0/1 wide, TIMER2..4 narrow.
     //   MG26: TIMER0/1/8/9 wide, TIMER2..7 narrow.
-    // Verified by diff'ing extracted IRs across all instances on both packs.
-    ("EFR32MG2[46].*:TIMER[01]_NS:.*", "timer", "v1_w", "TIMER"),
-    ("EFR32MG26.*:TIMER[89]_NS:.*", "timer", "v1_w", "TIMER"),
-    ("EFR32MG2[46].*:TIMER[2-7]_NS:.*", "timer", "v1", "TIMER"),
-    // IADC high-accuracy variant. Some sub-families ship an IADC with an
-    // extra `OSRHA` field plus HIGHACCURACY / HIGHSPEED ADCMODE enum
-    // variants; others don't. All report <version>3</version>. The HA
-    // sub-families differ per chip family:
-    //   MG24: hundreds digit 1 or 3 (A1xx/B1xx/A3xx/B3xx).
-    //   MG26: hundreds digit 3 or 5 (B3xx/B5xx).
-    (
-        "EFR32MG24[A-Z][13][0-9][0-9].*:IADC[0-9]+_NS:.*",
-        "iadc",
-        "v3_ha",
-        "IADC",
-    ),
-    (
-        "EFR32MG26[A-Z][35][0-9][0-9].*:IADC[0-9]+_NS:.*",
-        "iadc",
-        "v3_ha",
-        "IADC",
-    ),
-    // SMU MVP-aware variant. Chips that include the MVP peripheral add
-    // MVPAHBDATA0..2 fields and an MVP privilege/secure-access bit to
-    // SMU's access-control registers. We enumerate the chip patterns
-    // that ship MVP (see `grep MVP_NS` across each pack):
-    //
-    //   MG24: B210 / B220 / B310
-    //   MG26: B410 / B420 / B510 / B520 / B610  (all last-digit-0 in 4xx-6xx)
-    //
-    // SMU version stays v3 on MG24, v7 on MG26 — the divergence is the
-    // chip's MVP presence, not the SMU IP version.
-    ("EFR32MG24B[23][0-9][0-9]F.*:SMU_NS:.*", "smu", "v3_mvp", "SMU"),
-    ("EFR32MG26B[456][0-9]0F.*:SMU_NS:.*", "smu", "v7_mvp", "SMU"),
-    // SYSCFG MVP-aware variant. Same chip set as SMU above adds
-    // MVPAHBDATA0/1/2 PORTSEL fields to SYSCFG's port-select register.
-    ("EFR32MG24B[23][0-9][0-9]F.*:SYSCFG_NS:.*", "syscfg", "v3_mvp", "SYSCFG"),
-    ("EFR32MG26B[456][0-9]0F.*:SYSCFG_NS:.*", "syscfg", "v9_mvp", "SYSCFG"),
-    // SMU_NS_CFGNS / SMU_S_CFGNS MVP-aware variants. Same chip set as SMU.
-    (
-        "EFR32MG24B[23][0-9][0-9]F.*:SMU_NS_CFGNS:.*",
-        "smu_ns_cfgns",
-        "v3_mvp",
-        "SMU_NS_CFGNS",
-    ),
-    (
-        "EFR32MG24B[23][0-9][0-9]F.*:SMU_S_CFGNS:.*",
-        "smu_s_cfgns",
-        "v3_mvp",
-        "SMU_S_CFGNS",
-    ),
-    (
-        "EFR32MG26B[456][0-9]0F.*:SMU_NS_CFGNS:.*",
-        "smu_ns_cfgns",
-        "v7_mvp",
-        "SMU_NS_CFGNS",
-    ),
-    (
-        "EFR32MG26B[456][0-9]0F.*:SMU_S_CFGNS:.*",
-        "smu_s_cfgns",
-        "v7_mvp",
-        "SMU_S_CFGNS",
-    ),
-    // DMEM wait-states variant. MG24 has a single DMEM_NS instance that
-    // exposes a CTRL.WAITSTATES bit (RAM read wait-states). MG26 has two
-    // DMEM instances (DMEM0_NS, DMEM1_NS) without that field. Both report
-    // <version>2</version>; the WAITSTATES bit is the only IR difference.
-    ("EFR32MG24.*:DMEM_NS:.*", "dmem", "v2_ws", "DMEM"),
+    ("EFR32MG2[46].*:TIMER[01]_NS:.*", "timer", "s2v1", "TIMER32"),
+    ("EFR32MG26.*:TIMER[89]_NS:.*", "timer", "s2v1", "TIMER32"),
+    ("EFR32MG2[46].*:TIMER[2-7]_NS:.*", "timer", "s2v1", "TIMER"),
+    // IADC needs no row. The high-accuracy sub-families add an OSRHA field,
+    // HIGHACCURACY / HIGHSPEED ADCMODE and VREF2P5. FG25 adds a LESENSE scan
+    // trigger. These only add fields and enum values, so `iadc_s2v3.yaml` is
+    // the superset of every <version>3</version> IADC.
+    // SMU, SMU_*_CFGNS, SYSCFG, DMEM and VDAC need no rows. Chips with MVP
+    // add MVP access-control and port-select fields. MG24's DMEM adds
+    // CTRL.WAITSTATES. FG25's DMEM has two AHB ports instead of four, and its
+    // VDAC adds a LESENSE trigger. None of that moves or resizes a field, so
+    // each (kind, version) is one superset YAML.
+    // USERDATA is the user data flash page. No SVD lists it, so
+    // `data/extra_peripherals.yaml` adds it and it has no SVD <version>.
+    // The token layout is the same on every Series 2 family
+    // (`sl_token_manager_manufacturing.h`, Zlib), so one YAML serves all.
+    ("EFR32(MG22|MG24|MG26|FG25).*:USERDATA:", "userdata", "s2v1", "USERDATA"),
     // DEVINFO is a per-family factory-programmed block. Both families
-    // report <version>0.0</version> but their register layouts differ
-    // substantially (different calibration data, chip-specific fields).
-    // Route to family-specific versions.
-    ("EFR32MG24.*:DEVINFO:.*", "devinfo", "v0_mg24", "DEVINFO"),
-    ("EFR32MG26.*:DEVINFO:.*", "devinfo", "v0_mg26", "DEVINFO"),
+    // report <version>0.0</version>, but their register layouts differ
+    // (calibration data, chip-specific fields).
+    ("EFR32MG24.*:DEVINFO:.*", "devinfo", "s2v0_mg24", "DEVINFO"),
+    ("EFR32MG26.*:DEVINFO:.*", "devinfo", "s2v0_mg26", "DEVINFO"),
     // --- EFR32FG25 (Series 2, config 5) ---
-    // EUSART variant split, same rationale as the MG2x entries above:
-    // EUSART0 carries the LF sub-block, EUSART1+ don't, but all report
-    // <version>2</version> in the SVD. Reuse the shared eusart_v2_lf /
-    // eusart_v2 labels — they hold if FG25's EUSART matches MG2x's.
-    ("EFR32FG25.*:EUSART0_NS:.*", "eusart", "v2_lf", "EUSART"),
-    ("EFR32FG25.*:EUSART[1-9]_NS:.*", "eusart", "v2", "EUSART"),
     // TIMER bit-width split, same rationale as the MG2x entries above.
     // FG25 ships TIMER0..7; TIMER0/1 are 32-bit wide, TIMER2..7 are 16-bit
-    // narrow. Reuse the shared timer_v1_w / timer_v1 labels.
-    ("EFR32FG25.*:TIMER[01]_NS:.*", "timer", "v1_w", "TIMER"),
-    ("EFR32FG25.*:TIMER[2-7]_NS:.*", "timer", "v1", "TIMER"),
-    // The following three peripherals share an SVD <version> with the MG2x
-    // curated YAMLs but extract to a structurally different IR on FG25
-    // (config 5). Pin FG25-specific labels so they don't collide with the
-    // MG2x buckets. (All other shared (kind,version) buckets — EUSART,
-    // TIMER, I2C, BURTC, … — extract identically across FG25/MG24/MG26 and
-    // are reused.)
-    ("EFR32FG25.*:DMEM_NS:.*", "dmem", "v2_fg25", "DMEM"),
-    ("EFR32FG25.*:IADC[0-9]+_NS:.*", "iadc", "v3_fg25", "IADC"),
-    ("EFR32FG25.*:VDAC[0-9]+_NS:.*", "vdac", "v2_fg25", "VDAC"),
+    // narrow. Reuse the shared timer_s2v1 blocks.
+    ("EFR32FG25.*:TIMER[01]_NS:.*", "timer", "s2v1", "TIMER32"),
+    ("EFR32FG25.*:TIMER[2-7]_NS:.*", "timer", "s2v1", "TIMER"),
     // --- EFR32MG22 (Series 2, config 2) ---
-    // TIMER split: on MG22 only TIMER0 is the advanced/wide timer; TIMER1..4
-    // are the basic ones. They share <version>0</version> but extract to
-    // different IRs, so pin distinct labels (timer_v0_w for TIMER0, timer_v0
-    // for the rest). Both are MG22-specific (config-2 timer, version 0).
-    ("EFR32MG22.*:TIMER0_NS:.*", "timer", "v0_w", "TIMER"),
-    ("EFR32MG22.*:TIMER[1-4]_NS:.*", "timer", "v0", "TIMER"),
+    // TIMER split: on MG22 only TIMER0 is the wide (32-bit) timer. TIMER1..4
+    // are 16-bit. They share <version>0</version> and differ only in field
+    // widths, so both are blocks of `timer_s2v0.yaml` (`Timer32` for TIMER0,
+    // `Timer` for the rest).
+    ("EFR32MG22.*:TIMER0_NS:.*", "timer", "s2v0", "TIMER32"),
+    ("EFR32MG22.*:TIMER[1-4]_NS:.*", "timer", "s2v0", "TIMER"),
     // --- EFM32GG (Series 0 Giant Gecko) ---
     // UART0/1 are the asynchronous subset of the USART IP and share its
     // register layout exactly (verified by extraction: only one enum-variant
@@ -177,10 +108,10 @@ pub static ENTRIES: &[(&str, &str, &str, &str)] = &[
 /// matching chip gets, unless an `ENTRIES` row matches first.
 ///
 /// Label scheme: `s<series>v<N>`, numbered per series in release order.
-/// Series 2 labels are `v<svd_version>` and never start with `s`, so the
-/// two schemes cannot collide. When a new family shares most blocks with
-/// an onboarded one, give it the same label here and split the blocks
-/// that differ with `ENTRIES` rows (e.g. `gpio` → `s0v2`).
+/// Versioned SVDs (Series 2+) get `s<series>v<svd_version>` instead, so
+/// the two schemes never mix within a series. When a new family shares
+/// most blocks with an onboarded one, give it the same label here. Then
+/// split the blocks that differ with `ENTRIES` rows (e.g. `gpio` → `s0v2`).
 pub static UNVERSIONED: &[(&str, &str)] = &[
     // EFM32GG (Series 0). `[0-9]{3}F` excludes Series 1 EFM32GG11B/GG12B.
     ("EFM32GG[0-9]{3}F.*", "s0v1"),
@@ -191,10 +122,18 @@ fn unversioned_label(chip: &str) -> Option<&'static str> {
     let compiled = COMPILED.get_or_init(|| {
         UNVERSIONED
             .iter()
-            .map(|(key, label)| (Regex::new(&format!("^{key}$")).expect("UNVERSIONED regex compiles"), *label))
+            .map(|(key, label)| {
+                (
+                    Regex::new(&format!("^{key}$")).expect("UNVERSIONED regex compiles"),
+                    *label,
+                )
+            })
             .collect()
     });
-    compiled.iter().find(|(re, _)| re.is_match(chip)).map(|(_, label)| *label)
+    compiled
+        .iter()
+        .find(|(re, _)| re.is_match(chip))
+        .map(|(_, label)| *label)
 }
 
 /// Compile the static `ENTRIES` table into runtime `Entry`s.
@@ -218,9 +157,9 @@ pub fn compile() -> Result<Vec<Entry>> {
 ///
 /// - kind / block: peripheral name with `_NS` or `_S` stripped, then any
 ///   trailing ASCII digits.
-/// - version: `v<svd_version>` (where `svd_version` is the SVD tag, or
-///   `unknown` if the SVD doesn't carry one).
-fn default_route(peripheral: &str, svd_version: Option<&str>) -> Route {
+/// - version: `s<series>v<svd_version>` (where `svd_version` is the SVD
+///   tag, or `unknown` if the SVD doesn't carry one).
+fn default_route(peripheral: &str, svd_version: Option<&str>, series: u8) -> Route {
     let stripped = peripheral
         .strip_suffix("_NS")
         .or_else(|| peripheral.strip_suffix("_S"))
@@ -229,8 +168,8 @@ fn default_route(peripheral: &str, svd_version: Option<&str>) -> Route {
     let base = if trimmed.is_empty() { stripped } else { trimmed };
     let kind = base.to_ascii_lowercase();
     let version = match svd_version {
-        Some(v) if !v.is_empty() => format!("v{}", sanitise_version(v)),
-        _ => "vunknown".to_owned(),
+        Some(v) if !v.is_empty() => format!("s{series}v{}", sanitise_version(v)),
+        _ => format!("s{series}vunknown"),
     };
     Route {
         kind,
@@ -240,12 +179,13 @@ fn default_route(peripheral: &str, svd_version: Option<&str>) -> Route {
 }
 
 /// Route a peripheral instance to its `(kind, version, block)`. The
-/// `compiled` argument should come from [`compile`].
+/// `compiled` argument should come from [`compile`]. `series` is the
+/// chip's Silicon Labs series (from its CMSIS header).
 ///
 /// Fails when the SVD has no `<version>` for the peripheral and neither
 /// `ENTRIES` nor `UNVERSIONED` covers the chip, so no peripheral is ever
 /// published under a guessed version.
-pub fn route(compiled: &[Entry], chip: &str, peripheral: &str, svd_version: Option<&str>) -> Result<Route> {
+pub fn route(compiled: &[Entry], chip: &str, peripheral: &str, svd_version: Option<&str>, series: u8) -> Result<Route> {
     let key = format!("{chip}:{peripheral}:{}", svd_version.unwrap_or(""));
     for e in compiled {
         if e.key.is_match(&key) {
@@ -256,7 +196,7 @@ pub fn route(compiled: &[Entry], chip: &str, peripheral: &str, svd_version: Opti
             });
         }
     }
-    let mut r = default_route(peripheral, svd_version);
+    let mut r = default_route(peripheral, svd_version, series);
     if svd_version.is_none_or(str::is_empty) {
         let Some(label) = unversioned_label(chip) else {
             bail!(
@@ -289,47 +229,53 @@ mod tests {
 
     #[test]
     fn default_strips_ns_and_digits() {
-        let r = default_route("EUSART0_NS", Some("2"));
+        let r = default_route("EUSART0_NS", Some("2"), 2);
         assert_eq!(r.kind, "eusart");
-        assert_eq!(r.version, "v2");
+        assert_eq!(r.version, "s2v2");
         assert_eq!(r.block, "EUSART");
     }
 
     #[test]
     fn default_handles_no_suffix() {
-        let r = default_route("CMU", Some("3"));
+        let r = default_route("CMU", Some("3"), 2);
         assert_eq!(r.kind, "cmu");
-        assert_eq!(r.version, "v3");
+        assert_eq!(r.version, "s2v3");
         assert_eq!(r.block, "CMU");
     }
 
     #[test]
     fn default_falls_back_when_no_svd_version() {
-        let r = default_route("GPIO_NS", None);
-        assert_eq!(r.version, "vunknown");
+        let r = default_route("GPIO_NS", None, 2);
+        assert_eq!(r.version, "s2vunknown");
     }
 
     #[test]
     fn empty_perimap_uses_default_for_known_silabs_names() {
         let compiled = compile().unwrap();
-        let r = route(&compiled, "EFR32MG26B211F2048IM68", "GPIO_NS", Some("7")).unwrap();
+        let r = route(&compiled, "EFR32MG26B211F2048IM68", "GPIO_NS", Some("7"), 2).unwrap();
         assert_eq!(r.kind, "gpio");
-        assert_eq!(r.version, "v7");
+        assert_eq!(r.version, "s2v7");
         assert_eq!(r.block, "GPIO");
     }
 
     #[test]
     fn unversioned_efm32gg_gets_family_label() {
         let compiled = compile().unwrap();
-        let r = route(&compiled, "EFM32GG390F1024", "TIMER0", None).unwrap();
-        assert_eq!((r.kind.as_str(), r.version.as_str(), r.block.as_str()), ("timer", "s0v1", "TIMER"));
+        let r = route(&compiled, "EFM32GG390F1024", "TIMER0", None, 0).unwrap();
+        assert_eq!(
+            (r.kind.as_str(), r.version.as_str(), r.block.as_str()),
+            ("timer", "s0v1", "TIMER")
+        );
     }
 
     #[test]
     fn efm32gg_uart_routes_to_usart() {
         let compiled = compile().unwrap();
-        let r = route(&compiled, "EFM32GG390F1024", "UART1", None).unwrap();
-        assert_eq!((r.kind.as_str(), r.version.as_str(), r.block.as_str()), ("usart", "s0v1", "USART"));
+        let r = route(&compiled, "EFM32GG390F1024", "UART1", None, 0).unwrap();
+        assert_eq!(
+            (r.kind.as_str(), r.version.as_str(), r.block.as_str()),
+            ("usart", "s0v1", "USART")
+        );
     }
 
     #[test]
@@ -337,7 +283,7 @@ mod tests {
         let compiled = compile().unwrap();
         // EFM32GG11B is Series 1 and not onboarded yet. `[0-9]{3}F` in the
         // GG pattern must not match it.
-        let err = route(&compiled, "EFM32GG11B820F2048GL192", "GPIO", None).unwrap_err();
+        let err = route(&compiled, "EFM32GG11B820F2048GL192", "GPIO", None, 1).unwrap_err();
         assert!(err.to_string().contains("UNVERSIONED"), "{err}");
     }
 

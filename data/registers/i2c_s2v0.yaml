@@ -1,0 +1,598 @@
+block/I2c:
+  description: I2C peripheral.
+  items:
+  - name: ipversion
+    description: No Description.
+    byte_offset: 0
+    access: Read
+    fieldset: regs::Ipversion
+  - name: en
+    description: No Description.
+    byte_offset: 4
+    fieldset: regs::En
+  - name: ctrl
+    description: No Description.
+    byte_offset: 8
+    fieldset: regs::Ctrl
+  - name: cmd
+    description: No Description.
+    byte_offset: 12
+    access: Write
+    fieldset: regs::Cmd
+  - name: state
+    description: No Description.
+    byte_offset: 16
+    access: Read
+    fieldset: regs::State
+  - name: status
+    description: No Description.
+    byte_offset: 20
+    access: Read
+    fieldset: regs::Status
+  - name: clkdiv
+    description: No Description.
+    byte_offset: 24
+    fieldset: regs::Clkdiv
+  - name: saddr
+    description: No Description.
+    byte_offset: 28
+    fieldset: regs::Saddr
+  - name: saddrmask
+    description: No Description.
+    byte_offset: 32
+    fieldset: regs::Saddrmask
+  - name: rxdata
+    description: No Description.
+    byte_offset: 36
+    access: Read
+    fieldset: regs::Rxdata
+  - name: rxdouble
+    description: No Description.
+    byte_offset: 40
+    access: Read
+    fieldset: regs::Rxdouble
+  - name: rxdatap
+    description: No Description.
+    byte_offset: 44
+    access: Read
+    fieldset: regs::Rxdatap
+  - name: rxdoublep
+    description: No Description.
+    byte_offset: 48
+    access: Read
+    fieldset: regs::Rxdoublep
+  - name: txdata
+    description: No Description.
+    byte_offset: 52
+    access: Write
+    fieldset: regs::Txdata
+  - name: txdouble
+    description: No Description.
+    byte_offset: 56
+    access: Write
+    fieldset: regs::Txdouble
+  - name: if_
+    description: No Description.
+    byte_offset: 60
+    fieldset: regs::If
+  - name: ien
+    description: No Description.
+    byte_offset: 64
+    fieldset: regs::Ien
+fieldset/regs::Clkdiv:
+  description: No Description.
+  fields:
+  - name: div
+    description: Clock Divider.
+    bit_offset: 0
+    bit_size: 9
+fieldset/regs::Cmd:
+  description: No Description.
+  fields:
+  - name: start
+    description: Send start condition.
+    bit_offset: 0
+    bit_size: 1
+  - name: stop
+    description: Send stop condition.
+    bit_offset: 1
+    bit_size: 1
+  - name: ack
+    description: Send ACK.
+    bit_offset: 2
+    bit_size: 1
+  - name: nack
+    description: Send NACK.
+    bit_offset: 3
+    bit_size: 1
+  - name: cont
+    description: Continue transmission.
+    bit_offset: 4
+    bit_size: 1
+  - name: abort
+    description: Abort transmission.
+    bit_offset: 5
+    bit_size: 1
+  - name: cleartx
+    description: Clear TX.
+    bit_offset: 6
+    bit_size: 1
+  - name: clearpc
+    description: Clear Pending Commands.
+    bit_offset: 7
+    bit_size: 1
+fieldset/regs::Ctrl:
+  description: No Description.
+  fields:
+  - name: corerst
+    description: Soft Reset the internal state registers.
+    bit_offset: 0
+    bit_size: 1
+  - name: slave
+    description: Addressable as Follower.
+    bit_offset: 1
+    bit_size: 1
+  - name: autoack
+    description: Automatic Acknowledge.
+    bit_offset: 2
+    bit_size: 1
+  - name: autose
+    description: Automatic STOP when Empty.
+    bit_offset: 3
+    bit_size: 1
+  - name: autosn
+    description: Automatic STOP on NACK.
+    bit_offset: 4
+    bit_size: 1
+  - name: arbdis
+    description: Arbitration Disable.
+    bit_offset: 5
+    bit_size: 1
+  - name: gcamen
+    description: General Call Address Match Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: txbil
+    description: TX Buffer Interrupt Level.
+    bit_offset: 7
+    bit_size: 1
+    enum: vals::Txbil
+  - name: clhr
+    description: Clock Low High Ratio.
+    bit_offset: 8
+    bit_size: 2
+    enum: vals::Clhr
+  - name: bito
+    description: Bus Idle Timeout.
+    bit_offset: 12
+    bit_size: 2
+    enum: vals::Bito
+  - name: gibito
+    description: Go Idle on Bus Idle Timeout.
+    bit_offset: 15
+    bit_size: 1
+  - name: clto
+    description: Clock Low Timeout.
+    bit_offset: 16
+    bit_size: 3
+    enum: vals::Clto
+  - name: sclmonen
+    description: SCL Monitor Enable.
+    bit_offset: 20
+    bit_size: 1
+  - name: sdamonen
+    description: SDA Monitor Enable.
+    bit_offset: 21
+    bit_size: 1
+fieldset/regs::En:
+  description: No Description.
+  fields:
+  - name: en
+    description: module enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/regs::Ien:
+  description: No Description.
+  fields:
+  - name: start
+    description: START condition Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: rstart
+    description: Repeated START condition Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: addr
+    description: Address Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: txc
+    description: Transfer Completed Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: txbl
+    description: Transmit Buffer Level Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: rxdatav
+    description: Receive Data Valid Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: ack
+    description: Acknowledge Received Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: nack
+    description: Not Acknowledge Received Interrupt Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: mstop
+    description: Leader STOP Condition Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: arblost
+    description: Arbitration Lost Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: buserr
+    description: Bus Error Interrupt Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: bushold
+    description: Bus Held Interrupt Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: txof
+    description: Transmit Buffer Overflow Interrupt Flag.
+    bit_offset: 12
+    bit_size: 1
+  - name: rxuf
+    description: Receive Buffer Underflow Interrupt Flag.
+    bit_offset: 13
+    bit_size: 1
+  - name: bito
+    description: Bus Idle Timeout Interrupt Flag.
+    bit_offset: 14
+    bit_size: 1
+  - name: clto
+    description: Clock Low Timeout Interrupt Flag.
+    bit_offset: 15
+    bit_size: 1
+  - name: sstop
+    description: Follower STOP condition Interrupt Flag.
+    bit_offset: 16
+    bit_size: 1
+  - name: rxfull
+    description: Receive Buffer Full Interrupt Flag.
+    bit_offset: 17
+    bit_size: 1
+  - name: clerr
+    description: Clock Low Error Interrupt Flag.
+    bit_offset: 18
+    bit_size: 1
+  - name: sclerr
+    description: SCL Error Interrupt Flag.
+    bit_offset: 19
+    bit_size: 1
+  - name: sdaerr
+    description: SDA Error Interrupt Flag.
+    bit_offset: 20
+    bit_size: 1
+fieldset/regs::If:
+  description: No Description.
+  fields:
+  - name: start
+    description: START condition Interrupt Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: rstart
+    description: Repeated START condition Interrupt Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: addr
+    description: Address Interrupt Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: txc
+    description: Transfer Completed Interrupt Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: txbl
+    description: Transmit Buffer Level Interrupt Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: rxdatav
+    description: Receive Data Valid Interrupt Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: ack
+    description: Acknowledge Received Interrupt Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: nack
+    description: Not Acknowledge Received Interrupt Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: mstop
+    description: Leader STOP Condition Interrupt Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: arblost
+    description: Arbitration Lost Interrupt Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: buserr
+    description: Bus Error Interrupt Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: bushold
+    description: Bus Held Interrupt Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: txof
+    description: Transmit Buffer Overflow Interrupt Flag.
+    bit_offset: 12
+    bit_size: 1
+  - name: rxuf
+    description: Receive Buffer Underflow Interrupt Flag.
+    bit_offset: 13
+    bit_size: 1
+  - name: bito
+    description: Bus Idle Timeout Interrupt Flag.
+    bit_offset: 14
+    bit_size: 1
+  - name: clto
+    description: Clock Low Timeout Interrupt Flag.
+    bit_offset: 15
+    bit_size: 1
+  - name: sstop
+    description: Follower STOP condition Interrupt Flag.
+    bit_offset: 16
+    bit_size: 1
+  - name: rxfull
+    description: Receive Buffer Full Interrupt Flag.
+    bit_offset: 17
+    bit_size: 1
+  - name: clerr
+    description: Clock Low Error Interrupt Flag.
+    bit_offset: 18
+    bit_size: 1
+  - name: sclerr
+    description: SCL Error Interrupt Flag.
+    bit_offset: 19
+    bit_size: 1
+  - name: sdaerr
+    description: SDA Error Interrupt Flag.
+    bit_offset: 20
+    bit_size: 1
+fieldset/regs::Ipversion:
+  description: No Description.
+  fields:
+  - name: ipversion
+    description: IP version ID.
+    bit_offset: 0
+    bit_size: 32
+fieldset/regs::Rxdata:
+  description: No Description.
+  fields:
+  - name: rxdata
+    description: RX Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Rxdatap:
+  description: No Description.
+  fields:
+  - name: rxdatap
+    description: RX Data Peek.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Rxdouble:
+  description: No Description.
+  fields:
+  - name: rxdata0
+    description: RX Data 0.
+    bit_offset: 0
+    bit_size: 8
+  - name: rxdata1
+    description: RX Data 1.
+    bit_offset: 8
+    bit_size: 8
+fieldset/regs::Rxdoublep:
+  description: No Description.
+  fields:
+  - name: rxdatap0
+    description: RX Data 0 Peek.
+    bit_offset: 0
+    bit_size: 8
+  - name: rxdatap1
+    description: RX Data 1 Peek.
+    bit_offset: 8
+    bit_size: 8
+fieldset/regs::Saddr:
+  description: No Description.
+  fields:
+  - name: addr
+    description: Follower address.
+    bit_offset: 1
+    bit_size: 7
+fieldset/regs::Saddrmask:
+  description: No Description.
+  fields:
+  - name: saddrmask
+    description: Follower Address Mask.
+    bit_offset: 1
+    bit_size: 7
+fieldset/regs::State:
+  description: No Description.
+  fields:
+  - name: busy
+    description: Bus Busy.
+    bit_offset: 0
+    bit_size: 1
+  - name: master
+    description: Leader.
+    bit_offset: 1
+    bit_size: 1
+  - name: transmitter
+    description: Transmitter.
+    bit_offset: 2
+    bit_size: 1
+  - name: nacked
+    description: Nack Received.
+    bit_offset: 3
+    bit_size: 1
+  - name: bushold
+    description: Bus Held.
+    bit_offset: 4
+    bit_size: 1
+  - name: state
+    description: Transmission State.
+    bit_offset: 5
+    bit_size: 3
+    enum: vals::State
+fieldset/regs::Status:
+  description: No Description.
+  fields:
+  - name: pstart
+    description: Pending START.
+    bit_offset: 0
+    bit_size: 1
+  - name: pstop
+    description: Pending STOP.
+    bit_offset: 1
+    bit_size: 1
+  - name: pack
+    description: Pending ACK.
+    bit_offset: 2
+    bit_size: 1
+  - name: pnack
+    description: Pending NACK.
+    bit_offset: 3
+    bit_size: 1
+  - name: pcont
+    description: Pending continue.
+    bit_offset: 4
+    bit_size: 1
+  - name: pabort
+    description: Pending abort.
+    bit_offset: 5
+    bit_size: 1
+  - name: txc
+    description: TX Complete.
+    bit_offset: 6
+    bit_size: 1
+  - name: txbl
+    description: TX Buffer Level.
+    bit_offset: 7
+    bit_size: 1
+  - name: rxdatav
+    description: RX Data Valid.
+    bit_offset: 8
+    bit_size: 1
+  - name: rxfull
+    description: RX FIFO Full.
+    bit_offset: 9
+    bit_size: 1
+  - name: txbufcnt
+    description: TX Buffer Count.
+    bit_offset: 10
+    bit_size: 2
+fieldset/regs::Txdata:
+  description: No Description.
+  fields:
+  - name: txdata
+    description: TX Data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/regs::Txdouble:
+  description: No Description.
+  fields:
+  - name: txdata0
+    description: TX Data.
+    bit_offset: 0
+    bit_size: 8
+  - name: txdata1
+    description: TX Data.
+    bit_offset: 8
+    bit_size: 8
+enum/vals::Bito:
+  bit_size: 2
+  variants:
+  - name: Off
+    description: Timeout disabled.
+    value: 0
+  - name: Pcc160
+    description: Timeout after 160 prescaled clock cycles. In standard mode at 100 kHz, this results in a 200us timeout.
+    value: 3
+  - name: Pcc40
+    description: Timeout after 40 prescaled clock cycles. In standard mode at 100 kHz, this results in a 50us timeout.
+    value: 1
+  - name: Pcc80
+    description: Timeout after 80 prescaled clock cycles. In standard mode at 100 kHz, this results in a 100us timeout.
+    value: 2
+enum/vals::Clhr:
+  bit_size: 2
+  variants:
+  - name: Asymmetric
+    description: Nlow=6 and Nhigh=3, and the Nlow:Nhigh ratio is 6:3.
+    value: 1
+  - name: Fast
+    description: Nlow=11 and Nhigh=6, and the Nlow:Nhigh ratio is 11:6.
+    value: 2
+  - name: Standard
+    description: Nlow=4 and Nhigh=4, and the Nlow:Nhigh ratio is 4:4.
+    value: 0
+enum/vals::Clto:
+  bit_size: 3
+  variants:
+  - name: Off
+    description: Timeout disabled.
+    value: 0
+  - name: Pcc1024
+    description: Timeout after 1024 prescaled clock cycles. In standard mode at 100 kHz, this results in a 1280us timeout.
+    value: 5
+  - name: Pcc160
+    description: Timeout after 160 prescaled clock cycles. In standard mode at 100 kHz, this results in a 200us timeout.
+    value: 3
+  - name: Pcc320
+    description: Timeout after 320 prescaled clock cycles. In standard mode at 100 kHz, this results in a 400us timeout.
+    value: 4
+  - name: Pcc40
+    description: Timeout after 40 prescaled clock cycles. In standard mode at 100 kHz, this results in a 50us timeout.
+    value: 1
+  - name: Pcc80
+    description: Timeout after 80 prescaled clock cycles. In standard mode at 100 kHz, this results in a 100us timeout.
+    value: 2
+enum/vals::State:
+  bit_size: 3
+  variants:
+  - name: Addr
+    description: Address transmit or receive phase.
+    value: 3
+  - name: Addrack
+    description: Address ack/nack transmit or receive phase.
+    value: 4
+  - name: Data
+    description: Data transmit or receive phase.
+    value: 5
+  - name: Dataack
+    description: Data ack/nack transmit or receive phase.
+    value: 6
+  - name: Idle
+    description: No transmission is being performed.
+    value: 0
+  - name: Start
+    description: Start transmit phase.
+    value: 2
+  - name: Wait
+    description: Waiting for idle. Will send a start condition as soon as the bus is idle.
+    value: 1
+enum/vals::Txbil:
+  bit_size: 1
+  variants:
+  - name: Empty
+    description: TXBL status and the TXBL interrupt flag are set when the transmit buffer becomes empty. TXBL is cleared when the buffer becomes nonempty.
+    value: 0
+  - name: HalfFull
+    description: TXBL status and the TXBL interrupt flag are set when the transmit buffer goes from full to half-full or empty. TXBL is cleared when the buffer becomes full.
+    value: 1

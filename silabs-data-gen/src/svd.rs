@@ -27,10 +27,7 @@ pub struct RegisterIr {
 
 /// Parse all peripherals from an SVD document.
 ///
-/// SVD `<interrupt>` blocks are intentionally not extracted — the CMSIS
-/// device header is the authoritative IRQ source (see
-/// `silabs_data_gen::header`). The interrupt table for a chip is built
-/// from the header alone, matching stm32-data.
+/// Skips the SVD `<interrupt>` blocks (see [`crate::header`]).
 pub fn parse(xml: &str) -> Result<Vec<PeripheralIr>> {
     let raw = parse_raw(xml)?;
     let mut peripherals: Vec<PeripheralIr> = Vec::with_capacity(raw.peripherals.len());

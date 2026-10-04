@@ -1,0 +1,26 @@
+# Peripherals that a family's SVD does not list. `silabs-data-gen gen` adds
+# them to each chip of the family. The base address comes from the
+# `#define <NAME>_BASE` of the chip's device header. Each one needs a
+# `data/registers/<kind>_<version>.yaml`, written by hand from Zlib sources.
+# A Series 2 block also needs a `perimap::ENTRIES` row, because it has no
+# SVD `<version>`.
+#
+# EFM32GG: the SVD has neither block.
+# - DEVINFO: factory calibration and part data (`efm32gg_devinfo.h`).
+# - ROMTABLE: chip family and revision (`efm32gg_romtable.h`).
+#
+# EFR32MG22, EFR32MG24, EFR32MG26, EFR32FG25: the SVDs have no USERDATA.
+# - USERDATA: the user data flash page. It holds the manufacturing tokens
+#   (`sl_token_manager_manufacturing.h`). The base comes from
+#   `USERDATA_BASE` in the device header.
+EFM32GG:
+  - DEVINFO
+  - ROMTABLE
+EFR32FG25:
+  - USERDATA
+EFR32MG22:
+  - USERDATA
+EFR32MG24:
+  - USERDATA
+EFR32MG26:
+  - USERDATA

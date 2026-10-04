@@ -13,25 +13,28 @@ pub struct ChipDb {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Chip {
     pub name: String,
+    /// Family name from the pdsc `<family Dfamily>` (`EFR32MG24`, `EFM32GG`).
+    #[serde(default)]
+    pub family: String,
     pub core: String,
     pub fpu: bool,
     pub mpu: bool,
     pub trustzone: bool,
-    /// Silicon Labs chip generation + within-series config number,
-    /// extracted from `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>` in the
-    /// per-chip CMSIS device header. Populated by `silabs-data-gen` via
-    /// [`crate::header::extract_series`] — pdsc files don't carry the
-    /// numeric series identifier.
+    /// Silicon Labs series and config number, from the per-chip CMSIS device
+    /// header ([`crate::header::extract_series`]). The pdsc has no numeric
+    /// series, so `silabs-data-gen` fills this in after pdsc parsing.
     ///
-    /// `Option` because the field was added after the initial schema;
-    /// regenerated JSON always has it. Code consuming the JSON should
-    /// treat `None` as "regenerate the chip JSON".
+    /// `None` means the chip JSON is stale. Regenerate it.
     #[serde(default)]
     pub series: Option<crate::header::Series>,
     /// NVIC priority bits (`__NVIC_PRIO_BITS`) from the per-chip CMSIS
     /// device header. Filled in by `silabs-data-gen`, like `series`.
     #[serde(default)]
     pub nvic_prio_bits: Option<u8>,
+    /// Flash erase page size in bytes (`FLASH_PAGE_SIZE` in the per-chip
+    /// CMSIS device header). Filled in by `silabs-data-gen`, like `series`.
+    #[serde(default)]
+    pub flash_page_size: Option<u32>,
     pub memory: Vec<MemoryRegion>,
     pub flash_algo: Option<String>,
     pub svd: String,
@@ -228,6 +231,9 @@ pub fn parse(xml: &str) -> Result<ChipDb> {
     }
 
     let family = family.ok_or_else(|| anyhow!("no <family> element found"))?;
+    for c in &mut chips {
+        c.family = family.clone();
+    }
     Ok(ChipDb { family, chips })
 }
 
@@ -294,15 +300,15 @@ impl DeviceBuilder {
 
         Ok(Chip {
             name: self.name,
+            family: String::new(),
             core,
             fpu: proc_info.fpu.unwrap_or(false),
             mpu: proc_info.mpu.unwrap_or(false),
             trustzone: proc_info.trustzone.unwrap_or(false),
-            // `series` is filled in by `silabs-data-gen` after pdsc
-            // parsing, from the per-chip CMSIS device header — pdsc
-            // doesn't carry the numeric series/config identifiers.
+            // Filled in later from the device header.
             series: None,
             nvic_prio_bits: None,
+            flash_page_size: None,
             memory,
             flash_algo,
             svd,
@@ -388,9 +394,8 @@ fn parse_hex_or_dec(s: &str) -> Result<u64> {
 
 /// Best-effort: derive a package suffix like "IM68" from the device name.
 fn derive_package(name: &str) -> Option<String> {
-    // EFR32MG26B211F2048IM68 -> the trailing alpha-num group after the last digit
-    // run that follows a 'F' is the package code. Cheap heuristic: take the
-    // suffix that starts with the last 'I' in the name (matches IM68/IL136/etc).
+    // The package code starts at the last 'I': `EFR32MG26B211F2048IM68` gives
+    // `IM68`. Other codes look like `IL136`.
     let bytes = name.as_bytes();
     let last_i = bytes.iter().rposition(|&b| b == b'I')?;
     let suffix = &name[last_i..];

@@ -82,13 +82,13 @@ block/Usart:
     byte_offset: 64
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 68
     access: Write
     fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 72
     access: Write
     fieldset: regs::Ifc
@@ -202,10 +202,12 @@ fieldset/regs::Ctrl:
     description: Clock Polarity.
     bit_offset: 8
     bit_size: 1
+    enum: vals::Clkpol
   - name: clkpha
     description: Clock Edge For Setup/Sample.
     bit_offset: 9
     bit_size: 1
+    enum: vals::Clkpha
   - name: msbf
     description: Most Significant Bit First.
     bit_offset: 10
@@ -214,10 +216,12 @@ fieldset/regs::Ctrl:
     description: Action On Slave-Select In Master Mode.
     bit_offset: 11
     bit_size: 1
+    enum: vals::Csma
   - name: txbil
     description: TX Buffer Interrupt Level.
     bit_offset: 12
     bit_size: 1
+    enum: vals::Txbil
   - name: rxinv
     description: Receiver Input Invert.
     bit_offset: 13
@@ -316,6 +320,7 @@ fieldset/regs::I2sctrl:
     description: Justification of I2S Data.
     bit_offset: 2
     bit_size: 1
+    enum: vals::Justify
   - name: dmasplit
     description: Separate DMA Request For Left/Right Data.
     bit_offset: 3
@@ -867,6 +872,33 @@ fieldset/regs::Txdoublex:
     description: Enable RX After Transmission.
     bit_offset: 31
     bit_size: 1
+enum/vals::Clkpha:
+  bit_size: 1
+  variants:
+  - name: Sampleleading
+    description: Data is sampled on the leading edge and set-up on the trailing edge of the bus clock in synchronous mode.
+    value: 0
+  - name: Sampletrailing
+    description: Data is set-up on the leading edge and sampled on the trailing edge of the bus clock in synchronous mode.
+    value: 1
+enum/vals::Clkpol:
+  bit_size: 1
+  variants:
+  - name: Idlehigh
+    description: The bus clock used in synchronous mode has a high base value.
+    value: 1
+  - name: Idlelow
+    description: The bus clock used in synchronous mode has a low base value.
+    value: 0
+enum/vals::Csma:
+  bit_size: 1
+  variants:
+  - name: Gotoslavemode
+    description: Go to secondary mode.
+    value: 1
+  - name: Noaction
+    description: No action taken.
+    value: 0
 enum/vals::Databits:
   bit_size: 4
   variants:
@@ -977,6 +1009,15 @@ enum/vals::Irpw:
     value: 2
   - name: Two
     description: IrDA pulse width is 2/16 for OVS=0 and 2/8 for OVS=1.
+    value: 1
+enum/vals::Justify:
+  bit_size: 1
+  variants:
+  - name: Left
+    description: Data is left-justified.
+    value: 0
+  - name: Right
+    description: Data is right-justified.
     value: 1
 enum/vals::Location:
   bit_size: 3
@@ -1107,6 +1148,15 @@ enum/vals::Tsel:
   - name: Prsch7
     description: PRS Channel 7 selected.
     value: 7
+enum/vals::Txbil:
+  bit_size: 1
+  variants:
+  - name: Empty
+    description: TXBL and the TXBL interrupt flag are set when the transmit buffer becomes empty. TXBL is cleared when the buffer becomes nonempty.
+    value: 0
+  - name: Halffull
+    description: TXBL and TXBLIF are set when the transmit buffer goes from full to half-full or empty. TXBL is cleared when the buffer becomes full.
+    value: 1
 enum/vals::Txdelay:
   bit_size: 2
   variants:

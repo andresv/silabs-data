@@ -34,6 +34,43 @@ enum Cmd {
         /// Output base directory (will create chips/ subdirectory).
         #[arg(long)]
         out_dir: PathBuf,
+        /// Curated pin facts, `<family>.yaml`.
+        #[arg(long, default_value = "data/pins")]
+        pins_dir: PathBuf,
+        /// Curated register YAMLs, for the route register names.
+        #[arg(long, default_value = "data/registers")]
+        registers_dir: PathBuf,
+        /// Peripherals that a family's SVD does not list.
+        #[arg(long, default_value = "data/extra_peripherals.yaml")]
+        extra_peripherals: PathBuf,
+    },
+    /// One-shot: extract `data/pins/<family>.yaml` from the Silicon Labs pin
+    /// tool. Writes only facts. `gen` never runs this.
+    ExtractPins {
+        /// A family directory of the pin tool, for example
+        /// `.../hwconf_data/pin_tool/efr32mg24`. May be repeated.
+        #[arg(long, required = true)]
+        pin_tool: Vec<PathBuf>,
+        /// Pin-tool version for the file header (`Simplicity SDK 2025.12.0`).
+        #[arg(long)]
+        sdk: String,
+        /// Directory with the per-chip JSON (`chips/`) from `gen`.
+        #[arg(long)]
+        data_dir: PathBuf,
+        /// Output directory of the `<family>.yaml` files.
+        #[arg(long)]
+        out_dir: PathBuf,
+        /// Directory of extracted CMSIS packs, for the Series 0 AF headers.
+        #[arg(long)]
+        pack_dir: Option<PathBuf>,
+        /// Curated register YAMLs, for the Series 2 GPIO route registers.
+        #[arg(long, default_value = "data/registers")]
+        registers_dir: PathBuf,
+        /// Overwrite a YAML file that differs from the extractor output. The
+        /// files are maintained by hand, so without this flag the command
+        /// prints the difference and stops.
+        #[arg(long)]
+        force: bool,
     },
 }
 
@@ -59,7 +96,73 @@ fn main() -> anyhow::Result<()> {
             println!("{}", serde_json::to_string_pretty(&peripherals)?);
             Ok(())
         }
-        Cmd::Gen { pack, out_dir } => {
+        Cmd::ExtractPins {
+            pin_tool,
+            sdk,
+            data_dir,
+            out_dir,
+            pack_dir,
+            registers_dir,
+            force,
+        } => {
+            let chips_dir = data_dir.join("chips");
+            let mut chips = std::collections::BTreeMap::new();
+            for entry in
+                std::fs::read_dir(&chips_dir).map_err(|e| anyhow::anyhow!("read {}: {e}", chips_dir.display()))?
+            {
+                let path = entry?.path();
+                if path.extension().and_then(|e| e.to_str()) != Some("json") {
+                    continue;
+                }
+                let chip: silabs_data_gen::chips::ChipFile = serde_json::from_slice(&std::fs::read(&path)?)
+                    .map_err(|e| anyhow::anyhow!("parse {}: {e}", path.display()))?;
+                chips.insert(chip.chip.name.to_ascii_lowercase(), chip);
+            }
+            std::fs::create_dir_all(&out_dir)?;
+            for dir in &pin_tool {
+                let (yaml, report) =
+                    silabs_data_gen::pintool::extract_family(&silabs_data_gen::pintool::ExtractInput {
+                        family_dir: dir,
+                        sdk: &sdk,
+                        chips: &chips,
+                        pack_dir: pack_dir.as_deref(),
+                        registers_dir: &registers_dir,
+                    })?;
+                let family = dir.file_name().unwrap().to_string_lossy();
+                for line in report {
+                    eprintln!("[extract-pins] {family}: {line}");
+                }
+                let out = out_dir.join(format!("{family}.yaml"));
+                let old = std::fs::read_to_string(&out).ok();
+                match old {
+                    Some(old) if old == yaml => {
+                        eprintln!("[extract-pins] {family}: {} is up to date", out.display());
+                    }
+                    Some(old) if !force => {
+                        let summary = silabs_data_gen::pintool::line_diff(&old, &yaml);
+                        anyhow::bail!(
+                            "{family}: {} differs from the extractor output. It is maintained by hand, so it is not overwritten. Use --force to overwrite.\n{summary}",
+                            out.display()
+                        );
+                    }
+                    _ => {
+                        std::fs::write(&out, yaml)?;
+                        eprintln!("[extract-pins] {family}: wrote {}", out.display());
+                    }
+                }
+            }
+            Ok(())
+        }
+        Cmd::Gen {
+            pack,
+            out_dir,
+            pins_dir,
+            registers_dir,
+            extra_peripherals,
+        } => {
+            let extra = silabs_data_gen::extra::load(&extra_peripherals)?;
+            let pin_families = silabs_data_gen::pins::load_dir(&pins_dir)?;
+            let mut register_names = silabs_data_gen::pins::RegisterCache::new(&registers_dir);
             let extract_dir = pack.with_extension("pack-extracted");
             silabs_data_gen::pack::extract_pack(&pack, &extract_dir)?;
             let pdsc_path = silabs_data_gen::pack::find_pdsc(&extract_dir)?;
@@ -75,14 +178,8 @@ fn main() -> anyhow::Result<()> {
                 let svd_path = extract_dir.join(&chip.svd);
                 let svd_xml = std::fs::read_to_string(&svd_path)
                     .map_err(|e| anyhow::anyhow!("reading SVD {}: {e}", svd_path.display()))?;
-                let peripherals = silabs_data_gen::svd::parse(&svd_xml)?;
+                let mut peripherals = silabs_data_gen::svd::parse(&svd_xml)?;
 
-                // The SVD's own `<interrupt>` blocks are intentionally not
-                // consulted — they're an incomplete subset (radio
-                // peripherals are missing). The per-chip CMSIS device
-                // header sits next to the SVD in the pack tree. Convention:
-                // `SVD/<FAMILY>/<CHIP>.svd` →
-                // `Device/SiliconLabs/<FAMILY>/Include/<chip_lowercase>.h`.
                 let hpath = match header_path_for_chip(&extract_dir, &chip) {
                     Some(hpath) if hpath.is_file() => hpath,
                     Some(hpath) => {
@@ -98,22 +195,37 @@ fn main() -> anyhow::Result<()> {
                 };
                 let header_irqs = silabs_data_gen::header::parse_file(&hpath)
                     .map_err(|e| anyhow::anyhow!("reading header {}: {e}", hpath.display()))?;
-                // Extract the `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>`
-                // identifier from the same header. Stored on `Chip` and
-                // consumed downstream by `silabs-metapac-gen`'s
-                // `build_chip_metadata_rs`.
                 let series = silabs_data_gen::header::extract_series_file(&hpath)
                     .map_err(|e| anyhow::anyhow!("extracting series from {}: {e}", hpath.display()))?;
                 let mut chip = chip;
                 chip.series = Some(series);
                 chip.nvic_prio_bits = Some(
-                    silabs_data_gen::header::extract_nvic_prio_bits_file(&hpath).map_err(|e| {
-                        anyhow::anyhow!("extracting __NVIC_PRIO_BITS from {}: {e}", hpath.display())
-                    })?,
+                    silabs_data_gen::header::extract_nvic_prio_bits_file(&hpath)
+                        .map_err(|e| anyhow::anyhow!("extracting __NVIC_PRIO_BITS from {}: {e}", hpath.display()))?,
                 );
+                let header = std::fs::read_to_string(&hpath)
+                    .map_err(|e| anyhow::anyhow!("reading header {}: {e}", hpath.display()))?;
+                silabs_data_gen::extra::append(&extra, &chip.family, &chip.name, &header, &mut peripherals)?;
+                chip.flash_page_size =
+                    Some(silabs_data_gen::header::parse_flash_page_size(&header).ok_or_else(|| {
+                        anyhow::anyhow!("{}: no `#define FLASH_PAGE_SIZE` in {}", chip.name, hpath.display())
+                    })?);
+
+                let header_data = silabs_data_gen::chips::HeaderData {
+                    irqs: header_irqs,
+                    gpio_port_masks: silabs_data_gen::header::parse_gpio_port_masks(&header),
+                    dma_requests: dma_requests(&hpath, series.series)?,
+                    dma_channel_count: silabs_data_gen::header::parse_dma_channel_count(&header),
+                };
+                if header_data.dma_channel_count > 0 && header_data.dma_requests.is_empty() {
+                    anyhow::bail!("{}: has DMA channels but no DMA request header", chip.name);
+                }
 
                 let chip_name = chip.name.clone();
-                let chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_irqs, &perimap_entries)?;
+                let mut chip_file = silabs_data_gen::chips::build(chip, &peripherals, &header_data, &perimap_entries)?;
+                for warning in silabs_data_gen::pins::attach(&mut chip_file, &pin_families, &mut register_names)? {
+                    eprintln!("{warning}");
+                }
 
                 let out = chips_dir.join(format!("{chip_name}.json"));
                 std::fs::write(&out, serde_json::to_string_pretty(&chip_file)?)?;
@@ -128,8 +240,7 @@ fn main() -> anyhow::Result<()> {
 /// Derive the per-chip CMSIS device header path from the SVD path inside an
 /// extracted Silicon Labs CMSIS pack.
 ///
-/// Convention (verified across `SiliconLabs.GeckoPlatform_EFR32MG24_DFP` and
-/// `…_EFR32MG26_DFP` packs):
+/// Pack layout:
 ///
 /// ```text
 /// SVD path:    SVD/<FAMILY>/<CHIP>.svd
@@ -156,4 +267,34 @@ fn header_path_for_chip(
             .join("Include")
             .join(header_file),
     )
+}
+
+/// DMA request signals from the family header next to the device header:
+/// `<family>_ldmaxbar_defines.h` on Series 2, `<family>_dmareq.h` on
+/// Series 0. Empty when the family has neither.
+fn dma_requests(hpath: &std::path::Path, series: u8) -> anyhow::Result<Vec<silabs_data_gen::header::HeaderDmaRequest>> {
+    let include = hpath.parent().expect("header has a parent dir");
+    let family = include
+        .parent()
+        .and_then(|p| p.file_name())
+        .and_then(|f| f.to_str())
+        .ok_or_else(|| anyhow::anyhow!("no family dir above {}", hpath.display()))?
+        .to_ascii_lowercase();
+    let (file, parse): (_, fn(&str) -> Vec<_>) = if series == 0 {
+        (
+            format!("{family}_dmareq.h"),
+            silabs_data_gen::header::parse_dmareq_requests,
+        )
+    } else {
+        (
+            format!("{family}_ldmaxbar_defines.h"),
+            silabs_data_gen::header::parse_ldmaxbar_requests,
+        )
+    };
+    let path = include.join(file);
+    if !path.is_file() {
+        return Ok(Vec::new());
+    }
+    let text = std::fs::read_to_string(&path).map_err(|e| anyhow::anyhow!("reading {}: {e}", path.display()))?;
+    Ok(parse(&text))
 }

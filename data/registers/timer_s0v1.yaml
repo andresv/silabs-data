@@ -24,16 +24,16 @@ block/Timer:
     byte_offset: 16
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 20
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 24
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: top
     description: Counter Top Value Register.
     byte_offset: 28
@@ -653,76 +653,6 @@ fieldset/regs::If:
     bit_size: 1
   - name: icbof2
     description: CC Channel 2 Input Capture Buffer Overflow Interrupt Flag.
-    bit_offset: 10
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: of
-    description: Overflow Interrupt Flag Clear.
-    bit_offset: 0
-    bit_size: 1
-  - name: uf
-    description: Underflow Interrupt Flag Clear.
-    bit_offset: 1
-    bit_size: 1
-  - name: cc0
-    description: CC Channel 0 Interrupt Flag Clear.
-    bit_offset: 4
-    bit_size: 1
-  - name: cc1
-    description: CC Channel 1 Interrupt Flag Clear.
-    bit_offset: 5
-    bit_size: 1
-  - name: cc2
-    description: CC Channel 2 Interrupt Flag Clear.
-    bit_offset: 6
-    bit_size: 1
-  - name: icbof0
-    description: CC Channel 0 Input Capture Buffer Overflow Interrupt Flag Clear.
-    bit_offset: 8
-    bit_size: 1
-  - name: icbof1
-    description: CC Channel 1 Input Capture Buffer Overflow Interrupt Flag Clear.
-    bit_offset: 9
-    bit_size: 1
-  - name: icbof2
-    description: CC Channel 2 Input Capture Buffer Overflow Interrupt Flag Clear.
-    bit_offset: 10
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: of
-    description: Overflow Interrupt Flag Set.
-    bit_offset: 0
-    bit_size: 1
-  - name: uf
-    description: Underflow Interrupt Flag Set.
-    bit_offset: 1
-    bit_size: 1
-  - name: cc0
-    description: CC Channel 0 Interrupt Flag Set.
-    bit_offset: 4
-    bit_size: 1
-  - name: cc1
-    description: CC Channel 1 Interrupt Flag Set.
-    bit_offset: 5
-    bit_size: 1
-  - name: cc2
-    description: CC Channel 2 Interrupt Flag Set.
-    bit_offset: 6
-    bit_size: 1
-  - name: icbof0
-    description: CC Channel 0 Input Capture Buffer Overflow Interrupt Flag Set.
-    bit_offset: 8
-    bit_size: 1
-  - name: icbof1
-    description: CC Channel 1 Input Capture Buffer Overflow Interrupt Flag Set.
-    bit_offset: 9
-    bit_size: 1
-  - name: icbof2
-    description: CC Channel 2 Input Capture Buffer Overflow Interrupt Flag Set.
     bit_offset: 10
     bit_size: 1
 fieldset/regs::Route:
@@ -1421,6 +1351,9 @@ enum/vals::Lockkey:
   variants:
   - name: Locked
     value: 1
+  - name: Unlock
+    description: Write this key to unlock the registers. Any other value locks them.
+    value: 52864
   - name: Unlocked
     value: 0
 enum/vals::Presc:

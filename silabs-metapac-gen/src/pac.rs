@@ -1,9 +1,8 @@
 //! Render per-IP PAC modules to `src/peripherals/<kind>_<version>.rs`.
 //!
-//! Directory name mirrors `stm32-metapac/src/peripherals/`. Each emitted
-//! file contains the chiptool-rendered Rust PAC for one `(kind, version)`
-//! pair: the typed peripheral struct (e.g. `pub struct Timer { ptr }`),
-//! its accessor methods, and the `regs`/`vals` submodules.
+//! Each file holds the chiptool PAC for one `(kind, version)` pair: the
+//! peripheral struct (`pub struct Timer { ptr }`), its accessors, and the
+//! `regs`/`vals` submodules.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
@@ -15,8 +14,6 @@ use chiptool::ir::IR;
 /// `(kind, version)` key for the peripheral module set.
 pub type IpKey = (String, String);
 
-/// Module-name builder. The output is a valid Rust identifier of the form
-/// `<kind>_<version>`, e.g. `eusart_v2`, `gpio_v7`, `cmu_v3`.
 pub fn module_name(kind: &str, version: &str) -> String {
     format!("{kind}_{version}")
 }
@@ -48,9 +45,9 @@ pub fn write_peripherals_dir(irs: &BTreeMap<IpKey, IR>, out_dir: &Path) -> Resul
     Ok(())
 }
 
-/// Remove generated Rust modules that are no longer part of the current IR
-/// set. Without this, narrowing alias/module selection leaves stale files in a
-/// reused output directory and makes deployment depend on its prior contents.
+/// Remove `.rs` files in `out_dir` that have no IR in `irs`.
+///
+/// The output directory is reused, so a dropped module would otherwise stay.
 pub(crate) fn remove_stale_rs_files(irs: &BTreeMap<IpKey, IR>, out_dir: &Path) -> Result<()> {
     let expected: BTreeSet<String> = irs
         .keys()
@@ -74,14 +71,9 @@ pub(crate) fn remove_stale_rs_files(irs: &BTreeMap<IpKey, IR>, out_dir: &Path) -
 
 /// Invoke `rustfmt` to reformat `path` in place.
 ///
-/// chiptool's `proc_macro2::TokenStream::to_string()` emits valid Rust
-/// but with raw inter-token spacing (`# [doc = "..."]`, no indentation,
-/// no line breaks). Running rustfmt over the file gives readable,
-/// diff-friendly output that mirrors stm32-metapac's shape.
-///
-/// We invoke `rustfmt` directly rather than via `cargo fmt` so we don't
-/// need a project context — the emitted files live outside the
-/// silabs-data workspace.
+/// `TokenStream::to_string()` has no line breaks or indentation. This calls
+/// `rustfmt` directly, not `cargo fmt`, because the files live outside the
+/// workspace.
 pub(crate) fn rustfmt_in_place(path: &Path) -> Result<()> {
     let status = std::process::Command::new("rustfmt")
         .arg("--edition=2024")
@@ -95,10 +87,10 @@ pub(crate) fn rustfmt_in_place(path: &Path) -> Result<()> {
     Ok(())
 }
 
-/// Strip leading inner attributes and inner doc comments emitted by
-/// chiptool. The output is `include!`'d (or `mod`'d) from a parent file
-/// that already sets `#![no_std]` and the necessary `#![allow(...)]` lints,
-/// so inner attributes here would either duplicate or trigger E0753.
+/// Strip leading inner attributes and inner doc comments emitted by chiptool.
+///
+/// The parent file already sets `#![no_std]` and the `#![allow(...)]` lints.
+/// An inner attribute here would duplicate them or trigger E0753.
 fn strip_inner_attrs_and_doc(s: &str) -> String {
     let bytes = s.as_bytes();
     let mut i = 0;

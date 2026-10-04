@@ -1,14 +1,4 @@
 //! Canonical IP-kind extraction from SVD peripheral names.
-//!
-//! Silabs SVD peripherals come in flavours like `EUSART0_NS`, `TIMER10_NS`,
-//! `GPIO_NS`, plus the `_S` TrustZone-alias duplicates (already stripped before
-//! we get here). The canonical "kind" is the peripheral family with both the
-//! TrustZone suffix (`_NS`/`_S`) and any trailing instance digits removed:
-//! `EUSART0_NS` → `EUSART`, `TIMER10_NS` → `TIMER`, `GPIO_NS` → `GPIO`.
-//!
-//! The kind is the key (along with the SVD `<peripheral><version>` field) for
-//! the `data/registers/<kind_lc>_v<version>.yaml` artefact and the
-//! `src/registers/<kind_lc>_v<version>.rs` Rust module.
 
 use anyhow::{Result, anyhow};
 
@@ -45,10 +35,9 @@ impl Kind {
         self.0.to_ascii_lowercase()
     }
 
-    /// PascalCase kind name suitable for use as a Rust struct identifier
-    /// (e.g. `Eusart`). The first character is uppercased, the rest are
-    /// lowercased — Silabs kinds are short acronyms so we don't try to be
-    /// clever about word boundaries.
+    /// PascalCase kind name for a Rust struct identifier (e.g. `Eusart`).
+    ///
+    /// Kinds are short acronyms, so only the first letter is uppercase.
     pub fn pascal_case(&self) -> String {
         let mut chars = self.0.chars();
         match chars.next() {

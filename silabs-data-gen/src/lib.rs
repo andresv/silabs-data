@@ -1,6 +1,10 @@
 pub mod chips;
+pub mod extra;
 pub mod header;
+pub mod interrupts;
 pub mod pack;
 pub mod pdsc;
 pub mod perimap;
+pub mod pins;
+pub mod pintool;
 pub mod svd;

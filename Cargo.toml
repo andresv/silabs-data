@@ -3,8 +3,7 @@ resolver = "2"
 members = ["silabs-data-gen", "silabs-metapac-gen"]
 exclude = ["examples/hello-mg26", "examples/hello-mg24", "build/silabs-metapac"]
 
-# Optimize for dev experience: shortest "build+run" time after making a small
-# change. Mirrors stm32-data's release profile.
+# Short build and run time after a small change.
 [profile.release]
 debug = true
 incremental = true

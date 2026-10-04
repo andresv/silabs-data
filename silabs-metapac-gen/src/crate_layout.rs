@@ -6,14 +6,20 @@
 //! silabs-metapac/
 //! ├── Cargo.toml
 //! ├── README.md
+//! ├── build.rs
 //! └── src/
 //!     ├── lib.rs
 //!     ├── common.rs
-//!     ├── peripherals/<kind>_<version>.rs
+//!     ├── metadata.rs, all_chips.rs, all_peripheral_versions.rs, check_cfgs.txt
+//!     ├── peripherals/<kind>_<version>.rs   # chiptool register API
+//!     ├── registers/<kind>_<version>.rs     # IR statics for `metadata`
 //!     └── chips/
 //!         └── <chip>/
+//!             ├── pac.rs        # peripheral instances + interrupts + memory map
+//!             ├── metadata.rs   # `METADATA` static
 //!             ├── device.x      # cortex-m-rt linker fragment (or stub)
-//!             └── mod.rs        # peripheral instances + interrupts + memory map
+//!             ├── memory.x
+//!             └── cfgs.txt
 //! ```
 
 use std::collections::{BTreeMap, BTreeSet};
@@ -22,35 +28,32 @@ use std::path::Path;
 
 use anyhow::{Context, Result, anyhow, bail};
 use convert_case::{Boundary, Case, Casing};
-use silabs_data_gen::chips::{ChipFile, Interrupt, PeripheralInstance};
+use silabs_data_gen::chips::{ChipFile, Interrupt, PeripheralInstance, Pin};
 use silabs_data_gen::pdsc::MemoryRegion;
 
 use crate::pac::{IpKey, module_name};
-use crate::peripheral::{nonsecure_to_secure_name, secure_to_nonsecure_name};
+use crate::peripheral::nonsecure_to_secure_name;
 
 /// Convert a perimap-routed block name (e.g. `GPIO`, `EUSART`, `I2C`) into the
 /// PascalCase identifier `chiptool::transform::sanitize::Sanitize::default()`
 /// produces (e.g. `Gpio`, `Eusart`, `I2c`).
 ///
-/// Mirrors chiptool's `sanitize_with_case`, which first removes digit
-/// boundaries so `I2C` is treated as the merged token `i2c` rather than
-/// three separate words. Without that step `I2C` would round-trip to `I2C`
-/// under `Case::Pascal` and miss the struct named `I2c` in the YAML.
-fn block_struct_ident(block: &str) -> String {
+/// Like chiptool's `sanitize_with_case`, it removes digit boundaries first.
+/// Without that step `I2C` stays `I2C` and misses the struct `I2c`.
+pub(crate) fn block_struct_ident(block: &str) -> String {
     block.remove_boundaries(&Boundary::digits()).to_case(Case::Pascal)
 }
 
 /// Secure aliases whose non-secure peer is present in the same chip. Only
 /// these confirmed pairs may share the non-secure peer's register definition.
+/// [`silabs_data_gen::chips::canonical_names`] defines the alias rule: a
+/// paired secure alias has no canonical name.
 fn paired_secure_alias_names(peripherals: &[PeripheralInstance]) -> BTreeSet<&str> {
-    let names: BTreeSet<&str> = peripherals.iter().map(|p| p.name.as_str()).collect();
-    peripherals
+    let names: Vec<&str> = peripherals.iter().map(|p| p.name.as_str()).collect();
+    names
         .iter()
-        .filter_map(|p| {
-            secure_to_nonsecure_name(&p.name)
-                .filter(|peer| names.contains(peer.as_str()))
-                .map(|_| p.name.as_str())
-        })
+        .zip(silabs_data_gen::chips::canonical_names(&names))
+        .filter_map(|(name, canonical)| canonical.is_none().then_some(*name))
         .collect()
 }
 
@@ -60,28 +63,34 @@ struct PeripheralGroup<'a> {
     secure: Option<&'a PeripheralInstance>,
 }
 
+/// Canonical peripheral names of a chip, as used for `METADATA.peripherals`
+/// and the typed instance consts (one name per NS/S pair).
+pub fn canonical_peripheral_names(chip: &ChipFile) -> Vec<String> {
+    peripheral_groups(&chip.peripherals)
+        .into_values()
+        .map(|g| g.canonical_name)
+        .collect()
+}
+
 /// Collapse each confirmed NS/S pair to one register-layout owner while
 /// retaining the original secure instance (and address) alongside it.
 fn peripheral_groups(peripherals: &[PeripheralInstance]) -> BTreeMap<String, PeripheralGroup<'_>> {
     let by_name: BTreeMap<&str, &PeripheralInstance> = peripherals.iter().map(|p| (p.name.as_str(), p)).collect();
     let paired_secure = paired_secure_alias_names(peripherals);
+    let names: Vec<&str> = peripherals.iter().map(|p| p.name.as_str()).collect();
     let mut groups = BTreeMap::new();
 
-    for p in peripherals {
-        if paired_secure.contains(p.name.as_str()) {
+    // The shared alias grouping: `None` is a paired secure alias. A suffix
+    // alias keeps its public name (`GPIO_NS` becomes `GPIO`). An infix alias
+    // keeps its full name (`SEMAILBOX_NS_HOST`).
+    for (p, canonical_name) in peripherals.iter().zip(silabs_data_gen::chips::canonical_names(&names)) {
+        let Some(canonical_name) = canonical_name else {
             continue;
-        }
+        };
 
         let secure = nonsecure_to_secure_name(&p.name)
             .and_then(|name| by_name.get(name.as_str()).copied())
             .filter(|candidate| paired_secure.contains(candidate.name.as_str()));
-        // Preserve the existing public name for suffix aliases (`GPIO_NS` →
-        // `GPIO`). Infix aliases were already public as `SEMAILBOX_NS_HOST`.
-        let canonical_name = p
-            .name
-            .strip_suffix("_NS")
-            .map(str::to_owned)
-            .unwrap_or_else(|| p.name.clone());
         let old = groups.insert(
             canonical_name.clone(),
             PeripheralGroup {
@@ -95,10 +104,11 @@ fn peripheral_groups(peripherals: &[PeripheralInstance]) -> BTreeMap<String, Per
     groups
 }
 
-/// Validate the documented Series 2 address relationship. Exact addresses
-/// still come from the SVD; the XOR is checked only as an invariant so a
-/// changed vendor map fails generation instead of silently producing a
-/// misleading API.
+/// Check that the two addresses of each Series 2 NS/S pair differ by
+/// `0x1000_0000`.
+///
+/// The addresses come from the SVD. The check makes a changed vendor
+/// map fail generation instead of producing a misleading API.
 pub fn validate_trustzone_aliases(chip: &ChipFile) -> Result<()> {
     let groups = peripheral_groups(&chip.peripherals);
     for group in groups.values() {
@@ -128,17 +138,17 @@ pub fn feature_name(chip: &str) -> String {
     chip.to_ascii_lowercase()
 }
 
-/// Write `build.rs` that adds the active chip's source directory to the
-/// linker search path under the `rt` feature.
+/// Write `build.rs`. It puts the active chip's `device.x` (feature `rt`) and
+/// `memory.x` (feature `memory-x`) on the linker search path. It also passes
+/// the chip's cfgs to direct dependents through `links` metadata (see
+/// [`crate::cfgs`]).
 ///
-/// `cortex-m-rt`'s `link.x` does `INCLUDE device.x`, and `silabs-metapac`
-/// emits a per-chip `device.x` into `src/chips/<chip>/`. Without this
-/// helper the linker can't find it. Mirrors the analogous build script
-/// in `stm32-metapac`.
+/// `cortex-m-rt`'s `link.x` does `INCLUDE device.x` and `INCLUDE memory.x`.
+/// Both files are copied into `OUT_DIR`, so `rt` alone never exposes the
+/// chip's `memory.x` to a crate that brings its own.
 pub fn write_build_rs(out: &Path) -> Result<()> {
     let s = r##"use std::env;
-#[cfg(feature = "rt")]
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 enum GetOneError {
     None,
@@ -161,8 +171,14 @@ impl<T: Iterator> IteratorExt for T {
     }
 }
 
+/// Read a generated one-item-per-line list and join it with spaces.
+fn read_list(path: &Path) -> String {
+    println!("cargo:rerun-if-changed={}", path.display());
+    let text = std::fs::read_to_string(path).unwrap_or_else(|e| panic!("read {}: {e}", path.display()));
+    text.lines().filter(|l| !l.is_empty()).collect::<Vec<_>>().join(" ")
+}
+
 fn main() {
-    #[cfg(feature = "rt")]
     let crate_dir = PathBuf::from(env::var_os("CARGO_MANIFEST_DIR").unwrap());
 
     let chip_name = match env::vars()
@@ -178,21 +194,36 @@ fn main() {
     .unwrap()
     .to_ascii_lowercase();
 
-    #[cfg(feature = "rt")]
-    println!(
-        "cargo:rustc-link-search={}/src/chips/{}",
-        crate_dir.display(),
-        chip_name,
-    );
+    let chip_dir = crate_dir.join("src/chips").join(&chip_name);
+    let out_dir = PathBuf::from(env::var_os("OUT_DIR").unwrap());
+    for (enabled, file) in [(cfg!(feature = "rt"), "device.x"), (cfg!(feature = "memory-x"), "memory.x")] {
+        if enabled {
+            let from = chip_dir.join(file);
+            println!("cargo:rerun-if-changed={}", from.display());
+            std::fs::copy(&from, out_dir.join(file)).unwrap_or_else(|e| panic!("copy {}: {e}", from.display()));
+        }
+    }
+    println!("cargo:rustc-link-search={}", out_dir.display());
 
-    // Mirror stm32-metapac's env-var-driven include pattern: emit the
-    // selected chip's pac.rs / metadata.rs paths so `lib.rs` can collapse
-    // 66 cfg-gated `include!`s into a single `include!(env!(...))`.
+    // Give `lib.rs` the chip's pac.rs and metadata.rs paths, so it needs one
+    // `include!(env!(...))` and not one cfg-gated `include!` per chip.
     println!("cargo:rustc-env=SILABS_METAPAC_PAC_PATH=chips/{}/pac.rs", chip_name);
     println!(
         "cargo:rustc-env=SILABS_METAPAC_METADATA_PATH=chips/{}/metadata.rs",
         chip_name
     );
+
+    // `links = "silabs-metapac"` metadata. Cargo passes each key to the
+    // build script of every direct dependent as `DEP_SILABS_METAPAC_<KEY>`.
+    // A dependent re-emits `cfgs` as `cargo:rustc-cfg` and `check_cfgs` as
+    // `cargo:rustc-check-cfg`. Then it can use `#[cfg(letimer_s0v1)]` without
+    // its own chip features. Both lists are space-separated.
+    println!("cargo::metadata=chip={chip_name}");
+    println!(
+        "cargo::metadata=cfgs={}",
+        read_list(&crate_dir.join("src/chips").join(&chip_name).join("cfgs.txt"))
+    );
+    println!("cargo::metadata=check_cfgs={}", read_list(&crate_dir.join("src/check_cfgs.txt")));
 
     println!("cargo:rerun-if-changed=build.rs");
 }
@@ -230,17 +261,13 @@ pub fn write_lib_rs(out: &Path) -> Result<()> {
 "#,
     );
 
-    // Mirrors stm32-metapac/res/src/lib.rs exactly — the heavy lifting
-    // (per-kind `#[path] pub mod <kind>;` declarations and the typed
-    // peripheral consts) is done inside `chips/<chip>/pac.rs` and
-    // `chips/<chip>/metadata.rs`, which are selected by the env vars
-    // emitted from `build.rs`. The `include!`d file's tokens carry their
-    // original `Span`, so `#[path]` inside those files resolves relative
-    // to the chip directory — not lib.rs.
+    // The module declarations and typed peripheral consts are in
+    // `chips/<chip>/pac.rs` and `chips/<chip>/metadata.rs`, which the
+    // `build.rs` env vars select. Included tokens keep their `Span`, so
+    // `#[path]` in those files resolves relative to the chip directory.
     //
-    // Chip-feature presence is enforced by `build.rs` (panics on zero or
-    // multiple chip features) — matches stm32-data, which similarly has
-    // no `compile_error!` in lib.rs.
+    // `build.rs` panics on zero or several chip features, so lib.rs needs no
+    // `compile_error!`.
     s.push_str("pub mod common;\n\n");
 
     s.push_str("#[cfg(feature = \"pac\")]\n");
@@ -250,35 +277,61 @@ pub fn write_lib_rs(out: &Path) -> Result<()> {
     s.push_str("pub mod metadata {\n");
     s.push_str("    include!(\"metadata.rs\");\n");
     s.push_str("    include!(env!(\"SILABS_METAPAC_METADATA_PATH\"));\n");
+    s.push_str("    include!(\"all_chips.rs\");\n");
+    s.push_str("    include!(\"all_peripheral_versions.rs\");\n");
     s.push_str("}\n");
 
     std::fs::write(out, s).with_context(|| format!("write lib.rs at {}", out.display()))?;
     Ok(())
 }
 
-/// Build the `chips/<chip>/mod.rs` content from a parsed ChipFile.
+/// Write `src/all_chips.rs` and `src/all_peripheral_versions.rs`, included
+/// into `pub mod metadata`. A HAL build script uses them to declare every
+/// chip and `<kind>_<version>` cfg for `rustc-check-cfg`, not only the active
+/// chip's.
+pub fn write_all_tables(chips: &[ChipFile], src_dir: &Path) -> Result<()> {
+    let mut s = String::from("pub static ALL_CHIPS: &[&str] = &[\n");
+    for chip in chips {
+        writeln!(&mut s, "    {:?},", chip.chip.name).expect("writing to a String cannot fail");
+    }
+    s.push_str("];\n");
+    let out = src_dir.join("all_chips.rs");
+    std::fs::write(&out, s).with_context(|| format!("write {}", out.display()))?;
+
+    let mut versions: BTreeMap<&str, BTreeSet<&str>> = BTreeMap::new();
+    for chip in chips {
+        for p in &chip.peripherals {
+            versions.entry(&p.kind).or_default().insert(&p.register_version);
+        }
+    }
+    let mut s = String::from("pub static ALL_PERIPHERAL_VERSIONS: &[(&str, &[&str])] = &[\n");
+    for (kind, vs) in &versions {
+        let vs: Vec<String> = vs.iter().map(|v| format!("{v:?}")).collect();
+        writeln!(&mut s, "    ({kind:?}, &[{}]),", vs.join(", ")).expect("writing to a String cannot fail");
+    }
+    s.push_str("];\n");
+    let out = src_dir.join("all_peripheral_versions.rs");
+    std::fs::write(&out, s).with_context(|| format!("write {}", out.display()))?;
+    Ok(())
+}
+
+/// Build the `chips/<chip>/pac.rs` content from a parsed ChipFile.
 ///
-/// Each peripheral instance in `chip.peripherals` carries its routed
-/// `(kind, register_version, block)` triple (assigned by perimap during
-/// `silabs-data-gen gen`). We use those directly — there's no separate
-/// `kinds` lookup parameter.
+/// Each peripheral instance carries the `(kind, register_version, block)`
+/// that perimap gave it in `silabs-data-gen gen`.
 pub fn build_chip_pac_rs(chip: &ChipFile, gpio_ports: Option<usize>) -> String {
     let mut s = String::new();
     s.push_str("// Per-chip PAC content: peripheral module decls, typed peripheral\n");
     s.push_str("// consts, interrupt enum + cortex-m-rt glue, memory map.\n");
     s.push_str(&format!("// Generated for {}.\n//\n", chip.chip.name));
-    s.push_str("// This file is `include!`d at the metapac crate root by `lib.rs`\n");
-    s.push_str("// (selected via the `SILABS_METAPAC_PAC_PATH` env var emitted from\n");
-    s.push_str("// `build.rs`). Mirrors `stm32-metapac`'s `chips/<chip>/pac.rs`\n");
-    s.push_str("// layout — `#[path]` resolves relative to *this* file, so the\n");
-    s.push_str("// `../../peripherals/...` paths below reach the shared chiptool\n");
-    s.push_str("// peripheral modules under `src/peripherals/`.\n\n");
+    s.push_str("// `lib.rs` includes this file at the crate root, through the\n");
+    s.push_str("// `SILABS_METAPAC_PAC_PATH` env var from `build.rs`. `#[path]`\n");
+    s.push_str("// resolves relative to this file, so `../../peripherals/...`\n");
+    s.push_str("// reaches the shared chiptool modules in `src/peripherals/`.\n\n");
 
-    // Per-kind chiptool peripheral mod decls. Each chip declares only
-    // the (kind, version) pairs it actually uses.
-    // Module names keep `<kind>_<version>` to support chips with multiple
-    // versions of the same kind on the same die (e.g. EFR32MG26 with
-    // `eusart_v2` + `eusart_v2_lf`).
+    // Declare only the (kind, version) pairs this chip uses. Module names keep
+    // the version because `src/peripherals/` holds every (kind, version) of
+    // every chip.
     let paired_secure = paired_secure_alias_names(&chip.peripherals);
     let mut kinds: BTreeSet<(String, String)> = BTreeSet::new();
     for p in &chip.peripherals {
@@ -297,7 +350,7 @@ pub fn build_chip_pac_rs(chip: &ChipFile, gpio_ports: Option<usize>) -> String {
         }
         s.push_str("\n");
 
-        // Version-neutral aliases (`pub use cmu_v3 as cmu;`), emitted when the
+        // Version-neutral aliases (`pub use cmu_s2v3 as cmu;`), emitted when the
         // chip's non-secure peripherals agree on one version of a kind.
         let mut ns_versions: BTreeMap<&String, BTreeSet<&String>> = BTreeMap::new();
         for p in &chip.peripherals {
@@ -339,9 +392,8 @@ pub fn build_chip_pac_rs(chip: &ChipFile, gpio_ports: Option<usize>) -> String {
 
     emit_gpio_port_constants(&mut s, gpio_ports);
 
-    // Interrupts are emitted as the `pub enum Interrupt { … }` inside
-    // `emit_cortex_m_rt_glue` — same shape as stm32-metapac. Numeric
-    // values are reachable via `Interrupt::FOO as u16`.
+    // Interrupts exist only as `pub enum Interrupt`. `Interrupt::FOO as u16`
+    // gives the number.
     let nvic_prio_bits = chip
         .chip
         .nvic_prio_bits
@@ -405,8 +457,9 @@ fn emit_cortex_m_rt_glue(s: &mut String, interrupts: &[Interrupt], nvic_prio_bit
     s.push_str("    ];\n");
     s.push_str("}\n\n");
 
+    // Not gated on `rt`: crates that set NVIC priorities (rtic-monotonics)
+    // need it without owning the vector table.
     s.push_str("/// Number available in the NVIC for configuring priority.\n");
-    s.push_str("#[cfg(feature = \"rt\")]\n");
     s.push_str(&format!("pub const NVIC_PRIO_BITS: u8 = {nvic_prio_bits};\n\n"));
 
     s.push_str("#[cfg(feature = \"rt\")]\n");
@@ -422,10 +475,9 @@ fn emit_memory_consts(s: &mut String, m: &MemoryRegion) {
 }
 
 /// Emit typed peripheral instance consts. A confirmed NS/S pair shares the
-/// non-secure peer's register-block type but retains both exact SVD addresses.
-/// For suffix pairs, the existing unsuffixed non-secure constant is retained
-/// alongside the explicit `_S` constant; a redundant `_NS` constant is not
-/// emitted.
+/// non-secure peer's register-block type but keeps both exact SVD addresses.
+/// A suffix pair gets the unsuffixed non-secure const and an `_S` const, but
+/// no `_NS` const.
 fn emit_typed_peripheral_consts(s: &mut String, peripherals: &[PeripheralInstance]) {
     fn emit_const(s: &mut String, name: &str, type_owner: &PeripheralInstance, address: u64) {
         let mod_name = module_name(&type_owner.kind, &type_owner.register_version);
@@ -471,9 +523,8 @@ fn emit_gpio_port_constants(s: &mut String, gpio_ports: Option<usize>) {
     let Some(n) = gpio_ports else {
         return;
     };
-    s.push_str("/// GPIO port indices, mirroring the CMSIS `<family>_gpio.h`\n");
-    s.push_str("/// `#define GPIO_PORTA 0` etc. Use as `GPIO.p_ctrl(gpio_port::PORTC)`\n");
-    s.push_str("/// (or just `GPIO.p_ctrl(2)` — they're equivalent).\n");
+    s.push_str("/// GPIO port indices, as in the CMSIS `<family>_gpio.h`\n");
+    s.push_str("/// `#define GPIO_PORTA 0`. Use as `GPIO.p_ctrl(gpio_port::PORTC)`.\n");
     s.push_str("pub mod gpio_port {\n");
     for i in 0..n {
         let ch = (b'A' + i as u8) as char;
@@ -487,15 +538,12 @@ pub fn stub_device_x(chip_name: &str) -> String {
     format!("/* device.x for {chip_name} not yet generated */\n")
 }
 
-/// Emit the `Series::Series<N>(<M>)` literal for a chip, sourced from
-/// the `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>` macros extracted from
-/// the chip's CMSIS device header by `silabs-data-gen` (see
-/// [`silabs_data_gen::header::extract_series`]).
+/// The `Series::Series<N>(<M>)` literal for a chip, from the
+/// `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>` macros in its CMSIS device
+/// header (see [`silabs_data_gen::header::extract_series`]).
 ///
-/// Panics if the chip JSON predates the schema change that added
-/// `Chip.series` — regenerate with `./d gen-all`. Also panics on a
-/// series number outside the {0, 1, 2, 3} range, since the [`Series`]
-/// enum covers Series 0 through Series 3 (matches the metapac side).
+/// Panics when the chip JSON has no `Chip.series` (run `./d gen-all`), or
+/// when the series is not 0 to 3, the range of the metapac `Series` enum.
 fn series_literal_for_chip(chip: &ChipFile) -> String {
     let s = chip
         .chip
@@ -516,23 +564,100 @@ fn series_literal_for_chip(chip: &ChipFile) -> String {
     }
 }
 
+fn peripheral_pins_literal(p: &silabs_data_gen::pins::PeripheralPins) -> String {
+    use silabs_data_gen::pins::PinRoute;
+    let enable = |e: &Option<silabs_data_gen::pins::PinRouteEnable>| match e {
+        Some(e) => format!(
+            "Some(PinRouteEnable {{ register: {:?}, field: {:?} }})",
+            e.register, e.field
+        ),
+        None => "None".to_owned(),
+    };
+    let route = match &p.route {
+        PinRoute::Dbus { register, enable: e } => {
+            format!("PinRoute::Dbus {{ register: {register:?}, enable: {} }}", enable(e))
+        }
+        PinRoute::Location { location, enable: e } => {
+            format!("PinRoute::Location {{ location: {location}, enable: {} }}", enable(e))
+        }
+        PinRoute::Analog { bus } => format!("PinRoute::Analog {{ bus: {bus:?} }}"),
+        PinRoute::Fixed { enable: e, alternative } => {
+            let alternative = match alternative {
+                Some(n) => format!("Some({n})"),
+                None => "None".to_owned(),
+            };
+            format!(
+                "PinRoute::Fixed {{ enable: {}, alternative: {alternative} }}",
+                enable(e)
+            )
+        }
+    };
+    let pins: Vec<String> = p.pins.iter().map(|pin| format!("{pin:?}")).collect();
+    format!(
+        "PeripheralPins {{ signal: {:?}, route: {route}, pins: &[{}] }}",
+        p.signal,
+        pins.join(", ")
+    )
+}
+
+fn peripheral_cmu_literal(c: &crate::clocks::PeripheralCmu) -> String {
+    use crate::clocks::{ClockEnable, CmuRegister, KernelClock};
+    fn opt_str(s: &Option<String>) -> String {
+        match s {
+            Some(s) => format!("Some({s:?})"),
+            None => "None".to_owned(),
+        }
+    }
+    let enable = |e: &Option<ClockEnable>| match e {
+        Some(e) => format!(
+            "Some(ClockEnable {{ register: {:?}, field: {:?}, address: 0x{:08X}, bit: {}, sync_busy: {} }})",
+            e.register,
+            e.field,
+            e.address,
+            e.bit,
+            opt_str(&e.sync_busy)
+        ),
+        None => "None".to_owned(),
+    };
+    let register = |r: &CmuRegister| {
+        format!(
+            "PeripheralCmuRegister {{ register: {:?}, field: {:?}, sync_busy: {} }}",
+            r.register,
+            r.field,
+            opt_str(&r.sync_busy)
+        )
+    };
+    let kernel_clock = match &c.kernel_clock {
+        None => "None".to_owned(),
+        Some(KernelClock::Clock(name)) => format!("Some(PeripheralCmuKernelClock::Clock({name:?}))"),
+        Some(KernelClock::Mux(mux)) => format!("Some(PeripheralCmuKernelClock::Mux({}))", register(mux)),
+    };
+    let prescaler = match &c.prescaler {
+        None => "None".to_owned(),
+        Some(p) => format!("Some({})", register(p)),
+    };
+    format!(
+        "PeripheralCmu {{ enable: {}, bus_enable: {}, kernel_clock: {kernel_clock}, prescaler: {prescaler} }}",
+        enable(&c.enable),
+        enable(&c.bus_enable)
+    )
+}
 /// Build the `chips/<chip>/metadata.rs` content from a parsed `ChipFile`.
 ///
-/// Emits a `pub static METADATA: Metadata = …;` populated from the chip
-/// JSON. Mirrors stm32-metapac's per-chip metadata module so HAL build
-/// scripts can walk a chip's peripheral / interrupt / memory inventory
-/// at build time.
+/// The file holds `pub static METADATA: Metadata`. It is included into the
+/// crate's `pub mod metadata` (see [`write_lib_rs`]), so `Metadata`,
+/// `Peripheral` and the other type names resolve without a `use`.
 ///
-/// The file is `include!`d into the metapac crate's top-level
-/// `pub mod metadata` block (see [`write_lib_rs`]), so the type names
-/// `Metadata`, `MemoryRegion`, `Peripheral`, `Interrupt` resolve against
-/// the surrounding module without an explicit `use`.
-///
-/// Dedup: one metadata row owns each register layout. For a paired TrustZone
+/// One metadata row owns each register layout. For a paired TrustZone
 /// peripheral it carries both the non-secure and secure SVD base addresses.
-pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
+pub fn build_chip_metadata_rs(
+    chip: &ChipFile,
+    cmu: &BTreeMap<String, crate::clocks::PeripheralCmu>,
+    clocks: &[String],
+    gpio_ports: Option<usize>,
+) -> Result<String> {
     let mut s = String::new();
-    s.push_str("// Per-chip iterable metadata. Generated for ");
+    s.push_str("// Per-chip metadata. Generated for ");
     s.push_str(&chip.chip.name);
     s.push_str(".\n//\n");
     s.push_str("// Included from `pub mod metadata` in the metapac crate root;\n");
@@ -557,12 +682,30 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
     s.push_str(&format!("    mpu: {},\n", chip.chip.mpu));
     s.push_str(&format!("    trustzone: {},\n", chip.chip.trustzone));
     s.push_str(&format!("    series: {},\n", series_literal_for_chip(chip)));
+    let nvic_prio_bits = chip
+        .chip
+        .nvic_prio_bits
+        .expect("chip.nvic_prio_bits missing — re-run silabs-data-gen to populate it");
+    s.push_str(&format!("    nvic_priority_bits: {nvic_prio_bits},\n"));
 
     s.push_str("    memory: &[\n");
     for m in &chip.chip.memory {
+        let (kind, settings) = match memory_kind(m)? {
+            MemoryKind::Flash => {
+                let page = chip
+                    .chip
+                    .flash_page_size
+                    .with_context(|| format!("{}: flash_page_size missing, re-run silabs-data-gen", chip.chip.name))?;
+                (
+                    "Flash",
+                    format!("Some(FlashSettings {{ erase_size: {page}, write_size: 4, erase_value: 0xFF }})"),
+                )
+            }
+            MemoryKind::Ram => ("Ram", "None".to_owned()),
+        };
         s.push_str(&format!(
-            "        MemoryRegion {{ name: {:?}, address: 0x{:08X}, size: 0x{:08X}, access: {:?} }},\n",
-            m.id, m.start, m.size, m.access,
+            "        MemoryRegion {{ name: {:?}, kind: MemoryRegionKind::{kind}, address: 0x{:08X}, size: 0x{:08X}, settings: {settings} }},\n",
+            m.id, m.start, m.size,
         ));
     }
     s.push_str("    ],\n");
@@ -574,9 +717,35 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
             .secure
             .map(|secure| format!("Some(0x{:08X})", secure.base_address))
             .unwrap_or_else(|| "None".to_owned());
+        let cmu = cmu
+            .get(&group.canonical_name)
+            .map(|c| format!("Some({})", peripheral_cmu_literal(c)))
+            .unwrap_or_else(|| "None".to_owned());
+        let interrupts: Vec<String> = p
+            .interrupts
+            .iter()
+            .map(|i| {
+                format!(
+                    "PeripheralInterrupt {{ signal: {:?}, interrupt: {:?} }}",
+                    i.signal, i.interrupt
+                )
+            })
+            .collect();
+        let dma_requests: Vec<String> = p
+            .dma_requests
+            .iter()
+            .map(|r| {
+                format!(
+                    "PeripheralDmaRequest {{ signal: {:?}, sourcesel: {}, sigsel: {} }}",
+                    r.signal, r.sourcesel, r.sigsel
+                )
+            })
+            .collect();
+        let pins: Vec<String> = p.pins.iter().map(peripheral_pins_literal).collect();
         s.push_str(&format!(
-            "        Peripheral {{ name: {:?}, address: 0x{:08X}, secure_address: {}, kind: {:?}, version: {:?}, block: {:?} }},\n",
-            group.canonical_name, p.base_address, secure_address, p.kind, p.register_version, p.block,
+            "        Peripheral {{ name: {:?}, address: 0x{:08X}, secure_address: {}, kind: {:?}, version: {:?}, block: {:?}, ir: &{}_{}::REGISTERS, cmu: {}, interrupts: &[{}], dma_requests: &[{}], pins: &[{}] }},\n",
+            group.canonical_name, p.base_address, secure_address, p.kind, p.register_version, block_struct_ident(&p.block), p.kind, p.register_version, cmu,
+            interrupts.join(", "), dma_requests.join(", "), pins.join(", "),
         ));
     }
     s.push_str("    ],\n");
@@ -589,12 +758,35 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
         ));
     }
     s.push_str("    ],\n");
+
+    s.push_str("    pins: &[\n");
+    let series0 = chip.chip.series.is_some_and(|s| s.series == 0);
+    for pin in chip_pins(chip, gpio_ports) {
+        // Silicon Labs names pins `PA00` on Series 2 and `PA0` on Series 0.
+        let port = (b'A' + pin.port) as char;
+        let name = if series0 {
+            format!("P{port}{}", pin.pin)
+        } else {
+            format!("P{port}{:02}", pin.pin)
+        };
+        let em2 = match pin.em2 {
+            Some(b) => format!("Some({b})"),
+            None => "None".to_owned(),
+        };
+        s.push_str(&format!(
+            "        Pin {{ name: {name:?}, port: {}, pin: {}, em2: {em2} }},\n",
+            pin.port, pin.pin
+        ));
+    }
+    s.push_str("    ],\n");
+    s.push_str(&format!("    dma_channel_count: {},\n", chip.dma_channel_count));
+    let clocks: Vec<String> = clocks.iter().map(|c| format!("{c:?}")).collect();
+    s.push_str(&format!("    clocks: &[{}],\n", clocks.join(", ")));
     s.push_str("};\n\n");
 
-    // Per-kind IR-static mod decls. Each `<kind>_<version>.rs` exposes
-    // `pub static REGISTERS: IR`. The
-    // chip declares only the kinds it uses; `#[path]` is relative to this
-    // file, so `../../registers/...` reaches `src/registers/`.
+    // Each `<kind>_<version>.rs` holds `pub static REGISTERS: IR`. The chip
+    // declares only the kinds it uses. `#[path]` is relative to this file, so
+    // `../../registers/...` reaches `src/registers/`.
     let paired_secure = paired_secure_alias_names(&chip.peripherals);
     let mut kinds: BTreeSet<(String, String)> = BTreeSet::new();
     for p in &chip.peripherals {
@@ -613,13 +805,76 @@ pub fn build_chip_metadata_rs(chip: &ChipFile) -> String {
         }
     }
 
-    s
+    Ok(s)
+}
+
+/// Bonded pins of a chip. On Series 0, `silabs-data-gen` takes them from the
+/// `data/pins` package. A Series 0 chip without pin data (EFM32GG900) gets
+/// 16 pins on each of its `gpio_ports`.
+fn chip_pins(chip: &ChipFile, gpio_ports: Option<usize>) -> Vec<Pin> {
+    let series0 = chip.chip.series.is_some_and(|s| s.series == 0);
+    if !series0 || !chip.pins.is_empty() {
+        return chip.pins.clone();
+    }
+    (0..gpio_ports.unwrap_or(0) as u8)
+        .flat_map(|port| (0..16).map(move |pin| Pin { port, pin, em2: None }))
+        .collect()
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum MemoryKind {
+    Flash,
+    Ram,
+}
+
+/// Memory kind from the pdsc region name: `IROM*` is flash, `IRAM*` is RAM.
+fn memory_kind(m: &MemoryRegion) -> Result<MemoryKind> {
+    if m.id.starts_with("IROM") {
+        Ok(MemoryKind::Flash)
+    } else if m.id.starts_with("IRAM") {
+        Ok(MemoryKind::Ram)
+    } else {
+        bail!("unknown pdsc memory region `{}`: expected IROM* or IRAM*", m.id)
+    }
+}
+
+/// Build `chips/<chip>/memory.x` from the first flash and the first RAM region.
+pub fn build_memory_x(chip: &ChipFile) -> Result<String> {
+    let first = |kind| -> Result<&MemoryRegion> {
+        for m in &chip.chip.memory {
+            if memory_kind(m)? == kind {
+                return Ok(m);
+            }
+        }
+        bail!(
+            "{} has no {} region",
+            chip.chip.name,
+            if kind == MemoryKind::Flash { "flash" } else { "RAM" }
+        )
+    };
+    fn length(size: u64) -> String {
+        if size % 1024 == 0 {
+            format!("{}K", size / 1024)
+        } else {
+            size.to_string()
+        }
+    }
+    let flash = first(MemoryKind::Flash)?;
+    let ram = first(MemoryKind::Ram)?;
+    Ok(format!(
+        "MEMORY\n{{\n  FLASH : ORIGIN = 0x{:08X}, LENGTH = {}\n  RAM : ORIGIN = 0x{:08X}, LENGTH = {}\n}}\n",
+        flash.start,
+        length(flash.size),
+        ram.start,
+        length(ram.size),
+    ))
 }
 
 #[cfg(test)]
 mod tests {
     use silabs_data_gen::chips::{Interrupt, PeripheralInstance};
     use silabs_data_gen::pdsc::{Chip, MemoryRegion};
+    use silabs_data_gen::pins::{PeripheralPins, PinRoute, PinRouteEnable};
 
     use super::*;
 
@@ -627,12 +882,14 @@ mod tests {
         ChipFile {
             chip: Chip {
                 name: "EFR32MG26B211F2048IM68".into(),
+                family: "EFR32MG26".into(),
                 core: "Cortex-M33".into(),
                 fpu: false,
                 mpu: false,
                 trustzone: false,
                 series: Some(silabs_data_gen::header::Series { series: 2, config: 6 }),
                 nvic_prio_bits: Some(4),
+                flash_page_size: Some(0x2000),
                 memory: vec![
                     MemoryRegion {
                         id: "IROM1".into(),
@@ -657,24 +914,64 @@ mod tests {
                     base_address: 0x5000_E000,
                     version: Some("2".into()),
                     kind: "acmp".into(),
-                    register_version: "v2".into(),
+                    register_version: "s2v2".into(),
                     block: "ACMP".into(),
+                    interrupts: vec![silabs_data_gen::interrupts::PeripheralInterrupt {
+                        signal: "GLOBAL".into(),
+                        interrupt: "ACMP0".into(),
+                    }],
+                    dma_requests: vec![silabs_data_gen::chips::PeripheralDmaRequest {
+                        signal: "CC0".into(),
+                        sourcesel: 2,
+                        sigsel: 0,
+                    }],
+                    pins: vec![
+                        PeripheralPins {
+                            signal: "DIGOUT".into(),
+                            route: PinRoute::Dbus {
+                                register: "acmp0_acmpoutroute".into(),
+                                enable: Some(PinRouteEnable {
+                                    register: "acmp0_routeen".into(),
+                                    field: "acmpoutpen".into(),
+                                }),
+                            },
+                            pins: vec!["PA00".into(), "PB05".into()],
+                        },
+                        PeripheralPins {
+                            signal: "POS".into(),
+                            route: PinRoute::Analog { bus: "ABUS".into() },
+                            pins: vec!["PA00".into()],
+                        },
+                    ],
                 },
                 PeripheralInstance {
                     name: "ACMP0_S".into(),
                     base_address: 0x4000_E000,
                     version: Some("2".into()),
                     kind: "acmp".into(),
-                    register_version: "v2".into(),
+                    register_version: "s2v2".into(),
                     block: "ACMP".into(),
+                    interrupts: vec![],
+                    dma_requests: vec![],
+                    pins: vec![],
                 },
                 PeripheralInstance {
                     name: "DCDC".into(),
                     base_address: 0x4000_4000,
                     version: Some("1".into()),
                     kind: "dcdc".into(),
-                    register_version: "v1".into(),
+                    register_version: "s2v1".into(),
                     block: "DCDC".into(),
+                    interrupts: vec![],
+                    dma_requests: vec![],
+                    pins: vec![PeripheralPins {
+                        signal: "SENSE".into(),
+                        route: PinRoute::Fixed {
+                            enable: None,
+                            alternative: None,
+                        },
+                        pins: vec!["PA00".into()],
+                    }],
                 },
             ],
             interrupts: vec![
@@ -694,6 +991,19 @@ mod tests {
                     description: None,
                 },
             ],
+            pins: vec![
+                Pin {
+                    port: 0,
+                    pin: 0,
+                    em2: Some(true),
+                },
+                Pin {
+                    port: 1,
+                    pin: 5,
+                    em2: Some(false),
+                },
+            ],
+            dma_channel_count: 8,
         }
     }
 
@@ -705,24 +1015,23 @@ mod tests {
         // `Sanitize::default()`'s output in the rendered register YAML.
         assert!(
             s.contains(
-                "pub const ACMP0: crate::acmp_v2::Acmp = unsafe { crate::acmp_v2::Acmp::from_ptr(0x5000E000 as *mut ()) };"
+                "pub const ACMP0: crate::acmp_s2v2::Acmp = unsafe { crate::acmp_s2v2::Acmp::from_ptr(0x5000E000 as *mut ()) };"
             ),
             "missing typed ACMP0 const:\n{s}"
         );
         assert!(!s.contains("pub const ACMP0_NS:"), "redundant ACMP0_NS const:\n{s}");
         assert!(
             s.contains(
-                "pub const ACMP0_S: crate::acmp_v2::Acmp = unsafe { crate::acmp_v2::Acmp::from_ptr(0x4000E000 as *mut ()) };"
+                "pub const ACMP0_S: crate::acmp_s2v2::Acmp = unsafe { crate::acmp_s2v2::Acmp::from_ptr(0x4000E000 as *mut ()) };"
             ),
             "missing secure ACMP0_S const:\n{s}"
         );
         assert!(
-            s.contains("pub const DCDC: crate::dcdc_v1::Dcdc"),
+            s.contains("pub const DCDC: crate::dcdc_s2v1::Dcdc"),
             "missing typed DCDC const:\n{s}"
         );
-        // Interrupts are emitted only as the `pub enum Interrupt` variants —
-        // no separate `pub const ACMP0: u8 = 41;` const module, matching
-        // stm32-metapac's pac.rs shape.
+        // Interrupts exist only as `pub enum Interrupt` variants, with no
+        // const module.
         assert!(s.contains("ACMP0 = 41,"), "missing ACMP0 enum variant:\n{s}");
         assert!(s.contains("TIMER0 = 25,"));
         assert!(!s.contains("pub const ACMP0: u8"));
@@ -730,17 +1039,16 @@ mod tests {
         assert!(s.contains("IROM1_BASE: usize = 0x08000000"));
         assert!(s.contains("IROM1_SIZE: usize = 0x00200000"));
 
-        // Per-kind chiptool mod decls — mirrors stm32 pac.rs structure.
-        // Both acmp_v2 (used by ACMP0/1) and dcdc_v1 (used by DCDC) appear once.
+        // One `#[path]` mod decl for each (kind, version) the chip uses.
         assert!(
-            s.contains("#[path = \"../../peripherals/acmp_v2.rs\"]\npub mod acmp_v2;"),
-            "missing acmp_v2 #[path] mod decl:\n{s}"
+            s.contains("#[path = \"../../peripherals/acmp_s2v2.rs\"]\npub mod acmp_s2v2;"),
+            "missing acmp_s2v2 #[path] mod decl:\n{s}"
         );
         assert!(
-            s.contains("#[path = \"../../peripherals/dcdc_v1.rs\"]\npub mod dcdc_v1;"),
-            "missing dcdc_v1 #[path] mod decl:\n{s}"
+            s.contains("#[path = \"../../peripherals/dcdc_s2v1.rs\"]\npub mod dcdc_s2v1;"),
+            "missing dcdc_s2v1 #[path] mod decl:\n{s}"
         );
-        assert_eq!(s.matches("pub mod acmp_v2;").count(), 1);
+        assert_eq!(s.matches("pub mod acmp_s2v2;").count(), 1);
     }
 
     #[test]
@@ -752,16 +1060,22 @@ mod tests {
             base_address: 0x5000_0000,
             version: Some("2".into()),
             kind: "eusart".into(),
-            register_version: "v2".into(),
+            register_version: "s2v2".into(),
             block: "EUSART".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
+            pins: vec![],
         });
         chip.peripherals.push(PeripheralInstance {
             name: "EUSART1_NS".into(),
             base_address: 0x5000_1000,
             version: Some("2".into()),
             kind: "eusart".into(),
-            register_version: "v2_lf".into(),
+            register_version: "s2v2_lf".into(),
             block: "EUSART".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
+            pins: vec![],
         });
         // A secure alias routed to a different version must not suppress the
         // version-neutral alias. Its instance constant uses the non-secure
@@ -771,24 +1085,33 @@ mod tests {
             base_address: 0x5000_2000,
             version: Some("2".into()),
             kind: "dmem".into(),
-            register_version: "v2_fg25".into(),
+            register_version: "s2v2_fg25".into(),
             block: "DMEM".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
+            pins: vec![],
         });
         chip.peripherals.push(PeripheralInstance {
             name: "DMEM_S".into(),
             base_address: 0x4000_2000,
             version: Some("2".into()),
             kind: "dmem".into(),
-            register_version: "v2".into(),
+            register_version: "s2v2".into(),
             block: "DMEM".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
+            pins: vec![],
         });
         chip.peripherals.push(PeripheralInstance {
             name: "SEMAILBOX_NS_HOST".into(),
             base_address: 0x5C00_0000,
             version: Some("1".into()),
             kind: "semailbox_ns_host".into(),
-            register_version: "v1".into(),
+            register_version: "s2v1".into(),
             block: "SEMAILBOX_NS_HOST".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
+            pins: vec![],
         });
         // Secure `_S_` infix instance shares its NS peer's register type.
         chip.peripherals.push(PeripheralInstance {
@@ -796,14 +1119,17 @@ mod tests {
             base_address: 0x4C00_0000,
             version: Some("1".into()),
             kind: "semailbox_s_host".into(),
-            register_version: "v1".into(),
+            register_version: "s2v1".into(),
             block: "SEMAILBOX_S_HOST".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
+            pins: vec![],
         });
         let s = build_chip_pac_rs(&chip, None);
-        assert!(s.contains("pub use acmp_v2 as acmp;"), "missing acmp alias:\n{s}");
-        assert!(s.contains("pub use dcdc_v1 as dcdc;"), "missing dcdc alias:\n{s}");
+        assert!(s.contains("pub use acmp_s2v2 as acmp;"), "missing acmp alias:\n{s}");
+        assert!(s.contains("pub use dcdc_s2v1 as dcdc;"), "missing dcdc alias:\n{s}");
         assert!(
-            s.contains("pub use dmem_v2_fg25 as dmem;"),
+            s.contains("pub use dmem_s2v2_fg25 as dmem;"),
             "alias must follow the non-secure instance's version:\n{s}"
         );
         assert!(
@@ -811,12 +1137,12 @@ mod tests {
             "eusart has two versions, must not be aliased:\n{s}"
         );
         assert!(
-            !s.contains(" as semailbox_s_host;") && !s.contains("pub mod semailbox_s_host_v1;"),
+            !s.contains(" as semailbox_s_host;") && !s.contains("pub mod semailbox_s_host_s2v1;"),
             "secure infix register module must be deduplicated:\n{s}"
         );
         assert!(
             s.contains(
-                "pub const SEMAILBOX_S_HOST: crate::semailbox_ns_host_v1::SemailboxNsHost = unsafe { crate::semailbox_ns_host_v1::SemailboxNsHost::from_ptr(0x4C000000 as *mut ()) };"
+                "pub const SEMAILBOX_S_HOST: crate::semailbox_ns_host_s2v1::SemailboxNsHost = unsafe { crate::semailbox_ns_host_s2v1::SemailboxNsHost::from_ptr(0x4C000000 as *mut ()) };"
             ),
             "secure infix instance must retain its address with the NS type:\n{s}"
         );
@@ -824,7 +1150,7 @@ mod tests {
 
     #[test]
     fn metadata_rs_emits_per_kind_register_mod_decls() {
-        let s = build_chip_metadata_rs(&fake_chip());
+        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new(), &[], Some(4)).unwrap();
         assert!(
             s.contains("pub static METADATA: Metadata = Metadata {"),
             "missing METADATA static:\n{s}"
@@ -832,16 +1158,147 @@ mod tests {
         // Per-kind IR-static mod decls — declared inside `pub mod metadata`
         // so REGISTERS are reachable at `crate::metadata::<kind>_<version>`.
         assert!(
-            s.contains("#[path = \"../../registers/acmp_v2.rs\"]\npub mod acmp_v2;"),
-            "missing acmp_v2 register mod decl:\n{s}"
+            s.contains("#[path = \"../../registers/acmp_s2v2.rs\"]\npub mod acmp_s2v2;"),
+            "missing acmp_s2v2 register mod decl:\n{s}"
         );
         assert!(
-            s.contains("#[path = \"../../registers/dcdc_v1.rs\"]\npub mod dcdc_v1;"),
-            "missing dcdc_v1 register mod decl:\n{s}"
+            s.contains("#[path = \"../../registers/dcdc_s2v1.rs\"]\npub mod dcdc_s2v1;"),
+            "missing dcdc_s2v1 register mod decl:\n{s}"
         );
         assert!(
             s.contains("Peripheral { name: \"ACMP0\", address: 0x5000E000, secure_address: Some(0x4000E000)"),
             "metadata must retain both TrustZone addresses:\n{s}"
+        );
+        assert!(
+            s.contains("block: \"Acmp\""),
+            "block must be the IR block name, not the perimap name:\n{s}"
+        );
+        assert!(
+            s.contains("MemoryRegion { name: \"IROM1\", kind: MemoryRegionKind::Flash, address: 0x08000000, size: 0x00200000, settings: Some(FlashSettings { erase_size: 8192, write_size: 4, erase_value: 0xFF }) }"),
+            "missing flash region:\n{s}"
+        );
+        assert!(
+            s.contains("MemoryRegion { name: \"IRAM1\", kind: MemoryRegionKind::Ram, address: 0x20000000, size: 0x00040000, settings: None }"),
+            "missing RAM region:\n{s}"
+        );
+        assert!(
+            s.contains("interrupts: &[PeripheralInterrupt { signal: \"GLOBAL\", interrupt: \"ACMP0\" }], dma_requests: &[PeripheralDmaRequest { signal: \"CC0\", sourcesel: 2, sigsel: 0 }], pins: &["),
+            "missing peripheral interrupts or DMA requests:\n{s}"
+        );
+        // One entry of each Series 2 route kind, with its pin list.
+        assert!(
+            s.contains("PeripheralPins { signal: \"DIGOUT\", route: PinRoute::Dbus { register: \"acmp0_acmpoutroute\", enable: Some(PinRouteEnable { register: \"acmp0_routeen\", field: \"acmpoutpen\" }) }, pins: &[\"PA00\", \"PB05\"] }, PeripheralPins { signal: \"POS\", route: PinRoute::Analog { bus: \"ABUS\" }, pins: &[\"PA00\"] }] }"),
+            "missing Dbus or Analog pin entries:\n{s}"
+        );
+        assert!(
+            s.contains("pins: &[PeripheralPins { signal: \"SENSE\", route: PinRoute::Fixed { enable: None, alternative: None }, pins: &[\"PA00\"] }] }"),
+            "missing Fixed pin entry:\n{s}"
+        );
+        assert!(
+            s.contains(
+                "Pin { name: \"PA00\", port: 0, pin: 0, em2: Some(true) },\n        Pin { name: \"PB05\", port: 1, pin: 5, em2: Some(false) },\n    ],"
+            ),
+            "Series 2 pins must come from the header masks, with em2:\n{s}"
+        );
+        assert!(s.contains("dma_channel_count: 8,"), "missing DMA channel count:\n{s}");
+
+        let mut s0 = fake_chip();
+        s0.chip.series = Some(silabs_data_gen::header::Series { series: 0, config: 0 });
+        s0.pins.clear();
+        s0.peripherals[0].pins = vec![
+            PeripheralPins {
+                signal: "OUT".into(),
+                route: PinRoute::Location {
+                    location: 3,
+                    enable: Some(PinRouteEnable {
+                        register: "route".into(),
+                        field: "acmppen".into(),
+                    }),
+                },
+                pins: vec!["PE13".into()],
+            },
+            PeripheralPins {
+                signal: "OUT0ALT".into(),
+                route: PinRoute::Fixed {
+                    enable: None,
+                    alternative: Some(4),
+                },
+                pins: vec!["PD0".into()],
+            },
+        ];
+        let s = build_chip_metadata_rs(&s0, &BTreeMap::new(), &[], Some(2)).unwrap();
+        assert_eq!(
+            s.matches("Pin { name: ").count(),
+            32,
+            "a Series 0 chip without package pins gets 16 pins per port:\n{s}"
+        );
+        assert!(
+            s.contains("Pin { name: \"PA0\", port: 0, pin: 0, em2: None }"),
+            "Series 0 names are not zero-padded, and have no em2 facts:\n{s}"
+        );
+        assert!(s.contains("Pin { name: \"PB15\", port: 1, pin: 15, em2: None }"));
+        assert!(
+            s.contains("pins: &[PeripheralPins { signal: \"OUT\", route: PinRoute::Location { location: 3, enable: Some(PinRouteEnable { register: \"route\", field: \"acmppen\" }) }, pins: &[\"PE13\"] }, PeripheralPins { signal: \"OUT0ALT\", route: PinRoute::Fixed { enable: None, alternative: Some(4) }, pins: &[\"PD0\"] }]"),
+            "missing Series 0 Location or Fixed alternative entry:\n{s}"
+        );
+
+        // A Series 0 chip with package pins lists only those.
+        s0.pins = vec![
+            Pin {
+                port: 0,
+                pin: 2,
+                em2: None,
+            },
+            Pin {
+                port: 0,
+                pin: 10,
+                em2: None,
+            },
+        ];
+        let s = build_chip_metadata_rs(&s0, &BTreeMap::new(), &[], Some(2)).unwrap();
+        assert!(
+            s.contains("Pin { name: \"PA2\", port: 0, pin: 2, em2: None },\n        Pin { name: \"PA10\", port: 0, pin: 10, em2: None },\n    ],"),
+            "Series 0 package pins:\n{s}"
+        );
+    }
+
+    #[test]
+    fn metadata_rs_emits_cmu_bus_enable_sync_prescaler_and_clocks() {
+        use crate::clocks::{ClockEnable, CmuRegister, KernelClock, PeripheralCmu};
+        let mut cmu = BTreeMap::new();
+        cmu.insert(
+            "ACMP0".to_owned(),
+            PeripheralCmu {
+                enable: Some(ClockEnable {
+                    register: "lfaclken0".into(),
+                    field: "rtc".into(),
+                    address: 0x400C_8058,
+                    bit: 1,
+                    sync_busy: Some("lfaclken0".into()),
+                }),
+                bus_enable: Some(ClockEnable {
+                    register: "hfcoreclken0".into(),
+                    field: "le".into(),
+                    address: 0x400C_8040,
+                    bit: 4,
+                    sync_busy: None,
+                }),
+                kernel_clock: Some(KernelClock::Clock("lfaclk".into())),
+                prescaler: Some(CmuRegister {
+                    register: "lfapresc0".into(),
+                    field: "rtc".into(),
+                    sync_busy: Some("lfapresc0".into()),
+                }),
+            },
+        );
+        let s = build_chip_metadata_rs(&fake_chip(), &cmu, &["hfperclk".into(), "lfaclk".into()], None).unwrap();
+        assert!(
+            s.contains("cmu: Some(PeripheralCmu { enable: Some(ClockEnable { register: \"lfaclken0\", field: \"rtc\", address: 0x400C8058, bit: 1, sync_busy: Some(\"lfaclken0\") }), bus_enable: Some(ClockEnable { register: \"hfcoreclken0\", field: \"le\", address: 0x400C8040, bit: 4, sync_busy: None }), kernel_clock: Some(PeripheralCmuKernelClock::Clock(\"lfaclk\")), prescaler: Some(PeripheralCmuRegister { register: \"lfapresc0\", field: \"rtc\", sync_busy: Some(\"lfapresc0\") }) })"),
+            "missing CMU entry:\n{s}"
+        );
+        assert!(
+            s.contains("    clocks: &[\"hfperclk\", \"lfaclk\"],\n"),
+            "missing clocks:\n{s}"
         );
     }
 
@@ -873,6 +1330,9 @@ mod tests {
             kind: "gpio".into(),
             register_version: "s0v1".into(),
             block: "GPIO".into(),
+            interrupts: vec![],
+            dma_requests: vec![],
+            pins: vec![],
         });
         let mut irs = BTreeMap::new();
         irs.insert(("gpio".to_string(), "s0v1".to_string()), ir);
@@ -897,7 +1357,7 @@ mod tests {
     fn cargo_toml_uses_publish_template_and_appends_chip_features() {
         let s = render_cargo_toml(&["efr32mg24b210f1536im48".into(), "efr32mg26b211f2048im68".into()]);
 
-        assert!(s.contains("version = \"0.5.0\""));
+        assert!(s.contains("version = \"0.6.0\""));
         assert!(s.contains("repository = \"https://github.com/andresv/silabs-data-generated\""));
         assert!(s.contains("[package.metadata.docs.rs]"));
         assert!(s.contains("\"build.rs\","));
@@ -944,7 +1404,7 @@ mod tests {
 
     #[test]
     fn metadata_rs_emits_series_field() {
-        let s = build_chip_metadata_rs(&fake_chip());
+        let s = build_chip_metadata_rs(&fake_chip(), &BTreeMap::new(), &[], None).unwrap();
         assert!(
             s.contains("series: Series::Series2(6),"),
             "missing series field in metadata.rs:\n{s}"

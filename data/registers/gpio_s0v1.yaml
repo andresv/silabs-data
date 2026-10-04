@@ -29,30 +29,30 @@ block/Gpio:
       stride: 36
     byte_offset: 12
     fieldset: regs::PortDout
-  - name: p_doutset
-    description: Port Data Out Set Register.
+  - name: p_dout_set
+    description: Port Data Out Set Register (P_DOUTSET in the reference manual).
     array:
       len: 6
       stride: 36
     byte_offset: 16
     access: Write
-    fieldset: regs::PortDoutset
-  - name: p_doutclr
-    description: Port Data Out Clear Register.
+    fieldset: regs::PortDout
+  - name: p_dout_clr
+    description: Port Data Out Clear Register (P_DOUTCLR in the reference manual).
     array:
       len: 6
       stride: 36
     byte_offset: 20
     access: Write
-    fieldset: regs::PortDoutclr
-  - name: p_douttgl
-    description: Port Data Out Toggle Register.
+    fieldset: regs::PortDout
+  - name: p_dout_tgl
+    description: Port Data Out Toggle Register (P_DOUTTGL in the reference manual).
     array:
       len: 6
       stride: 36
     byte_offset: 24
     access: Write
-    fieldset: regs::PortDouttgl
+    fieldset: regs::PortDout
   - name: p_din
     description: Port Data In Register.
     array:
@@ -93,16 +93,16 @@ block/Gpio:
     byte_offset: 276
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 280
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 284
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: route
     description: I/O Routing Register.
     byte_offset: 288
@@ -289,20 +289,6 @@ fieldset/regs::If:
     description: External Interrupt Flag n.
     bit_offset: 0
     bit_size: 16
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: ext
-    description: External Interrupt Flag Clear.
-    bit_offset: 0
-    bit_size: 16
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: ext
-    description: External Interrupt Flag n Set.
-    bit_offset: 0
-    bit_size: 16
 fieldset/regs::Insense:
   description: Input Sense Register.
   fields:
@@ -342,27 +328,6 @@ fieldset/regs::PortDout:
   fields:
   - name: dout
     description: Data Out.
-    bit_offset: 0
-    bit_size: 16
-fieldset/regs::PortDoutclr:
-  description: Port Data Out Clear Register.
-  fields:
-  - name: doutclr
-    description: Data Out Clear.
-    bit_offset: 0
-    bit_size: 16
-fieldset/regs::PortDoutset:
-  description: Port Data Out Set Register.
-  fields:
-  - name: doutset
-    description: Data Out Set.
-    bit_offset: 0
-    bit_size: 16
-fieldset/regs::PortDouttgl:
-  description: Port Data Out Toggle Register.
-  fields:
-  - name: douttgl
-    description: Data Out Toggle.
     bit_offset: 0
     bit_size: 16
 fieldset/regs::PortModeh:
@@ -558,6 +523,9 @@ enum/vals::Lockkey:
   variants:
   - name: Locked
     value: 1
+  - name: Unlock
+    description: Write this key to unlock the registers. Any other value locks them.
+    value: 42292
   - name: Unlocked
     value: 0
 enum/vals::Mode:
@@ -578,23 +546,23 @@ enum/vals::Mode:
   - name: Pushpull
     description: Push-pull output.
     value: 4
-  - name: Pushpulldrive
-    description: Push-pull output with drive-strength set by DRIVEMODE.
+  - name: Pushpullalt
+    description: Push-pull output with drive-strength set by DRIVEMODE (PUSHPULLDRIVE in the reference manual).
     value: 5
   - name: Wiredand
     description: Open-drain output.
     value: 8
-  - name: Wiredanddrive
-    description: Open-drain output with drive-strength set by DRIVEMODE.
+  - name: Wiredandalt
+    description: Open-drain output with drive-strength set by DRIVEMODE (WIREDANDDRIVE in the reference manual).
     value: 12
-  - name: Wiredanddrivefilter
-    description: Open-drain output with filter and drive-strength set by DRIVEMODE.
+  - name: Wiredandaltfilter
+    description: Open-drain output with filter and drive-strength set by DRIVEMODE (WIREDANDDRIVEFILTER in the reference manual).
     value: 13
-  - name: Wiredanddrivepullup
-    description: Open-drain output with pullup and drive-strength set by DRIVEMODE.
+  - name: Wiredandaltpullup
+    description: Open-drain output with pullup and drive-strength set by DRIVEMODE (WIREDANDDRIVEPULLUP in the reference manual).
     value: 14
-  - name: Wiredanddrivepullupfilter
-    description: Open-drain output with filter, pullup and drive-strength set by DRIVEMODE.
+  - name: Wiredandaltpullupfilter
+    description: Open-drain output with filter, pullup and drive-strength set by DRIVEMODE (WIREDANDDRIVEPULLUPFILTER in the reference manual).
     value: 15
   - name: Wiredandfilter
     description: Open-drain output with filter.

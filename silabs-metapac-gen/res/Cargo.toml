@@ -1,15 +1,21 @@
 [package]
 name = "silabs-metapac"
-version = "0.5.0"
-edition = "2024"
+version = "0.6.0"
+edition = "2021"
+rust-version = "1.83"
 license = "MIT OR Apache-2.0"
 description = "Peripheral Access Crate (PAC) for all Silicon Labs chips, including metadata."
 repository = "https://github.com/andresv/silabs-data-generated"
+# Passes the chip's cfgs to direct dependents as `DEP_SILABS_METAPAC_*`
+# (see build.rs). Also makes Cargo keep a single silabs-metapac in the
+# dependency graph, which the chip feature on the user's dependency needs.
+links = "silabs-metapac"
 
 # cargo publish cannot infer files used through include!().
 include = [
     "**/*.rs",
     "**/*.x",
+    "**/*.txt",
     "Cargo.toml",
     "README.md",
     "build.rs",
@@ -26,7 +32,7 @@ cortex-m = "0.7"
 # `device` feature is required for the `cortex_m_rt::interrupt` proc-macro
 # attribute referenced by the chiptool-emitted Interrupt enum.
 cortex-m-rt = { version = "0.7", features = ["device"], optional = true }
-defmt = { version = "0.3", optional = true }
+defmt = { version = "1", optional = true }
 
 [features]
 default = ["pac"]
@@ -44,5 +50,9 @@ metadata = []
 defmt = ["dep:defmt"]
 
 rt = ["cortex-m-rt"]
+
+# Put the chip's `memory.x` (first flash and first RAM region) on the
+# linker search path. Leave it off when the application has its own.
+memory-x = []
 
 # Chip-selection features

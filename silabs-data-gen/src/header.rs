@@ -1,12 +1,11 @@
-//! Extract the IRQn enum from a Silicon Labs CMSIS device header.
+//! Facts from a Silicon Labs CMSIS device header: the IRQn enum, series and
+//! config, NVIC priority bits, flash page size, bonded GPIO pins, DMA channel
+//! count and DMA requests.
 //!
-//! ## Why
-//!
-//! Silicon Labs CMSIS SVDs do not list radio peripheral IRQs (FRC, MODEM,
-//! AGC, BUFC, PROTIMER, SYNTH, RAC_RSM, RAC_SEQ, RFECA0, RFECA1, …) — the
-//! peripherals exist but their `<interrupt>` blocks are missing. The
-//! per-chip C header `Device/SiliconLabs/<FAMILY>/Include/<chip>.h` has
-//! the full IRQ enum:
+//! The SVDs omit the `<interrupt>` blocks of the radio peripherals (FRC, MODEM,
+//! AGC, BUFC, PROTIMER, SYNTH, RAC_RSM, RAC_SEQ, RFECA0, RFECA1, …). The
+//! per-chip header `Device/SiliconLabs/<FAMILY>/Include/<chip>.h` has the full
+//! IRQ enum:
 //!
 //! ```c
 //! typedef enum IRQn {
@@ -18,14 +17,10 @@
 //! } IRQn_Type;
 //! ```
 //!
-//! We parse those lines and use them verbatim as the chip's interrupt
-//! table in `chips::build`. The SVD's `<interrupt>` blocks are
-//! intentionally ignored.
-//!
-//! This mirrors stm32-data's approach: it doesn't trust the SVD for
-//! interrupts either, and parses STM32 HAL headers for `<NAME>_IRQn = N,`
-//! enum members (`stm32-data-gen/src/header.rs`).
+//! `chips::build` uses these entries as the interrupt table and ignores the
+//! SVD `<interrupt>` blocks.
 
+use std::collections::BTreeMap;
 use std::path::Path;
 use std::sync::OnceLock;
 
@@ -44,16 +39,14 @@ pub struct HeaderIrq {
 /// Parse `<NAME>_IRQn = <N>,` enum members from a Silicon Labs CMSIS device
 /// header.
 ///
-/// Tolerates extra whitespace, an optional trailing comma, and trailing
-/// comments like `/*!<  4 EFR32 TIMER0 Interrupt */`. Skips any negative
-/// values (the Cortex-M core exceptions in the header — e.g.
-/// `HardFault_IRQn = -13` — are emitted separately by cortex-m-rt and
-/// don't belong in `__INTERRUPTS`).
+/// Skips negative values. They are Cortex-M core exceptions
+/// (`HardFault_IRQn = -13`), which cortex-m-rt emits itself, so they do not
+/// belong in `__INTERRUPTS`.
 pub fn parse(text: &str) -> Vec<HeaderIrq> {
     static RE: OnceLock<Regex> = OnceLock::new();
     let re = RE.get_or_init(|| {
-        // Anchored to the line start (after optional whitespace) so we don't
-        // match `#define FOO_IRQn = 12` style macros or in-comment mentions.
+        // Anchored to the line start, so `#define FOO_IRQn = 12` macros and
+        // mentions in comments do not match.
         Regex::new(r"^\s*([A-Za-z_][A-Za-z0-9_]*)_IRQn\s*=\s*(-?\d+)\s*,?").expect("regex compiles")
     });
 
@@ -66,8 +59,6 @@ pub fn parse(text: &str) -> Vec<HeaderIrq> {
             continue;
         };
         if value < 0 {
-            // Cortex-M core exceptions (HardFault, MemoryManagement, etc.).
-            // Not part of the device-specific vector table.
             continue;
         }
         out.push(HeaderIrq {
@@ -78,7 +69,6 @@ pub fn parse(text: &str) -> Vec<HeaderIrq> {
     out
 }
 
-/// Convenience wrapper: read a header from disk and parse it.
 pub fn parse_file(path: impl AsRef<Path>) -> Result<Vec<HeaderIrq>> {
     let path = path.as_ref();
     let text = std::fs::read_to_string(path).with_context(|| format!("read header {}", path.display()))?;
@@ -122,8 +112,7 @@ pub fn extract_series(text: &str) -> Result<Series> {
     let config_re = CONFIG_RE.get_or_init(|| {
         // `#define _SILICON_LABS_32B_SERIES_<N>_CONFIG <number>`. The `_<N>_`
         // distinguishes from the valueless tag `_SILICON_LABS_32B_SERIES_<N>_CONFIG_<M>`.
-        Regex::new(r"^\s*#\s*define\s+_SILICON_LABS_32B_SERIES_\d+_CONFIG\s+(\d+)\b")
-            .expect("config regex compiles")
+        Regex::new(r"^\s*#\s*define\s+_SILICON_LABS_32B_SERIES_\d+_CONFIG\s+(\d+)\b").expect("config regex compiles")
     });
 
     let mut series: Option<u8> = None;
@@ -151,7 +140,6 @@ pub fn extract_series(text: &str) -> Result<Series> {
     }
 }
 
-/// Convenience wrapper: read a header from disk and extract [`Series`].
 pub fn extract_series_file(path: impl AsRef<Path>) -> Result<Series> {
     let path = path.as_ref();
     let text = std::fs::read_to_string(path).with_context(|| format!("read header {}", path.display()))?;
@@ -176,23 +164,179 @@ pub fn extract_nvic_prio_bits(text: &str) -> Result<u8> {
     anyhow::bail!("no `#define __NVIC_PRIO_BITS <N>` found in header")
 }
 
-/// Convenience wrapper: read a header from disk and extract `__NVIC_PRIO_BITS`.
 pub fn extract_nvic_prio_bits_file(path: impl AsRef<Path>) -> Result<u8> {
     let path = path.as_ref();
     let text = std::fs::read_to_string(path).with_context(|| format!("read header {}", path.display()))?;
     extract_nvic_prio_bits(&text)
 }
 
+/// Parse `#define FLASH_PAGE_SIZE <N>` from a CMSIS device header. Series 2
+/// writes `(0x00002000UL)`, Series 0 writes `4096U`.
+pub fn parse_flash_page_size(text: &str) -> Option<u32> {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    let re = RE.get_or_init(|| {
+        Regex::new(r"^\s*#\s*define\s+FLASH_PAGE_SIZE\s+\(?\s*(0[xX][0-9A-Fa-f]+|\d+)[uUlL]*\s*\)?")
+            .expect("flash page size regex compiles")
+    });
+    text.lines().find_map(|line| {
+        let n = &re.captures(line)?[1];
+        match n.strip_prefix("0x").or_else(|| n.strip_prefix("0X")) {
+            Some(hex) => u32::from_str_radix(hex, 16).ok(),
+            None => n.parse().ok(),
+        }
+    })
+}
+
+/// Parse the `GPIO_Px_INDEX` / `GPIO_Px_MASK` pairs of a Series 2 device
+/// header into `(port index, bonded pin mask)`, sorted by port.
+pub fn parse_gpio_port_masks(text: &str) -> Vec<(u8, u32)> {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    let re = RE.get_or_init(|| {
+        Regex::new(r"^\s*#\s*define\s+GPIO_P([A-Z])_(INDEX|MASK)\s+\(?\s*(0[xX][0-9A-Fa-f]+|\d+)[uUlL]*\s*\)?")
+            .expect("gpio port regex compiles")
+    });
+    let mut index: BTreeMap<char, u8> = BTreeMap::new();
+    let mut mask: BTreeMap<char, u32> = BTreeMap::new();
+    for line in text.lines() {
+        let Some(caps) = re.captures(line) else { continue };
+        let port = caps[1].chars().next().unwrap();
+        let Some(n) = parse_c_int(&caps[3]) else { continue };
+        if &caps[2] == "INDEX" {
+            index.insert(port, n as u8);
+        } else {
+            mask.insert(port, n as u32);
+        }
+    }
+    let mut out: Vec<(u8, u32)> = mask
+        .into_iter()
+        .filter_map(|(port, m)| Some((*index.get(&port)?, m)))
+        .collect();
+    out.sort();
+    out
+}
+
+/// Number of DMA channels: `LDMA_CH_NUM` (Series 2), else a numeric
+/// `DMA_CHAN_COUNT` (Series 0), else 0.
+pub fn parse_dma_channel_count(text: &str) -> u8 {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    let re = RE.get_or_init(|| {
+        Regex::new(r"^\s*#\s*define\s+(LDMA_CH_NUM|DMA_CHAN_COUNT)\s+(0[xX][0-9A-Fa-f]+|\d+)[uUlL]*\b")
+            .expect("dma channel count regex compiles")
+    });
+    let mut ldma = None;
+    let mut dma = None;
+    for line in text.lines() {
+        let Some(caps) = re.captures(line) else { continue };
+        let n = parse_c_int(&caps[2]).map(|n| n as u8);
+        match &caps[1] {
+            "LDMA_CH_NUM" => ldma = ldma.or(n),
+            _ => dma = dma.or(n),
+        }
+    }
+    ldma.or(dma).unwrap_or(0)
+}
+
+/// One DMA request signal from a `*_ldmaxbar_defines.h` or `*_dmareq.h` header.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct HeaderDmaRequest {
+    /// Request source, as the header names it (`EUSART0`, `TIMER1`).
+    pub source: String,
+    /// Signal name without the source prefix (`RXFL`, `CC0`).
+    pub signal: String,
+    pub sourcesel: u8,
+    pub sigsel: u8,
+}
+
+/// Parse the Series 2 LDMAXBAR `CH_REQSEL` defines.
+///
+/// A SIGSEL name joins source and signal with no separator
+/// (`_LDMAXBAR_CH_REQSEL_SIGSEL_EUSART0RXFL`), so each one belongs to the
+/// longest source name that prefixes it. `NONE` and `PRS` are not request
+/// sources.
+pub fn parse_ldmaxbar_requests(text: &str) -> Vec<HeaderDmaRequest> {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    let re = RE.get_or_init(|| {
+        Regex::new(r"^\s*#\s*define\s+_LDMAXBAR_CH_REQSEL_(SOURCESEL|SIGSEL)_([A-Za-z0-9_]+)\s+(0[xX][0-9A-Fa-f]+|\d+)[uUlL]*\b")
+            .expect("ldmaxbar regex compiles")
+    });
+    let mut sources: Vec<(String, u8)> = Vec::new();
+    let mut signals: Vec<(String, u8)> = Vec::new();
+    for line in text.lines() {
+        let Some(caps) = re.captures(line) else { continue };
+        let Some(n) = parse_c_int(&caps[3]) else { continue };
+        let name = caps[2].to_string();
+        match &caps[1] {
+            "SOURCESEL" if name != "NONE" && name != "PRS" => sources.push((name, n as u8)),
+            "SOURCESEL" => {}
+            _ => signals.push((name, n as u8)),
+        }
+    }
+    signals
+        .into_iter()
+        .filter_map(|(name, sigsel)| {
+            let Some((source, sourcesel)) = sources
+                .iter()
+                .filter(|(s, _)| name.starts_with(s.as_str()))
+                .max_by_key(|(s, _)| s.len())
+            else {
+                eprintln!("LDMAXBAR SIGSEL with no SOURCESEL: {name}");
+                return None;
+            };
+            // A signal named like its source (MG26 `SIGSEL_LCD`) is the
+            // peripheral's only request, like a `GLOBAL` interrupt.
+            let signal = match &name[source.len()..] {
+                "" => "GLOBAL",
+                rest => rest,
+            };
+            Some(HeaderDmaRequest {
+                source: source.clone(),
+                signal: signal.to_string(),
+                sourcesel: *sourcesel,
+                sigsel,
+            })
+        })
+        .collect()
+}
+
+/// Parse the Series 0 `DMAREQ_<SOURCE>_<SIGNAL> ((<sourcesel> << 16) + <sigsel>)`
+/// defines. Series 0 source names have no `_`, so the first `_` splits
+/// source and signal.
+pub fn parse_dmareq_requests(text: &str) -> Vec<HeaderDmaRequest> {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    let re = RE.get_or_init(|| {
+        Regex::new(
+            r"^\s*#\s*define\s+DMAREQ_([A-Za-z0-9]+)_([A-Za-z0-9_]+)\s+\(\(\s*(\d+)\s*<<\s*16\s*\)\s*\+\s*(\d+)\s*\)",
+        )
+        .expect("dmareq regex compiles")
+    });
+    text.lines()
+        .filter_map(|line| {
+            let caps = re.captures(line)?;
+            Some(HeaderDmaRequest {
+                source: caps[1].to_string(),
+                signal: caps[2].to_string(),
+                sourcesel: caps[3].parse().ok()?,
+                sigsel: caps[4].parse().ok()?,
+            })
+        })
+        .collect()
+}
+
+/// Parse a C integer literal body (`0x3FF`, `12`) without its suffix.
+fn parse_c_int(n: &str) -> Option<u64> {
+    match n.strip_prefix("0x").or_else(|| n.strip_prefix("0X")) {
+        Some(hex) => u64::from_str_radix(hex, 16).ok(),
+        None => n.parse().ok(),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    /// Sanity check against a slice of the EFR32MG26 device header. The
-    /// radio peripherals (FRC, MODEM, AGC, BUFC, PROTIMER, SYNTH,
-    /// RAC_RSM, RAC_SEQ, RFECA0, RFECA1) live in the public C header but
-    /// not the public SVD — those are exactly the IRQs this parser exists
-    /// to recover. Includes a negative-valued Cortex-M core exception
-    /// (`MemoryManagement_IRQn = -12`) to confirm the parser drops it.
+    /// A slice of the EFR32MG26 device header. The radio IRQs (FRC, MODEM,
+    /// AGC, …) are in the header but not in the SVD.
+    /// `MemoryManagement_IRQn = -12` checks that core exceptions are dropped.
     #[test]
     fn parses_efr32mg26_radio_irqs() {
         let sample = r#"
@@ -258,10 +402,9 @@ struct foo { int FRC_IRQn; };
         assert!(names.is_empty(), "unexpected matches: {names:?}");
     }
 
-    /// EFR32MG26 header slice — the four `_SILICON_LABS_32B_SERIES*` macros
-    /// in the shape Silicon Labs ships. We pull only the two valued ones
-    /// (`SERIES` and `SERIES_<N>_CONFIG`); the valueless tags
-    /// (`_SERIES_2`, `_SERIES_2_CONFIG_6`) must not poison the parse.
+    /// EFR32MG26 header slice with the four `_SILICON_LABS_32B_SERIES*`
+    /// macros. The valueless tags (`_SERIES_2`, `_SERIES_2_CONFIG_6`) must
+    /// not change the result.
     #[test]
     fn extracts_series_from_efr32mg26_header() {
         let sample = r#"
@@ -337,6 +480,95 @@ struct foo { int FRC_IRQn; };
     fn extract_nvic_prio_bits_rejects_missing_macro() {
         let err = extract_nvic_prio_bits("nothing here").unwrap_err();
         assert!(err.to_string().contains("__NVIC_PRIO_BITS"), "{err}");
+    }
+
+    #[test]
+    fn parses_flash_page_size() {
+        let sample = "#define ICACHE0_FLASH_SIZE                      0x180000UL  /**> Flash size */\n\
+                      #define FLASH_PAGE_SIZE                                   (0x00002000UL) /**< Flash Memory page size */\n";
+        assert_eq!(parse_flash_page_size(sample), Some(0x2000));
+        assert_eq!(
+            parse_flash_page_size(
+                "#define FLASH_PAGE_SIZE         4096U                  /**< Flash Memory page size */\n"
+            ),
+            Some(4096)
+        );
+        assert_eq!(
+            parse_flash_page_size("#define ICACHE0_FLASH_SIZE                      0x180000UL  /**> Flash size */\n"),
+            None
+        );
+    }
+
+    #[test]
+    fn parses_gpio_port_masks() {
+        let sample = "#define GPIO_PA_INDEX                                     0U         /**< Index of port PA */\n\
+                      #define GPIO_PA_COUNT                                     10U        /**< Number of pins on port PA */\n\
+                      #define GPIO_PA_MASK                                      (0x03FFUL) /**< Port PA pin mask */\n\
+                      #define GPIO_PB_INDEX                                     1U         /**< Index of port PB */\n\
+                      #define GPIO_PB_COUNT                                     6U         /**< Number of pins on port PB */\n\
+                      #define GPIO_PB_MASK                                      (0x003FUL) /**< Port PB pin mask */\n";
+        assert_eq!(parse_gpio_port_masks(sample), [(0, 0x3FF), (1, 0x3F)]);
+    }
+
+    /// TIMER10 is not in a shipped header. It checks that `TIMER10CC0` does
+    /// not go to TIMER1.
+    #[test]
+    fn parses_ldmaxbar_requests() {
+        let sample = r#"
+#define _LDMAXBAR_CH_REQSEL_SOURCESEL_NONE               0x00000000UL /**< Mode NONE for LDMAXBAR_CH_REQSEL */
+#define _LDMAXBAR_CH_REQSEL_SOURCESEL_TIMER1             0x00000003UL /**< Mode TIMER1 for LDMAXBAR_CH_REQSEL */
+#define _LDMAXBAR_CH_REQSEL_SOURCESEL_EUSART0            0x0000000fUL /**< Mode EUSART0 for LDMAXBAR_CH_REQSEL */
+#define _LDMAXBAR_CH_REQSEL_SOURCESEL_TIMER10            0x00000020UL /**< Mode TIMER10 for LDMAXBAR_CH_REQSEL */
+#define LDMAXBAR_CH_REQSEL_SOURCESEL_EUSART0             (_LDMAXBAR_CH_REQSEL_SOURCESEL_EUSART0 << 16)  /**< Shifted Mode EUSART0 for LDMAXBAR_CH_REQSEL */
+#define _LDMAXBAR_CH_REQSEL_SIGSEL_TIMER1CC0             0x00000000UL /** Mode TIMER1CC0 for LDMAXBAR_CH_REQSEL**/
+#define _LDMAXBAR_CH_REQSEL_SIGSEL_TIMER1UFOF            0x00000003UL /** Mode TIMER1UFOF for LDMAXBAR_CH_REQSEL**/
+#define _LDMAXBAR_CH_REQSEL_SIGSEL_EUSART0RXFL           0x00000000UL /** Mode EUSART0RXFL for LDMAXBAR_CH_REQSEL**/
+#define _LDMAXBAR_CH_REQSEL_SIGSEL_EUSART0TXFL           0x00000001UL /** Mode EUSART0TXFL for LDMAXBAR_CH_REQSEL**/
+#define _LDMAXBAR_CH_REQSEL_SIGSEL_TIMER10CC0            0x00000000UL /** Mode TIMER10CC0 for LDMAXBAR_CH_REQSEL**/
+#define _LDMAXBAR_CH_REQSEL_SOURCESEL_LCD                0x0000001eUL /**< Mode LCD for LDMAXBAR_CH_REQSEL */
+#define _LDMAXBAR_CH_REQSEL_SIGSEL_LCD                   0x00000000UL /** Mode LCD for LDMAXBAR_CH_REQSEL**/
+#define LDMAXBAR_CH_REQSEL_SIGSEL_EUSART0RXFL            (_LDMAXBAR_CH_REQSEL_SIGSEL_EUSART0RXFL << 0)        /** Shifted Mode EUSART0RXFL for LDMAXBAR_CH_REQSEL**/
+"#;
+        let req = |source: &str, signal: &str, sourcesel, sigsel| HeaderDmaRequest {
+            source: source.into(),
+            signal: signal.into(),
+            sourcesel,
+            sigsel,
+        };
+        assert_eq!(
+            parse_ldmaxbar_requests(sample),
+            [
+                req("TIMER1", "CC0", 3, 0),
+                req("TIMER1", "UFOF", 3, 3),
+                req("EUSART0", "RXFL", 15, 0),
+                req("EUSART0", "TXFL", 15, 1),
+                req("TIMER10", "CC0", 32, 0),
+                req("LCD", "GLOBAL", 30, 0),
+            ]
+        );
+    }
+
+    #[test]
+    fn parses_dmareq_requests() {
+        let sample = r#"
+#define DMAREQ_USART0_RXDATAV         ((12 << 16) + 0) /**< DMA channel select for USART0_RXDATAV */
+#define DMAREQ_USART1_RXDATAVRIGHT    ((13 << 16) + 3) /**< DMA channel select for USART1_RXDATAVRIGHT */
+#define DMAREQ_TIMER0_CC2             ((24 << 16) + 3) /**< DMA channel select for TIMER0_CC2 */
+"#;
+        let req = |source: &str, signal: &str, sourcesel, sigsel| HeaderDmaRequest {
+            source: source.into(),
+            signal: signal.into(),
+            sourcesel,
+            sigsel,
+        };
+        assert_eq!(
+            parse_dmareq_requests(sample),
+            [
+                req("USART0", "RXDATAV", 12, 0),
+                req("USART1", "RXDATAVRIGHT", 13, 3),
+                req("TIMER0", "CC2", 24, 3),
+            ]
+        );
     }
 
     #[test]

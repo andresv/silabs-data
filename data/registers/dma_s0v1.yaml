@@ -98,16 +98,16 @@ block/Dma:
     byte_offset: 4096
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 4100
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 4104
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: ien
     description: Interrupt Enable register.
     byte_offset: 4108
@@ -1189,116 +1189,6 @@ fieldset/regs::If:
     bit_size: 1
   - name: err
     description: DMA Error Interrupt Flag.
-    bit_offset: 31
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: ch0done
-    description: DMA Channel 0 Complete Interrupt Flag Clear.
-    bit_offset: 0
-    bit_size: 1
-  - name: ch1done
-    description: DMA Channel 1 Complete Interrupt Flag Clear.
-    bit_offset: 1
-    bit_size: 1
-  - name: ch2done
-    description: DMA Channel 2 Complete Interrupt Flag Clear.
-    bit_offset: 2
-    bit_size: 1
-  - name: ch3done
-    description: DMA Channel 3 Complete Interrupt Flag Clear.
-    bit_offset: 3
-    bit_size: 1
-  - name: ch4done
-    description: DMA Channel 4 Complete Interrupt Flag Clear.
-    bit_offset: 4
-    bit_size: 1
-  - name: ch5done
-    description: DMA Channel 5 Complete Interrupt Flag Clear.
-    bit_offset: 5
-    bit_size: 1
-  - name: ch6done
-    description: DMA Channel 6 Complete Interrupt Flag Clear.
-    bit_offset: 6
-    bit_size: 1
-  - name: ch7done
-    description: DMA Channel 7 Complete Interrupt Flag Clear.
-    bit_offset: 7
-    bit_size: 1
-  - name: ch8done
-    description: DMA Channel 8 Complete Interrupt Flag Clear.
-    bit_offset: 8
-    bit_size: 1
-  - name: ch9done
-    description: DMA Channel 9 Complete Interrupt Flag Clear.
-    bit_offset: 9
-    bit_size: 1
-  - name: ch10done
-    description: DMA Channel 10 Complete Interrupt Flag Clear.
-    bit_offset: 10
-    bit_size: 1
-  - name: ch11done
-    description: DMA Channel 11 Complete Interrupt Flag Clear.
-    bit_offset: 11
-    bit_size: 1
-  - name: err
-    description: DMA Error Interrupt Flag Clear.
-    bit_offset: 31
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: ch0done
-    description: DMA Channel 0 Complete Interrupt Flag Set.
-    bit_offset: 0
-    bit_size: 1
-  - name: ch1done
-    description: DMA Channel 1 Complete Interrupt Flag Set.
-    bit_offset: 1
-    bit_size: 1
-  - name: ch2done
-    description: DMA Channel 2 Complete Interrupt Flag Set.
-    bit_offset: 2
-    bit_size: 1
-  - name: ch3done
-    description: DMA Channel 3 Complete Interrupt Flag Set.
-    bit_offset: 3
-    bit_size: 1
-  - name: ch4done
-    description: DMA Channel 4 Complete Interrupt Flag Set.
-    bit_offset: 4
-    bit_size: 1
-  - name: ch5done
-    description: DMA Channel 5 Complete Interrupt Flag Set.
-    bit_offset: 5
-    bit_size: 1
-  - name: ch6done
-    description: DMA Channel 6 Complete Interrupt Flag Set.
-    bit_offset: 6
-    bit_size: 1
-  - name: ch7done
-    description: DMA Channel 7 Complete Interrupt Flag Set.
-    bit_offset: 7
-    bit_size: 1
-  - name: ch8done
-    description: DMA Channel 8 Complete Interrupt Flag Set.
-    bit_offset: 8
-    bit_size: 1
-  - name: ch9done
-    description: DMA Channel 9 Complete Interrupt Flag Set.
-    bit_offset: 9
-    bit_size: 1
-  - name: ch10done
-    description: DMA Channel 10 Complete Interrupt Flag Set.
-    bit_offset: 10
-    bit_size: 1
-  - name: ch11done
-    description: DMA Channel 11 Complete Interrupt Flag Set.
-    bit_offset: 11
-    bit_size: 1
-  - name: err
-    description: DMA Error Interrupt Flag Set.
     bit_offset: 31
     bit_size: 1
 fieldset/regs::Loop0:

@@ -8,20 +8,14 @@
 //! - `+0x2000`: CLR alias — writing `1` bits clears those bits.
 //! - `+0x3000`: TGL alias — writing `1` bits toggles those bits.
 //!
-//! The vendor SVD does not enumerate these aliases (only the base layout
-//! is described). The per-chip CMSIS device header marks each banked
-//! peripheral with `#define <PERI>_HAS_SET_CLEAR` and declares the
-//! aliases as full struct mirrors with `_SET`/`_CLR`/`_TGL` suffixes.
+//! The vendor SVD describes only the base layout. The CMSIS device header
+//! marks each banked peripheral with `#define <PERI>_HAS_SET_CLEAR`.
 //!
-//! This transform replicates the base block's writable registers as
-//! write-only aliases at the three offsets. Read-only registers
-//! (`access: Read`) are skipped — their aliases exist at the hardware
-//! level but reads return the base value and writes are no-ops, so
-//! generating Rust accessors for them adds no value.
+//! Only writable registers get aliases. The alias of a read-only register
+//! reads the base value and ignores writes, so it is of no use.
 //!
-//! The most common consumer of these aliases is the `IF` (interrupt
-//! flag) register on Series 2: writes to base `IF` are *silently
-//! ignored*, and clearing flags requires writing to `IF_CLR`.
+//! Series 2 ignores a write to the base `IF` register. A flag clears only
+//! through `IF_CLR`.
 
 use std::collections::{BTreeSet, HashSet};
 use std::path::Path;
@@ -34,17 +28,11 @@ use silabs_data_gen::chips::ChipFile;
 
 use crate::pac::IpKey;
 
-/// Scan the extracted CMSIS pack(s) under `extract_dirs` for peripherals
-/// marked `#define <PERI>_HAS_SET_CLEAR` and return the set of kinds
-/// (lowercase, matching `kind` in `data/registers/<kind>_v<version>.yaml`).
+/// Lowercase kinds that the extracted packs mark with
+/// `#define <PERI>_HAS_SET_CLEAR`. Empty when `extract_dirs` is empty.
 ///
-/// Looks at every `Device/SiliconLabs/<FAMILY>/Include/efr32*_*.h`
-/// per-peripheral header — those are where Silicon Labs declares the
-/// banking marker (the per-chip header just `#include`s them).
-///
-/// Returns an empty set if no extract dirs are provided (e.g. a user
-/// running `metapac-gen` without `--pack`). The caller decides whether
-/// that's a hard error or just "no aliases this run".
+/// Reads every `Device/SiliconLabs/<FAMILY>/Include/*.h`. The marker is in
+/// the per-peripheral headers, which the per-chip header includes.
 pub fn discover_banked_kinds(extract_dirs: &[&Path]) -> Result<HashSet<String>> {
     static MARKER_RE: OnceLock<Regex> = OnceLock::new();
     let marker = MARKER_RE.get_or_init(|| {
@@ -80,12 +68,12 @@ pub fn discover_banked_kinds(extract_dirs: &[&Path]) -> Result<HashSet<String>> 
     Ok(out)
 }
 
-/// The `(kind, version)` register modules that get SET/CLR/TGL aliases:
-/// those whose kind is in `banked_kinds` and that are used by at least one
-/// Series 2+ chip. `banked_kinds` holds bare kind names gathered from every
-/// pack, so without the series check a Series 0/1 block of the same kind
-/// (e.g. `letimer_s0v1`) would get aliases at +0x1000/+0x2000/+0x3000 that
-/// don't exist in its hardware.
+/// The `(kind, version)` modules that get SET/CLR/TGL aliases: a kind in
+/// `banked_kinds` that at least one Series 2+ chip uses.
+///
+/// `banked_kinds` holds bare kind names from every pack. Without the series
+/// check, a Series 0/1 block of the same kind (`letimer_s0v1`) would get
+/// aliases that its hardware does not have.
 pub fn banked_keys(chips: &[ChipFile], banked_kinds: &HashSet<String>) -> BTreeSet<IpKey> {
     chips
         .iter()
@@ -105,20 +93,15 @@ const TGL_OFFSET: u32 = 0x3000;
 /// `byte_offset + 0x1000 / 0x2000 / 0x3000`. The fieldset is reused, so
 /// the aliases share the bit-field definitions with the base register.
 ///
-/// Items are appended at the end of the block — chiptool's render is
-/// order-insensitive for `BlockItem` lists.
+/// The aliases go at the end of the block. Chiptool output does not depend
+/// on the item order.
 pub fn expand_series2_aliases(ir: &mut IR) {
     for block in ir.blocks.values_mut() {
         let mut aliases: Vec<BlockItem> = Vec::new();
         for item in &block.items {
             let BlockItemInner::Register(reg) = &item.inner else {
-                // Sub-block references aren't expected in the current
-                // Silabs register YAMLs (every kind YAML is a flat list
-                // of Register items). If one shows up later, the right
-                // thing is to expand the inner block recursively at the
-                // alias offset — but that's not needed today, so panic
-                // loudly to flag the assumption rather than emit silently
-                // wrong code.
+                // Every register YAML has flat blocks. A nested block needs
+                // its own aliases, so stop instead of emitting wrong code.
                 panic!(
                     "expand_series2_aliases: unexpected nested block item `{}` — \
                      extend this transform to handle BlockItemBlock items",
@@ -128,10 +111,8 @@ pub fn expand_series2_aliases(ir: &mut IR) {
             if reg.access == Access::Read {
                 continue;
             }
-            // Strip a trailing `_` from the base name (chiptool's
-            // Sanitize escape for Rust keywords like `if`, `loop`) so
-            // we get `if_clr` and not `if__clr`. Adding `_set`/`_clr`/
-            // `_tgl` never produces a keyword, so no re-escape needed.
+            // Strip chiptool's trailing `_` keyword escape (`if_`), so the
+            // alias is `if_clr`, not `if__clr`. No suffixed name is a keyword.
             let base_name = item.name.strip_suffix('_').unwrap_or(&item.name);
             for (suffix, offset) in [("set", SET_OFFSET), ("clr", CLR_OFFSET), ("tgl", TGL_OFFSET)] {
                 let alias_reg = chiptool::ir::Register {
@@ -167,12 +148,14 @@ mod tests {
         ChipFile {
             chip: silabs_data_gen::pdsc::Chip {
                 name: name.into(),
+                family: "EFR32MG24".into(),
                 core: "Cortex-M33".into(),
                 fpu: false,
                 mpu: false,
                 trustzone: false,
                 series: Some(silabs_data_gen::header::Series { series, config: 0 }),
                 nvic_prio_bits: Some(4),
+                flash_page_size: Some(0x2000),
                 memory: vec![],
                 flash_algo: None,
                 svd: "x.svd".into(),
@@ -185,8 +168,13 @@ mod tests {
                 kind: kind.into(),
                 register_version: version.into(),
                 block: "LETIMER".into(),
+                interrupts: vec![],
+                dma_requests: vec![],
+                pins: vec![],
             }],
             interrupts: vec![],
+            pins: vec![],
+            dma_channel_count: 0,
         }
     }
 
@@ -196,12 +184,12 @@ mod tests {
     #[test]
     fn banked_keys_only_cover_series_2_and_later() {
         let chips = vec![
-            chip_with("EFR32MG24B210F1536IM48", 2, "letimer", "v1"),
+            chip_with("EFR32MG24B210F1536IM48", 2, "letimer", "s2v1"),
             chip_with("EFM32GG390F1024", 0, "letimer", "s0v1"),
         ];
         let kinds: HashSet<String> = ["letimer".to_string()].into();
         let keys = banked_keys(&chips, &kinds);
-        assert!(keys.contains(&("letimer".to_string(), "v1".to_string())));
+        assert!(keys.contains(&("letimer".to_string(), "s2v1".to_string())));
         assert!(!keys.contains(&("letimer".to_string(), "s0v1".to_string())));
     }
 
@@ -322,9 +310,8 @@ mod tests {
         }
     }
 
-    /// Discover banked kinds from a synthetic on-disk layout that mirrors
-    /// the real `Device/SiliconLabs/<FAMILY>/Include/efr32<family>_<peri>.h`
-    /// shape. Keeps the test hermetic — no dependency on `silabs-data-source/`.
+    /// Uses a temporary `Device/SiliconLabs/<FAMILY>/Include` tree, so the
+    /// test does not need `silabs-data-source/`.
     #[test]
     fn discover_banked_kinds_picks_up_has_set_clear_defines() {
         use std::fs;

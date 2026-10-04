@@ -50,16 +50,16 @@ block/Burtc:
     byte_offset: 40
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 44
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 48
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: ien
     description: Interrupt Enable Register.
     byte_offset: 52
@@ -680,36 +680,6 @@ fieldset/regs::If:
     bit_size: 1
   - name: lfxofail
     description: LFXO failure Interrupt Flag.
-    bit_offset: 2
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: of
-    description: Clear Overflow Interrupt Flag.
-    bit_offset: 0
-    bit_size: 1
-  - name: comp0
-    description: Clear compare match Interrupt Flag.
-    bit_offset: 1
-    bit_size: 1
-  - name: lfxofail
-    description: Clear LFXO failure Interrupt Flag.
-    bit_offset: 2
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: of
-    description: Set Overflow Interrupt Flag.
-    bit_offset: 0
-    bit_size: 1
-  - name: comp0
-    description: Set compare match Interrupt Flag.
-    bit_offset: 1
-    bit_size: 1
-  - name: lfxofail
-    description: Set LFXO fail Interrupt Flag.
     bit_offset: 2
     bit_size: 1
 fieldset/regs::Lfxofdet:
@@ -1696,6 +1666,9 @@ enum/vals::Lockkey:
   variants:
   - name: Locked
     value: 1
+  - name: Unlock
+    description: Write this key to unlock the registers. Any other value locks them.
+    value: 44776
   - name: Unlocked
     value: 0
 enum/vals::Lpcomp:

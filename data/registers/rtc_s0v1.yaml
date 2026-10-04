@@ -22,16 +22,16 @@ block/Rtc:
     byte_offset: 16
     access: Read
     fieldset: regs::If
-  - name: ifs
-    description: Interrupt Flag Set Register.
+  - name: if_set
+    description: Interrupt Flag Set Register (IFS in the reference manual).
     byte_offset: 20
     access: Write
-    fieldset: regs::Ifs
-  - name: ifc
-    description: Interrupt Flag Clear Register.
+    fieldset: regs::If
+  - name: if_clr
+    description: Interrupt Flag Clear Register (IFC in the reference manual).
     byte_offset: 24
     access: Write
-    fieldset: regs::Ifc
+    fieldset: regs::If
   - name: ien
     description: Interrupt Enable Register.
     byte_offset: 28
@@ -116,36 +116,6 @@ fieldset/regs::If:
     bit_size: 1
   - name: comp1
     description: Compare Match 1 Interrupt Flag.
-    bit_offset: 2
-    bit_size: 1
-fieldset/regs::Ifc:
-  description: Interrupt Flag Clear Register.
-  fields:
-  - name: of
-    description: Clear Overflow Interrupt Flag.
-    bit_offset: 0
-    bit_size: 1
-  - name: comp0
-    description: Clear Compare match 0 Interrupt Flag.
-    bit_offset: 1
-    bit_size: 1
-  - name: comp1
-    description: Clear Compare match 1 Interrupt Flag.
-    bit_offset: 2
-    bit_size: 1
-fieldset/regs::Ifs:
-  description: Interrupt Flag Set Register.
-  fields:
-  - name: of
-    description: Set Overflow Interrupt Flag.
-    bit_offset: 0
-    bit_size: 1
-  - name: comp0
-    description: Set Compare match 0 Interrupt Flag.
-    bit_offset: 1
-    bit_size: 1
-  - name: comp1
-    description: Set Compare match 1 Interrupt Flag.
     bit_offset: 2
     bit_size: 1
 fieldset/regs::Syncbusy:

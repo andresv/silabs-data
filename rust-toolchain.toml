@@ -1,6 +1,6 @@
 [toolchain]
-# Nightly matches stm32-data and is required by the unstable
-# `group_imports`/`imports_granularity` rustfmt options in `rustfmt.toml`.
+# Nightly is required by the unstable `group_imports`/`imports_granularity`
+# rustfmt options in `rustfmt.toml`.
 # thumbv8m.main: EFR32 Series 2 (Cortex-M33). thumbv7m: EFM32 Series 0 (Cortex-M3).
 channel = "nightly-2025-12-11"
 components = ["rust-src", "rustfmt", "llvm-tools"]

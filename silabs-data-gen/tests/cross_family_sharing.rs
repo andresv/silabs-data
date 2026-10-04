@@ -1,19 +1,17 @@
-//! Test pinning the cross-family register-block sharing assumption that
-//! drives Phase 3-4 of the MG24 bootstrap plan: peripherals identified by
-//! `(name, version)` should have matching SVD register layouts (and hence
-//! matching fingerprints), allowing the codegen to emit a single shared
-//! Rust block for both families.
+//! Peripherals with the same `(name, version)` on two families have the same
+//! SVD register layout, and so the same fingerprint. Codegen relies on this
+//! to emit one shared Rust block for both families.
 //!
-//! Fixtures `mg24_subset.svd` / `mg26_subset.svd` are hand-built to mimic the
-//! real EFR32MG24 vs EFR32MG26 ground truth from the 2025.12.1 SVDs:
+//! The fixtures `mg24_subset.svd` / `mg26_subset.svd` are hand-built from the
+//! real EFR32MG24 and EFR32MG26 2025.12.1 SVDs:
 //!   - 10 shared kinds: ACMP0, BURTC, EUSART0, TIMER0, USART0, IADC0, LDMA,
 //!     LETIMER0, RTCC, WDOG0
-//!     (matching version + matching register layout → matching fingerprint).
+//!     (same version and register layout → same fingerprint).
 //!   - 3 split kinds: GPIO (v3 vs v7), CMU (v3 vs v7), MSC (v3 vs v9)
-//!     (different version + different register layout → different fingerprint).
+//!     (different version and register layout → different fingerprint).
 //!
-//! That's a 76.9%/23.1% shared/split split — measured share ratio in the
-//! real SVDs was 79.5%, so 75% is the assertion threshold.
+//! The fixtures share 76.9% of the kinds. The real SVDs share 79.5%, so the
+//! threshold is 75%.
 
 use std::collections::HashMap;
 
@@ -49,11 +47,9 @@ fn cross_family_versions_and_fingerprints_are_consistent() {
         if f_eq {
             fingerprint_match += 1;
         }
-        // Functional consistency: version-equality iff fingerprint-equality.
-        // If this ever breaks, Silabs has shipped two SVDs that disagree on a
-        // peripheral's register layout while keeping the version tag identical
-        // (or vice versa) — Phases 3-4's keyed-by-version sharing strategy
-        // would break silently, so fail loudly here.
+        // Same version if and only if same fingerprint. Otherwise two SVDs
+        // disagree on a layout under one version tag (or the reverse), and
+        // version-keyed sharing would break silently.
         if v_eq == f_eq {
             both_or_neither += 1;
         }
